@@ -1,0 +1,40 @@
+{
+  "skill_name": "verl-rl-training",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I set up GRPO training on GSM8K with verl?",
+      "expected_output": "Walks through verl GRPO setup: install, converting GSM8K to parquet with prompt and reward_model columns, setting adv_estimator=grpo, choosing an FSDP training backend with a vLLM or SGLang rollout, and launching. Also recommends checking the environment (nvidia-smi) and running a small smoke test first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running verl on 2 nodes of 8xH100 to RL-train Qwen3-32B on my math dataset at /data/math_train.parquet. During the rollout phase I get 'CUDA out of memory' from vLLM, and the pauses between rollout and training are very long. Config is FSDP2 with vLLM rollout and gpu_memory_utilization=0.9. What should I change?",
+      "expected_output": "Gives verl-specific fixes for rollout OOM (lower rollout gpu_memory_utilization, smaller micro-batch or max token lengths, tensor parallel size, parameter/optimizer offload). Addresses slow weight sync between training and rollout engines, and checks the vLLM version against the verl-compatible version. Asks for or states assumptions about the exact versions and config rather than inventing flags, and says to confirm option names against the installed verl docs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to post-train an open LLM to solve competition math using only a programmatic right/wrong answer checker, with no value model, on a multi-node GPU cluster where I can swap the inference engine and the training backend (FSDP vs Megatron) without rewriting my code. What framework and setup would you recommend?",
+      "expected_output": "Recommends verl, since it is a critic-free RL setup (GRPO or similar) with a rule-based reward function and swappable backends (FSDP/Megatron, vLLM/SGLang). Outlines the dataset format, reward function, config and a smoke-run-first plan, and notes when to consider alternatives such as slime or TRL.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a preference dataset of chosen/rejected pairs in HuggingFace format and a single 24GB GPU. Show me how to run DPO on Llama-3-8B with LoRA using TRL.",
+      "expected_output": "Recognizes this as a small-scale DPO task with TRL and not a verl RL training job. Uses the fine-tuning-with-trl guidance: DPOTrainer, LoRA/PEFT and 4-bit quantization to fit 24GB.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "fine-tuning-with-trl"
+    },
+    {
+      "id": 5,
+      "prompt": "I want to train a PPO agent on CartPole-v1 and LunarLander with Gymnasium and compare it to A2C. Which library should I use and how do I set it up?",
+      "expected_output": "Identifies this as classic single-agent RL on Gymnasium environments, not LLM post-training. Recommends stable-baselines3 with PPO and A2C and the standard evaluation and logging setup, and does not use verl.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "stable-baselines3"
+    }
+  ]
+}

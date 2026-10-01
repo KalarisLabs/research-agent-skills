@@ -1,0 +1,40 @@
+{
+  "skill_name": "transformers",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run sentiment analysis on a list of tweets with a pretrained model from the Hub?",
+      "expected_output": "Uses a Transformers pipeline (e.g. sentiment-analysis) with an explicit model name, passes the list as a batch, and mentions device selection and checking the installed transformers version. Reports outputs as labels with scores and notes that the model choice affects results.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning bert-base-uncased on my CSV of clinical notes (train.csv, val.csv, columns 'text' and 'label', 5 classes) with Trainer, and I get 'RuntimeError: CUDA out of memory' at the first step with batch size 32 on a 16GB GPU. Here's my TrainingArguments(output_dir='out', per_device_train_batch_size=32, num_train_epochs=3, fp16=True). What should I change?",
+      "expected_output": "Suggests reducing per_device_train_batch_size and using gradient_accumulation_steps to keep the effective batch size, gradient checkpointing, shorter max_length truncation with dynamic padding, and checking fp16/bf16 support. Notes the clinical data is sensitive, uses a held-out validation set with a fixed seed and appropriate metrics (e.g. macro-F1), and tells the user what was changed.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have about 2,000 recorded interviews as WAV files and I need written transcripts for them, ideally using an open model that runs on my own lab GPU. Can you set that up?",
+      "expected_output": "Proposes an open speech recognition model such as Whisper via the Transformers automatic-speech-recognition pipeline. Covers installing the audio dependencies, chunking long audio, trying a small sample first to check runtime and memory, asking about language and GPU details, and not fabricating accuracy numbers.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to train a new BPE tokenizer from scratch on my corpus of 50GB of protein-related abstracts, with a custom normalizer and pre-tokenizer, and save the tokenizer.json. How do I do that?",
+      "expected_output": "Recognizes this as a standalone tokenizer-training task for the HuggingFace Tokenizers library (BpeTrainer, normalizers, pre-tokenizers) rather than loading or using models through Transformers, and answers using that library's workflow.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "huggingface-tokenizers"
+    },
+    {
+      "id": 5,
+      "prompt": "Set up QLoRA fine-tuning of Llama 3 8B on my instruction dataset with a YAML config across 4 GPUs using FSDP.",
+      "expected_output": "Recognizes this as an Axolotl-style workflow (YAML config, QLoRA, FSDP multi-GPU) and answers with that tooling rather than a plain Transformers Trainer setup.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "axolotl"
+    }
+  ]
+}

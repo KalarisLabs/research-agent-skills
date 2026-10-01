@@ -1,0 +1,38 @@
+{
+  "skill_name": "usfiscaldata",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "what's the current total public debt outstanding?",
+      "expected_output": "Queries the Debt to the Penny endpoint (/v2/accounting/od/debt_to_penny) sorted by -record_date with page[size]=1, reports tot_pub_debt_out_amt converted from string to a number, and states the record_date of the value.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm writing a paper on federal interest costs. Can you pull monthly interest expense on the public debt from fiscal year 2015 through 2024 into a pandas DataFrame and save it as interest_expense.csv? I want record_date, the expense category, and the amount. Watch out for pagination, I think there are more than 100 rows.",
+      "expected_output": "Uses the Fiscal Data API interest_expense endpoint (/v2/accounting/od/interest_expense) with fields, a filter on record_date gte/lte, and paginates via page[number] and meta total-pages (a bounded fetch_all). Converts string values to numeric, handles 'null' strings, writes the CSV, and reports record counts, query parameters and the access date.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need to know how much demand there was at recent 10-year Treasury note auctions, like bid-to-cover ratios over the past two years, and also which auctions are coming up next. No idea where to get this for free without signing up.",
+      "expected_output": "Identifies the keyless Treasury Fiscal Data API and uses auctions_query for historical auction results (filtered by security type and date, selecting bid-to-cover fields) and upcoming_auctions for the schedule. Runs a small query first to confirm field names rather than guessing them, and reports the results with the dates.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Get me daily closing prices and volume for the 10-year Treasury ETF IEF for the last year and compute its rolling volatility.",
+      "expected_output": "Does not use the Treasury Fiscal Data API, since ETF market prices are not in it. A market-data source such as yfinance or a financial data provider is more appropriate.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Run a regression of GDP growth on the unemployment rate using quarterly FRED series and report the coefficients with robust standard errors.",
+      "expected_output": "Does not use the Treasury Fiscal Data API. This is a macroeconomic data and regression task that should use a FRED data source and a statistics or econometrics tool such as statsmodels.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

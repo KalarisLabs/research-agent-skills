@@ -1,0 +1,32 @@
+{
+  "skill_name": "uncertainty-and-units",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "my pipe flow Re comes out as 4e7 in a 200 micron capillary, is that even physically reasonable?",
+      "expected_output": "Computes or checks the Reynolds number from density, velocity, diameter and viscosity, says 4e7 is implausible for a capillary (expected laminar, Re far below ~2000), and points to likely unit or scale errors such as wrong diameter units, viscosity in the wrong scale, or a stripped unit.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fitting calibration.csv (voltage vs. temperature, with per-point standard uncertainties from the DMM certificate) using scipy curve_fit in fit_cal.py, then computing the temperature at 3.2 V from the slope and intercept. The reported error bar seems too small and doesn't change when I change sigma. How should I get the correct uncertainty on the predicted value?",
+      "expected_output": "Identifies that curve_fit needs absolute_sigma=True when sigma holds real standard uncertainties, since the default rescales pcov by reduced chi-square. Explains keeping the slope-intercept covariance (e.g. correlated_values or the full covariance) when propagating to the prediction, and recommends stating the standard vs expanded uncertainty, k, and coverage.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I weighed a sample on a balance with a calibration certificate saying U = 0.2 mg at k = 2, plus the balance resolution is 0.1 mg, and I have 8 repeat readings. How do I combine these and report the final mass so reviewers know what the ± means?",
+      "expected_output": "Builds a GUM budget: divides the certificate U by k=2, treats resolution as rectangular (half-width/sqrt(3)), computes Type A from repeats with n-1 degrees of freedom, combines in quadrature, finds effective degrees of freedom and k from the t-distribution, rounds the uncertainty first then the value, and states that the ± is expanded with k and coverage probability.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have two groups of 12 mice with tumor volumes and want to know whether the treatment effect is significant and how many animals I'd need per group for 80% power. Which test should I use?",
+      "expected_output": "Recognizes this as hypothesis testing and sample-size planning, not metrology or unit handling, and should defer to a statistical analysis or power skill rather than the uncertainty-and-units skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "statistical-power"
+    }
+  ]
+}

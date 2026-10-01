@@ -1,0 +1,32 @@
+{
+  "skill_name": "tiledbvcf",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I add 20 new samples to an existing TileDB-VCF dataset without redoing the old ones?",
+      "expected_output": "Explains running `tiledbvcf store` (or the Python ingest API) against the existing dataset URI with the new single-sample VCF/BCF files, noting each file needs a .csi/.tbi index and that existing samples need no reprocessing. Warns against concurrent writers to the same dataset.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I've got 400 single-sample gVCFs from our mouse cohort in s3://lab-mouse/vcfs/ (each with a .tbi). I ran `tiledbvcf store` into s3://lab-mouse/db and it died with an out-of-memory error partway through. How should I set it up so I can resume and then pull chr2:1000000-2000000 for 50 named samples into a TSV with sample, pos, ref, alt, and genotype?",
+      "expected_output": "Advises setting a memory budget and batching or partitioning the ingestion, checking AWS credentials, and re-running store to resume. Then gives a `tiledbvcf export` command or Python `read` call with the region (1-based, inclusive), sample list or file, chosen attributes, and TSV output.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We're preparing inputs for a GWAS and a rare-variant burden test. Our sequencing center delivers one VCF per individual, about 600 people, and every analysis starts by pulling the same few hundred candidate gene regions across everyone. Re-scanning the files each time is painfully slow. What's a better way to organize this data?",
+      "expected_output": "Recommends loading the per-sample VCFs into a TileDB-VCF dataset (create, then store with indexed files) and querying the gene regions in parallel across all samples. Mentions exporting the needed fields for downstream analysis, and notes that multi-sample VCFs aren't supported.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Using pysam, how do I loop over the records in sample1.vcf.gz and print the allele depth for each variant? I only need this one file, and it has a .tbi index.",
+      "expected_output": "Uses pysam.VariantFile to iterate over records and read the AD value from each sample's FORMAT field. Does not set up a TileDB-VCF dataset, since this is a one-off parse of a single file.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pysam"
+    }
+  ]
+}

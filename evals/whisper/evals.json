@@ -1,0 +1,39 @@
+{
+  "skill_name": "whisper",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "What's the quickest way to transcribe an mp3 to text with Whisper on my laptop?",
+      "expected_output": "Gives install steps (pip install openai-whisper plus ffmpeg) and a basic CLI or Python transcribe call, suggests a small model like base or turbo for a first run, and tests on one file before scaling up.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 40 lecture recordings in ./lectures/*.m4a, mostly Spanish with some English code-switching, and a 8 GB GPU. I ran `whisper lec01.m4a --model large` and got CUDA out of memory. How should I process the whole folder and get .srt subtitles for each?",
+      "expected_output": "Explains that large needs ~10 GB VRAM and recommends turbo (~6 GB) or medium/small, sets --language es explicitly, uses --output_format srt with a loop or Python batch over the folder, may suggest an initial prompt for technical terms, and notes hallucination or code-switching limitations and the need to spot-check output.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I recorded about 20 field interviews in Swahili and Tagalog on a noisy phone recorder. I need English text versions I can quote in my paper. What should I do, and what should I watch out for?",
+      "expected_output": "Recommends using Whisper's translate task (--task translate) with a multilingual model, specifying the source language, running a small sample first, warning that quality varies by language and noise and that hallucinations can occur, and advising validation by a native speaker before quoting; also mentions temperature fallback or a larger model for low-resource languages.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to transcribe a recorded panel discussion and label which speaker said each line (Speaker 1, Speaker 2, etc.). Which tool should I use?",
+      "expected_output": "Recognizes that Whisper does not do speaker diarization and recommends a diarization-capable service such as AssemblyAI (or Deepgram), possibly noting Whisper could supply text only.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "I want to fine-tune a Hugging Face wav2vec2 model on my own labeled speech dataset using the Trainer API. Can you set up the training script?",
+      "expected_output": "Uses the Hugging Face Transformers workflow (model loading, data collator, Trainer fine-tuning) rather than the Whisper transcription skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "transformers"
+    }
+  ]
+}

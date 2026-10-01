@@ -1,0 +1,40 @@
+{
+  "skill_name": "tensorrt-llm",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I serve Llama 3 70B with TensorRT-LLM on 8 H100s?",
+      "expected_output": "Gives a TensorRT-LLM workflow (trtllm-serve or the LLM API) with tensor_parallel_size=8, optionally FP8 quantization. It first checks the installed version, GPU memory and model format, tests with a small request before scaling, and says that flags may differ by version.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm trying to deploy meta-llama/Meta-Llama-3-8B-Instruct on a single H100 for our lab's chat tool, and p95 latency is too high with plain HF transformers generate(). I built an engine with trtllm-build but the server throws a CUDA out of memory error when I send 64 concurrent requests. Can you help me fix it and get the quantization settings right?",
+      "expected_output": "Diagnoses the OOM by checking model size against GPU memory, the KV cache fraction, max batch size and max sequence length. It suggests FP8 quantization, in-flight batching and paged KV cache tuning, and confirms the TensorRT-LLM version and exact engine build parameters. It asks for or states assumptions about the load, then validates latency, throughput and output correctness against a baseline without inventing benchmark numbers.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We have a cluster of A100 80GB nodes and need to serve a 70B model to our research group with the lowest possible time per token and the highest tokens per second, using NVIDIA's compiled-engine approach with FP8 weights. What should the setup look like, and how do we check that the quantized model is still accurate?",
+      "expected_output": "Recommends compiling TensorRT engines with FP8 quantization, noting that A100 lacks native FP8 support (H100 or newer is needed), so it proposes INT8/INT4 alternatives or confirms the hardware. It covers tensor/pipeline parallelism, in-flight batching, benchmarking latency and throughput, and comparing outputs or perplexity with an FP16 reference. It asks about expected load and reports uncertainty.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to run a quantized Mistral 7B GGUF on my MacBook M2 for offline use. How do I set that up?",
+      "expected_output": "Recommends llama.cpp (GGUF, Apple Silicon Metal) and not TensorRT-LLM, because TensorRT-LLM requires NVIDIA GPUs. It gives steps to pick a quantization level and run the model.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "llama-cpp"
+    },
+    {
+      "id": 5,
+      "prompt": "I need an OpenAI-compatible endpoint for Qwen2-7B with AWQ quantization, and I'd like the simplest Python-first setup without compiling engines. What should I use?",
+      "expected_output": "Recommends vLLM, which has a simple Python-first setup, an OpenAI-compatible server and AWQ support, with no TensorRT compilation step. It gives a short serve command and checks the vLLM version and GPU memory.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "serving-llms-vllm"
+    }
+  ]
+}

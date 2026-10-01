@@ -20,19 +20,42 @@ small model, so treat them as indicative. Rerun with larger models and samples b
 
 | Scope | Skills | Mean | Min | ≥ 85 |
 |---|---:|---:|---:|---:|
-| Original skills | 23 | 95.5 | 82 | 22 |
-| All skills | 280 | 95.3 | 80 | 278 |
+| Original skills | 24 | 95.5 | 82 | 23 |
+| Adapted skills | 257 | 95.2 | 80 | 256 |
+| All skills | 281 | 95.2 | 80 | 279 |
 
 Full table: [`results/skill-quality.md`](https://github.com/KalarisLabs/research-agent-skills/blob/main/benchmarks/results/skill-quality.md). The report lists concrete fixes per skill
-(e.g. missing "Use when" triggers, no numbered workflow, broken reference links). Low-scoring adapted
-skills are the priority for rewrites.
+(e.g. missing "Use when" triggers, no numbered workflow, broken reference links).
+
+**How adapted skills went from 80.9 to 95.2.** The import pipeline now enriches every adapted skill reproducibly:
+- 84 descriptions rewritten with explicit "Use when" triggers and named tools (`third_party/description-overrides.yaml`).
+- 31 oversized `SKILL.md` files split into `references/`, so every skill is within the 500-line budget.
+- 80 dead links repaired.
+- Popularity and marketing lines stripped, such as GitHub star counts and user numbers.
+- A category-specific agent operating procedure added where a workflow, decision table or verification
+  rules were missing (186 skills): environment check, small first run, validation, failure-recovery
+  table and integrity rules (`third_party/operating-procedures.yaml`).
+- Related-skill handoffs computed from description similarity (216 skills).
+
+The procedures are written per category, not per skill. Part of the score gain therefore reflects consistent structure
+rather than new domain content, and per-skill rewrites remain the path to deeper quality.
 
 ### 2. Trigger routing
 
 | Router | Prompts | hit@1 | hit@3 | False-trigger |
 |---|---:|---:|---:|---:|
-| BM25 over name + description (reviewed evals) | 50 | 1.00 | 1.00 | 0.12 |
-| Claude Haiku 4.5 (pilot) | 3 | 1.00 | 1.00 | 0.00 |
+| BM25, reviewed evals (PR gate) | 53 | 1.00 | 1.00 | 0.12 |
+| BM25, all evals incl. generated (281 skills) | 1,335 | 0.50 | 0.65 | 0.07 |
+| BM25, random sample of all evals (seed 7) | 100 | 0.65 | 0.77 | 0.04 |
+| Claude Haiku 4.5 router, same sample | 100 | 0.92 | 0.96 | 0.00 |
+
+Every skill now has an eval suite in `evals/<skill>/evals.json`: 3 realistic prompts plus 1-2 near misses that name
+the better skill. Suites for adapted skills were generated from each skill's `SKILL.md` and are marked
+`pending review`. The generated prompts deliberately avoid the description's wording and often describe the goal
+without naming the tool, so keyword routing struggles (hit@3 0.65) while an LLM router, which is how agents actually
+choose skills, reaches 0.96 with no false triggers on the sample.
+Results: [`trigger-bm25-all-evals.json`](https://github.com/KalarisLabs/research-agent-skills/blob/main/benchmarks/results/trigger-bm25-all-evals.json),
+[`trigger-claude-sample100.json`](https://github.com/KalarisLabs/research-agent-skills/blob/main/benchmarks/results/trigger-claude-sample100.json).
 
 The benchmark already paid off: it exposed that "write a job application cover letter" triggered
 `cover-letter-to-editor`, and the description was fixed. BM25 cannot read negations ("not for job

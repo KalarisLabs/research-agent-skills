@@ -1,0 +1,40 @@
+{
+  "skill_name": "statistical-analysis",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Do a t-test on my two groups?",
+      "expected_output": "Asks for or inspects the data and design (independent vs paired), summarizes per-group n/mean/SD, checks normality and equal variance, runs the appropriate t-test (Welch if variances differ) or a Mann-Whitney U if assumptions fail, and reports the statistic, df, exact p, and Cohen's d with CI.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have survey_responses.csv with a 'condition' column (control, mindfulness, exercise) and a 'stress_score' outcome from 187 undergrads. Scores look right-skewed and the exercise group has only 41 people vs 73 in the others. I'm submitting to a psych journal and need the analysis and the results paragraph.",
+      "expected_output": "Inspects and plots the data, flags the unequal group sizes and skew, checks normality and homogeneity of variance, chooses one-way ANOVA (Welch's if variances are unequal) or Kruskal-Wallis with justification, runs post-hoc tests with correction, computes effect sizes with CIs (eta-squared, or epsilon-squared for non-parametric), and writes an APA-formatted results paragraph that states the assumption checks and the actions taken.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We're testing whether a new tutoring program improves exam scores. Students were measured before and after the program, and I'm not sure whether I can just say it worked. How should I approach this and what should I report so reviewers are satisfied?",
+      "expected_output": "Identifies a paired pre/post design, recommends a paired t-test or Wilcoxon signed-rank depending on assumption checks of the difference scores, and requires an effect size with CI. Cautions that a pre/post design without a control group cannot establish causation, mentions a Bayesian alternative as an option, and gives APA-style reporting guidance including descriptives and assumption checks.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm planning a grant for a two-arm trial. Give me the sample size per arm needed to detect a minimum detectable effect of d = 0.4 at 80% power, plus a power curve figure and a paragraph justifying the sample size for the IRB protocol.",
+      "expected_output": "Does not use the statistical-analysis skill. The task is a dedicated sample-size and power calculation with a power curve and a justification paragraph for an IRB protocol, which the statistical-power skill covers.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "statistical-power"
+    },
+    {
+      "id": 5,
+      "prompt": "Fit a statsmodels SARIMAX model to my monthly sales series with a seasonal order of (1,1,1,12), then show me the residual diagnostics and the forecast with confidence intervals.",
+      "expected_output": "Does not use the statistical-analysis skill. This needs a time-series model class with detailed residual diagnostics and forecasting, which the statsmodels skill covers.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "statsmodels"
+    }
+  ]
+}

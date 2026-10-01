@@ -1,0 +1,957 @@
+{
+  "router": "claude",
+  "hit@1": 0.9166666666666666,
+  "hit@3": 0.9583333333333334,
+  "false_trigger": 0.0,
+  "cases": [
+    {
+      "skill": "model-merging",
+      "prompt": "Quantize my already finished 7B model to 4-bit GGUF so it runs on my laptop with llama.cpp.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "gguf-quantization",
+        "llama-cpp"
+      ]
+    },
+    {
+      "skill": "exa-search",
+      "prompt": "I'm writing the related-work section for my ICLR submission on sparse autoencoders for interpreting LLM activations. Find me peer-reviewed or arXiv sources from 2024 onward, and skip blog posts and news coverage. Show which search parameters you used.",
+      "should_trigger": true,
+      "rank": null,
+      "top": [
+        "paper-lookup",
+        "research-lookup",
+        "ml-paper-writing"
+      ]
+    },
+    {
+      "skill": "paperzilla",
+      "prompt": "Write a Python script using the Zotero API to export my library to BibTeX and dedupe entries by DOI.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "pyzotero",
+        "bibtex-hygiene",
+        "citation-management"
+      ]
+    },
+    {
+      "skill": "zarr-python",
+      "prompt": "I have a NetCDF file of daily sea surface temperature with lat, lon, time coordinates. How do I select the Gulf of Mexico by coordinate labels, compute a monthly climatology grouped by month, and plot it?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "geomaster",
+        "scientific-visualization"
+      ]
+    },
+    {
+      "skill": "axolotl",
+      "prompt": "I'm fine-tuning Llama-3.1-8B with QLoRA in Axolotl on a JSONL file of {\"prompt\", \"chosen\", \"rejected\"} rows at data/prefs.jsonl. Can you write me a config for DPO and tell me which dataset type to set? I get 'KeyError: messages' right now.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "axolotl"
+      ]
+    },
+    {
+      "skill": "cellxgene-census",
+      "prompt": "I want to train a cell type classifier on millions of public human brain single-cell profiles without downloading every dataset by hand. What's the right way to stream that data into PyTorch and keep the training set reproducible?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "cellxgene-census",
+        "ray-data",
+        "anndata"
+      ]
+    },
+    {
+      "skill": "scikit-learn",
+      "prompt": "I've got a table of 5,000 customers with about 20 numeric behavior measurements and no labels. I want to find natural groups and work out how many groups there really are, then show them in 2D.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "scikit-learn",
+        "umap-learn"
+      ]
+    },
+    {
+      "skill": "consciousness-council",
+      "prompt": "Here is the text of three of my lab meeting emails. Can you analyze my writing and extract my cognitive patterns and thinking style from them?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "dhdna-profiler"
+      ]
+    },
+    {
+      "skill": "ontology-term-resolution",
+      "prompt": "I have samples_metadata.tsv for a CELLxGENE submission with columns tissue_ontology_term_id, cell_type_ontology_term_id and disease_ontology_term_id, filled in by a postdoc who left. Some IDs look old. Can you check the whole table and tell me which ones will get rejected? One row has UBERON:0002108 labelled 'liver'.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "ontology-term-resolution"
+      ]
+    },
+    {
+      "skill": "statistical-analysis",
+      "prompt": "I have survey_responses.csv with a 'condition' column (control, mindfulness, exercise) and a 'stress_score' outcome from 187 undergrads. Scores look right-skewed and the exercise group has only 41 people vs 73 in the others. I'm submitting to a psych journal and need the analysis and the results paragraph.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "statistical-analysis"
+      ]
+    },
+    {
+      "skill": "bids",
+      "prompt": "Write a Python script that loads my fMRI NIfTI file and runs a first-level GLM with nilearn, then plots a thresholded z-map.",
+      "should_trigger": false,
+      "rank": null,
+      "top": []
+    },
+    {
+      "skill": "rowan",
+      "prompt": "I have 40 analogues of my kinase lead in analogs.csv (SMILES column) and a prepared receptor, kinase.pdb, with a co-crystal ligand as reference. I tried passing the SMILES strings straight into the analogue docking workflow and got a ValueError before submission. Fix this and run the whole series on Rowan, then pull out the best pose and score for each.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "rowan",
+        "datamol"
+      ]
+    },
+    {
+      "skill": "guidance",
+      "prompt": "I want a model to produce SQL-like queries for my lab's sample database, and the output must always parse under a specific grammar, no syntax errors ever. I also want it to first think of the table to use, then fill in the query, in several steps with Python if-statements in between. How should I build this?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "guidance",
+        "outlines"
+      ]
+    },
+    {
+      "skill": "audiocraft-audio-generation",
+      "prompt": "Write a Python function that computes the mean MFCC features from a folder of WAV files with librosa and saves them to a CSV.",
+      "should_trigger": false,
+      "rank": null,
+      "top": []
+    },
+    {
+      "skill": "clinical-reports",
+      "prompt": "A patient in my trial had a rash and fever two days after the second dose. Write up the ICSR for this case, decide whether it's a SUSAR, and tell me whether to stop the drug.",
+      "should_trigger": false,
+      "rank": null,
+      "top": []
+    },
+    {
+      "skill": "prompt-guard",
+      "prompt": "We're building a literature-search assistant that pulls abstracts and web snippets from external APIs into an LLM's context. I'm worried some of those snippets might contain text that tries to hijack the model's behavior. I want a small, cheap classifier that runs locally and can handle the French and Hindi content too. What should I set up?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "prompt-guard"
+      ]
+    },
+    {
+      "skill": "pinecone",
+      "prompt": "We're building a literature search tool for our group and want it hosted so we don't run any servers. Queries mix exact gene names like 'BRCA2 c.5946delT' with fuzzy conceptual phrasing, and keyword-only or embedding-only search each miss things. What's the best way to combine both in a single query against a managed vector store?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "pinecone",
+        "paper-corpus-rag"
+      ]
+    },
+    {
+      "skill": "bulk-rnaseq",
+      "prompt": "I have a 10x Genomics PBMC dataset (filtered_feature_bc_matrix). Cluster the cells and find marker genes for each cluster.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "scanpy",
+        "anndata"
+      ]
+    },
+    {
+      "skill": "infographics",
+      "prompt": "Draw a CONSORT flow diagram for my randomized trial: 412 screened, 120 excluded, 292 randomized into two arms of 146, with 12 lost to follow-up in arm A and 9 in arm B.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "scientific-schematics",
+        "markdown-mermaid-writing",
+        "clinical-reports"
+      ]
+    },
+    {
+      "skill": "cobrapy",
+      "prompt": "I reconstructed a metabolic network for a new bacterial strain, but it won't grow on any carbon source. I want to figure out which minimal set of reactions from a universal database I could add so that it produces biomass, and check whether the model has blocked reactions or mass-imbalanced ones.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "cobrapy"
+      ]
+    },
+    {
+      "skill": "sentence-transformers",
+      "prompt": "I need to store 5 million vectors in a managed serverless index with namespaces and metadata filtering, and upsert/query them from Python. How do I create the index and upsert?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "pinecone"
+      ]
+    },
+    {
+      "skill": "polars",
+      "prompt": "My pandas/NumPy analysis of a 2 TB dataset has to run across a cluster of 50 machines. How do I scale it out with minimal code changes?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "dask"
+      ]
+    },
+    {
+      "skill": "biopython",
+      "prompt": "I've got about 40 accession numbers for the cytochrome b gene from different mammals. I want to pull them from NCBI, line them up, and draw a tree showing how the species relate to each other, all in one Python script.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "biopython",
+        "etetoolkit"
+      ]
+    },
+    {
+      "skill": "simpy",
+      "prompt": "I have a system of ODEs for predator-prey dynamics in a lake. Can you help me integrate it with scipy and plot the phase portrait with different growth rates?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "matplotlib"
+      ]
+    },
+    {
+      "skill": "dhdna-profiler",
+      "prompt": "I'm stuck on ideas for my NeurIPS submission on continual learning. Can you use analogical reasoning and constraint manipulation to help me come up with some genuinely novel research directions?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "creative-thinking-for-research",
+        "brainstorming-research-ideas"
+      ]
+    },
+    {
+      "skill": "huggingface-accelerate",
+      "prompt": "How do I make my train.py run on 4 GPUs without rewriting it?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "huggingface-accelerate"
+      ]
+    },
+    {
+      "skill": "unsloth",
+      "prompt": "I'm fine-tuning Qwen2.5-7B with Unsloth on my 24GB RTX 4090 using train.py and a JSONL file, data/clinical_notes.jsonl, with 'instruction' and 'response' fields. It crashes with 'torch.OutOfMemoryError: CUDA out of memory' at step 12 with max_seq_length=8192 and per_device_train_batch_size=4. What should I change?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "unsloth",
+        "peft-fine-tuning",
+        "ml-training-recipes"
+      ]
+    },
+    {
+      "skill": "uncertainty-and-units",
+      "prompt": "I'm fitting calibration.csv (voltage vs. temperature, with per-point standard uncertainties from the DMM certificate) using scipy curve_fit in fit_cal.py, then computing the temperature at 3.2 V from the slope and intercept. The reported error bar seems too small and doesn't change when I change sigma. How should I get the correct uncertainty on the predicted value?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "uncertainty-and-units"
+      ]
+    },
+    {
+      "skill": "bioservices",
+      "prompt": "I'm studying imatinib and want one table that links its KEGG compound entry to the ChEBI and ChEMBL identifiers, plus whatever protein targets are listed, all pulled programmatically from the public databases. How should I go about it in Python?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "bioservices"
+      ]
+    },
+    {
+      "skill": "springer-lncs",
+      "prompt": "Submit to an ACM conference.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "acm-sigconf",
+        "cover-letter-to-editor"
+      ]
+    },
+    {
+      "skill": "statistical-power",
+      "prompt": "We only have budget for 12 animals per arm in our two-arm tail-suspension study, with SD around 25 seconds immobility. Before I commit to this, what's the smallest difference between groups we could realistically pick up, and can you show how that changes if a couple of animals die?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "statistical-power"
+      ]
+    },
+    {
+      "skill": "parallel-web",
+      "prompt": "Write a systematic review search strategy and screen records from PubMed, Embase and Semantic Scholar for studies on intermittent fasting and cognitive decline, with PRISMA counts.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "systematic-review-prisma",
+        "literature-review"
+      ]
+    },
+    {
+      "skill": "axolotl",
+      "prompt": "Which LoRA rank, alpha and target_modules should I use if I'm loading and merging adapters with Hugging Face PEFT directly in my own training script?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "peft-fine-tuning"
+      ]
+    },
+    {
+      "skill": "hugging-science",
+      "prompt": "Is there a good open dataset for single-cell RNA-seq of human immune cells on the HF Hub?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "hugging-science"
+      ]
+    },
+    {
+      "skill": "awq-quantization",
+      "prompt": "I want to fine-tune Llama 2 7B with QLoRA on a single 16GB GPU. How do I set up the 4-bit NF4 quantization config?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "peft-fine-tuning",
+        "quantizing-models-bitsandbytes",
+        "unsloth"
+      ]
+    },
+    {
+      "skill": "sglang",
+      "prompt": "How do I get SGLang to only output valid JSON matching my schema?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "sglang",
+        "outlines"
+      ]
+    },
+    {
+      "skill": "dspy",
+      "prompt": "I'm building a question-answering system over our lab's 5,000 protocol PDFs. The retrieval step then answer generation needs to be tuned automatically against about 150 question/answer pairs I wrote, so I don't have to keep rewriting prompts by hand every time we swap the underlying model. What's a good approach?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "dspy",
+        "paper-corpus-rag"
+      ]
+    },
+    {
+      "skill": "mamba-architecture",
+      "prompt": "My BERT-style Transformer training is slow on long inputs. How can I speed up the attention layers using PyTorch scaled_dot_product_attention?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "optimizing-attention-flash"
+      ]
+    },
+    {
+      "skill": "pinecone",
+      "prompt": "I'm prototyping a RAG demo in a notebook and want a local, open-source embedding store with a simple API that persists to disk. How do I set up a collection and add documents with metadata?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "chroma",
+        "sentence-transformers"
+      ]
+    },
+    {
+      "skill": "evaluating-cosmos-policy",
+      "prompt": "I want to fine-tune pi0.5 on my own LIBERO-format dataset with OpenPI and then serve it for inference. How do I convert the JAX checkpoint to PyTorch?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "fine-tuning-serving-openpi"
+      ]
+    },
+    {
+      "skill": "scvelo",
+      "prompt": "I have single-cell data from differentiating blood progenitors and only one snapshot timepoint. I want to figure out which cells are the earliest and in which direction they are moving, using the intronic versus exonic read information, and get a continuous ordering of the cells along that process.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "scvelo",
+        "scanpy"
+      ]
+    },
+    {
+      "skill": "deeptools",
+      "prompt": "I have H3K27ac ChIP-seq for mouse (mm10) in treat_rep1.bam, treat_rep2.bam and input.bam, all paired-end and indexed. I need a bigWig of treatment over input as log2 ratio, and I want to check that the two replicates agree before I trust it. What commands should I run?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "deeptools"
+      ]
+    },
+    {
+      "skill": "slime-rl-training",
+      "prompt": "Help me set up PPO RLHF with verl on a Ray cluster, using FSDP as the training backend and vLLM for rollouts.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "verl-rl-training",
+        "serving-llms-vllm",
+        "pytorch-fsdp2"
+      ]
+    },
+    {
+      "skill": "miles-rl-training",
+      "prompt": "My RL rollouts are the bottleneck when post-training a big MoE model. Generation takes far longer than the gradient update. I'd like to speed up sampling by having a small helper model propose tokens that the main model checks, and the helper should stay in sync with the policy as it changes. What setup do I need?",
+      "should_trigger": true,
+      "rank": null,
+      "top": [
+        "speculative-decoding",
+        "openrlhf-training",
+        "training-llms-megatron"
+      ]
+    },
+    {
+      "skill": "shap",
+      "prompt": "I trained a gradient boosted model on patient lab data and a reviewer asked us to show why the model flagged certain patients as high risk and which inputs drive predictions overall. How should I go about producing that for the paper, including making sure the explanations are trustworthy?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "shap",
+        "scientific-visualization",
+        "ml-paper-writing"
+      ]
+    },
+    {
+      "skill": "folklore-variant-evidence",
+      "prompt": "I have a VCF with 40,000 variants from a tumor-normal exome. Annotate all of them with ClinVar, gnomAD and VEP consensus.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "alphagenome",
+        "pysam",
+        "genomic-coordinates"
+      ]
+    },
+    {
+      "skill": "dask",
+      "prompt": "I have ~600 GB of Sentinel-2 derived GeoTIFF stacks converted to Zarr, shape (time, band, y, x). I'm computing per-pixel NDVI percentiles with NumPy on my 64 GB workstation and it crashes with MemoryError. I tried dask.array but the dashboard shows millions of tasks and the scheduler hangs for minutes before anything runs. What should I change?",
+      "should_trigger": true,
+      "rank": 3,
+      "top": [
+        "zarr-python",
+        "geomaster",
+        "dask"
+      ]
+    },
+    {
+      "skill": "stable-diffusion-image-generation",
+      "prompt": "I don't have a GPU and just want to quickly generate a few illustrations for my slides from text prompts using a hosted API. What do you recommend?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "generate-image",
+        "infographics"
+      ]
+    },
+    {
+      "skill": "venue-templates",
+      "prompt": "I need to make an A0 portrait poster in LaTeX for my conference with three columns, QR codes for the preprint, and a colour scheme that prints well. Can you build it and check for overfull boxes before I send it to the printer?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "latex-posters"
+      ]
+    },
+    {
+      "skill": "genomic-coordinates",
+      "prompt": "I have a transcript-level HGVS c.742C>T for a TP53 variant from a clinical report and need the genomic position so I can look it up in my aligned data. Which transcript, which strand, and how do I get to the genomic coordinate safely?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "genomic-coordinates"
+      ]
+    },
+    {
+      "skill": "openrlhf-training",
+      "prompt": "How do I run GRPO with OpenRLHF on 8 GPUs?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "openrlhf-training",
+        "grpo-rl-training",
+        "huggingface-accelerate"
+      ]
+    },
+    {
+      "skill": "cover-letter-to-editor",
+      "prompt": "Write a job application cover letter for a postdoc position.",
+      "should_trigger": false,
+      "rank": null,
+      "top": []
+    },
+    {
+      "skill": "segment-anything-model",
+      "prompt": "I'm working with ~400 SEM micrographs in ./sem_images/ (PNG, 2048x2048) and want per-particle masks for sizing. I ran SamAutomaticMaskGenerator with vit_h from sam_vit_h_4b8939.pth and got CUDA out of memory on a 12GB GPU. Small particles are also being missed. How do I fix this?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "segment-anything-model",
+        "optimize-for-gpu"
+      ]
+    },
+    {
+      "skill": "bioservices",
+      "prompt": "I have a multi-record GenBank file, plasmids.gb. Parse it with SeqIO, pull out every CDS translation, and write them to a FASTA file.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "biopython"
+      ]
+    },
+    {
+      "skill": "simpy",
+      "prompt": "How do I make a SimPy process wait for either a timeout or a resource request, whichever comes first?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "simpy"
+      ]
+    },
+    {
+      "skill": "biopython",
+      "prompt": "I have 16S rRNA amplicon data and need to compute Faith's PD and weighted UniFrac between my samples, then run PERMANOVA on the PCoA ordination by treatment group.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "scikit-bio"
+      ]
+    },
+    {
+      "skill": "transformer-lens-interpretability",
+      "prompt": "I want to do interchange intervention training on a PyTorch model with a declarative config of intervention locations and a trainable rotation. How do I set that up?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "pyvene-interventions"
+      ]
+    },
+    {
+      "skill": "ginkgo-cloud-lab",
+      "prompt": "How do I submit a protein expression experiment to Adaptyv Bio Foundry using their Python SDK and retrieve results?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "adaptyv"
+      ]
+    },
+    {
+      "skill": "relsa-severity-assessment",
+      "prompt": "We're writing up a refinement analysis for our ethics committee and want to find data-driven cut-offs that separate the sick animals from the ones that recovered on a combined welfare scale. How should we define and report them?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "relsa-severity-assessment"
+      ]
+    },
+    {
+      "skill": "scientific-writing",
+      "prompt": "I've been invited to review a submitted manuscript on a protein-folding model. Here's the PDF; write a structured referee report with strengths, weaknesses and statistical concerns.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "peer-review",
+        "statistical-analysis",
+        "scientific-critical-thinking"
+      ]
+    },
+    {
+      "skill": "polars-bio",
+      "prompt": "My BED file is 0-based but my GTF annotations are 1-based; how do I convert coordinates by hand and check that the liftover between hg19 and hg38 contig names isn't going to break my analysis?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "genomic-coordinates"
+      ]
+    },
+    {
+      "skill": "ml-training-recipes",
+      "prompt": "Walk me through using the LLaMA-Factory WebUI to fine-tune Qwen with LoRA without writing code.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "llama-factory"
+      ]
+    },
+    {
+      "skill": "pytorch-fsdp2",
+      "prompt": "I have a plain PyTorch training loop for a ResNet. I want to run it on 1 GPU, 4 GPUs, and my MacBook with the same code, with fp16 and gradient accumulation, using `accelerate config` and `accelerate launch`. How do I wrap it?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "huggingface-accelerate"
+      ]
+    },
+    {
+      "skill": "pymc",
+      "prompt": "I have two candidate models for reaction times in a psychology experiment, one with a per-subject slope and one without. How do I decide which one predicts new subjects better, with uncertainty on the difference, in a Bayesian framework?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "pymc"
+      ]
+    },
+    {
+      "skill": "omero-integration",
+      "prompt": "I have a folder of TIFF images on my laptop. Write a Python script with scikit-image that segments nuclei with Otsu thresholding and counts them.",
+      "should_trigger": false,
+      "rank": null,
+      "top": []
+    },
+    {
+      "skill": "matchms",
+      "prompt": "I have 2 million 768-dimensional sentence embeddings for my document corpus. How do I build an approximate nearest neighbor index to find the most similar documents quickly?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "faiss",
+        "qdrant-vector-search",
+        "chroma"
+      ]
+    },
+    {
+      "skill": "knowledge-distillation",
+      "prompt": "I have three fine-tuned Mistral-7B checkpoints for code, math, and chat. How can I combine them into one model without retraining?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "model-merging"
+      ]
+    },
+    {
+      "skill": "folklore-variant-evidence",
+      "prompt": "I'm writing up my methods for a paper on BRCA1 and need to check NC_000017.12:g.43057062T>C (GRCh38) in a public evidence source that gives provenance. Can you pull the evidence, and if it resolves, find the literature that directly mentions that exact variant? I'd also like details on the top PMID, including retraction status.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "folklore-variant-evidence",
+        "paper-lookup"
+      ]
+    },
+    {
+      "skill": "iso-standards-readiness",
+      "prompt": "We're a small lab going for ISO 17025 accreditation next year. Can you help me get our evidence organized and see what's missing?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "iso-standards-readiness",
+        "analytical-method-validation"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Add page numbers to my table of contents.",
+      "should_trigger": false,
+      "rank": null,
+      "top": []
+    },
+    {
+      "skill": "speculative-decoding",
+      "prompt": "I'm running Llama-2-70B on 4xA100 for a code-completion tool, and p50 latency per token is about 45ms, which is too slow for our IDE plugin. I have Llama-2-7B and TinyLlama-1.1B checkpoints available. In HF transformers, how can I use one of them to speed up generation without changing the 70B outputs? Please include the assistant_model setup and how to choose the number of speculative tokens.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "speculative-decoding"
+      ]
+    },
+    {
+      "skill": "matlab",
+      "prompt": "Can you review this .m function before I send it to my lab? It uses inv(A)*b and a for loop that grows an array.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "matlab"
+      ]
+    },
+    {
+      "skill": "scientific-slides",
+      "prompt": "I need slides for my 12-minute talk at a neuroscience meeting next month. Can you help?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "scientific-slides"
+      ]
+    },
+    {
+      "skill": "reference-manager-interop",
+      "prompt": "Verify these citations exist.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "citation-verification",
+        "citation-management",
+        "bibtex-hygiene"
+      ]
+    },
+    {
+      "skill": "nemo-evaluator-sdk",
+      "prompt": "We're comparing three finetuned checkpoints on the same set of academic, safety and vision-language benchmarks, all in reproducible containers on our HPC cluster, and want the results pushed into W&B. What's the best way to set that up?",
+      "should_trigger": true,
+      "rank": 2,
+      "top": [
+        "weights-and-biases",
+        "nemo-evaluator-sdk",
+        "evaluating-llms-harness"
+      ]
+    },
+    {
+      "skill": "pylabrobot",
+      "prompt": "Write an Opentrons Python Protocol API v2 protocol for an OT-2 that does a PCR master mix setup, and make sure it passes opentrons_simulate.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "opentrons-integration"
+      ]
+    },
+    {
+      "skill": "mamba-architecture",
+      "prompt": "How do I install mamba-ssm on my Linux box with an A100?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "mamba-architecture"
+      ]
+    },
+    {
+      "skill": "torch-geometric",
+      "prompt": "Fine-tune a ResNet-50 on my image folder of leaf photos and report top-1 accuracy with a learning rate schedule.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "ml-training-recipes",
+        "pytorch-lightning",
+        "tensorboard"
+      ]
+    },
+    {
+      "skill": "cellxgene-census",
+      "prompt": "I have my own local pbmc.h5ad from a 10x run. Please do QC filtering, normalize, run PCA and UMAP, and cluster with Leiden.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "scanpy"
+      ]
+    },
+    {
+      "skill": "scanpy",
+      "prompt": "How do I cluster my PBMC h5ad and get UMAP plots?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "scanpy"
+      ]
+    },
+    {
+      "skill": "fine-tuning-openvla-oft",
+      "prompt": "How do I evaluate the pretrained OpenVLA-OFT checkpoint on LIBERO-Goal?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fine-tuning-openvla-oft"
+      ]
+    },
+    {
+      "skill": "nemo-curator",
+      "prompt": "I need to add runtime safety rails to my chatbot so it refuses to discuss off-topic or harmful subjects, using Colang flows.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "nemo-guardrails"
+      ]
+    },
+    {
+      "skill": "exa-search",
+      "prompt": "Set up a recurring monitor that watches the web for new CRISPR base-editing announcements and enriches this CSV of 200 companies with funding data.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "parallel-web"
+      ]
+    },
+    {
+      "skill": "ray-train",
+      "prompt": "My train.py fine-tunes a Llama-style model with HF Trainer on a single A100 and I now have a 6-node Ray cluster. Running ray status shows only the head node, and workers fail with 'Unable to connect to GCS at 10.0.0.5:6379'. How do I get this training across the whole cluster with checkpointing so it survives a node dying?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "ray-train"
+      ]
+    },
+    {
+      "skill": "pkpd-modeling",
+      "prompt": "Write a Python script to dock a small molecule library against a kinase crystal structure and rank them by predicted binding affinity.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "diffdock",
+        "rowan"
+      ]
+    },
+    {
+      "skill": "autogpt-agents",
+      "prompt": "Write me a LangChain ReAct agent in Python with tool calling and a Chroma vector store so it can answer questions over my PDFs.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "langchain",
+        "chroma",
+        "paper-corpus-rag"
+      ]
+    },
+    {
+      "skill": "cirq",
+      "prompt": "I want to measure how good the two-qubit gates are on my 20-qubit chip by running random circuits of increasing depth and fitting the fidelity decay. Can you set up the characterization experiment and analysis in Python using Google's stack?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "cirq"
+      ]
+    },
+    {
+      "skill": "sglang",
+      "prompt": "I'm building a lab assistant agent that calls tools (plate reader lookup, protocol search) in multi-step loops, and each step resends a long shared context. I want to self-host an open model so the repeated context isn't recomputed every turn and the tool call arguments always parse correctly. What serving stack and setup should I use?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "sglang",
+        "outlines",
+        "serving-llms-vllm"
+      ]
+    },
+    {
+      "skill": "sparse-autoencoder-training",
+      "prompt": "I just need to cache residual stream activations from GPT-2 and do activation patching on layer 6 attention heads to find which heads matter for indirect object identification. No SAEs involved. How do I set that up?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "transformer-lens-interpretability"
+      ]
+    },
+    {
+      "skill": "ml-training-recipes",
+      "prompt": "How do I serve my fine-tuned Llama model with continuous batching and PagedAttention so I get high request throughput in production?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "serving-llms-vllm",
+        "tensorrt-llm",
+        "sglang"
+      ]
+    },
+    {
+      "skill": "nemo-curator",
+      "prompt": "How do I dedupe a big text corpus on GPUs with NeMo Curator?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "nemo-curator"
+      ]
+    },
+    {
+      "skill": "neurokit2",
+      "prompt": "I'm getting NaNs in my epochs from epochs_create on events from events_find, using events from my stim channel in subject03_ecg.csv recorded at 1000 Hz. I set epochs_start=-0.5, epochs_end=2 and baseline_correction=True. I also passed event onsets I'd computed in milliseconds. Why, and how do I fix it?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "neurokit2"
+      ]
+    },
+    {
+      "skill": "systems-paper-writing",
+      "prompt": "I'm writing a NeurIPS paper on a new diffusion training method. How should I structure the introduction and what's the standard contribution framing?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "ml-paper-writing"
+      ]
+    },
+    {
+      "skill": "relsa-severity-assessment",
+      "prompt": "I have monthly sales figures for the last 5 years and want to forecast the next 12 months with a pretrained time series foundation model.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "timesfm-forecasting"
+      ]
+    },
+    {
+      "skill": "stable-diffusion-image-generation",
+      "prompt": "How do I make SDXL fit on my 8GB card? I keep getting CUDA out of memory in diffusers.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "stable-diffusion-image-generation"
+      ]
+    },
+    {
+      "skill": "pymoo",
+      "prompt": "I need to fit a logistic regression with L2 regularization and find the global minimum of this convex loss using L-BFGS or cvxpy. Can you write the code?",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "scikit-learn",
+        "cvxpy"
+      ]
+    },
+    {
+      "skill": "bulk-rnaseq",
+      "prompt": "I ran Salmon on 8 samples (quant.sf files in salmon_out/sample*/) against GRCh38 Ensembl release 110. How do I get a counts.csv and metadata file that PyDESeq2 will accept? PyDESeq2 errors out saying my counts aren't integers.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "bulk-rnaseq",
+        "pydeseq2"
+      ]
+    },
+    {
+      "skill": "consciousness-council",
+      "prompt": "What is the boiling point of ethanol at standard atmospheric pressure, and what is the molar mass?",
+      "should_trigger": false,
+      "rank": null,
+      "top": []
+    },
+    {
+      "skill": "liteparse",
+      "prompt": "Convert these 40 PDFs, a few Word docs, and an EPUB of a textbook into clean Markdown so I can feed them to an LLM for summarization.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "markitdown"
+      ]
+    },
+    {
+      "skill": "pyzotero",
+      "prompt": "How do I dump every item in my Zotero library to a BibTeX file with Python?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "pyzotero",
+        "reference-manager-interop"
+      ]
+    }
+  ]
+}

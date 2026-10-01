@@ -1,0 +1,39 @@
+{
+  "skill_name": "zarr-python",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I append new rows to a zarr array as data comes in?",
+      "expected_output": "Shows creating a Zarr 3 array with a resizable first axis (or using the append method) and calling `append` or `resize` followed by slice assignment. Notes that chunk size should suit the append pattern and that new arrays default to Zarr format 3.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm upgrading our pipeline in `ingest/store_frames.py` from zarr 2.16 to the latest release. I'm now getting `AttributeError: 'Group' object has no attribute 'create_dataset'` and `zarr.open(..., mode='a')` behaves differently with my old `.zarr` directory made with `DirectoryStore`. What changed and how do I fix it?",
+      "expected_output": "Explains that `create_dataset`/`require_dataset` were removed in v3 in favor of `create_array`/`require_array`, and that `DirectoryStore` was replaced by `LocalStore`. Mentions `zarr_format=2` for reading or writing legacy data, points to the v3 migration notes, and checks the installed version rather than inventing APIs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a 2 TB stack of microscopy images (T x Z x Y x X, uint16) sitting in a bucket on S3. I want to convert it into something that many Dask workers can read slices from in parallel without downloading everything, and compression should keep storage costs down. How should I lay this out?",
+      "expected_output": "Recommends a chunked, compressed Zarr store on S3 via fsspec/s3fs. Advises chunk sizes matched to access patterns (about 5-100 MB on cloud), considers sharding, picks a codec such as Zstd, and suggests consolidated metadata and Dask integration. Advises IAM roles over hard-coded credentials, never printing secrets, and testing on a small subset first.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a NetCDF file of daily sea surface temperature with lat, lon, time coordinates. How do I select the Gulf of Mexico by coordinate labels, compute a monthly climatology grouped by month, and plot it?",
+      "expected_output": "Should not use the zarr skill. A good answer uses Xarray for label-based selection with `.sel`, `groupby('time.month')` and plotting, since this is labeled-dataset analysis and not about array storage.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "My pandas groupby on a 200 GB set of CSV files runs out of memory. How can I process it in parallel across a cluster?",
+      "expected_output": "Should not use the zarr skill. A good answer recommends Dask DataFrame with partitioned reading and a distributed scheduler, and perhaps converting the CSVs to Parquet.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "dask"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "vaex",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have a 90 GB CSV of taxi trips and only 16 GB of RAM. What's the quickest way to get mean fare by pickup hour without crashing?",
+      "expected_output": "Recommends Vaex: convert the CSV to HDF5 or Arrow (e.g. vaex.from_csv with convert=True or chunked), open it memory-mapped, and compute the groupby aggregation lazily. Should test on a sample first and report the versions and what was run.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm working with gaia_dr3_subset.hdf5, about 1.4 billion rows of stellar positions and magnitudes. I need a 2D density map of ra vs dec, plus a virtual column for galactic latitude, and I'm getting MemoryError when I load it with pandas.read_hdf. How do I fix this?",
+      "expected_output": "Explains that pandas loads everything into RAM. Switches to vaex.open on the memory-mapped HDF5 file, defines the latitude as a virtual column (not materialized), and makes the heatmap with df.viz.heatmap or a binned count. Suggests trying a sample or limited shape first, and does not invent APIs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We have several hundred million sensor readings in Parquet files that won't fit in memory. I want to standardize the features, run PCA down to 5 components, and cluster them with k-means, all without loading the data into memory. How should I set that up?",
+      "expected_output": "Proposes an out-of-core pipeline with Vaex and vaex.ml: StandardScaler, then PCA, then KMeans on lazy columns, with the Parquet files first converted or opened as Arrow/HDF5. Checks the installed vaex version, runs on a subset first, uses a fixed random seed and validates the clusters, and notes uncertainty.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a 2 GB CSV that fits comfortably in memory. Can you write a Polars lazy query that scans it, filters rows where age > 40, and does a group_by on region with mean income, using streaming collect?",
+      "expected_output": "Uses Polars (scan_csv, filter, group_by/agg, collect with streaming) rather than Vaex, since the data fits in RAM and the user explicitly asked for Polars.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "polars"
+    },
+    {
+      "id": 5,
+      "prompt": "Our lab has a 40-node Dask cluster and I need to run a distributed pandas-style merge and groupby across 5 TB of Parquet on S3. How should I configure it?",
+      "expected_output": "Points to Dask for cluster-distributed pandas workflows (dask.dataframe, a distributed Client, partitioning the S3 Parquet), not Vaex, which is single-machine.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "dask"
+    }
+  ]
+}

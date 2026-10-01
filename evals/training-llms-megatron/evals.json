@@ -1,0 +1,40 @@
+{
+  "skill_name": "training-llms-megatron",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How should I split TP/PP/DP for a 70B LLaMA on 64 H100s with Megatron?",
+      "expected_output": "Recommends a concrete layout such as TP=4, PP=4, DP=4 (CP=1), explains that TP stays within an NVLink node and PP spans nodes, and gives the launch arguments. Says to run a small smoke test and check memory and MFU before the full run.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm pretraining a 13B GPT on 2 nodes of 8xA100-80GB with Megatron-LM, using pretrain_gpt.py and torchrun. At micro-batch 4 with TP=2, PP=1, I get 'CUDA out of memory' in the first forward pass. MFU was around 28% on a smaller test. What should I change, and in what order?",
+      "expected_output": "Gives an ordered set of memory fixes: smaller micro-batch, activation recomputation, distributed optimizer, sequence parallel, and a higher TP or PP if needed. Also covers low-MFU causes such as Flash Attention, micro-batch size and interleaved pipeline schedule. Asks for or checks the GPU, CUDA and Megatron versions, and warns that settings depend on the installed version.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We want to train a Mixtral-style 8x7B sparse model from scratch on a 64-GPU H100 cluster and keep the experts spread across devices so it fits. Our loss also spikes after a few thousand steps. How do we set it up?",
+      "expected_output": "Explains how to configure expert parallelism (expert-model-parallel-size, number of experts, top-k, load-balancing/aux loss) together with TP/PP/DP, and how to launch it. For the loss spikes it suggests a lower learning rate, gradient clipping, a data check and a warmup review. Notes the option of FP8 on H100, and that settings should be validated against the installed version.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a 7B Llama checkpoint and want to fine-tune it with LoRA on 2 GPUs using a YAML config and a DPO dataset. What's the setup?",
+      "expected_output": "Recognizes this as small-scale LoRA/DPO fine-tuning, not large-scale Megatron pretraining. Points to axolotl (or another PEFT tool) and does not give a Megatron 3D-parallelism setup.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "axolotl"
+    },
+    {
+      "id": 5,
+      "prompt": "Our trained model is ready. How do I serve it with FP8 quantization and in-flight batching on H100s for lowest latency?",
+      "expected_output": "Recognizes this as inference deployment, not training. Points to TensorRT-LLM for FP8 quantization, in-flight batching and multi-GPU serving, and does not give Megatron training advice.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "tensorrt-llm"
+    }
+  ]
+}

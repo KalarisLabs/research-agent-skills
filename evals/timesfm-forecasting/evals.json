@@ -1,0 +1,40 @@
+{
+  "skill_name": "timesfm-forecasting",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Forecast the next 30 days from this daily series, no training please.",
+      "expected_output": "Uses TimesFM zero-shot: runs the check_system.py preflight, loads TimesFM 2.5, compiles with ForecastConfig, and forecasts horizon=30. Returns point forecasts and quantile intervals, and passes a list of 1-D arrays.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have hourly_power.csv with a 'load_kw' column, about 20k hourly readings from a campus substation. I'm on a laptop with 8 GB RAM and no GPU. Can you predict the next 48 hours with an uncertainty band? I hit a 'Model is not compiled' RuntimeError last time I tried a pretrained forecaster.",
+      "expected_output": "Runs scripts/check_system.py first and notes that 8 GB RAM is enough for the 200M TimesFM 2.5 model on CPU. Explains that model.compile(ForecastConfig(...)) must be called before forecast(), and that the context is capped at 16,384 points, so the series is truncated to the most recent values. Sets normalize_inputs=True and fix_quantile_crossing=True, forecasts horizon=48, and derives the q10–q90 interval from the quantile output. Checks the output for NaN.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We log blood glucose from 300 patients every 5 minutes in a wide CSV, one column per patient. I don't have time to fit a model per patient, but I need a 2-hour-ahead forecast for each of them, plus a way to flag readings that look abnormally off from what was expected.",
+      "expected_output": "Recommends a pretrained zero-shot foundation model (TimesFM) and batch-forecasts all columns as a list of 1-D arrays. Horizon is 24 steps at 5-minute resolution. Uses infer_is_positive carefully, and flags anomalies as values outside the quantile prediction intervals (for example outside q10–q90 as critical). Runs the preflight check first.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to fit a SARIMAX model on monthly unemployment data with an exogenous interest rate variable and interpret the coefficients and their p-values. Which skill should I use and how do I do it?",
+      "expected_output": "Does not use TimesFM. Directs to statsmodels for SARIMAX with exogenous regressors, coefficient estimates, and significance tests, since the user wants interpretable classical model parameters.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "statsmodels"
+    },
+    {
+      "id": 5,
+      "prompt": "I have labeled accelerometer recordings of different activities and want to train a time series classifier to predict the activity label, and also cluster the unlabeled ones.",
+      "expected_output": "Does not use TimesFM, which is a forecasting model. Recommends the aeon skill for time series classification and clustering, e.g. ROCKET or k-means with DTW.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "aeon"
+    }
+  ]
+}

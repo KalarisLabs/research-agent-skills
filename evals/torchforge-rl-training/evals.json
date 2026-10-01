@@ -1,0 +1,40 @@
+{
+  "skill_name": "torchforge-rl-training",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I write a custom RL loss in torchforge?",
+      "expected_output": "Explains the custom loss workflow: create a loss class (following forge.losses conventions such as ReinforceLoss), integrate it into the application, and use the dictionary-based training batch format. Warns that torchforge is experimental and to check the installed version's docs instead of inventing APIs.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm trying to run GRPO on Qwen3-1.7B with GSM8K using torchforge on a box with only 2 A100s and I get 'Insufficient GPU resources'. Config is in apps/grpo/gsm8k.yaml. What do I change?",
+      "expected_output": "Explains that the GRPO setup expects 3+ GPUs (trainer, ref_model, generator) and suggests the skill's fixes: reduce or colocate services, or place the reference model on CPU. Says to check nvidia-smi and run a small smoke test first. Does not fabricate config keys, and advises confirming them against the installed version.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to experiment with a new policy-gradient variant for math reasoning, with group-relative advantages. I want the algorithm code kept separate from the distributed and inference plumbing, PyTorch-native with no Ray. What stack should I use and how do I get started?",
+      "expected_output": "Recommends torchforge (Monarch, TorchTitan, vLLM, TorchStore) and outlines the GRPO workflow: config, reward function, launch, and monitoring of entropy and KL. Notes the experimental status and mentions verl or miles as more stable alternatives. Suggests a small run first.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to pretrain a Llama 3.1 8B model from scratch on 64 GPUs with FSDP2, tensor parallel, pipeline parallel and Float8. How should I set up the torchtitan config?",
+      "expected_output": "Recognizes this as large-scale pretraining and not RL, and directs the user to the distributed-llm-pretraining-torchtitan skill for 4D parallelism, Float8 and distributed checkpointing.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "distributed-llm-pretraining-torchtitan"
+    },
+    {
+      "id": 5,
+      "prompt": "Convert my plain PyTorch training loop for an image classifier to use DDP with callbacks and early stopping.",
+      "expected_output": "Recognizes this as supervised distributed training with a high-level framework and not RL. Points to pytorch-lightning-distributed (Trainer, DDP, callbacks) and does not use torchforge.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pytorch-lightning-distributed"
+    }
+  ]
+}

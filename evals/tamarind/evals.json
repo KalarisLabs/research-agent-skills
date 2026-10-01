@@ -1,0 +1,40 @@
+{
+  "skill_name": "tamarind",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run Boltz-2 on Tamarind for a protein-ligand complex?",
+      "expected_output": "Follows discover → getJobSchema → validate → submit → poll → results using the x-api-key header with the key read from TAMARIND_API_KEY (not hardcoded). Uses the tool name `boltz`, checks the live schema rather than guessing settings, and does not suggest pip installing a `tamarind` package.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 240 candidate binder sequences in designs.csv, column 'seq', and I need to fold them all against my target and get confidence scores. I'm on a laptop with no GPU. I'm using the app.tamarind.bio API and got a 403 on my first submit-job call. What should I do?",
+      "expected_output": "Checks that the x-api-key header is set from TAMARIND_API_KEY and that the account still has free or subscribed jobs. Recommends submit-batch with one settings entry per sequence, a structure-prediction tool picked from live /tools discovery, polling jobs and fetching results. Uses plain requests with no SDK and no hardcoded key.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to design a small protein that binds my target's epitope, then check that the designs fold as intended. I don't have any GPUs. What's a practical cloud pipeline for this?",
+      "expected_output": "Proposes a cloud pipeline of binder design (bindcraft or boltzgen, or rfdiffusion followed by proteinmpnn), then refolding with boltz/chai/alphafold and scoring. Chains jobs by passing the output file of one job as the input of the next, and discovers tools and schemas at runtime via /tools or the MCP server.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a PDB file for my kinase and a SMILES string for an inhibitor. Run DiffDock locally and explain how to interpret the confidence score of the poses.",
+      "expected_output": "Handles local DiffDock docking and pose-confidence interpretation using the diffdock skill. It does not route the work to Tamarind cloud jobs.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "diffdock"
+    },
+    {
+      "id": 5,
+      "prompt": "Compute the pKa and enumerate low-energy tautomers for this set of 50 drug-like molecules.",
+      "expected_output": "Recognizes this as small-molecule pKa and tautomer work, which belongs to the Rowan skill rather than Tamarind's structural biology tools.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "rowan"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "torchdrug",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I fine-tune a GIN on BBBP with torchdrug?",
+      "expected_output": "Gives the documented 0.2.1 workflow: datasets.BBBP, models.GIN built from dataset.node_feature_dim, wrapped in tasks.PropertyPrediction, trained with core.Engine (gpus=[0] only if CUDA is available). Mentions a split and a metric, and that predict() returns logits for binary tasks.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm on Python 3.11 with torch 2.2 and `import torchdrug` fails with an error about torch_scatter (undefined symbol / no module named torch_scatter). My script train_clintox.py uses datasets.ClinTox, models.GIN and core.Engine. How do I fix it?",
+      "expected_output": "Runs the version guard and says Python 3.11 and PyTorch 2.2 are outside the supported matrix for TorchDrug 0.2.1 (Python 3.7-3.10, PyTorch 1.8-2.0). Recommends a Python 3.10 environment with pinned torchdrug==0.2.1 and torch-scatter/torch-cluster wheels matched to the exact PyTorch/CUDA pair, and does not invent a workaround or claim 3.11 is supported.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a set of ~50k USPTO reaction records and want to train a model that proposes the precursor molecules for a target product, then evaluate top-k accuracy. What pipeline should I set up?",
+      "expected_output": "Describes the two-stage retrosynthesis setup: two synchronized USPTO50k views (reaction mode for center identification, as_synthon=True for synthon completion) split with the same random seed. Trains tasks.CenterIdentification and tasks.SynthonCompletion separately, then combines them in tasks.Retrosynthesis (not raw models), calling preprocess() if no solver was built. Notes that outputs are candidates needing chemical validation.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to predict Tox21 toxicity endpoints with a random forest on Morgan fingerprints and compare against MoleculeNet benchmark splits. Which featurizers should I use?",
+      "expected_output": "Recognizes this as a classical-ML featurizer and MoleculeNet benchmarking task better handled by the deepchem skill. It does not use TorchDrug's Engine or GNN workflow.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "deepchem"
+    },
+    {
+      "id": 5,
+      "prompt": "Write a script that computes heart rate variability metrics from an ECG recording and plots the R-peaks.",
+      "expected_output": "Recognizes this as physiological signal processing unrelated to molecular graph learning. It should use the neurokit2 skill rather than TorchDrug.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "neurokit2"
+    }
+  ]
+}

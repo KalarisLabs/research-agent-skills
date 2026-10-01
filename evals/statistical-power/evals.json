@@ -1,0 +1,40 @@
+{
+  "skill_name": "statistical-power",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "how many mice per group for d=0.8, 90% power?",
+      "expected_output": "Computes the per-group n for a two-sided independent-samples t-test (alpha 0.05, power 0.90, d=0.8, roughly 34 per group). Notes that d=0.8 is a conventional value, suggests a sensitivity range across effect sizes, and applies a dropout inflation.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm writing an R01 aim where we randomize 24 clinics (about 30 patients each) to a new intake protocol vs usual care, and the outcome is 6-month remission (binary, baseline around 35%). Our ICC from a pilot is 0.05. I need a sample size justification paragraph for the grant. Can you work out how many clinics we need to see a 10 percentage point improvement and tell me if 24 is enough?",
+      "expected_output": "Recognizes a cluster-randomized binary outcome and uses the design effect (DEFF = 1 + (m-1)·ICC, about 2.45) or simulation rather than a plain two-proportion formula. Reports power for 24 clinics, the clinics needed for the target power, a sensitivity analysis on ICC and effect size, dropout adjustment, and a reproducible reporting statement with all inputs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We only have budget for 12 animals per arm in our two-arm tail-suspension study, with SD around 25 seconds immobility. Before I commit to this, what's the smallest difference between groups we could realistically pick up, and can you show how that changes if a couple of animals die?",
+      "expected_output": "Computes the minimum detectable effect for n=12 per arm at alpha 0.05 and 80% power, converts it to raw units using SD=25 (about 1.2 SD, roughly 30 seconds). Repeats the calculation for reduced n, such as 10 or 11 per arm, to show the effect of attrition. Presents a power curve or table and avoids post-hoc observed power.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have 3 treatments and 4 batches of cell culture plates. How should I assign the wells to treatments so the batch effect doesn't confound the comparison? Do I need a randomized block design or a Latin square?",
+      "expected_output": "Addresses randomization and blocking layout, such as a randomized complete block design with batch as the block, and does not run a sample-size calculation. This belongs to experimental-design.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "experimental-design"
+    },
+    {
+      "id": 5,
+      "prompt": "I already ran my experiment and have data.csv with control and treated columns. Please run the right test, check normality and equal variance, and write up the result in APA format with the effect size.",
+      "expected_output": "Selects and runs the appropriate test on the collected data, checks assumptions, and reports an APA-style result with effect size and confidence interval. It is an analysis and reporting task, not planning a sample size.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "statistical-analysis"
+    }
+  ]
+}

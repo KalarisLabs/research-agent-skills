@@ -1,0 +1,40 @@
+{
+  "skill_name": "tensorboard",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get my PyTorch loss curve showing up in TensorBoard?",
+      "expected_output": "Shows creating a torch.utils.tensorboard SummaryWriter with a log_dir, calling add_scalar('Loss/train', value, step) in the training loop, closing or flushing the writer, and launching with `tensorboard --logdir runs`.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm training a ResNet-18 on CIFAR-10 in train.py with a Keras-free PyTorch loop. Val accuracy is flat after epoch 5 and I suspect vanishing gradients in the early conv layers. I already have a SummaryWriter at runs/resnet18_lr1e-3. Add logging so I can inspect the weight and gradient distributions per layer every epoch, and also log a few misclassified validation images.",
+      "expected_output": "Adds writer.add_histogram for each named parameter and its .grad every epoch (after backward, guarded for None grads), and add_images/add_image with properly normalized misclassified samples, using a global step. Explains how to read the Histograms/Distributions tabs, notes logging frequency to avoid huge event files, and closes the writer.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I ran 12 learning-rate and batch-size combos of my transformer and want one view where I can see which settings gave the best validation loss, and see all the loss curves overlaid without a pile of separate folders to dig through.",
+      "expected_output": "Recommends separate descriptive run subdirectories under one logdir for overlaying curves, and the HParams dashboard via writer.add_hparams (or the TF hparams API) with metric dict so the table/parallel coordinates view compares configs. Mentions launching TensorBoard on the parent logdir and filtering runs with regex.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Set up Weights & Biases for my training script so my team can share dashboards, compare sweeps, and track model artifacts in a registry.",
+      "expected_output": "Recognizes this is hosted, collaborative experiment tracking and should be handled by the weights-and-biases skill (wandb.init, sweeps, artifacts, registry), not TensorBoard.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "weights-and-biases"
+    },
+    {
+      "id": 5,
+      "prompt": "My PyTorch training across 8 nodes keeps hanging at init; help me scale it with fault tolerance and elastic workers.",
+      "expected_output": "Recognizes this is a distributed training orchestration problem, which belongs to the ray-train skill, not TensorBoard logging.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ray-train"
+    }
+  ]
+}

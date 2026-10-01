@@ -1,0 +1,38 @@
+{
+  "skill_name": "sympy",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "what's the closed-form integral of x**2 * exp(-x) from 0 to infinity? want the exact answer, not a decimal",
+      "expected_output": "Defines x as a symbol, uses sympy integrate with limits (0, oo), and returns the exact result 2, ideally verifying it (e.g. via gamma(3)). Does not return a floating-point approximation.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm getting `NameError: name 'theta' is not defined` in my script derive_pendulum.py where I'm trying to take the Jacobian of a Lagrangian with sympy and then print it as LaTeX for my paper's appendix. Can you fix it and give me the LaTeX for the 2x2 Jacobian?",
+      "expected_output": "Identifies that symbols (theta, etc.) must be declared via symbols() or dynamicsymbols before use, builds the Matrix and calls .jacobian(), and outputs the result with sympy.latex(). Checks the installed sympy version and shows the code that produced the LaTeX.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a 3x3 matrix with an unknown parameter a in it, and I need to know for which values of a the matrix becomes singular, plus the eigenvalues as functions of a, all in exact form so I can put them in my derivation.",
+      "expected_output": "Uses symbolic Matrix with a declared symbol, computes det and solves det=0 (solve/solveset), and gets eigenvals() exactly, avoiding floats. Verifies the results by substitution and reports the sympy version and code used.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a 5000x5000 dense float matrix saved in data.npy. Compute its eigenvalues and the top 10 singular values as fast as you can.",
+      "expected_output": "Recognizes this is a large floating-point numerical problem and uses NumPy/SciPy (e.g. numpy.linalg.eigvals, scipy.sparse.linalg.svds) rather than symbolic SymPy, which would be impractically slow.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Fit a logistic regression to my clinical trial CSV and give me the ROC AUC with a 95% confidence interval from cross-validation.",
+      "expected_output": "Uses a statistical/ML workflow (scikit-learn or statsmodels) with cross-validation and a CI on AUC; no symbolic math is needed, so the sympy skill is not used.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

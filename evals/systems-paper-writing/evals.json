@@ -1,0 +1,40 @@
+{
+  "skill_name": "systems-paper-writing",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How should I split pages across sections for an OSDI submission?",
+      "expected_output": "Gives the per-section page budget for a ~12-page systems paper (intro 1.5-2, design 3-4, evaluation 3-4, related work ~1, etc.). Notes that the OSDI submission limit is 12 pages with unlimited references, and says to verify against the current CFP.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm drafting the intro for our NSDI paper on a GPU cluster scheduler (intro.tex). Existing schedulers like Gandiva and Tiresias miss a few things for our workloads. Can you lay out the paragraphs so the gaps get stated clearly and tie to our design sections? We plan to list 4 contributions at the end.",
+      "expected_output": "Gives a paragraph-level intro structure: problem with concrete numbers, gaps G1-Gn each in one sentence with evidence, a key-insight thesis paragraph (X is better for Y in environment Z), then 3-5 testable numbered contributions mapped to sections. Suggests mapping gaps to design answers A1-An. Does not fabricate results or cite papers from memory, and marks unverified citations [CITATION NEEDED].",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My systems paper draft is done and I want to know how a PC member will judge it. What will they look for, and what should I fix before I hit submit?",
+      "expected_output": "Walks through how systems reviewers assess a paper (Levin & Redell dimensions such as original ideas, reality, lessons, choices, context and presentation) and gives a pre-submission checklist. The checklist covers page limits, a page-one figure, evaluation that states conclusions repeatedly, alternatives discussed, and a related-work comparison.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm writing a NeurIPS paper on a new diffusion training method. How should I structure the introduction and what's the standard contribution framing?",
+      "expected_output": "Recognizes this is an ML conference paper rather than a systems paper, and routes to ml-paper-writing for NeurIPS structure and writing guidance. Does not apply the OSDI/SOSP page budgets or systems blueprint.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ml-paper-writing"
+    },
+    {
+      "id": 5,
+      "prompt": "Can you check that every BibTeX entry in refs.bib for my ICML submission is real and pull the correct DOIs from Semantic Scholar?",
+      "expected_output": "Handles citation verification through the ml-paper-writing citation workflow (Semantic Scholar/CrossRef/DBLP lookups), flagging any entries that can't be verified. It is not a systems-paper structure task.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ml-paper-writing"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "skill_name": "statsmodels",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I fit a negative binomial model in statsmodels and check whether my Poisson fit is overdispersed?",
+      "expected_output": "Shows fitting Poisson (GLM or Poisson), computing the dispersion statistic (Pearson chi2/df_resid or a formal test), and refitting with NegativeBinomial or GLM NB family. Mentions comparing models via AIC and interpreting coefficients as rate ratios with exp(beta).",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have panel.csv with columns firm_id, year, log_wage, tenure, educ. I ran smf.ols('log_wage ~ tenure + educ', data=df).fit() and the Breusch-Pagan test rejects. Observations within firm are clearly correlated. How should I get defensible standard errors and show them in a table for my econometrics paper?",
+      "expected_output": "Recommends refitting with cluster-robust covariance (cov_type='cluster', groups=firm_id) or HC/HAC alternatives, explains that BP rejection indicates heteroskedasticity, and presents the coefficient table with CIs via summary() or summary_col. Checks the number of clusters and reports what was run.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have 15 years of monthly retail sales numbers with an obvious holiday bump each December. I want a forecast for the next 12 months with uncertainty bands and some confidence that the model is reasonable.",
+      "expected_output": "Plans a time series workflow: plot, test stationarity (ADF/KPSS), fit a seasonal model (SARIMAX with seasonal order 12 or ETS), check residuals with Ljung-Box, produce get_forecast with confidence intervals, and evaluate accuracy on a holdout period.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I ran an experiment with three treatment groups and a control. Which test should I use, how do I check the assumptions, and how do I write up the results in APA format with effect sizes?",
+      "expected_output": "Routes to the statistical-analysis skill for guided test selection (e.g., one-way ANOVA or Kruskal-Wallis), assumption checks, effect sizes, and APA-formatted reporting, rather than building a statsmodels model.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "statistical-analysis"
+    },
+    {
+      "id": 5,
+      "prompt": "Train a random forest to predict customer churn from my feature table and report cross-validated AUC and feature importances.",
+      "expected_output": "Recognizes this as a prediction-focused ML task suited to scikit-learn, not coefficient inference with statsmodels, and proceeds with a scikit-learn pipeline, cross-validation, and AUC.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

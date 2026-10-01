@@ -1,0 +1,40 @@
+{
+  "skill_name": "weights-and-biases",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I log my loss curves to wandb?",
+      "expected_output": "Shows wandb.init with a project name and wandb.log called with a metrics dict inside the training loop. Mentions wandb.login or API key setup and that wandb.finish() ends the run.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning bert-base-uncased with HuggingFace Trainer in train_glue.py on a cluster with a flaky network, and my run keeps crashing with 'wandb: ERROR Error communicating with wandb process' and 'CommError: Run initialization has timed out'. I want to keep the metrics and upload them later. How should I set this up?",
+      "expected_output": "Recommends offline mode (WANDB_MODE=offline or wandb.init(mode='offline')) with report_to='wandb' in TrainingArguments. Explains syncing later with `wandb sync <run dir>`, and suggests tuning init timeout settings. Confirms the installed wandb version rather than assuming flags.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've trained 40 ResNet variants with different learning rates, batch sizes and weight decays. I want the search over those settings automated so I can see which combination gives the best validation accuracy, and then share a summary with my labmates. What should I do?",
+      "expected_output": "Proposes a W&B sweep: define a sweep config (method such as bayes or random, metric and goal, parameter ranges), create it with wandb.sweep, and run agents with wandb.agent. Then compares runs in the dashboard and builds a shareable report for the team. Asks about search budget and the metric name before launching.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Set up MLflow tracking for my scikit-learn pipeline: log params and metrics, then register the best model in the MLflow Model Registry and move it to Staging.",
+      "expected_output": "Uses MLflow (mlflow.log_param, log_metric, mlflow.sklearn.log_model, registered model and stage transition), not wandb.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "mlflow"
+    },
+    {
+      "id": 5,
+      "prompt": "I just want to view my PyTorch training loss and accuracy curves locally with SummaryWriter, no cloud account. How do I add scalars and launch the viewer?",
+      "expected_output": "Uses torch.utils.tensorboard SummaryWriter with add_scalar and launches `tensorboard --logdir`, without wandb.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "tensorboard"
+    }
+  ]
+}

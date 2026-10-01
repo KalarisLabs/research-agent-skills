@@ -1,0 +1,38 @@
+{
+  "skill_name": "umap-learn",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get a 2D UMAP plot of my 5000x300 feature matrix?",
+      "expected_output": "Gives a short working umap-learn example: scale features, fit UMAP with n_neighbors=15 and min_dist=0.1, and scatter-plot the 2D embedding. Sets random_state for reproducibility and notes that preprocessing should match the metric.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm analysing scRNA-seq from mouse cortex in cells.h5ad, with 20k cells after PCA to 50 components. I want to cluster with HDBSCAN. I ran UMAP with defaults to 2D and got many tiny fragmented clusters. What should I change? Please write the code.",
+      "expected_output": "Explains that the clustering embedding should differ from the visualization one, and recommends n_neighbors around 30, min_dist=0.0, and n_components of 5-10. Provides code that fits UMAP, runs HDBSCAN on that embedding, and plots a separate 2D visualization. Warns that UMAP can create artificial cluster divisions, so clusters need validating, and sets random_state.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have mass-spec proteomics profiles for 10,000 samples, and only about 300 have a confirmed disease subtype label. I'd like a low-dimensional map that uses those few labels to pull similar samples together. Later I need to place new patients' samples onto the same map without refitting. How should I do this?",
+      "expected_output": "Recommends semi-supervised UMAP, passing y with -1 for unlabeled samples. Then uses fit and transform() to project new samples, noting that the new data must come from a similar distribution (otherwise consider Parametric UMAP). Mentions suitable preprocessing, a fixed seed, and validating on held-out data.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Run PCA on my gene expression matrix and tell me how many principal components explain 90% of the variance, with a scree plot.",
+      "expected_output": "Uses sklearn PCA with a cumulative explained-variance calculation and a scree plot. Does not use UMAP, because this is a linear PCA task.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Make me a t-SNE plot of my embeddings and tune the perplexity and early exaggeration so the clusters look clean.",
+      "expected_output": "Uses sklearn or openTSNE t-SNE, and tunes perplexity and early exaggeration. Does not use UMAP, because the request is a t-SNE-specific workflow.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

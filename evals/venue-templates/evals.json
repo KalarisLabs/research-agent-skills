@@ -1,0 +1,40 @@
+{
+  "skill_name": "venue-templates",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "What's the page limit for ICML main track this year?",
+      "expected_output": "Identifies the exact venue, year and track, and consults the official ICML author instructions or call for papers rather than answering from memory. Reports the source URL and date checked, and distinguishes initial submission from camera-ready limits.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm submitting to NeurIPS 2026 and have my draft in main.tex with a copy of neurips_article.tex from your bundled assets. I've downloaded neurips_2026.sty. Compile gives 'File neurips_2026.sty not found' in one folder. Can you get it building, make sure the submission is anonymous, and check the PDF is within the main-text page limit?",
+      "expected_output": "Explains that the bundled neurips_article.tex is a wrapper that needs the official neurips_2026.sty placed next to it, unmodified. Verifies the current page limit and anonymity rules from the official NeurIPS 2026 instructions, and uses the PDF inspection helper with an explicit --content-pages count. Notes that the helper cannot verify margins, fonts or metadata leaks, and that the checklist and supplement are handled separately.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm writing my first R21 for an NIH institute and have a rough idea of the aims. I want to get the one-page aims document into shape and make sure I'm not missing any required pieces or exceeding limits before sending it to my grants office.",
+      "expected_output": "Resolves the specific NOFO, institute and cycle, then checks the solicitation and current NIH policy for R21 page limits and required components. Offers the bundled nih_specific_aims.tex as a drafting scaffold only. Says biosketches and other forms must come from SciENcv and the agency's forms, and recommends sponsored-research office review.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to make an A0 portrait poster in LaTeX for my conference with three columns, QR codes for the preprint, and a colour scheme that prints well. Can you build it and check for overfull boxes before I send it to the printer?",
+      "expected_output": "This is poster construction in LaTeX with column layout, QR codes and print checks, so it belongs to the latex-posters skill and not to venue-templates, which would only cover event-specific dimension rules.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "latex-posters"
+    },
+    {
+      "id": 5,
+      "prompt": "I'm submitting to IEEE Transactions on Pattern Analysis and Machine Intelligence. Set up my paper with the IEEEtran class in journal mode, add index terms, and format the numbered reference style and author bios.",
+      "expected_output": "This is IEEE journal formatting with IEEEtran, index terms, numbered references and biographies, which belongs to the ieee-transactions skill and not to venue-templates.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ieee-transactions"
+    }
+  ]
+}

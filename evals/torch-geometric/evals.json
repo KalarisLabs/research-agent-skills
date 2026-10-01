@@ -1,0 +1,39 @@
+{
+  "skill_name": "torch-geometric",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I build a 2-layer GCN for Cora in PyG?",
+      "expected_output": "Provides a torch_geometric model using two GCNConv layers on the Planetoid Cora dataset, with ReLU and dropout applied manually between layers, and a training loop using train_mask and cross-entropy loss.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm training a GraphSAGE model on ogbn-products with NeighborLoader (num_neighbors=[15,10,5]) for a 2-layer model and my accuracy is bad and training is slow. In the loop I compute loss on out vs batch.y directly. Here's my loop: `for batch in loader: out = model(batch.x, batch.edge_index); loss = F.cross_entropy(out, batch.y)`. What's wrong?",
+      "expected_output": "Identifies that loss must be computed only on the first batch.batch_size seed nodes (out[:batch.batch_size], batch.y[:batch.batch_size]), and that len(num_neighbors) should equal the number of GNN layers (2, not 3), explaining the wasted compute.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a CSV of users, a CSV of movies, and a CSV of ratings. I want to predict which movies a user will like, treating users and movies as different kinds of nodes with different relations between them. How should I set this up and train it?",
+      "expected_output": "Recommends building a HeteroData object from the CSVs with consecutive index mappings, adding reverse edges via ToUndirected, using to_hetero/HeteroConv/HGTConv in PyG, and training for link prediction with negative sampling (LinkNeighborLoader), avoiding self-loops in bipartite convs.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a social network edge list in a CSV. Compute PageRank and betweenness centrality for each node, detect communities with Louvain, and plot the graph.",
+      "expected_output": "Uses NetworkX for centrality, community detection and visualization rather than building a GNN with PyG; no torch_geometric model is needed.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "networkx"
+    },
+    {
+      "id": 5,
+      "prompt": "Fine-tune a ResNet-50 on my image folder of leaf photos and report top-1 accuracy with a learning rate schedule.",
+      "expected_output": "Handles a standard PyTorch/torchvision image classification workflow with no graph neural network or PyG usage.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

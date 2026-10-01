@@ -1,0 +1,38 @@
+{
+  "skill_name": "waypoint-bio",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get embeddings for my gut 16S samples from the 45M Waypoint model?",
+      "expected_output": "Gives the `waypoint embed` workflow with Waypoint-45m, data in waypoint format (Taxa lineages plus Relative Abundances), notes the default last_token pooling and 512-dim output, and mentions checking vocabulary coverage and HF gated access.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a MetaPhlAn merged table, merged_abundance_table.txt, from 240 shotgun stool samples (IBD vs healthy, several timepoints per patient). I want to fine-tune Waypoint-6m to classify IBD. `waypoint prepare-dataset` choked on the pipe-separated clade names. How do I convert it and set this up properly?",
+      "expected_output": "Explains prepare-dataset can't read MetaPhlAn `|` output and recommends scripts/profiler_to_waypoint.py to produce parquet with full lineages. Then advises running vocab_coverage.py and using a Split column via split_column to avoid leakage across timepoints from the same patient. Warns that 240 samples is far below ~1,000, so a random forest on relative abundances is likely better and should be fit first.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got about 60k public gut metagenome profiles from MGnify and want to train my own transformer that treats each sample like a sentence of taxa ordered by abundance, then see how it compares with the published numbers on the standard eight-task set. Where do I start?",
+      "expected_output": "Identifies the Waypoint toolkit: `waypoint pretrain --data my_corpus.parquet` with a GPT-2 config (starting small, e.g. 6m/45m), then `waypoint benchmark` on Compass for comparable scores. Mentions converting to waypoint format, using a --max_samples smoke test, and the gated Hugging Face access requirement.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a QIIME 2 feature table with SILVA taxonomy for 40 mouse samples. Can you run a PERMANOVA on Bray-Curtis distances and make a PCoA plot with scikit-bio?",
+      "expected_output": "Does classical beta-diversity analysis (Bray-Curtis, PERMANOVA, PCoA) with scikit-bio or QIIME 2 directly, without using Waypoint, since no foundation model or embedding is requested.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "How do I fine-tune GPT-2 with LoRA on my own English text classification dataset using Hugging Face transformers?",
+      "expected_output": "Gives a generic Hugging Face transformers plus PEFT LoRA fine-tuning walkthrough for text classification, with no Waypoint or microbiome-specific tooling.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

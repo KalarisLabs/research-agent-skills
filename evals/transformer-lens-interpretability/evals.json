@@ -1,0 +1,40 @@
+{
+  "skill_name": "transformer-lens-interpretability",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I cache all activations for gpt2-small on a prompt and look at layer 5 attention patterns?",
+      "expected_output": "Loads HookedTransformer 'gpt2' and uses run_with_cache, then indexes cache['pattern', 5] with shape [batch, head, q_pos, k_pos] (post-softmax). Notes the tokenization/BOS caveat and suggests visualizing per-head patterns.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm working in ioi_patching.ipynb with gpt2-small on 200 IOI prompts (e.g. 'When Mary and John went to the store, John gave a drink to'). I want to run path/activation patching over resid_pre at every layer and position and plot a heatmap of logit-difference recovery, but my corrupted and clean prompts have different token lengths and I get a shape mismatch error in the hook. What should I do?",
+      "expected_output": "Explains that clean and corrupted prompts must tokenize to the same length (check with to_tokens and fix the name/template choice), caches the clean run, uses a patching hook on hook_name resid_pre with run_with_hooks per (layer, pos), and normalizes the logit-difference metric between corrupted and clean baselines. Mentions resetting hooks and states assumptions or verifies on a small subset first.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I trained a tiny 2-layer attention-only transformer on repeated random token sequences and want to figure out which heads copy the token that followed the previous occurrence of the current token, and prove they're doing so causally. How should I go about it?",
+      "expected_output": "Recognizes this as induction-head detection and recommends loading the model in TransformerLens (HookedTransformer with a custom config), running repeated random-token sequences, scoring heads by attention to the offset-by-seq_len-minus-one diagonal in the pattern cache, then validating via ablation or patching and checking with direct logit attribution/OV circuits.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to run activation patching on Llama-3-70B but I have no local GPU. How can I run the interventions remotely?",
+      "expected_output": "Recommends nnsight with NDIF for remote execution on very large models instead of TransformerLens, which needs local weights loaded; briefly outlines the nnsight remote workflow and notes the API key requirement.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "nnsight-remote-interpretability"
+    },
+    {
+      "id": 5,
+      "prompt": "I want to do interchange intervention training on a PyTorch model with a declarative config of intervention locations and a trainable rotation. How do I set that up?",
+      "expected_output": "Identifies this as a pyvene use case (IntervenableConfig, trainable interchange interventions) rather than TransformerLens hooks, and guides setup accordingly.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pyvene-interventions"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "unsloth",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I load Llama 3 8B in 4-bit with Unsloth and add LoRA adapters?",
+      "expected_output": "Shows FastLanguageModel.from_pretrained with load_in_4bit=True and max_seq_length, then FastLanguageModel.get_peft_model with r, lora_alpha, target_modules and use_gradient_checkpointing=\"unsloth\". Confirms exact argument names against the Unsloth docs or the installed version rather than inventing them.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning Qwen2.5-7B with Unsloth on my 24GB RTX 4090 using train.py and a JSONL file, data/clinical_notes.jsonl, with 'instruction' and 'response' fields. It crashes with 'torch.OutOfMemoryError: CUDA out of memory' at step 12 with max_seq_length=8192 and per_device_train_batch_size=4. What should I change?",
+      "expected_output": "Checks nvidia-smi and the Unsloth version first. Suggests lowering per_device_train_batch_size and raising gradient_accumulation_steps, reducing max_seq_length, using 4-bit loading and Unsloth gradient checkpointing, and a smaller LoRA rank. Recommends a short smoke run to confirm loss decreases. Asks about or flags the sensitivity of clinical data before any upload or cloud use. Makes no claims about results without logs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a single consumer GPU with 16GB VRAM and want to adapt a 8B open-weight model to answer questions in my lab's protocol style, using as little memory and time as possible. Which library and setup would speed up the training and cut memory use, and how would I export the result to GGUF for local use?",
+      "expected_output": "Recommends a memory-efficient LoRA/QLoRA workflow with Unsloth, explaining 4-bit loading, gradient checkpointing and a small batch with gradient accumulation. Describes saving the merged model or LoRA adapter and exporting to GGUF through Unsloth's documented save methods, checking the docs for exact method names. Notes the VRAM estimate is uncertain and suggests a smoke run first.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write a plain Hugging Face PEFT script with LoraConfig and get_peft_model, then train it with TRL SFTTrainer on my dataset. I'm not using Unsloth and don't want it as a dependency. Also show how to merge the adapter afterward.",
+      "expected_output": "Should not use the unsloth skill. Uses peft-fine-tuning guidance: LoraConfig with r, alpha, target_modules, get_peft_model, SFTTrainer, and merge_and_unload.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "peft-fine-tuning"
+    },
+    {
+      "id": 5,
+      "prompt": "Set up a LLaMA-Factory YAML config and use its WebUI to fine-tune Qwen2-VL with 4-bit QLoRA on my image-caption dataset.",
+      "expected_output": "Should not use the unsloth skill. Uses llama-factory guidance for the WebUI or YAML config, the dataset_info.json registration, and quantization_bit settings for multimodal QLoRA.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "llama-factory"
+    }
+  ]
+}

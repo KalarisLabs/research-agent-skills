@@ -25,6 +25,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import random
 import re
 import shutil
 import subprocess
@@ -98,6 +99,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--router", choices=["bm25", "claude"], default="bm25")
     ap.add_argument("--model")
     ap.add_argument("--limit", type=int, help="max prompts (for the paid router)")
+    ap.add_argument("--sample", type=int, help="random subsample of N prompts (reproducible with --seed)")
+    ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--include-pending", action="store_true", help="include generated evals marked pending review")
     ap.add_argument("--min-hit3", type=float, help="exit 1 if aggregate hit@3 falls below this")
     ap.add_argument("--max-false", type=float, help="exit 1 if the false-trigger rate exceeds this")
@@ -112,6 +115,8 @@ def main(argv: list[str] | None = None) -> int:
             continue
         for ev in data["evals"]:
             cases.append((data["skill_name"], ev["prompt"], ev.get("should_trigger", True)))
+    if args.sample and args.sample < len(cases):
+        cases = random.Random(args.seed).sample(cases, args.sample)  # noqa: S311 - reproducible subsample
     if args.limit:
         cases = cases[: args.limit]
     if not cases:
