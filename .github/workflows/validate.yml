@@ -47,6 +47,8 @@ jobs:
         run: |
           uv run tools/import_upstream.py
           uv run tools/build_catalog.py
+          git diff --summary -- skills
+          git diff -- skills/database-lookup/SKILL.md skills/transformer-lens-interpretability/SKILL.md catalog/graph.json
           git diff --exit-code --stat -- skills third_party catalog THIRD_PARTY_NOTICES.md
 
   harness-compat:
