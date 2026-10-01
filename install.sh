@@ -57,7 +57,9 @@ curl -fsSL -o "$TMP/$ASSET" "$BASE/$ASSET"
 curl -fsSL -o "$TMP/SHA256SUMS" "$BASE/SHA256SUMS"
 EXPECTED=$(grep " \*\{0,1\}$ASSET\$" "$TMP/SHA256SUMS" | cut -d' ' -f1)
 ACTUAL=$($SHA "$TMP/$ASSET" | cut -d' ' -f1)
-[ -n "$EXPECTED" ] && [ "$EXPECTED" = "$ACTUAL" ] || die "checksum mismatch for $ASSET"
+if [ -z "$EXPECTED" ] || [ "$EXPECTED" != "$ACTUAL" ]; then
+  die "checksum mismatch for $ASSET"
+fi
 say "Verified SHA-256 $ACTUAL"
 
 mkdir -p "$TMP/x"

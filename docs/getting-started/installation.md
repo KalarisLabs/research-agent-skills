@@ -57,7 +57,8 @@ scope prompts and flags; review its choice before installing.
 The public repository's `skills/<name>/SKILL.md` folders are discoverable by the Vercel skills CLI.
 There is no repository setting that submits this collection to the directory. Once the complete repository
 is published, run `npx skills add KalarisLabs/research-agent-skills --list` to check discovery, then
-install a skill through that CLI. The directory's rankings use the CLI's anonymous install telemetry.
+install a skill through that CLI. [Browse the live directory listing](https://skills.sh/kalarislabs/research-agent-skills).
+The directory's rankings use the CLI's anonymous install telemetry.
 
 ## Python for skill scripts
 
