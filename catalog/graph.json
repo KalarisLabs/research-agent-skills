@@ -3240,6 +3240,11 @@
     },
     {
       "source": "skill:database-lookup",
+      "target": "skill:firecrawl-research-index",
+      "type": "references"
+    },
+    {
+      "source": "skill:database-lookup",
       "target": "skill:protocolsio-integration",
       "type": "references"
     },
@@ -6105,12 +6110,12 @@
     },
     {
       "source": "skill:transformer-lens-interpretability",
-      "target": "skill:optimizing-attention-flash",
+      "target": "skill:pyvene-interventions",
       "type": "references"
     },
     {
       "source": "skill:transformer-lens-interpretability",
-      "target": "skill:pyvene-interventions",
+      "target": "skill:sparse-autoencoder-training",
       "type": "references"
     },
     {
