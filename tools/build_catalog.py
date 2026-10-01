@@ -32,6 +32,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from common import (  # noqa: E402
     BRAND,
+    DOCS_URL,
     PROJECT_NAME,
     REPO_SLUG,
     REPO_URL,
@@ -344,7 +345,7 @@ def build_llms_txt(index: dict) -> str:
            f"Install: `npx skills add {REPO_SLUG}`.",
            "", "## Docs", "",
            f"- [README]({raw}/README.md): overview, installation for Claude Code, Codex, Cursor, Gemini CLI, Copilot",
-           f"- [Documentation guides]({REPO_URL}/tree/main/docs): papers, theses, systematic reviews and installation",
+           f"- [Documentation guides]({DOCS_URL}): papers, theses, systematic reviews and installation",
            f"- [Machine-readable catalog]({raw}/catalog/skills.json): every skill with category and description",
            f"- [Benchmarks]({raw}/benchmarks/README.md): how skills are evaluated", ""]
     for cat in index["categories"]:

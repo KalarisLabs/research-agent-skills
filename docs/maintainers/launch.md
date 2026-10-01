@@ -6,13 +6,13 @@ and can get the repository delisted. Usefulness, visibility in academic channels
 ## Repository settings (GitHub → About)
 
 - **Description:** `AI agent skills for academic writing & scientific research: papers, theses, systematic reviews (PRISMA), journal formatting, citation verification, no AI slop. Claude Code, Codex, Cursor, Gemini CLI.`
-- **Website:** https://skills.sh/kalarislabs/research-agent-skills until the Mintlify docs site is live; then switch to https://docs.kalarislabs.com/.
+- **Website:** https://docs.kalarislabs.com/research-agent-skills (live Mintlify project page).
 - **Topics (max 20):** `agent-skills` `claude-code` `codex` `ai-agents` `academic-writing` `scientific-writing` `research-paper` `thesis` `literature-review` `systematic-review` `prisma` `citation` `latex` `zotero` `peer-review` `bioinformatics` `open-science` `research-tools` `llm` `claude-skills`
 - Social preview image (1280×640): project name, "AI skills for academic writing & research", agent logos.
 - Keep Discussions, private vulnerability reporting, secret scanning and push protection enabled. Protect `main`
   with a pull request, an independent approval, required CI checks and linear history.
 - Mintlify: connect the GitHub repository with `docs/` as the documentation root. `docs.yml` validates generated pages and links; Mintlify deploys from the connected repository.
-- Domain: configure `docs.kalarislabs.com` in Mintlify before adding the Cloudflare DNS record, then verify HTTPS and the sitemap.
+- Domain: `docs.kalarislabs.com` serves the Mintlify documentation over HTTPS. Verify the sitemap after each deployment.
 - Environments: `npm` (trusted publishing) and `benchmarks` (holds `ANTHROPIC_API_KEY` for manual benchmark runs).
 
 ## Vendor security and npm release setup
