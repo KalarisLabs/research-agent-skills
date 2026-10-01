@@ -1,0 +1,40 @@
+{
+  "skill_name": "nemo-guardrails",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I block jailbreaks in my chatbot with NeMo Guardrails?",
+      "expected_output": "Shows a NeMo Guardrails config (config.yml plus Colang flows) enabling the jailbreak/self-check input rail, with a brief explanation and a test that a jailbreak attempt is refused. Notes the installed version should be checked against the docs.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a RAG app for clinical trial summaries in ./app using LangChain and GPT-4o. Users sometimes paste patient names, phone numbers and MRNs into the chat, and the model sometimes states trial results that aren't in the retrieved PDFs. I want programmable rails so PII is masked on input and output and unsupported claims get caught before the answer is shown. I'm getting `ValueError: Could not find a rail named 'mask sensitive data on input'` when loading my config. How do I set this up?",
+      "expected_output": "Explains that the rail name must match a built-in/defined flow under rails.input/output in config.yml, and enables Presidio-based sensitive data detection (masking) plus the retrieval-based fact-checking output rail with a knowledge base. Mentions installing Presidio/spaCy dependencies, testing on a small sample before real patient data, and not sending PHI to external services without approval.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our lab's LLM assistant is going to be deployed to students. I need a layer that sits between users and the model, lets me write rules in a declarative way for what topics it will refuse, checks answers for made-up facts against our document store, and adds under half a second of latency. Where do I start?",
+      "expected_output": "Recommends a runtime programmable guardrails framework (NeMo Guardrails with Colang flows), outlines input/output rails, retrieval-based fact-checking and hallucination checks, and discusses latency tradeoffs (pattern checks vs LLM checks, parallelizing, 100-500ms typical overhead). Suggests measuring latency and false positives on a small test set first.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I just want to classify a batch of 5,000 scraped web documents as BENIGN, INJECTION or JAILBREAK before they go into my RAG index. Which 86M model should I load from HuggingFace and how do I batch it?",
+      "expected_output": "Points to Meta's Prompt Guard classifier for labeling documents with BENIGN/INJECTION/JAILBREAK, with batch inference and threshold guidance, rather than building a NeMo Guardrails runtime pipeline.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "prompt-guard"
+    },
+    {
+      "id": 5,
+      "prompt": "Run Llama Guard 3 8B with vLLM over my dataset of 2,000 prompt/response pairs and give me safe/unsafe labels with the violated category for each.",
+      "expected_output": "Uses the standalone LlamaGuard skill for vLLM inference and category-level safe/unsafe classification, not NeMo Guardrails flows.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "llamaguard"
+    }
+  ]
+}

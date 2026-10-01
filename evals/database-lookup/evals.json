@@ -1,0 +1,38 @@
+{
+  "skill_name": "database-lookup",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Pull all ClinVar pathogenic and likely pathogenic variants for BRCA2 and tell me exactly how you got them.",
+      "expected_output": "Selects ClinVar (via NCBI E-utilities), reads the reference file, counts first, paginates until the retrieved count matches the expected total, and applies the significance filter. Reports endpoints, parameters, access date, count reconciliation and any warnings. Asks for confirmation if the retrieval would exceed 10,000 records or 100 calls.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm building Table 2 for our manuscript (supp_targets.csv has 48 gene symbols). For each gene I need the Ensembl gene ID, the UniProt accession for human, and the max overall Open Targets association score with Parkinson's disease. My GraphQL GET calls keep returning 405 errors. Please fix this and log the queries so a reviewer can rerun them.",
+      "expected_output": "Recognizes that Open Targets GraphQL needs POST and uses curl instead of GET. Resolves symbols to Ensembl and UniProt IDs (human, taxon 9606) and maps Parkinson's disease to an EFO/MONDO ID. Batches within rate limits, treats responses as untrusted data, and returns a table with endpoints, parameters, date, identifier conversions and count reconciliation (48 genes in, N resolved, missing genes flagged).",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "What was the US unemployment rate each month in 2023, and I need to cite where the numbers come from so my co-author can re-pull them.",
+      "expected_output": "Chooses an authoritative source (BLS or FRED series UNRATE) and uses the documented API with explicit series ID and date range. Checks only the needed API key and does not expose it in the output. Returns the 12 monthly values with the endpoint, parameters, access date and seasonal-adjustment note, and reconciles that 12 observations were retrieved.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Explain conceptually why BRCA2 mutations raise breast cancer risk and what DNA repair pathway is involved.",
+      "expected_output": "Answers from general biological knowledge (homologous recombination, RAD51 loading) without a reproducible database retrieval. The database-lookup skill is not needed.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Here's my pandas DataFrame of gene expression counts; write code to normalize with DESeq2 size factors and make a PCA plot.",
+      "expected_output": "Provides a local analysis workflow (normalization and PCA) on the user's own data. No public database API retrieval is involved, so database-lookup should not be used.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

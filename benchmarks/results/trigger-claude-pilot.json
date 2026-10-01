@@ -1,0 +1,37 @@
+{
+  "router": "claude",
+  "hit@1": 1.0,
+  "hit@3": 1.0,
+  "false_trigger": 0.0,
+  "cases": [
+    {
+      "skill": "abstract-and-title",
+      "prompt": "Cut my 320-word abstract to 250 words for PLOS ONE and suggest three better titles.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "abstract-and-title",
+        "plos"
+      ]
+    },
+    {
+      "skill": "abstract-and-title",
+      "prompt": "Write the methods section describing our ELISA protocol.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "scientific-writing",
+        "analytical-method-validation"
+      ]
+    },
+    {
+      "skill": "acm-sigconf",
+      "prompt": "Set up my CHI 2026 submission in acmart with anonymous review mode and CCS concepts.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "acm-sigconf"
+      ]
+    }
+  ]
+}

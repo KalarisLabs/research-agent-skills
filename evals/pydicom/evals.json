@@ -1,0 +1,38 @@
+{
+  "skill_name": "pydicom",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you give me a quick summary of the modalities and transfer syntaxes across the DICOM files in ./scans without dumping any patient info?",
+      "expected_output": "Uses the bundled aggregate scripts (extract_metadata.py or dicom_inventory.py) with bounded file-count and size limits. Reports only aggregate counts such as modality and transfer syntax. Does not print Datasets, patient names, IDs, or element values.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a 4D cardiac cine MR series in ./cine/ (about 400 multi-frame files, JPEG 2000 Lossless compressed). Running ds.pixel_array on one file killed my kernel with a MemoryError, and some files raise 'missing required dependencies' for the pixel handler. Help me work out which codec plugins I need to install and how many frames I can safely decode at a time, then pull out frame 12 of one file as a PNG to eyeball.",
+      "expected_output": "Runs transfer_syntax_inspector.py to identify the required plugin for JPEG 2000 (e.g. pylibjpeg/openjpeg). Runs pixel_frame_planner.py to estimate decoded bytes per frame and set frame and byte limits. Uses path-based single-frame decoding (pydicom.pixels.pixel_array with index) or dicom_to_image.py for one frame. States the PNG is non-diagnostic and applies the proper window/rescale order. Notes that plugin output should be independently verified.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need to share a set of CT studies with an external collaborator for a methods project. Patient names, IDs and dates have to be replaced, but I still want the series and studies to stay linked to each other. How should I go about producing that copy?",
+      "expected_output": "Describes a pseudonymized derivative workflow. Starts by defining purpose, recipients and threat model, and keeps the originals unchanged. Recommends a site-reviewed action profile and runs anonymize_dicom.py, then deidentification_audit.py. Replaces UIDs consistently while preserving structural UIDs, handles nested sequences, and makes an explicit date-shift decision. Warns that keys and UID maps are secrets and must be stored separately. Says burned-in pixel annotations need review. Does not claim DICOM PS3.15, HIPAA or GDPR compliance, and calls for expert verification.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm training a 3D U-Net in PyTorch on NIfTI brain MRI volumes. Can you write the data augmentation pipeline with random flips, elastic deformation and intensity scaling, and a Dice loss?",
+      "expected_output": "Recognizes this as deep learning model training and augmentation on NIfTI data, which does not involve reading or writing DICOM files. Does not use the pydicom skill. Handles it with general PyTorch or medical-imaging ML knowledge.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Our radiologist wants to open this chest X-ray DICOM and make a primary diagnosis of a possible nodule. Can you render it and tell us it's diagnostic quality?",
+      "expected_output": "Declines to treat any rendered output as diagnostic. The skill is not a diagnostic viewer, and pydicom output cannot support a diagnostic-quality claim. Directs the user to a validated, certified clinical viewer (PACS) for diagnosis. May offer a non-diagnostic preview only.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

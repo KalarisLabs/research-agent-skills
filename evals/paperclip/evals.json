@@ -1,0 +1,38 @@
+{
+  "skill_name": "paperclip",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "get paperclip set up on this machine, I've got a key in my .env",
+      "expected_output": "Runs the preflight check, reads the Auth line, and confirms the key loaded as 'API key (env)' rather than stored OAuth. Uses the guarded `[ -f .env ]` prefix on every command and proves the credential with a real query. Does not run interactive login/setup.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm writing the related-work section of my manuscript on CAR-T for lupus. I need the 5 most relevant full-text PMC papers from the last two years, with the exact sentence-level support for each claim, so reviewers can check my citations.",
+      "expected_output": "Uses `paperclip search -s pmc` with `-n` and `--since`, with an abstract-shaped query. Captures the s_ id and reads the actual lines of the chosen papers rather than relying on snippets. Gives citations pinned to line numbers (#L..) that match what was read, with no paraphrasing beyond the text.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Which papers in the corpus mention the accession GSE123456 anywhere in their text, including data availability statements? Also compare what the FDA approved label and the EU documents say about dosing for semaglutide.",
+      "expected_output": "Uses corpus `grep` rather than `sql`, because sql only sees titles and abstracts. Re-runs with `--exhaustive` before concluding the accession is absent. Runs the separate `-s fda` and `-s fda/eu` searches in parallel, bounds output, and cites line numbers.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Pull the abstracts for these 40 DOIs from PubMed using E-utilities and dump them to a CSV.",
+      "expected_output": "Recognizes that the user named PubMed E-utilities, so this is not a Paperclip task. Uses an E-utilities/PubMed approach (esearch/efetch) instead of paperclip.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Find related papers for my Zotero library entries and add them to a new collection via the Zotero API.",
+      "expected_output": "Recognizes this as a Zotero workflow, not Paperclip, and defers to a Zotero-specific skill or approach.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

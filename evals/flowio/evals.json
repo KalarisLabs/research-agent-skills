@@ -1,0 +1,38 @@
+{
+  "skill_name": "flowio",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I pull the events out of an .fcs file into a numpy array?",
+      "expected_output": "Shows opening the file with FlowIO's FlowData using a path, calling as_array() to get an (events, channels) float64 array, and states the preprocess=True vs preprocess=False choice and which one was used. May mention only_text=True for metadata-only work.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a legacy file 'plate3_legacy.fcs' that I think has several datasets stacked in it, and when I try flowio.FlowData('plate3_legacy.fcs') I only get the first one. Also my script does flow.text['$DATE'] and raises KeyError. Can you fix this and list the channel PnN/PnS names for each dataset?",
+      "expected_output": "Explains TEXT keys are normalized (lowercase, no '$', so use flow.text['date']), and uses the standalone read_multiple_data_sets() helper with a filesystem path rather than a handle or manual $NEXTDATA parsing. Lists pnn_labels/pns_labels per dataset, noting channels use 1-based FCS numbers while NumPy columns are 0-based, and that it should inspect metadata before loading events.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I exported a bunch of per-cell measurements from my own analysis as a NumPy matrix (50,000 cells x 8 markers) and need to hand them to a collaborator as a standard flow cytometry file their software can open. What's the right way to do it?",
+      "expected_output": "Recommends FlowIO create_fcs() writing an FCS 3.1 file: open a binary file handle, pass the matrix flattened to 1D in row-major order, supply one PnN name per channel (optional PnS), and string-valued metadata. Notes that output is list-mode single-precision float, and reopens the file to validate event/channel counts, labels and sample values. Does not pass a 2D array or a path to create_fcs().",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have an FCS file from a 10-color panel. Apply the spillover matrix compensation, do a logicle transform, and gate live CD3+ singlets so I can get the CD4/CD8 frequencies.",
+      "expected_output": "Recognizes that compensation, logicle transforms and gating are outside FlowIO's scope and should be done with FlowKit (or another cytometry analysis package), not FlowIO.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Cluster the cells in my single-cell RNA-seq h5ad file with Leiden and annotate cell types.",
+      "expected_output": "Recognizes this is scRNA-seq analysis, unrelated to FCS file I/O, and does not use FlowIO; a single-cell analysis workflow (e.g., Scanpy) is more appropriate.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "name": "research-agent-skills",
+  "version": "1.1.0",
+  "description": "Install 270+ Kalaris Labs AI agent skills for academic writing, literature reviews, citation checking and scientific research across biology, chemistry, medicine, physics and ML.",
+  "keywords": [
+    "agent-skills",
+    "claude-code",
+    "codex",
+    "cursor",
+    "gemini-cli",
+    "research",
+    "academic-writing",
+    "scientific-research",
+    "research-paper",
+    "systematic-review",
+    "citation-verification",
+    "bioinformatics",
+    "cheminformatics",
+    "scientific-writing",
+    "literature-review",
+    "latex",
+    "ai-agents"
+  ],
+  "homepage": "https://github.com/KalarisLabs/research-agent-skills#readme",
+  "bugs": "https://github.com/KalarisLabs/research-agent-skills/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KalarisLabs/research-agent-skills.git",
+    "directory": "cli"
+  },
+  "license": "MIT",
+  "author": "Sayan Chowdhury (Kalaris Labs)",
+  "type": "module",
+  "bin": {
+    "research-agent-skills": "dist/bin.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/cli.test.mjs",
+    "prepublishOnly": "npm test"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}

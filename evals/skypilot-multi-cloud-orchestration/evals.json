@@ -1,0 +1,40 @@
+{
+  "skill_name": "skypilot-multi-cloud-orchestration",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get my training job to run on whichever cloud has the cheapest A100s right now?",
+      "expected_output": "Recommends SkyPilot: write a task YAML with accelerators (A100:1, optionally any_of fallbacks) and run `sky launch`, which picks the cheapest cloud/region automatically. Notes confirming cost and quota with the user before provisioning.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My spot instance on GCP keeps getting preempted halfway through fine-tuning llama-3-8b with train.py, and I lose everything each time. Checkpoints are written to /outputs. How do I make this resume automatically without babysitting it?",
+      "expected_output": "Suggests running as a managed job with `sky jobs launch` using use_spot and spot recovery, and a file_mounts bucket in MOUNT_CACHED mode for /outputs so checkpoints persist. The train.py script must resume from the latest checkpoint. Mentions confirming costs and the pinned inputs before launching.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a 4-node, 8xH100 pretraining run and a grant that lets me use credits on AWS, Azure and Lambda. I'd rather not rewrite my launch scripts for each provider. What's a sane way to set this up so the same job spec works everywhere and fails over if one is out of capacity?",
+      "expected_output": "Recommends SkyPilot with a single task YAML using num_nodes: 4, H100:8 and any_of/ordered cloud preferences for failover. Uses SKYPILOT_NODE_RANK and SKYPILOT_NODE_IPS for torchrun rendezvous. Asks about quota and cost before provisioning.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I just want to deploy my fine-tuned model as an autoscaling API on serverless GPUs, with a Python decorator and no cluster management. What should I use?",
+      "expected_output": "Recognizes this as a serverless GPU deployment need and points to Modal (modal-serverless-gpu) rather than SkyPilot's cluster and managed-job model.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "modal-serverless-gpu"
+    },
+    {
+      "id": 5,
+      "prompt": "I've got a Lambda Labs account. How do I SSH into a reserved 8xH100 instance and attach a persistent filesystem for my datasets?",
+      "expected_output": "Answers using Lambda Labs-specific instance and persistent filesystem workflows, not SkyPilot multi-cloud orchestration.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "lambda-labs-gpu-cloud"
+    }
+  ]
+}

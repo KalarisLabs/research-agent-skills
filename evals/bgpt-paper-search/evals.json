@@ -1,0 +1,40 @@
+{
+  "skill_name": "bgpt-paper-search",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Find me papers on creatine supplementation and working memory with sample sizes and effect sizes.",
+      "expected_output": "Calls the BGPT search_papers MCP tool (not Bash) with a narrow query, then reports per-paper title, DOI, sample size, quantitative results and quality score from the returned records. Does not cite papers from memory or invent identifiers.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm building an evidence table for a scoping review on CRISPR base editing for sickle cell disease, 2019-2025, human or humanized mouse studies only. I need the methods, n per arm, the main quantitative outcome and a quality rating for each study, pulled from the full text rather than abstracts. Can you set that up and run it? I'm on the free tier.",
+      "expected_output": "Confirms the inclusion criteria and date range, checks that the BGPT MCP server is configured, and runs a small narrow search first to check relevance. Then runs the full search within the free-tier limit (50 searches) and builds a table of methods, sample sizes, results and quality scores from the retrieved records. Records the search strings and counts, notes any gaps or uncertainty, and asks before any paid use.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My PI wants to know which in vivo mouse models have been used to test GLP-1 agonists for neuroprotection and how many animals each study used. What does the literature say? I want details that go beyond what abstracts report.",
+      "expected_output": "Uses the BGPT search_papers tool to retrieve full-text-derived structured data (models, protocols, sample sizes, results). Compares methodologies across the retrieved studies using only retrieved records with resolvable identifiers. States the limitations and what could not be verified.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a CSV of reaction times for 3 groups (control, low dose, high dose). Which test should I use, and can you check normality and compute effect sizes?",
+      "expected_output": "Does not use BGPT paper search. Uses statistical-analysis for test selection (e.g. one-way ANOVA or Kruskal-Wallis), assumption checks and effect sizes on the user's own data.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "statistical-analysis"
+    },
+    {
+      "id": 5,
+      "prompt": "Here is a paper's methods section. Can you assess its risk of bias using the Cochrane RoB 2 tool and tell me whether the conclusions are justified?",
+      "expected_output": "Does not search for papers. Uses scientific-critical-thinking to appraise the supplied text for bias, confounders and evidence quality with RoB 2 domains, working from the pasted methods only.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scientific-critical-thinking"
+    }
+  ]
+}

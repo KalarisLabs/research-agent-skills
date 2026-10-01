@@ -1,0 +1,18 @@
+{
+  "skill_name": "reproducibility-statement",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Fill in the NeurIPS checklist and write our data and code availability statements.",
+      "expected_output": "Venue checklist guidance, persistent identifiers, artifact packaging, honest answers",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Make my figures colorblind-friendly.",
+      "expected_output": "Skill not used",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

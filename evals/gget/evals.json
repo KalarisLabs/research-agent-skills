@@ -1,0 +1,40 @@
+{
+  "skill_name": "gget",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "quick blast of this protein sequence against nr: MKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQ",
+      "expected_output": "Uses gget blast (CLI or Python) with the sequence, sets or confirms program/database (blastp, nr) and a limit, runs a small query first, and reports the top hits with the command and parameters. Does not invent hit accessions or results.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a list of 150 differentially expressed genes from my mouse liver RNA-seq in de_genes.txt (gene symbols). I'm on a cluster node with pip. Can you run GO biological process and KEGG enrichment on them directly from the terminal and save a CSV? I'd also like to see the top 10 terms.",
+      "expected_output": "Uses gget enrichr with the correct species flag (mouse) and database shortcuts (e.g. ontology/pathway for GO BP and KEGG), passes the gene symbols from the file, outputs CSV with -csv/-o, and displays the top 10 rows. Notes the gget version and database access date, and that network access is required.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm studying a possible drug target, EGFR. What diseases and drugs are linked to it, and is there a predicted or experimental 3D structure I could look at?",
+      "expected_output": "Uses gget opentargets (diseases and drugs resources) for EGFR after resolving the Ensembl ID via gget search/info, and gget pdb and/or gget alphafold for structures, checking PDB first. Inspects returned column names, reports versions and limits, and does not fabricate associations or IDs.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have 300 FASTA files of sequencing contigs and need to run BLAST locally on all of them with custom e-value and word size settings, then parse the XML output into a table with Bio.Blast.",
+      "expected_output": "Recognises this as batch processing with fine-grained BLAST control, which belongs to biopython (Bio.Blast and Bio.SeqIO) rather than gget, and recommends that approach with local BLAST+ and XML parsing.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "biopython"
+    },
+    {
+      "id": 5,
+      "prompt": "I need to map UniProt IDs to KEGG pathways and ChEMBL targets for 2,000 proteins in one Python pipeline, with retries and caching.",
+      "expected_output": "Recognises this as a multi-database ID-mapping pipeline suited to bioservices (UniProt, KEGG, ChEMBL clients) rather than gget's quick single-lookups, and proposes that approach.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "bioservices"
+    }
+  ]
+}

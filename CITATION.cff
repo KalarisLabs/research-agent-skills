@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use Research Agent Skills in your research, please cite it as below."
+title: "Research Agent Skills: agent skills for scientific research, paper writing and literature review"
+type: software
+authors:
+  - family-names: Chowdhury
+    given-names: Sayan
+    affiliation: Kalaris Labs
+  - name: Kalaris Labs
+repository-code: "https://github.com/KalarisLabs/research-agent-skills"
+url: "https://docs.kalarislabs.com/"
+license: MIT
+version: 1.1.0
+date-released: "2026-10-01"
+keywords:
+  - agent skills
+  - AI agents
+  - scientific writing
+  - research paper writing
+  - literature review
+  - systematic review
+  - citations
+  - LaTeX
+  - Claude Code
+  - Codex
+  - academic writing
+  - citation verification
+  - bioinformatics
+  - chemistry
+  - scientific data analysis

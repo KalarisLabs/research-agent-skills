@@ -1,0 +1,40 @@
+{
+  "skill_name": "evaluating-llms-harness",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "run MMLU and GSM8K on my llama-3-8b checkpoint",
+      "expected_output": "Uses lm-evaluation-harness (lm_eval CLI) with the HF backend on the checkpoint for mmlu and gsm8k. Runs a small subset first (--limit), records the harness version, few-shot settings and batch size, and reports the exact command and results.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm training a 1.3B model with a custom loop that saves checkpoints to ./ckpt/step_{N}. I want HellaSwag and PIQA numbers every 2000 steps so I can plot learning curves, but full MMLU takes too long. How should I set this up? Last time I got 'ValueError: Tasks not found: hellaswg' when I ran lm_eval.",
+      "expected_output": "Points out the typo in the task name (hellaswag) and suggests checking names with `lm_eval --tasks list`. Sets up periodic lm_eval runs on the checkpoints using fast tasks (HellaSwag, PIQA), saves JSON results per step, and plots them. Notes that MMLU is too slow for frequent evaluation and keeps settings fixed across checkpoints.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We're deciding between Mistral-7B, Llama-3-8B and Qwen2-7B for an internal paper. I need a fair side-by-side on reasoning, truthfulness and common-sense tasks, and a table I can drop in the manuscript. Eval is slow on our single A100, so any speedup would help.",
+      "expected_output": "Runs the same standardized benchmark suite (e.g. ARC, TruthfulQA, HellaSwag, MMLU, GSM8K) on all three models with identical prompts, few-shot settings and harness version. Suggests the vLLM backend for speed, produces a comparison table, and reports settings and variance or stderr, with no cherry-picking.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I fine-tuned a 15B code model and want pass@1 and pass@10 on HumanEval, MBPP and MultiPL-E across Java, Rust and JavaScript with sandboxed execution.",
+      "expected_output": "Recognizes this as a code-generation evaluation needing pass@k and multi-language support, and routes to evaluating-code-models rather than lm-evaluation-harness.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "evaluating-code-models"
+    },
+    {
+      "id": 5,
+      "prompt": "I need to run a large evaluation sweep of 100+ benchmarks across several harnesses on our Slurm cluster using containers. Can you set up the job orchestration?",
+      "expected_output": "Recognizes this as a multi-harness, container-based, Slurm-scale evaluation job and routes to nemo-evaluator-sdk instead of a single lm-evaluation-harness run.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "nemo-evaluator-sdk"
+    }
+  ]
+}

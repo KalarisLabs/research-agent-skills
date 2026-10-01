@@ -1,0 +1,39 @@
+{
+  "skill_name": "nanogpt",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to train a tiny GPT on my laptop with no GPU just to see it work. What's the quickest way to get something generating Shakespeare-like text?",
+      "expected_output": "Guides the agent to use nanoGPT's character-level Shakespeare workflow: clone the repo, run prepare.py for shakespeare_char, then train.py with the CPU-friendly config (small model, device=cpu, compile off), then sample.py. Mentions expected time of a few minutes and runs or suggests a short smoke run first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running nanoGPT train.py on a single 16GB GPU with config/train_gpt2.py and get 'torch.cuda.OutOfMemoryError: CUDA out of memory'. How do I get it to fit without changing the model size?",
+      "expected_output": "Checks nvidia-smi and the current settings, then suggests lowering batch_size and/or block_size while raising gradient_accumulation_steps to keep the effective batch, using dtype=bfloat16/float16, and optionally compile. Notes that the full GPT-2 124M reproduction is designed for multi-GPU and does not claim results without logs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a 40MB text file of my lab's protocol notes and want to adapt a pretrained GPT-2 small to it so it writes in that style, plus read through the code so I understand how the attention blocks work. I want something minimal in plain PyTorch, not a big framework.",
+      "expected_output": "Recommends nanoGPT: prepare the text into train.bin/val.bin with GPT-2 BPE tokenization (a custom prepare.py), then fine-tune with init_from=gpt2 using a finetune-style config with a small learning rate and few iterations. Asks about or states assumptions on GPU and checks the validation loss; points to model.py for the transformer block explanation.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to pretrain a 7B parameter LLM across 64 GPUs on multiple nodes with tensor and pipeline parallelism for production. How should I set that up?",
+      "expected_output": "Should not use nanoGPT, which is explicitly not for production or large-scale distributed training. Recommends Megatron-LM (or similar large-scale frameworks) and addresses tensor/pipeline parallelism.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "How do I wrap my existing PyTorch training loop with HuggingFace Accelerate so it runs on multiple GPUs with mixed precision?",
+      "expected_output": "Uses the huggingface-accelerate skill: Accelerator class, accelerate config, accelerate launch, and prepare() for model, optimizer and dataloader. Does not involve nanoGPT-specific workflows.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "huggingface-accelerate"
+    }
+  ]
+}

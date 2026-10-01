@@ -1,0 +1,38 @@
+{
+  "skill_name": "long-context",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I stretch Mistral 7B to handle 64k tokens?",
+      "expected_output": "Recommends a RoPE-extension approach (YaRN or position interpolation) with a scaling factor of about 8 relative to the original window, plus brief fine-tuning on long data. Asks about or confirms the model's original context length, GPU memory and licence, and tests on a short sample first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I loaded meta-llama/Llama-2-7b-hf in transformers and set rope_scaling={'type':'linear','factor':8.0}, aiming for 32k. Perplexity on my 30k-token legal contracts in contracts_eval.jsonl is much worse than at 4k, and I get an OOM at 24k tokens on a 40GB A100. What should I change, and do I need to fine-tune?",
+      "expected_output": "Explains that linear position interpolation generally needs fine-tuning (around 1000 steps on long sequences) to recover quality. Suggests trying YaRN or a smaller scaling factor, checking the installed transformers version's rope_scaling API, and fixing the OOM with half precision, memory-efficient attention or gradient checkpointing. Reports its assumptions and does not invent results.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm pretraining a small language model from scratch and want it to be trained on 1k-token sequences but still work reasonably when tested on 2k+ tokens. It would be nice if it also used less memory. Which way of encoding token positions should I use, and why?",
+      "expected_output": "Recommends ALiBi, which adds a linear distance penalty to attention scores with no positional embeddings. Cites its extrapolation from train-short to test-long and its roughly 11% training speed and memory savings. Contrasts it with RoPE and notes the trade-offs, including the need for full pretraining.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "My RAG pipeline over 5,000 PDFs returns irrelevant chunks. How should I change the chunk size, embedding model and reranker to improve retrieval?",
+      "expected_output": "Gives retrieval-focused advice: chunking strategy, embedding model choice, hybrid search and reranking. Does not involve positional encodings or context window extension.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Explain how the multi-head self-attention mechanism works in a standard transformer and write a minimal PyTorch implementation with sinusoidal absolute positional embeddings for a 512-token translation model.",
+      "expected_output": "Gives a general explanation of attention and a basic implementation with sinusoidal embeddings at a fixed length. It involves no context extension, RoPE scaling or long-context methods.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

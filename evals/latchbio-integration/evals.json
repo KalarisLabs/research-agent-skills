@@ -1,0 +1,40 @@
+{
+  "skill_name": "latchbio-integration",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I give my Latch task more memory and a GPU?",
+      "expected_output": "Explains using the named task decorators (e.g. small/large GPU tasks) from the Latch SDK, or custom_task only when measured needs justify it, to set CPU, memory, storage and GPU. Notes that GPU runs cost money and should be confirmed before launching, and points to the resource configuration guidance.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a Snakemake pipeline for ATAC-seq on mouse samples (Snakefile plus config.yaml, Dockerfile already written). I want to get it onto Latch so my collaborators can launch it from a form. `latch register --snakefile Snakefile --staging` ran but it fails to find a workflow entrypoint. What's going wrong and what should I do?",
+      "expected_output": "Identifies that in SDK 2.76.8 the staging path does not generate the Python entrypoint from --snakefile, so the version-compatible entrypoint must be generated first (e.g. via latch init/generate for Snakemake) before staging. Warns not to mix commands from the legacy flag path and the separately pinned Snakemake v2 tutorial track, and suggests checking the installed SDK version and then registering, with metadata for the launch form.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We have a few hundred FASTQ files sitting in a cloud workspace and a sample table with metadata. I want to script a batch of alignment runs over them from Python, track each one until it finishes, and pull the results back into the sample table. Can you lay out the approach?",
+      "expected_output": "Recommends programmatic launching via latch_cli.services.launch.launch_v2 (not the deprecated `latch launch` CLI), reading samples from Latch Registry and writing results back via a Registry transaction, using LPath for data paths, and monitoring execution status. Asks for cost and parameter confirmation before launching a large batch, and advises verifying scientific outputs rather than trusting successful orchestration alone.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to run nf-core/rnaseq on my local cluster with Slurm for 24 human RNA-seq samples. How do I write the samplesheet.csv and configure the executor in nextflow.config?",
+      "expected_output": "Should be handled by the nextflow skill: gives the nf-core/rnaseq samplesheet format (sample, fastq_1, fastq_2, strandedness) and a Slurm executor profile in nextflow.config, with no Latch-specific registration or platform steps.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "nextflow"
+    },
+    {
+      "id": 5,
+      "prompt": "How do I upload files to a DNAnexus project and launch an applet from the dx CLI?",
+      "expected_output": "Should be handled by the dnanexus-integration skill: uses dx upload and dx run with the applet and inputs, with no Latch SDK or CLI content.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "dnanexus-integration"
+    }
+  ]
+}

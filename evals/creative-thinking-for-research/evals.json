@@ -1,0 +1,40 @@
+{
+  "skill_name": "creative-thinking-for-research",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Help me come up with a really new research angle on LLM test-time compute. I keep going in circles on the same ideas.",
+      "expected_output": "Applies one or more of the skill's creative frameworks (e.g., bisociation, reformulation, constraint manipulation) to generate non-incremental directions, and checks that connections are structural rather than merely metaphorical.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm working on KV-cache eviction for long-context transformers (my notes are in kv_cache_notes.md). Everything I find is a tweak on H2O or SnapKV. Can you help me find a structurally different idea by borrowing from another field, like immunology or database systems, and tell me how to tell whether the analogy is deep or just a surface metaphor?",
+      "expected_output": "Uses structure-mapping: restates the problem in relational language, finds distant domains with real structural fidelity, maps the source mechanism onto KV-cache eviction, and proposes testable predictions. Applies a depth check that separates structural from surface analogy.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm prepping for a lab retreat. I want to list every hidden assumption in how we train vision-language models, including labeled pairs, fixed resolution and benchmark-driven evaluation. Then I want to work out which ones we could drop to open up a new kind of research.",
+      "expected_output": "Lists constraints and classifies them as hard, soft or hidden. For the soft and hidden ones, explores relaxing, tightening or replacing them, favoring the exposure and dropping of hidden constraints, and proposes concrete research directions.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a few ideas for my next project. Can you run me through a structured diverge-then-converge brainstorming session and help me filter them by feasibility and impact?",
+      "expected_output": "Recognizes this as a structured project-level ideation workflow (diverge, converge, filter) and defers to the brainstorming-research-ideas skill instead of applying the cognitive creativity frameworks.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "brainstorming-research-ideas"
+    },
+    {
+      "id": 5,
+      "prompt": "Can you survey the recent literature on state space models for long sequences and summarize the main papers and their results?",
+      "expected_output": "Recognizes this as a literature survey request, not creative ideation, and routes to a literature-review skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "literature-review"
+    }
+  ]
+}

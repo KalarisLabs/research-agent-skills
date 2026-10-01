@@ -1,0 +1,40 @@
+{
+  "skill_name": "nnsight-remote-interpretability",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I grab the layer 20 residual stream from Llama-3.1-70B when I don't have a GPU?",
+      "expected_output": "Uses nnsight LanguageModel with model.trace(..., remote=True) via NDIF, needs an NDIF API key, accesses the layer output through the module path, and calls .save() on the value so it is available after the trace context.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running activation patching on Llama-3.1-8B for my IOI-style prompts in ioi_patch.py. Locally it works, but when I set remote=True my loop over layers keeps timing out, and sometimes I get an error that my saved tensor is a Proxy object outside the with block. How do I fix it?",
+      "expected_output": "Explains that values must be .save()d inside the trace and accessed only after the context exits, and suggests handling remote timeouts (fewer or batched layers per trace, fewer saved activations, using invokes). Keeps the same patching code with the proxy slice assignment pattern.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to see what a Mamba state space model represents internally at each block, and copy the hidden state from one prompt into another prompt's forward pass. I'd rather not rewrite the model in some interpretability library. What approach works?",
+      "expected_output": "Recommends nnsight since it wraps any PyTorch/HuggingFace architecture natively, inspects the Mamba module structure for the correct paths, and uses multiple tracer.invoke calls in one trace to share activations across prompts, saving the results.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm studying attention heads in GPT-2 small on my laptop. Show me how to load it with HookedTransformer, run_with_cache, and plot induction head attention patterns.",
+      "expected_output": "Should use TransformerLens (HookedTransformer, run_with_cache, HookPoints) for small local transformer attention analysis, not nnsight.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "transformer-lens-interpretability"
+    },
+    {
+      "id": 5,
+      "prompt": "Train a sparse autoencoder on layer 8 MLP activations of Pythia-410m and report the L0 and reconstruction loss.",
+      "expected_output": "Should use SAE training guidance (SAELens) covering the training config, sparsity coefficient, and metrics like L0 and reconstruction loss, not nnsight tracing.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "sparse-autoencoder-training"
+    }
+  ]
+}

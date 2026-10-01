@@ -1,0 +1,40 @@
+{
+  "skill_name": "scientific-writing",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Help me write the Methods section for my RCT manuscript without making stuff up. I'll give you the protocol.",
+      "expected_output": "Starts with intake (design, venue, guideline such as CONSORT 2025, protocol and amendments), drafts only from the verified evidence/claim registry, marks missing details as unverified instead of inventing them, and keeps claim/evidence IDs.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have draft.md, claims.csv and source_manifest.json for my cohort study on statin use and dementia (target journal: JAMA Network Open). The abstract says n=4,212 but the results table says 4,128. Can you check consistency, run the local lint, and get the references and declarations ready for submission?",
+      "expected_output": "Runs or guides the local consistency manifest check and linter, flags the sample size mismatch for manual reconciliation (naming any analysis-set difference rather than silently normalizing it), validates reference syntax without inventing identifiers, notes STROBE coverage, leaves declarations and submission_ready for the accountable human authors, and avoids uploading unpublished material externally.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My manuscript on a new soil microbiome sequencing method is almost done. I want to make sure every number and citation in it can be traced back to a real source, the funding and conflict statements are accurate, and that I'm not leaking anything confidential when I use an AI tool. What's the process?",
+      "expected_output": "Describes the staged workflow: build a source manifest and claim registry with human verification of each source, reconcile numeric facts, verify declarations independently, check journal AI-disclosure and confidentiality policy before any external transfer, keep AI as non-author, and have humans approve final submission.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I've been invited to review a submitted manuscript on a protein-folding model. Here's the PDF; write a structured referee report with strengths, weaknesses and statistical concerns.",
+      "expected_output": "Recognizes this as an authorized peer-review assessment task, which belongs to the peer-review skill rather than manuscript drafting, and notes the confidentiality/authorization caution for reviewer material.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "peer-review"
+    },
+    {
+      "id": 5,
+      "prompt": "Generate a CARE-format case report template JSON for a rare pathology case and run a structure check on it.",
+      "expected_output": "Uses fail-closed clinical report templates and deterministic structure checks for a CARE case report, which is the clinical-reports skill's domain.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "clinical-reports"
+    }
+  ]
+}

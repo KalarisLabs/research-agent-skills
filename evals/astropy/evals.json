@@ -1,0 +1,38 @@
+{
+  "skill_name": "astropy",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I convert a list of RA/Dec in ICRS to Galactic l, b?",
+      "expected_output": "Uses SkyCoord with ra/dec in units (u.deg or hourangle) and frame='icrs', then transforms with .galactic (or .transform_to('galactic')) and reads .l and .b. Passes the angles as Quantities and explains the units.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm opening ngc1300_drz.fits with fits.open and want the science image from the 'SCI' extension plus the EXPTIME keyword. Then I need to turn pixel (512, 480) into RA/Dec. I'm getting 'WARNING: FITSFixedWarning: 'datfix' made the change...' when I build the WCS. What's going on and how should I write this?",
+      "expected_output": "Opens the file in a `with fits.open(...)` context manager, accesses hdul['SCI'].data and the header's EXPTIME, and builds WCS(hdul['SCI'].header). Uses pixel_to_world or all_pix2world, remembering 0-based pixel indexing. Explains that the datfix warning is a harmless auto-correction of a non-standard DATE-OBS format, and says how to inspect or fix the header.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a catalog of supernova redshifts and need to know how far away they are in Mpc and how long ago the light left, assuming a flat universe with H0=70 and Om0=0.3. I'd also like to go back from a given distance to a redshift.",
+      "expected_output": "Uses FlatLambdaCDM(H0=70*u.km/u.s/u.Mpc, Om0=0.3) from astropy.cosmology. Computes luminosity_distance(z) and lookback_time(z) as Quantities, and converts units with .to(u.Mpc). Uses z_at_value for the inverse, imported directly from astropy.cosmology. Mentions that a different cosmology such as Planck18 can be substituted.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a CSV of gene expression counts across 12 samples. Run differential expression with DESeq2 and make a volcano plot.",
+      "expected_output": "Should not use the astropy skill. This is a bulk RNA-seq differential expression task, which needs a bioinformatics or DESeq2 workflow, not astronomy tooling.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Fit a gradient boosting model to predict galaxy morphology class from a pandas DataFrame of photometric features and tune hyperparameters with cross-validation.",
+      "expected_output": "Should not primarily use the astropy skill. This is a general scikit-learn machine learning task on tabular features. Astropy is at most incidental for loading the catalog.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+diff --git a/skills/experimental-design/scripts/randomization.py b/skills/experimental-design/scripts/randomization.py
+index ac98178..d21e124 100644
+--- a/skills/experimental-design/scripts/randomization.py
++++ b/skills/experimental-design/scripts/randomization.py
+@@ -35,7 +35,8 @@ def _normalize_ratio(arms, ratio):
+         ratio = [1] * len(arms)
+     if len(ratio) != len(arms):
+         raise ValueError("ratio must have one entry per arm")
+-    if any(r <= 0 for r in ratio):
++    # Reject fractional weights too: int(0.5) == 0 would silently delete an arm.
++    if any(isinstance(r, bool) or r <= 0 or int(r) != r for r in ratio):
+         raise ValueError("ratio entries must be positive integers")
+     template = []
+     for arm, r in zip(arms, ratio):

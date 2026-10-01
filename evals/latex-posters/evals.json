@@ -1,0 +1,39 @@
+{
+  "skill_name": "latex-posters",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need a poster for my lab's symposium next month, A0 portrait, 3 columns. Can you set up a LaTeX template?",
+      "expected_output": "Picks a LaTeX poster package (tikzposter, beamerposter or baposter), sets A0 portrait with a 3-column layout, gives a compilable template, and notes the 24pt+ body text and 300-800 word guidance.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My poster.tex compiled with tikzposter on 36x48 inch, but the log shows a pile of 'Overfull \\hbox' warnings and the right column text runs off the edge. Figures are in figures/ at width=\\linewidth. How do I fix it before sending to the print shop?",
+      "expected_output": "Treats overflow as an error: greps the log for overfull boxes, reduces figure width to about 0.85\\linewidth, checks all four edges at 100% zoom, trims text or fonts, and recompiles before printing.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I just got my paper accepted and the conference wants a printed poster summarizing it, 841x1189 mm. I have the PDF and a few figure files. I'd like AI-made diagrams for the methods and results sections, and it must be readable from a few meters away. How should I go about it?",
+      "expected_output": "Plans 3-6 key visuals with each AI graphic limited to 3-4 elements, at most 10 words, 50%+ white space and large fonts. Reviews each at 25% zoom before assembling into a LaTeX A0 poster, and compiles with overflow checks.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Make me an editable PowerPoint poster (.pptx) for my conference, 36x48 inches, from my approved text and logos, with alt text and an accessibility check.",
+      "expected_output": "Recognizes that the deliverable is a PowerPoint poster and defers to the pptx-posters skill rather than building a LaTeX poster.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pptx-posters"
+    },
+    {
+      "id": 5,
+      "prompt": "Build me a 15-minute slide deck for my lab meeting summarizing last quarter's results, with speaker notes.",
+      "expected_output": "Recognizes this is a slide presentation, not a poster, and uses a presentation skill instead. LaTeX poster guidance does not apply.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

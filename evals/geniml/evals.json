@@ -1,0 +1,39 @@
+{
+  "skill_name": "geniml",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you check my peaks.bed against hg38.chrom.sizes before I run anything? Worried about chr naming.",
+      "expected_output": "Plans a bounded local validation against the trusted chrom.sizes file: checks 0-based half-open coordinates, end>start, unknown contigs, ends beyond contig length, chr vs bare naming. Reports proposed actions without rewriting the BED or silently renaming contigs.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I exported tokenized ATAC regions to data/tokens.parquet (list column 'tokens') using universe.bed from our GRCh38 lab pipeline and want to train Region2Vec. Before I burn GPU time, I got 'size mismatch for projection.weight' when loading models/r2v/checkpoint.pt with a config.yaml from a colleague. Help me figure out what's wrong and plan the run.",
+      "expected_output": "Explains the bundle must agree on config.yaml vocab_size/embedding_dim, exact universe.bed bytes/order, tokenizer and special tokens (which add to vocab size), and checkpoint shapes. Advises checksumming and inspecting without loading the untrusted checkpoint, then outlines a bounded training plan using geniml.region2vec concrete module path, with donor-level splits.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We have peak calls from 40 ChIP-seq experiments across several labs and want one common set of regions to use as a shared vocabulary for embedding models, then measure how well it fits our data. What's a safe way to go about it?",
+      "expected_output": "Recommends first verifying all BED files share one assembly contract, then using precomputed coverage bigWigs with a consensus method (CC, CCF, ML, or HMM) via the 0.8.4 CLI and evaluating with geniml assess-universe (not the stale 'assess'). Notes bounds, checksums, and no network downloads without approval.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Use bedtools-style operations to merge overlapping intervals in my BED file and compute the setdiff against a blacklist, plus overlap counts between two region sets.",
+      "expected_output": "Recognizes this is general interval set algebra, not Geniml ML workflow validation; should route to the gtars skill (or bedtools) for reduce/setdiff/intersect.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "gtars"
+    },
+    {
+      "id": 5,
+      "prompt": "How do I call peaks from my ATAC-seq BAM files with MACS3 and pick the right q-value cutoff?",
+      "expected_output": "This is peak calling, which is out of scope; should not use geniml. Suggest MACS3 documentation or general peak-calling guidance.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

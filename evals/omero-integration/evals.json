@@ -1,0 +1,39 @@
+{
+  "skill_name": "omero-integration",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "List the datasets in my OMERO project 4512 and tell me how many images each has.",
+      "expected_output": "Starts with a dry run or validation and confirms host, group, project ID and a result limit before connecting. Then does a bounded read-only inventory with credentials taken from OMERO_* environment variables, and closes the connection in a finally block.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I need the key-value map annotations and ROI shapes for images 88101, 88102 and 88107 on omero.ourlab.edu (group 'Kessler_Lab') exported to JSON for a figure legend. My script keeps failing with 'Ice.ConnectionRefusedException' when I use port 4064. The server is 5.6.x and I'm on Python 3.13.",
+      "expected_output": "Uses an explicit-image, bounded metadata export with redaction defaults, no pixel or file bytes, and refuses to overwrite the output file. Troubleshoots the connection by checking the SSL router port and secure=True. Flags that Python 3.13 is 'upcoming' and that IcePy 3.6.5 wheels only cover Python through 3.12, so it recommends 3.12 and the omero-py version tested with the server. Never puts the password in arguments or logs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our microscopy core stores a few hundred confocal stacks on a shared imaging server, and I want to move one finished screening plate's worth of images to a collaborator as OME-TIFFs without pulling in the rest of the group's unpublished data. How should I go about it?",
+      "expected_output": "Recommends a local-only export plan scoped to the specific plate and image IDs, using the OMERO CLI export. Asks the user to confirm server, group, IDs and limits, and warns against group-wide or cross-group export. Notes that the export is a reviewed action and that the output path must not overwrite existing files.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Pull my experiment notes and sample inventory entries out of LabArchives for notebook 'Cell Culture 2026' via the API.",
+      "expected_output": "Recognizes this as a LabArchives ELN task and not an OMERO task, so it should not use the omero-integration skill. It should use labarchive-integration.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "labarchive-integration"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a folder of TIFF images on my laptop. Write a Python script with scikit-image that segments nuclei with Otsu thresholding and counts them.",
+      "expected_output": "Writes a local image-analysis script and does not use OMERO. No server connection is involved.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

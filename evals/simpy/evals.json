@@ -1,0 +1,38 @@
+{
+  "skill_name": "simpy",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I make a SimPy process wait for either a timeout or a resource request, whichever comes first?",
+      "expected_output": "Explains using AnyOf or the | operator on the request and a timeout. The result is a ConditionValue keyed by event objects, so membership is tested with the original events. The answer must say AnyOf does not cancel the losing event, so the pending request has to be cancelled explicitly (for example with `req.cancel()`) if the process abandons it.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My clinic model in clinic_sim.py has 3 nurses as a simpy.Resource and I log len(res.queue) each time a patient arrives, then take the mean. The mean queue length comes out far lower than the M/M/3 formula gives. I also run it with env.run(until=480). What's wrong, and how do I measure it properly? I'd like a CI over 30 seeds too.",
+      "expected_output": "Says that averaging samples taken at arrival events weights observations rather than time. The fix is a time-weighted average: area under the left-continuous queue-length path divided by elapsed time, with initial and final samples and the last interval closed at the 480 horizon. Also covers warm-up and unfinished patients. For the CI, run independent replications with separate seeds or RNG streams and build the interval from replication-level means, not from entities within one run. Notes that events scheduled exactly at 480 are not processed.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm studying a two-stage production line where machines break down and a repair technician has to stop whatever job is running. I need to estimate throughput and how long parts spend in the system, and I want to be able to trust the numbers. How should I build and analyze this?",
+      "expected_output": "Recommends a process-based discrete-event model with generator processes. Machines are preemptive resources or use interrupts, and the handler tracks remaining work after an Interrupt. Covers explicit run bounds, separate random streams with a seed manifest, deterministic and conservation tests, and a warm-up decision. Throughput and time in system are estimated from independent replications with confidence intervals. Limitations and unfinished parts are reported.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a system of ODEs for predator-prey dynamics in a lake. Can you help me integrate it with scipy and plot the phase portrait with different growth rates?",
+      "expected_output": "Does not use the SimPy skill. Handles it as a continuous-time ODE problem with scipy.integrate.solve_ivp, and plots trajectories and the phase portrait for several growth-rate values.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "I want to build an agent-based model of wolves and sheep on a grid, each agent with its own movement rules. Which framework should I use and how do I set it up?",
+      "expected_output": "Does not use the SimPy skill, since this is an agent-based modeling task. Suggests an ABM framework such as Mesa and sketches a grid-based setup with agent classes and a scheduler.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

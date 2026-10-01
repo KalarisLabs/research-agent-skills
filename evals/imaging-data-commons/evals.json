@@ -1,0 +1,38 @@
+{
+  "skill_name": "imaging-data-commons",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "what TCIA-style lung CT collections are available in IDC with segmentations?",
+      "expected_output": "Uses the IDC MCP server if present, otherwise the REST API or idc-index, to query collections with CT series and seg_index/analysis results joined on SeriesInstanceUID. Lists matching collection_ids (e.g., nlst, lidc-idri-style sets) without installing idc-index unnecessarily for a metadata-only question.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm building a nodule detection model and need to pull all chest CT series from the nlst collection into ./data/nlst for training. Only keep series with slice thickness <= 2.5 mm. I'd also like a total size estimate before I start, and I'm worried about disk space on my 500 GB drive. How should I do this?",
+      "expected_output": "Recognizes this needs file downloads, so installs/verifies idc-index (check_version.py), joins index with ct_index on SeriesInstanceUID to filter slice thickness, sums series_size_MB to estimate size before download, then uses client.download_from_selection with the SeriesInstanceUIDs and dirTemplate into ./data/nlst.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My lab wants to train a pathology foundation model on whole-slide images of breast and colon tumors from open sources, and we may eventually use it in a commercial product. Where can we get suitable public slide data and what should we check first?",
+      "expected_output": "Points to IDC slide microscopy (SM) data, queries sm_index/index for breast and colon collections, and checks license_short_name per series (flagging CC BY-NC vs CC BY), explaining commercial-use implications and citation requirements; mentions digital pathology guide for tiling and DICOMweb/download options.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a folder of DICOM CT files from our hospital PACS. Write a pydicom script to anonymize PatientName, PatientID, and dates and then convert the series to NIfTI.",
+      "expected_output": "Does not use the IDC skill; handles local DICOM de-identification and NIfTI conversion with pydicom/SimpleITK/dcm2niix directly, since no public IDC data access is involved.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Help me fit a Cox proportional hazards model on the TCGA-BRCA clinical data I exported from cBioPortal as clinical.tsv.",
+      "expected_output": "Does not use the IDC skill; performs survival analysis on the user's local cBioPortal clinical file (e.g., with lifelines), as no IDC imaging data query or download is requested.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

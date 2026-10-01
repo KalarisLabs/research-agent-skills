@@ -1,0 +1,40 @@
+{
+  "skill_name": "scientific-brainstorming",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our lab needs new ideas for why our organoid batches vary so much. How should we brainstorm this without the PI steering everyone?",
+      "expected_output": "Proposes a structured session: one focal question, private parallel idea generation before discussion, PI contributing last, shared neutral prompt, and idea/assumption labels. Notes that outputs are proposals, not findings, and that literature checks and validation come later.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 14 candidate directions in ideas_v2.xlsx for our soil microbiome carbon-sequestration grant (due to a USDA panel in March). Four of us rated them 1-5 on feasibility and novelty and the averages are all between 3.1 and 3.6. Help me prioritize and document the decision for the PI.",
+      "expected_output": "Defines criteria, direction, scale anchors and explicit weights before scoring, and keeps raw ratings, ranges and dissent visible instead of only averages. Suggests sensitivity analysis, adversarial review by a non-originator, literature checks with search limits, and ethics/feasibility gates. Produces a decision log (rationale, rejected options, owner, revisit trigger) and does not auto-pick a winner.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We're a small team starting a new project on microplastics and gut health and have no clear direction yet. I want to come out of a two-hour meeting with a handful of promising, defensible research angles and a record of why we chose them. How do we run that?",
+      "expected_output": "Lays out a workflow: scope the focal question and constraints, independent generation, sharing without evaluation, clustering, predefined criteria, adversarial review, a literature check followed by a short second generation round, and a decision log. Flags that human-subjects or clinical aspects need expert and ethics review, and treats the results as proposals.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I already observed that knockout mice have lower bone density at 12 weeks. Write me a specific testable hypothesis with predictions and falsifiable outcomes explaining this.",
+      "expected_output": "Recognizes this as observation-led hypothesis formulation rather than group brainstorming and hands off to hypothesis-generation. It does not run a multi-round ideation or prioritization workflow.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "hypothesis-generation"
+    },
+    {
+      "id": 5,
+      "prompt": "How many mice per group do I need to detect a 15% difference in bone density with 80% power, SD 8%, two-sided alpha 0.05?",
+      "expected_output": "Performs or points to a sample size/power calculation, which belongs to statistical-power. It does not run a brainstorming session.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "statistical-power"
+    }
+  ]
+}

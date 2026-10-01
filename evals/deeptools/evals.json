@@ -1,0 +1,38 @@
+{
+  "skill_name": "deeptools",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I turn my sorted BAM into a bigWig I can load in IGV?",
+      "expected_output": "Explains using bamCoverage on an indexed BAM with a chosen normalization (e.g. CPM, or RPGC with --effectiveGenomeSize), output format bigwig, and sensible --binSize and -p. Notes the BAM needs a .bai index.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have H3K27ac ChIP-seq for mouse (mm10) in treat_rep1.bam, treat_rep2.bam and input.bam, all paired-end and indexed. I need a bigWig of treatment over input as log2 ratio, and I want to check that the two replicates agree before I trust it. What commands should I run?",
+      "expected_output": "Gives a bamCompare command (--operation log2, treat vs input, a consistent scaling such as readCount/SES, --extendReads or paired-end handling, --ignoreDuplicates) and a multiBamSummary bins followed by plotCorrelation (and optionally plotPCA) for replicate concordance. Uses mm10 effective genome size 2652783500 if RPGC is mentioned.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got ATAC-seq alignments for human cells and want accessibility signal shown as a heatmap centered on transcription start sites, with the reads corrected for transposase insertion offset first. How should I do that?",
+      "expected_output": "Describes running alignmentSieve with --ATACshift (noting it keeps only properly paired fragments), then producing normalized coverage with bamCoverage, then computeMatrix reference-point -S bigwig -R TSS BED with -b/-a, followed by plotHeatmap or plotProfile.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have ChIP-seq BAMs and need to call peaks against the input control and get a list of significant binding sites with q-values. What should I run?",
+      "expected_output": "Recognizes this is peak calling (e.g. MACS2/MACS3), not a deepTools task, and does not walk through deepTools commands as the solution.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "I have RNA-seq count matrices for treated and untreated samples. Which genes are significantly differentially expressed? Walk me through the statistical test.",
+      "expected_output": "Directs to differential expression tools such as DESeq2 or edgeR on count data, covering normalization and statistical testing, rather than deepTools coverage commands.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

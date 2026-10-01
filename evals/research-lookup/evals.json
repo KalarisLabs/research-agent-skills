@@ -1,0 +1,39 @@
+{
+  "skill_name": "research-lookup",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Need ~60 solid references on CRISPR base editing off-target effects for my review intro. Can you pull them together?",
+      "expected_output": "Runs the academic Search + Extract pipeline targeting 60 verified, unique references, writes a packet (references.bib, evidence matrix, coverage report), and reports any shortfall honestly instead of padding with weak or duplicate records.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm drafting a Nature Communications paper on gut microbiome alterations in Parkinson's disease (human cohort, 16S sequencing, n=212 cases vs 198 controls, outcome: alpha diversity and Prevotella abundance). My context is in study_context.json. Please gather the recent primary studies, meta-analyses, and any null or contradictory findings, and give me a claim-to-source map for the Introduction and Discussion.",
+      "expected_output": "Uses --context-file study_context.json without inventing missing study details, runs the academic pipeline with --packet-dir, includes contradictory/null evidence, produces claim-source-map and section briefs for Introduction/Discussion, labels single-source or preprint claims, and does not present external literature as the user's Results.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm writing up a grant-style background on whether intermittent fasting improves insulin sensitivity in adults. I want to know where the evidence agrees, where it conflicts, and what the open gaps are, with real citations I can drop into my bibliography.",
+      "expected_output": "Compiles verified, deduplicated scholarly sources, produces a synthesis of consensus, conflicts, methods patterns and gaps with citation-ready BibTeX records, excludes retracted sources, flags preprints, and avoids fabricating DOIs or effect sizes.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Here is a list of 40 URLs to PDFs from my lab's reading folder. Extract the full text from each and give me the raw content so I can grep through it.",
+      "expected_output": "Should not use research-lookup; this is plain URL/PDF extraction of supplied sources, which fits parallel-web (or exa-search) rather than building a manuscript evidence packet.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "parallel-web"
+    },
+    {
+      "id": 5,
+      "prompt": "What's the capital of Australia, and roughly what year was the AlphaFold2 paper published?",
+      "expected_output": "Should not use research-lookup; these are casual factual questions answerable directly without a research packet.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "ml-training-recipes",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My loss keeps spiking around step 4k when training a 350M GPT. What should I check?",
+      "expected_output": "Gives a prioritized checklist for loss spikes: lower the LR 3-10x, add gradient clipping at 1.0, monitor gradient norms, check inputs for inf/nan, consider QK-norm or logit softcapping, verify init, and confirm loss is divided by grad_accum_steps.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning ESM-2 650M on ~40k labeled protein sequences with train.py on a single A100 40GB. I'm hitting 'CUDA out of memory' in the backward pass at batch size 32 with fp32. How do I fit this and keep throughput decent?",
+      "expected_output": "Recommends bf16 autocast (no GradScaler needed on A100), a smaller device batch size with gradient accumulation, expandable_segments allocator, set_to_none zeroing, activation checkpointing, and optionally an 8-bit optimizer. Mentions tensor-core-friendly dims, and that ESM-2 fine-tuning is appropriate at this data scale.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a fixed 8 GPU-hour budget on one GPU and want to pretrain the best small language model I can. How do I decide model size, how many tokens to feed it, and what optimizer and LR schedule to use?",
+      "expected_output": "Applies the Chinchilla rule of about 20 tokens per parameter and FLOPs ≈ 6ND to pick model size and data. Suggests an AdamW recipe (β2=0.95, WD 0.1, peak LR ~3e-4) or Muon hybrid, with warmup of 1-5% and warmdown of 30-50% (cosine or WSD), bf16, and torch.compile. Recommends checking MFU.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "How do I serve my fine-tuned Llama model with continuous batching and PagedAttention so I get high request throughput in production?",
+      "expected_output": "Should direct to vLLM serving guidance (setup, continuous batching, PagedAttention) rather than training recipes.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "serving-llms-vllm"
+    },
+    {
+      "id": 5,
+      "prompt": "Walk me through using the LLaMA-Factory WebUI to fine-tune Qwen with LoRA without writing code.",
+      "expected_output": "Should use the LLaMA-Factory no-code WebUI workflow, not generic PyTorch training-loop recipes.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "llama-factory"
+    }
+  ]
+}

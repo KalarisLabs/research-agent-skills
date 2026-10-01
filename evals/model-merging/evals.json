@@ -1,0 +1,38 @@
+{
+  "skill_name": "model-merging",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I merge two Mistral-7B fine-tunes with SLERP?",
+      "expected_output": "Gives a mergekit YAML config using merge_method: slerp with two models, a base_model, and a t interpolation parameter (optionally layer-wise). Includes the mergekit-yaml command, notes both models must share the same architecture, and recommends benchmarking the result.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have three Llama-2-7B fine-tunes on my disk: ./models/math-ft, ./models/code-ft and ./models/chat-ft, all from the same base meta-llama/Llama-2-7b-hf. I tried a linear merge and the output is garbled and worse than any single model. Can you write me a mergekit config that uses TIES with density 0.5 and weights, and explain how to run it on CPU?",
+      "expected_output": "Provides a TIES mergekit config with base_model, per-model density and weight parameters, normalize/dtype settings, and the mergekit-yaml command with CPU options. Explains why TIES (sign-conflict resolution) helps over linear, checks tokenizer and architecture compatibility, suggests tuning density, and validates with benchmarks like GSM8K and HumanEval.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a few open-weight models, each fine-tuned for a different skill. I have no GPU budget for more training. Can I produce one model that is decent at all of those skills by combining their weights, and how would I pick the mixing coefficients without labeled data?",
+      "expected_output": "Recommends weight-space model merging with mergekit (task arithmetic/TIES/DARE depending on the number of models), and explains unsupervised coefficient selection via generation consistency (AdaMMS). Notes compatibility requirements, asks about the base model and architectures, runs a small trial first, and evaluates before deploying.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to fine-tune Llama-3-8B on my protein-function dataset using LoRA. Which hyperparameters and training script should I use?",
+      "expected_output": "Should not use model-merging; this is a fine-tuning task needing LoRA/PEFT training guidance (rank, learning rate, trainer setup), not combining existing models' weights.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Quantize my already finished 7B model to 4-bit GGUF so it runs on my laptop with llama.cpp.",
+      "expected_output": "Should not use model-merging; this is a quantization/inference deployment task with no merging involved, so it should be handled by a quantization or inference skill or none.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

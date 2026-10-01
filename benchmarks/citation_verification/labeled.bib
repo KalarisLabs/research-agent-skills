@@ -1,0 +1,25 @@
+% Labeled benchmark for skills/citation-verification. Label in the `note` field:
+%   label:real        entry is correct (with or without DOI)
+%   label:corrupted   real paper with a wrong DOI, year or first author
+%   label:fabricated  paper does not exist
+
+@article{lecun2015deep, title={Deep learning}, author={LeCun, Yann and Bengio, Yoshua and Hinton, Geoffrey}, journal={Nature}, year={2015}, doi={10.1038/nature14539}, note={label:real}}
+@article{jumper2021highly, title={Highly accurate protein structure prediction with AlphaFold}, author={Jumper, John and Evans, Richard}, journal={Nature}, year={2021}, doi={10.1038/s41586-021-03819-2}, note={label:real}}
+@inproceedings{he2016deep, title={Deep residual learning for image recognition}, author={He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian}, booktitle={CVPR}, year={2016}, doi={10.1109/CVPR.2016.90}, note={label:real}}
+@article{krizhevsky2017imagenet, title={ImageNet classification with deep convolutional neural networks}, author={Krizhevsky, Alex and Sutskever, Ilya and Hinton, Geoffrey E.}, journal={Communications of the ACM}, year={2017}, doi={10.1145/3065386}, note={label:real}}
+@article{watson1953molecular, title={Molecular structure of nucleic acids: a structure for deoxyribose nucleic acid}, author={Watson, James D. and Crick, Francis H. C.}, journal={Nature}, year={1953}, doi={10.1038/171737a0}, note={label:real}}
+@article{page2021prisma, title={The PRISMA 2020 statement: an updated guideline for reporting systematic reviews}, author={Page, Matthew J. and McKenzie, Joanne E.}, journal={BMJ}, year={2021}, doi={10.1136/bmj.n71}, note={label:real}}
+@inproceedings{devlin2019bert, title={BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding}, author={Devlin, Jacob and Chang, Ming-Wei and Lee, Kenton and Toutanova, Kristina}, booktitle={NAACL}, year={2019}, doi={10.18653/v1/N19-1423}, note={label:real}}
+@article{silver2016mastering, title={Mastering the game of Go with deep neural networks and tree search}, author={Silver, David and Huang, Aja}, journal={Nature}, year={2016}, doi={10.1038/nature16961}, note={label:real}}
+@inproceedings{vaswani2017attention, title={Attention is all you need}, author={Vaswani, Ashish and Shazeer, Noam}, booktitle={NeurIPS}, year={2017}, note={label:real}}
+@misc{kingma2014adam, title={Adam: A Method for Stochastic Optimization}, author={Kingma, Diederik P. and Ba, Jimmy}, year={2014}, note={label:real}}
+
+@article{corrupt_wrongdoi, title={Highly accurate protein structure prediction with AlphaFold}, author={Jumper, John}, journal={Nature}, year={2021}, doi={10.1038/nature14539}, note={label:corrupted}}
+@article{corrupt_year, title={Deep learning}, author={LeCun, Yann and Bengio, Yoshua and Hinton, Geoffrey}, journal={Nature}, year={2009}, doi={10.1038/nature14539}, note={label:corrupted}}
+@article{corrupt_author, title={Mastering the game of Go with deep neural networks and tree search}, author={Johnson, Emily}, journal={Nature}, year={2016}, doi={10.1038/nature16961}, note={label:corrupted}}
+@article{corrupt_doi_typo, title={Molecular structure of nucleic acids: a structure for deoxyribose nucleic acid}, author={Watson, James D.}, journal={Nature}, year={1953}, doi={10.1038/171737a9}, note={label:corrupted}}
+
+@article{fab1, title={Quantum coherence governs attention head specialization in marine sponge neural analogues}, author={Harrow, Elena}, journal={Journal of Imaginary Results}, year={2023}, note={label:fabricated}}
+@article{fab2, title={A unified thermodynamic theory of transformer overfitting in low-resource glaciology}, author={Okafor, Daniel and Lindqvist, Mara}, journal={Nature Machine Intelligence}, year={2024}, doi={10.1038/s42256-024-99999-9}, note={label:fabricated}}
+@inproceedings{fab3, title={Self-supervised photosynthesis forecasting with hypergraph diffusion priors}, author={Moreau, Claire}, booktitle={ICML}, year={2022}, note={label:fabricated}}
+@article{fab4, title={CRISPR-guided reinforcement learning agents for autonomous wet-lab protein origami}, author={Tanaka, Hiroshi}, journal={Cell}, year={2025}, doi={10.1016/j.cell.2025.99.999}, note={label:fabricated}}

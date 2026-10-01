@@ -1,0 +1,39 @@
+{
+  "skill_name": "histolab",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I pull 512x512 tiles out of an H&E slide and skip the blank glass?",
+      "expected_output": "Uses histolab: opens the slide with Slide, picks a tiler (GridTiler or RandomTiler) with tile_size=(512,512) and a tissue_percent threshold (about 70-90) so background is excluded. Previews with locate_tiles() before extracting. Should also say that Windows is not supported as of histolab 0.7.0, and that OpenSlide must be installed first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 40 TCGA-BRCA .svs files in ./slides/ and need a training set of 20x patches for a ResNet. Some slides have green pen marks around the tumor and tiles over those regions are polluting my set. I'm using RandomTiler with n_tiles=200 and seed=42, but the pen regions still show up. Also I need a CSV with the tile coordinates. How should I set this up?",
+      "expected_output": "Describes building a custom annotation-exclusion mask, or customized TissueMask filters, to drop pen marks and passing it as extraction_mask to RandomTiler. Previews with locate_mask() and locate_tiles(), sets tissue_percent and level, keeps the seed, and writes the CSV via report_path. Runs a small test on one slide first and mentions de-identification and OpenSlide setup.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My slides come from three different labs and the eosin intensity varies a lot, which is hurting my classifier's generalization. How can I make the colors consistent before I train?",
+      "expected_output": "Recommends stain normalization with histolab's MacenkoStainNormalizer or ReinhardStainNormalizer, fit against a chosen reference target image and applied to the tiles. Mentions choosing a representative target, checking the results visually, and applying the normalization consistently across all labs. Does not invent APIs, and notes that the installed version's docs should be checked.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm working with multiplexed CODEX imaging of tumor tissue. I need to build a spatial KNN graph of cells and quantify marker expression per cell, using PathML's SlideData pipeline. Can you help me set that up?",
+      "expected_output": "Should use the pathml skill, not histolab, because this task is multiplex image quantification and spatial graph construction, which is PathML's scope. A good answer builds the pipeline with PathML's SlideData.run() and graph tools.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pathml"
+    },
+    {
+      "id": 5,
+      "prompt": "Write a PyTorch training loop with mixed precision and a cosine learning rate schedule for classifying pathology tiles that I've already extracted into folders by class.",
+      "expected_output": "Should not use histolab, because the tiles already exist and the task is a general deep learning training loop. A good answer gives a PyTorch Dataset/DataLoader, AMP, and a scheduler, with no WSI tiling.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

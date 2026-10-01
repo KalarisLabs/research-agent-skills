@@ -1,0 +1,39 @@
+{
+  "skill_name": "fine-tuning-openvla-oft",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I evaluate the pretrained OpenVLA-OFT checkpoint on LIBERO-Goal?",
+      "expected_output": "Gives the steps to install LIBERO and the openvla-oft environment, use the moojink/openvla-7b-oft-finetuned-libero-goal checkpoint with task suite libero_goal, and run the evaluation script. Mentions the center_crop setting and how to parse the success rate.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I fine-tuned an OFT+ policy on my own ALOHA data with 3 cameras. The server starts fine, but the arms move with the wrong scale and the actions look jittery. I trained with --use_film True --num_images_in_input 3 --image_aug True. The client calls http://gpu-box:8777/act. What should I check?",
+      "expected_output": "Walks through the train/inference consistency invariants: use_film, num_images_in_input, use_proprio, lora_rank, and the action head type. Says center_crop=True must be set because training used image_aug=True. Says unnorm_key must exist in the checkpoint's dataset statistics, and num_open_loop_steps should match NUM_ACTIONS_CHUNK. Mentions re-merging LoRA if the checkpoint was moved across GPU types, and the ALOHA constants in prismatic/vla/constants.py.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a 7B vision-language-action model and about 200 teleoperated demos in RLDS format for a tabletop task. I want to adapt it with low-rank adapters and swap the discrete action-token output for a regression head. How should I set up the training run, and which checkpoints should I evaluate?",
+      "expected_output": "Recommends the OpenVLA-OFT approach: LoRA (rank 32) on openvla-7b with an L1 regression head instead of tokenized actions. Covers registering the RLDS dataset in the oxe configs, transforms and mixtures, launching training, and evaluating several checkpoints (for example 50k, 100k and 150k) by actual task success rather than loss. Includes merging LoRA at the end. Asks about or states assumptions on GPU resources.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to convert my pi0.5 JAX checkpoint to PyTorch and serve it for DROID policy inference with OpenPI. How do I do that?",
+      "expected_output": "Directs the user to the OpenPI workflow for checkpoint conversion and policy serving, not to OpenVLA-OFT. It does not suggest OFT flags or LoRA merging.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "fine-tuning-serving-openpi"
+    },
+    {
+      "id": 5,
+      "prompt": "What's the best way to fine-tune Llama 3 8B with QLoRA on my own instruction dataset for a chatbot?",
+      "expected_output": "Gives general LLM instruction-tuning advice (QLoRA, dataset formatting, hyperparameters). It does not use the robot-specific OpenVLA-OFT workflow, since there are no robot actions or action heads.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

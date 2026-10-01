@@ -1,0 +1,13 @@
+diff --git a/skills/gtars/scripts/refget_digest_plan.py b/skills/gtars/scripts/refget_digest_plan.py
+index ceaf822..ccfefb5 100644
+--- a/skills/gtars/scripts/refget_digest_plan.py
++++ b/skills/gtars/scripts/refget_digest_plan.py
+@@ -97,7 +97,7 @@ def _read_fasta(
+                 "name": name,
+                 "length": len(sequence),
+                 "sha512t24u": sha512t24u(sequence),
+-                "md5": hashlib.md5(sequence).hexdigest(),
++                "md5": hashlib.md5(sequence, usedforsecurity=False).hexdigest(),  # refget identifier, not security
+             }
+         )
+ 

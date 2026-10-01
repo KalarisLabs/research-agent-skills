@@ -1,0 +1,53 @@
+# Changelog
+
+All notable changes to this project are documented here. The format follows
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
+[Semantic Versioning](https://semver.org/).
+
+## [1.1.0] - 2026-10-01
+
+### Added
+- `unslop-academic-writing`: removes AI slop from research prose (stock vocabulary, empty emphasis, hedge stacks,
+  formulaic signposting, monotone rhythm) with a zero-dependency linter for Markdown, LaTeX, text and Word files.
+- Skill verification tooling: static quality rubric (`tools/skill_quality.py`), trigger-routing benchmark
+  (`tools/trigger_bench.py`, BM25 and Claude routers), with-vs-without-skill task benchmark with a blind judge
+  (`benchmarks/task_evals`), labeled citation-verification benchmark and a human-vs-model slop benchmark.
+- `benchmarks.yml` workflow: quality and routing gates on every PR, weekly citation benchmark, manual paid benchmarks.
+- Documentation site restructure: getting started, guides (papers, theses, no-slop writing, systematic reviews,
+  skills by field), reference (CLI, architecture, benchmarks, security, contributing), FAQ, JSON-LD metadata.
+- Generated `llms.txt` for AI search engines and agents.
+- `.editorconfig`, `.pre-commit-config.yaml`, `Makefile`, `SUPPORT.md`, `GOVERNANCE.md`.
+
+### Changed
+- Repository moved to `KalarisLabs/research-agent-skills`; code owner @saynchowdhury.
+- Journal-format and other original skills gained numbered workflows and explicit integrity rules.
+- Sharper descriptions for `cover-letter-to-editor` and `rebuttal-and-response-to-reviewers` to prevent mis-triggering.
+
+## [1.0.0] - 2026-10-01
+
+### Added
+- 278 agent skills across 19 categories: research writing, journal formats, literature
+  review, ideation and design, data science, visualization, knowledge graphs and RAG,
+  scientific databases, life sciences, chemistry, clinical research, physical sciences,
+  lab automation, research automation and ML research engineering.
+- 21 original skills, including journal formats (Nature Portfolio, Science, Cell Press,
+  IEEE, ACM, Elsevier, Springer LNCS, PLOS, APA 7, arXiv), citation verification, BibTeX
+  hygiene, systematic reviews (PRISMA 2020), reference-manager interop, paper-corpus RAG,
+  research knowledge graphs, abstracts and titles, reviewer responses, cover letters,
+  reproducibility statements and a research skill creator.
+- `research-agent-skills` CLI: one-command install for Claude Code, Codex, Cursor,
+  Gemini CLI, Copilot, OpenCode, Windsurf and `.agents/skills` harnesses, with checksum
+  verification, integrity checks (`doctor`), update and uninstall.
+- Standalone `install.sh` / `install.ps1` installers with SHA-256 verification.
+- Security CI: spec validation, prompt-injection lint, Cisco AI Defense skill-scanner,
+  CodeQL, Semgrep, Bandit, TruffleHog, OSV/pip-audit/npm audit, zizmor, actionlint,
+  OpenSSF Scorecard, signed releases with build provenance.
+
+### Fixed
+- Windows console crashes (cp1252) in skill scripts that print non-ASCII text.
+- experimental-design: fractional allocation ratios no longer silently drop an arm.
+- analytical-method-validation: ragged CSV rows exit cleanly with code 2; JSON and CSV
+  inputs are normalized identically.
+- arbor: `set-evidence` validates status; node lists sort n1..n10 numerically.
+- deeptools: BAM index detection no longer breaks when a parent directory contains `.bam`.
+- Doubled `uv uv pip` install commands.

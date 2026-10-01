@@ -1,0 +1,38 @@
+{
+  "skill_name": "exploratory-data-analysis",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you do a quick EDA on assay_results.csv before I start modeling?",
+      "expected_output": "Confirms the file is inside an approved root, runs the manifest/registry check first, then the bounded tabular profiler. Reports aggregate-only results with scanned scope and truncation, and prints no raw rows or full paths.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have plasma_cytokines_v3.tsv from a 3-site cohort study, with repeated visits per participant and columns subject_id, site, visit, IL6, TNFa, split. I'm worried the train/test split leaks and that missing IL6 values aren't random. Can you audit this before I fit a random forest? Some IL6 values are below the LOQ and coded as 0.",
+      "expected_output": "Runs the bounded missingness/leakage audit on the TSV with tokenized identifiers. Checks subject overlap across splits and keeps repeated measures grouped. Keeps below-LOQ, missing, and true zero distinct, does not impute or drop automatically, and treats flags as diagnostics rather than proof of bias or leakage.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My measurements are heavily right-skewed and a few points look extreme. Before I decide whether to log-transform or drop them, I'd like to see how much those points drive the mean and spread in my exported table.",
+      "expected_output": "Uses the distribution/outlier/transformation sensitivity tool. Compares mean/SD with median/IQR/MAD and trimmed or winsorized summaries, and shows log diagnostics. States that the flags are not deletion rules, that no data is modified, and that raw-scale results are kept alongside any transformation.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a BAM file and a VCF from my tumor-normal pair. Please call somatic variants and tell me which mutations are driver mutations.",
+      "expected_output": "Does not use the EDA skill. BAM and VCF are reference-only formats, and variant calling and driver interpretation are outside EDA scope. Points to separately validated genomics tooling, or to a derived copy in a supported format.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Fit a gradient-boosted model to predict patient outcomes from my cleaned dataset, tune the hyperparameters with cross-validation, and report AUROC with confidence intervals.",
+      "expected_output": "Does not use the EDA skill, because this is confirmatory model training and evaluation rather than bounded exploratory profiling. Treats it as an ML modeling task, with no matching skill listed.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "llamaindex",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I build a quick RAG over a folder of PDFs?",
+      "expected_output": "Gives a minimal LlamaIndex workflow: load files with SimpleDirectoryReader, build a VectorStoreIndex, create a query engine and query it. Mentions installing the package and setting an LLM/embedding API key, and suggests persisting the index.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have about 400 PDFs of oncology papers in ./papers and a Postgres table with trial metadata (nct_id, phase, status). I want to ask questions over the papers and filter retrieval by phase and status. Using llama-index 0.14 with Chroma as the store. How should I set this up, and how do I stop it from re-embedding everything every time I restart?",
+      "expected_output": "Describes loading the PDFs with SimpleDirectoryReader and attaching the trial metadata to each Document. Builds a VectorStoreIndex on a persistent ChromaVectorStore through StorageContext, and uses metadata filters in the retriever or query engine for phase and status. Explains reloading the persisted index instead of re-embedding, and notes chunk size and a small test run first. Flags that sending paper content to an external embedding API needs the user's consent.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My lab has years of internal protocols, meeting notes and Notion pages. I'd like a chatbot that lets students ask questions about them and remembers earlier turns in the conversation, answering from our own documents. What's a sensible way to build it?",
+      "expected_output": "Recommends a retrieval-augmented design that ingests the Notion and document sources with connectors, indexes them into a vector index, and exposes a chat engine with conversation memory. Covers how to evaluate answer quality and faithfulness, and warns about private data and API costs.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to build a multi-step autonomous agent with LangChain that calls web search and a calculator tool and uses a ReAct loop. Can you show me how to wire it up?",
+      "expected_output": "Recognizes this is a general agent-building task for LangChain rather than document ingestion or indexing, and answers with LangChain's agent and tool-calling setup instead of LlamaIndex.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "langchain"
+    },
+    {
+      "id": 5,
+      "prompt": "I already have embeddings for my documents. Just show me how to create a Chroma collection, add vectors with metadata, and run a filtered similarity query.",
+      "expected_output": "Gives the Chroma client API for creating a collection, adding embeddings and metadata, and querying with a where filter. It does not set up a LlamaIndex ingestion or query pipeline, since only vector storage is needed.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "chroma"
+    }
+  ]
+}

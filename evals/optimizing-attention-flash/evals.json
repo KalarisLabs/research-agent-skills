@@ -1,0 +1,40 @@
+{
+  "skill_name": "optimizing-attention-flash",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can I make my PyTorch training loop use flash attention? Sequences are 4096 tokens.",
+      "expected_output": "Checks PyTorch version (2.2+), replaces manual attention with F.scaled_dot_product_attention (optionally forcing the flash backend via sdpa_kernel), uses fp16/bf16, and verifies speedup and output equivalence against the baseline.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning Llama-3-8B on an A100 80GB with 16k context using my train.py and keep getting 'CUDA out of memory' inside the attention forward pass. I'm on PyTorch 2.3 and the HF model loads with the default eager attention. How do I fix this without shrinking the context?",
+      "expected_output": "Recommends switching to the flash/SDPA attention implementation (e.g. attn_implementation='flash_attention_2' or 'sdpa'), ensuring bf16/fp16 dtype, and confirming the GPU supports it. Then runs a small smoke test, measures memory and speed, and checks the loss or outputs match the eager baseline. Mentions gradient checkpointing as a complementary option and doesn't invent APIs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We have a few H100 nodes and attention is the main bottleneck for our long-document model at inference. I'd like to squeeze out the most throughput using lower precision for the attention math, and also have each token attend only to a local window of neighbors. What should I do?",
+      "expected_output": "Identifies FlashAttention-3 with FP8 on H100 and the flash-attn library's sliding window option. Verifies the GPU is Hopper (nvidia-smi / compute capability), installs flash-attn with the right CUDA/PyTorch versions, and benchmarks. Checks accuracy against a bf16 baseline since FP8 can degrade quality, and states uncertainty about version-specific API details.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to run a 7B chat model on my MacBook M2 with no NVIDIA GPU. How do I get it running fast with quantization?",
+      "expected_output": "Does not use the flash attention skill, since it requires an NVIDIA/AMD GPU. Recommends llama.cpp with GGUF quantization for Apple Silicon.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "llama-cpp"
+    },
+    {
+      "id": 5,
+      "prompt": "Explain how RWKV-7 gets linear-time inference without a KV cache, and show how to run it in RNN mode for text generation.",
+      "expected_output": "Explains the RWKV recurrent state mechanism and RNN-mode inference using the RWKV architecture skill. It does not turn to flash attention, since RWKV has no attention softmax to optimize.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "rwkv-architecture"
+    }
+  ]
+}

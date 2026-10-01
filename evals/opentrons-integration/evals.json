@@ -1,0 +1,39 @@
+{
+  "skill_name": "opentrons-integration",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you write me an Opentrons Flex protocol to transfer 50 µL from a 96-well plate to another plate with a p1000 single channel?",
+      "expected_output": "Asks for or states assumptions about pipette, labware load names, tip policy and trash. Produces a Flex protocol with a requirements block containing apiLevel (not duplicated in metadata), flex_1channel_1000 pipette, an explicitly loaded trash bin, exact labware names, and notes to simulate and run the App analysis before live use.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My OT-2 protocol fails in the Opentrons App with 'apiLevel 2.29 not supported' after I added `requirements = {\"robotType\": \"OT-2\", \"apiLevel\": \"2.29\"}`. It's in ot2_pcr_prep.py and also calls protocol.load_trash_bin('A3'). How do I fix it?",
+      "expected_output": "Explains that API 2.29 is Flex-only at the baseline and OT-2 maxes out at 2.28, so apiLevel should be lowered to 2.28 or lower. Also says OT-2 has a fixed trash in slot 12 and load_trash_bin() must be removed. Recommends re-simulating and re-running analysis in the OT-2 App.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a robot that will do a 1:2 serial dilution across a full 96-well plate with 8 channels, and I want the lab tech to be able to choose the number of dilution columns and the starting volume when they upload the protocol. Can you set that up?",
+      "expected_output": "Builds a Flex or OT-2 protocol using add_parameters() with validated numeric ranges and safe defaults read from protocol.params. Uses an 8-channel pipette, budgets tips and source volume, checks max well volume, and advises simulation and App analysis. Asks about robot model and labware if unknown.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need one script that runs the same plate-stamping workflow on an Opentrons Flex, a Hamilton STAR and a Tecan, swapping the backend depending on the lab.",
+      "expected_output": "Recognizes that a vendor-agnostic multi-robot workflow belongs with PyLabRobot rather than the Opentrons Protocol API, and does not write an Opentrons-specific protocol.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pylabrobot"
+    },
+    {
+      "id": 5,
+      "prompt": "I'm analyzing absorbance readings from a plate reader export in plate_data.csv. How do I fit a four-parameter logistic curve and compute IC50 values in pandas/scipy?",
+      "expected_output": "Gives a data-analysis answer using scipy curve_fit for a 4PL model and IC50 extraction. It does not involve writing or reviewing Opentrons protocols.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "datamol",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get a canonical, standardized SMILES out of a messy list of vendor SMILES using datamol?",
+      "expected_output": "Uses dm.to_mol on each SMILES, checks for None, then applies dm.standardize_mol or dm.standardize_smiles (with fix_mol/sanitize as needed) and converts back with dm.to_smiles. Handles parse failures instead of silently dropping them.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have vendor_library.sdf with about 40k compounds and I need to split it into train/test for a QSAR model without scaffold leakage. Then I want 2048-bit ECFP fingerprints for each compound. It's slow, so please use all cores. Can you write the script?",
+      "expected_output": "Reads the SDF with dm.read_sdf(n_jobs=-1), standardizes molecules and drops None, computes Bemis-Murcko scaffolds (dm.to_scaffold_murcko), groups molecules by scaffold and assigns whole scaffold groups to train or test so no scaffold appears in both. Computes ECFP via dm.to_fp or dm.fingerprint_mol with parallelism, and notes scale limits.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got 5,000 hit compounds from a screen and can only afford to order 96. I want those 96 to cover as much chemical space as possible and not be near-duplicates of each other. How should I pick them?",
+      "expected_output": "Recommends diversity picking, e.g. dm.pick_diverse (MaxMin) on fingerprints, or dm.cluster_mols (Butina) and taking one centroid per cluster. Warns that full-distance-matrix Butina clustering scales poorly past about 1,000 molecules, so pick_diverse is better for 5,000.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Using plain RDKit, I want to write a custom Morgan fingerprint with radius 3, count-based, with chirality and a custom atom invariants generator. Show me how to set up the rdFingerprintGenerator.",
+      "expected_output": "Uses RDKit directly (rdFingerprintGenerator.GetMorganGenerator with radius, countSimulation or count output, includeChirality and custom invariant generators), since this calls for fine-grained control rather than datamol's wrapper.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "rdkit"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a list of 20k candidate molecules. Filter them with Lipinski rules and drop anything that matches PAINS or Brenk structural alerts.",
+      "expected_output": "Uses the medchem library, with RuleFilters for Lipinski and the PAINS and Brenk alert sets, rather than datamol's general cheminformatics functions.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "medchem"
+    }
+  ]
+}

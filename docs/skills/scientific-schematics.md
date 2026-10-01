@@ -1,0 +1,25 @@
+---
+title: "scientific-schematics — AI agent skill for visualization and presentation"
+description: "Generates publication-style scientific diagrams as raster PNG images from a natural-language prompt, using Nano Banana 2 via OpenRouter, then scores each…"
+---
+
+# `scientific-schematics`
+
+> Generates publication-style scientific diagrams as raster PNG images from a natural-language prompt, using Nano Banana 2 via OpenRouter, then scores each image with Gemini 3.6 Flash against a document-type threshold (journal, conference, thesis, grant, preprint, poster, etc.) and regenerates up to twice. Writes versioned PNGs and a review_log.json. Use when drawing neural network architectures, CONSORT or PRISMA flowcharts, biological signaling pathways, system or block diagrams, or circuit schematics. Use when a figure needs a quality score and critique recorded for a paper, poster, or grant. Not for vector, PDF, SVG, or EPS output, or for data plots; use a plotting skill for those. Prompts leave the machine, so avoid unpublished or patient data.
+
+**Category:** [visualization-and-presentation](/skills#visualization-and-presentation) · **License:** MIT · **Version:** 1.7
+
+## Install
+
+```bash
+npx research-agent-skills install scientific-schematics
+npx skills add KalarisLabs/research-agent-skills --skill scientific-schematics
+```
+
+## When to use it
+
+Generates publication-style scientific diagrams as raster PNG images from a natural-language prompt, using Nano Banana 2 via OpenRouter, then scores each image with Gemini 3.6 Flash against a document-type threshold (journal, conference, thesis, grant, preprint, poster, etc.) and regenerates up to twice. Writes versioned PNGs and a review_log.json. Use when drawing neural network architectures, CONSORT or PRISMA flowcharts, biological signaling pathways, system or block diagrams, or circuit schematics. Use when a figure needs a quality score and critique recorded for a paper, poster, or grant. Not for vector, PDF, SVG, or EPS output, or for data plots; use a plotting skill for those. Prompts leave the machine, so avoid unpublished or patient data.
+
+## Full playbook
+
+Read [SKILL.md](https://github.com/KalarisLabs/research-agent-skills/blob/main/skills/scientific-schematics/SKILL.md) for the complete workflow, references and any scripts. The agent installer copies the full skill folder.

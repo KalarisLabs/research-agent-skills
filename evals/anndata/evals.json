@@ -1,0 +1,40 @@
+{
+  "skill_name": "anndata",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I read a .h5ad file in backed mode so it doesn't load into RAM?",
+      "expected_output": "Shows ad.read_h5ad(path, backed='r') (or 'r+'), explains X stays on disk while obs/var load in memory, and notes that subsetting or in-memory operations need .to_memory() or a copy. Does not use deprecated ad.read.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have three batches saved as batch1.h5ad, batch2.h5ad and batch3.h5ad with different gene panels. I ran `adata1.concatenate(adata2, adata3)` and got a FutureWarning, and the result is missing a lot of genes. How do I combine them properly, keep track of which batch each cell came from, and keep the union of genes?",
+      "expected_output": "Replaces the deprecated .concatenate() with ad.concat([...], join='outer', label='batch', keys=[...]), explains inner vs outer join and that outer fills missing genes (with 0/NaN, fill_value), mentions merge strategy for var and checking obs_names uniqueness (index_unique). Suggests checking the result on a small subset first.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got a cell-by-gene count matrix in a CSV, a separate table of cell metadata (donor, tissue, sequencing run), and a gene annotation table. I want to bundle everything into one object that I can slice by cell or gene and save as a single file for collaborators in the scverse ecosystem. How should I set that up?",
+      "expected_output": "Recommends building an AnnData with X (sparse if appropriate), obs and var as DataFrames whose indices are aligned to the matrix rows/columns, checks index alignment and orientation (cells as rows), and writes with write_h5ad (optionally with compression). Mentions converting strings to categoricals and verifying shapes before writing.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a filtered h5ad of PBMCs. Run QC, normalize, find highly variable genes, compute PCA/UMAP, cluster with Leiden, and find marker genes per cluster.",
+      "expected_output": "Recognizes this as a standard analysis workflow and uses the scanpy skill (sc.pp, sc.tl, sc.pl), not the anndata data-format skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scanpy"
+    },
+    {
+      "id": 5,
+      "prompt": "Pull all human lung cells from the CELLxGENE Census for a COPD vs. healthy comparison and give me the cell counts per cell type and donor.",
+      "expected_output": "Recognizes this as a population-scale Census query and uses cellxgene-census (open_soma, obs queries with value_filter), not the anndata skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "cellxgene-census"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "deepspeed",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I turn on ZeRO stage 3 with CPU offload in my DeepSpeed config?",
+      "expected_output": "Gives a ds_config.json with zero_optimization stage 3 and offload_optimizer/offload_param device set to cpu (pin_memory true), plus bf16 or fp16 enabled and batch size settings. Mentions launching with the deepspeed launcher or deepspeed.initialize.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning a 13B model on 8x A100 with train.py and keep getting CUDA OOM during optimizer step even at stage 2. We have a 3.2TB local NVMe at /local_nvme. Can I push optimizer states and params there? What should the config look like and how do I know my drive is being used efficiently?",
+      "expected_output": "Recommends ZeRO-Infinity: stage 3 with offload_optimizer and offload_param device 'nvme' and nvme_path '/local_nvme', plus an aio section (block_size, queue_depth, intra_op_parallelism, overlap_events). Suggests verifying async_io is [OKAY] in ds_report (libaio-dev) and tuning with ds_nvme_tune.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need to checkpoint a big CUDA tensor to disk without stalling my training loop, ideally overlapping the write with compute. What's the fastest way using DeepSpeed's I/O tools?",
+      "expected_output": "Explains DeepNVMe: create an aio_handle (or gds_handle for CUDA tensors) via AsyncIOBuilder/GDSBuilder, use pinned tensors, call async_pwrite then h.wait() before modifying the source tensor to avoid data races. Mentions intra_op_parallelism for parallel writes and requires DeepSpeed >= 0.15.0.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Set up my existing PyTorch training script to run on 4 GPUs with bf16 mixed precision and gradient accumulation using HuggingFace Accelerate's accelerate config and accelerate launch.",
+      "expected_output": "Should use the huggingface-accelerate skill: wrap the script with the Accelerator class, run accelerate config, set mixed_precision bf16 and gradient accumulation, and launch with accelerate launch. DeepSpeed is not required.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "huggingface-accelerate"
+    },
+    {
+      "id": 5,
+      "prompt": "How should I choose tensor, pipeline and context parallel sizes to train a 70B LLM with FP8 on H100s using Megatron-Core?",
+      "expected_output": "Should use the training-llms-megatron skill: explain choosing TP/PP/DP/CP sizes for the cluster, FP8 on H100, micro-batch tuning and launch options for Megatron-Core, not DeepSpeed ZeRO.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "training-llms-megatron"
+    }
+  ]
+}

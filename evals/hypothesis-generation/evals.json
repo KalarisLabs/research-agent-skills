@@ -1,0 +1,39 @@
+{
+  "skill_name": "hypothesis-generation",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My knockout mice gain less weight on high-fat diet than wild-type. What could explain that and how would I test it?",
+      "expected_output": "Lists several rival candidate explanations from different classes (mechanism, measurement artifact, confounding such as cage or litter effects, food intake differences), each labeled as candidate rather than fact, with discriminating predictions and controls. Notes animal-work oversight (IACUC) and does not claim causation.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a cohort file, ehr_statin_dementia_v3.csv (n≈48k, de-identified, from our hospital). Statin users show lower dementia incidence over 8 years. I want to write a preregistration for a follow-up paper at an epidemiology journal. Can you help me turn this into a testable plan?",
+      "expected_output": "First checks data authorization and keeps the data local. Freezes the observation as an association, states the claim type and a causal estimand with a target-trial analogue, and lists rivals (healthy-user bias, reverse causation/prodromal confounding, selection, immortal time). Gives predictions, negative controls, measurement definitions, and a preregistration-ready analysis plan with multiplicity and missing-data handling, without fabricating approvals or giving clinical advice.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We saw a surprising dip in soil microbial diversity after the wildfire at our three field sites, and I'm not sure what to make of it or what to measure next. Help me think through what's going on and design a sensible next study.",
+      "expected_output": "Separates the observation from interpretation, frames a research question, and proposes distinct rival explanations (fire effects, pre-existing site differences, sampling or sequencing artifacts, seasonal variation). Gives discriminating predictions, measurements, and design choices. Labels novelty claims as unresolved and distinguishes exploratory from confirmatory analysis.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm using pyvene to patch residual stream activations in GPT-2 to test whether layer 8 causes the indirect-object behavior. How do I set up the interchange intervention config?",
+      "expected_output": "Directs the user to pyvene's declarative intervention setup, covering the intervention config, the layer and component targeting, and the base and source inputs. This is code-level model-intervention help, not research hypothesis formulation.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pyvene-interventions"
+    },
+    {
+      "id": 5,
+      "prompt": "Run a two-sample t-test in R on my expression data and make a boxplot with significance stars.",
+      "expected_output": "Provides R code for a t-test and a boxplot with annotations. No hypothesis-generation or preregistration planning is needed.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

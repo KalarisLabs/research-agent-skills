@@ -1,0 +1,194 @@
+{
+  "model": "claude-haiku-4-5-20251001",
+  "judge_model": "claude-haiku-4-5-20251001",
+  "graded": 23,
+  "errors": 0,
+  "win_rate": 0.9130434782608695,
+  "mean_delta": 3.0869565217391304,
+  "results": [
+    {
+      "skill": "abstract-and-title",
+      "prompt": "Cut my 320-word abstract to 250 words for PLOS ONE and suggest three better titles.",
+      "winner": "skill",
+      "skill_score": 7,
+      "baseline_score": 6,
+      "reason": "Both correctly identify missing input, but B provides better scaffolding by signaling that key numbers matter\u2014aligned with PLOS ONE standards and the rubric's emphasis on numbers being retained."
+    },
+    {
+      "skill": "acm-sigconf",
+      "prompt": "Set up my CHI 2026 submission in acmart with anonymous review mode and CCS concepts.",
+      "winner": "skill",
+      "skill_score": 8,
+      "baseline_score": 5,
+      "reason": "Answer A uses incorrect `[chi, anonymous, review]` instead of the rubric-specified `sigconf,review,anonymous` setup; Answer B provides the correct document class, includes CCSXML, offers anonymization guidance (third-person writing, code anonymization), and camera-ready instructions, though neither explicitly covers alt text or provides a formal anonymization checklist."
+    },
+    {
+      "skill": "apa7",
+      "prompt": "Convert my reference list to APA 7th edition and fix the heading levels in my thesis.",
+      "winner": "skill",
+      "skill_score": 8,
+      "baseline_score": 5,
+      "reason": "Answer A explicitly details all 5 APA heading levels with precise formatting specifications (e.g., Level 4: indented, bold, Title Case, Period), directly addressing the rubric requirement; Answer B vaguely references heading hierarchy without specificity or the 5-level requirement, and neither adequately emphasizes DOI-as-URL conversion for APA 7."
+    },
+    {
+      "skill": "arxiv-submission",
+      "prompt": "arXiv failed to compile my paper, help me prepare the source upload.",
+      "winner": "skill",
+      "skill_score": 8,
+      "baseline_score": 4,
+      "reason": "Answer A specifically addresses .bbl, paths, comments, and pdfoutput from the rubric with expert detail and actionable guidance; Answer B is generic and misses most rubric requirements, including any mention of preflight tools or pdfoutput, and asks about paper format (odd when arXiv requires LaTeX source)."
+    },
+    {
+      "skill": "bibtex-hygiene",
+      "prompt": "My refs.bib has duplicates and BERT shows up lowercase in the bibliography. Clean it.",
+      "winner": "skill",
+      "skill_score": 8,
+      "baseline_score": 2,
+      "reason": "Answer A falsely claims lack of file access and never mentions bib_lint.py; Answer B names the required tool, proactively searches for the file, and correctly explains the three-part fix (duplicates, lowercase acronyms, bracing conventions)."
+    },
+    {
+      "skill": "cell-press",
+      "prompt": "Write highlights, an eTOC blurb and the Key Resources Table for our Cell Reports submission.",
+      "winner": "baseline",
+      "skill_score": 7,
+      "baseline_score": 7.5,
+      "reason": "Answer B provides immediately actionable format guidance (4-5 bullets ~100 chars, ~40 words eTOC), which aligns with actual Cell Reports specs and is more useful to a time-constrained researcher, while Answer A's promise to verify limits is undermined by asking the user to confirm them instead, though Answer A is slightly stronger on RRID specificity."
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "ChatGPT wrote my references. Check that every entry in references.bib actually exists.",
+      "winner": "skill",
+      "skill_score": 5,
+      "baseline_score": 3,
+      "reason": "Both fail the rubric by not mentioning verify_citations.py, but Answer B is more specific and useful: it names actual citation databases (Crossref, OpenAlex, arXiv) a researcher would rely on, while Answer A offers only generic verification steps."
+    },
+    {
+      "skill": "cover-letter-to-editor",
+      "prompt": "Write a cover letter submitting our manuscript to Science, with suggested reviewers.",
+      "winner": "skill",
+      "skill_score": 5,
+      "baseline_score": 2,
+      "reason": "Answer A provides a structured, actionable checklist for the information needed to write a strong cover letter (title, finding with number, journal context, declarations, reviewers); Answer B questions the premise when the request is already clear, and neither delivers the promised one-page letter, but A at least demonstrates understanding of what Science requires and moves toward fulfilling the task."
+    },
+    {
+      "skill": "ieee-transactions",
+      "prompt": "Format my paper with IEEEtran for IEEE Transactions on Neural Networks and add index terms.",
+      "winner": "skill",
+      "skill_score": 8,
+      "baseline_score": 5,
+      "reason": "Answer B directly addresses 3 of 4 rubric elements (journal mode, Index Terms rules, IEEE refs) with specific technical details, while Answer A remains generic with no mention of the rubric requirements; Answer B's omission of page-limit checking is minor compared to Answer A's complete silence on all formatting specifics."
+    },
+    {
+      "skill": "nature-portfolio",
+      "prompt": "Reformat our paper for Nature: summary paragraph, Methods, Extended Data and reporting summary.",
+      "winner": "skill",
+      "skill_score": 8,
+      "baseline_score": 4,
+      "reason": "Answer B verifies specific Nature limits (10 extended data figures/tables, ~150-word summary), lists mandatory reporting statements (sample sizes, statistical tests, blinding, ethics, data availability), and demonstrates actionable knowledge of Nature's structure; Answer A makes generic promises without verifying any guidelines or specifics required by the rubric."
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "I have 300 PDFs of papers. Let me ask questions and get answers with citations to the exact passages.",
+      "winner": "skill",
+      "skill_score": 8,
+      "baseline_score": 5,
+      "reason": "Answer B explicitly proposes the 'file#chunk' citation format required by the rubric and provides concrete technical solutions (BM25, SQLite indexing, PDF\u2192Markdown conversion) with immediate next steps, while Answer A offers generic advice that doesn't demonstrate knowledge of the specific indexing and citation approach outlined in the rubric."
+    },
+    {
+      "skill": "plos",
+      "prompt": "What do I need for the PLOS ONE data availability statement and ethics statement?",
+      "winner": "baseline",
+      "skill_score": 6,
+      "baseline_score": 7,
+      "reason": "Answer A maintains accuracy without overstatement, while Answer B's opening claim that data 'must be fully available without restriction' misrepresents PLOS ONE policy, which explicitly accommodates restricted access with justification."
+    },
+    {
+      "skill": "rebuttal-and-response-to-reviewers",
+      "prompt": "We got major revisions with 3 reviewers. Help me write the response letter.",
+      "winner": "skill",
+      "skill_score": 7.5,
+      "baseline_score": 6,
+      "reason": "Answer A explicitly promises triage and point-by-point replies with direct quotes/citations (hitting 2/3 rubric elements), asks smarter clarifying questions (journal type matters for strategy), and provides more structured deliverables; Answer B mentions respectful disagreement but misses triage table, locations specificity, and is less procedurally concrete."
+    },
+    {
+      "skill": "reference-manager-interop",
+      "prompt": "Convert my Mendeley RIS export to BibTeX for Overleaf.",
+      "winner": "skill",
+      "skill_score": 9,
+      "baseline_score": 5,
+      "reason": "Answer A directly invokes the convert_refs.py script from the rubric with explicit ris->bib conversion and migration checks (verification), while Answer B uses generic language and omits the specific tooling and verification requirements."
+    },
+    {
+      "skill": "research-knowledge-graph",
+      "prompt": "Build a citation network from my Zotero library and find the most influential and bridging papers.",
+      "winner": "skill",
+      "skill_score": 6,
+      "baseline_score": 4,
+      "reason": "Answer A explicitly covers all three required NetworkX analyses (in-degree/betweenness/Louvain communities) and provides actionable Zotero export guidance, while Answer B omits community detection, substitutes PageRank for in-degree, and is vaguer; neither delivers the rubric-required build_graph.py script or OpenAlex integration, but A is more aligned with the specification."
+    },
+    {
+      "skill": "research-skill-creator",
+      "prompt": "Turn our lab's qPCR analysis workflow into a reusable agent skill and contribute it.",
+      "winner": "skill",
+      "skill_score": 8,
+      "baseline_score": 4,
+      "reason": "Answer B directly scaffolds the rubric elements (new_skill.py, SKILL.md, script contract, evals, validation), while Answer A ignores them entirely and asks generic questions; B is also technically specific (\u0394\u0394Ct, curve fitting, QC checks) whereas A could apply to any workflow."
+    },
+    {
+      "skill": "science-aaas",
+      "prompt": "Prepare our manuscript as a Science Report with a one-sentence summary.",
+      "winner": "skill",
+      "skill_score": 6,
+      "baseline_score": 3,
+      "reason": "Answer A demonstrates awareness of Science Report requirements (limits, structure, structured abstract, ethics, data availability) and promises verification; Answer B provides only generic clarification without addressing the rubric's specific elements (limits, structure, numbered refs/notes, supplementary material)."
+    },
+    {
+      "skill": "springer-lncs",
+      "prompt": "Prepare the LNCS camera-ready for our MICCAI paper with ORCIDs.",
+      "winner": "skill",
+      "skill_score": 9,
+      "baseline_score": 3,
+      "reason": "Answer A directly addresses all five rubric items (llncs setup with runningheads, splncs04 bibliography style, orcidID macro usage, consent-to-publish form requirement, no-layout-changes warning) with working code; Answer B asks clarifying questions and mentions items vaguely but provides no templates, splncs04 reference, orcidID implementation, or consent-to-publish guidance."
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Plan a systematic review of exercise interventions for depression and make the PRISMA flow diagram.",
+      "winner": "skill",
+      "skill_score": 8,
+      "baseline_score": 2,
+      "reason": "Answer B delivers comprehensive PICO framework, search strategies per database, PROSPERO registration, deduplication workflow, and PRISMA flow diagrams with consistent count scaffolding\u2014meeting 5 of 6 rubric criteria; Answer A defers without providing any actual protocol content, meeting none of the rubric requirements; Answer B's only gap is the missing prisma_flow.py script."
+    },
+    {
+      "skill": "unslop-academic-writing",
+      "prompt": "My introduction sounds like ChatGPT wrote it: delve, pivotal role, tapestry. Rewrite it so it reads like a human researcher.",
+      "winner": "skill",
+      "skill_score": 6,
+      "baseline_score": 2,
+      "reason": "Answer B engages the actual problem and follows the rubric's 'fix content before words' principle, while Answer A avoids the work and ignores the requirement to run slop_check.py and re-measure; however, Answer B also misses the explicit tool requirement, costing it points."
+    },
+    {
+      "skill": "unslop-academic-writing",
+      "prompt": "Remove the AI slop and em dashes from this thesis chapter without changing the claims.",
+      "winner": "skill",
+      "skill_score": 9,
+      "baseline_score": 6,
+      "reason": "Answer B directly addresses the rubric's core requirements (linter-guided approach, hedges sized to evidence) with specific methodology, while A offers only generic promises without addressing the technical approach or the rubric's key criteria."
+    },
+    {
+      "skill": "elsevier-cas",
+      "prompt": "Prepare my manuscript for an Elsevier journal using the CAS double-column template with highlights and a CRediT statement.",
+      "winner": "skill",
+      "skill_score": 8,
+      "baseline_score": 5,
+      "reason": "Answer A omits generative AI disclosure and skips Guide for Authors verification\u2014both explicit rubric requirements\u2014while Answer B correctly identifies these as essential and builds a plan that will deliver journal-specific compliance."
+    },
+    {
+      "skill": "reproducibility-statement",
+      "prompt": "Fill in the NeurIPS checklist and write our data and code availability statements.",
+      "winner": "skill",
+      "skill_score": 8,
+      "baseline_score": 4,
+      "reason": "Answer B directly addresses all rubric items (venue-specific NeurIPS guidance like LLM disclosure, persistent identifiers via Zenodo/GitHub/domain repositories, artifact packaging via environment files), while A is generic and omits these; B's structured, specific questions would guide a researcher to produce submission-ready materials, whereas A requires re-clarification."
+    }
+  ]
+}

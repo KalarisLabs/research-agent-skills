@@ -1,0 +1,40 @@
+{
+  "skill_name": "ray-data",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I read a folder of parquet files with Ray Data and apply a map_batches transform?",
+      "expected_output": "Shows ray.data.read_parquet on the folder path, then ds.map_batches with a vectorized function and a sensible batch_size. Notes lazy streaming execution and that the API should be checked against the installed Ray version.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have about 2 TB of JPEGs in s3://lab-microscopy/plates/ and a ResNet-50 checkpoint. I need to run inference on all of them across 8 GPU nodes, but my current PyTorch DataLoader script runs out of memory and the GPUs sit idle. Write the pipeline and save predictions as parquet.",
+      "expected_output": "Builds a Ray Data pipeline: read_images from S3, map_batches with a class-based callable using GPU actors (num_gpus, concurrency), a tuned batch_size, and write_parquet for the output. Checks GPU memory, checkpoint licence and Ray version first, tests on a small sample before the full run, and asks before consuming shared cluster or cloud quota.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My preprocessing of a huge pile of sequencing-derived tables and microscopy images takes days on one workstation and won't fit in RAM. I'd like to stream it through tokenization and normalization steps over a cluster and feed the result straight into training. What's a good way to do this?",
+      "expected_output": "Recommends a streaming distributed data pipeline (Ray Data) that reads the formats lazily, applies map_batches or map transforms across CPU or GPU workers, and passes the dataset to the trainer, for example through Ray Train's iter_torch_batches or a dataset shard. Asks about data formats, sizes, and cluster resources before committing to a design.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to launch a multi-node PyTorch training run for a 7B model with fault tolerance and hyperparameter sweeps using Ray Tune. How do I set up the TorchTrainer and scaling config?",
+      "expected_output": "Recognizes this as distributed training orchestration, not data processing, and points to the ray-train skill (TorchTrainer, ScalingConfig, Ray Tune, checkpointing).",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ray-train"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a 400 MB CSV of patient lab values on my laptop. I want to do a lazy group-by, join it with another table, and compute rolling means. Which tool and what code?",
+      "expected_output": "Recognizes this as small, single-machine tabular work that needs no cluster. Recommends polars with lazy expressions, group_by, join and rolling operations (pandas is also acceptable), and does not recommend Ray Data.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "polars"
+    }
+  ]
+}

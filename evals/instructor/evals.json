@@ -1,0 +1,40 @@
+{
+  "skill_name": "instructor",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have 300 free-text clinical trial abstracts. How do I get a typed Python object out of each one with sample size, intervention, and primary endpoint?",
+      "expected_output": "Uses Instructor with a Pydantic response model (e.g. sample_size: int, intervention: str, primary_endpoint: str, Optional fields where absent). Runs a single abstract first and inspects the output, then batches. Mentions validation and max_retries, and asks which provider/model to use before spending API credits.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "pydantic ValidationError: 1 validation error for PaperMeta, year: Input should be less than or equal to 2026 [input_value=2206]. My extraction from Claude keeps failing on this. Can I make it fix itself instead of crashing?",
+      "expected_output": "Explains that Instructor's max_retries re-sends the validation error to the model so it can correct the output. Shows from_anthropic or instructor.from_provider with response_model=PaperMeta and max_retries=3. Suggests a Field(ge/le) or field_validator with a clear error message and a Field description. Notes how to catch InstructorRetryException if retries are exhausted.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm labeling 5,000 patient forum posts as one of: symptom report, medication question, side effect, or other. The model's replies are sloppy and I need every answer to be exactly one of those labels as a Python value, running locally through Ollama. Best approach?",
+      "expected_output": "Recommends defining an Enum (or Literal) for the four categories in a Pydantic model and calling Instructor against Ollama's OpenAI-compatible endpoint, using JSON mode. Adds retries for invalid labels. Notes the sensitivity of patient data (local inference is fine) and suggests testing on a small labeled subset first.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "My DSPy pipeline for question answering over papers scores 62% on my dev set. How can I automatically optimize the prompts and few-shot examples to improve it?",
+      "expected_output": "Recognizes this is prompt optimization, not structured extraction. Recommends DSPy optimizers (e.g. MIPROv2 or BootstrapFewShot) with a metric and a dev set, and does not use Instructor.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "dspy"
+    },
+    {
+      "id": 5,
+      "prompt": "I'm running Llama 3 through llama.cpp with a GBNF-style constraint and want to force output to match the regex ^[A-Z]{2}\\d{6}$ at the token level, with no retries. What should I use?",
+      "expected_output": "Recognizes that token-level regex-constrained generation on a local llama.cpp backend belongs to a constrained-decoding library such as Outlines or Guidance, not Instructor's validate-and-retry approach. Explains the difference briefly.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "outlines"
+    }
+  ]
+}

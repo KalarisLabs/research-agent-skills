@@ -1,0 +1,39 @@
+{
+  "skill_name": "pufferlib",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I wrap my PettingZoo parallel env for PufferLib without breaking anything?",
+      "expected_output": "Asks for or pins the PufferLib version (3.0.0 vs 4.0 source) and uses the explicit 3.0 PettingZoo wrapper rather than a nonexistent `pufferlib.emulate`. Recommends reviewing the environment first, validating the contract and serial vectorization, and notes that batch length is based on agent slots.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I ran `pip install pufferlib` and copied the 4.0 README's `puffer train` config into my script, but now `from pufferlib import vector` works while the config keys I copied are rejected. My env is a Gymnasium CartPole variant in my_env.py. What's going on and how do I get it training?",
+      "expected_output": "Explains that PyPI's stable 3.0.0 and the 4.0 source line are incompatible, so 3.0 imports must not be mixed with 4.0 config/CLI. Has the user choose one profile, with a pinned uv project for 3.0.0 or a commit-pinned 4.0 source build in a sandbox. Suggests validating the env contract and generating a dry-run training plan with bounded resources and separate eval seeds.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "A collaborator sent me a trained policy file, model_final.pt, for our multi-agent sim. I want to evaluate it on held-out seeds and log results to Weights & Biases. How should I proceed safely?",
+      "expected_output": "Says not to call torch.load on the file immediately: hash the bytes and inspect metadata without deserializing, verify source, architecture and env revision, then load only in a sandbox. Uses separate eval seeds. W&B logging is opt-in, with the API key only in the WANDB_API_KEY environment variable and never in args or config, and artifact upload needs separate approval.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to train a PPO agent on LunarLander-v3 with Stable-Baselines3 and tune the learning rate and n_steps. Can you show me a minimal script with an eval callback?",
+      "expected_output": "Recognizes this as a standard single-agent Gymnasium PPO task that belongs to stable-baselines3, not PufferLib. Gives an SB3 PPO script with an EvalCallback.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "stable-baselines3"
+    },
+    {
+      "id": 5,
+      "prompt": "Write a PyTorch Lightning training loop for an image classifier on CIFAR-10 with mixed precision and checkpointing.",
+      "expected_output": "Recognizes this as supervised deep learning with no reinforcement-learning or PufferLib content, and answers directly with a Lightning example.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "scanpy",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I cluster my PBMC h5ad and get UMAP plots?",
+      "expected_output": "Gives a Scanpy workflow, preferably the bundled scripts (run_pipeline.py or reduce_dimensions.py then cluster.py). It covers normalization/HVG, PCA, neighbors, UMAP and Leiden (not louvain), and suggests trying more than one resolution.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a mouse cortex 10x dataset in ./filtered_feature_bc_matrix/ (3 samples, 'sample' column to be added). I need to run QC with mito filtering at a threshold that makes sense for brain tissue, flag doublets, normalize, integrate the samples, and find markers per cluster. Running sc.tl.louvain gives me a deprecation warning. What should I do?",
+      "expected_output": "Converts the 10x directory to h5ad (convert.py), runs QC after inspecting the mito/count distributions rather than using default thresholds, adds Scrublet doublet detection, preserves raw counts, and integrates with batch_correct.py by batch key (harmony/bbknn). It switches to Leiden because louvain is deprecated in scanpy 1.12 (needs the [leiden] extra), then runs rank_genes_groups for markers.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "A collaborator sent me a Seurat object saved as pbmc_annotated.rds with cell type labels in the metadata. I want to explore it in Python and look at the clusters and make a dotplot of marker genes. How should I get started?",
+      "expected_output": "Says the .rds must not be parsed directly in Python. It converts the Seurat object to .h5ad using R tooling (per references/r_interop.md), keeping counts, metadata and gene IDs, then loads it with Scanpy and makes the dotplot (plot.py --kind dotplot or sc.pl.dotplot grouped by cell type).",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to train scVI on my multi-batch single-cell data to correct batch effects and then run probabilistic differential expression between conditions. How do I set up the model with a GPU?",
+      "expected_output": "Recognizes this as a deep generative modeling task and uses scvi-tools (setup_anndata, SCVI model training, differential_expression), not the Scanpy classical pipeline.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scvi-tools"
+    },
+    {
+      "id": 5,
+      "prompt": "What's the difference between adata.X, adata.raw and adata.layers, and how do I write an AnnData object to a zarr store while keeping obsm intact?",
+      "expected_output": "Answers as an AnnData data structure and I/O question (X, raw, layers, obsm, zarr writing), without running a Scanpy analysis workflow.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "anndata"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "peft-fine-tuning",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I pick LoRA rank and alpha for a 13B model?",
+      "expected_output": "Recommends starting at r=8-16 with alpha around 2x rank, notes that higher rank (32-64) suits complex tasks or domain adaptation, and mentions choosing target modules (attention plus MLP layers) and evaluating before increasing rank.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm trying to QLoRA fine-tune Llama-3.1-8B on my 24GB RTX 4090 using train.jsonl with TRL's SFTTrainer, but I get 'CUDA out of memory' after about 40 steps at max_seq_length 4096. Here's my BitsAndBytesConfig and LoraConfig (r=64, all linear layers). What should I change?",
+      "expected_output": "Diagnoses OOM and suggests 4-bit NF4 quantization with bf16 compute, gradient checkpointing, smaller per-device batch size with gradient accumulation, lower rank or fewer target modules, and shorter sequence length. Shows a working PEFT/TRL config for QLoRA.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have one base Mistral-7B and three small task-specific fine-tunes (summarization, SQL generation, and clinical note extraction). I want to serve all three from a single GPU without keeping three full copies of the weights in memory, and be able to switch between them per request. How should I set that up?",
+      "expected_output": "Explains using one base model with multiple LoRA adapters: load each with PeftModel.from_pretrained/load_adapter and switch via set_adapter, or serve through vLLM with LoRA adapter support. Notes the choice between merging (single task, no overhead) and keeping adapters separate for swapping, and checks that adapters were trained on the same base.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to fine-tune Llama 3 with Unsloth notebooks to get faster training and lower VRAM on a free Colab T4. How do I configure FastLanguageModel and export to GGUF?",
+      "expected_output": "Should be handled by the unsloth skill, which covers FastLanguageModel setup and Unsloth-specific export. The PEFT skill should not be used since the request is specific to the Unsloth library.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "unsloth"
+    },
+    {
+      "id": 5,
+      "prompt": "Write an Axolotl YAML config for DPO training on a multi-GPU FSDP node with sequence parallelism for a 70B model.",
+      "expected_output": "Should be handled by the axolotl skill, which covers YAML configs, DPO preference training, FSDP and sequence parallelism. This is not a general PEFT adapter question.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "axolotl"
+    }
+  ]
+}

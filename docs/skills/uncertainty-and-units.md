@@ -1,0 +1,25 @@
+---
+title: "uncertainty-and-units — AI agent skill for ideation and design"
+description: "Track physical units and propagate measurement uncertainty in scientific calculations using pint and uncertainties."
+---
+
+# `uncertainty-and-units`
+
+> Track physical units and propagate measurement uncertainty in scientific calculations using pint and uncertainties. Use for unit conversion and dimensional checking, GUM uncertainty budgets, Type A and Type B evaluation, coverage factors and expanded uncertainty, Monte Carlo propagation, significant-figure and plus-minus reporting, error propagation through curve fits, CODATA constants, auditing Python code for stripped units or broken uncertainty propagation, and order-of-magnitude plausibility checks using dimensionless groups (Reynolds, Peclet, Damkohler, Knudsen, Biot, Womersley), characteristic scales such as diffusion time or Debye length, and observed magnitude ranges. Trigger on "is this number physically reasonable", "sanity check these units", "what regime is this flow in", or a result that looks off by orders of magnitude.
+
+**Category:** [ideation-and-design](/skills#ideation-and-design) · **License:** MIT · **Version:** 1.1
+
+## Install
+
+```bash
+npx research-agent-skills install uncertainty-and-units
+npx skills add KalarisLabs/research-agent-skills --skill uncertainty-and-units
+```
+
+## When to use it
+
+Track physical units and propagate measurement uncertainty in scientific calculations using pint and uncertainties. Use for unit conversion and dimensional checking, GUM uncertainty budgets, Type A and Type B evaluation, coverage factors and expanded uncertainty, Monte Carlo propagation, significant-figure and plus-minus reporting, error propagation through curve fits, CODATA constants, auditing Python code for stripped units or broken uncertainty propagation, and order-of-magnitude plausibility checks using dimensionless groups (Reynolds, Peclet, Damkohler, Knudsen, Biot, Womersley), characteristic scales such as diffusion time or Debye length, and observed magnitude ranges. Trigger on "is this number physically reasonable", "sanity check these units", "what regime is this flow in", or a result that looks off by orders of magnitude.
+
+## Full playbook
+
+Read [SKILL.md](https://github.com/KalarisLabs/research-agent-skills/blob/main/skills/uncertainty-and-units/SKILL.md) for the complete workflow, references and any scripts. The agent installer copies the full skill folder.

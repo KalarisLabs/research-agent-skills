@@ -1,0 +1,39 @@
+{
+  "skill_name": "audiocraft-audio-generation",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need a 15 second lo-fi hip hop clip with mellow piano and vinyl crackle. What's the quickest way to get that going locally?",
+      "expected_output": "Uses MusicGen (audiocraft or the HuggingFace Transformers route) with a small model, sets duration to about 15 seconds, and writes a text prompt. Checks GPU memory and installation first, and runs a short test generation before anything larger.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm getting CUDA out of memory when I run MusicGen.get_pretrained('facebook/musicgen-large') with duration=30 on my 8GB RTX 3070 in generate_music.py. How do I fix this? I still want batches of different prompts for a user study stimulus set.",
+      "expected_output": "Explains that large needs about 16GB in FP32 and about 8GB in FP16, so it is too tight on 8GB. Recommends musicgen-small or medium, half precision, shorter duration, or smaller batches. Notes the licence check for the generated stimuli and gives a batching approach that fits the memory.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "For a perception experiment I need a set of short ambient clips, such as dog barking, rain on a window and a door slamming, all generated from written descriptions. I also have a reference 10 s humming recording that I want one of the music clips to follow. How should I set this up?",
+      "expected_output": "Uses AudioGen (audiogen-medium) for the sound effects from text. Uses a melody-conditioned MusicGen model (musicgen-melody) with the humming file as the melody input for the music clip. Mentions generation parameters such as duration, cfg_coef and temperature, and states the model licence and that the output should be checked.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Transcribe this 20 minute interview recording (interview.wav) to text with timestamps using Whisper from Hugging Face Transformers.",
+      "expected_output": "Recognises this as speech recognition, not audio generation. Uses the transformers ASR pipeline with Whisper, with chunking for long audio and timestamps, and does not use AudioCraft.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "transformers"
+    },
+    {
+      "id": 5,
+      "prompt": "Write a Python function that computes the mean MFCC features from a folder of WAV files with librosa and saves them to a CSV.",
+      "expected_output": "Writes librosa feature-extraction code (load, MFCC, mean, CSV output). Does not use any generative audio model.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

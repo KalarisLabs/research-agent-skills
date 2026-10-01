@@ -1,0 +1,39 @@
+{
+  "skill_name": "seaborn",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you make a pair plot of my iris dataframe colored by species?",
+      "expected_output": "Uses sns.pairplot(data=df, hue='species') with keyword arguments, mentions optional diag_kind or corner settings, and checks that axes are labeled and colors are distinguishable (colorblind-safe palette).",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have expression_counts.csv with columns sample_id, condition (control/treated/rescue), gene, log2_expr. I want to compare log2_expr across the three conditions for each gene, with individual points visible, and I keep getting a FutureWarning about 'palette' without 'hue' when I run sns.boxplot(x='condition', y='log2_expr', data=df, palette='Set2'). Fix it and show the distributions.",
+      "expected_output": "Loads the CSV locally with pandas, explains that in seaborn 0.13 passing palette without hue is deprecated and fixes it by setting hue='condition' with legend=False. Uses keyword arguments, overlays a stripplot or swarmplot for individual points, and may facet by gene with a figure-level function. Labels axes with units.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got a table of 40 patient biomarkers and I want to see which ones move together and group similar ones, as a color-coded grid I can drop into a lab meeting slide. What should I do?",
+      "expected_output": "Recommends computing a correlation matrix with pandas and plotting it with sns.heatmap or sns.clustermap, with a diverging colormap centered at 0, annotated or readable labels, and a note about the correlation method chosen. Checks legibility at slide size and asks or states assumptions about missing data.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need an interactive scatter plot of my UMAP embedding where I can hover over points to see cell IDs and zoom into clusters, exported as an HTML file.",
+      "expected_output": "Should not use seaborn since it produces static matplotlib figures; recommends plotly (e.g., plotly.express.scatter with hover_data) and writing to HTML.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "I'm building a custom figure in matplotlib with a hand-placed inset axes, a broken y-axis, and custom annotation arrows, then exporting to SVG for Illustrator. How do I position everything precisely?",
+      "expected_output": "Should defer to matplotlib for low-level control of axes placement, inset axes, annotations, and SVG export, rather than seaborn's high-level statistical plotting.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "matplotlib"
+    }
+  ]
+}

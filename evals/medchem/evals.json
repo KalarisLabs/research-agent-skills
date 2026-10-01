@@ -1,0 +1,40 @@
+{
+  "skill_name": "medchem",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I strip PAINS hits out of a SMILES list with medchem?",
+      "expected_output": "Shows the medchem approach: either the functional API (e.g. mc.functional.catalog_filter or nibr/common alerts) returning a boolean mask where True means pass, or NamedCatalogs for PAINS. Notes that molecules should be parsed and sanitized first and that failures are reported rather than silently dropped. Does not invent functions.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have hits.csv with ~40k compounds (columns: id, smiles) from a biochemical screen. I need to keep those passing Lipinski and Veber, drop anything with NIBR severity >= 10 or Brenk alerts, and keep the reasons for each rejection for the audit trail. It's slow on my laptop. What should I run?",
+      "expected_output": "Runs a small subset first, then uses RuleFilters for the Lipinski and Veber rules and the structural NIBR and alert filters, which return DataFrames with pass_filter, status and reasons columns. Uses n_jobs=-1 for the large library, merges the results, keeps status, reasons and severity columns, and reports versions and parameters. Flags any SMILES that fail to parse.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm prioritizing a set of kinase inhibitor hits for lead optimization. I want only compounds that are CNS-friendly, have no reactive or toxic substructures, and contain a benzene ring or an amide. Can I express all of that as a single combined filter instead of chaining several steps?",
+      "expected_output": "Recommends the medchem query language via QueryFilter, combining MATCHRULE for the CNS rule, NOT HASALERT for the alert catalogs (e.g. brenk, tox), and HASSUBSTRUCTURE joined with OR, using AND/OR/NOT. Notes that the syntax should be checked against the installed version and that filters are guidelines, not absolute rules.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Using RDKit, compute Morgan fingerprints (radius 2, 2048 bits) for my SMILES file and build a Tanimoto similarity matrix against a reference compound.",
+      "expected_output": "Should not use medchem. Uses RDKit (rdkit skill) to generate Morgan fingerprints and compute Tanimoto similarity, since this is fingerprint and similarity work, not drug-likeness filtering.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "rdkit"
+    },
+    {
+      "id": 5,
+      "prompt": "Standardize my SMILES with datamol, run Butina clustering, and pick a diverse subset of 500 molecules.",
+      "expected_output": "Should not use medchem. Uses datamol for sanitization/standardization, Butina clustering and diverse subset picking.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "datamol"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "qiskit",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run a Bell state circuit locally in Qiskit and get the counts?",
+      "expected_output": "Builds a 2-qubit H+CX circuit with measurements, runs it with StatevectorSampler (V2 primitive, PUB input), and reads counts from the classical register by its actual name (e.g. 'meas' for measure_all or 'c'), showing roughly 00/11 outcomes. Does not use the deprecated execute() or V1 Sampler.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm getting 'The instruction cx is not supported by the target' when I submit my VQE ansatz ansatz.py to ibm_brisbane through EstimatorV2 with a SparsePauliOp H2 Hamiltonian. The job fails right away. What am I doing wrong and how do I fix it?",
+      "expected_output": "Explains that Runtime primitives require ISA circuits: transpile the ansatz once against the backend target with generate_preset_pass_manager, then map the observable with observable.apply_layout(isa_circuit.layout) before building the PUB. Passes mode=backend/session/batch and does not use backend.configuration().",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a parameterized circuit for a variational energy minimization and want to run the optimization loop on real IBM quantum hardware without wasting queue time between iterations or re-compiling every step. What's the right way to structure the runs, and how can I reduce the effect of hardware noise on the energies?",
+      "expected_output": "Recommends transpiling the parameterized circuit once for the backend, passing parameter value arrays in PUBs, and using a Runtime Session (noting it is unavailable on the Open Plan; Batch otherwise) with EstimatorV2 and resilience_level or mitigation options. Advises recording options, job IDs, and metadata, and warns mitigation is not guaranteed to help and adds cost.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to train a hybrid quantum-classical neural network with automatic differentiation and gradient descent, with the same code portable across IBM, IonQ and Rigetti devices. How should I set it up?",
+      "expected_output": "Should recommend PennyLane, which provides autodiff, hybrid model support and device portability, rather than building the workflow with Qiskit primitives.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pennylane"
+    },
+    {
+      "id": 5,
+      "prompt": "I need to design a noise-aware circuit for Google's Willow processor and run a randomized benchmarking experiment using Cirq's device specifications.",
+      "expected_output": "Should use Cirq, which targets Google Quantum AI hardware and noise modeling, not Qiskit or IBM Runtime.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "cirq"
+    }
+  ]
+}

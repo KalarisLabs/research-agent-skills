@@ -1,0 +1,39 @@
+{
+  "skill_name": "geomaster",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I compute NDVI from a Sentinel-2 scene?",
+      "expected_output": "Uses the red (B04) and NIR (B08) bands, applies cloud masking and reflectance scaling, computes (NIR-RED)/(NIR+RED) with Rasterio or Xarray, and checks that values fall in -1 to 1.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have parcels.shp in EPSG:3857 and flood_zones.geojson in EPSG:4326. I need the area of each parcel in hectares that overlaps a flood zone, but my overlay gives a 'CRS mismatch' warning and some areas look way too large. What should I do?",
+      "expected_output": "Checks both CRS, explains that Web Mercator distorts area, reprojects both layers to a suitable projected equal-area or UTM CRS (e.g. via estimate_utm_crs), validates geometries, runs the overlay/intersection, and computes area in m² converted to hectares.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to map how much forest cover my study watershed lost between 2015 and 2023 using free satellite data, and I'd like to train a classifier to do it. Where do I start?",
+      "expected_output": "Proposes a workflow: pull cloud-free multi-date optical imagery from a public catalog (e.g. STAC/Planetary Computer or Earth Engine), build training labels, extract features such as spectral indices, train and validate a land cover classifier with accuracy assessment, and compare the two dates. Asks about the study area and labels, and starts with a small subset.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a pandas DataFrame of 50,000 customer records with age, income and churn flag. Which gradient boosting settings should I use to predict churn?",
+      "expected_output": "Recognizes this as non-spatial tabular ML, which falls outside the skill. Answers with general gradient boosting and tuning advice, or defers to a tabular ML skill, without using geospatial tooling.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Using GeoPandas 1.1.4, how do I audit a GeoSeries for invalid geometries and mixed CRS before a spatial join?",
+      "expected_output": "This is a narrow planar-vector GeoPandas audit question that belongs to the dedicated geopandas skill, which has local audit CLIs for it. It should not go to the broad geomaster skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "geopandas"
+    }
+  ]
+}

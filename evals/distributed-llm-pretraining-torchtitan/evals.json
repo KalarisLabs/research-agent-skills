@@ -1,0 +1,40 @@
+{
+  "skill_name": "distributed-llm-pretraining-torchtitan",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I set up torchtitan to pretrain a Llama 3.1 8B on one 8xH100 box?",
+      "expected_output": "Walks through installing torchtitan, downloading the Llama 3.1 tokenizer, writing or editing a TOML config, and launching with torchrun or the run script on 8 GPUs. Suggests a short smoke run first, checking that loss decreases and checkpoints save, and points to the TensorBoard logs.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm pretraining a 70B Llama on 32 nodes (256 H100s) with torchtitan under SLURM. My job OOMs in the first few steps with FSDP+TP, using train_configs/llama3_70b.toml. Async TP seems to use a lot of memory. What should I change, and how do I make sure the job resumes cleanly if a node dies?",
+      "expected_output": "Suggests enabling selective or full activation checkpointing, lowering the local batch size or using gradient accumulation, and setting the env var for async-TP memory behavior. Explains that the job auto-resumes from the configured checkpoint folder, and that DCP can reshard if the parallelism layout changes. Also asks about or checks GPU memory and versions, and does not invent flags that are not in the installed version.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a 512-GPU H100 cluster and want to train a 405B dense transformer from scratch using only PyTorch-native tooling, with no Megatron or DeepSpeed. The model needs to combine data, tensor, pipeline and sequence-length sharding, and I want FP8 to speed it up. What's the plan?",
+      "expected_output": "Recommends TorchTitan with FSDP2, TP, PP and context parallelism. Explains the need to create a seed checkpoint for consistent initialization across PP stages, and describes enabling Float8 via torchao with torch.compile, filtering out small layers. Advises estimating compute cost and confirming with the user before launching on 512 GPUs.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a single-GPU training script for my own model and want to wrap its layers with fully_shard, set up mixed precision and offload, and save a distributed checkpoint. How do I do that?",
+      "expected_output": "Recognizes this as adding FSDP2 to an existing training script rather than running a full torchtitan pretraining pipeline, and defers to the pytorch-fsdp2 skill for fully_shard, DeviceMesh, mixed precision, offload and DCP.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pytorch-fsdp2"
+    },
+    {
+      "id": 5,
+      "prompt": "I want to run GRPO-style reinforcement learning on a Qwen model with a clean separation between the generator, trainer and reward code, scaled over many GPUs. Which framework should I use and how do I structure it?",
+      "expected_output": "Identifies this as an RL post-training task and recommends torchforge (with Monarch) for algorithm and infrastructure separation, rather than a torchtitan pretraining setup.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "torchforge-rl-training"
+    }
+  ]
+}

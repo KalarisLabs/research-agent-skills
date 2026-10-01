@@ -1,0 +1,40 @@
+{
+  "skill_name": "pyzotero",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I dump every item in my Zotero library to a BibTeX file with Python?",
+      "expected_output": "Uses pyzotero with library ID, library type and API key, and fetches all items with zot.everything() rather than relying on the default page size. Exports in BibTeX format (e.g. via format='bibtex') and writes the result to a .bib file.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a group library (the URL is zotero.org/groups/4829311/ml-benchmarks) and a folder of 40 PDFs in ./papers/ named like smith2021.pdf. I want a script that creates a top-level collection called 'Benchmarks 2025', adds a journalArticle item for each PDF with the title taken from the filename, and uploads each PDF as a child attachment. I keep getting a 403 when I try to write. What should I check?",
+      "expected_output": "Uses library_type='group' with the integer 4829311 as library_id, and checks that the API key has write access to that group. Creates the collection and items from templates (e.g. item_template), uploads attachments with attachment_simple or a similar method, handles ZoteroError, and tests on one file before running the full batch.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I keep my reading list in Zotero and want a nightly script that finds everything I tagged 'to-read' more than 30 days ago, moves those papers into an 'Overdue' collection, and then removes the tag. I'm comfortable with Python but haven't touched the Zotero API.",
+      "expected_output": "Recommends pyzotero and the Zotero Web API with credential setup. Filters items by tag and date added, adds them to a collection, removes the tag via update/delete tag methods while respecting item versions, and explains how to test on a small subset first.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a Mendeley export as a .ris file plus a messy .bib from a coauthor. Can you merge them, remove duplicates, and set up an auto-exporting .bib that stays in sync with Overleaf?",
+      "expected_output": "Recognises this as converting and syncing reference files between tools, not programmatic Zotero API work. Hands off to reference-manager-interop for the RIS/BibTeX merge, deduplication and Overleaf sync setup.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "reference-manager-interop"
+    },
+    {
+      "id": 5,
+      "prompt": "Here are 25 references from my draft. Check that each one actually exists by looking up its DOI in CrossRef or PubMed, and flag any that look hallucinated.",
+      "expected_output": "Recognises this as verifying references against external databases, not reading or writing a Zotero library. Hands off to citation-management for DOI/PMID lookups against CrossRef and PubMed.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "citation-management"
+    }
+  ]
+}

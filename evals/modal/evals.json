@@ -1,0 +1,38 @@
+{
+  "skill_name": "modal",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run my PyTorch script on an H100 without owning one?",
+      "expected_output": "Shows how to define a Modal App with @app.function(gpu=\"H100\"), build an image with uv_pip_install, and run it with `modal run`. Mentions authenticating via `modal setup` or MODAL_TOKEN_ID/MODAL_TOKEN_SECRET.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning Llama-3-8B with LoRA using train.py and my checkpoints keep vanishing when the container exits. I need to run it on 4 A100-80GB GPUs on Modal, keep the base weights cached between runs, and pull the HF_TOKEN from a secret. Can you restructure it?",
+      "expected_output": "Uses gpu=\"A100-80GB:4\" as a string, a modal.Volume for persisting weights and checkpoints (with commit), and a modal.Secret (e.g. from_name) for HF_TOKEN. Also sets a sufficient timeout and launches via `modal run`, without exposing other environment variables.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have 5,000 protein FASTA files and a Python function that scores each one. It takes about 10 minutes per file on my laptop. I'd like it to fan out across lots of cloud machines, then run again automatically every Sunday night with the results collected in one place.",
+      "expected_output": "Recommends Modal: a function with .map() for parallel fan-out, a Volume for outputs, and a schedule via modal.Cron deployed with `modal deploy`. Notes concurrency/max_containers limits and a timeout.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Compare RunPod, Lambda Labs, and Vast.ai pricing for renting an A100 by the hour for a month-long training run.",
+      "expected_output": "Gives a provider pricing comparison for long-running rented GPU instances. Does not use Modal SDK guidance. No specific skill applies, and the answer should not write Modal code.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Write a PyTorch Lightning training loop for a ResNet-50 on CIFAR-10 with mixed precision and early stopping on my local workstation GPU.",
+      "expected_output": "Provides a local PyTorch Lightning training script with mixed precision and an EarlyStopping callback, with no cloud deployment or Modal code.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

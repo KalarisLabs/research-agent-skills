@@ -1,0 +1,38 @@
+{
+  "skill_name": "molecular-dynamics",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need to run a 100 ns MD of lysozyme on my GPU. Where do I start?",
+      "expected_output": "Proposes the OpenMM workflow: prepare the PDB with PDBFixer, choose a force field (AMBER14 with TIP3P-FB), solvate, minimize, run NVT then NPT equilibration, then production with checkpoints. Asks about or states assumptions (GPU/CUDA availability, PDB file, run length) before launching.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 4ake_apo.pdb and a ligand file lig.sdf for a kinase I'm studying. I want to simulate the complex in explicit water with OpenMM, parameterize the ligand with GAFF2 via the OpenFF toolkit, and then compute per-residue RMSF and ligand-protein contacts from the production trajectory in MDAnalysis. Last time I got a 'No template found for residue' error from createSystem. How should I set this up?",
+      "expected_output": "Explains the template error is typically caused by missing hydrogens or unparameterized ligand. Recommends PDBFixer for missing atoms and hydrogens and registering a GAFF2 template generator for the ligand, with AMBER14 and TIP3P-FB. Then covers minimize, NVT/NPT equilibration, and production, followed by MDAnalysis RMSF (C-alpha, aligned, equilibrated portion only) and contact analysis. Sanitizes the ligand and reports versions and parameters. Labels results as simulation-derived hypotheses.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We found a point mutation in a transporter that patients carry, and we suspect it makes a loop floppier. I have the wild-type structure and want to see whether the mutant moves around more over time compared with wild-type, using atomistic simulation. How would you approach it?",
+      "expected_output": "Recommends paired wild-type and mutant atomistic simulations with identical protocols. Covers building the mutant with PDBFixer or a similar tool, minimization and equilibration, and analysis with per-residue RMSF and RMSD on the equilibrated portion, ideally with replicates. Suggests CHARMM36m if the protein is in a membrane. Notes the limits of sampling and that the results are hypotheses.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write me a GROMACS .mdp file and the gmx grompp/mdrun commands for a CHARMM36m membrane protein simulation with NAMD-style restraints.",
+      "expected_output": "Does not use the molecular-dynamics skill, because the request is GROMACS/NAMD-specific, which the skill lists only as alternatives. A good answer gives GROMACS-specific guidance or says that no matching skill is available.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Dock this small molecule library (library.smi, 5,000 compounds) against my target's PDB structure and rank them by predicted affinity.",
+      "expected_output": "Recognizes this as a docking or virtual screening task, not a molecular dynamics simulation, so it does not trigger the molecular-dynamics skill. It would use a docking or virtual-screening tool.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

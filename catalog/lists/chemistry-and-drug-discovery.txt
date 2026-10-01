@@ -1,0 +1,12 @@
+adaptyv
+datamol
+deepchem
+diffdock
+medchem
+molecular-dynamics
+molfeat
+pkpd-modeling
+rdkit
+rowan
+tamarind
+torchdrug

@@ -1,0 +1,40 @@
+{
+  "skill_name": "huggingface-tokenizers",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I train a BPE tokenizer on my own text files?",
+      "expected_output": "Shows training a BPE tokenizer with the tokenizers library: create Tokenizer(BPE(unk_token=...)), set a pre-tokenizer, build a BpeTrainer with vocab_size and special_tokens, call train(files) and save to JSON. Mentions checking the vocabulary on a small sample before a full run.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning a token classification model for biomedical NER on ~/data/pubmed_abstracts.jsonl (about 4 GB). My labels are character spans, and after tokenizing with a custom tokenizer I can't line them up with the tokens. How do I get each token's start/end character positions and assign labels, including handling truncation at 512 tokens with overflowing sequences?",
+      "expected_output": "Explains using encoding.offsets (and word_ids/overflowing encodings) from the fast tokenizer to map character-level span labels onto tokens, with truncation configured (enable_truncation max_length=512, stride) and padding. Notes special tokens have (0,0) offsets and should be masked, and recommends encode_batch for speed on the large file.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a corpus of Python source code and legal contracts, and I need a vocabulary of about 32k subword units tailored to it, then I want to plug it into a Hugging Face model using the standard from_pretrained workflow and Trainer. What's the best way to build that?",
+      "expected_output": "Recommends training a custom subword tokenizer (e.g. BPE or Unigram) with the tokenizers library using a trainer iterator over the corpus, with appropriate normalizer/pre-tokenizer and special tokens, then wrapping it in PreTrainedTokenizerFast (specifying unk/pad/bos/eos tokens) and saving with save_pretrained so AutoTokenizer.from_pretrained and Trainer work. Mentions verifying round-trip encode/decode.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to train a SentencePiece unigram model with a 16k vocab on my Japanese raw text corpus, using spm_train and the resulting .model file for a T5-style model. What flags should I use for character coverage?",
+      "expected_output": "Should use the sentencepiece skill: explain spm_train / SentencePieceTrainer with model_type=unigram, vocab_size=16000, and character_coverage around 0.9995 for Japanese, then load the .model file. Should not walk through the HF tokenizers library.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "sentencepiece"
+    },
+    {
+      "id": 5,
+      "prompt": "Load bert-base-uncased and run a sentiment-analysis pipeline on a list of 500 movie reviews on my GPU, then fine-tune it with Trainer on my labeled CSV.",
+      "expected_output": "Should use the transformers skill: use AutoTokenizer/AutoModelForSequenceClassification or pipeline for inference and Trainer with TrainingArguments for fine-tuning. Only loading a pretrained tokenizer is needed, so the tokenizers library skill is not required.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "transformers"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+chroma
+faiss
+paper-corpus-rag
+pinecone
+qdrant-vector-search
+research-knowledge-graph
+sentence-transformers

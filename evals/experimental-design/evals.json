@@ -1,0 +1,40 @@
+{
+  "skill_name": "experimental-design",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "how do I assign 24 mice to 4 drug conditions without bias?",
+      "expected_output": "Recommends randomizing at the mouse level using a seeded, reproducible schedule, preferably blocked or stratified by known nuisance factors such as litter, cage, sex or weight. Mentions blinding, a concurrent vehicle control, and recording the seed and schedule. Notes that the mouse is the unit of replication.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running a qPCR study on 48 liver samples (24 treated, 24 control) in 96-well plates, and the plate_layout.csv I drafted has all the controls in columns 1-2 and treated samples in the rest. Two technicians will split the work across two days. Can you help me redo the layout so I don't get plate or day artifacts?",
+      "expected_output": "Identifies that controls in columns 1-2 confound treatment with edge/position effects, and that technician and day are nuisance factors that must be blocked or balanced. Proposes a randomized, blocked layout with treated and control samples balanced across plates, days and technicians, and generated with a seed. Offers to produce the layout file and document the seed.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We have 7 process parameters for a fermentation (temperature, pH, feed rate, agitation, inoculum size, and so on) and each run costs about $2k, so we can afford maybe 16 runs. We want to find which ones matter and then tune the important ones to maximize titer. What's a sensible plan?",
+      "expected_output": "Proposes a two-stage plan. Stage one is a screening design, such as a 2^(7-3) fractional factorial or Plackett-Burman with centre points, with its resolution and alias structure explained. Stage two is a response-surface design (CCD or Box-Behnken) on the few important factors to capture curvature. Randomizes run order and says replication and sample size should come from statistical-power.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm planning a two-arm trial comparing a new training program to usual care, with an expected effect size of d=0.4. How many participants per arm do I need for 80% power at alpha=0.05?",
+      "expected_output": "Recognizes this as a sample-size/power calculation request, which belongs to the statistical-power skill rather than experimental design. It computes or hands off n per arm for the two-sample comparison (about 100 per arm for d=0.4).",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "statistical-power"
+    },
+    {
+      "id": 5,
+      "prompt": "I already collected my data: a CSV with plant height under 3 fertilizers across 4 blocks. Can you run the ANOVA and tell me if the fertilizer effect is significant, with post-hoc tests?",
+      "expected_output": "Recognizes that the data are already collected and the task is analysis (randomized block ANOVA with Tukey post-hoc and assumption checks). This is a job for statistical-analysis, not for designing the experiment.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "statistical-analysis"
+    }
+  ]
+}

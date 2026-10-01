@@ -1,0 +1,38 @@
+{
+  "skill_name": "hugging-science",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Is there a good open dataset for single-cell RNA-seq of human immune cells on the HF Hub?",
+      "expected_output": "Identifies single-cell as biology/genomics domain, consults the Hugging Science catalog (topic file or fetch_catalog.py) rather than guessing, and presents 2-3 candidate datasets with tradeoffs. Shows loading via `datasets` (streaming for large ones) and notes inspecting the schema first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning ESM2 650M on my stability labels in stability.csv (about 12k sequences) and keep hitting CUDA OOM on a 16GB GPU with batch size 16. Is there a smaller ESM variant or a better setup in the HF ecosystem, and is there a methodology write-up I should cite?",
+      "expected_output": "Recognizes protein ML and consults the catalog and flagship/model references. Suggests scale-appropriate options (e.g., a smaller ESM2 checkpoint, gradient checkpointing, smaller batch with accumulation, mixed precision), loads via `transformers`, runs a small sample first, and cites a catalog blog post if one matches. Does not set `trust_remote_code=True` without asking the user.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to design a protein binder against a target I have a PDB file for, but I don't have a big GPU. What are my options?",
+      "expected_output": "Maps the goal to protein design and points to the hosted BoltzGen Space under the hugging-science org, called via `gradio_client` per using-spaces.md. Asks before uploading the user's PDB or any token to the Space, and mentions authenticating with HF_TOKEN loaded from `.env` without echoing it. Notes the local-model alternative and its GPU needs.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Build me a movie recommendation system using collaborative filtering on the MovieLens dataset, and show how to push the trained model to the Hugging Face Hub.",
+      "expected_output": "Recognizes this as generic ML with no scientific domain, so the Hugging Science catalog is not needed. Answers with standard collaborative filtering and general HF Hub upload guidance.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Write a RAG chatbot over my company's HR policy PDFs using LangChain and a vector database.",
+      "expected_output": "Recognizes this as a generic chatbot/RAG task outside scientific ML, so does not use the Hugging Science catalog, and proceeds with general RAG implementation guidance.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

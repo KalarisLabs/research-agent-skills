@@ -1,0 +1,18 @@
+{
+  "skill_name": "science-aaas",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Prepare our manuscript as a Science Report with a one-sentence summary.",
+      "expected_output": "Verifies current Science limits, Report structure, numbered refs/notes, SM",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Format for Cell.",
+      "expected_output": "Skill not used (cell-press applies)",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

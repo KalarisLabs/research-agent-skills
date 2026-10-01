@@ -1,0 +1,39 @@
+{
+  "skill_name": "faiss",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I build a FAISS index for 2M embeddings?",
+      "expected_output": "Gives a concrete FAISS workflow for about 2M vectors, recommending an IVF-type index (not Flat) and covering training, adding vectors, tuning nprobe and saving the index. It asks about dimension and memory, or states its assumptions, and suggests checking recall on a small subset first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 5M 768-dim sentence-transformer embeddings of PubMed abstracts saved in pubmed_emb.npy (float32). Using faiss.IndexIVFFlat with nlist=4096 I get 'RuntimeError: Error in faiss::IndexIVFFlat::add_core ... index not trained' when I call index.add(). Search is also slow on CPU. How do I fix this and speed it up?",
+      "expected_output": "Explains the index must be trained with index.train() on a representative sample before add(), and shows the corrected sequence. It also covers setting nprobe, normalizing vectors with faiss.normalize_L2 and using IndexFlatIP as the quantizer if cosine similarity is wanted, and mentions GPU or PQ and HNSW options. It recommends validating recall@k against a Flat baseline on a subset and saving the trained index with write_index.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got about 300 million image feature vectors from a microscopy screen, 512-dim, and I need to find the 50 nearest neighbors for each of 10,000 query images as fast as possible. There's no metadata filtering, it's a one-off offline batch job on a machine with a few GPUs. What approach should I use?",
+      "expected_output": "Recommends a billion-scale-capable approach without naming a managed database: a compressed index such as IVF with PQ (e.g. IVFxxx,PQxx) on GPU, with the memory estimate and batched queries. Notes the need to train on a sample, to tune nprobe, to measure recall@50 against exact search on a subset, and to confirm GPU use before running because it consumes shared resources.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm building a RAG app where each chunk has metadata like author, year and journal, and I need to filter search results by those fields and have a managed service handle scaling and upserts. Should I set up a managed serverless vector database with namespaces for this?",
+      "expected_output": "Recognizes this needs metadata filtering, upserts and managed scaling, so it recommends Pinecone, using namespaces and metadata filters, and does not set up a FAISS index.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pinecone"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a CSV of 200 gene expression profiles and want to cluster them with k-means and plot a heatmap with dendrograms in Python. Which library should I use?",
+      "expected_output": "Recommends standard tools such as scikit-learn or scipy for k-means and hierarchical clustering, with seaborn clustermap for the heatmap. It does not set up a FAISS index, since 200 samples is a small dataset and no vector retrieval is involved.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

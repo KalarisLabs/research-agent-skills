@@ -1,0 +1,39 @@
+{
+  "skill_name": "folklore-variant-evidence",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Which genes does ClinGen say are definitively linked to Lynch syndrome? Just list the assertions.",
+      "expected_output": "Uses search_disease_genes with the disease name or MONDO ID, returns each gene-disease assertion with classification, inheritance, source URL, date and snapshot. Notes that an empty result would not mean no association, that gene-disease validity does not classify any variant, and that professional review is required.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm writing up my methods for a paper on BRCA1 and need to check NC_000017.12:g.43057062T>C (GRCh38) in a public evidence source that gives provenance. Can you pull the evidence, and if it resolves, find the literature that directly mentions that exact variant? I'd also like details on the top PMID, including retraction status.",
+      "expected_output": "Verifies tools via tools/list, calls search_variant_evidence with the GRCh38 coordinate, and branches on status. Only if resolved, passes the returned canonical_key to search_variant_literature, labels match types (exact_variant, variant_alias, gene_association), calls get_publication_details with a returned PMID, and reports the query, access date, source links and the boundary statement.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a public dbSNP rsID, rs80357914, and I'm not sure what it maps to. Look it up and tell me what the evidence says, but don't just guess if it's unclear which variant I mean.",
+      "expected_output": "Queries the rsID against GRCh38 and inspects the returned status. If ambiguous, shows the candidates and stops, asking the user to choose a public variant without auto-selecting. Does not treat an unavailable or not_found outcome as proof of absence.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a VCF with 40,000 variants from a tumor-normal exome. Annotate all of them with ClinVar, gnomAD and VEP consensus.",
+      "expected_output": "Recognizes this as batch VCF annotation of somatic variants across multiple databases, which is outside this skill's scope. Directs the user to database-lookup or standard annotation pipelines rather than Folklore.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "database-lookup"
+    },
+    {
+      "id": 5,
+      "prompt": "My patient, a 6-year-old with seizures and a family history of epilepsy, has a de novo variant in SCN1A. What is the likely diagnosis and treatment?",
+      "expected_output": "Declines to use Folklore for patient-specific context, explaining that phenotype, family and case data are not accepted and that no diagnosis or treatment recommendation can be produced. Does not convert it into a public variant query implying it answers the patient question, and refers the user to qualified clinical professionals.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

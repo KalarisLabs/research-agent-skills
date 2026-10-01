@@ -1,0 +1,40 @@
+{
+  "skill_name": "lambda-labs-gpu-cloud",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I attach a persistent filesystem to a Lambda instance? I launched one yesterday and can't see it.",
+      "expected_output": "Explains that filesystems must be attached at launch time (console selection or `file_system_names` in the API launch request), must be in the same region as the instance, and that an already-launched instance cannot have one attached, so the user must relaunch. Mentions the filesystem mount location and keeping data/checkpoints there.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning Llama-3 70B with FSDP using train.py and need a box with 8x H100 and SSH access for about 3 days. My checkpoints are ~140GB each and I don't want to lose them if I terminate. Walk me through launching it with curl against the Lambda API and getting my dataset onto it.",
+      "expected_output": "Gives steps to list instance types, launch an 8x H100 instance via the Lambda Cloud API with an SSH key name, region, and a same-region filesystem in `file_system_names`, then SSH in and write checkpoints/data to the filesystem. Notes that there is no auto-stop so the instance must be terminated manually, and that multi-GPU launch takes ~10-15 minutes.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need to train across 128 GPUs with fast interconnect for a pretraining run. What are my options for a managed Slurm cluster with InfiniBand?",
+      "expected_output": "Recommends Lambda 1-Click Clusters (16-512 H100/B200 GPUs, Slurm, Quantum-2 400 Gb/s InfiniBand, GPUDirect RDMA, pre-installed NCCL/PyTorch). Notes that node-local NVMe is ephemeral and Lambda filesystems should be used for persistent data, and shows a multi-node launch via Slurm.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to deploy my fine-tuned model as an autoscaling HTTPS endpoint that scales to zero when idle and only bills per request. How should I set that up?",
+      "expected_output": "Recognizes this is a serverless, auto-scaling deployment need and points to Modal (modal-serverless-gpu) rather than Lambda Labs dedicated instances, which have no auto-stop or scale-to-zero.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "modal-serverless-gpu"
+    },
+    {
+      "id": 5,
+      "prompt": "I have credits on AWS, GCP and Azure. Write a config that runs my training job on whichever cloud has the cheapest spot H100 and automatically recovers if it's preempted.",
+      "expected_output": "Identifies a multi-cloud spot orchestration task and uses SkyPilot (task YAML with resources, spot recovery) instead of Lambda Labs-specific instance setup.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "skypilot-multi-cloud-orchestration"
+    }
+  ]
+}

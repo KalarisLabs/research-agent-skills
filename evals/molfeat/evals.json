@@ -1,0 +1,40 @@
+{
+  "skill_name": "molfeat",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "what's the best molfeat featurizer for a small solubility dataset?",
+      "expected_output": "Recommends a fast, interpretable option such as ecfp or desc2D (possibly mordred) for a small tabular dataset, noting that pretrained deep embeddings like ChemBERTa are slower and less suited to small data. Shows a short molfeat transformer example (e.g. MoleculeTransformer with n_jobs) and suggests comparing a couple of featurizers via cross-validation.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a file kinase_hits.csv with a 'smiles' column, about 40k rows. I'm trying to run `from molfeat.trans.pretrained import PretrainedHFTransformer` with ChemBERTa-77M-MLM to get embeddings for clustering, but pip install molfeat fails on my Python 3.11 env. How do I fix it and get the embeddings?",
+      "expected_output": "Explains that molfeat 0.11.0 requires Python 3.9-3.10, so a new 3.9/3.10 environment is needed, and that the ChemBERTa models need the molfeat[transformer] extra. Provides code to load the CSV, build the pretrained transformer, call it on the SMILES with batching and ignore_errors for invalid molecules, and use the embeddings for clustering, mentioning built-in caching and saving as NumPy rather than pickle.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to turn a list of drug-like SMILES into numeric vectors that I can drop into a scikit-learn Pipeline with a random forest to predict IC50, and I need it to run on all my CPU cores and not crash on a few bad SMILES. How should I set that up?",
+      "expected_output": "Builds a scikit-learn Pipeline whose first step is a molfeat MoleculeTransformer (e.g. an ECFP calculator or the 'ecfp' string) with n_jobs=-1 and ignore_errors=True, followed by RandomForestRegressor. Notes that failed molecules are returned as None or dropped and must be aligned with the labels, and that the transformer is sklearn-compatible.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Using RDKit, parse this SMILES 'CC(=O)Oc1ccccc1C(=O)O', check whether it contains a carboxylic acid with a SMARTS pattern, and then generate a 3D conformer with ETKDG.",
+      "expected_output": "Uses RDKit directly (MolFromSmiles, SMARTS substructure match, AddHs and EmbedMolecule with ETKDG), without molfeat featurization. This is a general RDKit task.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "rdkit"
+    },
+    {
+      "id": 5,
+      "prompt": "I have 5,000 compounds and want to flag PAINS and Brenk structural alerts and apply Lipinski and Veber filters before I do anything else. What's the cleanest way?",
+      "expected_output": "Points to medchem's RuleFilters and structural alert filters for drug-likeness and PAINS/Brenk screening, not molfeat featurization.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "medchem"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "pathway-enrichment",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "what pathways are enriched in my 214 upregulated genes? mouse, treated vs control",
+      "expected_output": "Chooses ORA on the thresholded list, notes mouse gene symbols (Title-case) and sets organism correctly. Asks for or uses a tested/expressed-gene background, runs gseapy Enrichr or g:Profiler with 2-4 fitting libraries, and filters by adjusted p-value while checking overlap counts.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I ran PyDESeq2 on my patient-derived organoid RNA-seq (res_df.csv, index = Ensembl IDs, columns baseMean, log2FoldChange, stat, pvalue, padj). I want GSEA against MSigDB Hallmark and Reactome, and gp.prerank gives me 'Warning: no genes overlap' with an empty result table. How do I fix this and get a figure for the paper?",
+      "expected_output": "Diagnoses the Ensembl-ID versus gene-symbol mismatch and converts IDs (Biomart, mygene or g:Convert), then removes NA and duplicate genes. Builds the rank from the full table using `stat` (not a padj-thresholded list), runs gp.prerank with a seed and a stated permutation count, reports FDR q-values per library, and produces a dotplot or a publication table with redundancy reduction.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a CRISPR knockout screen with about 18,000 genes scored by MAGeCK. The top 150 hits are essential genes. Can you help me work out what biological processes these hits point to and whether they're just general housekeeping machinery?",
+      "expected_output": "Recognizes this as a functional-enrichment goal on screen hits. Uses ORA on the hit list with the screened genes as the custom background, or preranked GSEA on the full MAGeCK scores. Collapses redundant GO terms and cautions that core-essential genes will enrich for ribosome/proteasome/spliceosome terms. Interprets results with gene counts and set sizes in mind.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have raw FASTQ files from 12 bulk RNA-seq samples. Can you take me from QC and trimming through alignment and quantification to a counts matrix, then run differential expression?",
+      "expected_output": "Should use the bulk-rnaseq orchestrator skill for the end-to-end pipeline (FastQC, fastp, STAR/Salmon, featureCounts, pydeseq2). Enrichment is only a possible later hand-off, not the main task.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "bulk-rnaseq"
+    },
+    {
+      "id": 5,
+      "prompt": "Look up the Ensembl ID, chromosome location and description for the gene BRCA2, and fetch its sequence.",
+      "expected_output": "Should use the gget skill for Ensembl search, info and sequence lookups. No enrichment analysis is needed.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "gget"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "prompt-guard",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you scan this folder of scraped web pages for hidden instructions before I feed them into my summarizer?",
+      "expected_output": "Uses Prompt Guard to batch-classify each document, flagging INJECTION/JAILBREAK labels, and reports which files were flagged. Mentions the 512-token limit and sliding-window chunking for long pages, and states the model, threshold and versions used.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm loading meta-llama/Prompt-Guard-86M with AutoModelForSequenceClassification on my laptop with no GPU. My security-research chatbot keeps flagging questions like 'how does SQL injection work?' as INJECTION, while 40% of my 6k-token retrieved PDFs seem to pass without any flags. How do I fix both?",
+      "expected_output": "Explains the false positives on security discussion and proposes a threshold adjustment or context-aware filtering, such as user reputation. Identifies that texts beyond 512 tokens are truncated, so injections later in the PDFs are missed, and recommends overlapping sliding-window chunks. Notes the model is gated on HuggingFace and that CPU works with 50-200ms latency, and suggests validating on a labeled sample.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We're building a literature-search assistant that pulls abstracts and web snippets from external APIs into an LLM's context. I'm worried some of those snippets might contain text that tries to hijack the model's behavior. I want a small, cheap classifier that runs locally and can handle the French and Hindi content too. What should I set up?",
+      "expected_output": "Recommends Prompt Guard 86M as a lightweight multilingual classifier (French and Hindi are among its 8 supported languages) on third-party data, using INJECTION detection with a tuned threshold. Gives the setup steps, notes the sliding window for long snippets, and says to evaluate false positives on their own data before deploying.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Set up a classifier that blocks my chatbot's outputs when they contain violent content, hate speech or self-harm instructions, with categories I can report on.",
+      "expected_output": "Recognizes this as content moderation, not prompt injection detection, and directs the user to LlamaGuard with its safety categories rather than Prompt Guard.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "llamaguard"
+    },
+    {
+      "id": 5,
+      "prompt": "I want to define Colang flows that run self-check input rails, a fact-checking step against my knowledge base and PII masking with Presidio for my customer support bot.",
+      "expected_output": "Identifies this as a policy-based runtime guardrails configuration task and uses NeMo Guardrails with Colang flows, not a standalone Prompt Guard classifier.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "nemo-guardrails"
+    }
+  ]
+}

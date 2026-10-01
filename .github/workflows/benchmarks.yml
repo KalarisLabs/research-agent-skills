@@ -1,0 +1,129 @@
+name: Benchmarks
+
+# Tier 1-2 (free, deterministic) on every PR; network benchmarks weekly;
+# model-based benchmarks (paid) only on manual dispatch with an API key secret.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "5 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      model:
+        description: "Model for answers/routing (e.g. claude-sonnet-5-5)"
+        default: "claude-sonnet-5-5"
+      judge_model:
+        description: "Judge model for task evals"
+        default: "claude-opus-5-5"
+      max_budget_usd:
+        description: "Per-call budget cap"
+        default: "2"
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-gates:
+    name: Skill quality and trigger routing
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - run: uv sync --locked
+      - name: Static quality rubric (original skills must score >= 80)
+        run: |
+          uv run tools/skill_quality.py --json reports/skill-quality.json --markdown reports/skill-quality.md
+          uv run tools/skill_quality.py --origin original --min-score 80
+      - name: Trigger routing (BM25 router)
+        run: uv run tools/trigger_bench.py --min-hit3 0.9 --max-false 0.15 --json reports/trigger-bm25.json
+      - name: Job summary
+        if: always()
+        run: |
+          {
+            echo "## Skill quality"; head -n 40 reports/skill-quality.md 2>/dev/null || true
+            echo; echo "## Trigger routing (BM25)"
+            python3 -c "import json;d=json.load(open('reports/trigger-bm25.json'));print(f\"hit@1 {d['hit@1']:.2f} · hit@3 {d['hit@3']:.2f} · false-trigger {d['false_trigger']:.2f}\")" 2>/dev/null || true
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: quality-reports
+          path: reports/
+          retention-days: 30
+
+  citation-benchmark:
+    name: Citation verification benchmark (network)
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - run: uv sync --locked
+      - name: Precision/recall on labeled references
+        env:
+          CROSSREF_MAILTO: ${{ vars.CROSSREF_MAILTO }}
+        run: uv run benchmarks/citation_verification/run.py --json reports/citation-verification.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: citation-benchmark
+          path: reports/
+
+  model-benchmarks:
+    name: Model-based benchmarks (manual, paid)
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    environment: benchmarks
+    permissions:
+      contents: read
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      MODEL: ${{ inputs.model }}
+      JUDGE_MODEL: ${{ inputs.judge_model }}
+      BUDGET: ${{ inputs.max_budget_usd }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+      - run: uv sync --locked
+      - run: npm install -g @anthropic-ai/claude-code@2.1.286  # zizmor: ignore[adhoc-packages] exact version pinned
+      - name: Trigger routing with Claude as router
+        run: uv run tools/trigger_bench.py --router claude --model "$MODEL" --json reports/trigger-claude.json
+      - name: Task outcomes with vs without skill (blind judge)
+        run: |
+          uv run benchmarks/task_evals/run.py --all-original --model "$MODEL" --judge-model "$JUDGE_MODEL" \
+            --max-budget-usd "$BUDGET" --json reports/task-evals.json
+      - name: Slop benchmark (human 2012-2018 abstracts vs model output, with/without skill)
+        run: |
+          uv run benchmarks/slop/run.py fetch --n 60
+          uv run benchmarks/slop/run.py generate --model "$MODEL" --limit 30
+          uv run benchmarks/slop/run.py score --json reports/slop.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: model-benchmarks
+          path: reports/
+          retention-days: 90

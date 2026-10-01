@@ -1,0 +1,40 @@
+{
+  "skill_name": "networkx",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get the top 10 nodes by betweenness in my graph?",
+      "expected_output": "Uses nx.betweenness_centrality (noting the k= sampling and seed options for large graphs), sorts the resulting dict and takes the top 10. Mentions weight handling and directedness if relevant.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have an edge list in interactions.tsv (columns: protein_a, protein_b, score) from STRING for human PPI. I loaded it with nx.read_edgelist and now get 'TypeError: Failed to convert edge data' on the score column. Fix this, then find the connected components, report the size of the largest one, and run Louvain community detection with a fixed seed.",
+      "expected_output": "Explains the error (read_edgelist needs data=[('score', float)] or use pandas with nx.from_pandas_edgelist(edge_attr='score')), checks the data first, then computes connected components and the largest component size. Runs nx.community.louvain_communities with seed set, and reports versions, parameters and modularity without fabricating numbers.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm modeling how a rumor spreads through a school. I want to simulate a few hundred students where most are in tight friend clusters but a few have friends across clusters, then see how many hops it takes on average for any two students to connect. How should I set this up in Python?",
+      "expected_output": "Recommends a small-world model such as nx.watts_strogatz_graph (or connected_watts_strogatz_graph) with a seed and explains n, k and p. Computes nx.average_shortest_path_length and clustering on a connected graph, and suggests sweeping p and averaging over seeds.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Train a GraphSAGE model with neighbor sampling on the ogbn-arxiv citation dataset for node classification and show me the training loop.",
+      "expected_output": "Should not use the networkx skill. It should route to torch-geometric (NeighborLoader, SAGEConv, ogbn-arxiv loading), since this is GNN training and not general graph analytics.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "torch-geometric"
+    },
+    {
+      "id": 5,
+      "prompt": "I have 300 BibTeX entries from my literature search. Build a knowledge graph of papers, authors and venues with citation links, identify bridging papers and research gaps, and export it to Neo4j.",
+      "expected_output": "Should not primarily use the networkx skill. It should route to research-knowledge-graph, which handles building a graph from a bibliography, analyzing it and exporting to Neo4j.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "research-knowledge-graph"
+    }
+  ]
+}

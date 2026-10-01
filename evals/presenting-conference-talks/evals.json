@@ -1,0 +1,40 @@
+{
+  "skill_name": "presenting-conference-talks",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Make me a spotlight talk from my paper. I have 6 minutes at ICML.",
+      "expected_output": "Uses the skill to produce a spotlight deck of about 8-12 slides, covering problem, approach and key results, as Beamer PDF and PPTX with speaker notes. Slide count and timing fit about 6 minutes.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My OSDI paper is compiled at build/paper.pdf with figures in figures/. I need a 20-minute oral talk with a live demo of our storage system, plus a script I can rehearse. Can you build the Beamer slides and a PPTX copy?",
+      "expected_output": "Extracts content from the paper and builds an oral deck of 15-22 slides in Beamer and PPTX, using a systems-talk structure. Includes an architecture walkthrough with progressive reveal (\\only/\\onslide), a demo slide with a recorded backup, 2-3 annotated eval figures with the takeaway stated first, and per-slide speaker notes with timing. Also provides a talk script, and a USENIX-style color scheme is a reasonable choice.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I got accepted for a talk at NSDI next month and I only have the camera-ready PDF. I'd like something I can present from and also tweak on the plane, with notes for each slide so I don't ramble past my time slot.",
+      "expected_output": "Recognizes this as a conference talk request, asks about or infers the talk length and type, and generates both a polished PDF deck and an editable PPTX from the paper. Includes concise speaker notes with timing markers for each slide, within the time slot.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Design an A0 poster for my bioinformatics paper using beamerposter, with three columns and a QR code to the repo.",
+      "expected_output": "Does not use the talk-slides skill. Uses latex-posters to build an A0 beamerposter layout with columns and a QR code.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "latex-posters"
+    },
+    {
+      "id": 5,
+      "prompt": "Help me put together slides for my PhD thesis defense next week. It's a 45-minute seminar for my committee, covering three chapters.",
+      "expected_output": "Does not use the conference-talk skill, since this is a thesis defense and not a conference talk generated from one compiled paper. Uses scientific-slides for thesis-defense structure, timing and design.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scientific-slides"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+name: Links
+
+on:
+  schedule:
+    - cron: "11 7 * * 3"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  lychee:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - id: lychee
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: >-
+            --no-progress --max-concurrency 8 --accept 200,206,429 --timeout 20
+            --exclude-path skills/unsloth/references --exclude '\.local/' --exclude 'localhost'
+            './README.md' './docs/**/*.md' './skills/**/*.md'
+          output: lychee/report.md
+          fail: false
+      - name: Open or update a tracking issue
+        if: steps.lychee.outputs.exit_code != 0
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          existing=$(gh issue list --label broken-links --state open --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then gh issue comment "$existing" --body-file lychee/report.md
+          else gh issue create --title "Broken links report" --label broken-links --body-file lychee/report.md; fi

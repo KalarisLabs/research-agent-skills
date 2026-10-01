@@ -1,0 +1,40 @@
+{
+  "skill_name": "gptq",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get a 70B model running on a single 80GB A100 with GPTQ?",
+      "expected_output": "Explains loading a pre-quantized 4-bit GPTQ checkpoint (or quantizing with AutoGPTQ, group size 128) via transformers, noting about 35GB of weights versus 140GB in FP16. Checks GPU and CUDA environment first and suggests a smoke test.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a fine-tuned Mistral-7B at ./mistral-7b-legal and want to quantize it to 4-bit with AutoGPTQ using 512 samples from wikitext2 as calibration data. I'm on an RTX 3090 and my first attempt crashed with CUDA out of memory during layer-wise quantization. What config should I use and how do I fix the OOM?",
+      "expected_output": "Gives a GPTQConfig/AutoGPTQ setup (bits=4, group_size=128, calibration dataset, tokenizer) and OOM mitigations such as fewer or shorter calibration samples, smaller batch size, or CPU offload. Suggests a small smoke run first and verifying perplexity against the FP16 baseline afterwards, without inventing results.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to fine-tune a 13B chat model on my lab's protein-function Q&A dataset, but I only have one 24GB consumer card. The weights are already compressed to 4 bits by calibrating on a small dataset with Hessian-based error correction, from a TheBloke repo. Which kernel should I use for fast inference, and how do I attach adapters for training?",
+      "expected_output": "Recognizes this as a GPTQ checkpoint. Recommends a kernel based on GPU compute capability (ExLlamaV2 by default, Marlin only on Ampere or newer), and shows how to prepare the model for k-bit training and attach LoRA adapters with PEFT. Mentions checking the environment and the installed versions.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I just need to load Llama-3-8B in 8-bit on the fly with transformers, with no pre-quantized files and no calibration. What config should I use?",
+      "expected_output": "Points to bitsandbytes (BitsAndBytesConfig with load_in_8bit=True) rather than GPTQ, since this is simple on-the-fly 8-bit quantization that needs no calibration.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "quantizing-models-bitsandbytes"
+    },
+    {
+      "id": 5,
+      "prompt": "I'm on an H100 and want the best 4-bit accuracy for my instruction-tuned model. Which activation-aware quantization method should I use, and how do I run it?",
+      "expected_output": "Recommends activation-aware weight quantization (AWQ) for slightly better accuracy on newer GPUs and explains the AWQ workflow instead of GPTQ.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "awq-quantization"
+    }
+  ]
+}

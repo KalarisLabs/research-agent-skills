@@ -1,0 +1,40 @@
+{
+  "skill_name": "llama-cpp",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run a 7B chat model on my M2 MacBook Air without a GPU server?",
+      "expected_output": "Recommends llama.cpp with the Metal backend, a GGUF model at about Q4_K_M, and gives install, download and run commands. Notes the 8-16 GB RAM limit when choosing the model and quantization, and says to check the installed version's --help for the flags.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm on a Ryzen 9 7950X workstation with 64 GB RAM and no GPU. I downloaded Meta-Llama-3-8B-Instruct.Q5_K_M.gguf from Hugging Face and want to serve it locally for a team script. When I start the server with a 32k context it gets very slow and then the process is killed. What should I check and how do I fix it?",
+      "expected_output": "Diagnoses memory use from the KV cache at 32k context plus model size, and suggests lowering the context size, a smaller quantization, thread count tuning, or parallel slot settings. Gives llama-server flags, says to start with a small test request first, and confirms the flags against the installed version's --help instead of inventing them.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our lab has a few old Raspberry Pi 5 boards and an Intel Arc laptop but no NVIDIA cards. We want a small language model to summarize field notes offline. What's a realistic way to set that up, and what speed should we expect?",
+      "expected_output": "Suggests a CPU-efficient C/C++ runtime (llama.cpp) with a small, heavily quantized GGUF model, and Vulkan or SYCL for the Intel GPU. Gives modest speed expectations, says to measure them on the actual hardware instead of quoting the table figures, and states assumptions about model size and RAM.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have an 8xH100 node and need to serve Llama 3 70B at the highest possible throughput with FP8 and in-flight batching for a production API. How should I set it up?",
+      "expected_output": "Recognizes this as NVIDIA datacenter serving and points to TensorRT-LLM (or vLLM) rather than llama.cpp, with FP8, in-flight batching and tensor parallelism.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "tensorrt-llm"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a 4-bit GPTQ checkpoint of Mistral 7B and want to load it with AutoGPTQ in transformers and pick between the Marlin and ExLlamaV2 kernels on my RTX 4090. Which should I use?",
+      "expected_output": "Identifies this as GPTQ loading and kernel selection in Python with transformers on an NVIDIA GPU, which is the gptq skill, not llama.cpp GGUF inference. Compares the Marlin and ExLlamaV2 kernels.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "gptq"
+    }
+  ]
+}

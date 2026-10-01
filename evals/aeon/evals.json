@@ -1,0 +1,40 @@
+{
+  "skill_name": "aeon",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I train a fast classifier on my accelerometer windows? Shape is (500, 3, 128).",
+      "expected_output": "Recommends an aeon classifier such as MiniRocketClassifier or Arsenal, and confirms the data uses the (n_cases, n_channels, n_timepoints) layout. Shows a fit/predict example with a held-out split and an accuracy metric, and checks that the installed aeon is 1.x.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have ECG recordings in ecg_train.csv, with 1 row per beat, 140 columns for the samples and a final column for the label (normal or abnormal). I tried sklearn's RandomForest on the raw values and got about 70% accuracy. I'd like to try elastic-distance methods, and I got `ImportError: cannot import name 'ROCKETClassifier' from 'aeon.classification.convolution_based'`. Can you fix the import and compare 1-NN with DTW against a ROCKET-family model, using cross-validation?",
+      "expected_output": "Explains that the class names differ in aeon 1.x (e.g. RocketClassifier or MiniRocketClassifier), and checks the installed version and the real import path instead of guessing. Reshapes the CSV to (n_cases, 1, 140), compares KNeighborsTimeSeriesClassifier with DTW against a ROCKET-family model using stratified CV with fixed seeds, reports only metrics it actually computed, and notes the runtime of the DTW run.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a year of minute-level vibration readings from a turbine. I need to flag the odd stretches and also work out where the machine switched operating regimes. There are no labels. What approach would you take?",
+      "expected_output": "Proposes unsupervised time series methods without labels: anomaly detection (e.g. matrix-profile or distance-based detectors, to find discords) and segmentation or change-point detection for the regime switches. Notes that these aeon modules are experimental, discusses windowing and normalization, and asks about or states assumptions on sampling and missing values. Validates by visual inspection or any available maintenance logs.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have 3 years of daily hospital admissions in a CSV. Give me a zero-shot 30-day forecast with prediction intervals, without training a model.",
+      "expected_output": "Routes to the timesfm-forecasting skill, since the request is for a zero-shot foundation-model forecast with intervals and no custom training. It does not use aeon's trained forecasters.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "timesfm-forecasting"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a tabular dataset of patient lab values with 40 features. Tune a gradient boosting classifier with GridSearchCV and report the ROC-AUC from 5-fold cross-validation.",
+      "expected_output": "Uses scikit-learn for tabular classification with a Pipeline, GridSearchCV and cross-validated ROC-AUC. The data is not time series, so the aeon skill is not needed.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scikit-learn"
+    }
+  ]
+}

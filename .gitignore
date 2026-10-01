@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node
+node_modules/
+cli/dist/
+*.tgz
+
+# Tooling caches
+.cache/
+site/
+dist/
+reports/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Generated docs pages are committed so Mintlify can deploy them from Git.
+
+# Benchmark data (fetched/generated at run time)
+benchmarks/slop/data/

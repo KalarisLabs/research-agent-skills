@@ -1,0 +1,40 @@
+{
+  "skill_name": "adaptyv",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I submit a few sequences to a cloud lab to see if they bind my target? I'm using the Python SDK.",
+      "expected_output": "Uses the Adaptyv Foundry SDK or API. Notes the SDK must be installed from GitHub, not PyPI. Reads ADAPTYV_API_KEY from the environment or a .env file and never hardcodes it. Chooses a screening or affinity experiment with the bli or spr method and a target. Creates the experiment in Draft, adds sequences, then submits. Warns that submission leads to a quote and costs money, so asks before confirming it.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have binders.fasta with 48 designed nanobody sequences. I want KD values against my target using SPR, and I want the quote auto-accepted so nothing waits on me. My script has `from adaptyv_sdk import FoundryClient` and it's returning a 401. Can you fix the script and set up a webhook so I get notified on status changes?",
+      "expected_output": "Diagnoses the 401 as a missing or invalid bearer token. Loads ADAPTYV_API_KEY from env or .env via python-dotenv instead of hardcoding it. Builds an affinity experiment with the spr method from the FASTA sequences, in the simple or rich seq format with valid amino acids. Passes webhook_url, which fires on each status transition. Flags that auto-accepting the quote commits spend and confirms with the user first. Mentions x-request-id and the ~21 day turnaround.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've designed 200 miniprotein binders computationally and want real wet-lab data on which ones actually express and how stable they are. Is there an automated lab service with an API where I can send the sequences and get melting temperatures and yields back, and how would I script that and poll for results?",
+      "expected_output": "Recommends the Adaptyv Bio Foundry cloud lab API or SDK. Uses thermostability (Tm) and expression experiment types, which need no target. Describes the lifecycle from Draft through QuoteSent to Done, and the results_status field (none, partial, all). Shows polling or webhooks, with auth from the ADAPTYV_API_KEY environment variable. Labels earlier computational predictions as hypotheses, not results.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Run Boltz and AlphaFold on my antibody–antigen complex through Tamarind's API and compare the predicted structures.",
+      "expected_output": "Does not use the adaptyv skill. Uses the tamarind skill, since this is computational structure prediction on the Tamarind platform and not wet-lab experiment submission.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "tamarind"
+    },
+    {
+      "id": 5,
+      "prompt": "Use ESM3 to generate variants of my protein sequence conditioned on a structure prompt, and score them with the language model's log-likelihood.",
+      "expected_output": "Does not use the adaptyv skill. Uses the esm skill for ESM3 generative design and scoring. No lab submission is involved.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "esm"
+    }
+  ]
+}

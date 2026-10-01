@@ -1,0 +1,22 @@
+{
+  "human": {
+    "n": 40,
+    "mean": 2.9,
+    "median": 0.0,
+    "share_clean_lt5": 0.78
+  },
+  "ai_baseline": {
+    "n": 19,
+    "mean": 5.0,
+    "median": 0.0,
+    "share_clean_lt5": 0.68
+  },
+  "ai_unslop": {
+    "n": 19,
+    "mean": 0.8,
+    "median": 0.0,
+    "share_clean_lt5": 0.89
+  },
+  "auroc_ai_vs_human": 0.544,
+  "skill_reduction_pct": 83.1
+}

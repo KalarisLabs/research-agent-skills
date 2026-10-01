@@ -1,0 +1,12 @@
+autoresearch
+citation-verification
+dspy
+evaluating-llms-harness
+instructor
+llamaindex
+ml-paper-writing
+paper-corpus-rag
+reproducibility-statement
+research-knowledge-graph
+research-skill-creator
+transformer-lens-interpretability

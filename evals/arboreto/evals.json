@@ -1,0 +1,40 @@
+{
+  "skill_name": "arboreto",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I infer a TF-target network from my expression matrix with GRNBoost2?",
+      "expected_output": "Shows grnboost2 usage on a pandas DataFrame with rows as observations and genes as columns, optionally passing a tf_names list. Includes the `if __name__ == '__main__':` guard, sets a seed, and explains the output columns TF, target and importance.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a 12,000-cell scRNA-seq dataset in pbmc.h5ad and a list of human TFs in allTFs_hg38.txt. I ran grnboost2 in a script on Windows and got a Dask error: 'An attempt has been made to start a new process before the current process has finished its bootstrapping phase.' How do I fix this and run it properly?",
+      "expected_output": "Identifies the missing `if __name__ == '__main__':` guard as the cause (Windows spawn-based multiprocessing) and shows how to wrap the code. Converts AnnData to a DataFrame (or sparse csc_matrix with gene_names), loads the TF list, sets a seed, tests on a small subset first, and optionally configures a local Dask Client.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to figure out which transcription factors are likely driving gene expression changes across my 200 bulk liver samples. I'd like a ranked list of regulator-to-target gene links I can then feed into a downstream regulon analysis. What should I do?",
+      "expected_output": "Recommends co-expression-based regulatory network inference with arboreto (GRNBoost2, optionally GENIE3 for comparison) restricted to a TF list. Explains filtering by importance or top links per target, running multiple seeds for robustness, and that the importance scores are not statistical significance. Mentions handing results to pySCENIC.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have bulk RNA-seq raw count tables for treated vs control mice. Which genes are significantly differentially expressed, with FDR correction and a volcano plot?",
+      "expected_output": "Should use pydeseq2 for differential expression with a design formula, Wald test, Benjamini-Hochberg FDR and a volcano plot. It is not GRN inference, so arboreto should not be used.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pydeseq2"
+    },
+    {
+      "id": 5,
+      "prompt": "Pull all the T cells from the CZ CELLxGENE Census for human lung and give me the expression data for these 50 genes.",
+      "expected_output": "Should use cellxgene-census to query Census metadata and gene expression slices. No regulatory network inference is requested, so arboreto does not apply.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "cellxgene-census"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "llamaguard",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run LlamaGuard on user prompts before they hit my chatbot?",
+      "expected_output": "Shows loading a LlamaGuard checkpoint (e.g. Meta-Llama-Guard-2-8B or 3-8B) with Transformers, applying the chat template to the user message, and parsing the 'safe'/'unsafe' output plus category code (S1-S6 in the skill's list). Notes the gated-model license/HF login requirement and asks or states which version is assumed.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running Meta-Llama-Guard-3-8B through HF Transformers on a T4 in moderate.py and getting CUDA out of memory, plus each call takes ~450ms. I need to serve it to our team as an HTTP moderation endpoint. What should I change?",
+      "expected_output": "Recommends 8-bit/4-bit quantization (bitsandbytes) or confirms VRAM needs (FP16 ~14-16GB exceeds T4), moving to vLLM for lower latency and batching, and wrapping it in a FastAPI endpoint returning safe/unsafe and category. Caveats that latency figures depend on hardware and should be measured, and suggests testing on a small sample first.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our assistant sometimes writes replies about drugs or self-harm that we don't want shown to users. I want a self-hosted classifier to check each model reply before display, and it's flagging too many harmless medical-education answers. How should I set this up and cut the false positives?",
+      "expected_output": "Proposes an output-moderation step using LlamaGuard (prompt+response classification), explains tuning via unsafe-token probability thresholds or category restrictions, and validating on a labeled sample of the team's own data while reporting precision/recall. Does not fabricate accuracy claims and flags that the threshold choice should be confirmed with the user.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Can you add a check that detects prompt injection and jailbreak attempts hidden in the retrieved RAG documents before they go into my context window?",
+      "expected_output": "Recognizes this is injection/jailbreak detection on third-party data, which belongs to prompt-guard (BENIGN/INJECTION/JAILBREAK labels), not LlamaGuard's content-safety categories.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "prompt-guard"
+    },
+    {
+      "id": 5,
+      "prompt": "Write Colang 2.0 flows with self-check input and output rails and PII masking via Presidio for my NeMo Guardrails config.",
+      "expected_output": "Recognizes this as NeMo Guardrails configuration work (Colang flows, self-check rails, Presidio), which belongs to nemo-guardrails rather than a LlamaGuard classifier skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "nemo-guardrails"
+    }
+  ]
+}

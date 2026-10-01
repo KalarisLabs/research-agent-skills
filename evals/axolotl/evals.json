@@ -1,0 +1,40 @@
+{
+  "skill_name": "axolotl",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "my axolotl run dies with OOM on 2x A100 40GB when I turn on 8k context. how do I split sequences across the two GPUs?",
+      "expected_output": "Explains sequence/context parallelism via context_parallel_size in the Axolotl YAML, which must divide the GPU count (here 2). Notes that the effective global batch size shrinks because each batch is split across GPUs, and suggests checking the installed version's docs and doing a small smoke run first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning Llama-3.1-8B with QLoRA in Axolotl on a JSONL file of {\"prompt\", \"chosen\", \"rejected\"} rows at data/prefs.jsonl. Can you write me a config for DPO and tell me which dataset type to set? I get 'KeyError: messages' right now.",
+      "expected_output": "Provides an Axolotl YAML with rl: dpo, adapter: qlora, 4-bit loading and a datasets entry whose type matches the chosen/rejected format. Explains the KeyError as a mismatch between the data columns and the dataset type or format, points to the dataset-formats reference, and recommends a few-step smoke run first.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I trained a model and want to ship a smaller checkpoint to serve with vLLM, and maybe quantize it further later with llmcompressor. How can I save it so the files take less disk space while still loading in those tools?",
+      "expected_output": "Recommends setting save_compressed: true in the Axolotl config, which cuts disk use by roughly 40% and stays compatible with vLLM and llmcompressor. Cautions that the exact figure and option behaviour should be verified against the installed version.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to do GRPO on Qwen2.5-1.5B with my own correctness and format reward functions using TRL's GRPOTrainer and Unsloth. How should I structure the rewards?",
+      "expected_output": "Recognises this as TRL GRPOTrainer with Unsloth, not Axolotl. Should route to grpo-rl-training for reward composition and chat-format datasets.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "grpo-rl-training"
+    },
+    {
+      "id": 5,
+      "prompt": "Which LoRA rank, alpha and target_modules should I use if I'm loading and merging adapters with Hugging Face PEFT directly in my own training script?",
+      "expected_output": "Recognises this as plain PEFT usage outside Axolotl and routes to peft-fine-tuning for rank, alpha, target module selection and adapter merging.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "peft-fine-tuning"
+    }
+  ]
+}

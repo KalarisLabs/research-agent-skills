@@ -1,0 +1,40 @@
+{
+  "skill_name": "rowan",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get the pKa of aspirin with Rowan?",
+      "expected_output": "Shows submitting a Rowan pKa workflow with the SMILES string (bare string accepted for pKa), then calling result() to get typed results. Notes that the API key must be set (ROWAN_API_KEY or rowan.api_key) and that microscopic pKa suits a single ionizable group.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 40 analogues of my kinase lead in analogs.csv (SMILES column) and a prepared receptor, kinase.pdb, with a co-crystal ligand as reference. I tried passing the SMILES strings straight into the analogue docking workflow and got a ValueError before submission. Fix this and run the whole series on Rowan, then pull out the best pose and score for each.",
+      "expected_output": "Explains that analogue docking requires rowan.Molecule.from_smiles (or an RDKit Mol), not bare strings, which is the cause of the ValueError. Uploads the protein, builds the molecule list, submits as a batch with a reference ligand, then polls or streams results. Reads best_pose and scores through typed properties, falling back to .data.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need to know how my carboxylic acid/amine drug candidate will be charged across pH 0-14, and whether it will cross membranes and how soluble it is at pH 7.4. I don't want to set up any local compute. How would I do that programmatically for a few hundred compounds?",
+      "expected_output": "Recommends cloud-based macropKa rather than single microscopic pKa because of multiple coupled ionizable groups and pH-dependent behavior. Chains it to permeability and solubility, using batch submission with projects/folders and optional webhooks. Mentions credit and cost considerations and that these workflows accept SMILES strings.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Run DiffDock-L on my protein structure complex.pdb and ligands.sdf, then explain how to interpret the confidence scores for the top poses.",
+      "expected_output": "Recognizes this as a DiffDock task, not Rowan. Answer should use the diffdock skill: run DiffDock-L locally on the PDB and SDF, and interpret confidence scores, noting they are not binding affinities.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "diffdock"
+    },
+    {
+      "id": 5,
+      "prompt": "I want to run AlphaFold and Boltz structure predictions through the Tamarind Bio REST API for my binder design project. Show me how to submit the jobs.",
+      "expected_output": "Recognizes this as a Tamarind Bio platform task, not Rowan. Answer should use the tamarind skill and describe submitting jobs via the Tamarind REST API or MCP server.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "tamarind"
+    }
+  ]
+}

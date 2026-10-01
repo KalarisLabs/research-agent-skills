@@ -1,0 +1,40 @@
+{
+  "skill_name": "sglang",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get SGLang to only output valid JSON matching my schema?",
+      "expected_output": "Shows launching an SGLang server or runtime and using a JSON schema constraint (e.g. json_schema or response_format via the OpenAI-compatible API, or sgl.gen with a schema). Notes that the schema should be validated and the installed version's docs confirmed.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running Llama-3.1-8B-Instruct on a single A100 to annotate 20k abstracts in abstracts.jsonl. Every request starts with the same ~1,200-token system prompt plus 8 few-shot examples, and throughput is awful with my current vLLM setup. I'm now getting 'CUDA out of memory' when I raise concurrency. Can you set up SGLang for this and tell me what to tune?",
+      "expected_output": "Checks environment and versions, launches the SGLang server for Llama-3.1-8B, and explains that RadixAttention reuses the shared prefix KV cache. Suggests lowering memory settings (e.g. mem-fraction-static) for the OOM, runs a small batch first, and measures throughput against the vLLM baseline without promising the quoted speedups.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm building a lab assistant agent that calls tools (plate reader lookup, protocol search) in multi-step loops, and each step resends a long shared context. I want to self-host an open model so the repeated context isn't recomputed every turn and the tool call arguments always parse correctly. What serving stack and setup should I use?",
+      "expected_output": "Recommends SGLang for prefix caching (RadixAttention) and constrained or structured tool-call outputs. Outlines a server launch, OpenAI-compatible function calling or sgl.function workflow, and a small test before scaling, with caveats to verify against the installed version.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to compile Llama-3-70B with FP8 quantization on 8 H100s using TensorRT engines for the lowest possible latency in production. Walk me through it.",
+      "expected_output": "Recognizes this is a TensorRT-LLM task (engine build, FP8 quantization, NVIDIA-only multi-GPU) and not SGLang.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "tensorrt-llm"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a MacBook M2 with no NVIDIA GPU. How can I run a 4-bit GGUF of Mistral 7B locally to summarize papers?",
+      "expected_output": "Recommends llama.cpp with a GGUF quantized model on Apple Silicon, not SGLang's server stack.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "llama-cpp"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "skill_name": "pacsomatic",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "do a dry run of pacsomatic on my tumor/normal pair first and tell me what's missing",
+      "expected_output": "Collects the required inputs (tumor/normal BAM paths, patient and sample IDs, output dir, and exactly one of fasta or genome) and asks for any that are missing. Then routes through scripts/run_pacsomatic.py with --dry-run, not --run, and reports the command, validation status, run type and a next step.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have PacBio HiFi BAMs for patient P017: /data/p017/P017_T.hifi.bam (sample P017_T) and /data/p017/P017_N.hifi.bam (sample P017_N), reference is /ref/GRCh38.fa. Submit it to our Slurm cluster, partition 'long', account 'onc-lab', output in /scratch/p017_out, and give me the job id. Last time sbatch failed with 'Invalid account or account/partition combination specified'.",
+      "expected_output": "Uses scripts/run_pacsomatic.py with the Slurm executor, --fasta, and the queue and account arguments. Uses --run because submission was requested. Generates the samplesheet (patient,sample,status,bam,pbi), params YAML and launch script, and returns the detected job ID. Does not hand-assemble a nextflow run command. If it fails, reports the first failure point and points to .nextflow.log and the scheduler error, noting the account/partition mismatch.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got long-read tumor and matched normal BAMs for one patient and want somatic variant calls through the nf-core long-read somatic workflow. Can you get everything set up so I can rerun it later exactly the same way?",
+      "expected_output": "Recognizes this as a pacsomatic matched tumor-normal task. Gathers the missing inputs (IDs, output dir, reference mode). Generates the samplesheet, params YAML and launch script via scripts/run_pacsomatic.py so the run is reproducible. States the run type (dry-run unless execution was requested) and gives a next step.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm writing a custom Nextflow DSL2 module for bcftools norm and my channel keeps emitting an empty tuple. Can you help me debug the process and the workflow block?",
+      "expected_output": "Does not use pacsomatic. This is general Nextflow DSL2 development (processes, channels), so it should be handled by the nextflow skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "nextflow"
+    },
+    {
+      "id": 5,
+      "prompt": "Here is the somatic VCF from my tumor-normal run. Which of these driver mutations are likely clinically actionable in lung adenocarcinoma, and what therapies would they suggest?",
+      "expected_output": "Does not use pacsomatic. The request is for biological and clinical interpretation of variants, not run orchestration, which the skill excludes. Should not invent therapies or actionability claims beyond the evidence. It should say what can be supported and recommend appropriate annotation and curation resources.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

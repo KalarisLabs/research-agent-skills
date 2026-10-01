@@ -1,0 +1,40 @@
+{
+  "skill_name": "matplotlib",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Make me a log-scale scatter plot with a fitted line and save it as a vector PDF.",
+      "expected_output": "Uses the matplotlib object-oriented API (fig, ax = plt.subplots) with ax.set_xscale/set_yscale('log'), overlays the fit line, labels axes with units, and saves with fig.savefig('...pdf', bbox_inches='tight'). Does not alter the data, and states which assumptions were made, such as the fit method.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm in Jupyter with a DataFrame `df` from results/rnaseq_counts.csv. I need a 2x2 grid: a volcano plot (log2FC vs -log10 padj) with the significant genes in red, a MA plot, a PCA scatter and a library-size bar chart. The shared x labels overlap, and fig.savefig('fig2.png') gives a cropped legend. Please fix both and export at 300 dpi.",
+      "expected_output": "Builds the 2x2 layout with plt.subplots and constrained_layout=True (or tight_layout) to stop the overlap. Fixes the legend cropping with bbox_inches='tight' and saves with dpi=300. Uses a colour-blind-safe palette instead of plain red/green, runs one figure at final size first, and checks that the plotted values match the CSV.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a 3D array of electric potential values on a grid and need a picture that shows the field lines and the equipotential surfaces together, with the arrows scaled by field strength. Nothing off the shelf does exactly this, so I'm expecting to write the drawing code myself.",
+      "expected_output": "Recognises this as a custom plot needing low-level control and uses matplotlib, combining contour or contourf with quiver or streamplot, and possibly the 3D toolkit, with the arrow scaling set explicitly. Adds a colorbar with a label and units, picks a perceptually uniform colormap, and verifies the field computation against the data.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Show the distribution of gene expression across 5 treatment groups in my pandas DataFrame, with a quick violin plot, split by sex, and an attractive default style.",
+      "expected_output": "Should go to seaborn: sns.violinplot with hue='sex' on the DataFrame, using the library's default theme. It does not hand-build the plot from matplotlib primitives.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "seaborn"
+    },
+    {
+      "id": 5,
+      "prompt": "I'm submitting to Nature. Please review my multi-panel Figure 3 for journal sizing, colour-blind accessibility, how missing data and error bars are displayed, and the export specs for the TIFF and metadata requirements.",
+      "expected_output": "Should go to scientific-visualization, which audits the figure against journal requirements, accessibility, uncertainty and missing-data displays, and export planning. It is not a general matplotlib customization task.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scientific-visualization"
+    }
+  ]
+}

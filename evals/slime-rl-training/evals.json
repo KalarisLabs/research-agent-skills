@@ -1,0 +1,40 @@
+{
+  "skill_name": "slime-rl-training",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I launch a GRPO run with slime on GLM-4.7?",
+      "expected_output": "Walks through slime's GRPO workflow: prepare JSONL prompt data, pick the pre-configured GLM model script in scripts/models/, and launch training with Megatron, SGLang and slime arguments. Mentions the batch-size constraint, a small smoke run first, and checking the installed version's docs rather than inventing flags.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running THUDM/slime in Docker on 2 nodes of 8xH100 to RL-train Qwen3-30B-A3B on my train.jsonl, which has prompt and label fields. Training hangs right after the first rollout finishes, and then I get a weight sync timeout. What should I check?",
+      "expected_output": "Identifies this as slime's weight-sync-timeout issue (training hangs after rollout) and gives the skill's remedies: SGLang/Megatron memory and co-location settings, and the sync-related arguments. Asks for logs and the installed version, and does not fabricate flag names.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to train a search agent with RL. It should call a retrieval tool over several turns, get a reward from the final answer, and run on a Megatron-LM stack with SGLang serving the rollouts. The pipeline should overlap generation and training to avoid idle GPUs. How should I set this up?",
+      "expected_output": "Recommends slime's multi-turn agentic workflow: write a custom generate function that handles the tool loop and plug it in with the custom-function launch option. Adds a custom reward function, async training to overlap rollout and training, and a pointer to examples/search-r1/. Notes the data buffer and checks the version.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to train a large MoE model with FP8 rollouts and speculative RL, and I need enterprise-grade stability and train-inference alignment. Which framework and setup should I use?",
+      "expected_output": "Recognizes this as the miles use case (production-ready fork of slime, FP8/INT4, speculative RL) and routes to miles-rl-training rather than slime-rl-training.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "miles-rl-training"
+    },
+    {
+      "id": 5,
+      "prompt": "Help me set up PPO RLHF with verl on a Ray cluster, using FSDP as the training backend and vLLM for rollouts.",
+      "expected_output": "Recognizes that this is verl territory (flexible backends, PPO/RLHF) and routes to verl-rl-training, not slime.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "verl-rl-training"
+    }
+  ]
+}

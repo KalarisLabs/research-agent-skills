@@ -1,0 +1,39 @@
+{
+  "skill_name": "openpiv",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get a velocity field out of two PIV frames?",
+      "expected_output": "Gives an OpenPIV workflow: load the pair as float arrays, run cross-correlation with window_size, overlap and search_area_size, compute signal-to-noise, validate, replace outliers, and scale to physical units using dt and a scaling factor.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have two TIFFs from our water-tunnel run, cyl_0001_a.tif and cyl_0001_b.tif, dt = 0.5 ms, and the calibration is 12 px/mm. I used multi-pass in windef with settings.dt set, but my u,v are still around 4 – this looks like pixels, not mm/s. What's wrong, and how do I validate the vectors afterwards? I used a (-30, 30) limit.",
+      "expected_output": "Explains that windef ignores PIVSettings.dt and scaling_factor, so multi-pass output is in px/frame, and the user must convert afterwards (px/frame × scaling⁻¹ / dt). Warns that validation thresholds must match the units of u and v. A (-30, 30) px/frame limit applied to scaled px/s values would reject everything, so validate before scaling or rescale the thresholds.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got a grid of 2D velocity vectors measured from seeded flow around a cylinder. I want to know where the flow is rotating and how much, and whether the field is turbulent. What should I compute and how should I be careful?",
+      "expected_output": "Recommends computing vorticity and strain rate from the gridded velocity field using the physical grid spacing, not dx=1. Mentions checking the sign convention for the row orientation of the y-axis. Notes that real turbulence statistics need a Reynolds decomposition over an ensemble of image pairs, not a spatial mean subtraction from one frame.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have spliced and unspliced count layers in my AnnData from a 10x run. How do I compute RNA velocity and plot the velocity stream on the UMAP?",
+      "expected_output": "Should use the scvelo skill for RNA velocity on single-cell data, not OpenPIV. The word 'velocity' here is unrelated to fluid flow.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scvelo"
+    },
+    {
+      "id": 5,
+      "prompt": "I want to simulate laminar flow past a cylinder at Re=100 by solving the incompressible Navier-Stokes equations on a mesh and get the velocity field.",
+      "expected_output": "Should recognize this as CFD simulation rather than measurement from PIV image pairs, and point to a CFD solver approach instead of OpenPIV.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

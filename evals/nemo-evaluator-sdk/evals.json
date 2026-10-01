@@ -1,0 +1,40 @@
+{
+  "skill_name": "nemo-evaluator-sdk",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run MMLU and GSM8K on my vLLM endpoint with nemo evaluator?",
+      "expected_output": "Walks through installing the SDK, writing a config that points at the OpenAI-compatible vLLM URL and model id, adding the MMLU and GSM8K tasks, and running `run` then checking results. Mentions that HF_TOKEN may be needed for some tasks, and runs a small subset first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I need to benchmark llama-3.1-70b on mmlu, gpqa_diamond and ifeval on our Slurm cluster. The job sits in PENDING forever and `nemo-evaluator-launcher status` shows nothing useful. Here's my slurm config: account=ml-eval, partition=gpu_a100, nodes=2. How should I debug it and set up the deployment correctly?",
+      "expected_output": "Checks the Slurm account and partition values and queue state (e.g. squeue/sinfo), reviews the execution backend and deployment config, and uses the `status`/`info` commands to inspect the job. Notes GPQA needs HF_TOKEN and asks about any unverified values rather than guessing.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We're comparing three finetuned checkpoints on the same set of academic, safety and vision-language benchmarks, all in reproducible containers on our HPC cluster, and want the results pushed into W&B. What's the best way to set that up?",
+      "expected_output": "Proposes a containerized multi-backend evaluation with a shared base config and per-model overrides, covering safety and VLM tasks, then exporting results with the `export` command to W&B. Reports versions and settings, and confirms with the user before consuming shared GPUs.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Can you run HumanEval and MBPP pass@10 on my code model locally with bigcode-evaluation-harness and tell me which temperature to use?",
+      "expected_output": "Uses the code-model evaluation approach with pass@k sampling settings (temperature, n_samples) for HumanEval and MBPP, not the multi-backend NeMo Evaluator platform.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "evaluating-code-models"
+    },
+    {
+      "id": 5,
+      "prompt": "Quick local check: what's the simplest way to get HellaSwag and ARC accuracy for my HuggingFace gpt2 checkpoint with lm_eval?",
+      "expected_output": "Gives a simple lm-evaluation-harness command for HellaSwag and ARC on the HF model, with no Docker, Slurm or NeMo Evaluator setup.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "evaluating-llms-harness"
+    }
+  ]
+}

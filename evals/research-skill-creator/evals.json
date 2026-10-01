@@ -1,0 +1,18 @@
+{
+  "skill_name": "research-skill-creator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Turn our lab's qPCR analysis workflow into a reusable agent skill and contribute it.",
+      "expected_output": "Scaffolds with new_skill.py, description rules, script contract, validation and evals",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Analyze my qPCR data.",
+      "expected_output": "Skill not used",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

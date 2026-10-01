@@ -1,0 +1,10 @@
+astropy
+cirq
+fluidsim
+geomaster
+geopandas
+openpiv
+pennylane
+pymatgen
+qiskit
+qutip

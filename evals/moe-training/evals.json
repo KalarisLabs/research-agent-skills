@@ -1,0 +1,39 @@
+{
+  "skill_name": "moe-training",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I fine-tune Mixtral 8x7B on a single 8-GPU node without running out of memory?",
+      "expected_output": "Explains MoE fine-tuning setup with HuggingFace or DeepSpeed (expert parallelism, ZeRO stage, half precision, router aux loss enabled). Checks GPU memory, checkpoint licence and framework versions first, and starts with a small run before the full job.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm pretraining a 1.3B-base MoE with 16 experts using train_moe.py and DeepSpeed. After about 2k steps the loss spikes and the router logs show 3 experts getting nearly all the tokens (the others are under 1%). My ds_config has aux loss coef 0.01 and capacity_factor 1.0. What should I change?",
+      "expected_output": "Diagnoses expert collapse and load imbalance. Suggests raising the auxiliary load-balancing loss coefficient, adding router z-loss for stability, tuning capacity factor, and lowering the learning rate or router LR. Says to verify changes on a short run and states the assumptions rather than inventing config keys.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My lab has a small budget and I want a language model with much more parameter capacity than a dense 7B, but without paying proportionally more per training token. What architecture should I use, and how do I set it up and train it?",
+      "expected_output": "Recommends a sparse mixture-of-experts design (top-k routing, expert count choice, load-balancing loss) and outlines training with DeepSpeed MoE or HuggingFace. Notes the trade-offs, such as memory still scaling with total parameters, and asks about hardware and data before committing.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to launch Megatron-Core pretraining of a 70B dense model on 64 H100s with FP8. Help me choose TP/PP/DP/CP sizes and the micro-batch size.",
+      "expected_output": "Should route to the Megatron-Core skill, which covers parallelism sizing and FP8 on H100. The MoE skill is not the right fit because this is a dense model on Megatron.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "training-llms-megatron"
+    },
+    {
+      "id": 5,
+      "prompt": "Write a PyTorch script that fine-tunes a dense BERT-base classifier on my sentiment CSV with a learning rate scheduler and early stopping.",
+      "expected_output": "Provides a standard dense-model fine-tuning script. No MoE, routing or expert parallelism content is involved.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

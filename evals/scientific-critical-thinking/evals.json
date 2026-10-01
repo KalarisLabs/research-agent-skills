@@ -1,0 +1,40 @@
+{
+  "skill_name": "scientific-critical-thinking",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Is this a good study? 40 mice, treated group housed in one cage, control in another, outcome scored by the same grad student who ran the injections. Authors claim the drug 'cures' anxiety.",
+      "expected_output": "Identifies cage/cluster confounding and pseudoreplication, lack of randomization and blinding (detection/observer bias), small sample, and an overreaching causal 'cures' claim. Separates fatal from minor flaws, notes strengths, and suggests fixes (randomize across cages, blind scoring, cage as unit of analysis).",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I've attached smith2023_vitD_RCT.pdf, a meta-analysis of 14 vitamin D trials for respiratory infection prevention. Can you rate the certainty of evidence for the primary outcome using GRADE and tell me where each trial sits on Cochrane risk of bias? Several trials used per-protocol analysis and I2 is 68%.",
+      "expected_output": "Walks through GRADE domains (risk of bias, inconsistency given I2 68%, indirectness, imprecision, publication bias) and RoB domains per trial, flagging per-protocol analysis as a deviation/attrition concern. Gives a justified certainty rating with stated uncertainty, asks for or flags missing details rather than inventing data, and does not fabricate trial-specific values.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm teaching a journal club for first-year PhD students. I want them to learn to tell what a paper actually showed from what the authors say it means. How should I structure a session around a recent nutrition cohort study that claims a food 'prevents' cancer?",
+      "expected_output": "Proposes a structured session that separates data from interpretation, correlation from causation, and statistical from practical significance. Covers confounding (healthy-user bias), exposure measurement, multiple comparisons, and fallacies, with a concrete exercise and a constructive critique structure of strengths, concerns by severity, and recommendations.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write a formal peer review report for the manuscript I was assigned from Nature Communications, with reviewer comments for the editor and the authors.",
+      "expected_output": "Recognizes this is formal peer review writing, which belongs to the peer-review skill rather than general critical appraisal, and routes there. It should not produce the report using the critical-thinking skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "peer-review"
+    },
+    {
+      "id": 5,
+      "prompt": "Search for recent papers on CRISPR base editing in sickle cell disease and pull the sample sizes and main results from each study into a table.",
+      "expected_output": "Uses a paper search and structured-data extraction tool to retrieve papers and fields such as sample size and results. This is retrieval, not an appraisal of evidence quality.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "bgpt-paper-search"
+    }
+  ]
+}

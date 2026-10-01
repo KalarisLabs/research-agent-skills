@@ -1,0 +1,18 @@
+{
+  "skill_name": "acm-sigconf",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Set up my CHI 2026 submission in acmart with anonymous review mode and CCS concepts.",
+      "expected_output": "acmart sigconf,review,anonymous setup, CCSXML, Description alt text, anonymization checklist",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Format my paper for IEEE Transactions.",
+      "expected_output": "Skill not used (ieee-transactions applies)",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

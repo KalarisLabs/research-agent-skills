@@ -1,0 +1,39 @@
+{
+  "skill_name": "pathml",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I tile a .svs slide with PathML and run a tissue mask on it?",
+      "expected_output": "Uses PathML 3.0.5 API: a slide class such as HESlide and SlideData.run() with a Pipeline of transforms (e.g. tissue detection). Does not use SlideData.from_slide() or Pipeline.run(). Suggests a small bounded sample first and notes tile (i, j) = (row, column) coordinates at the chosen level.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm on Python 3.11 and ran `pip install pathml[all]` for my lab's CODEX project, and it errored out with a javabridge build failure on Windows. I have a 40-channel qptiff (codex_run3.qptiff) and want to segment nuclei and get per-cell marker means into AnnData. What should I do?",
+      "expected_output": "Says PathML 3.0.5 has no extras, so `pathml[all]` is wrong. Recommends the pinned uv/pip install with native prerequisites (JDK for Bio-Formats, OpenSlide). Describes the multiplex quantification workflow to AnnData with channel order and MPP checks. Warns that SegmentMIFRemote downloads a model from Hugging Face at construction, so it needs explicit user consent, and prefers a local checksummed ONNX model. Asks about de-identification.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have 120 H&E slides from 60 patients, with two or three slides per patient. I want to build a graph for each slide in which cells are nodes and neighbours within a certain distance are linked, and then train a classifier on it. How should I set this up so my evaluation isn't leaky?",
+      "expected_output": "Recommends freezing a patient-level split (all slides of a patient in one split) before tiling, graph building, normalization or feature fitting. Describes building cell graphs (KNN or radius/RAG) with validated instance labels, feature alignment and physical units, and possibly tissue-level HACT graphs. Warns that EntityDataset loads .pt files with weights_only=False, so untrusted graphs must not be opened. Uses pseudonymous IDs and keeps results as research only.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Using histolab, set up a RandomTiler to pull 512x512 tiles at 20x from my TCGA .svs files, then apply Macenko stain normalization.",
+      "expected_output": "Recognizes this as a histolab task (RandomTiler, Macenko) and does not use PathML. Answers with the histolab API.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "histolab"
+    },
+    {
+      "id": 5,
+      "prompt": "Here's a de-identified slide image. Can you look at it and tell me whether this patient has invasive carcinoma and what grade it is so we can pick their treatment?",
+      "expected_output": "Declines to give a diagnosis, grade or treatment decision. PathML is research-only and not a clinical tool. Directs the user to a qualified pathologist and clinical workflows rather than a computational pathology research skill.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

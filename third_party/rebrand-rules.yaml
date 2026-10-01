@@ -1,0 +1,66 @@
+# Rules applied by tools/rebrand.py to imported upstream skills.
+# Provenance of the imported material is recorded in upstream-manifest.json and
+# THIRD_PARTY_NOTICES.md; these rules only remove promotional/self-citation text
+# and product identifiers from the skill content itself.
+
+# Markdown sections (heading text) removed entirely, including their body.
+promo_sections:
+  - Citing Scientific Agent Skills
+  - Citing AI Research Skills
+
+# Vendor-level author values matching this regex become `metadata.maintainer`.
+upstream_author_regex: "k-?dense|orchestra"
+
+# Exact phrase rewrites, applied in order (most specific first).
+# {BRAND}, {REPO_SLUG} and {REPO_URL} are substituted from tools/common.py.
+replacements:
+  - ["k-dense-ai--scientific-agent-skills", "kalarislabs--research-agent-skills"]
+  - ["K-Dense-AI/scientific-agent-skills", "{REPO_SLUG}"]
+  - ["K-Dense-AI/claude-scientific-skills", "{REPO_SLUG}"]
+  - ["orchestra-research/AI-research-SKILLs", "{REPO_SLUG}"]
+  - ["https://scientific-agent-skills.local/", "https://research-agent-skills.local/"]
+  - ["claude-scientific-skills", "research-agent-skills"]
+  - ["scientific-agent-skills", "research-agent-skills"]
+  - ["Scientific Agent Skills", "Research Agent Skills"]
+  - ["AI-Research-SKILLs ecosystem", "Research Agent Skills collection"]
+  - ["AI-Research-SKILLs", "Research Agent Skills"]
+  - ["AI Research Skills Library", "Research Agent Skills"]
+  - ["AI Research Skills", "Research Agent Skills"]
+  # Presentation defaults that named the upstream vendor as author/speaker.
+  - ['**Default author is "K-Dense"** unless another name is specified', "**Default author is the user's name** (ask for it if not provided)"]
+  - ['Default author/presenter: "K-Dense" (use this unless another name is specified)', "Default author/presenter: the user's name (ask for it if not provided)"]
+  - ["default author: K-Dense", "default author: the user"]
+  - ["Speaker: K-Dense.", "Speaker: [Your Name]."]
+  - ["Conference name, K-Dense.", "Conference name, [Your Name]."]
+  - [", K-Dense Discord,", ","]
+  - ["; K-Dense Team (K-Dense Inc.; Integration target and community feedback)", ""]
+  - ["K-Dense Inc. (PrimeKG original from Harvard MIMS)", "PrimeKG original from Harvard MIMS"]
+  - ["the K-Dense AI research-agent-skills repo", "the research-agent-skills project"]
+  - ["K-Dense, Inc.", "{BRAND}"]
+  - ["K-Dense Inc.", "{BRAND}"]
+  - ["K-Dense AI", "{BRAND}"]
+  - ["K-Dense", "{BRAND}"]
+  - ["Orchestra Research", "{BRAND}"]
+  - ["https://orchestra.com", "{REPO_URL}"]
+
+# Patterns that must not appear outside the allowed provenance paths
+# (enforced by tools/brand_guard.py in CI). Case-insensitive regexes.
+guard_patterns:
+  - "k-?dense"
+  - "orchestra[- ]?research"
+  - "orchestra\\.com"
+  - "AI-research-SKILLs"
+  - "claude-scientific-skills"
+  # Our own repository slug and Pages URL are allowed.
+  - '(?<!KalarisLabs/)(?<!github\.io/)scientific-agent-skills'
+guard_allowed_paths:
+  - LICENSES/
+  - THIRD_PARTY_NOTICES.md
+  - third_party/
+
+# Marketing residue removed from Markdown (popularity stats are not instructions).
+drop_line_regexes:
+  - '^\s*[-*]\s*\*\*[\d,.]+k?\+?\s+GitHub stars\*\*\s*$'
+  - '^\s*\*\*(?:Users|GitHub Stars)\*\*:.*$'
+strip_regexes:
+  - ' \([\d,.]+k?\+? (?:GitHub )?stars\)'

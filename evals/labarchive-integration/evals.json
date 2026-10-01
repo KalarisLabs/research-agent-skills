@@ -1,0 +1,39 @@
+{
+  "skill_name": "labarchive-integration",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I sign a LabArchives API call in Python?",
+      "expected_output": "Explains the ELN signature: HMAC-SHA-512 over akid + method name (not class) + expires in epoch milliseconds, keyed by the Access Password, then base64-encoded and URI-encoded. Sends akid, expires and sig as query parameters. Keeps secrets in environment variables and does not log the query string.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm getting an authentication failure from our university's LabArchives notebook API when I call users/user_access_info. We're in the UK. My script builds https://api.labarchives.com/api/users/user_access_info and signs akid+'users/user_access_info'+expires with the password. What's wrong, and how should I fix it?",
+      "expected_output": "Identifies two errors: the UK tenant must use the UK regional API host, not the US host, and the signature input should be only the method name 'user_access_info', not 'users/user_access_info'. Confirms expires is current epoch milliseconds, checks the method page and the UID/akid binding, and uses HTTPS with timeouts and no credential logging.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our lab wants a nightly script that pulls our storage locations and vendor list out of our LabArchives inventory system into a spreadsheet. Where do I start, and what do I need to watch out for?",
+      "expected_output": "Recognizes this as the Inventory API v1, separate from the ELN API. Uses relative /public/v1 routes, signed X-LabArchives-* headers over the exact relative route with no query string, and a lab ID. Notes that Enterprise access is required and the regional base URL must come from institutional documentation. Advises a fresh signature per request, staggering calls, and a read-only dry-run plan.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to push my Benchling ELN entries and registry entities into a pandas DataFrame using the Python SDK. Show me how to authenticate with an API key and page through entries.",
+      "expected_output": "Uses benchling-sdk and the Benchling v2 API, not LabArchives. The answer should route to the benchling-integration skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "benchling-integration"
+    },
+    {
+      "id": 5,
+      "prompt": "Write a Python script that does a pairwise t-test on my plate reader absorbance data in results.csv and plots the results with error bars.",
+      "expected_output": "Does ordinary statistical analysis and plotting with pandas, scipy and matplotlib. It involves no ELN or API integration, so no skill applies.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

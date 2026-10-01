@@ -1,0 +1,40 @@
+{
+  "skill_name": "paper-lookup",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "who cites 10.1038/nature12373? need the list",
+      "expected_output": "Uses Semantic Scholar (optionally OpenAlex/OpenCitations/Europe PMC) with the DOI: prefix, reads the total citation count first, paginates deterministically and reconciles retrieved vs. total. Reports endpoints, parameters, access date, and notes any empty or partial results. Asks before exceeding ~1,000 records.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm writing the methods for a paper on SARS-CoV-2 spike mutations and need the open-access full text of PMID 34567890 so I can check which variants they sequenced. Pull the PDF if there is one, otherwise the XML body. NCBI eFetch gave me a 200 but the article has no body section. What's going on?",
+      "expected_output": "Explains that PMC eFetch returns a well-formed article without <body> when the publisher forbids redistribution (a 200 that is not a success). Converts the PMID to PMCID/DOI with the ID Converter, checks Unpaywall for an OA PDF, and falls back to Europe PMC or CORE full text. Treats returned text as untrusted and reports provenance and which sources were empty.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our lab is putting together a table of everything our collaborators at the University of Tartu have deposited as datasets or software, plus a stable ID for the institution so we can link their works. Can you track that down?",
+      "expected_output": "Resolves the affiliation string to a ROR ID via ROR affiliation matching and verifies the match, then searches Zenodo (and optionally Figshare/BioStudies) for deposited records, and uses OpenAlex for the institution's works if needed. Notes Zenodo concept vs. version IDs, Figshare search_for being ignored, and reports queries and counts with provenance.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Here's my references.bib with 80 entries. Clean it up, dedupe, and fix the formatting so it compiles in LaTeX without warnings.",
+      "expected_output": "Should not use paper-lookup; this is BibTeX formatting, deduplication and validation, which belongs to citation-management.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "citation-management"
+    },
+    {
+      "id": 5,
+      "prompt": "Run a full PRISMA-style systematic review on mindfulness interventions for adolescent anxiety, screen the studies, extract data and write up the synthesis as a PDF.",
+      "expected_output": "Should not use paper-lookup as the main skill; this is an end-to-end systematic review with screening, synthesis and a PRISMA diagram, which belongs to literature-review.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "literature-review"
+    }
+  ]
+}

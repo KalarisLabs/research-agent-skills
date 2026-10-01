@@ -1,0 +1,18 @@
+{
+  "skill_name": "springer-lncs",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Prepare the LNCS camera-ready for our MICCAI paper with ORCIDs.",
+      "expected_output": "llncs setup, splncs04, orcidID, consent-to-publish, no layout changes",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Submit to an ACM conference.",
+      "expected_output": "Skill not used (acm-sigconf applies)",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

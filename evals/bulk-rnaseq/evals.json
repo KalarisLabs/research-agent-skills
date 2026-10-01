@@ -1,0 +1,40 @@
+{
+  "skill_name": "bulk-rnaseq",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have 12 paired-end FASTQ files from a mouse liver drug-treatment experiment. Can you take me from reads all the way to differentially expressed genes?",
+      "expected_output": "Routes between the nf-core/rnaseq (Path A, recommended) and standalone STAR/Salmon (Path B) paths. Checks the design first (at least 3 replicates per group, batch confounding, strandedness) and then runs QC and trimming, quantification and a counts matrix. Hands off to pydeseq2, pathway-enrichment and scientific-visualization, with pinned versions.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I ran Salmon on 8 samples (quant.sf files in salmon_out/sample*/) against GRCh38 Ensembl release 110. How do I get a counts.csv and metadata file that PyDESeq2 will accept? PyDESeq2 errors out saying my counts aren't integers.",
+      "expected_output": "Explains the counts-to-DE bridge. Aggregate quant.sf to gene level with a tx2gene map (pytximport, length_scaled_tpm), round the estimated counts to integers, and write a genes x samples counts.csv plus a metadata template (scripts/build_counts_matrix.py --from salmon). Warns against using TPM/FPKM and notes that Ensembl IDs must be mapped to symbols before enrichment.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My collaborator sequenced treated vs. untreated tumor organoids in triplicate, but the treated ones were all run on a different lane and day than the controls. I want to know which pathways are changing between the two groups. How should I proceed?",
+      "expected_output": "Flags that batch is fully confounded with condition, so the effect cannot be separated. Recommends adding or randomizing replicates and modeling batch where possible (~batch + condition). Then outlines the full workflow: QC gates, strandedness, quantification, DE, and GSEA ranked on the DESeq2 stat. Treats PCA and sample-distance QC as required.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I already have a counts.csv and metadata.csv. Run a Wald test for treated vs control with a ~batch + condition design in PyDESeq2 and apply apeGLM shrinkage.",
+      "expected_output": "Uses the pydeseq2 skill directly. The task is DE statistics only, starting from an existing counts matrix, with no reads-to-counts orchestration needed.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pydeseq2"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a 10x Genomics PBMC dataset (filtered_feature_bc_matrix). Cluster the cells and find marker genes for each cluster.",
+      "expected_output": "Recognizes this as single-cell RNA-seq and uses scanpy for clustering and marker gene analysis, not the bulk RNA-seq pipeline.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scanpy"
+    }
+  ]
+}

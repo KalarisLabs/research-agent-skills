@@ -1,0 +1,18 @@
+{
+  "skill_name": "ieee-transactions",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Format my paper with IEEEtran for IEEE Transactions on Neural Networks and add index terms.",
+      "expected_output": "IEEEtran journal mode, abstract/Index Terms rules, IEEE refs, page-limit check",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Write an APA-style literature review.",
+      "expected_output": "Skill not used",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

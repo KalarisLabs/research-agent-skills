@@ -1,0 +1,87 @@
+name: Supply chain
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "23 5 * * *" # daily: new advisories against locked dependencies
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  secrets:
+    name: Secret scanning (TruffleHog)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: trufflesecurity/trufflehog@4dd8831c5f12599465d4d45c3c447b4018a34c85 # v3.97.9
+        with:
+          extra_args: --results=verified,unknown
+
+  dependency-review:
+    name: Dependency review
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          fail-on-severity: moderate
+          deny-licenses: GPL-3.0-only, AGPL-3.0-only
+          comment-summary-in-pr: on-failure
+
+  audit:
+    name: Vulnerability audit (OSV, pip-audit, npm audit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+      - name: pip-audit (tooling lockfile)
+        run: |
+          uv export --locked --no-hashes --format requirements-txt > /tmp/requirements.txt
+          uvx pip-audit==2.10.1 -r /tmp/requirements.txt --strict
+      - name: npm audit (CLI, production + dev)
+        working-directory: cli
+        run: |
+          npm ci --ignore-scripts
+          npm audit --audit-level=moderate
+          npm audit signatures
+      - name: OSV-Scanner (all lockfiles and skill requirement files)
+        run: |
+          curl -fsSLo osv-scanner https://github.com/google/osv-scanner/releases/download/v2.6.0/osv-scanner_linux_amd64
+          echo "$(curl -fsSL https://github.com/google/osv-scanner/releases/download/v2.6.0/osv-scanner_SHA256SUMS | grep ' osv-scanner_linux_amd64$' | cut -d' ' -f1)  osv-scanner" | sha256sum -c -
+          chmod +x osv-scanner
+          ./osv-scanner scan source --lockfile uv.lock --lockfile cli/package-lock.json
+          # Skill requirement files are advisory (user-installed, often unpinned): report, don't fail.
+          ./osv-scanner scan source -r skills || echo "::warning::OSV findings in skill requirement files (see log)"

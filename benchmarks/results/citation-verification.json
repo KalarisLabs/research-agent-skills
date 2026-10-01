@@ -1,0 +1,114 @@
+{
+  "precision": 1.0,
+  "recall": 1.0,
+  "rows": [
+    {
+      "key": "lecun2015deep",
+      "label": "real",
+      "status": "verified",
+      "correct": true
+    },
+    {
+      "key": "jumper2021highly",
+      "label": "real",
+      "status": "verified",
+      "correct": true
+    },
+    {
+      "key": "he2016deep",
+      "label": "real",
+      "status": "verified",
+      "correct": true
+    },
+    {
+      "key": "krizhevsky2017imagenet",
+      "label": "real",
+      "status": "verified",
+      "correct": true
+    },
+    {
+      "key": "watson1953molecular",
+      "label": "real",
+      "status": "verified",
+      "correct": true
+    },
+    {
+      "key": "page2021prisma",
+      "label": "real",
+      "status": "verified",
+      "correct": true
+    },
+    {
+      "key": "devlin2019bert",
+      "label": "real",
+      "status": "verified",
+      "correct": true
+    },
+    {
+      "key": "silver2016mastering",
+      "label": "real",
+      "status": "verified",
+      "correct": true
+    },
+    {
+      "key": "vaswani2017attention",
+      "label": "real",
+      "status": "found-add-doi",
+      "correct": true
+    },
+    {
+      "key": "kingma2014adam",
+      "label": "real",
+      "status": "found-add-doi",
+      "correct": true
+    },
+    {
+      "key": "corrupt_wrongdoi",
+      "label": "corrupted",
+      "status": "mismatch",
+      "correct": true
+    },
+    {
+      "key": "corrupt_year",
+      "label": "corrupted",
+      "status": "mismatch",
+      "correct": true
+    },
+    {
+      "key": "corrupt_author",
+      "label": "corrupted",
+      "status": "mismatch",
+      "correct": true
+    },
+    {
+      "key": "corrupt_doi_typo",
+      "label": "corrupted",
+      "status": "doi-not-found",
+      "correct": true
+    },
+    {
+      "key": "fab1",
+      "label": "fabricated",
+      "status": "not-found",
+      "correct": true
+    },
+    {
+      "key": "fab2",
+      "label": "fabricated",
+      "status": "doi-not-found",
+      "correct": true
+    },
+    {
+      "key": "fab3",
+      "label": "fabricated",
+      "status": "not-found",
+      "correct": true
+    },
+    {
+      "key": "fab4",
+      "label": "fabricated",
+      "status": "doi-not-found",
+      "correct": true
+    }
+  ]
+}

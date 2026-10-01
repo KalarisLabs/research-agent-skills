@@ -1,0 +1,40 @@
+{
+  "skill_name": "simpo-training",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I train a model with SimPO instead of DPO?",
+      "expected_output": "Explains SimPO is reference-free, so no reference model is loaded. Gives the install and launch steps from the skill (config YAML and accelerate/DeepSpeed ZeRO-3 launch), and mentions the key hyperparameters (beta, gamma, learning rate). Checks the environment and the preference data format first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 60k chosen/rejected pairs in ultrafeedback_binarized.jsonl and a single node with 2x A100 40GB. I want to align Llama-3-8B-Instruct. My last run with lr 1e-5 had the loss go to NaN after about 200 steps. Can you set up the config and help me stop it from diverging?",
+      "expected_output": "Builds a Llama 3 8B instruct preference-optimization config using the SimPO workflow, with ZeRO-3, BF16 and gradient checkpointing, which fits the 2x A100 40GB. For the divergence it lowers the learning rate (much lower than 1e-5 for the instruct model), possibly reduces beta, checks the data for invalid values, and enables gradient clipping. It runs a small smoke test first and doesn't claim results without logs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got a Mistral 7B that's already been SFT'd, plus a pile of pairwise human preference labels. I want to push it toward preferred responses without the memory cost of keeping a frozen copy of the model around, and I don't want to build a reward model or run PPO. What's the simplest approach and how do I run it?",
+      "expected_output": "Recommends a reference-free preference optimization method (SimPO) because it needs no frozen reference model and no reward model. Describes the Mistral 7B workflow with hardware and VRAM expectations and notes the trade-offs against DPO. Asks about or checks the data format and GPU setup, and suggests a small trial run before the full job.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Using TRL's DPOTrainer, help me fine-tune Qwen2.5-7B on my preference dataset with a frozen reference model. I need the trainer config and the beta setting for the DPO loss.",
+      "expected_output": "Uses the TRL DPOTrainer workflow with a reference model and the DPO beta. It does not switch to SimPO, because the user explicitly asked for DPO in TRL.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "fine-tuning-with-trl"
+    },
+    {
+      "id": 5,
+      "prompt": "I need to run PPO on a 70B model across 4 nodes with Ray and vLLM generation, using a trained reward model. How should I set up the cluster and launch it?",
+      "expected_output": "Points to a multi-node distributed RLHF setup (Ray, vLLM, ZeRO-3, PPO) and does not use SimPO's single-node, reference-free approach. Covers the actor, critic, reward and reference placement across GPUs.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "openrlhf-training"
+    }
+  ]
+}

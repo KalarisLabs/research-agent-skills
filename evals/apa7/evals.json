@@ -1,0 +1,18 @@
+{
+  "skill_name": "apa7",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Convert my reference list to APA 7th edition and fix the heading levels in my thesis.",
+      "expected_output": "APA 7 reference patterns, DOIs as URLs, 5 heading levels",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Format my bibliography in IEEE numbered style.",
+      "expected_output": "Skill not used",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

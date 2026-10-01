@@ -1,0 +1,82 @@
+name: Skill security
+
+# Scans every file shipped in skills/ (instructions, references, scripts, tests,
+# assets) for prompt injection, hidden content and malicious code.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 4 * * 1" # weekly full rescan with updated rules
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  injection-lint:
+    name: Prompt-injection & payload lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - run: uv sync --locked
+      - name: Lint skills (fails on new HIGH/MEDIUM findings)
+        run: uv run tools/lint_injection.py --sarif reports/injection-lint.sarif
+      - name: Upload SARIF
+        if: always() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
+        with:
+          sarif_file: reports/injection-lint.sarif
+          category: injection-lint
+
+  skill-scanner:
+    name: Cisco AI Defense skill-scanner
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - run: uv sync --locked
+      - name: Scan (static, YARA and behavioral dataflow analyzers; no LLM, no uploads)
+        run: |
+          mkdir -p reports
+          uvx --from cisco-ai-skill-scanner==2.1.0 skill-scanner scan-all skills --recursive --use-behavioral \
+            --format json --output reports/skill-scanner.json
+          uvx --from cisco-ai-skill-scanner==2.1.0 skill-scanner scan-all skills --recursive --use-behavioral \
+            --format sarif --output reports/skill-scanner.sarif
+      - name: Gate on new HIGH/CRITICAL findings
+        run: uv run tools/skill_scanner_gate.py reports/skill-scanner.json
+      - name: Upload SARIF
+        if: always() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
+        with:
+          sarif_file: reports/skill-scanner.sarif
+          category: skill-scanner
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: skill-scanner-report
+          path: reports/
+          retention-days: 30

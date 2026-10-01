@@ -1,0 +1,39 @@
+{
+  "skill_name": "arbor",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have a training script for a small transformer and I want to push validation perplexity down as far as possible. Can you run a long autonomous search over optimizer and architecture tweaks and keep only what really generalizes?",
+      "expected_output": "Uses the Arbor/HTR workflow. Confirms the task tuple (initial artifact under git, objective and direction, dev evaluator, separate held-out test evaluator, constructing the split if missing). Initializes a hypothesis tree, runs coordinator cycles with executor subagents in isolated worktrees, and promotes a change only if it passes the held-out test merge gate.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "improve my agent harness pass rate",
+      "expected_output": "Triggers the skill. Asks for or pins down the artifact, metric, and a dev/test evaluator split. Then proposes a hypothesis tree with falsifiable depth-1 directions and depth-2 interventions instead of making ad-hoc edits.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My repo at ./mle_tabular is a Kaggle-style tabular competition solution (LightGBM, features in features.py, 5-fold CV in cv.py, MAE currently 0.412). I'd like to try many different approaches in parallel, record what each one taught us, drop the dead ends, and make sure the final winner isn't just overfit to the CV folds. Budget is about 20 rounds.",
+      "expected_output": "Applies Arbor: uses CV as E_dev and builds a distinct held-out E_test (e.g., different seeds or holdout split). Sets a budget of about 20 cycles and dispatches sibling hypotheses in parallel to worktree executors. Backpropagates insights upward, prunes falsified branches with recorded reasons, and gates merges on the test score. Leaves the best version on a named branch and gives a final report with the gap between dev wins and merged changes.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I don't have a model or metric yet. Can you help me brainstorm some novel hypotheses about why gut microbiome diversity might affect response to immunotherapy?",
+      "expected_output": "Does not use Arbor, since there is no artifact and no evaluator. Offers open-ended ideation, for example with hypothesis-generation or scientific-brainstorming, producing mechanistic hypotheses.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "hypothesis-generation"
+    },
+    {
+      "id": 5,
+      "prompt": "My script crashes with a KeyError on line 42 of preprocess.py when the 'label' column is missing. Can you fix it?",
+      "expected_output": "Makes a direct one-off bug fix, such as handling or validating the missing column, with no experiment loop or hypothesis tree.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

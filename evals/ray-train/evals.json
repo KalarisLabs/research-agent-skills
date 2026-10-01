@@ -1,0 +1,40 @@
+{
+  "skill_name": "ray-train",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run my PyTorch training across 4 machines with 8 GPUs each?",
+      "expected_output": "Recommends Ray Train with a TorchTrainer and ScalingConfig (num_workers=32, use_gpu=True), and explains starting a Ray cluster (head and worker nodes). Mentions checking the installed Ray version and the cluster setup before launching, and asks about cost or shared GPU quota.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My train.py fine-tunes a Llama-style model with HF Trainer on a single A100 and I now have a 6-node Ray cluster. Running ray status shows only the head node, and workers fail with 'Unable to connect to GCS at 10.0.0.5:6379'. How do I get this training across the whole cluster with checkpointing so it survives a node dying?",
+      "expected_output": "Diagnoses the cluster connection by checking ray status, the head address and port, firewall, and `ray start --address=...` on the workers. Then adapts train.py to Ray Train's HuggingFace integration with ScalingConfig, RunConfig and CheckpointConfig, and FailureConfig for fault tolerance. Suggests a small smoke run first and does not invent APIs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need to find the best learning rate, weight decay and batch size for my ResNet on our shared cluster. I'd like to try a couple hundred configs in parallel and stop the bad ones early. What's the approach?",
+      "expected_output": "Proposes a distributed hyperparameter sweep using Ray Tune with a search space, a scheduler such as ASHA for early stopping, and optionally Optuna or HyperOpt. Specifies resources per trial, a metric and mode, and a held-out validation metric. Estimates compute cost and asks before using shared GPUs.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have 2 TB of Parquet files in S3 and need to preprocess and tokenize them in parallel across CPU nodes before training. How should I set that up?",
+      "expected_output": "Recognizes this is distributed data preprocessing and ETL, not training orchestration. It points to the ray-data skill (streaming read_parquet and map_batches) rather than ray-train.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ray-data"
+    },
+    {
+      "id": 5,
+      "prompt": "Can you log my training loss curves and compare 10 runs with shareable reports and a model registry?",
+      "expected_output": "Recognizes this is experiment tracking and reporting, so it points to Weights & Biases (wandb.init, wandb.log, runs comparison, reports, registry) rather than Ray Train.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "weights-and-biases"
+    }
+  ]
+}

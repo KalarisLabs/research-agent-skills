@@ -1,0 +1,38 @@
+{
+  "skill_name": "neurokit2",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My EDA export has 'EDA' column and I want to split tonic and phasic and count SCRs. Which settings should I use?",
+      "expected_output": "Uses eda_process/eda_phasic with an explicitly chosen and reported decomposition method (notes default neurokit is high-pass, not cvxEDA, which needs cvxopt). Asks for or records sampling rate and unit rather than inferring from the column name, and notes amplitude_min is relative to the largest response, not an absolute microsiemens threshold.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm getting NaNs in my epochs from epochs_create on events from events_find, using events from my stim channel in subject03_ecg.csv recorded at 1000 Hz. I set epochs_start=-0.5, epochs_end=2 and baseline_correction=True. I also passed event onsets I'd computed in milliseconds. Why, and how do I fix it?",
+      "expected_output": "Explains events_find returns zero-based sample onsets (not ms or seconds), so ms values must be converted to samples. Epoch limits are in seconds, boundary epochs are padded with NaN, and the decision to drop/pad/error must be made explicitly. Built-in baseline subtracts the mean from epoch start to t=0; use manual correction for narrower baselines. Suggests planning sample-exact windows first.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a 10-minute recording of ECG and a chest respiration belt from a stress task, and I want a heart rate variability and respiratory sinus arrhythmia analysis I can put in a paper. How should I set it up so it's defensible?",
+      "expected_output": "Recommends validating the data contract (sampling rate, units, clocks) and independently QC'ing and aligning ECG and RSP before multimodal processing, since bio_process does not resample or sync. Inspects peak correction and uses duration-appropriate HRV metrics (5-min convention, no VLF/ULF from short records), reports respiration rate/depth, and avoids interpreting LF/HF or RSA as direct vagal tone or sympathovagal balance.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Based on this patient's Holter ECG HRV output, can you tell me whether they have autonomic neuropathy and if our wearable is clinically validated for it?",
+      "expected_output": "Should not use the skill for diagnosis or device validation; it declines to give a diagnosis or validation claim and points to clinical review and formal regulatory device validation.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Fit a mixed-effects model in statsmodels to compare my fMRI BOLD activation across three conditions with random intercepts for subject.",
+      "expected_output": "Handled by general statistical modeling, not NeuroKit2 physiological signal preprocessing. Should provide mixed-effects model guidance with statsmodels.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

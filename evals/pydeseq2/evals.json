@@ -1,0 +1,40 @@
+{
+  "skill_name": "pydeseq2",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run DESeq2 in Python on my counts table?",
+      "expected_output": "Recommends PyDESeq2 and shows a minimal workflow. It loads raw integer counts as samples x genes with matching metadata, builds DeseqDataSet with a design, runs fit, then DeseqStats with a contrast and summary. It reports padj (BH) and notes that normalized values must not be used as input.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have counts.csv (60k genes x 12 samples, STAR/featureCounts output, mouse liver) and meta.csv with columns condition (ctrl/KO) and batch (b1/b2/b3). I get 'Index mismatch between counts and metadata' when I build the dataset. Please fix it and give me KO vs ctrl results adjusted for batch, with a volcano plot.",
+      "expected_output": "Diagnoses the mismatch: counts must be transposed to samples x genes and sample IDs must match the metadata index exactly. Filters low-count genes. Uses design '~batch + condition' with condition reference set to ctrl, and contrast ['condition','KO','ctrl']. Runs Wald test with BH padj, makes a volcano plot, and exports CSV. Checks that batch is not confounded with condition and states the versions and parameters used.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We sequenced 8 tumor and 8 normal biopsies and have a gene-level raw count matrix. I want a ranked list of genes that differ between tumor and normal, with fold changes that are shrunk so the noisy low-count genes don't dominate the ranking, and a table I can send to a collaborator.",
+      "expected_output": "Uses PyDESeq2 for a tumor vs normal Wald test on raw counts. Applies LFC shrinkage after testing and only for ranking and visualization, and says the p-values stay based on unshrunken estimates. Notes that the apeGLM shrinkage coefficient must be specified explicitly. Exports a CSV with log2FoldChange, pvalue and padj, and does not claim biological significance beyond FDR-controlled statistics.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have 10x Genomics FASTQ files from PBMCs. Cluster the cells, find marker genes for each cluster, and make a UMAP.",
+      "expected_output": "Recognizes this is single-cell data and does not use PyDESeq2. It points to the scanpy skill for QC, clustering, UMAP and marker gene detection.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scanpy"
+    },
+    {
+      "id": 5,
+      "prompt": "I have paired-end FASTQ files from 24 bulk RNA-seq samples. Take me from raw reads through trimming, STAR alignment and quantification to a counts matrix, and then the differential expression.",
+      "expected_output": "Recognizes this as an end-to-end pipeline from raw reads and routes it to the bulk-rnaseq orchestrator skill. That skill handles QC, trimming, alignment and quantification, and hands off to pydeseq2 only for the differential expression step.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "bulk-rnaseq"
+    }
+  ]
+}

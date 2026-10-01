@@ -1,0 +1,40 @@
+{
+  "skill_name": "langsmith-observability",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get LangSmith tracing working on my OpenAI calls?",
+      "expected_output": "Explains installing the langsmith package, setting the API key and tracing environment variables, and wrapping the OpenAI client with wrap_openai or using @traceable. Mentions the optional project name setting and checking the traces in the LangSmith web app.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My RAG pipeline in rag_pipeline.py uses Claude through the Anthropic SDK. I have 200 question/answer pairs in qa_gold.csv and I want to run them all through it, score each answer for correctness, and compare two prompt versions in LangSmith. I'm getting 'Traces not appearing' in my project, and the runs show up under 'default'. Can you help?",
+      "expected_output": "Diagnoses the missing traces by checking the tracing env vars and the API key, and sets LANGSMITH_PROJECT (or the project name in code) to fix the 'default' project. Then builds a dataset from the CSV with the Client, runs evaluate() with a custom correctness evaluator for each prompt version, and compares the experiments. It confirms the dataset format and evaluator choice with the user, and tests on a small subset first.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our lab's literature-summarization assistant is going to be used by about 50 grad students next month. I need to find out why some responses take 30 seconds, how much each query costs in tokens, and set it up so a failing summary gets caught before we ship a new prompt version. I'd also like to collect thumbs up/down from users. What should I set up?",
+      "expected_output": "Recommends a hosted LLM observability setup with tracing for latency and token/cost analysis, a dataset of representative cases, and evaluations run in CI as a regression gate for prompt changes. Also covers user feedback collection, production sampling, and metadata tagging. It asks about the framework in use and states its assumptions.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to self-host an open-source tool to trace my LLM app with OpenTelemetry and run evals locally, with no data sent to a vendor. Can you set up Arize Phoenix?",
+      "expected_output": "Recognizes this as a request for the open-source, self-hosted Phoenix tool, not LangSmith, and uses the phoenix-observability skill to launch Phoenix locally and instrument the app with OpenTelemetry.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "phoenix-observability"
+    },
+    {
+      "id": 5,
+      "prompt": "Build me a LlamaIndex pipeline that ingests a folder of PDFs about CRISPR off-target effects and answers questions over them with a vector index.",
+      "expected_output": "Builds a document-ingestion RAG pipeline with LlamaIndex: loads the PDFs, builds a vector index, and sets up a query engine. It does not set up tracing or evaluation platforms unless asked.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "llamaindex"
+    }
+  ]
+}

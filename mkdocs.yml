@@ -1,0 +1,80 @@
+site_name: Research Agent Skills
+site_description: >-
+  Research Agent Skills by Kalaris Labs: open-source AI agent skills for academic writing,
+  literature reviews, citation verification and scientific data analysis across research fields.
+site_author: Sayan Chowdhury (Kalaris Labs)
+site_url: https://docs.kalarislabs.com/
+repo_url: https://github.com/KalarisLabs/research-agent-skills
+repo_name: KalarisLabs/research-agent-skills
+edit_uri: edit/main/docs/
+copyright: "© 2026 Kalaris Labs · MIT License · Created by Sayan Chowdhury"
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  language: en
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - scheme: default
+      primary: indigo
+      toggle: { icon: material/brightness-7, name: Dark mode }
+    - scheme: slate
+      primary: indigo
+      toggle: { icon: material/brightness-4, name: Light mode }
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc: { permalink: true }
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed: { alternate_style: true }
+  - pymdownx.snippets:
+      base_path: ["."]
+      check_paths: true
+
+not_in_nav: |
+  /maintainers/*
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Installation: getting-started/installation.md
+      - Quickstart: getting-started/quickstart.md
+  - Guides:
+      - Write a research paper with AI: guides/write-a-research-paper.md
+      - Thesis and dissertation: guides/thesis-and-dissertation.md
+      - No-slop academic writing: guides/no-slop-academic-writing.md
+      - Systematic reviews: guides/systematic-review.md
+      - AI skills by research field: guides/by-field.md
+  - Skill catalog: skills/index.md
+  - Reference:
+      - CLI: reference/cli.md
+      - Architecture: reference/architecture.md
+      - Benchmarks and quality: reference/benchmarks.md
+      - Security: reference/security.md
+      - Contributing a skill: reference/contributing.md
+  - FAQ: faq.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/KalarisLabs/research-agent-skills
+      name: GitHub repository

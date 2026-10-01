@@ -1,0 +1,40 @@
+{
+  "skill_name": "dnanexus-integration",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I download a whole folder from my DNAnexus project to my laptop?",
+      "expected_output": "Resolves the project ID and folder first (read-only), then uses `dx download -r` (or Download Agent for large/batch sets). Notes confirming egress or size and download restrictions before running, and quotes the path safely.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm getting `DXExecDependencyError` when my applet starts on Ubuntu 24.04. My dxapp.json has execDepends with pip packages: pysam, pandas, and an old numpy pin. Built with `dx build -f`. Can you help me fix it and tidy up the config?",
+      "expected_output": "Explains that system and PyPI package conflicts cause this on 24.04 and recommends a virtual environment or pinned asset bundle or container instead of runtime execDepends. Suggests moving systemRequirements to regionalOptions, running the offline dxapp.json validator, and inspecting the failed job with `dx describe` or `dx watch` without printing tokens.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a WGS pipeline written in WDL for 40 samples and I want it to run on our cloud genomics platform where my data already lives under a project called cohort-2026. I need it to be launched in bulk, with the cost capped and a way to see which runs failed. Where do I start?",
+      "expected_output": "Recognizes the platform as DNAnexus. Proposes compiling the WDL with dxCompiler into a workflow, resolving the project ID, inspecting inputs, and getting cost and target confirmation before launching. Uses bounded monitoring with `dx find executions` or dxpy and re-describes failures, and does not launch anything before confirmation.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to register my RNA-seq Snakemake pipeline on Latch with a custom interface and push my FASTQs to Latch Data. How do I set that up?",
+      "expected_output": "Should use the Latch skill, covering the Latch SDK, workflow registration, interface configuration, and Latch Data uploads. It should not use DNAnexus dx CLI or dxapp.json guidance.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "latchbio-integration"
+    },
+    {
+      "id": 5,
+      "prompt": "My nf-core/rnaseq run keeps failing locally with exit status 137 on the STAR alignment process. How do I raise the memory for that process in my nextflow.config?",
+      "expected_output": "Should address Nextflow process resource configuration, such as a withName selector with memory directives and retry-on-137 error strategy. It involves no DNAnexus platform operations.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "nextflow"
+    }
+  ]
+}

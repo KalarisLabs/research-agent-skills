@@ -1,0 +1,18 @@
+{
+  "skill_name": "reference-manager-interop",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Convert my Mendeley RIS export to BibTeX for Overleaf.",
+      "expected_output": "Runs convert_refs.py ris->bib, migration checks",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Verify these citations exist.",
+      "expected_output": "Skill not used (citation-verification applies)",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

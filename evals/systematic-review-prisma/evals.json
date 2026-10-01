@@ -1,0 +1,18 @@
+{
+  "skill_name": "systematic-review-prisma",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Plan a systematic review of exercise interventions for depression and make the PRISMA flow diagram.",
+      "expected_output": "PICO protocol, registration, search per database, dedupe, prisma_flow.py with consistent counts",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Summarize this one paper for me.",
+      "expected_output": "Skill not used",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

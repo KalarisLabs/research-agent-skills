@@ -1,0 +1,18 @@
+{
+  "skill_name": "arxiv-submission",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "arXiv failed to compile my paper, help me prepare the source upload.",
+      "expected_output": "Runs arxiv_preflight.py, checks .bbl, paths, comments, pdfoutput",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Find recent arXiv papers on diffusion models.",
+      "expected_output": "Skill not used (literature search skills apply)",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

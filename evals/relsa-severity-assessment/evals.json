@@ -1,0 +1,40 @@
+{
+  "skill_name": "relsa-severity-assessment",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get one severity number per mouse per day from weight, temp and a clinical score?",
+      "expected_output": "Explains computing a RELSA score per animal per day using a reference set and baseline normalization, and says to declare directionality (clinical score as turned/rising), with a zero-baseline score handled via a score-scale mapping. Mentions the reference set must be reported with the scores.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have telemetry from a mouse endotoxaemia study in telemetry_hourly.csv (columns id, treatment, hour, temp, hr, activity, weight). Hourly values are in there. I want to score each animal and see which ones are about to hit endpoint. Temperature drops in this model. Where do I start?",
+      "expected_output": "Says to average (temp, hr) and sum (activity) hourly telemetry to one row per animal per interval, keep temperature as falling (not turned), choose the highest-burden group as the reference set, run RELSA scoring, then fit an ARIMA forecast with a 95% prediction interval. Notes that missing values are left empty rather than imputed, and that variables should be present throughout. Reports RMSE, PICP and MPIW and acts on the upper bound.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We're writing up a refinement analysis for our ethics committee and want to find data-driven cut-offs that separate the sick animals from the ones that recovered on a combined welfare scale. How should we define and report them?",
+      "expected_output": "Describes finding attention/danger thresholds as density minima via kernel density estimation of RELSA scores, including endpoint animals, survivors and shams. Advises a bandwidth sensitivity sweep and reporting it, accepts that an empty threshold list is valid, and states these zones are not EU Directive 2010/63/EU regulatory severity gradings.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have monthly sales figures for the last 5 years and want to forecast the next 12 months with a pretrained time series foundation model.",
+      "expected_output": "Recognizes this is general time series forecasting unrelated to animal severity scoring, and uses timesfm-forecasting rather than the RELSA skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "timesfm-forecasting"
+    },
+    {
+      "id": 5,
+      "prompt": "How many mice per group do I need to detect a 15% difference in body weight loss between treated and control with 80% power?",
+      "expected_output": "Recognizes this as a sample size and power calculation question, not a severity score or endpoint forecast, and uses statistical-power (or experimental-design) instead.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "statistical-power"
+    }
+  ]
+}

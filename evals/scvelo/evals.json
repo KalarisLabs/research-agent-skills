@@ -1,0 +1,39 @@
+{
+  "skill_name": "scvelo",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I add RNA velocity arrows to my Scanpy UMAP? I have a loom file from velocyto.",
+      "expected_output": "Merges the velocyto loom spliced/unspliced layers into the AnnData, then runs scv.pp.filter_and_normalize and moments, scv.tl.velocity and velocity_graph, and plots with scv.pl.velocity_embedding_stream on the existing UMAP basis.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have pancreas_endocrine.h5ad (mouse E15.5 endocrinogenesis, ~3,700 cells) with spliced and unspliced layers from STARsolo Velocyto. I ran scv.tl.velocity with mode='stochastic' and the arrows look random and point backwards from Ductal toward Ngn3 progenitors. Switch to the dynamical model, compute latent time, and give me the top driver genes per cluster. Running recover_dynamics hits a memory error on my laptop.",
+      "expected_output": "Runs scv.tl.recover_dynamics (with n_jobs=1 or fewer top genes to avoid the memory error), then velocity with mode='dynamical', velocity_graph, latent_time, and rank_dynamical_genes or top_n likelihood-based driver genes by cluster. Also suggests sanity checks such as swapped layers, neighbor settings and unspliced coverage.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have single-cell data from differentiating blood progenitors and only one snapshot timepoint. I want to figure out which cells are the earliest and in which direction they are moving, using the intronic versus exonic read information, and get a continuous ordering of the cells along that process.",
+      "expected_output": "Recognizes this as RNA velocity and recommends scVelo with spliced/unspliced layers. Outlines the dynamical model, latent time for ordering cells, and root and direction inference, noting that unspliced counts are required.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I've already got RNA velocity results. Now I want to compute absorption probabilities and terminal-state fate probabilities for each cell lineage using a Markov chain kernel.",
+      "expected_output": "Points to CellRank for fate probability modeling, with macrostates and absorption probabilities, rather than doing scVelo's own velocity analysis.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "I have a standard 10x PBMC 3k dataset with only a filtered count matrix and no unspliced counts. Cluster the cells, run UMAP and find marker genes per cluster.",
+      "expected_output": "Uses a standard Scanpy workflow (normalize, HVGs, PCA, neighbors, Leiden, UMAP, rank_genes_groups) and does not use scVelo.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scanpy"
+    }
+  ]
+}

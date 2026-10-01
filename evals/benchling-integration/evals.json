@@ -1,0 +1,39 @@
+{
+  "skill_name": "benchling-integration",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I list all DNA sequences in a Benchling project using the Python SDK?",
+      "expected_output": "Shows initializing Benchling with the tenant URL and an API key or OAuth credentials read from environment variables, then iterating the paginated DNA sequences list filtered by project_id. Mentions pagination generators and does not hardcode secrets.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have plasmids.csv with columns name, bases, schema_id, and folder_id for about 400 plasmids. I need to bulk register them as DNA sequences in our Benchling registry with a naming prefix. My script using benchling-sdk 1.25.0 keeps failing partway with a 429 error, and some rows were already created. How should I fix it?",
+      "expected_output": "Explains the SDK's built-in retry/backoff configuration (RetryStrategy) and batching or throttling. Advises making the import idempotent by checking for existing entities or tracking created names, using the fields() helper for schema fields, and running a small dry-run batch first. Asks before bulk writes and does not invent API calls.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our lab keeps freezer sample locations and plate contents in Benchling. I want a nightly script that pulls every container in a given freezer box, checks for ones that are empty or expired, and writes a CSV audit report for my PI. Where do I start?",
+      "expected_output": "Recommends using the Benchling inventory API through the SDK (boxes, containers, locations) with paginated listing, filtering of empty or expired containers, and CSV export. Covers authentication via environment variables and notes the need to confirm schema field names for expiry with the user.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to sign a request to the LabArchives API and pick the right regional endpoint for our university in Australia, then get the UID for a user who authorized our app. Can you walk me through it?",
+      "expected_output": "Recognizes this as a LabArchives task, not Benchling, and defers to labarchive-integration for signed-request construction, regional endpoint selection and the user authorization UID flow.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "labarchive-integration"
+    },
+    {
+      "id": 5,
+      "prompt": "Write a Python script with pandas and matplotlib that reads my local plate_reader_results.csv and plots dose-response curves with a 4-parameter logistic fit.",
+      "expected_output": "Handles this as a generic local data analysis and plotting task with curve fitting (for example scipy curve_fit), without involving Benchling or any lab platform API.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

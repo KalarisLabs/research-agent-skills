@@ -1,0 +1,40 @@
+{
+  "skill_name": "exa-search",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "find recent papers on diffusion models for protein design",
+      "expected_output": "Runs a web search via the Exa script with --category \"research paper\" (optionally with an academic domain allowlist), starting with a small query. Returns real results with authors, year and DOI or URL, and does not cite anything from memory.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm writing the related-work section for my ICLR submission on sparse autoencoders for interpreting LLM activations. Find me peer-reviewed or arXiv sources from 2024 onward, and skip blog posts and news coverage. Show which search parameters you used.",
+      "expected_output": "Uses exa_search.py with --category \"research paper\" and an include-domains allowlist (arxiv.org, openreview, etc.) in a two-pass strategy. Prefers primary research and preprints, and cites with author and year, preferring DOI links. Reports the exact command and parameters, and states any uncertainty.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Here are 12 links to PDFs and journal pages from our lab's reading list. I need the full text of each pulled into one place so I can skim them for methods details.",
+      "expected_output": "Uses the Exa extract script (exa_extract.py) to fetch all 12 URLs in one batch call instead of one at a time. Checks that each PDF or page was actually retrieved, reports any that failed or returned partial text, and does not summarize pages it could not fetch.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Compile a manuscript research packet with competing findings and verified references on gut microbiome effects on checkpoint inhibitor response for my review article draft.",
+      "expected_output": "Does not use exa-search. This is a full manuscript evidence-compilation task and belongs to research-lookup, which gathers literature, verifies sources and builds a research packet.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "research-lookup"
+    },
+    {
+      "id": 5,
+      "prompt": "Set up a recurring monitor that watches the web for new CRISPR base-editing announcements and enriches this CSV of 200 companies with funding data.",
+      "expected_output": "Does not use exa-search. Recurring web monitors and structured enrichment of supplied rows are parallel-web capabilities, so the agent should route there.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "parallel-web"
+    }
+  ]
+}

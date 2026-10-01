@@ -1,0 +1,40 @@
+{
+  "skill_name": "citation-management",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "turn these into bibtex: 10.1038/s41586-021-03819-2, PMID 31452104, arXiv:1706.03762",
+      "expected_output": "Uses the skill's extraction scripts (extract_metadata.py or doi_to_bibtex.py) to resolve the DOI via CrossRef, the PMID via PubMed and the arXiv ID via arXiv, and returns well-formed BibTeX entries. Checks that @article entries have volume, pages and doi, and does not type entries by hand.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My refs.bib has ~120 entries merged from Zotero and a PubMed export, and I'm seeing the same paper under keys like smith2020 and Smith2020deep. Several @article entries have no volume or pages. Can you merge/dedupe it, fill in the gaps, and make sure it's clean before I submit to Bioinformatics? Don't overwrite the original file.",
+      "expected_output": "Runs format_bibtex.py with --rekey --deduplicate writing to a new file via --output rather than modifying refs.bib in place. Fills missing volume, pages and DOI from OpenAlex/CrossRef or web search, logging sources and adding a note field where a value can't be found. Then runs validate_citations.py and reports remaining errors.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm writing a background section on single-cell foundation models and need a starter set of the most-cited recent papers on that topic, with entries I can drop straight into my LaTeX bibliography.",
+      "expected_output": "Searches more than one database (OpenAlex via search_openalex.py and PubMed, with Google Scholar only as a supplement), and merges the results into deduplicated BibTeX with consistent keys. Extracts complete metadata for the chosen papers and validates the resulting .bib file.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I drafted my bibliography with ChatGPT and I'm worried some references are fabricated or that DOIs point to the wrong paper. Can you check whether each citation in my manuscript really exists and matches the real publication?",
+      "expected_output": "Recognizes this as a check that references exist and match their real metadata, which belongs to citation-verification rather than general citation management, and routes the task there.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "citation-verification"
+    },
+    {
+      "id": 5,
+      "prompt": "Help me design a PRISMA-compliant systematic review of SGLT2 inhibitors in heart failure: write the search strings for each database, set up the screening criteria, and plan the data extraction and synthesis.",
+      "expected_output": "Recognizes this as systematic review methodology (search protocol, screening, extraction, synthesis), which belongs to literature-review rather than citation-management.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "literature-review"
+    }
+  ]
+}

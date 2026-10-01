@@ -1,0 +1,40 @@
+{
+  "skill_name": "speculative-decoding",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I add Medusa heads to Vicuna-7B and train them?",
+      "expected_output": "Explains Medusa: adding several extra decoding heads to the base model, training them (Medusa-1 with frozen backbone, optionally Medusa-2 with joint fine-tuning), and using tree-based attention for verification. Mentions the FasterDecoding/Medusa repo and that Medusa-1 is lossless.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running Llama-2-70B on 4xA100 for a code-completion tool, and p50 latency per token is about 45ms, which is too slow for our IDE plugin. I have Llama-2-7B and TinyLlama-1.1B checkpoints available. In HF transformers, how can I use one of them to speed up generation without changing the 70B outputs? Please include the assistant_model setup and how to choose the number of speculative tokens.",
+      "expected_output": "Recommends draft-model speculative decoding with a small draft model sharing the 70B tokenizer. Gives a working assistant_model example and tuning guidance for the number of draft tokens (K) based on acceptance rate. Notes a draft that is 5-10x smaller is best, so the 7B is the more suitable choice, and that the output distribution matches the target model.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We can't afford to train anything or host a second model. Is there a way to get our existing LLM to produce several tokens per forward pass by solving the decoding as a parallel fixed-point problem? Which settings matter?",
+      "expected_output": "Identifies Lookahead Decoding, which uses Jacobi iteration with n-gram collection and verification and needs no draft model or training. Explains the window size W and n-gram size N parameters, and the typical speedup of about 1.5-2.3x, higher for code.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to serve Llama-3-8B behind an OpenAI-compatible API with continuous batching and AWQ quantization on a single 24GB GPU. How do I set that up?",
+      "expected_output": "Recommends vLLM with PagedAttention, continuous batching, AWQ quantization flags and the OpenAI-compatible server. It does not center on speculative decoding.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "serving-llms-vllm"
+    },
+    {
+      "id": 5,
+      "prompt": "Set up Phoenix tracing for my LLM app so I can see latency per span and run evaluations on a dataset of production traces.",
+      "expected_output": "Explains how to instrument the app with Phoenix/OpenTelemetry tracing, inspect span latencies and run dataset evaluations. It does not cover inference acceleration techniques.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "phoenix-observability"
+    }
+  ]
+}

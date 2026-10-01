@@ -1,0 +1,26 @@
+name: Skill request or improvement
+description: Propose a new research skill or an improvement to an existing one.
+labels: [skill-request]
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: Research task
+      description: What recurring task should an agent do better? Who does it (field, role)?
+    validations:
+      required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: What goes wrong today without the skill?
+  - type: textarea
+    id: sources
+    attributes:
+      label: Authoritative sources
+      description: Official guidelines, documentation or standards the skill should follow.
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Contribution
+      options:
+        - label: I would like to write this skill (see CONTRIBUTING.md)

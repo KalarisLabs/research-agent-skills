@@ -1,0 +1,40 @@
+{
+  "skill_name": "mamba-architecture",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I install mamba-ssm on my Linux box with an A100?",
+      "expected_output": "Gives the pip install steps for mamba-ssm and causal-conv1d, notes the Linux, NVIDIA GPU, PyTorch and CUDA prerequisites, suggests checking nvidia-smi and CUDA versions first, and mentions using prebuilt wheels if the source build is slow.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm trying to load state-spaces/mamba-1.4b in my script eval_lm.py with AutoModelForCausalLM.from_pretrained and it throws an error about an unrecognized model config. I'm on a 24GB RTX 4090 and want to generate text from a prompt. What should I change?",
+      "expected_output": "Says to use MambaLMHeadModel.from_pretrained from the mamba_ssm package instead of AutoModel, loads it onto the GPU in fp16, and shows how to generate. Notes that 1.4B needs roughly 14GB VRAM so it fits on 24GB, and warns to verify the API against the installed version.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need to run a language model over 500K-token genomic sequences, and a standard Transformer's KV cache blows up my GPU memory. I want something with linear-time scaling that can also stream. What architecture and setup would you suggest?",
+      "expected_output": "Recommends a Mamba selective state-space model for linear-time, constant-memory-per-token processing with no KV cache. Explains the choice between Mamba-1 (d_state=16) and Mamba-2 (multi-head, d_state=128), and outlines a small smoke run and benchmark against a baseline. Avoids claiming exact speedups without measuring.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to fine-tune RWKV-7 with DeepSpeed and need to set up the CUDA kernels for its RNN-mode inference. Where do I start?",
+      "expected_output": "Recognizes this as an RWKV task and does not use the Mamba skill. It should be handled with the RWKV architecture skill, covering RWKV-7 fine-tuning with DeepSpeed and kernel setup.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "rwkv-architecture"
+    },
+    {
+      "id": 5,
+      "prompt": "My BERT-style Transformer training is slow on long inputs. How can I speed up the attention layers using PyTorch scaled_dot_product_attention?",
+      "expected_output": "Treats this as a standard Transformer attention optimization problem and does not suggest Mamba. Should use Flash Attention or SDPA guidance, such as enabling flash kernels, PyTorch 2.2+, and fp16/bf16.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "optimizing-attention-flash"
+    }
+  ]
+}

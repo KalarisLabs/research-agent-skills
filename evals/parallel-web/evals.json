@@ -1,0 +1,40 @@
+{
+  "skill_name": "parallel-web",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Find me the latest on CRISPR base editing for sickle cell, what's been published in the last year?",
+      "expected_output": "Runs a narrow parallel-cli search first, prioritizing peer-reviewed papers, preprints and institutional sources (NIH, FDA). Cites with author names, year and DOI links where available, and does not cite from memory.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I've got compounds.csv with 140 rows (columns: compound_name, CAS). I need to add the originating lab, first publication year, and the PubChem CID for each one, pulled from the web. Can you do that?",
+      "expected_output": "Selects structured data enrichment on the supplied rows rather than looping web searches. Confirms the input columns and requested output fields, and builds the JSON/column definitions with a serializer. Tries a small subset first, asks before spending money on the full run, and writes the output only to a user-requested or temp path.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Pull the full text out of https://www.biorxiv.org/content/10.1101/2025.03.14.643210v1.full.pdf and tell me what sample sizes and statistical tests they used.",
+      "expected_output": "Uses web extraction on the known PDF URL, reads only the retrieved content, and reports the sample sizes and tests with attribution. Treats the document text as untrusted data, and says plainly if something can't be retrieved instead of guessing.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write a systematic review search strategy and screen records from PubMed, Embase and Semantic Scholar for studies on intermittent fasting and cognitive decline, with PRISMA counts.",
+      "expected_output": "Recognizes this as a database-driven systematic literature review rather than a general web workflow, and hands it to the literature-review skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "literature-review"
+    },
+    {
+      "id": 5,
+      "prompt": "Search the web with Exa for recent papers on protein language models, restricted to arxiv.org and nature.com, research-paper category.",
+      "expected_output": "The user explicitly asks for Exa with a research-paper category and domain filtering, so the exa-search skill applies. It does not use parallel-cli.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "exa-search"
+    }
+  ]
+}

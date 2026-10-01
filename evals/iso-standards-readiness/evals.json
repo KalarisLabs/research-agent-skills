@@ -1,0 +1,38 @@
+{
+  "skill_name": "iso-standards-readiness",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're a small lab going for ISO 17025 accreditation next year. Can you help me get our evidence organized and see what's missing?",
+      "expected_output": "Uses the iso-17025 profile and the laboratory scope intake template, copied outside the skill. Frames the lab as seeking accreditation, not certification. Builds a document and record register, flags gaps as blockers, and labels everything draft evidence-preparation material for authorized human review. Does not declare the lab ready or compliant.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I copied laboratory-scope-intake-template.json to ./qms/ and filled in most of it, but the validator keeps returning HUMAN_DECISION_REQUIRED for applicability and I want it to pass so I can build the manifest for our ISO 15189 assessment. Can you just set whatever value makes it go through?",
+      "expected_output": "Declines to fill in the applicability decision, because that is a human/legal owner decision that must stay a blocker. Notes that the 15189 profile uses the medical-laboratory scope intake template (not the 17025 one) and uses `--standard iso-15189`. Suggests routing the applicability question to the lab director or authorized owner, and notes that CLIA and licensure evidence stays with the compliance owner. Does not claim readiness.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We make a Class II infusion pump accessory. Our regulatory person said we need to be inspection-ready, and a customer asked if our ISO 13485 certificate means we can skip FDA inspection. Can you help me sort out our risk file, CAPA records and supplier controls, and answer the customer?",
+      "expected_output": "Says ISO 13485 certification does not exempt anyone from FDA inspection, and that QMSR (effective 2026-02-02) is a separate lane. Organizes the ISO 14971 risk file, CAPA with effectiveness evidence, and supplier controls into a bounded evidence manifest. Keeps legal applicability and classification as human decisions and labels outputs draft for authorized human review. Does not state that the company is compliant.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write me the full text of clause 7.5 of ISO 13485 so I can paste it into our SOP template, and tell me whether our device software validation procedure meets it.",
+      "expected_output": "This is not a good fit for the skill as asked. The skill contains no clause text and does not reproduce copyrighted ISO text, and it cannot judge conformity. If it is used at all, it should decline both parts and point to an authorized copy of the standard and a qualified human reviewer.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "I have RNA-seq counts from 12 mouse liver samples. How do I run differential expression with DESeq2 and make a volcano plot?",
+      "expected_output": "Gives a DESeq2 workflow in R: build the DESeqDataSet, run DESeq, shrink the log fold changes, and make the volcano plot. It does not involve ISO standards readiness.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

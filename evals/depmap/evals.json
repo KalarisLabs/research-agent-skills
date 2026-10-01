@@ -1,0 +1,40 @@
+{
+  "skill_name": "depmap",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Is KRAS a selective dependency in pancreatic lines? Need it from DepMap.",
+      "expected_output": "Uses CRISPR Chronos gene effect data (e.g., CRISPRGeneEffect.csv with sample_info.csv), compares KRAS scores in pancreatic vs other lineages, applies thresholds (≤ -0.5 dependent, ≤ -1 strong), and distinguishes selective from pan-essential. Reports the release version and the number of lines used.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I downloaded CRISPRGeneEffect.csv and OmicsSomaticMutationsMatrixDamaging.csv from the 24Q4 release. I want to find genes that are more essential in TP53-mutant lines than in wild-type lines, and I get a KeyError on 'ACH-000012' when I join with sample_info.csv. Can you write the analysis and fix the join?",
+      "expected_output": "Explains the KeyError as a DepMap_ID/index mismatch (check that the ID column is set as the index in each file and that IDs are present in both) and fixes the join on DepMap_ID. Runs a mutant vs WT comparison per gene with effect size, applies FDR correction, and notes expression and copy-number caveats. Reports how many lines fall in each group.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We have a candidate oncology target and want to know whether knocking it out kills only certain tumour cell lines, or whether it would hit essentially every cell and cause toxicity. We also want to know which genomic features predict response. What public data can we use and how should we analyse it?",
+      "expected_output": "Recommends the DepMap CRISPR screens (Chronos gene effect), and says to check pan-essentiality versus selectivity across lineages. Proposes biomarker analysis with mutation, expression and copy number data, with multiple-testing correction. Asks for the gene name and cancer context and does not fabricate any scores.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Find me public TCGA-style CT and MRI scans of lung tumours that I can download for training a segmentation model.",
+      "expected_output": "Recognises that this is a request for cancer imaging data rather than dependency data, and directs the user to NCI Imaging Data Commons (imaging-data-commons) instead of using DepMap. Does not run DepMap queries.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "imaging-data-commons"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a single-cell RNA-seq expression matrix from my own tumour samples and want to infer a gene regulatory network with GRNBoost2.",
+      "expected_output": "Uses the arboreto skill to run GRNBoost2 on the user's expression matrix, with TF list and normalisation choices. Does not use DepMap dependency scores.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "arboreto"
+    }
+  ]
+}

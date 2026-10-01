@@ -1,0 +1,40 @@
+{
+  "skill_name": "matchms",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get the top 5 library hits for each spectrum in my query MGF using matchms?",
+      "expected_output": "Loads query and library spectra, applies the same cleaning to both, and scores with a current class such as CosineGreedy or ModifiedCosineGreedy. Extracts the top hits correctly, noting that scores_by_query returns (reference_spectrum, score_record) pairs and that the score field must be read from the structured record. Reports score together with matched-peak count.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running an old tutorial script on my GNPS export `gnps_library.mgf` and it fails with `ImportError: cannot import name 'ModifiedCosine' from matchms.similarity`. After I swapped that out, `spectrum.add_losses()` also breaks, and so does calling `processor(spectrum)` on my SpectrumProcessor. Can you fix the script so it runs on a current install?",
+      "expected_output": "Explains that ModifiedCosine was removed in 0.32.0 and replaced by ModifiedCosineGreedy or ModifiedCosineHungarian. Explains that add_losses() was removed in 0.27.0 (use spectrum.losses, compute_losses, or NeutralLossesCosine) and that SpectrumProcessor is not callable (use process_spectrum() or process_spectra(), which returns a (spectra, report) tuple). Notes that modified cosine needs a valid precursor_mz, and does not invent APIs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have about 40,000 MS/MS spectra from a plant extract in one file. I want to group the ones that look like they share a similar fragmentation pattern into a network so I can see which compounds are related. Where do I start, and how do I keep the computation from blowing up?",
+      "expected_output": "Recommends a spectral-similarity network workflow: clean and filter the spectra, then score all-vs-all with is_symmetric=True and a modified cosine or a fast method. Estimates the pair count (~800M pairs for 40k spectra) before running, suggests precursor gating or a fast method such as Flash or Blink and a test on a small subset, and keeps matched-peak counts. Cautions that similarity does not prove identity.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have raw LC-MS data in mzML from 12 samples. I need to detect features, align retention times across samples, and get a quantification table for a label-free comparison. What pipeline should I use?",
+      "expected_output": "Identifies this as LC-MS feature detection, alignment, and quantification, which is outside matchms scope. Recommends pyopenms (e.g. feature finding, map alignment, feature linking) and does not use matchms.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pyopenms"
+    },
+    {
+      "id": 5,
+      "prompt": "I have 2 million 768-dimensional sentence embeddings for my document corpus. How do I build an approximate nearest neighbor index to find the most similar documents quickly?",
+      "expected_output": "Recognizes this as dense-vector similarity search for text embeddings, unrelated to mass spectra. Recommends an ANN library such as faiss or a vector database such as qdrant, and does not use matchms.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "faiss"
+    }
+  ]
+}

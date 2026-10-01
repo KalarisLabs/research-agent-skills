@@ -1,0 +1,40 @@
+{
+  "skill_name": "evolving-ai-agents",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can I automatically evolve my agent's prompts and skills against a benchmark?",
+      "expected_output": "Says yes and recommends A-Evolve: file-based workspace (prompts/, skills/, memory), iterative solve-observe-evolve loop with gating and git rollback, starting from a built-in seed or a custom BaseAgent.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a custom agent in ./my_agent with a BaseAgent subclass and a 200-task internal QA dataset scored 0-1. I ran 3 evolution cycles and it reported converged=True, but the agent doesn't seem to use the evolved prompts/system.md. How do I fix both problems?",
+      "expected_output": "Advises overriding reload_from_fs() so the agent rereads prompts, skills and memory after each cycle; raising egl_window and lowering egl_threshold since the defaults (0.05, window 3) can stop early; also ensuring the workspace is a git repo, a holdout split (e.g. 0.2), and a custom BenchmarkAdapter with get_tasks() and evaluate().",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want my coding assistant to get better at fixing GitHub issues over time without me hand-tuning anything. It should try tasks, look at where it failed, rewrite its own instructions and reusable procedures, and roll back changes that make things worse. How do I set that up?",
+      "expected_output": "Describes an automated self-improvement loop (solve, observe, evolve, gate, reload) using A-Evolve with the built-in swe seed and SWE-bench-style benchmark, git-versioned snapshots for rollback, and curated skills (5-10 broad ones).",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to optimize my DSPy program's few-shot examples and instructions using MIPROv2 on my classification metric.",
+      "expected_output": "Should not use evolving-ai-agents; this is prompt-only optimization of a DSPy module, so it should use the dspy skill with its optimizers (e.g. MIPROv2) and a metric function.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "dspy"
+    },
+    {
+      "id": 5,
+      "prompt": "Help me deploy a persistent autonomous agent with a visual workflow builder that runs continuously and triggers on webhooks.",
+      "expected_output": "Should not use evolving-ai-agents; this is about building and deploying a continuous agent platform, which belongs to the autogpt-agents skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "autogpt-agents"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "grpo-rl-training",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I set up GRPO in TRL so my model always answers in <reasoning>...</reasoning><answer>...</answer> tags?",
+      "expected_output": "Explains configuring GRPOTrainer with a chat-format dataset and a system prompt describing the tag structure. Combines a format reward (ideally with partial credit) with a correctness reward, and tells the user to monitor reward and reward_std during training.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running GRPOTrainer on Qwen2.5-1.5B-Instruct with GSM8K (train.jsonl has 'question' and 'answer' columns) on a single 24GB card. With num_generations=8 and max_completion_length=512 I get CUDA out of memory during generation. Also the reward curve in wandb has been flat at ~0.1 for 300 steps and reward_std is near zero. What should I change?",
+      "expected_output": "Gives memory fixes: smaller per_device batch size with more gradient accumulation, fewer generations or shorter completion length, and possibly Unsloth or LoRA. Diagnoses the flat reward and near-zero reward_std as no within-group variance, and suggests checking that the answer-extraction and reward functions work on sample data, adding partial-credit rewards, and checking the learning rate and prompt format.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a base LLM and a few thousand arithmetic and logic word problems with known final answers, but no human preference labels and no reward model. I want the model to learn to reason step by step and get the right answer. What training approach should I use and how would I wire it up?",
+      "expected_output": "Recommends reinforcement learning with verifiable rewards, meaning GRPO in TRL, because correctness can be checked against ground truth without a reward model. Outlines a chat-format dataset with answer columns, and a reward function that extracts and compares the final answer. Adds a format or reasoning reward, and mentions merging LoRA afterwards if used.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have 20k human-labeled chosen/rejected response pairs for my assistant. Walk me through aligning the model with DPO in TRL.",
+      "expected_output": "Recognizes that high-quality preference pairs call for DPO, not GRPO. Should be handled by the fine-tuning-with-trl skill with a DPOTrainer setup (pair-formatted dataset, beta, reference model), without building custom GRPO reward functions.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "fine-tuning-with-trl"
+    },
+    {
+      "id": 5,
+      "prompt": "Write an Axolotl YAML config for LoRA fine-tuning Llama 3 8B on my instruction dataset across 4 GPUs with FSDP.",
+      "expected_output": "Recognizes this as plain supervised LoRA fine-tuning with Axolotl and FSDP, with no reward-based RL involved. It should use the axolotl skill and produce a YAML config covering the base model, adapter, dataset and FSDP settings.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "axolotl"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "outlines",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I force a local Llama model to only output one of 'positive', 'negative', or 'neutral' for my tweets?",
+      "expected_output": "Uses Outlines choice/Literal-constrained generation on a local Transformers (or llama.cpp) model so output is always one of the three labels. Shows model loading and a generator call, and notes the guarantee comes from token-level constraint, not retries.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running Qwen2.5-7B-Instruct via vLLM on our lab GPU box and need to extract patient-free trial metadata from 2,000 abstracts in abstracts.jsonl into a Pydantic model (fields: sample_size int, design enum, primary_endpoint str, funding Optional[str]). My json.loads keeps failing on about 8% of outputs with 'Expecting , delimiter'. How do I make this always parse?",
+      "expected_output": "Recommends Outlines with the Pydantic model as the JSON schema on the vLLM backend, with batch generation over the abstracts. Uses Enum/Literal for design and Optional for funding, and runs a small test first and validates outputs against the model. Checks the installed Outlines version's API rather than inventing calls, and notes that syntactically valid JSON does not guarantee semantically correct extraction.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a small local model and need every generated sample ID to look like 'SMP-2024-0001' (three letters, year, four digits), with no malformed IDs ever coming out. Can I enforce this at decoding time instead of filtering afterward?",
+      "expected_output": "Proposes grammar-level constrained decoding with Outlines using a regex generator, e.g. SMP-\\d{4}-\\d{4} or a stricter pattern, on a local backend. Explains that invalid tokens are masked during sampling, so no post-filtering is needed. Suggests a quick test on a few samples.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm calling the Claude API to extract invoice fields into Pydantic models, and sometimes validation fails. I want it to automatically retry with the validation error fed back to the model. What should I use?",
+      "expected_output": "Recommends Instructor, not Outlines, because this is an API model that needs automatic retries with validation-error feedback. Shows a Pydantic response_model with max_retries.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "instructor"
+    },
+    {
+      "id": 5,
+      "prompt": "I want to write a Guidance program with a context-free grammar and token healing so the model fills in a template for a chemistry lab report, running through the OpenAI backend.",
+      "expected_output": "Points to Guidance, which provides CFG-based constraints, token healing, and @guidance functions, rather than Outlines. Does not use Outlines.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "guidance"
+    }
+  ]
+}

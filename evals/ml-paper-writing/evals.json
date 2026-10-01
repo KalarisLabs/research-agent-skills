@@ -1,0 +1,40 @@
+{
+  "skill_name": "ml-paper-writing",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Help me write up my paper for ICLR. I've got the code and results in a folder.",
+      "expected_output": "Uses the ml-paper-writing skill: explores the repo, proposes a one-sentence contribution, and delivers a full draft with flagged uncertainties. Never writes BibTeX from memory, and marks unverifiable citations as placeholders.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have ~/proj/sae-steering with results/ablation_table.csv, wandb exports, and a README. We steer Llama-3-8B with sparse autoencoder features and it beats prompting on 4 benchmarks. Can you draft the abstract and intro for NeurIPS 2025? I need to stay inside 9 pages and fill in the checklist later.",
+      "expected_output": "Reads the repo to extract the contribution and results, then drafts the abstract (5-sentence formula, no generic opener) and a 1-1.5 page introduction with a 2-4 bullet contribution list. Notes the 9-page limit and mandatory checklist, and fetches citations via API (Semantic Scholar/Exa) rather than from memory, marking unverifiable ones [CITATION NEEDED].",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My related work section has about 30 references that I pulled together with ChatGPT, and I'm worried some are fake. Can you check them and tidy up the section before I submit to ACL?",
+      "expected_output": "Verifies each citation programmatically (e.g. Semantic Scholar/CrossRef/DOI lookup), flags or replaces any that cannot be confirmed, and reports how many are unverified. Rewrites related work organized by methodological theme rather than paper-by-paper, and reminds that ACL requires a Limitations section.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm writing a paper on a new distributed KV-cache scheduler for OSDI. How should I structure the 12 pages and write the evaluation section?",
+      "expected_output": "Does not use ml-paper-writing; routes to systems-paper-writing for page budgets, structural blueprints, and evaluation structure for systems venues like OSDI.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "systems-paper-writing"
+    },
+    {
+      "id": 5,
+      "prompt": "We got our NeurIPS reviews back. Reviewer 2 says our baselines are weak and wants more ablations. Help me write the 6000-character rebuttal.",
+      "expected_output": "Does not use ml-paper-writing; routes to rebuttal-and-response-to-reviewers to plan and draft a rebuttal within the length limit, addressing each reviewer concern.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "rebuttal-and-response-to-reviewers"
+    }
+  ]
+}

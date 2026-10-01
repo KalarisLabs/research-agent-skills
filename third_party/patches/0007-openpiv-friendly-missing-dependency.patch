@@ -1,0 +1,18 @@
+diff --git a/skills/openpiv/scripts/run_example.py b/skills/openpiv/scripts/run_example.py
+index c37b899..9504fbb 100644
+--- a/skills/openpiv/scripts/run_example.py
++++ b/skills/openpiv/scripts/run_example.py
+@@ -13,8 +13,11 @@ from pathlib import Path
+ 
+ sys.path.insert(0, str(Path(__file__).resolve().parent))
+ 
+-from analyze import PIVAnalyzer  # noqa: E402
+-from runner import run_openpiv  # noqa: E402
++try:
++    from analyze import PIVAnalyzer  # noqa: E402
++    from runner import run_openpiv  # noqa: E402
++except ModuleNotFoundError as exc:  # numpy/openpiv missing: explain instead of a traceback
++    sys.exit(f"Error: {exc.name} is not installed. Install with: uv pip install openpiv numpy")
+ 
+ 
+ def bundled_image_pair() -> tuple[Path, Path]:

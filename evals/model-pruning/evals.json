@@ -1,0 +1,40 @@
+{
+  "skill_name": "model-pruning",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I prune Llama-2-7B to 50% sparsity without retraining?",
+      "expected_output": "Recommends a one-shot method (Wanda or SparseGPT) at 50% unstructured sparsity, with a calibration set and the relevant repo (locuslab/wanda or IST-DASLab/sparsegpt). Notes that unstructured sparsity gives no speedup on its own, and that perplexity should be checked afterwards.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have llama-2-7b-hf checkpoint at ./models/llama2-7b and an A100 40GB. I want to run Wanda with 2:4 sparsity using 128 C4 calibration samples, then compare WikiText2 perplexity against the dense model. Running main.py gives a CUDA OOM error while computing activation norms. What should I do?",
+      "expected_output": "Checks the environment (GPU memory, framework versions) and addresses the OOM by reducing calibration samples or sequence length, using fp16 and processing layer by layer. Keeps the 2:4 N:M pattern for NVIDIA sparse tensor cores. Compares WikiText2 perplexity against the dense baseline. Reports exactly what was run and does not invent flags.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My 13B model is too big for the edge devices we're targeting, and I can't afford to retrain it. I want to remove a large share of the weights and still have it run faster on Ampere GPUs. What are my options and tradeoffs?",
+      "expected_output": "Explains the options: unstructured pruning (best quality, no speedup), structured pruning (speedup, larger accuracy loss) and semi-structured 2:4 sparsity (about 2x speedup on Ampere with small loss). Recommends a one-shot method such as Wanda or SparseGPT with 2:4 for hardware speedup. Mentions validating accuracy and states assumptions or asks about the target hardware.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to fit Llama-2-70B on a single 48GB GPU. Can you quantize it to 4-bit with activation-aware scaling and show me how to load it for inference?",
+      "expected_output": "Recognizes this as 4-bit activation-aware quantization, not pruning, and uses the awq-quantization skill (AWQ quantization and loading) instead of model-pruning.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "awq-quantization"
+    },
+    {
+      "id": 5,
+      "prompt": "My LLM generates tokens too slowly. I want to use a small draft model to propose tokens that the big model verifies in parallel. How do I set that up?",
+      "expected_output": "Identifies this as speculative decoding, which does not change the model weights, and uses the speculative-decoding skill, not model-pruning.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "speculative-decoding"
+    }
+  ]
+}

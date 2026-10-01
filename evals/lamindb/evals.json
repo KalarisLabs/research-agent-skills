@@ -1,0 +1,38 @@
+{
+  "skill_name": "lamindb",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I register a parquet file as an artifact in LaminDB and see which notebook produced it?",
+      "expected_output": "Shows initializing or connecting to an instance, calling ln.track() at the top of the notebook, creating the artifact with ln.Artifact(path, key=...).save(), then ln.finish(). Explains that artifact.view_lineage() or artifact.run and artifact.transform show the producing code.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a 10x PBMC dataset in pbmc_filtered.h5ad (human, 18k cells) and I'm getting 'N terms are not validated' for obs['cell_type'] and obs['tissue'] when I run curator.validate(). I want to map them to Cell Ontology and Uberon before saving. What should I do?",
+      "expected_output": "Recommends an AnnDataCurator with a schema using bt.CellType and bt.Tissue fields, then inspecting non-validated terms and using .cat.standardize() for synonyms and .cat.add_ontology() or import_source() for missing terms. Re-validates and saves the artifact with save_artifact(), and notes the organism setting (human).",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our lab has hundreds of flow cytometry and RNA-seq files scattered across S3 buckets. I want one place where I can filter them by tissue, donor and experiment date, and trace each processed file back to the script and inputs that made it. What setup would you suggest?",
+      "expected_output": "Suggests a lineage-native data lakehouse such as LaminDB with a cloud storage and Postgres or SQLite instance, registering files as artifacts, defining features or ontology-backed labels for tissue/donor/date, querying with filter(), and tracking scripts with ln.track() or @ln.flow(). Advises pinned installs and credentials via IAM roles or environment variables rather than inline secrets.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have an AnnData object loaded in scanpy. How do I do Leiden clustering and plot a UMAP colored by cluster?",
+      "expected_output": "Gives a scanpy workflow (sc.pp.neighbors, sc.tl.leiden, sc.tl.umap, sc.pl.umap) without involving LaminDB data management, since this is pure single-cell analysis.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Write a Snakemake workflow with rules for FastQC, trimming, and STAR alignment for my paired-end RNA-seq samples.",
+      "expected_output": "Provides a Snakefile with rules for QC, trimming and alignment, with config and wildcards. It does not require LaminDB lineage tracking unless requested.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

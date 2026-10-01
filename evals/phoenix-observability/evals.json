@@ -1,0 +1,40 @@
+{
+  "skill_name": "phoenix-observability",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get Phoenix tracing running locally for my OpenAI calls?",
+      "expected_output": "Gives the install steps (arize-phoenix plus the OpenInference OpenAI instrumentor), launches the Phoenix server (default UI at port 6006), registers the tracer provider, and instruments OpenAI so traces show up in the UI.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running a RAG pipeline in LlamaIndex over our lab's protocol PDFs. The answers are sometimes wrong and I can't tell if retrieval or generation is at fault. I set up Phoenix at localhost:6006 but my project shows no traces, only an empty 'default' project. How do I fix that and then use the traces to find the failing step?",
+      "expected_output": "Explains how to fix missing traces: register with the right project name and endpoint (OTLP/gRPC port 4317 or HTTP), call the LlamaIndex instrumentor before running queries, and check the collector endpoint and environment variables. Then shows how to inspect retrieval and LLM spans in the trace view to localize the failure.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have 200 question-answer pairs from our clinical-trial summarization model and want to systematically score hallucination and relevance with an LLM judge, compare two prompt versions, and keep the test set versioned so I can rerun it in CI. Self-hosted only, no SaaS. What setup do you recommend?",
+      "expected_output": "Recommends self-hosted Phoenix: upload the pairs as a versioned dataset, use built-in LLM-as-judge evaluators (hallucination, relevance), run experiments comparing the two prompt versions, and automate the evaluation in CI. Notes the self-hosted PostgreSQL or SQLite option.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "My LangChain app is already integrated with LangSmith. How do I set LANGCHAIN_TRACING_V2 and create a LangSmith dataset to run evaluations against?",
+      "expected_output": "Directs the user to LangSmith setup (API key, LANGCHAIN_TRACING_V2, LangSmith datasets and evaluate), not Phoenix.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "langsmith-observability"
+    },
+    {
+      "id": 5,
+      "prompt": "My Llama-70B inference is too slow for our real-time lab assistant. Can I use a small draft model to speed up decoding?",
+      "expected_output": "Explains speculative decoding with a draft model (and options like Medusa or lookahead decoding), not observability tooling.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "speculative-decoding"
+    }
+  ]
+}

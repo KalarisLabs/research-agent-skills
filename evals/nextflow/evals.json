@@ -1,0 +1,40 @@
+{
+  "skill_name": "nextflow",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "how do I resume a nextflow run that crashed halfway?",
+      "expected_output": "Explains rerunning the exact same command with -resume (single dash), notes caching depends on unchanged inputs, script and container, and that the work/ directory must be intact. Mentions checking with nextflow log and cache-debugging if tasks re-run unexpectedly.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running nf-core/rnaseq 3.14.0 on our SLURM cluster with Singularity for 24 human paired-end samples. My samplesheet.csv has columns sample,fastq_1,fastq_2,strandedness. The job dies with 'Process NFCORE_RNASEQ:RNASEQ:STAR_ALIGN terminated with an error exit status (137)'. How do I fix it and keep the finished steps?",
+      "expected_output": "Identifies exit 137 as out-of-memory kill and recommends a custom config (-c) raising memory for the STAR_ALIGN process via withName, with retry/task.attempt scaling, ensuring the SLURM executor and singularity profile are set. Advises rerunning with -resume and the same pinned -r version, and confirms the samplesheet format.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a pile of tumor/normal exome FASTQs and a reference genome. I want a reproducible, portable analysis setup that can run on my laptop for testing and then scale out to AWS without changing the code, with each tool in its own container. Where do I start?",
+      "expected_output": "Recommends a workflow-manager approach (Nextflow DSL2, possibly an nf-core pipeline such as sarek) with per-process containers and profiles to switch between local and AWS Batch. Suggests smoke-testing with the test profile, pinning versions, and using a samplesheet and params file.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I already have BAMs from PacBio HiFi tumor-normal pairs and want to validate inputs and generate a pacsomatic samplesheet, then submit to LSF.",
+      "expected_output": "Should defer to the specialized pacsomatic skill for validating inputs, building pacsomatic-compliant samplesheets and scheduler submission, rather than the general nextflow skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pacsomatic"
+    },
+    {
+      "id": 5,
+      "prompt": "I have FASTQs from a bulk RNA-seq experiment, 3 treated vs 3 control mice. Walk me through QC, trimming, quantification with Salmon, and getting a counts matrix ready for differential expression.",
+      "expected_output": "Should use the bulk-rnaseq orchestrator skill for the end-to-end analysis flow (FastQC/fastp, Salmon, counts matrix, handoff to DE), not a Nextflow-specific workflow-engine skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "bulk-rnaseq"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "polars-bio",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I find which of my peaks fall inside gene bodies using polars? I have two Polars DataFrames of intervals.",
+      "expected_output": "Uses polars-bio pb.overlap(df1, df2) with chrom/start/end columns, notes it returns a LazyFrame (.collect() or output_type=\"polars.DataFrame\"), mentions cols1/cols2 for custom column names and coordinate-system metadata.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a 40 GB sample.bam with a sample.bam.bai next to it on S3 (s3://lab-data/run7/sample.bam). I need per-base depth for chr20 without loading everything into RAM, and I'd like to filter it with SQL afterwards. Last time my script was killed by the OOM killer.",
+      "expected_output": "Recommends polars-bio lazy/streaming approach: scan_bam or the pileup depth function on the S3 URI, relying on cloud credentials, requiring the .bai index, setting parallelism, selecting columns early, and using register_* plus pb.sql (returns LazyFrame, call .collect()) for the SQL step.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My bioframe pipeline for merging ATAC-seq peaks across 200 samples and then clustering them is too slow. What's a faster drop-in way to do this on a big table?",
+      "expected_output": "Suggests migrating to polars-bio: pb.merge and pb.cluster on Polars frames (lazy/streaming), maps bioframe calls to polars-bio equivalents, mentions the reported speedup, probe-build ordering, and coordinate-system conventions (BED 0-based vs default 1-based).",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Using pysam, how do I fetch reads from a region in an indexed CRAM file with a reference FASTA and write the filtered reads to a new BAM?",
+      "expected_output": "Should use pysam (AlignmentFile with reference_filename, fetch, then write to a new AlignmentFile), not polars-bio.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pysam"
+    },
+    {
+      "id": 5,
+      "prompt": "My BED file is 0-based but my GTF annotations are 1-based; how do I convert coordinates by hand and check that the liftover between hg19 and hg38 contig names isn't going to break my analysis?",
+      "expected_output": "Should focus on coordinate convention conversion and assembly/contig naming checks, not polars-bio interval operations.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "genomic-coordinates"
+    }
+  ]
+}

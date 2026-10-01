@@ -1,0 +1,38 @@
+{
+  "skill_name": "ontology-term-resolution",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "What's the UBERON ID for left ventricle?",
+      "expected_output": "Looks the term up live via OLS (resolve_terms.py) rather than answering from memory, and reports the ID with its label and match type (e.g. exact_label). It must not recite an ID from recall.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have samples_metadata.tsv for a CELLxGENE submission with columns tissue_ontology_term_id, cell_type_ontology_term_id and disease_ontology_term_id, filled in by a postdoc who left. Some IDs look old. Can you check the whole table and tell me which ones will get rejected? One row has UBERON:0002108 labelled 'liver'.",
+      "expected_output": "Runs validate_terms.py on the file with claimed labels and the required ontology/branch per column, and reports per-row status. It flags UBERON:0002108 as a label_mismatch (it is small intestine, not liver), lists obsolete IDs with their replacements, and notes the nonzero exit code as a CI gate. It does not silently correct IDs from memory and reports every ID with its label.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My bench notes say 'PBMC', 'WT' and 'ctrl' for the sample type, genotype and treatment columns of a GEO submission. I need proper controlled-vocabulary identifiers for these before I upload.",
+      "expected_output": "Notes OLS exact lookup may miss the shorthand, then uses ZOOMA (map_terms.py) with a required ontology filter to propose candidates, and verifies every candidate CURIE with validate_terms.py before using it. It states any unresolved or ambiguous terms explicitly instead of filling in the nearest hit, and asks about or states assumptions for ambiguous shorthand like 'ctrl'.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a list of 2,000 differentially expressed gene symbols from my mouse RNA-seq run. Run GO enrichment analysis and give me the top enriched biological process terms with adjusted p-values.",
+      "expected_output": "Recognizes this is a statistical enrichment analysis task, not ontology ID resolution or validation, and does not use the ontology-term-resolution skill. It should use an enrichment tool such as clusterProfiler or g:Profiler instead.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Explain the difference between an ontology and a taxonomy, and how the OBO Foundry principles shape ontology design.",
+      "expected_output": "Gives a conceptual explanation without needing any ID lookup or validation, and does not invoke the ontology-term-resolution scripts.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

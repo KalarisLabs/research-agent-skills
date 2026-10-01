@@ -1,0 +1,40 @@
+{
+  "skill_name": "pytorch-fsdp2",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "convert my train.py to FSDP2",
+      "expected_output": "Uses torch.distributed.fsdp.fully_shard: launches with torchrun, sets the CUDA device from LOCAL_RANK, and shards transformer blocks before the root module. Builds the optimizer after sharding, calls model(x) rather than model.forward, and adds DCP checkpointing.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning a 13B Llama in finetune.py on 8xA100 and get CUDA OOM during optimizer.step() with DDP. I'd like to shard params, grads and optimizer state with the new per-parameter DTensor approach (not the old FSDP1 wrapper), use bf16 with fp32 gradient reduction, and save checkpoints that I can reload on a different number of GPUs. Can you update the script?",
+      "expected_output": "Replaces DDP with FSDP2 fully_shard applied bottom-up to decoder layers and then the root, with MixedPrecisionPolicy(param_dtype=bfloat16, reduce_dtype=float32). Creates the optimizer after sharding and saves and loads with torch.distributed.checkpoint (dcp.save/load with get_state_dict/set_state_dict) from all ranks, which supports resharding to a different world size. Optionally builds the model on the meta device and calls to_empty.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My model's weights, gradients and Adam states don't fit in one GPU's memory, but I have a node with 4 GPUs. I want training to split the memory across them while still doing data parallelism, and later I might add tensor parallelism with a 2D device mesh. How should I set up my PyTorch training loop?",
+      "expected_output": "Recommends FSDP2 (fully_shard) with a DeviceMesh, which can later be extended to 2D for TP. Gives an init_process_group and set_device setup under torchrun, bottom-up sharding, an optimizer built after sharding, and DCP checkpointing.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a plain PyTorch training loop for a ResNet. I want to run it on 1 GPU, 4 GPUs, and my MacBook with the same code, with fp16 and gradient accumulation, using `accelerate config` and `accelerate launch`. How do I wrap it?",
+      "expected_output": "Uses HuggingFace Accelerate (Accelerator, prepare, accumulate, accelerate launch) for portable multi-device training. It should not apply FSDP2 fully_shard.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "huggingface-accelerate"
+    },
+    {
+      "id": 5,
+      "prompt": "I want to pretrain Llama 3.1 70B from scratch on 256 GPUs with 4D parallelism (FSDP, TP, PP, context parallel), Float8 and torch.compile. Which framework and config should I use?",
+      "expected_output": "Points to torchtitan for large-scale pretraining with 4D parallelism, with its TOML job config and launch scripts. It does not hand-write an FSDP2 retrofit into a custom training script.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "distributed-llm-pretraining-torchtitan"
+    }
+  ]
+}

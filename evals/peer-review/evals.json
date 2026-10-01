@@ -1,0 +1,39 @@
+{
+  "skill_name": "peer-review",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I've been invited to review a Nature Communications manuscript on single-cell atlas integration. Can you help me draft my referee report?",
+      "expected_output": "Confirms authorization and the venue's confidentiality and AI/tool policies, and runs the intake gate before reading the manuscript. Processes locally only. Labels output as a working draft that the human reviewer must verify and rewrite. Does not give an accept/reject recommendation.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm a reviewer for BMJ Open and have the editor's invitation. The paper is a stratified cluster RCT of a school-based vaccination reminder (manuscript_v1.docx and supplement S1.pdf are saved locally). The abstract says the intervention 'reduced HPV vaccine hesitancy by 30%', but the primary outcome in the registry entry looks like uptake. Help me work out which reporting guideline applies and whether the claims match the evidence. I don't want anything uploaded anywhere.",
+      "expected_output": "Completes the intake and authorization gate, then keeps all processing local. Selects CONSORT with the cluster extension and treats checklist coverage as non-scoring. Builds a claim–evidence matrix that flags the outcome and registration mismatch, with bounded requested actions. Does not claim anything has been reproduced, and does not decide for the editor.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our grant resubmission got three reviewer reports back and I have to write the rebuttal. Reviewer 2 says our mixed-effects model ignores clustering by site and wants a sensitivity analysis. Help me plan how to respond to each comment point by point.",
+      "expected_output": "Plans a revision-response with a point-by-point structure. Assesses each critique against the evidence and offers correction, clarification, or a sensitivity analysis where appropriate. Does not fabricate new analyses or results, and keeps the tone constructive and professional.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Can you rewrite the Discussion section of my own manuscript so it flows better and tighten the abstract to 250 words? It's about CRISPR screens in T cells.",
+      "expected_output": "Recognizes this as authoring and editing the user's own manuscript, not peer review. Directs to scientific-writing, which covers revising manuscript sections with evidence provenance and consistency checks.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scientific-writing"
+    },
+    {
+      "id": 5,
+      "prompt": "Write me a Python function that computes Cohen's kappa between two raters for my annotation data.",
+      "expected_output": "Writes the kappa code directly. No peer-review workflow, intake gate, or manuscript review is needed.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

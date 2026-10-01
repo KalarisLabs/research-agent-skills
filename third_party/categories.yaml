@@ -1,0 +1,78 @@
+# Category assignment for imported skills (written to metadata.category).
+# Keys are final skill names. Nested-layout skills fall back to `by_prefix`.
+
+categories:
+  research-writing: "Scientific and research paper writing, grants, peer review, critical appraisal"
+  journal-formats: "Journal, conference and venue formatting: LaTeX templates, submission checklists"
+  literature-review: "Literature search, systematic reviews, citation management and reference managers"
+  ideation-and-design: "Hypothesis generation, experimental design, statistics planning, validation"
+  data-science-and-ml: "Data analysis, statistics and machine learning libraries"
+  visualization-and-presentation: "Figures, schematics, posters, slides and talks"
+  knowledge-and-rag: "Vector databases, embeddings, RAG and knowledge graphs over research corpora"
+  scientific-databases: "Programmatic access to public scientific databases and APIs"
+  life-sciences: "Genomics, single-cell, proteomics, neuroscience and systems biology"
+  chemistry-and-drug-discovery: "Cheminformatics, molecular modelling, protein design and pharmacology"
+  clinical-and-health: "Clinical research, medical imaging, pathology and health data"
+  physical-sciences: "Physics, astronomy, quantum computing, materials and earth science"
+  lab-automation: "Lab platforms, ELNs, liquid handlers and manufacturing integrations"
+  research-automation: "Autonomous research loops, agent harnesses and research artifacts"
+  ml-training: "Model architectures, tokenization, fine-tuning, post-training, distributed training, optimization"
+  ml-evaluation-and-safety: "Evaluation harnesses, interpretability and safety/alignment"
+  ml-inference-and-ops: "Inference serving, GPU infrastructure, MLOps and observability"
+  llm-applications: "Agent frameworks, prompt engineering and structured generation"
+  multimodal-and-emerging: "Vision, audio, robotics, data processing and emerging techniques"
+
+assign:
+  research-writing: [scientific-writing, research-grants, peer-review, scholar-evaluation, scientific-critical-thinking,
+    markdown-mermaid-writing, market-research-reports, ml-paper-writing, systems-paper-writing, dhdna-profiler]
+  journal-formats: [venue-templates]
+  literature-review: [literature-review, citation-management, pyzotero, paper-lookup, research-lookup, bgpt-paper-search,
+    paperzilla, paperclip, exa-search, parallel-web, open-notebook, liteparse, markitdown]
+  ideation-and-design: [scientific-brainstorming, hypothesis-generation, hypogenic, experimental-design, statistical-power,
+    consciousness-council, analytical-method-validation, uncertainty-and-units, iso-standards-readiness,
+    relsa-severity-assessment, brainstorming-research-ideas, creative-thinking-for-research]
+  data-science-and-ml: [scikit-learn, scikit-survival, shap, umap-learn, statsmodels, statistical-analysis,
+    exploratory-data-analysis, pymc, polars, dask, vaex, zarr-python, networkx, sympy, matlab, transformers,
+    pytorch-lightning, torch-geometric, stable-baselines3, pufferlib, timesfm-forecasting, aeon, simpy, pymoo,
+    optimize-for-gpu, modal, get-available-resources, datalad, lamindb, hugging-science]
+  visualization-and-presentation: [matplotlib, seaborn, scientific-visualization, scientific-schematics, scientific-slides,
+    latex-posters, pptx-posters, infographics, generate-image, academic-plotting, presenting-conference-talks]
+  scientific-databases: [database-lookup, gget, bioservices, cellxgene-census, depmap, ontology-term-resolution,
+    imaging-data-commons, usfiscaldata, ncats-arax, onekgpd, genomic-coordinates, pytdc]
+  life-sciences: [anndata, scanpy, scvelo, scvi-tools, arboreto, biopython, pysam, deeptools, bulk-rnaseq, pydeseq2,
+    pathway-enrichment, polars-bio, tiledbvcf, gtars, geniml, esm, alphagenome, genomic-intelligence, etetoolkit,
+    scikit-bio, nextflow, bids, pacsomatic, pathogen-variant-surveillance, folklore-variant-evidence, cobrapy,
+    13c-metabolic-flux, pyopenms, matchms, flowio, neurokit2, neuropixels-analysis, waypoint-bio]
+  chemistry-and-drug-discovery: [rdkit, datamol, deepchem, medchem, molfeat, diffdock, torchdrug, molecular-dynamics,
+    pkpd-modeling, rowan, tamarind, adaptyv]
+  clinical-and-health: [clinical-decision-support, clinical-reports, treatment-plans, pyhealth, pydicom, histolab, pathml]
+  physical-sciences: [astropy, qiskit, cirq, pennylane, qutip, pymatgen, fluidsim, openpiv, geopandas, geomaster]
+  lab-automation: [benchling-integration, dnanexus-integration, labarchive-integration, latchbio-integration,
+    omero-integration, opentrons-integration, protocolsio-integration, pylabrobot, ginkgo-cloud-lab, fictiv,
+    lab-hardware-cad]
+  research-automation: [autoskill, pi-agent, arbor, autoresearch, ara-compiler, ara-research-manager, ara-rigor-reviewer]
+
+# Nested-layout fallback: source folder prefix -> category.
+by_prefix:
+  01-model-architecture: ml-training
+  02-tokenization: ml-training
+  03-fine-tuning: ml-training
+  04-mechanistic-interpretability: ml-evaluation-and-safety
+  05-data-processing: multimodal-and-emerging
+  06-post-training: ml-training
+  07-safety-alignment: ml-evaluation-and-safety
+  08-distributed-training: ml-training
+  09-infrastructure: ml-inference-and-ops
+  10-optimization: ml-training
+  11-evaluation: ml-evaluation-and-safety
+  12-inference-serving: ml-inference-and-ops
+  13-mlops: ml-inference-and-ops
+  14-agents: llm-applications
+  15-rag: knowledge-and-rag
+  16-prompt-engineering: llm-applications
+  17-observability: ml-inference-and-ops
+  18-multimodal: multimodal-and-emerging
+  19-emerging-techniques: multimodal-and-emerging
+  20-ml-paper-writing: research-writing
+  21-research-ideation: ideation-and-design
+  22-agent-native-research-artifact: research-automation

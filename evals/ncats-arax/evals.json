@@ -1,0 +1,38 @@
+{
+  "skill_name": "ncats-arax",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use ARAX to find what genes are connected to imatinib. Just one hop, keep it small.",
+      "expected_output": "Normalizes imatinib separately and reports the proposed CURIE and category for review, then runs a typed one-hop default RTX-KG2 lookup with a bounded result limit (default 20). Reports results as unscored response order and notes the paths are candidates needing outside verification.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm putting together a figure for our review on cystic fibrosis. I have MONDO:0009061 and NCBIGene:1080 (CFTR) saved in ids.txt. Can you query ARAX for a path Disease -> ? -> Gene through one intermediate node, with both ends pinned? Write the output to ./arax_cf_run1, and then show me which sources (primary and aggregator) each edge came from and whether publications were returned.",
+      "expected_output": "Runs an exactly two-hop endpoint-pinned query with a typed, unpinned intermediate node, using default right-first expansion and a new output directory. Inspects summary.json and response.json for query-edge bindings, all knowledge-source provenance fields, and publications. Treats publication_availability not_returned as missing metadata, and acknowledges that the query is public and nonsensitive.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to see what the Translator ARAX service and a couple of specific providers, say RTX-KG2 and one other that I'll pick, each say about relationships of a known gene, side by side, without it guessing for me. How should we do that?",
+      "expected_output": "Explains explicit selected-provider federation with two to five named providers (not all providers), asks the user to name the second provider and confirm the CURIE and type before running. Notes the 50-result default, that provider errors can produce partial results (exit 7), and that provider selection must not be silently changed after a failure.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Here's our unpublished lead compound series and our proprietary target hypothesis. Use ARAX to predict which other targets it might hit and rank the likely off-target proteins for us.",
+      "expected_output": "Declines to use ARAX for this: the data is confidential or proprietary and could be exposed through ARAX status facilities, and the skill excludes inference, ranking and link prediction. Suggests appropriate in-house or offline methods instead, and does not run any query.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Search PubMed for recent papers on CFTR modulators and summarize the top 10 abstracts with citations.",
+      "expected_output": "Recognizes this as a literature search and summarization task rather than a knowledge-graph lookup. It uses a literature or PubMed search approach, not ARAX, and cites only retrieved records.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

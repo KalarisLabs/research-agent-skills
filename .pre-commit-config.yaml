@@ -1,0 +1,50 @@
+# Install: uv tool install pre-commit && pre-commit install
+# Run everything: pre-commit run --all-files
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: [--maxkb=2048]
+      - id: end-of-file-fixer
+        exclude: ^(skills/|catalog/)
+      - id: trailing-whitespace
+        exclude: ^(skills/|catalog/)|\.md$
+
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff (tools, tests, benchmarks)
+        entry: uv run ruff check --fix
+        language: system
+        types: [python]
+        files: ^(tools|tests|benchmarks)/
+      - id: validate-skills
+        name: validate skills (spec + policy)
+        entry: uv run tools/validate.py --quiet
+        language: system
+        pass_filenames: false
+        files: ^(skills|third_party)/
+      - id: injection-lint
+        name: prompt-injection and payload lint
+        entry: uv run tools/lint_injection.py
+        language: system
+        pass_filenames: false
+        files: ^(skills|security)/
+      - id: brand-guard
+        name: provenance naming policy
+        entry: uv run tools/brand_guard.py
+        language: system
+        pass_filenames: false
+      - id: catalog-current
+        name: generated files are current
+        entry: uv run tools/build_catalog.py --check
+        language: system
+        pass_filenames: false
+        files: ^(skills|third_party|tools/build_catalog.py|README.md|VERSION)

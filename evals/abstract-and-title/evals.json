@@ -1,0 +1,18 @@
+{
+  "skill_name": "abstract-and-title",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Cut my 320-word abstract to 250 words for PLOS ONE and suggest three better titles.",
+      "expected_output": "Five-move abstract within limit with numbers kept; 5+ title candidates judged against criteria",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Write the methods section describing our ELISA protocol.",
+      "expected_output": "Skill not used",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

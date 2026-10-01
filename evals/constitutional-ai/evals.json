@@ -1,0 +1,39 @@
+{
+  "skill_name": "constitutional-ai",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get a model to critique and revise its own harmful answers?",
+      "expected_output": "Explains the Constitutional AI supervised phase: generate initial responses, self-critique against constitution principles, revise, then fine-tune on the revised responses. Mentions that no human labels for harmful outputs are needed.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm training a 7B Llama model with TRL and want to cut harmful outputs without paying for human red-team labels. I've got a 16-principle constitution in constitution.yaml and red-team prompts in redteam.jsonl. Set up the pipeline, including the preference stage, and tell me what GPUs I need. My AI-generated preference labels look noisy between runs.",
+      "expected_output": "Lays out the two-phase pipeline: critique/revision SFT, then AI preference labeling, reward model training, and PPO-style RL using TRL. Estimates hardware (about 1x A100 40GB for SL, 2x for RL). Suggests multiple AI evaluators or chain-of-thought to reduce preference noise. Follows the operating procedure: pins down versions, runs a small subset first, and asks before spending GPU or cloud money.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We want our assistant to follow a written set of ethical principles, and to stop giving evasive non-answers to borderline questions, with an AI model rather than crowd workers providing the training signal. What approach should we use and how do we tune it?",
+      "expected_output": "Recommends Constitutional AI/RLAIF and explains the principles-based AI feedback. Addresses evasiveness by adding a constitution principle that favors helpful, non-evasive answers, and notes the helpfulness/harmlessness trade-off. Compares against RLHF and DPO.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I already have a dataset of human-labeled chosen/rejected pairs (hh-rlhf). Show me how to run DPO on Mistral-7B with TRL's DPOTrainer, including config and hyperparameters.",
+      "expected_output": "Uses the TRL fine-tuning workflow for DPO on existing human preference data. It should not set up self-critique or AI-feedback generation.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "fine-tuning-with-trl"
+    },
+    {
+      "id": 5,
+      "prompt": "I need a runtime filter that blocks toxic user messages before they reach my chatbot in production. What should I deploy?",
+      "expected_output": "Recommends an inference-time moderation tool such as LlamaGuard or NeMo Guardrails. It should not propose training a model with Constitutional AI.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

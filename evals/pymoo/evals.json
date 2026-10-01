@@ -1,0 +1,31 @@
+{
+  "skill_name": "pymoo",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get the Pareto front for two conflicting objectives in Python?",
+      "expected_output": "Recommends pymoo with NSGA-II and shows a minimize() call on a Problem or ElementwiseProblem with a termination criterion. Reads the front from result.F and result.X, and mentions plotting it.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm designing a truss in truss_opt.py. It has 3 variables: a continuous beam thickness, an integer number of struts, and a categorical material (steel, aluminum, titanium). I'm minimizing mass and deflection. Stress must stay under 250 MPa and the deflection limit is a hard constraint. My NSGA-II run keeps crashing with 'ValueError: could not convert string to float' when the material gets sampled. How should I set this up?",
+      "expected_output": "Explains that mixed variables need a vars dict of typed variables (Real, Integer, Choice) and a mixed-variable sampling, crossover and mutation setup. Shows an ElementwiseProblem with constraints written as g(x) <= 0. Notes that the error comes from the default float operators trying to handle string categories.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a simulation of a bioreactor with 5 competing goals: yield, cost, energy use, waste and run time. I want a spread of good trade-off designs. Then I need to pick a single recipe to run in the lab, and I care most about yield. How should I go about this?",
+      "expected_output": "Identifies this as a many-objective problem (4+ goals) and suggests NSGA-III with reference directions, or RVEA. Recommends normalizing the objectives and using a decision-making method such as weighted scalarization (ASF or pseudo-weights) with yield weighted highest. Suggests PCP or radviz to visualize it.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to fit a logistic regression with L2 regularization and find the global minimum of this convex loss using L-BFGS or cvxpy. Can you write the code?",
+      "expected_output": "Does not use pymoo or evolutionary algorithms. Uses a gradient-based or convex solver such as scipy.optimize or cvxpy, which suits a smooth convex problem.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

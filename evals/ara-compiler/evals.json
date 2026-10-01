@@ -1,0 +1,40 @@
+{
+  "skill_name": "ara-compiler",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Turn this paper into an ARA: ~/papers/lora_scaling.pdf",
+      "expected_output": "Reads the whole PDF including appendices, then writes a full ARA directory (PAPER.md, logic/, src/, trace/exploration_tree.yaml, evidence/) to ./ara-output/. Gaps are marked 'Not available from provided input' rather than invented.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I've got the repo at ./diffusion-protein-design (README, train.py, configs/sweep_v3.yaml) plus a folder of wandb logs from our runs and a Slack export where we argued about why we dropped the contact-map loss. Compile all of it into a structured, agent-traversable knowledge package in ./ara/protein, and make the dead ends explicit.",
+      "expected_output": "Cross-references the code, configs, logs and Slack export. Produces claims, concepts, heuristics, config and code stubs, and an exploration tree with at least 8 nodes including dead_end and decision nodes. Each node is tagged explicit or inferred with source references. Writes to the requested output directory and reports any missing fields.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My advisor wants our single-cell atlas project written up in a machine-readable form that an AI agent could follow and check, with every claim falsifiable and tied to evidence. I only have messy notes in notes.md and a few result CSVs. How do I get there?",
+      "expected_output": "Recognises this as building a structured research artifact from raw notes and results. Reads notes.md and the CSVs, asks the user to fill ambiguous gaps instead of hallucinating, and generates the layered artifact with falsifiable claims linked to evidence. Marks unavailable fields explicitly.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "We just finished a long debugging session on our RL training pipeline. Scan our conversation and log the decisions, dead ends and pivots into the ara/ folder so we have provenance.",
+      "expected_output": "Does not compile a source into a new ARA. Uses the session-provenance recorder that scans the conversation and writes into the existing ara/ directory.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ara-research-manager"
+    },
+    {
+      "id": 5,
+      "prompt": "I already have an ARA in ./ara-output/. Can you review it for rigor and score evidence relevance, falsifiability and scope calibration?",
+      "expected_output": "Does not rebuild the artifact. Runs a semantic epistemic review of the existing ARA and scores the rigor dimensions.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ara-rigor-reviewer"
+    }
+  ]
+}

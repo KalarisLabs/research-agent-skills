@@ -1,0 +1,39 @@
+{
+  "skill_name": "sentence-transformers",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get embeddings for a list of sentences without calling an API?",
+      "expected_output": "Shows installing sentence-transformers, loading a pre-trained model such as all-MiniLM-L6-v2, and calling model.encode() on the list, noting the output shape (e.g. 384 dims). Mentions that the model runs locally and downloads weights from Hugging Face on first use.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have abstracts.csv with about 40k paper abstracts in a 'abstract' column. I want to build a semantic search so I can type a query and get the top 10 most similar abstracts. I'm on a laptop with no GPU. Can you set that up with all-mpnet-base-v2 and tell me how long it will take?",
+      "expected_output": "Checks the environment (installed versions, device is CPU) and tests on a small subset first. Encodes in batches with a progress bar, normalizes embeddings, caches them to disk, and retrieves top-k via cosine similarity or util.semantic_search. Gives a hedged runtime estimate for CPU (noting mpnet is slower than MiniLM) rather than a fabricated figure, and suggests validating on known query-abstract pairs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have about 3,000 customer support tickets in German, French and English. I want to group them into topics automatically, and I can't send the text to any external service because of privacy rules. What should I do?",
+      "expected_output": "Recommends a local multilingual embedding model (e.g. paraphrase-multilingual or a multilingual MiniLM/mpnet variant) via sentence-transformers, followed by clustering (e.g. k-means, agglomerative or community detection) on the embeddings. Explains that processing stays local, asks about or states assumptions on the number of clusters, and suggests inspecting sample tickets per cluster to validate.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to store 5 million vectors in a managed serverless index with namespaces and metadata filtering, and upsert/query them from Python. How do I create the index and upsert?",
+      "expected_output": "Identifies this as a managed vector database task and uses the Pinecone skill, covering index creation, upserting vectors with metadata, namespaces and querying. It does not focus on generating embeddings with sentence-transformers.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pinecone"
+    },
+    {
+      "id": 5,
+      "prompt": "Our team already pays for OpenAI and wants the highest-quality embeddings via text-embedding-3-large through their API for our RAG pipeline. Show me how to call it and batch requests.",
+      "expected_output": "Uses the OpenAI embeddings API (client.embeddings.create with text-embedding-3-large, batching inputs, handling rate limits). It does not use the local sentence-transformers library, since the user explicitly wants an API-based model.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

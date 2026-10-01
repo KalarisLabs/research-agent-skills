@@ -1,0 +1,93 @@
+name: Code security
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "41 3 * * 2"
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  codeql:
+    name: CodeQL (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [python, javascript-typescript, actions]
+    steps:
+      - uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: github/codeql-action/init@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-extended
+      - uses: github/codeql-action/analyze@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
+        with:
+          category: codeql-${{ matrix.language }}
+
+  static:
+    name: Semgrep, Bandit, Ruff, ShellCheck, PSScriptAnalyzer
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - run: uv sync --locked
+      - name: Ruff (tools, tests; includes flake8-bandit rules)
+        run: uv run ruff check tools tests
+      - name: Semgrep (repository tooling and CLI, blocking)
+        run: uvx semgrep==1.178.0 scan --error --metrics=off --config p/python --config p/javascript --config p/typescript --config p/secrets tools cli/src install.sh
+      - name: Bandit on skill scripts (high severity + high confidence, blocking)
+        run: uvx bandit==1.9.4 -r skills -lll -iii -q
+      - name: ShellCheck installers and skill shell scripts
+        run: |
+          shellcheck install.sh
+          find skills -name '*.sh' -print0 | xargs -0 -r shellcheck --severity=error
+      - name: PSScriptAnalyzer (install.ps1)
+        shell: pwsh
+        run: |
+          Install-Module PSScriptAnalyzer -Scope CurrentUser -Force -RequiredVersion 1.25.0
+          $r = Invoke-ScriptAnalyzer -Path install.ps1 -Severity Error
+          $r | Format-Table -AutoSize
+          if ($r) { exit 1 }
+
+  workflows:
+    name: Workflow security (zizmor, actionlint)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - name: zizmor
+        run: uvx zizmor==1.30.1 --min-severity medium .github/workflows
+      - name: actionlint
+        run: docker run --rm -v "$PWD:/repo" -w /repo rhysd/actionlint:1.7.12 -color

@@ -1,0 +1,38 @@
+{
+  "skill_name": "pymatgen",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you sanity-check this CIF before I run anything on it?",
+      "expected_output": "Runs or recommends the bundled local structure validator, captures both CIF parser and Python warnings, and reports lattice, units, occupancy and disorder, oxidation-state status, periodicity, and minimum interatomic distances. It does not silently accept parser corrections or guess oxidation states.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have LiFePO4_mp-19017.cif from a collaborator and my VASP relax keeps failing with 'too close atoms'. I need to convert it to POSCAR for VASP. Will anything get lost in the conversion, and can you do it without overwriting the original?",
+      "expected_output": "Plans the conversion first with the loss-planning step (CIF to POSCAR: labels, occupancies and disorder, and site properties may be lost). Validates the structure and minimum distances, then converts to a new output path with explicit loss acknowledgement. Round-trip checks lattice, species order, coordinate mode, and selective dynamics, and preserves the input.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I computed total energies for Li, Co, O2 and a few LiCoO2 and Li2O polymorphs with the same PBE setup and want to know which phases sit on the hull and how far above it the rest are. How should I do that offline?",
+      "expected_output": "Uses a strict local JSON entry file with total eV per entry and provenance, and the offline phase diagram generator. Requires elemental endpoints and all competing phases, with consistent functional, pseudopotentials, and corrections. Reports energy above hull as computed and conditional on the entry set, not as experimental stability.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write a GROMACS-style molecular dynamics setup to simulate a lipid bilayer with cholesterol for 200 ns, and recommend a force field.",
+      "expected_output": "Recognizes this is general biomolecular molecular dynamics, which is outside the pymatgen skill's scope. It gives MD setup guidance (force field, equilibration, production) and does not use pymatgen.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Compute Morgan fingerprints and Tanimoto similarity for a list of drug-like SMILES strings and cluster them.",
+      "expected_output": "Recognizes this as non-materials cheminformatics, which is out of scope for the pymatgen skill. It suggests RDKit-style fingerprinting and clustering instead.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "skill_name": "paperzilla",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "what's new in my Paperzilla project on protein language models this week?",
+      "expected_output": "Uses the pz CLI to list projects and browse that project's feed with a --since date (preferably --json), then summarizes the actual returned recommendations. Asks or states an assumption if the project name is ambiguous, and does not invent papers.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I ran `pz feed crispr-offtarget --must-read --limit 5 --json` and got 5 items. Rec ID rec_8f21 looks interesting; can you pull the full markdown for it and tell me why it matters for my base-editing work? If it says it's not ready, what should I do?",
+      "expected_output": "Runs `pz rec rec_8f21 --markdown` (or --json) to retrieve the record and explains relevance only from the retrieved content. If markdown generation is queued, relays the retry message and retries later rather than summarizing from memory or fabricating content.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'd like to subscribe to the stream of papers that my lab's curated literature-tracking project surfaces, in my RSS reader, and also mark the ones that were useful so the ranking improves. How do I do that?",
+      "expected_output": "Identifies that the Paperzilla CLI can give a personal Atom feed URL via the feed command with --atom, and that recommendation feedback (upvote, downvote, star) can be left through the CLI. Checks the installed pz version and authentication, consults `--help` for exact flag syntax instead of guessing, and does not invent feed URLs.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Search PubMed for systematic review literature on SGLT2 inhibitors and heart failure from 2020-2025 and give me a PRISMA-style list of included studies.",
+      "expected_output": "Recognizes this is a database literature search and systematic review task, not a Paperzilla project or recommendation request. Should not use the paperzilla skill and instead uses a literature-search or systematic-review workflow with PubMed.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Write a Python script using the Zotero API to export my library to BibTeX and dedupe entries by DOI.",
+      "expected_output": "Treats this as a reference-manager scripting task unrelated to Paperzilla's CLI. Does not invoke the paperzilla skill; helps write the Zotero API and BibTeX dedupe code.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "alphagenome",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "What's the AlphaGenome AVI score for chr22:36201698:A>C?",
+      "expected_output": "Uses the Atlas lookup (scripts/atlas_query.py avi) on the GRCh38 SNV, reports avi_raw, Phred/quantile and top SHAP feature with the interpretation (splice, regulatory or conservation-driven), checks REF against the reference, and gives the portal link. Notes research-use-only.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a VCF, fine_map_credible_set.vcf, with 40 SNVs from a lipid GWAS locus (hg38, intronic/intergenic). I want to know which are likely to alter enhancer activity in liver. Can you rank them and show me which tracks in HepG2 or liver drive the effect? I have an API key set in my environment, and I'm getting 'ValueError: API key not valid' on one machine.",
+      "expected_output": "Runs a small subset first, then ranks the SNVs with Atlas AVI (rank, don't threshold), reads top_feature attributions before the number, pulls track-level scores filtered to liver/HepG2 ontology (e.g. UBERON liver CURIE) reporting raw and quantile scores with scorer, track, gene. Explains the invalid-key error is a bad/missing key in the environment (not permissions), advises never putting the key on a command line, and attaches portal links per variant.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got a noncoding variant in a mouse mm10-lifted region and also a 3 bp deletion in human that I suspect disrupt a promoter. How can I predict what happens to expression and chromatin accessibility computationally with DeepMind's sequence-to-function model, comparing reference and mutant tracks?",
+      "expected_output": "Explains the Atlas is human GRCh38 SNV-only, so indels and mouse variants need the on-demand model (score_variants.py or predict_variant). Recommends a suitable window (1 Mb default or smaller), specifying ontology CURIEs, REF-vs-ALT track plots and scoring with recommended scorers, normalising coordinates (1-based variants, build check), and reporting raw plus quantile scores while stating that no effect is a valid result.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Is rs113993960 in CFTR pathogenic according to ClinVar, and does it meet ACMG criteria for a likely pathogenic classification?",
+      "expected_output": "Does not use AlphaGenome; points to a variant-evidence/ClinVar lookup skill for assertions and ACMG framing, since AlphaGenome is only one evidence line and not a clinical tool.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "folklore-variant-evidence"
+    },
+    {
+      "id": 5,
+      "prompt": "I have GRCh37 coordinates for a list of SNPs and need to lift them over to hg38 and normalise the indels before anything else.",
+      "expected_output": "Handles coordinate conversion and normalisation with a genomic-coordinates tool, not AlphaGenome scoring.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "genomic-coordinates"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "ara-research-manager",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "ok we're done for today, log the session",
+      "expected_output": "Runs as an end-of-session epilogue: reads existing ara/ files for next IDs, scans the conversation, appends decisions/experiments/dead ends with provenance tags (defaulting to ai-suggested when uncertain), writes a session record and index entry, and prints a one-line '[PM] Session captured' summary.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "That finishes the ablation on my CIFAR-10 ResNet-18 run. We tried cosine vs step LR (cosine hit 94.1% vs 92.7%), dropped mixup after it hurt accuracy, and I decided to keep label smoothing 0.1. Now that everything's finished, can you record all of this in ara/trace/exploration_tree.yaml and ara/logic/claims.md so there's a record of who decided what, and add a session file?",
+      "expected_output": "Reads existing ara/ state, adds a decision node (cosine LR chosen, user), an experiment node with the 94.1 vs 92.7 results, a dead_end for mixup with failure_mode and lesson, a claim linked to evidence, nests nodes properly in the tree, tags the user's choices as user and the AI's code runs as ai-executed, appends rather than overwrites, keeps YAML valid, and creates a dated session record.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My project just wrapped up its first phase and I need a durable, auditable trail of how our direction changed over the past few weeks of chats, including which ideas were mine and which came from the assistant. There's no folder for this yet. Can you set that up and fill it in?",
+      "expected_output": "Creates the full ara/ directory structure and seed files without asking (PAPER.md, session_index.yaml, exploration_tree.yaml, observations.yaml, claims.md, problem.md, heuristics.md, evidence/README.md), then extracts only events that actually occurred, tags provenance honestly without upgrading ai-suggested to user, and does not fabricate events.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have an ara/ directory for my protein folding project. Please review claims.md and trace/exploration_tree.yaml and score evidence relevance, falsifiability, and scope calibration, and tell me whether it would pass a rigor review.",
+      "expected_output": "Should not record provenance; this is a semantic epistemic review of an existing ARA, which belongs to ara-rigor-reviewer.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ara-rigor-reviewer"
+    },
+    {
+      "id": 5,
+      "prompt": "Here's the PDF of our lab's new transformer paper and its GitHub repo. Turn them into a full structured research artifact with claims, concepts, configs and an exploration graph.",
+      "expected_output": "Should not log a session epilogue; compiling a PDF and repo into an ARA is the job of ara-compiler.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ara-compiler"
+    }
+  ]
+}

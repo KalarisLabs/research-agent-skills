@@ -1,0 +1,40 @@
+{
+  "skill_name": "stable-baselines3",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Train a PPO agent on CartPole and show me how to save and evaluate it.",
+      "expected_output": "Gives a runnable Stable-Baselines3 PPO example with Gymnasium CartPole-v1 using model.learn, model.save, a static PPO.load, and evaluate_policy with mean and std reward. Mentions checking the installed SB3 version and setting a seed.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I wrote a custom Gymnasium env in warehouse_env.py with a Box observation space of shape (84,84,3) uint8 images, and SAC throws 'You have passed a tuple to the constructor' / complains about the observation space when I call model = SAC('CnnPolicy', env). Also SAC doesn't make sense for discrete actions, I think my action space is Discrete(4) with start=1. What's going on and how do I fix it?",
+      "expected_output": "Explains that SAC requires a continuous Box action space, so a Discrete action space calls for DQN or PPO/A2C. Notes that SB3 does not support Discrete spaces with start!=0, so the actions need remapping. Recommends running check_env, and explains that SB3 expects images as uint8 in [0,255], preferably channel-first (or transposed automatically by VecTransposeImage).",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a simulated robot arm with continuous joint torques and a reward function I've defined. I want a sample-efficient learner I can get running quickly with checkpoints, periodic evaluation that keeps the best model, and TensorBoard curves. Where do I start?",
+      "expected_output": "Recommends an off-policy continuous-control algorithm (SAC or TD3) from SB3 and sets up EvalCallback (best model saving), CheckpointCallback and tensorboard_log. Advises validating the env with check_env, running a short trial first, and using multiple seeds with reported variance.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to run my PettingZoo multi-agent environment with thousands of parallel copies at millions of steps per second. How should I set up the vectorization and training loop?",
+      "expected_output": "Recognizes this as a multi-agent, high-throughput vectorization task, which is outside SB3's scope, and directs to PufferLib (PettingZoo integration, native vectorization, PuffeRL) instead of SB3.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pufferlib"
+    },
+    {
+      "id": 5,
+      "prompt": "Set up GRPO fine-tuning of a 7B language model with a verifiable reward across 8 GPUs using Ray.",
+      "expected_output": "Recognizes this as LLM post-training RL at scale and recommends verl (the verl-rl-training skill) with a GRPO config and a Ray backend, not SB3.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "verl-rl-training"
+    }
+  ]
+}

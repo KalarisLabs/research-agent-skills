@@ -1,0 +1,39 @@
+{
+  "skill_name": "ginkgo-cloud-lab",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have 48 de novo minibinder sequences and want to know which ones express in E. coli before I invest in SPR. What's the cheapest way to screen them on Ginkgo's cloud lab, and what would it cost?",
+      "expected_output": "Recommends an appropriate Ginkgo Cloud Lab expression tier (e.g., E. coli HiBiT at $79/sample, or cell-free HiBiT/validation at $39/sample as a cheaper screen, or minibinder tiers if purified protein is needed), computes the cost for 48 samples, mentions turnaround, and asks for confirmation before submitting or ordering anything.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Need Tm values for my 12 nanobody variants (sequences in nb_variants.fasta). Can Ginkgo's cloud lab do thermal shift, and how do I submit?",
+      "expected_output": "Identifies the cell-free Strep purification + thermal shift protocol ($159/sample, up to 12 days, SYPRO Orange Tm outputs), explains downloading the input template and uploading the FASTA, checking sequence/format constraints in the reference file, and confirms with the user before placing the order.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm trying to make a circular RNA for a stability study and want qPCR confirmation of the product, outsourced to a robotic cloud lab if possible. The template DNA is ready. What are my options and how do I get a quote?",
+      "expected_output": "Points to the IVT mRNA/circRNA synthesis with qPCR readout protocol ($99/sample, up to 12 business days), explains the input template and ordering steps, and mentions EstiMate for custom variations. Does not place an order without explicit user confirmation.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write me an Opentrons Python protocol to run a serial dilution on my own OT-2 and simulate it first.",
+      "expected_output": "Does not use the Ginkgo Cloud Lab skill, since this is about the user's own OT-2 liquid handler. Should use an Opentrons protocol-writing skill or none, and write and simulate the protocol locally.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "How do I submit a protein expression experiment to Adaptyv Bio Foundry using their Python SDK and retrieve results?",
+      "expected_output": "Uses the adaptyv skill for the Adaptyv Bio Foundry API/SDK workflow instead of Ginkgo Cloud Lab.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "adaptyv"
+    }
+  ]
+}

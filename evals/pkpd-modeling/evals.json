@@ -1,0 +1,38 @@
+{
+  "skill_name": "pkpd-modeling",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get the half-life and AUC from my plasma concentration data after an oral dose?",
+      "expected_output": "Explains non-compartmental analysis: choose the AUC method (linear-up/log-down) and BLQ rule, select the terminal slope from points after Tmax using adjusted r-squared, and report AUC0-t and AUCinf with a check on extrapolated percentage. Notes that metric and population should be fixed before computing, and that the result is a computation, not a conclusion.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I've got a NONMEM-style CSV, study101_pk.csv, with columns ID, TIME, AMT, ADDL, II, DV, EVID, WT. Some DV cells say 'BLQ' and a few WT cells are blank. Before I run my two-compartment model, what should I check, and will NONMEM choke on this?",
+      "expected_output": "Says NONMEM will not reject these: a non-numeric DV like BLQ is read as zero and fitted as a true zero concentration, and a blank WT becomes 0 kg. Also flags ADDL without II, same-timestamp record ordering, and recommends running the popPK dataset checker and handling BLQ with M1-M7 methods, not silently recoding.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We're planning a twice-daily regimen for a new antibiotic with high between-patient variability in clearance. I want to know what share of patients would keep their trough above the target concentration, not just what the average patient does.",
+      "expected_output": "Recommends stochastic simulation with between-subject variability and reporting the fraction of the population attaining the trough target, not a typical-patient deterministic profile. Notes that the attainment is optimistic without residual or occasion variability, and that choosing a dose is a decision for the pharmacometrician or clinician, not the tool.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Can you align my RNA-seq reads to the human genome and run differential expression between treated and control samples?",
+      "expected_output": "Recognises this as a transcriptomics workflow (alignment, quantification, differential expression) that does not involve concentration-time data or PK/PD modelling, so the pkpd-modeling skill should not be used.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Write a Python script to dock a small molecule library against a kinase crystal structure and rank them by predicted binding affinity.",
+      "expected_output": "Recognises this as structure-based virtual screening and docking, not pharmacokinetics or exposure modelling, and routes to a docking or drug-discovery skill or none rather than pkpd-modeling.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

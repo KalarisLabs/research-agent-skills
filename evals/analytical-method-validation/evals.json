@@ -1,0 +1,38 @@
+{
+  "skill_name": "analytical-method-validation",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have linearity data for my HPLC assay, r² is 0.999. Is that enough to say the calibration is linear?",
+      "expected_output": "Says r² is not evidence of linearity. Recommends a lack-of-fit F test against pure error, residual pattern and back-calculated error by level (e.g. via check_response with replicates). Notes that acceptance criteria must be stated beforehand and that the script reports but does not conclude.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "We're moving our LC-MS/MS plasma PK assay from our lab to a CRO. I have run results in runs_batch3.csv with QC columns (level, nominal, measured) and I need to check whether batch 3 meets the guideline for a chromatographic assay, including the rule that each QC level has enough passing samples. Also, what's the right way to check incurred sample reanalysis?",
+      "expected_output": "Uses the bioanalytical run check with modality set to chromatographic (not LBA). Applies ±15%/±20% at LLOQ, and at least 2/3 of all QCs plus at least 50% at each level. ISR: ±20% for at least 2/3 of repeats. Does not import the LBA total-error criterion, and leaves the accept/reject decision to the analyst and QA.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our QC lab is replacing an old HPLC method for an impurity with a faster UHPLC one. We ran 24 samples on both. A t-test gave p = 0.4 so my manager says they're the same. I'd like to defend the switch to auditors. How should I do this properly?",
+      "expected_output": "Explains that p > 0.05 does not demonstrate equivalence. Recommends TOST against a margin stated before looking at the data, plus Deming or Passing-Bablok regression instead of OLS for the method comparison. Notes the margin must be justified and that the result is reported, not a declaration of validation.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "What does USP <1225> say exactly about the acceptance limits for accuracy of an assay? Please quote the text of the chapter for me.",
+      "expected_output": "Declines to quote or reconstruct the paywalled USP text and does not invent thresholds. Points to obtaining an authorised copy. This is a copyright-boundary request, not something the skill should fulfil.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Fit a four-parameter logistic curve to my ELISA standards in Python and plot the curve with confidence bands for a figure in my paper.",
+      "expected_output": "Does general curve fitting and plotting (scipy/matplotlib). It is not a validation, protocol or acceptance-criteria task, so the validation skill is not needed.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

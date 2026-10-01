@@ -1,0 +1,38 @@
+{
+  "skill_name": "shap",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get SHAP values for my XGBoost classifier and make a beeswarm plot?",
+      "expected_output": "Uses the modern shap.Explanation API (explainer(X)) with an explicit background, states the explained output (raw margin vs probability), selects the positive-class output if multi-output, checks additivity, and calls shap.plots.beeswarm.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm working on a LightGBM model predicting 30-day readmission from train.parquet (about 40 features, many correlated like creatinine and eGFR). I ran shap.TreeExplainer(model).shap_values(X_test) and got a list of two arrays, then plotting with values[1] fails with a shape error on the newer shap version. Also I get an additivity check error when I switch to model_output='probability'. How do I fix this?",
+      "expected_output": "Explains that modern SHAP returns (samples, features, outputs) so one should slice explanation[..., 1] rather than values[1]; notes probability output requires interventional perturbation with background data; advises checking input columns/order/preprocessing and output space before suppressing additivity; mentions correlated features limitation and non-causal interpretation.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I trained a gradient boosted model on patient lab data and a reviewer asked us to show why the model flagged certain patients as high risk and which inputs drive predictions overall. How should I go about producing that for the paper, including making sure the explanations are trustworthy?",
+      "expected_output": "Recommends feature-attribution analysis (SHAP): choose explainer and background population, specify output units, use held-out rows, validate additivity against model outputs, produce global (bar/beeswarm) and local (waterfall) plots, document selection rule, and state that attributions are descriptive and not causal.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Tune the hyperparameters of my random forest with Optuna and report cross-validated AUROC; I don't need any interpretation yet.",
+      "expected_output": "Handles hyperparameter optimization and cross-validated evaluation without invoking SHAP explanation workflows; the task is predictive model tuning, not explaining predictions.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Can you prove my model is fair across sex and race groups using a causal analysis of why the model discriminates?",
+      "expected_output": "Should not rely on SHAP as a fairness or causal test; would use dedicated fairness metrics and causal inference methods (performance, calibration, error rates by group) instead of SHAP attributions.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

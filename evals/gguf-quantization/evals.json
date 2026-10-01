@@ -1,0 +1,40 @@
+{
+  "skill_name": "gguf-quantization",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I turn a HF model into a Q4_K_M GGUF file?",
+      "expected_output": "Gives the workflow: clone/build llama.cpp, run convert_hf_to_gguf.py to produce an F16 GGUF, then llama-quantize to Q4_K_M. Notes Q4_K_M is the recommended default (~4.1 GB for 7B) and suggests checking the installed version's --help.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a fine-tuned Mistral-7B in ./checkpoints/mistral-ft (safetensors) and I want to run it on my M2 MacBook Air with 16GB RAM. I ran llama-quantize with Q2_K and the outputs are garbage now. What should I do?",
+      "expected_output": "Explains Q2_K causes heavy quality loss, recommends Q4_K_M or Q5_K_M (which fit easily in 16GB), and suggests generating an importance matrix (llama-imatrix with calibration text) if low-bit is needed. Mentions Metal offload (-ngl) and confirms the conversion steps and versions before running.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to run a language model locally on my old laptop that has no graphics card, using as little RAM as possible without the output becoming useless. I also want to expose it to my scripts through an OpenAI-style API. What's the best way to set this up?",
+      "expected_output": "Recommends a GGUF-quantized model (e.g., Q4_K_M, or Q3_K_M if memory is very tight) run on CPU with llama.cpp's server for an OpenAI-compatible endpoint, with thread count matched to physical cores, a modest context length, and an imatrix for low-bit quants.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm deploying Llama-3-70B on a single A100 80GB and want 4-bit quantization using calibration data to keep accuracy as high as possible, served with vLLM. What should I use?",
+      "expected_output": "Recommends a GPU-oriented calibrated method such as AWQ (or GPTQ) rather than GGUF, with brief steps for calibration and loading in vLLM.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "awq-quantization"
+    },
+    {
+      "id": 5,
+      "prompt": "I want to quantize a HuggingFace model to 2-bit without any calibration dataset and load it through transformers. Which method should I use?",
+      "expected_output": "Recommends HQQ for fast calibration-free quantization with HuggingFace Transformers, rather than GGUF, and shows the basic setup.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "hqq-quantization"
+    }
+  ]
+}

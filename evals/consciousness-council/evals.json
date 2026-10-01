@@ -1,0 +1,39 @@
+{
+  "skill_name": "consciousness-council",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "council mode: should our lab keep maintaining our in-house RNA-seq pipeline or switch to nf-core/rnaseq?",
+      "expected_output": "Selects 4-6 clashing archetypes (e.g. Architect, Pragmatist, Minimalist, Empiricist, Contrarian), has each give a perspective that disagrees with at least one other member, and ends with a synthesis that names a Core Tension and a thought-provoking 'One Question to Sit With'.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm a postdoc in structural biology at a mid-size university. I have two offers: a tenure-track job at a teaching-focused college with a small cryo-EM facility, or a 3-year extension in my current PI's lab with a Nature-level project (draft in manuscript_v4.docx) but no guarantee of a faculty job after. My partner's job is in the college's city. I keep going in circles. Can you have a few different expert voices argue this out so I can see the trade-offs?",
+      "expected_output": "Runs the three phases for a personal and career dilemma, choosing tension-producing members (e.g. Empath, Contrarian, Futurist, Pragmatist, Strategist). Members disagree substantively, the synthesis integrates their views and names the core trade-off, and the answer states assumptions, avoids invented statistics, and does not just tell the user what to pick.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We have a grant budget for only one big instrument purchase this year: a single-cell sequencing platform or a high-resolution mass spec. Our group is split and nobody can agree. I want to hear this argued from every angle, including someone who attacks whichever option looks most obvious, before I bring it to the group.",
+      "expected_output": "Convenes a multi-archetype deliberation including a Contrarian who challenges the most popular option, with distinct voices (e.g. Empiricist, Strategist, Pragmatist, Futurist, Ethicist). Gives explicit criteria and scenarios (optimistic, expected, pessimistic) rather than one guess, and finishes with a synthesis and a closing question.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "What is the boiling point of ethanol at standard atmospheric pressure, and what is the molar mass?",
+      "expected_output": "Gives the direct factual answer (about 78.4 °C and about 46.07 g/mol) without convening a Council, since this is a pure factual question with a clear answer.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Here is the text of three of my lab meeting emails. Can you analyze my writing and extract my cognitive patterns and thinking style from them?",
+      "expected_output": "Analyzes the supplied text to extract cognitive patterns and a thinking fingerprint, using the profiling skill instead of running a multi-perspective deliberation.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "dhdna-profiler"
+    }
+  ]
+}

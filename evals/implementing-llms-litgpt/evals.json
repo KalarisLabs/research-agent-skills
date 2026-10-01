@@ -1,0 +1,40 @@
+{
+  "skill_name": "implementing-llms-litgpt",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I LoRA fine-tune Phi-2 with litgpt on a 16GB GPU?",
+      "expected_output": "Gives the litgpt workflow: download the model with `litgpt download`, run `litgpt finetune_lora` with a chosen rank (e.g. r=16) and a small micro-batch size, and note that checkpoints go to `out/`. Checks GPU memory first and optionally mentions merging the adapters afterward.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 8k instruction/response pairs in data/lab_protocols.json in Alpaca format. I want to fine-tune Llama 3 1B using litgpt, but I get CUDA out of memory on my 12GB RTX 3060 when I run full finetuning. What should I change?",
+      "expected_output": "Recommends switching to LoRA (`litgpt finetune_lora`), or lowering the micro-batch size and using gradient accumulation or checkpointing. Confirms the Alpaca JSON fields (instruction/input/output) and runs a small smoke test before the full run. It does not claim results it hasn't run.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to read the actual code of a Llama-style transformer, then train a small 1B model from scratch on my own tokenized domain corpus across 4 GPUs. I want clean single-file implementations, not a framework with many abstraction layers. What do you suggest, and how would I set it up?",
+      "expected_output": "Recommends LitGPT as a clean, readable implementation. Outlines the pretraining workflow: prepare and tokenize the data, pick or edit a model config, set up multi-GPU training with FSDP, and launch. Notes the need to estimate compute cost, run a smoke test first, and verify flags against the installed version.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Using Unsloth, fine-tune Qwen 2.5 7B with QLoRA on my Colab T4 for a medical Q&A dataset. How do I set up the trainer and speed it up?",
+      "expected_output": "Uses the unsloth skill for Unsloth-specific QLoRA setup on a T4 (FastLanguageModel, 4-bit loading, the trainer). Does not use LitGPT workflows.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "unsloth"
+    },
+    {
+      "id": 5,
+      "prompt": "I already trained a LoRA adapter with Hugging Face Transformers. How do I configure PEFT with AdaLoRA and IA3 and compare them against my baseline on a classification task?",
+      "expected_output": "Uses the peft-fine-tuning skill: PEFT config for AdaLoRA and IA3, trainable-parameter counts, and a comparison against the baseline on held-out data. Does not use LitGPT.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "peft-fine-tuning"
+    }
+  ]
+}

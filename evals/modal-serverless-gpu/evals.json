@@ -1,0 +1,40 @@
+{
+  "skill_name": "modal-serverless-gpu",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run my PyTorch script on an H100 on Modal without setting up any servers?",
+      "expected_output": "Shows a Modal app with an @app.function(gpu=\"H100\") decorator, an Image with pinned dependencies, and running it with `modal run`. Notes that this costs money and suggests a small test run first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a Llama-3-8B model in a Modal Volume called 'llama-weights' and want to serve it as an HTTP endpoint from serve.py. Cold starts are taking 40+ seconds and I sometimes get CUDA out of memory on an A10G. What should I change?",
+      "expected_output": "Recommends loading the model in a @modal.enter() method of a Cls so it loads once per container. Suggests raising the container idle timeout or keeping a warm container to cut cold starts. For the OOM, suggests a larger GPU such as L40S or A100-80GB, or a smaller or quantized model. Also mentions testing with `modal serve` before `modal deploy`, and does not invent API parameters.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need to embed about 2 million protein sequences with ESM-2 by tomorrow. I don't have a GPU cluster and don't want to buy or administer any hardware, and I'd like it to scale out automatically and only pay while it's running. What are my options?",
+      "expected_output": "Proposes an on-demand serverless GPU platform such as Modal. Sketches batching and parallel fan-out with .map() over sequence chunks, a Volume for outputs, and a pilot run on a small subset first. Asks for confirmation of cost and GPU choice before provisioning, and gives a rough estimate without fabricating prices.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to fine-tune a 70B model across 3 clouds and use spot instances with automatic recovery to keep GPU costs down. How should I set that up?",
+      "expected_output": "Recognizes this as a multi-cloud spot orchestration task and points to SkyPilot, with managed spot jobs, automatic recovery from preemption and cross-cloud cost optimization. Does not set it up as a Modal deployment.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "skypilot-multi-cloud-orchestration"
+    },
+    {
+      "id": 5,
+      "prompt": "I need a dedicated GPU instance that I can SSH into, with a persistent filesystem, for a week of multi-node training. Which provider and setup should I use?",
+      "expected_output": "Recommends a reserved or dedicated GPU instance provider with SSH access and persistent storage, such as Lambda Labs. Explains that Modal's serverless, scale-to-zero model does not suit this long-running SSH workflow.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "lambda-labs-gpu-cloud"
+    }
+  ]
+}

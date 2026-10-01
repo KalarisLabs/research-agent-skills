@@ -1,0 +1,40 @@
+{
+  "skill_name": "awq-quantization",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I load a 4-bit AWQ Llama 3 8B in transformers?",
+      "expected_output": "Shows loading a pre-quantized AWQ checkpoint with AutoAWQ or from_pretrained (autoawq installed), with device_map and fp16 dtype. Notes the AutoAWQ deprecation and suggests checking the installed version's docs rather than inventing APIs.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a fine-tuned Mistral-7B-Instruct in ./checkpoints/mistral-ft that I want to quantize to 4-bit with activation-aware quantization for vLLM serving on an A100. I'm getting 'CUDA out of memory' during the calibration step on a 24GB card. How should I do this and fix the OOM?",
+      "expected_output": "Walks through quantizing with AutoAWQ (quant_config w_bit=4, group size 128, GEMM or Marlin on A100), using a small calibration set, and mitigating OOM (smaller calibration samples/seq length, max_calib settings, offloading). Checks the GPU via nvidia-smi, runs a smoke test, validates perplexity vs FP16, and mentions the deprecation and llm-compressor as an alternative.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need to fit a 70B chat model onto two 40GB GPUs for inference, with about 3% perplexity increase at most and as fast as possible decoding. Which compression approach should I use and how do I set it up?",
+      "expected_output": "Recommends 4-bit activation-aware weight quantization (AWQ) since 70B at 4-bit is ~35GB and fits across two GPUs with tensor parallelism. Explains the setup (quantization or pre-quantized checkpoint, multi-GPU/vLLM), caveats about speed and accuracy claims, and verifies by measuring perplexity against a baseline.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to fine-tune Llama 2 7B with QLoRA on a single 16GB GPU. How do I set up the 4-bit NF4 quantization config?",
+      "expected_output": "Should use bitsandbytes with BitsAndBytesConfig (load_in_4bit, nf4, double quant, compute dtype) plus PEFT LoRA, not AWQ.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "quantizing-models-bitsandbytes"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a MacBook M2 and want to run Llama 3 8B locally with a 4-bit quantized file. What's the best way to convert and run it?",
+      "expected_output": "Should point to GGUF conversion and llama.cpp (or MLX) for Apple Silicon, since AWQ requires CUDA GPUs.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "gguf-quantization"
+    }
+  ]
+}

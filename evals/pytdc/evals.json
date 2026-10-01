@@ -1,0 +1,38 @@
+{
+  "skill_name": "pytdc",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "What TDC tasks exist for toxicity? Don't download anything yet.",
+      "expected_output": "Uses download-free discovery (tdc.metadata or scripts/discover_metadata.py) to list Tox-related tasks and datasets by exact name, without instantiating any loader or downloading data. Offers to plan next steps (license, size, split) after the user approves.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm working on a Caco2_Wang permeability model and need a scaffold split with seed 42 for my paper. I'm on Python 3.12 and got `ModuleNotFoundError: No module named 'pkg_resources'` when importing tdc. Can you help me get this working and set up the split? Check the dataset license and how much it will download first.",
+      "expected_output": "Explains that PyTDC needs CPython 3.11 (3.12 is excluded by dependencies) and setuptools 80.9.0 because pkg_resources was removed in setuptools 82, and recommends an isolated pinned environment. Plans the scaffold split without downloading (task ADME, exact dataset name, license, size, cache path, seed, metric), notes scaffold split does not guarantee absence of leakage, and asks for approval before running the loader.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have predictions from my model on the 22 ADMET benchmark endpoints from the standard leaderboard and want to get the official scores across five seeds so I can compare against published results. How should I do that?",
+      "expected_output": "Recommends the TDC admet_group benchmark group, warns that the constructor downloads and extracts an archive so approval and cache path are needed, and uses group.evaluate for one run and group.evaluate_many with a list of at least five prediction dictionaries. Validates the prediction JSON plan first via scripts/benchmark_evaluation.py, and does not derive predictions from test labels.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write a script using RDKit to compute Morgan fingerprints and Tanimoto similarity for a list of SMILES in my CSV, then cluster them with Butina.",
+      "expected_output": "Handles this as generic RDKit cheminformatics without using the pytdc skill, providing fingerprint, similarity, and Butina clustering code.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Help me train a graph-based generative model (e.g., a VAE or REINVENT-style RL agent) to design new molecules optimized for DRD2 activity.",
+      "expected_output": "Recognizes this as training a molecule generator, which is outside the pytdc skill's scope, and addresses model design and training directly. At most it mentions TDC oracles as an optional scoring function.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

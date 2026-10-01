@@ -1,0 +1,18 @@
+{
+  "skill_name": "research-knowledge-graph",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build a citation network from my Zotero library and find the most influential and bridging papers.",
+      "expected_output": "build_graph.py with --openalex, NetworkX analysis of in-degree/betweenness/communities",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Draw a flowchart of my experimental protocol.",
+      "expected_output": "Skill not used",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

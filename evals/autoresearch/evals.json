@@ -1,0 +1,39 @@
+{
+  "skill_name": "autoresearch",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to spin up an autonomous research project on whether sparse attention hurts long-context retrieval. Set it up and just start running.",
+      "expected_output": "Sets up the continuity loop first (/loop or heartbeat), creates the workspace (research-state.yaml, research-log.md, findings.md, literature/, src/, data/), bootstraps with literature search and hypotheses, locks the metric and baseline, then enters the inner experiment loop without asking for permission.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a research-state.yaml and findings.md in ~/proj/grokking-wd from last week. Weight decay sweeps on modular addition (H1 supported, H2 inconclusive) and about 12 runs logged in data/trajectory_H1_runs001-012.csv. Pick up where we left off.",
+      "expected_output": "Reads research-state.yaml and findings.md (including Lessons and Constraints) to resume. Does an outer-loop synthesis of the 12 runs, decides DEEPEN/BROADEN/PIVOT/CONCLUDE (e.g. sub-hypotheses for H1, resolving H2), updates findings.md and the log, and continues the inner loop, routing to domain skills as needed.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm going to be offline for a few days. Can you keep investigating why my small transformer's loss spikes early in training, running experiments on your own, testing ideas, and then writing up what you find with a summary deck I can look at when I'm back?",
+      "expected_output": "Treats this as a long-horizon autonomous multi-hypothesis project. Sets up a continuity mechanism, forms testable hypotheses, runs iterated experiments, periodically synthesizes results, produces progress presentations, and works toward a findings document or paper without waiting for user confirmation.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to build a visual workflow agent in AutoGPT that monitors RSS feeds and posts summaries to Slack, and deploy it so it runs continuously.",
+      "expected_output": "Recognizes this as building and deploying a persistent automation agent on the AutoGPT platform, not running a research project. Uses the autogpt-agents skill for block-based workflow setup and deployment.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "autogpt-agents"
+    },
+    {
+      "id": 5,
+      "prompt": "Write a LoRA fine-tuning script for Llama on my 5k-example instruction dataset with Hugging Face PEFT, and fix the CUDA OOM error I get at batch size 8.",
+      "expected_output": "Gives a concrete single-task answer: a PEFT LoRA training script plus OOM fixes (smaller batch, gradient accumulation, gradient checkpointing, mixed precision). It does not set up a multi-loop research project.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

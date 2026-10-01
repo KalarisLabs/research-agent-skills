@@ -1,0 +1,74 @@
+# Domains that scripts inside skills/ may contact. Suffix match: "example.org"
+# also allows "api.example.org". Adding a domain requires maintainer review
+# (CODEOWNERS) - note the skill that needs it.
+
+# Scholarly metadata, literature and identifiers
+arxiv.org
+biorxiv.org
+crossref.org
+datacite.org
+doi.org
+doi.usp.org
+openalex.org
+ncbi.nlm.nih.gov
+ebi.ac.uk
+identifiers.org
+bioregistry.io
+ontobee.org
+purl.obolibrary.org
+orpha.net
+journals.plos.org
+nature.com
+elsevier.com
+wikipedia.org
+
+# Scientific data services and platforms used by specific skills
+arax.transltr.io
+lapis.cov-spectrum.org
+lapis.genspectrum.org
+lapis.pathoplexus.org
+materialsproject.org
+labarchives.com
+protocols.io
+fictiv.com
+alphagenomedocs.com
+deepmind.google.com
+huggingface.co
+huggingscience.co
+spikeinterface.readthedocs.io
+bids-specification.readthedocs.io
+sronpersonalpages.nl
+storage.googleapis.com
+
+# Venues, standards and funders (template/guideline downloads)
+neurips.cc
+icml.cc
+iclr.cc
+cvpr.thecvf.com
+grants.nih.gov
+nsf.gov
+iso.org
+clsi.org
+database.ich.org
+w3.org
+schemas.openxmlformats.org
+
+# Search / AI APIs (require user-supplied keys)
+api.parallel.ai
+api.anthropic.com
+openrouter.ai
+a9.com
+
+# Code and package hosting
+github.com
+githubusercontent.com
+pypi.org
+cdn.jsdelivr.net
+agentskills.io
+
+# Non-routable placeholders used in examples
+scientific-writer.local
+research-agent-skills.local
+
+# XML namespaces (identifiers, never fetched)
+graphml.graphdrawing.org

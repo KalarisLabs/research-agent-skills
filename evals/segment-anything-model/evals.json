@@ -1,0 +1,39 @@
+{
+  "skill_name": "segment-anything-model",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you click-segment the tumor in this ultrasound image for me? I've got a point on it.",
+      "expected_output": "Uses SAM with SamPredictor: loads a checkpoint (noting model size and licence), sets the image, passes the point as a foreground prompt, and requests multiple masks. Runs on one sample first, inspects the masks qualitatively, and reports versions, parameters and uncertainty.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm working with ~400 SEM micrographs in ./sem_images/ (PNG, 2048x2048) and want per-particle masks for sizing. I ran SamAutomaticMaskGenerator with vit_h from sam_vit_h_4b8939.pth and got CUDA out of memory on a 12GB GPU. Small particles are also being missed. How do I fix this?",
+      "expected_output": "Suggests ViT-B or ViT-L, reducing image size or tiling, half precision, and a lower points_per_batch to fix OOM. For missed small particles, raises points_per_side, tunes stability_score_thresh and min_mask_region_area, and tests on a single image first. Does not invent APIs and states assumptions.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need to cut out every individual cell from my fluorescence microscopy images without training anything, and then use the masks as labels to train a smaller model later. What's a good approach?",
+      "expected_output": "Recommends a pretrained promptable foundation model (SAM) for zero-shot automatic mask generation, then filters masks (area, stability, IoU) and has a human validate samples before using them as training labels. Mentions checking the model licence and reporting what was run and what remains uncertain.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to segment 'all the red cars' in my street photos using just the text description, no clicks or boxes. Which tool should I use?",
+      "expected_output": "Recognises that text-prompted segmentation is outside plain SAM. Recommends GroundingDINO + SAM, or another text-grounded detector, and does not claim SAM accepts text prompts directly.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Generate a picture of a microscope in a watercolor style for my grant slide.",
+      "expected_output": "Uses an image generation skill, not segmentation. Calls the OpenRouter image API to produce the watercolor microscope image.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "generate-image"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "llama-factory",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I launch the LLaMA-Factory WebUI to fine-tune a model without writing code?",
+      "expected_output": "Explains starting the WebUI (e.g., `llamafactory-cli webui`), then selecting model, dataset, finetuning method and hyperparameters in the interface. Advises a small smoke run first and checking GPU/environment, and does not invent flags absent from the installed version.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running QLoRA on Qwen2-7B with LLaMA-Factory on a single 24GB RTX 4090, dataset is my_data.json registered in dataset_info.json. I get 'CUDA out of memory' at step 3 with quantization_bit 8, cutoff_len 4096, batch size 4. What should I change?",
+      "expected_output": "Suggests lowering per_device_train_batch_size and using gradient accumulation, enabling gradient checkpointing, reducing cutoff_len, and moving to 4-bit quantization. Checks the dataset_info.json registration and nvidia-smi, and tells the user to verify option names against the installed version's docs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to adapt a vision-language model to read chest X-ray images and produce short captions, using my own image-text pairs on one GPU with limited VRAM. Where do I start, and how can I make it fit in memory?",
+      "expected_output": "Recommends a LLaMA-Factory-supported multimodal model, formatting the image-text data in the expected dataset format, and using low-bit quantized LoRA to fit memory. Runs a small test first, asks about the data source (patient data privacy), GPU specs and the specific model, and holds out data for validation.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write me an Axolotl YAML config for DPO training on Llama-3 8B with FSDP across 4 GPUs.",
+      "expected_output": "Recognizes this as Axolotl-specific (YAML config, DPO, FSDP) and not LLaMA-Factory, so it should use the axolotl skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "axolotl"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a Llama-2 13B model. How do I quantize it to 4-bit with GPTQ using group size 128 and pick the right kernel for inference?",
+      "expected_output": "Recognizes this as GPTQ post-training quantization and kernel selection, not a fine-tuning run with LLaMA-Factory, so it should use the gptq skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "gptq"
+    }
+  ]
+}

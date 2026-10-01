@@ -1,0 +1,11 @@
+benchling-integration
+dnanexus-integration
+fictiv
+ginkgo-cloud-lab
+lab-hardware-cad
+labarchive-integration
+latchbio-integration
+omero-integration
+opentrons-integration
+protocolsio-integration
+pylabrobot

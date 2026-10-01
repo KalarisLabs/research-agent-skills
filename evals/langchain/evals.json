@@ -1,0 +1,40 @@
+{
+  "skill_name": "langchain",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I make a LangChain agent that can call a web search tool?",
+      "expected_output": "Shows creating an agent with create_agent (or the installed version's equivalent) with a defined tool and a model, and runs a small test call. Notes that APIs vary by version and should be checked against the installed one.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm in my lab's repo with 40 PDFs of protocol papers in ./papers. I'm using langchain 0.3 with Chroma and an Anthropic model. When I query, retrieval returns chunks that cut sentences in half and the answers miss context. Can you fix my pipeline so it loads the PDFs, splits them sensibly, and answers questions with sources?",
+      "expected_output": "Uses a PDF document loader, a RecursiveCharacterTextSplitter with sensible chunk size (about 500-1000 chars) and overlap, and a Chroma vector store with a retriever feeding the Anthropic model. Returns source metadata, tests on a small query first, and checks the installed version's API rather than inventing functions.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want a chatbot for my group's wiki that remembers what was said earlier in the conversation, and I want to be able to switch between OpenAI and Gemini without rewriting everything. What should I use and how do I set it up?",
+      "expected_output": "Recommends a provider-agnostic framework such as LangChain and shows how to swap chat models behind one interface, with conversation memory or message history. Asks about or states assumptions on API keys, provider and version, and runs a small test first.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a large folder of mixed documents and want to build a document Q&A system using LlamaIndex with its 300+ data connectors and a VectorStoreIndex query engine. How do I ingest and query them?",
+      "expected_output": "Should use the llamaindex skill, since the user explicitly asks for LlamaIndex ingestion and query engines, not LangChain.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "llamaindex"
+    },
+    {
+      "id": 5,
+      "prompt": "Our Chroma collection is slow when I filter by metadata across 2 million embeddings. How do I add a where filter and tune the collection settings?",
+      "expected_output": "Should use the chroma skill, since the question is about the Chroma database's filtering and performance, not LangChain orchestration.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "chroma"
+    }
+  ]
+}

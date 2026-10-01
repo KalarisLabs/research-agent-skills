@@ -1,0 +1,25 @@
+---
+title: "pyhealth — AI agent skill for clinical and health"
+description: "Builds clinical deep-learning pipelines with PyHealth using its Dataset → Task → Model → Trainer → Metrics pattern."
+---
+
+# `pyhealth`
+
+> Builds clinical deep-learning pipelines with PyHealth using its Dataset → Task → Model → Trainer → Metrics pattern. Covers loading MIMIC-III/IV, eICU, OMOP, SleepEDF, ChestXray14 and EHRShot data, defining prediction tasks (mortality, readmission, length of stay, drug recommendation, sleep staging, ICD coding, EEG events), models such as Transformer, RETAIN, GAMENet, SafeDrug and StageNet, training with Trainer, and ICD/ATC/NDC/RxNorm code lookup and cross-mapping. Use when building a clinical prediction model on EHR data. Use when working with MIMIC or eICU datasets. Use when recommending drugs or staging sleep from signals. Use when mapping medical codes between ICD, ATC, NDC or RxNorm. Not for generic PyTorch on tabular data.
+
+**Category:** [clinical-and-health](/skills#clinical-and-health) · **License:** MIT · **Version:** 1.1
+
+## Install
+
+```bash
+npx research-agent-skills install pyhealth
+npx skills add KalarisLabs/research-agent-skills --skill pyhealth
+```
+
+## When to use it
+
+Builds clinical deep-learning pipelines with PyHealth using its Dataset → Task → Model → Trainer → Metrics pattern. Covers loading MIMIC-III/IV, eICU, OMOP, SleepEDF, ChestXray14 and EHRShot data, defining prediction tasks (mortality, readmission, length of stay, drug recommendation, sleep staging, ICD coding, EEG events), models such as Transformer, RETAIN, GAMENet, SafeDrug and StageNet, training with Trainer, and ICD/ATC/NDC/RxNorm code lookup and cross-mapping. Use when building a clinical prediction model on EHR data. Use when working with MIMIC or eICU datasets. Use when recommending drugs or staging sleep from signals. Use when mapping medical codes between ICD, ATC, NDC or RxNorm. Not for generic PyTorch on tabular data.
+
+## Full playbook
+
+Read [SKILL.md](https://github.com/KalarisLabs/research-agent-skills/blob/main/skills/pyhealth/SKILL.md) for the complete workflow, references and any scripts. The agent installer copies the full skill folder.

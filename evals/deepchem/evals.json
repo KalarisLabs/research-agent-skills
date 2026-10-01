@@ -1,0 +1,40 @@
+{
+  "skill_name": "deepchem",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Train a quick solubility model on the Delaney dataset and tell me the test RMSE.",
+      "expected_output": "Loads Delaney via MoleculeNet/DeepChem, uses a scaffold split, featurizes with CircularFingerprint, fits a simple baseline (e.g. Random Forest), and reports RMSE/R2 on the held-out test set. States the versions and parameters used.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have compounds.csv with columns 'smiles' and 'herg_ic50_class' (about 4,000 rows, heavily imbalanced, ~8% positives). I tried a random 80/20 split and got 0.97 AUC, which seems too good. Can you rebuild this in DeepChem with a proper split and compare ECFP+RF against a GCN? I'm on Python 3.11 and getting 'No module named torch' warnings when I import deepchem.",
+      "expected_output": "Identifies random-split leakage and switches to ScaffoldSplitter; handles class imbalance (e.g. weights/balancing transformer) and uses ROC-AUC/PRC-AUC. Explains that torch must be installed for GCN models (install the backend, then the deepchem[torch] extra), builds an ECFP+RF baseline first, and notes that a GCN on ~4K molecules may not beat fingerprints. Reports any SMILES that fail to parse instead of silently dropping them.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to predict whether small molecules cross the blood-brain barrier, and I'd like to try lots of different ways of turning structures into numeric inputs (fingerprints, descriptors, graph representations) and compare them on a standard benchmark set. Where do I start?",
+      "expected_output": "Recommends using DeepChem with the BBBP MoleculeNet dataset, scaffold splitting, and comparing several featurizers (CircularFingerprint, RDKitDescriptors, ConvMol/MolGraphConv) with a simple baseline model. Reports the metrics (ROC-AUC) and caveats about applicability domain.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "My script does `from torchdrug import datasets, models, tasks, core` and I need to train a GIN with a PropertyPrediction task on ClinTox using core.Engine. It crashes with a CUDA error in the Engine constructor. Help me debug.",
+      "expected_output": "Recognizes this as a TorchDrug-specific workflow (torchdrug imports, tasks.PropertyPrediction, core.Engine) and defers to the torchdrug skill rather than DeepChem. Troubleshoots the CUDA/Engine configuration.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "torchdrug"
+    },
+    {
+      "id": 5,
+      "prompt": "Which TDC ADMET benchmark group datasets are available for the Caco2 permeability task, and how do I download the official train/validation/test split from Therapeutics Data Commons?",
+      "expected_output": "Recognizes this as a PyTDC task: use tdc.benchmark_group (admet_group) and its get/get_train_valid_split utilities for the official splits, rather than DeepChem MoleculeNet.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pytdc"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "evaluating-cosmos-policy",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run a quick cosmos policy eval on LIBERO?",
+      "expected_output": "Gives a minimal smoke run using the public module cosmos_policy.experiments.robot.libero.run_libero_eval with 1 trial. Mentions installing the environment and setting the EGL variables (CUDA_VISIBLE_DEVICES, MUJOCO_EGL_DEVICE_ID, MUJOCO_GL=egl, PYOPENGL_PLATFORM=egl) together, and checking the final success rate in the log.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm on a headless A100 node and trying to run run_robocasa_eval for Cosmos Policy. Kitchen object sampling gives NaNs and some asset lookups fail. I installed robocasa from the upstream PyPI/GitHub repo. What should I do?",
+      "expected_output": "Identifies that Cosmos Policy needs the Cosmos-compatible RoboCasa fork (moojink/robocasa-cosmos-policy), not upstream. Says to reinstall the fork, rerun asset setup, and check that macros_private.py exists with correct paths. Also says to align the EGL env vars, keep the object split fixed, and use a single-task smoke run (2 trials) before scaling up.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to reproduce NVIDIA's published numbers for their video-model-based robot policy on the LIBERO suites on our cluster, starting from a fresh machine with nothing installed. Also, I'd like to know whether my reproduced average will match the reported one.",
+      "expected_output": "Walks through the blank-machine workflow: clone the repo, sync dependencies, export the runtime environment with a shared cache directory, and fall back to the official container from SETUP.md if binary compatibility errors appear. Runs a smoke eval first, then all four suites at 50 trials. Compares against the reference results (LIBERO average about 98.5%) while stating that results depend on checkpoint, seed and simulator setup. Says to record the exact commands and environment, and to fix task, split, seed and trial count across runs. Does not promise an exact match.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to fine-tune pi0.5 on my own LIBERO-format dataset with OpenPI and then serve it for inference. How do I convert the JAX checkpoint to PyTorch?",
+      "expected_output": "Recognizes this as OpenPI fine-tuning, serving and checkpoint conversion, which is not Cosmos Policy evaluation. Directs to the fine-tuning-serving-openpi skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "fine-tuning-serving-openpi"
+    },
+    {
+      "id": 5,
+      "prompt": "Can you help me fine-tune OpenVLA-OFT with LoRA on my own robot demonstrations and evaluate the continuous action head on LIBERO?",
+      "expected_output": "Recognizes this as an OpenVLA-OFT workflow, not Cosmos Policy. Directs to the fine-tuning-openvla-oft skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "fine-tuning-openvla-oft"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "skill_name": "autoskill",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you look at what I did this afternoon and suggest skills I should make from it?",
+      "expected_output": "Recognizes this as a request to mine recent screen activity for repeated workflows. Checks that screenpipe is reachable (e.g. doctor/preflight) and states the time window. Then runs the pipeline and stages proposals for the user to review rather than installing them.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I've spent the past week bouncing between Zotero, RStudio, and Overleaf for my meta-analysis, over and over. Run autoskill on the last 7 days, but use --plan first so I can see what gets analyzed before anything goes to Claude. Screenpipe is on port 3030 and my token is in SCREENPIPE_TOKEN.",
+      "expected_output": "Runs a dry-run/plan on a 7-day window first and shows the timeline or plan.md without calling the LLM. Notes the backend choice (local by default, Claude opt-in with ANTHROPIC_API_KEY) and that only redacted cluster summaries leave the machine. Waits for the user's go-ahead before the full run, and proposals land in ~/.autoskill/proposed/<timestamp>/.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I keep doing the same dance every day: pull new papers, skim them, copy notes into my lab notebook, then format the references. Can you watch how I actually work over the last few days and work out which of those steps my existing skills already handle and which still need something new?",
+      "expected_output": "Identifies that this needs passive observation of the user's actual workflow history, so it uses the screenpipe-based pattern detection. It matches the clusters against the existing skills and classifies each as reuse, compose, or novel. It drafts composition recipes or new skills only for the gaps, and tells the user to review before promoting. It also mentions the privacy posture and the screenpipe requirement.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I do the same RNA-seq QC steps every week (FastQC, trimming, MultiQC). Help me write a SKILL.md for that, with proper frontmatter, so it meets the repo's quality bar.",
+      "expected_output": "Uses research-skill-creator to author and validate the SKILL.md from the user's described steps. Does not query screenpipe or analyze screen history, since the user has already described the workflow.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "research-skill-creator"
+    },
+    {
+      "id": 5,
+      "prompt": "What did I have open on my screen at 3pm yesterday? I need to find the paper I was reading.",
+      "expected_output": "Treats this as a one-off, real-time-style screen lookup, not skill proposal generation. It does not run the autoskill pipeline. It may suggest querying screenpipe's search directly or answering without any skill.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "rdkit",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Chem.MolFromSmiles keeps returning None for my nitro-containing SMILES. How do I find out what's wrong and still load the molecule?",
+      "expected_output": "Explains that MolFromSmiles returns None on sanitization failure. Shows how to parse with sanitize=False, use DetectChemistryProblems() to find the offending atoms, and optionally run partial sanitization with SanitizeMol and selected SanitizeOps. Reminds the user to check for None.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have compounds.sdf with about 40k molecules from a vendor. I need to keep only those containing a carboxylic acid but no primary amine, then write the hits to a new SDF with their MW, cLogP and TPSA as properties. Some records fail to parse. Can you write the script?",
+      "expected_output": "Provides an RDKit script using SDMolSupplier (handling None records), SMARTS queries with HasSubstructMatch for the acid and for the primary amine exclusion, and Descriptors/Crippen/rdMolDescriptors for MW, LogP and TPSA. Writes the results with SDWriter and SetProp, and skips or logs parse failures.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got a list of ~2,000 screening hits and want to group them into structural clusters, then pick one representative from each cluster. The distance cutoff matters to me and I want to control how the fingerprints are built.",
+      "expected_output": "Uses RDKit Morgan fingerprints from rdFingerprintGenerator, computes a Tanimoto distance matrix with BulkTanimotoSimilarity, and clusters with Butina using an explicit distance threshold such as 0.35. Picks a representative from each cluster (the centroid, which is the first member of each cluster) and explains how radius and fpSize choices affect the clusters.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Using datamol, what's the quickest way to standardize a column of SMILES in my pandas DataFrame and compute a few descriptors with parallel processing?",
+      "expected_output": "Should go to datamol, which wraps RDKit with convenience functions for standardization, descriptors and parallel processing. It is not a case that needs fine-grained RDKit control.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "datamol"
+    },
+    {
+      "id": 5,
+      "prompt": "I want to turn my SMILES into ECFP and Mordred descriptor feature matrices and feed them into a scikit-learn pipeline with a pretrained ChemBERTa embedding as one option. What should I use?",
+      "expected_output": "Should go to molfeat, which provides featurizers, scikit-learn compatible transformers and pretrained embeddings. It is a featurization task for ML, not low-level RDKit work.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "molfeat"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "skill_name": "liteparse",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get word-level bounding boxes out of a PDF locally? No cloud APIs please.",
+      "expected_output": "Uses liteparse locally (Python parse or `lit parse --format json`) and explains the JSON output has per-page text_items with x/y/width/height coordinates. Notes processing is fully local and mentions --no-ocr for born-digital PDFs.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a folder of ~300 scanned supplementary PDFs in ./supp_pdfs/ from a proteomics project. Some are image-only scans and OCR is crawling. I need layout-preserved JSON for each, written to ./parsed/, and only pages 5-12 of each since that's where the methods are. What should I run, and how do I speed it up?",
+      "expected_output": "Recommends `lit batch-parse` with --recursive/--extension and a JSON output format, restricts pages via target_pages, and uses num_workers for parallel OCR. Advises --no-ocr for born-digital files, adjusting dpi, and runs a small test batch first.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm building a RAG system over my lab's papers, and I want to highlight the exact region of the page where an answer came from, and also show a vision model the page image alongside it. How should I set up the ingestion?",
+      "expected_output": "Proposes liteparse JSON parsing (text_items with bounding boxes) combined with page PNG screenshots for the same pages. Explains how to map the bboxes to the rendered pages for citation grounding, and that this runs locally.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Convert these 40 PDFs, a few Word docs, and an EPUB of a textbook into clean Markdown so I can feed them to an LLM for summarization.",
+      "expected_output": "Does not use liteparse because it produces no Markdown and does not support EPUB. Recommends the markitdown skill for Markdown conversion.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "markitdown"
+    },
+    {
+      "id": 5,
+      "prompt": "Merge these three PDF chapters into one file, then rotate the pages of the last one by 90 degrees and add a watermark.",
+      "expected_output": "Does not use liteparse, since this is PDF manipulation rather than text extraction. Points to the pdf skill (merge, rotate, watermark).",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

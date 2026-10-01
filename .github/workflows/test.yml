@@ -1,0 +1,111 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tooling:
+    name: Tooling (${{ matrix.os }}, py${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          python-version: ${{ matrix.python }}
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run python -m pytest -q
+
+  cli:
+    name: CLI (${{ matrix.os }}, node ${{ matrix.node }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [18, 20, 22, 24]
+    defaults:
+      run:
+        working-directory: cli
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - name: End-to-end install into a throwaway home (every harness)
+        shell: bash
+        run: |
+          home=$(mktemp -d)
+          HOME=$home USERPROFILE=$home node dist/bin.js install --source .. --harness all --bundle research-essentials -y
+          for d in .claude/skills .codex/skills .cursor/skills .gemini/skills .copilot/skills .config/opencode/skills .codeium/windsurf/skills .agents/skills; do
+            test -f "$home/$d/peer-review/SKILL.md" || { echo "missing in $d"; exit 1; }
+          done
+          HOME=$home USERPROFILE=$home node dist/bin.js doctor --harness all
+          HOME=$home USERPROFILE=$home node dist/bin.js uninstall --all --harness all
+          test ! -e "$home/.claude/skills/peer-review"
+
+  installers:
+    name: Standalone installers (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build a local release (tarball + SHA256SUMS)
+        shell: bash
+        run: |
+          v=$(cat VERSION); out="$RUNNER_TEMP/rel"; mkdir -p "$out"
+          git archive --format=tar.gz --prefix="research-agent-skills-$v/" -o "$out/research-agent-skills-$v.tar.gz" HEAD
+          (cd "$out" && (sha256sum "research-agent-skills-$v.tar.gz" 2>/dev/null || shasum -a 256 "research-agent-skills-$v.tar.gz") > SHA256SUMS)
+      - name: install.sh (no-Node path, checksum verified)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          v=$(cat VERSION); home=$(mktemp -d); mkdir -p "$home/.claude"
+          HOME=$home RAS_NO_NODE=1 RAS_VERSION=$v RAS_BASE_URL="file://$RUNNER_TEMP/rel" sh install.sh
+          test -f "$home/.claude/skills/ml-paper-writing/SKILL.md"
+          echo "0000000000000000000000000000000000000000000000000000000000000000  research-agent-skills-$v.tar.gz" > "$RUNNER_TEMP/rel/SHA256SUMS"
+          if HOME=$home RAS_NO_NODE=1 RAS_VERSION=$v RAS_BASE_URL="file://$RUNNER_TEMP/rel" sh install.sh; then echo "tampered release was accepted"; exit 1; fi
+      - name: install.ps1 (no-Node path, checksum verified)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $v = (Get-Content VERSION).Trim()
+          $home2 = Join-Path $env:RUNNER_TEMP 'home'; New-Item -ItemType Directory -Force "$home2\.claude" | Out-Null
+          $env:USERPROFILE = $home2; $env:HOME = $home2
+          $env:RAS_NO_NODE = '1'; $env:RAS_VERSION = $v; $env:RAS_BASE_URL = "file:///$($env:RUNNER_TEMP -replace '\\','/')/rel"
+          ./install.ps1
+          if (-not (Test-Path "$home2\.claude\skills\ml-paper-writing\SKILL.md")) { throw 'skill not installed' }

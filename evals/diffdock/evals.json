@@ -1,0 +1,40 @@
+{
+  "skill_name": "diffdock",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Dock this SMILES CC(=O)Oc1ccccc1C(=O)O into my protein.pdb and give me the top poses.",
+      "expected_output": "Uses DiffDock inference with --protein_path and --ligand_description (not --ligand), runs on the given PDB and SMILES, and returns ranked poses with confidence scores. Notes that confidence reflects pose certainty, not binding affinity.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 240 compounds in screen_hits.csv (columns: name, smiles) and a kinase structure 5ZZZ_clean.pdb. I ran inference.py and got CUDA out of memory partway through the batch. How do I set this up as a batch run and get it to finish, and then rank the results?",
+      "expected_output": "Builds a batch CSV with complex_name, protein_path, ligand_description and protein_sequence columns, and runs it in batch mode. Fixes the OOM by reducing --batch_size, and suggests pre-computing ESM embeddings for large screens. Ranks outputs by confidence using the High (>0), Moderate (-1.5 to 0) and Low (<-1.5) tiers, and warns that these are not affinities.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I only have the amino acid sequence of my target, no crystal structure, and a small molecule I drew in an SDF. I want to know where on the protein it likely sits and how sure the model is about that, since I don't know the binding site.",
+      "expected_output": "Recommends blind docking with DiffDock using protein_sequence, which folds the structure with ESMFold, plus the SDF ligand. Explains how to read confidence scores, advises reviewing the top 3-5 samples for consensus, and mentions that more samples help when confidence is low.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Predict the pKa and the tautomer ensemble for my ligand series and then run a cloud-based docking and cofolding workflow through a Python API, no local GPU.",
+      "expected_output": "Does not use DiffDock. Points to the Rowan skill, which covers pKa prediction, tautomer ensembles, and cloud docking and cofolding.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "rowan"
+    },
+    {
+      "id": 5,
+      "prompt": "Run Boltz and AlphaFold on my protein sequence on a hosted platform with no local GPUs, to get the predicted structure.",
+      "expected_output": "Does not use DiffDock. Recommends the Tamarind skill for hosted structure prediction with Boltz, AlphaFold, Chai and ESMFold.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "tamarind"
+    }
+  ]
+}

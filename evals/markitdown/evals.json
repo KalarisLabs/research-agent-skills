@@ -1,0 +1,39 @@
+{
+  "skill_name": "markitdown",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I turn a .docx into markdown with python? Want it clean for feeding to an LLM.",
+      "expected_output": "Recommends MarkItDown with the docx extra installed, and shows convert_local() reading result.markdown (not the deprecated text_content). Notes that the output is meant for LLM ingestion and not for visual fidelity.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have ~300 PDFs in ./lit/ named like Smith_2025_CRISPR-screens.pdf and I need them as .md files for a RAG index. I want each one to record where it came from, and ideally they'd be grouped by year. Some are scans, though. What's the cleanest way to do this on Windows?",
+      "expected_output": "Uses the bundled literature helper/batch conversion with local PDF conversion, YAML front matter provenance, and year organization inferred from the filenames. Warns that built-in PDF conversion does not OCR scanned pages and offers markitdown-ocr (configured through the Python API) or Azure options, with user approval before sending content externally. Suggests writing with -o for UTF-8 on Windows and checking quality of the output.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My web backend receives uploaded report files as raw bytes (no filename on disk). I need to extract their text as markdown for a summarizer, and I'm worried about untrusted content. What should I do?",
+      "expected_output": "Recommends convert_stream() with a binary seekable io.BytesIO and StreamInfo hints (extension/mimetype) rather than convert() or convert_uri(). Advises treating the converted markdown as untrusted data (prompt injection), and mentions that non-seekable streams are fully buffered into memory.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need the bounding box coordinates for every text block on page 3 of this PDF so I can highlight them in a viewer.",
+      "expected_output": "Recognizes that this needs spatial/layout output, which MarkItDown does not provide, and directs the user to LiteParse (a layout-aware parser) for bounding boxes.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "liteparse"
+    },
+    {
+      "id": 5,
+      "prompt": "Merge these three PDFs into a single file and then split off pages 5-8 into a separate document.",
+      "expected_output": "Identifies this as PDF merge/split manipulation, not Markdown conversion, and uses the pdf skill instead of MarkItDown.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

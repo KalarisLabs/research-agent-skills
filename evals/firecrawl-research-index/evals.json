@@ -1,0 +1,40 @@
+{
+  "skill_name": "firecrawl-research-index",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use Firecrawl Research to find recent papers on CRISPR base editing off-target effects, and give me a short list with source IDs and abstracts I can screen.",
+      "expected_output": "Uses the Firecrawl Research Index paper search with a bounded query, preserves returned IDs and search provenance, and labels abstracts as screening leads rather than verified full-text evidence.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "In Firecrawl's paper index, inspect arxiv:1706.03762, find passages about the attention mechanism, then look for related work that cites it.",
+      "expected_output": "Inspects the returned paper record, reads question-matched passages, uses the citers mode for related papers, and cites source IDs without inventing full-text access or metadata.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have 300 PDFs in a local folder. Build an index so I can chat with my own paper collection and cite exact pages.",
+      "expected_output": "Skill not used; this is a local corpus indexing task for paper-corpus-rag.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "paper-corpus-rag"
+    },
+    {
+      "id": 4,
+      "prompt": "Run a complete PRISMA systematic review of treatments for adolescent anxiety, with database strategies, screening logs, risk of bias, and a flow diagram.",
+      "expected_output": "Skill not used as the lead workflow; systematic-review-prisma owns the protocol and reproducible database search. Firecrawl Research could only be a documented supplementary source.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "systematic-review-prisma"
+    },
+    {
+      "id": 5,
+      "prompt": "Use Firecrawl to scrape the home page of a conference website and return its schedule.",
+      "expected_output": "Skill not used; this asks for ordinary web scraping, not the Firecrawl Research Index of papers.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

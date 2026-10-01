@@ -1,0 +1,39 @@
+{
+  "skill_name": "scholar-evaluation",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you give me developmental feedback on my draft protocol for a randomized trial of sleep hygiene in adolescents? I want criterion-by-criterion comments with evidence pointers, not a verdict.",
+      "expected_output": "Confirms developmental purpose and authorization, defines the construct and rubric, gives criterion-level evidence-referenced comments (rated/missing/not_applicable) with non-prescriptive improvement options, and avoids accept/reject or readiness judgments.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I've got rubric.json and evaluation_a.json / evaluation_b.json for our department's internal seminar-paper feedback program (deidentified, low stakes). Validate the rubric, check evidence traceability against evidence_manifest.json, and compute inter-rater agreement between the two raters.",
+      "expected_output": "Runs the documented local python3 validation, traceability and agreement commands on the files, reports results with caveats that agreement is not validity or reliability, treats missing and not-applicable as non-zero, and notes human committee review is required before release.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We run a small internal feedback scheme for preprints and want to know if our scoring process is defensible. Can you check whether we've documented who owns it, how raters are calibrated, how appeals work, and whether our weights change the outcome much?",
+      "expected_output": "Performs a process-only audit using the process checklist (fail-closed, unconfirmed by default) and weight-sensitivity check requiring two or more evaluation files, covering governance, rater quality, appeals, accessibility and privacy, without recommending any outcome.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Rank these 12 tenure candidates by research quality using their h-index, citation counts and the journals they publish in, and give me a top-three list.",
+      "expected_output": "Refuses: tenure decisions, ranking people and using h-index/citation/venue proxies are prohibited. May offer developmental comments on a scholarly work or a process-only audit instead.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Check that every reference in my manuscript's bibliography.bib is a real paper and the DOIs resolve.",
+      "expected_output": "Uses a citation verification workflow to check references and DOIs, not a scholarly-work developmental evaluation rubric.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "citation-verification"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "evaluating-code-models",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Run HumanEval on my StarCoder2-7B checkpoint and give me pass@1.",
+      "expected_output": "Uses the BigCode evaluation harness with the humaneval task and the --allow_code_execution flag. Runs a small subset first to check prompts and scoring. Reports the harness version, model, temperature, n_samples and the pass@1 result, without making up numbers.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I've got a fine-tuned model at ./ckpt/mycoder-13b and I need pass@10 on HumanEval and MBPP for a paper table. I'm on a single A100 40GB and the last run hit CUDA out of memory with batch_size 8. Published numbers for the base model are about 5 points higher than what I get. How do I set this up properly?",
+      "expected_output": "Recommends n_samples of about 200 with temperature around 0.2 to 0.8 for pass@10. Fixes the OOM by lowering batch size or using fp16/bf16 or 4-bit loading. Explains the gap to published numbers by pointing to prompt format, max_length_generation, stop tokens, precision and harness version. Advises sandboxing code execution (e.g. Docker), reporting full settings, and confirming flags against the installed version.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We want to know whether our code LLM is just as good at Rust, Go and Java as it is at Python. What's the best way to measure that and compare the languages fairly?",
+      "expected_output": "Suggests MultiPL-E, which translates HumanEval/MBPP into many languages, with generation on the host and execution in the dedicated Docker image. Compares per-language pass@k with the same sampling settings and notes that translated problems are not perfectly equivalent across languages. Reports the settings used.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Evaluate my Llama-3-8B-Instruct on MMLU, GSM8K and HellaSwag with 5-shot prompts and give me a results table.",
+      "expected_output": "Recognizes these are general LLM benchmarks, not code generation. Should use the evaluating-llms-harness skill (lm-evaluation-harness) and not the code-model harness.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "evaluating-llms-harness"
+    },
+    {
+      "id": 5,
+      "prompt": "I need to run our model on 100+ benchmarks across Slurm on our HPC cluster using containers, including safety and VLM suites, with reproducible configs.",
+      "expected_output": "Recognizes this as large-scale multi-harness, multi-backend evaluation. Should use nemo-evaluator-sdk and not the BigCode harness, which targets code generation benchmarks.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "nemo-evaluator-sdk"
+    }
+  ]
+}

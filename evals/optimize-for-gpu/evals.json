@@ -1,0 +1,38 @@
+{
+  "skill_name": "optimize-for-gpu",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My numpy simulation loop is crawling on 50M-element arrays. Can I put it on my RTX GPU?",
+      "expected_output": "Does not rewrite blindly: asks for or profiles a representative baseline, checks suitability (size, transfers, memory fit), then suggests CuPy as the smallest layer. Validates results against CPU within tolerance and benchmarks with proper synchronization (CUDA events or warm-up) before recommending keeping the GPU path.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a 40 GB pandas script, `merge_cohorts.py`, that does groupby/merge on UK Biobank phenotype tables and takes 3 hours on one A100 box. I tried `import cudf` directly and got `MemoryError: std::bad_alloc` from RMM. How should I speed this up?",
+      "expected_output": "Recommends trying cudf.pandas accelerator mode first, then native cuDF if needed. Addresses the out-of-memory error by estimating peak working memory and choosing chunking, Dask/multi-GPU, or managed memory. Advises checking for CPU fallback, comparing outputs with the CPU result, and timing end-to-end including I/O and transfers.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We run a nearest-neighbor lookup over about 20 million protein embeddings with Faiss on CPU and queries take seconds. We'd like them much faster, and we need results close to what we get now. What are our options?",
+      "expected_output": "Points to cuVS (for example CAGRA or IVF-PQ, or brute force for exact search) as the GPU option. Insists on measuring recall@k against exact search rather than treating approximate and exact results as equivalent. Covers device-memory sizing and benchmarking latency and throughput with synchronization.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "My PyTorch training loop on an H100 is slow because the DataLoader is the bottleneck. Should I rewrite my model in CuPy or cuML to go faster?",
+      "expected_output": "Should not use this skill's library-migration path. Explains that code already in a GPU-native framework should stay in PyTorch, and that the fixes are DataLoader workers, pinned memory, batching, torch.compile, mixed precision and the PyTorch profiler, not a move to RAPIDS or CuPy.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Write the Methods paragraph for my manuscript describing how we normalized and clustered the single-cell RNA-seq data using Scanpy, for submission to Nature Methods.",
+      "expected_output": "Writes a journal-style Methods paragraph from the user's described steps. It does not involve GPU optimization or profiling.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

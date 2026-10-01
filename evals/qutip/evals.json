@@ -1,0 +1,38 @@
+{
+  "skill_name": "qutip",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get a damped driven qubit's Rabi oscillations in QuTiP with T1 and T2 decay?",
+      "expected_output": "Uses mesolve with a Hamiltonian in explicit angular-frequency units (hbar=1) and collapse operators of the form sqrt(gamma)*A. Gives T1 as sqrt(1/T1)*sigmam() and pure dephasing with the correct rate convention. Mentions checking trace/positivity and tolerances.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm modeling a transmon coupled to a readout cavity in qutip 5.3 for my paper. H = tensor(a.dag()*a, qeye(2)) + ... and I call mesolve(H, psi0, tlist, [kappa*a], [n]) but the photon number comes out wrong and ptrace([1]) gives me a 2x2 state when I wanted the cavity. How do I fix this and show the Fock cutoff is adequate?",
+      "expected_output": "Explains that tensor order fixes subsystem indices, so ptrace([0]) keeps the cavity, and that ptrace keeps the listed subsystems. Says the collapse operator must be sqrt(kappa)*a, not kappa*a. Says e_ops, args and options are keyword-only in 5.3 and that the e_ops list needs a keyword. Describes sweeping the Fock dimension and tolerances and reporting result.stats.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a driven, lossy resonator and I want the emission spectrum of its steady state, and I want to be sure the numbers aren't an artifact of how I discretized the time window. What should I do?",
+      "expected_output": "Recommends computing the steady state and either the direct stationary spectrum or an FFT of the correlation function. For the FFT route, requires checks of tail decay, timestep aliasing, frequency resolution, window sensitivity and transform convention. Also requires a Fock truncation sweep and a state-validity audit.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write a Qiskit circuit for a 5-qubit GHZ state and run it on IBM quantum hardware with error mitigation.",
+      "expected_output": "Should not use the qutip skill, because it is a hardware execution task and the skill is explicitly not a hardware SDK. A Qiskit or hardware-execution workflow is the better fit.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Fit a Hamiltonian-based classical molecular dynamics force field for a protein in GROMACS and analyze the RMSD trajectory.",
+      "expected_output": "Should not use the qutip skill, because this is classical molecular dynamics, not finite-dimensional quantum-system simulation. No listed skill covers it.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

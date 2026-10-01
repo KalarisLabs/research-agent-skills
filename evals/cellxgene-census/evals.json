@@ -1,0 +1,40 @@
+{
+  "skill_name": "cellxgene-census",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How many primary human B cells are in the latest Census LTS release, broken down by tissue?",
+      "expected_output": "Opens the Census with a pinned census_version (e.g. the stable LTS release) and queries obs with is_primary_data == True and cell_type == 'B cell', grouping by tissue_general or tissue. Reports the counts together with the release version used, and does not download full datasets.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm writing a methods section for a lung fibrosis paper. I need all primary Homo sapiens cells from lung with disease 'pulmonary fibrosis' from CELLxGENE, only the columns cell_type, donor_id, dataset_id and assay, plus expression for SFTPC and KRT5, loaded into an AnnData I can pass to scanpy. My laptop has 16 GB RAM and my first attempt with get_anndata crashed with a memory error.",
+      "expected_output": "Estimates the query size first by counting cells with a metadata-only obs query. Then uses get_anndata with a pinned census_version, obs_value_filter including is_primary_data == True, tissue and disease filters, a var_value_filter on feature_name for the two genes, and column_names limited to the needed fields. If the slice is still too large, falls back to out-of-core axis_query iteration or further filtering. Notes the Census version for reproducibility.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to train a cell type classifier on millions of public human brain single-cell profiles without downloading every dataset by hand. What's the right way to stream that data into PyTorch and keep the training set reproducible?",
+      "expected_output": "Recommends the versioned Census as the data source, pinned with census_version. Uses TileDB-SOMA-ML (not the deprecated cellxgene_census.experimental.ml loaders) with an obs filter on is_primary_data == True and tissue_general == 'brain'. Mentions train/test splitting by donor or dataset, and checking the query size first.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have my own local pbmc.h5ad from a 10x run. Please do QC filtering, normalize, run PCA and UMAP, and cluster with Leiden.",
+      "expected_output": "Does not use the Census. Uses scanpy for the QC, normalization, PCA/UMAP and Leiden clustering workflow on the local AnnData file.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scanpy"
+    },
+    {
+      "id": 5,
+      "prompt": "Train an scVI model on my three batches of local single-cell data to correct batch effects and get a latent embedding.",
+      "expected_output": "Does not use the Census. Uses scvi-tools to set up AnnData with a batch key, train scVI, and extract the latent representation.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scvi-tools"
+    }
+  ]
+}

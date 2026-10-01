@@ -1,0 +1,40 @@
+{
+  "skill_name": "scientific-visualization",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you check if my figure palette is colorblind-safe and has enough contrast?",
+      "expected_output": "Uses the skill's palette audit approach: checks WCAG contrast ratios and pairwise grayscale (CIE L*) separation, recommends redundant encoding (markers, line styles, direct labels), and does not claim the palette alone makes the figure accessible or compliant.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have fig3.pdf for my Nature Communications revision with 4 panels made in Matplotlib (results/fig3_raw.csv has the data). The editor says the figure is too low resolution and fonts aren't embedded. How do I check what's wrong and re-export it at 180 mm width?",
+      "expected_output": "Inspects the existing file's metadata (dimensions, effective DPI, fonts, page size), re-exports with explicit figsize and no bbox_inches='tight', Type 42 fonts, and without overwriting the original. Says journal requirements must be verified against live Nature Communications guidance for the revision phase rather than assumed.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My growth-curve data has a few timepoints where the plate reader failed, and I want a clean figure showing treated vs control with error bars for a paper. The lines currently look smooth and complete, which feels a bit too good. What should I change?",
+      "expected_output": "Flags that missing timepoints must not be silently connected; shows gaps or explicitly styled interpolation, distinguishes missing from zero. Names the uncertainty type (SD/SE/CI) and n, shows raw replicates where feasible, and records exclusions and transformations.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write Matplotlib code to draw a custom polar plot with a hand-built spiral annotation and animate the radius over time using FuncAnimation.",
+      "expected_output": "Handles this as low-level Matplotlib customization and animation, not publication-integrity or journal-export review; the matplotlib skill is the better fit.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "matplotlib"
+    },
+    {
+      "id": 5,
+      "prompt": "Generate a system architecture diagram for my transformer-based pipeline from this methods paragraph, and make bar charts of my benchmark accuracies for the ML paper.",
+      "expected_output": "Recognizes this as generating architecture diagrams and auto-selected ML-paper charts from research context, which belongs to academic-plotting rather than a figure integrity/accessibility audit.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "academic-plotting"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+# Upstream import configuration for tools/import_upstream.py.
+# Every imported skill is recorded in third_party/upstream-manifest.json and
+# credited in THIRD_PARTY_NOTICES.md (generated). Do not hand-edit those files.
+
+sources:
+  - id: upstream-a
+    repo: https://github.com/K-Dense-AI/scientific-agent-skills.git
+    ref: 65d6e786832e2c52832713117bbbf5096b56f77f
+    license_file: LICENSES/MIT-upstream-a.txt
+    copyright: "Copyright (c) 2025 K-Dense Inc."
+    layout: flat            # skills/<name>/SKILL.md
+    root: skills
+    exclude:
+      # Not MIT: redistribution restricted.
+      docx: "Proprietary (Anthropic, PBC) - redistribution not permitted"
+      pdf: "Proprietary (Anthropic, PBC) - redistribution not permitted"
+      pptx: "Proprietary (Anthropic, PBC) - redistribution not permitted"
+      xlsx: "Proprietary (Anthropic, PBC) - redistribution not permitted"
+      deepspot-m: "PolyForm-Noncommercial-1.0.0"
+      what-if-oracle: "CC BY-NC-SA 4.0"
+      # License declared as 'Unknown' upstream - held for manual review.
+      glycoengineering: "License unknown - pending review"
+      phylogenetics: "License unknown - pending review"
+      primekg: "License unknown - pending review"
+    renames: {}
+
+  - id: upstream-b
+    repo: https://github.com/orchestra-research/AI-research-SKILLs.git
+    ref: 773a52944ba4747a18bd4ae9ade53fff041adcbc
+    license_file: LICENSES/MIT-upstream-b.txt
+    copyright: "Copyright (c) 2025 Claude AI Research Skills Contributors"
+    layout: nested          # NN-category/<skill>/SKILL.md; folder is renamed to frontmatter `name`
+    root: .
+    include_glob: "[0-2]*"
+    exclude: {}
+    # Files dropped after copy (paths relative to skills/). Compiled PDFs are build
+    # outputs; one carries a /OpenAction auto-run entry flagged by skill scanners.
+    exclude_files:
+      - ml-paper-writing/templates/colm2025/colm2025_conference.pdf
+      - ml-paper-writing/templates/iclr2026/iclr2026_conference.pdf
+      - ml-paper-writing/templates/icml2026/example_paper.pdf
+    renames:
+      # Collides with upstream-a `pytorch-lightning`.
+      08-distributed-training/pytorch-lightning: pytorch-lightning-distributed
+      0-autoresearch-skill: autoresearch
+
+# Skills whose SKILL.md exceeds the 500-line budget are allowed temporarily;
+# see tools/size_baseline.txt. New skills must stay within budget.

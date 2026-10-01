@@ -1,0 +1,44 @@
+{
+  "skill_name": "onekgpd",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Who in 1000 Genomes is homozygous for rare missense variants in CFTR? Rare = gnomAD genome AF under 0.1%.",
+      "expected_output": "Resolves CFTR GRCh38 coordinates from an authoritative source such as Ensembl first. Runs count-samples before select-samples with --hom-only, --consequence MISSENSE_VARIANT and --gnomad-genomes-af-lt 0.001, using scripts/onekgpd_api.py. Reports sample names, and notes that the lt bound includes variants unannotated in gnomAD.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "kinship HG00096 NA21130",
+      "expected_output": "Runs the kinship command on the two named samples. Reports the relatedness degree (twin/1st/2nd/3rd/unrelated) and the KING kinship coefficient.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm following up a hit in BRCA1 for a paper. I have the region chr17:43044295-43125364 from an old UCSC hg19 browser session. I want to see which variants ClinVar calls pathogenic or likely pathogenic that are carried by HG00096, HG00097 and NA12878 in the 1000 Genomes high-coverage cohort, with their AlphaMissense scores.",
+      "expected_output": "Notices that the coordinates come from hg19 and the dataset is GRCh38, and re-resolves the BRCA1 GRCh38 coordinates via Ensembl before querying. Runs count-variants-in-samples, then select-variants-in-samples with --clin-significance PATHOGENIC,LIKELY_PATHOGENIC for the three samples. Reports variants with AM scores, and treats an am_score of 0.0 as not scored. Does not read large JSON into context.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to find people in the 1000 Genomes reference panel who are definitely not carriers at chr7:117559590 on GRCh38, so I can use them as controls. How do I get that list?",
+      "expected_output": "Uses count-samples-hom-ref and then select-samples-hom-ref at the single verified GRCh38 position. Returns the list of sample names, or a count first if the set is large.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "What is the GRCh38 genomic start and end position of the TP53 gene, and what is the rs ID for the common P72R variant?",
+      "expected_output": "Does not use the onekgpd skill, since it cannot resolve gene symbols or rsIDs to coordinates. A suitable answer uses Ensembl or dbSNP lookups instead.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 6,
+      "prompt": "Run a GWAS on my own cohort VCF of 500 patients (cohort.vcf.gz) and make a Manhattan plot for LDL cholesterol.",
+      "expected_output": "Does not use onekgpd, because the data is the user's own cohort and not the 1000 Genomes Project. Suggests a GWAS or statistical genetics workflow, for example PLINK, REGENIE or a similar tool.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

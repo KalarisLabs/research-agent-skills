@@ -1,0 +1,39 @@
+{
+  "skill_name": "cobrapy",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run FBA on e_coli_core and print the growth rate?",
+      "expected_output": "Loads the model (e.g. cobra.io.load_model('textbook') or from file), runs model.optimize() or slim_optimize(), checks solution status is optimal, and reports the objective value as growth rate. Uses cobra 0.31-compatible API.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have iML1515.xml (SBML) for E. coli K-12 MG1655. I need to run a single-gene knockout screen under minimal glucose medium and list which genes are essential, i.e. growth under 1% of wild type. read_sbml_model works but my script gives 'infeasible' for the wild type after I changed the medium. What should I do?",
+      "expected_output": "Loads the SBML with cobra.io.read_sbml_model, inspects model.medium and exchange bounds (e.g. glucose, oxygen, required uptakes) to diagnose the infeasibility, fixes the medium, verifies wild-type growth with slim_optimize, then runs single_gene_deletion with a 1% threshold and reports the essential genes, using context managers and a small test first.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I reconstructed a metabolic network for a new bacterial strain, but it won't grow on any carbon source. I want to figure out which minimal set of reactions from a universal database I could add so that it produces biomass, and check whether the model has blocked reactions or mass-imbalanced ones.",
+      "expected_output": "Recommends gapfilling against a universal model (cobra.flux_analysis.gapfill), confirms the infeasibility first, and checks consistency (find_blocked_reactions, FVA, mass balance via reaction.check_mass_balance). Notes that proposed reactions need biological and manual curation and states the assumptions made.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have 13C labeling data from a glucose tracer experiment in E. coli and an atom-mapped network. Estimate the intracellular fluxes from the isotopomer measurements.",
+      "expected_output": "Recognizes this as 13C metabolic flux analysis from isotope tracing, not constraint-based FBA, and routes to the 13c-metabolic-flux skill rather than cobrapy.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "13c-metabolic-flux"
+    },
+    {
+      "id": 5,
+      "prompt": "Write an ODE model of glycolysis with Michaelis-Menten kinetics and simulate the metabolite concentrations over time with scipy.",
+      "expected_output": "Recognizes this as kinetic ODE-based simulation, which is outside the scope of constraint-based modeling. Does not use COBRApy and handles it with general scientific Python (scipy solve_ivp) instead.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "infographics",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Make me an infographic of global renewable energy share by country, 2024.",
+      "expected_output": "Uses the infographics skill with a statistical type, notes that accurate figures need the research option or user-supplied data, asks about or states the target medium, and does not invent statistics.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm presenting at a lab meeting Friday. I need a one-slide visual timeline of CRISPR milestones from 2012 (Doudna/Charpentier) to the 2023 Casgevy approval. Use a colorblind-safe palette, save it to figures/crispr_timeline.png, and I want it to be good enough for a conference talk.",
+      "expected_output": "Runs the infographics skill with timeline type, a colorblind-safe palette (wong, ibm or tol), output path figures/crispr_timeline.png, and a presentation-level quality threshold. Verifies dates against research or user input, and checks legibility and the review log.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our department wants a one-page graphic for the newsletter that shows how a new grant proposal moves from internal draft to sponsor submission, with the people responsible at each stage laid out in a clear visual that non-scientists can follow.",
+      "expected_output": "Recognizes this as a process (and possibly hierarchical) infographic for a general audience and uses the infographics skill. Confirms stages and roles with the user rather than guessing, picks a suitable style, and reports what was generated and the review score.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Draw a CONSORT flow diagram for my randomized trial: 412 screened, 120 excluded, 292 randomized into two arms of 146, with 12 lost to follow-up in arm A and 9 in arm B.",
+      "expected_output": "Does not use infographics. Directs to scientific-schematics, which handles CONSORT/PRISMA diagrams, and uses the user's numbers exactly (e.g. 146 − 12 = 134 and 146 − 9 = 137 analysed, if analysis counts are needed).",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scientific-schematics"
+    },
+    {
+      "id": 5,
+      "prompt": "Generate a photorealistic image of a petri dish with bioluminescent bacteria on a dark lab bench for the cover of my journal issue.",
+      "expected_output": "Does not use infographics. This is a photo-style image, so it should use generate-image.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "generate-image"
+    }
+  ]
+}

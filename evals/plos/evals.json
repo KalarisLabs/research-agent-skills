@@ -1,0 +1,18 @@
+{
+  "skill_name": "plos",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "What do I need for the PLOS ONE data availability statement and ethics statement?",
+      "expected_output": "PLOS data policy, ethics statement contents, Vancouver refs, PACE figures",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Format for IEEE Access.",
+      "expected_output": "Skill not used",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "skill_name": "etetoolkit",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I load a Newick file in ete4 and prune it down to just 12 taxa?",
+      "expected_output": "Uses ete4 (not ete3) with an open file object or a Newick string and an explicit parser= choice. Prunes via the tree's prune method with a validated list of leaf names, and says whether branch lengths are preserved. Checks that the names exist and are unique.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm porting my lab's old ete3 script to ete4 and it now fails with 'NewickError' on gene_tree.nwk, which has bootstrap support on internal nodes. The old code used Tree('gene_tree.nwk', format=1) and `t & 'Hsap_1'`, then called node.is_leaf() and t.get_leaves(). Fix it and then label each internal node as duplication or speciation, where leaf names look like SPECIES_geneID.",
+      "expected_output": "Explains the ETE 4 changes: import from ete4, parser= instead of format=, pass an open file object or Newick text rather than a path string, tree['Hsap_1'] for lookup, is_leaf as a property, and leaves() returning an iterator. Picks a parser that keeps support values rather than reading them as names. Uses PhyloTree with an explicit species-naming function, requires a rooted bifurcating tree, and notes that species-overlap calls are inferences. Suggests a curated species tree with reconcile() for strict reconciliation.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have two published trees for the same 40 bird species, one from mitochondrial genomes and one from nuclear loci. I want a number that tells me how different their branching patterns are, and I'd also like to know which splits they disagree on.",
+      "expected_output": "Recommends a Robinson-Foulds comparison on the shared leaf labels using ETE. Checks that leaf names are unique and match across the two trees, and decides explicitly between rooted and unrooted comparison. Reports normalized RF along with the specific differing splits, and states the ETE version and parser used.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have 16S rRNA FASTA sequences for 60 bacterial isolates. Align them and build a maximum-likelihood tree with bootstrap support.",
+      "expected_output": "Recognizes that inferring a tree from raw sequences is outside this skill's scope. Recommends aligning with MAFFT and inferring the tree with IQ-TREE 2 or FastTree. ETE would only be used afterward to load, inspect or render the resulting tree.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Compute Faith's phylogenetic diversity and weighted UniFrac distances across my 30 soil microbiome samples from an OTU table and a tree, then run PERMANOVA on the treatment groups.",
+      "expected_output": "Identifies this as community-ecology diversity analysis, so it should use scikit-bio and not ETE. Computes Faith's PD and weighted UniFrac from the OTU table and tree, then runs PERMANOVA on the resulting distance matrix.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scikit-bio"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+acm-sigconf
+apa7
+arxiv-submission
+cell-press
+elsevier-cas
+ieee-transactions
+nature-portfolio
+plos
+science-aaas
+springer-lncs
+venue-templates

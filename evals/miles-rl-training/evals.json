@@ -1,0 +1,40 @@
+{
+  "skill_name": "miles-rl-training",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I turn on FP8 rollout and training for a Qwen3-MoE run so RL doesn't collapse?",
+      "expected_output": "Recommends miles's unified FP8 pipeline (end-to-end FP8 sampling and training) on H100/H200. Mentions Rollout Routing Replay for MoE consistency, NVTE_FP8_BLOCK_SCALING_FP32_SCALES=1, and a lower learning rate such as 5e-7. Notes that exact CLI flags may vary and should be checked in the miles repo.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running GRPO on DeepSeek-V3 with miles on 4 nodes of H200. After about 200 steps the reward drops sharply and the logprobs from SGLang don't match Megatron's. Is this a train-inference mismatch, and how do I fix it? My args currently include --use-tis --tis-threshold 0.9 but I don't use any routing replay.",
+      "expected_output": "Diagnoses a train-inference mismatch probably caused by MoE expert routing differing between SGLang and Megatron. Recommends enabling Rollout Routing Replay (R3), which stores routing in sample.rollout_routed_experts and replays it during training. Also suggests verifying that log probs match between the two engines, keeping TIS/MIS for off-policy correction, and checking the FP8 settings. Mentions the alignment kernels (FlashAttention-3, DeepGEMM, batch-invariant kernels).",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My RL rollouts are the bottleneck when post-training a big MoE model. Generation takes far longer than the gradient update. I'd like to speed up sampling by having a small helper model propose tokens that the main model checks, and the helper should stay in sync with the policy as it changes. What setup do I need?",
+      "expected_output": "Describes speculative RL: EAGLE speculative decoding through SGLang, with the draft model updated by online SFT (MTP training) so it tracks the policy. Notes that online MTP needs a torch dist checkpoint converted with --mtp-num-layers 1. Mentions tuning --sglang-speculative-num-steps and the draft weights CPU backup option. Expects roughly a 25-40% rollout speedup, plus partial rollout for more.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to fine-tune GLM-4.5 with RL using slime and write a custom data generation function for multi-turn rollouts. Where do I hook it in?",
+      "expected_output": "Routes the request to slime-rl-training. It covers slime's custom rollout/data-generation interface and Megatron integration for GLM. It is not about miles-specific FP8, INT4, R3, or speculative RL features.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "slime-rl-training"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a Llama-3 70B model and I want to build a TensorRT-LLM engine with FP8 quantization and in-flight batching to serve it on 8xH100. How do I do that?",
+      "expected_output": "Routes the request to tensorrt-llm. It covers building a TensorRT-LLM engine, FP8 quantization, in-flight batching and multi-GPU tensor parallelism for inference serving. It does not involve RL training.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "tensorrt-llm"
+    }
+  ]
+}

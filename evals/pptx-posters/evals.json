@@ -1,0 +1,40 @@
+{
+  "skill_name": "pptx-posters",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need an editable .pptx conference poster built from my approved content. Can you make it?",
+      "expected_output": "Recognizes the PowerPoint poster deliverable and checks the hard gates first. Asks for the exact content, source records, conference and printer requirements, and author approval tied to the manifest hash, and does not invent content or placeholders.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My poster for the ISMB meeting is in ~/poster/ with manifest.json, fig1.png, fig2.png and a QR code PNG. The printer wants 36x48 in with 0.125 in bleed. Generate the .pptx and check that it's safe, with no macros. I've already signed off on the text.",
+      "expected_output": "Runs validate_manifest.py and checks that approval is bound to the current content hash. Confirms the asset hashes and runs inventory_images.py, check_palette.py and plan_export.py. Generates to a new output path with generate_poster.py, then runs inspect_pptx.py and check_layout.py. Reports effective DPI, the final font-size basis and the visible QR fallback URL. Flags that the manual PowerPoint accessibility check and the printer proof are still required, and stops on any blocker.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got a one-page research poster to hand in for a symposium, and the organisers asked for a PowerPoint file their staff can still edit. Everything has been checked by my co-authors and the images are on my disk. How do I get it ready for the printer without anything unsafe in the file?",
+      "expected_output": "Identifies that an editable PowerPoint poster is the deliverable and applies this skill's workflow. Confirms the printer and conference specs, builds and validates a manifest with hashed local assets, generates a macro-free .pptx, runs the package-security and layout audits, and covers the manual accessibility and proof steps. Does not claim the file is CMYK or accessibility compliant without those checks.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Make a 15-minute conference talk deck in PowerPoint for my thesis defense, with about 12 slides and speaker notes.",
+      "expected_output": "Does not use pptx-posters, because this is a multi-slide talk and not a one-slide poster. Routes to scientific-slides for structure, timing and slide design.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scientific-slides"
+    },
+    {
+      "id": 5,
+      "prompt": "Create an A0 research poster in LaTeX with beamerposter, three columns, and a QR code linking to my GitHub repo. Check for overfull boxes before printing.",
+      "expected_output": "Does not use pptx-posters, because the requested deliverable is a LaTeX poster and not PowerPoint. Uses latex-posters for the beamerposter layout, QR placement and overfull-box checks.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "latex-posters"
+    }
+  ]
+}

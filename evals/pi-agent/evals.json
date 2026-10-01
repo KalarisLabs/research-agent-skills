@@ -1,0 +1,39 @@
+{
+  "skill_name": "pi-agent",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I install Pi and hook it up to my Anthropic key?",
+      "expected_output": "Gives Pi install steps and authentication via an environment variable, ~/.pi/agent/auth.json, or /login, following the quickstart and providers references. Warns against storing the key in project files.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm writing a Python harness that drives the Pi coding agent for a benchmark over 200 repos. I tried parsing its stdout with line-by-line splitting in a Node script and sometimes get broken JSON on messages with unusual unicode characters. Which integration mode should I use, and how do I run it so each task is stateless? Please also tell me how to read events correctly.",
+      "expected_output": "Recommends RPC mode for a non-Node client, started with `pi --mode rpc --no-session` for stateless runs. Explains that records must be split on `\\n` only, not with Node readline, which also fixes the unicode splitting bug. Mentions that Pi is not sandboxed and suggests isolating unattended runs in a container or VM.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want my terminal AI coding assistant to be able to call out to several of my lab's existing tool servers over the Model Context Protocol, and also hand off sub-tasks to helper agents running in parallel. Can I do both without writing my own plumbing?",
+      "expected_output": "Identifies the Pi ecosystem packages pi-mcp-adapter for MCP server connection and pi-subagents for delegation and parallel runs. Explains how to install them as Pi packages and points to their configuration, and says to check the installed version's docs rather than invent options.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write a Qiskit circuit that prepares a 3-qubit GHZ state, transpile it for an IBM backend, and run it with Runtime Sampler.",
+      "expected_output": "Answers with Qiskit code for GHZ preparation, transpilation and Sampler execution. It does not involve Pi, since this is a quantum-computing task.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "qiskit"
+    },
+    {
+      "id": 5,
+      "prompt": "Help me write a Python script using the OpenAI API with function calling so a model can query my PubMed results CSV.",
+      "expected_output": "Provides a generic OpenAI function-calling implementation with a tool schema and a dispatch loop. It does not mention Pi extensions or the Pi SDK, since the user did not ask for Pi.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "skill_name": "markdown-mermaid-writing",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you turn my pipeline notes into a README with a diagram of the steps?",
+      "expected_output": "Writes a markdown README with an embedded Mermaid flowchart (accTitle/accDescr, classDef only, no %%{init} or inline style, snake_case node IDs). Follows the markdown style guide, with one H1 and emoji on H2 headings only.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm drafting analysis_report.md for our RNA-seq differential expression results (12 samples, DESeq2). I want it to be git-diffable, with a methods section, a footnoted reference list, and a figure showing how the reads go from FASTQ to the count matrix. I tried `radar` for comparing three aligners across five metrics and GitHub says there's a parse error. Please fix it.",
+      "expected_output": "Starts from the research paper template and replaces the broken `radar` with valid `radar-beta` syntax (`axis` and `curve` definitions), with a descriptive italic paragraph above it instead of accTitle/accDescr. Adds a Mermaid flowchart for the FASTQ-to-counts pipeline and uses [^N] footnotes with full URLs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We have a grant proposal with milestones spread over 18 months and overlapping work packages, and I'd like reviewers to see the schedule at a glance in the doc itself, without pasting in an image.",
+      "expected_output": "Picks a Mermaid Gantt chart, preferring it over a flowchart or an image, and embeds it inline in the markdown document with accTitle/accDescr and classDef-based styling. It follows the Gantt reference and keeps the text source as canonical.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Run a systematic literature review on CRISPR base editing off-target effects, searching PubMed and bioRxiv, screening the papers, and give me a PRISMA-style summary with verified citations.",
+      "expected_output": "Recognizes this as a systematic review task and hands it to the literature-review skill. It does not use the Mermaid/markdown authoring skill as the primary workflow.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "literature-review"
+    },
+    {
+      "id": 5,
+      "prompt": "Make a scatter plot of my 5,000 single-cell UMAP coordinates colored by cluster, publication quality.",
+      "expected_output": "Uses Python plotting (matplotlib/seaborn or similar) for real-data scatter plots, not Mermaid.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

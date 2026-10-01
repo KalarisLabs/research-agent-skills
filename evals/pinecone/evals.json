@@ -1,0 +1,40 @@
+{
+  "skill_name": "pinecone",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I upsert embeddings into a Pinecone index?",
+      "expected_output": "Shows creating or connecting to a Pinecone index with the Python client and upserting (id, values, metadata) tuples in batches of roughly 100-200. Notes that the dimension must match the embedding model, and suggests testing on a small subset first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 40k chunked abstracts from our lab's PubMed pull in abstracts.jsonl, embedded with text-embedding-3-small (1536 dims). I need to load them into Pinecone so each postdoc gets their own isolated space, and then query only records where year >= 2020 and journal == 'Cell'. Getting 'Vector dimension 768 does not match the dimension of the index 1536' on upsert. Can you fix and set it up?",
+      "expected_output": "Explains the error as a mismatch between the vectors being sent (768-dim) and the index (1536-dim), and says to check that the embedding model actually used matches the index dimension, or recreate the index with the correct dimension. Then sets up a serverless index, upserts in batches with metadata (year, journal), uses one namespace per postdoc, and queries with a metadata filter such as {'year': {'$gte': 2020}, 'journal': {'$eq': 'Cell'}}. Confirms the index name, region, and API key handling with the user before running anything that costs money.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We're building a literature search tool for our group and want it hosted so we don't run any servers. Queries mix exact gene names like 'BRCA2 c.5946delT' with fuzzy conceptual phrasing, and keyword-only or embedding-only search each miss things. What's the best way to combine both in a single query against a managed vector store?",
+      "expected_output": "Recommends a managed serverless vector database such as Pinecone and hybrid search that combines dense and sparse (BM25/SPLADE) vectors in one query, with an alpha or weighting parameter to balance them. Mentions that exact identifiers benefit from the sparse component and suggests validating with recall@k on labeled query-passage pairs.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to run similarity search over 5M protein embeddings entirely offline on a GPU box with no cloud services. Which index type should I use, IVF or HNSW?",
+      "expected_output": "Recommends an offline library such as FAISS and compares IVF (with PQ for memory) against HNSW for a 5M-vector corpus, including GPU support. Does not suggest Pinecone or any hosted service.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "faiss"
+    },
+    {
+      "id": 5,
+      "prompt": "I'm prototyping a RAG demo in a notebook and want a local, open-source embedding store with a simple API that persists to disk. How do I set up a collection and add documents with metadata?",
+      "expected_output": "Uses Chroma with a PersistentClient, creating a collection and calling add with documents, metadatas and ids. Does not use Pinecone or any hosted service.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "chroma"
+    }
+  ]
+}

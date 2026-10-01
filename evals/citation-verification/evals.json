@@ -1,0 +1,18 @@
+{
+  "skill_name": "citation-verification",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "ChatGPT wrote my references. Check that every entry in references.bib actually exists.",
+      "expected_output": "Runs verify_citations.py, reports verified/mismatch/not-found, never keeps unverifiable refs silently",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Add page numbers to my table of contents.",
+      "expected_output": "Skill not used",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

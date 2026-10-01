@@ -1,0 +1,38 @@
+{
+  "skill_name": "datalad",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I cloned an OpenNeuro dataset and my script says one of the NIfTI files is 'not a gzip file', but ls shows the file is there. What's going on?",
+      "expected_output": "Explains that the file is a git-annex pointer or broken symlink, not corrupt data, because content was not retrieved after clone. Tells the user to run `datalad get <path>` and to check content presence with `datalad status --annex` or `git annex whereis`.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm writing up a methods section for a paper. My repo has raw/sub-01_bold.nii.gz (about 2 GB per subject) and a script code/smooth.py that writes derivatives/sub-01_smoothed.nii.gz. I want anyone to be able to re-execute that step later and see exactly which inputs and command produced the output. Second runs of my script currently fail with 'Permission denied' on the output file. How should I set this up?",
+      "expected_output": "Recommends `datalad run` with `--input raw/sub-01_bold.nii.gz` and `--output derivatives/sub-01_smoothed.nii.gz`, and says the output declaration fixes the permission error because it unlocks annexed content. Mentions that the run record is stored in the commit and replayed with `datalad rerun`, that the dataset must be clean (or use `--explicit`), and optionally `containers-run` for the software environment.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got a 400 GB imaging dataset I want to share with collaborators. The code goes on GitHub, but the data should sit in an S3 bucket. I want people to be able to clone from GitHub and then pull the actual files without anything breaking. How do I publish it?",
+      "expected_output": "Describes making the S3 bucket a git-annex special remote with `git annex initremote`, not `datalad siblings add --url`. Creates the GitHub sibling with `datalad create-sibling-github` and sets `--publish-depends` on the storage sibling. Pushes with `datalad push --to github`, so content is uploaded before the history is exposed.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "My repo is just a Python package: about 40 source files, a few markdown docs, and a small YAML config. Do I need DataLad or git-annex for this, or should I just use Git and GitHub Actions for CI?",
+      "expected_output": "Recommends plain Git, since a code-and-text-only repository gains nothing from DataLad and it would only add indirection. Does not walk through DataLad setup.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "I have a pandas DataFrame of gene expression counts and want to normalize it with DESeq2-style size factors and then run PCA. Can you write the code?",
+      "expected_output": "Provides a normalization and PCA analysis in Python, or points to a suitable bioinformatics or data-analysis skill. Does not involve DataLad or git-annex.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

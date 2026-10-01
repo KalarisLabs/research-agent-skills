@@ -1,0 +1,40 @@
+{
+  "skill_name": "bioservices",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I map a list of UniProt accessions to KEGG gene IDs with bioservices?",
+      "expected_output": "Uses bioservices.UniProt().mapping(fr='UniProtKB_AC-ID', to='KEGG', query=...) with a comma-separated or batched list. Parses the returned dictionary and handles unmapped IDs.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a CSV called hits.csv with a column of human UniProt IDs (P04637, P38398, Q00987, etc.). For each one I need the KEGG pathways it belongs to, the Reactome pathway names, and any ChEMBL target ID. My script crashed with 'AttributeError: module bioservices has no attribute PSICQUIC' when I tried to add interactions too. Can you write the pipeline?",
+      "expected_output": "Writes a script that uses UniProt mapping to KEGG and ChEMBL, then KEGG get_pathway_by_gene and Reactome lookups, merged with pandas. Explains that PSICQUIC is absent from bioservices 1.16.0 and imports it defensively, falling back to IntactComplex, OmniPath or STRING. Uses error handling and sensible rate/verbosity settings.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm studying imatinib and want one table that links its KEGG compound entry to the ChEBI and ChEMBL identifiers, plus whatever protein targets are listed, all pulled programmatically from the public databases. How should I go about it in Python?",
+      "expected_output": "Proposes bioservices: KEGG search for the compound, UniChem for KEGG-to-ChEMBL/ChEBI mapping, and ChEMBL get_molecule. Notes that the get_compound_id_from_* helpers are gone in 1.16.0 and checks hasattr or uses u.get_compounds(...) and reads res['compounds'][0]['sources']. Does not use pre-1.6 ChEMBL method names.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Quickly get the Ensembl gene ID, description and canonical transcript sequence for human TP53 using the gget command line.",
+      "expected_output": "Recommends gget (gget search, gget info, gget seq) for a quick single-database Ensembl lookup. Does not use bioservices.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "gget"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a multi-record GenBank file, plasmids.gb. Parse it with SeqIO, pull out every CDS translation, and write them to a FASTA file.",
+      "expected_output": "Uses Bio.SeqIO to parse the GenBank records, iterates over CDS features to extract translations, and writes FASTA. This is local file manipulation, not a multi-database web query.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "biopython"
+    }
+  ]
+}

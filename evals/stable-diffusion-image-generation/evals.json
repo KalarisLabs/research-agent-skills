@@ -1,0 +1,39 @@
+{
+  "skill_name": "stable-diffusion-image-generation",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I make SDXL fit on my 8GB card? I keep getting CUDA out of memory in diffusers.",
+      "expected_output": "Suggests fp16 loading plus enable_model_cpu_offload (or sequential offload), VAE slicing/tiling, attention slicing or xFormers, and lower resolution or batch size. Asks about or notes the GPU, diffusers and torch versions and gives code for the SDXL pipeline.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running StableDiffusionXLPipeline.from_pretrained('stabilityai/stable-diffusion-xl-base-1.0', torch_dtype=torch.float16) on an RTX 3090 and every image comes out as pure black. A warning says 'invalid value encountered in cast'. How do I fix it? I'm making figures for a methods paper on histology slide augmentation.",
+      "expected_output": "Diagnoses the black-image/NaN problem: the fp16 VAE overflows, so use the fp16-fix VAE, upcast the VAE to float32, or switch to bf16. Also checks the diffusers version and the safety checker, and runs a single low-resolution test first. Mentions checking the model licence and that generated images are synthetic before using them in a publication.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a set of grayscale microscope photos of cell cultures. I want to turn each one into a colorized, painted look while keeping the cell layout and shapes the same. I have a local GPU. What's a good way to do this?",
+      "expected_output": "Recommends image-to-image generation with Diffusers, possibly with ControlNet edge or depth conditioning to preserve structure. Explains how the strength parameter trades fidelity against stylization. Suggests testing on one image at low resolution first, setting a fixed seed, and checking outputs for artifacts that could mislead scientific interpretation.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm fine-tuning Llama-3 8B with LoRA on my lab's protocol dataset. What rank, alpha and target_modules should I use, and how do I merge the adapter afterwards?",
+      "expected_output": "Recognizes this as LLM parameter-efficient fine-tuning, not image generation. Should use the peft-fine-tuning skill for LoRA rank, alpha, target modules and adapter merging.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "peft-fine-tuning"
+    },
+    {
+      "id": 5,
+      "prompt": "I don't have a GPU and just want to quickly generate a few illustrations for my slides from text prompts using a hosted API. What do you recommend?",
+      "expected_output": "Recommends an API-based service such as DALL-E 3 (or similar hosted tool) instead of running local Diffusers, since no GPU is available. No Stable Diffusion pipeline setup is needed. Mentions cost and usage terms.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "skill_name": "rebuttal-and-response-to-reviewers",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We got major revisions with 3 reviewers. Help me write the response letter.",
+      "expected_output": "Triage table, point-by-point replies with locations, respectful disagreement pattern",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Review this paper as a peer reviewer.",
+      "expected_output": "Skill not used (peer-review applies)",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

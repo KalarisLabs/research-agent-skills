@@ -1,0 +1,40 @@
+{
+  "skill_name": "pytorch-lightning-distributed",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I turn my plain PyTorch training loop into a Lightning Trainer setup with DDP on 4 GPUs?",
+      "expected_output": "Explains subclassing LightningModule (training_step, configure_optimizers) and using Trainer(accelerator='gpu', devices=4, strategy='ddp'), noting no manual device placement or DistributedSampler is needed. Recommends a small smoke run first and checking the installed Lightning version.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm training a ResNet-50 on my cell-imaging dataset (train.py) on a 2-node cluster, 8 A100s each. Job launched with sbatch but I get 'RuntimeError: Timed out initializing process group in store based barrier' and Lightning seems to spawn extra processes. How do I set up the Trainer so it works across both nodes?",
+      "expected_output": "Advises setting Trainer devices=8 and num_nodes=2 explicitly with strategy='ddp', and matching SLURM ntasks-per-node to devices so Lightning does not spawn extra processes. Checks MASTER_ADDR/port and NCCL connectivity, asks about the launch script, and does not invent unverified flags.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want my model training to automatically save the 3 best checkpoints by validation loss, stop if it hasn't improved in 5 epochs, and log the learning rate, without writing all that loop code myself. What's the cleanest way to do it in PyTorch?",
+      "expected_output": "Recommends a Lightning Trainer with ModelCheckpoint(monitor='val_loss', save_top_k=3), EarlyStopping(patience=5) and LearningRateMonitor callbacks, with validation_step logging val_loss and a val dataloader passed to fit. Notes verifying that checkpoints save in a short run.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have an existing HuggingFace training script. Can I make it run on multi-GPU with minimal edits by wrapping it with accelerate launch and mixed precision, without restructuring into modules?",
+      "expected_output": "Should route to huggingface-accelerate: use Accelerator().prepare(), accelerate config/launch and mixed_precision settings with minimal changes to the existing script, rather than restructuring into LightningModule.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "huggingface-accelerate"
+    },
+    {
+      "id": 5,
+      "prompt": "I need to run a hyperparameter sweep with Ray Tune across a 50-node cluster with fault tolerance and elastic scaling for my PyTorch model. How should I set it up?",
+      "expected_output": "Should route to ray-train: use Ray Train with Ray Tune for cluster-scale distributed hyperparameter search, fault tolerance and elastic scaling, rather than a single Lightning Trainer setup.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ray-train"
+    }
+  ]
+}

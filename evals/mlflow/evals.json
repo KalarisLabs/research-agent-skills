@@ -1,0 +1,40 @@
+{
+  "skill_name": "mlflow",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I log my sklearn model's accuracy to MLflow?",
+      "expected_output": "Shows starting a run with mlflow.start_run and logging accuracy via mlflow.log_metric, optionally with log_param and mlflow.sklearn.log_model or autolog. Notes the tracking URI and experiment name being used.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm training an XGBoost classifier on train.csv for churn prediction and have a tracking server at http://localhost:5000. I ran 12 configs with different max_depth and learning_rate, and now want to pull the run with the best val_auc, register that model as 'churn-xgb', and move it to Production. Getting 'RestException: RESOURCE_DOES_NOT_EXIST' when I call transition_model_version_stage. What should I do?",
+      "expected_output": "Uses mlflow.search_runs ordered by metrics.val_auc DESC to find the best run, registers it with register_model using the runs:/<run_id>/model URI, and explains that the error likely comes from a wrong model name or version that was not yet created. Notes that stages are deprecated in newer MLflow versions in favor of aliases, and says to check the installed version's docs rather than inventing APIs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I fine-tuned a BERT classifier last month and can't remember which learning rate and epoch count gave my best F1. I'd like each training run automatically recorded with its settings, scores and saved weights so I can compare them side by side later and ask a teammate to rerun the exact best one on their machine. How should I set that up?",
+      "expected_output": "Recommends MLflow-style tracking with HuggingFace Transformers autologging (or manual logging of params, metrics and artifacts), comparing runs in the UI or via search_runs, and packaging the code as an MLflow Project or logging the environment and git commit so a teammate can reproduce it. Asks about or states assumptions on the tracking server and framework versions.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to run a Bayesian hyperparameter sweep over learning rate and batch size with a W&B sweep config and see parallel-coordinates plots in a shared dashboard. How do I write the sweep YAML and launch agents?",
+      "expected_output": "Explains the W&B sweep YAML (method: bayes, metric, parameters) and launching with wandb sweep and wandb agent. It should not use MLflow, since this is a W&B sweep workflow.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "weights-and-biases"
+    },
+    {
+      "id": 5,
+      "prompt": "Write a LightningModule with a training_step, validation_step and a ModelCheckpoint callback that monitors val_loss, and a Trainer set up for 4-GPU DDP.",
+      "expected_output": "Provides a LightningModule, ModelCheckpoint(monitor='val_loss') and Trainer(strategy='ddp', devices=4) code. It does not focus on MLflow tracking or registry.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pytorch-lightning"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "rwkv-architecture",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run an RWKV model one token at a time without the memory growing?",
+      "expected_output": "Explains RNN-mode inference with RWKV: pass the returned state back into each forward call so memory stays constant with no KV cache, and gives a short token-by-token loop. Notes that the state must be carried between calls.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning RWKV-7 on my own corpus (train.jsonl, about 2B tokens) on a single 24GB GPU using DeepSpeed, and I get 'CUDA out of memory' a few steps in. I'm using the RWKV-LM repo. What should I change?",
+      "expected_output": "Suggests OOM mitigations for RWKV training: lower the micro-batch size, enable gradient checkpointing, and use a DeepSpeed ZeRO stage with offload. Also advises a small smoke run first, checking nvidia-smi and the CUDA kernel build, and asking about or confirming the model size and context length instead of guessing.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need to run a language model over entire books and log files, a few hundred thousand tokens each, on a laptop GPU with 8GB of VRAM. Standard attention models blow up in memory. What are my options, and can you set up something that streams through the text in chunks?",
+      "expected_output": "Recommends a recurrent, linear-time model such as RWKV, which carries a fixed-size state across chunks with no KV cache. Shows chunked processing that passes state between chunks, picks a model size that fits 8GB VRAM (for example about 3B in FP16), and states the accuracy trade-offs honestly instead of inventing benchmark numbers.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Show me how to use MambaLMHeadModel from the mamba-ssm package to load a pretrained Mamba-2 checkpoint and generate text, and explain what d_state does.",
+      "expected_output": "Should use the Mamba skill, not RWKV. The answer covers installing mamba-ssm, loading the pretrained model, generation, and the role of d_state in the selective state-space model.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "mamba-architecture"
+    },
+    {
+      "id": 5,
+      "prompt": "My Llama-style transformer is slow at 32K context. How do I turn on FlashAttention and check that the outputs still match the baseline?",
+      "expected_output": "Should use the Flash Attention skill, not RWKV. The answer covers enabling PyTorch scaled_dot_product_attention or flash-attn, profiling the speedup, and comparing outputs against the baseline for numerical agreement.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "optimizing-attention-flash"
+    }
+  ]
+}

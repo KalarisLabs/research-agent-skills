@@ -1,0 +1,38 @@
+{
+  "skill_name": "13c-metabolic-flux",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can I get fluxes from my 13C glucose labeling data? I have MIDs for a few amino acids.",
+      "expected_output": "Does not fit immediately. Asks for or lists the missing inputs: the atom-mapped carbon network and its source, tracer positional isotopomer and purity, fragment carbon assignments, correction history, measurement uncertainty, and flux units or bounds. Checks steady-state evidence and offers the input template.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm working in E. coli on [1,2-13C]glucose and [U-13C]glucose parallel cultures, with corrected MDVs for alanine, serine and glutamate in dataset.json and model.json. Please run the contract check, then fit PPP vs glycolysis split with multistart and give me profile intervals. The fit residual is small but I want to know if the oxidative PPP flux is actually pinned down.",
+      "expected_output": "Runs the contract and feasibility check, then fits with multiple starts and profiles the PPP and glycolysis reactions. States that a small residual does not establish identifiability, reports profile brackets at grid resolution and local rank, and flags flat directions. Records hashes, versions and provenance, and does not invent atom maps or errors.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We fed cells labeled substrate and measured how labeling in TCA intermediates changes over 0, 30, 60, 120 seconds. Can we average the timepoints and estimate pathway rates with your flux tool?",
+      "expected_output": "Says that time-course labeling needs nonstationary (INST) MFA with pool sizes and initial labeling, and that averaging timepoints into this steady-state solver is invalid. Recommends a specialized INST-MFA engine, or checks whether isotopic steady state was reached at a late timepoint.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Run flux balance analysis on my genome-scale SBML model of yeast to maximize biomass, then do a knockout screen with COBRApy.",
+      "expected_output": "Recognizes this as COBRA-style flux balance analysis with a biomass objective and no isotope-labeling data, so it is not a 13C-MFA task. Uses a COBRA/FBA approach instead.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "I have raw GC-MS chromatograms from my labeled samples. Please integrate the peaks and correct for natural isotope abundance.",
+      "expected_output": "Recognizes that raw peak integration and natural-abundance correction are preprocessing steps outside this skill, so it does not run the flux fit. Points to a validated MS preprocessing tool.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

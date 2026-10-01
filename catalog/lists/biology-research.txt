@@ -1,0 +1,12 @@
+anndata
+biopython
+citation-verification
+database-lookup
+nextflow
+pathway-enrichment
+pydeseq2
+scanpy
+scientific-visualization
+scientific-writing
+scvi-tools
+statistical-analysis

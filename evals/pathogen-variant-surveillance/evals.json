@@ -1,0 +1,38 @@
+{
+  "skill_name": "pathogen-variant-surveillance",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "what's the dominant covid variant right now in the US?",
+      "expected_output": "Queries the live SARS-CoV-2 instance (e.g. discovering top lineages in a recent window) rather than answering from memory. Reports instance, data version, window, counts with proportions and intervals, and notes recent weeks are incomplete due to reporting lag.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm finalizing the methods section of our manuscript and have a lineage list in lineages.txt (XFG.1.1, PC.2, XFG.20, PQ.17, plus a couple I typed from memory). Can you check they're all still valid before I submit? Also I need to know if PQ.17 is still going up in the last couple of months in the data.",
+      "expected_output": "Runs the lineage resolution check on every name against live data and reports withdrawn or unknown ones (e.g. PC.2 redesignated, XFG.20 withdrawn), with expansions and exit-code gating. Then runs weekly prevalence with descendants included, checks reporting lag, excludes incomplete weeks, and describes the growth slope as descriptive only, with data version and counts.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We have a qPCR assay targeting the HA gene of avian flu H5 in dairy cattle. Before we order more probes, I want to know if the probe site is still conserved in what's being sequenced lately and which clade/genotype is showing up in cattle.",
+      "expected_output": "Uses the H5N1 instance, reads the declared schema for correct field names, and runs a nucleotide-level mutation profile for the probe region with coverage-aware proportions. Reports the clade (not using a trailing * on an unindexed column), warns about H5N1 reporting lag, and states data version and filters without clinical advice.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a FASTA of 200 SARS-CoV-2 genomes from our hospital sequencing run. Can you assign Pango lineages and call mutations for each of them locally, with QC?",
+      "expected_output": "Recognizes this is local assignment of lineages and mutation calls on the user's own sequences, which is not querying public live surveillance prevalence. Should not use the LAPIS surveillance skill; would use a local tool such as Nextclade or pangolin and ask about reference and input details.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Explain the general difference between antigenic drift and antigenic shift in influenza, and how the Pango naming system was originally conceived.",
+      "expected_output": "Gives a conceptual explanation of drift versus shift and the history and logic of Pango nomenclature. No live data query is needed since no current population state is asked about.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

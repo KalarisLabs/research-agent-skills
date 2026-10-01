@@ -1,0 +1,38 @@
+{
+  "skill_name": "genomic-intelligence",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Find the promoters in the first 20 kb upstream of human MYC using a DNA language model API.",
+      "expected_output": "Uses the skill's promoter task: fetches the MYC sequence via fetch_ensembl_sequence or fetch_region (MCP) or Ensembl REST, then runs the promoter prediction (omitting `model` to use the default). Reports predicted promoter regions and notes the output is for research use only.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have locus.fa, a 60 kb FASTA of a human locus (line-wrapped, with a '>' header). I want expression predicted for the gene at the center in K562 cells, and I only have the public demo, no API key. I tried POSTing to /v1/tasks/expression/predict and got a 422.",
+      "expected_output": "Explains that the REST path needs a GI_API_KEY and suggests the keyless hosted MCP server instead. Diagnoses the 422: strip the '>' header, because it fails the alphabet check. Also supply the required `options.description` (e.g. 'K562 cells') and a `tss_index`, a 0-based offset into the whitespace-stripped sequence with 4599 ≤ tss_index ≤ len−4599, because the sequence is not exactly 9,198 bp. Submit gene-sense sequence, then check `meta.task_specific_counts.scored_window` to confirm the intended window was scored.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I just got a new Drosophila genomic region of about 80 kb with no annotation. I'd like to know which genes are in it, and then get an expression estimate for each one. I don't want to download any model weights or use my GPU.",
+      "expected_output": "Chooses the hosted composite find-genes-then-predict-expression workflow, or runs annotation and then expression for each gene. Notes that a synchronous composite request is limited to 50,000 bp, so an 80 kb region needs `Prefer: respond-async` and polling. Discovers a Drosophila-appropriate model through list_models or GET /v1/tasks/{task}/models rather than inventing an ID. Reads the limit from the OpenAPI spec.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Call variants from my tumor/normal BAM files against GRCh38 and write out a VCF.",
+      "expected_output": "Does not use the genomic-intelligence skill, because variant calling is explicitly out of scope for model inference from sequence. Recommends a local variant-calling pipeline (e.g. GATK Mutect2 or bcftools) on the BAM files.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Align these 200 Illumina reads to the E. coli K-12 reference and give me the mapping rate.",
+      "expected_output": "Does not use the skill, since local read alignment is out of scope. Suggests a local aligner such as BWA-MEM or bowtie2 plus samtools flagstat to get the mapping rate.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

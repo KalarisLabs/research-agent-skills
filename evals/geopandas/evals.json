@@ -1,0 +1,38 @@
+{
+  "skill_name": "geopandas",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "my shapefile has no .prj and I think it's in UTM somewhere, how do I get it into lat/lon for a web map?",
+      "expected_output": "Says not to guess the CRS from coordinate ranges and to find the real CRS from provenance or metadata. Explains that set_crs() only assigns metadata and to_crs() transforms coordinates. Then uses set_crs followed by to_crs, and notes the axis order and the area of use.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running gpd.sjoin(parcels, flood_zones, how='left', predicate='within') on parcels.gpkg and flood_zones.gpkg in EPSG:4326. I get 2.3M rows from 1.8M parcels, and I'm also getting a warning about CRS mismatch. What's wrong, and how do I check it?",
+      "expected_output": "Explains that the extra rows come from one-to-many matches when a parcel falls in several overlapping zones. Recommends auditing duplicate IDs and unmatched or multiplied rows against a stated expected cardinality. Notes that `within` is directional, so contains, intersects or covers may be what was meant. Resolves the CRS mismatch with an explicit to_crs, and flags the planar-versus-geographic issue. May suggest the local spatial_join_audit CLI. Treats parcels as sensitive and reports counts rather than raw coordinates.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have GPS collar tracks for an endangered species and want to put the cleaned locations in a supplementary dataset for my paper. What should I check before I publish?",
+      "expected_output": "Treats exact coordinates and trajectories of a sensitive species as a disclosure risk. Recommends generalizing or coarsening locations, redacting identifiers, and running a privacy and release checklist (sensitive_coordinates_checklist). Also asks for the CRS, a documented export contract and source hashes.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a Sentinel-2 GeoTIFF and want to compute NDVI and clip it to a polygon with rasterio. How do I do this?",
+      "expected_output": "Recognizes this as raster work outside this skill's scope. Uses a raster tool such as rasterio or rioxarray for the band math and the mask or clip, without GeoPandas guidance.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "What's the great-circle distance in km between Tromsø and Cape Town, and how do I compute geodesic ellipsoidal distances for a list of ship track points?",
+      "expected_output": "Recognizes this as a geodesic-only calculation, which is out of scope. Recommends pyproj.Geod or geographiclib for ellipsoidal distance rather than planar GeoPandas operations.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

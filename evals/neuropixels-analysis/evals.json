@@ -1,0 +1,38 @@
+{
+  "skill_name": "neuropixels-analysis",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get my Neuropixels 2.0 data sorted with Kilosort4 through SpikeInterface?",
+      "expected_output": "Gives a SpikeInterface workflow: load the recording, preprocess (highpass filter, bad-channel removal, common reference), save it to a binary file, then call run_sorter with 'kilosort4' using folder=. Recommends a GPU and checking drift first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I recorded from mouse V1 with a Neuropixels 1.0 probe using SpikeGLX. The folder is session01_g0/ with session01_g0_t0.imec0.ap.bin and the .meta file. I loaded it with si.read_spikeglx but the traces look noisy and the sorted units look split across depth, with the probe drifting a lot over the 90 min recording. What should I do before re-running Kilosort4?",
+      "expected_output": "Loads the data with read_spikeglx (stream_id imec0.ap). Applies phase_shift, a highpass filter, bad-channel detection and removal, and a common reference. Estimates and plots motion, then applies a nonrigid motion-correction preset such as nonrigid_accurate or dredge. Saves the preprocessed recording, reruns Kilosort4 (optionally raising nblocks), and reports versions and parameters.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a sorted dataset with a few hundred units from a high-density silicon probe in mouse cortex. Many look like noise or multi-unit activity. How can I automatically decide which are good single neurons, and look at the borderline ones, without writing every rule myself?",
+      "expected_output": "Proposes a curation pipeline: compute quality metrics (SNR, ISI violation ratio, presence ratio, amplitude cutoff) and apply thresholds, then use a pretrained UnitRefine model from Hugging Face (noting trust_model and that it may not transfer between brain areas). Sends uncertain units to visual or AI-assisted review, keeps API keys in the environment rather than hardcoded, and validates against a manually labelled subset.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have 10x Genomics scRNA-seq data from mouse cortex as an h5ad file. How do I cluster the cells and annotate cell types with Scanpy?",
+      "expected_output": "Describes a single-cell RNA-seq workflow (QC, normalization, PCA, neighbors, Leiden clustering, marker-based annotation). It does not use Neuropixels or SpikeInterface tooling.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "I have calcium imaging data from two-photon microscopy of mouse hippocampus. How do I run Suite2p to extract ROIs and deconvolve spikes?",
+      "expected_output": "Explains a Suite2p or CaImAn workflow (registration, ROI detection, neuropil correction, deconvolution). It does not use Neuropixels or extracellular spike sorting.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

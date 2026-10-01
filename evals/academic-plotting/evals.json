@@ -1,0 +1,32 @@
+{
+  "skill_name": "academic-plotting",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need a figure for the overview section of my paper. Here's the method text: 'Our framework has a Retriever that fetches documents, a Reranker that scores them, and a Generator that writes the answer. If the Generator's confidence is low, it sends a query back to the Retriever.' Can you make the diagram?",
+      "expected_output": "Extracts the three components (Retriever, Reranker, Generator) and the feedback loop from the text. Picks the diagram workflow using Gemini, chooses a visual style and palette, and writes a 6-section prompt with exact labels and a dashed feedback arrow. Saves a script at figures/gen_fig_<name>.py that reads GEMINI_API_KEY from the environment, runs 3 attempts, and saves the best as a PNG.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Plot results.csv (columns: step, method, val_loss, with 3 seeds each) as training curves for our ICML submission. 'ours' should stand out, and I need it to fit in a single column. Also the fonts look wrong when I include the PDF in LaTeX.",
+      "expected_output": "Uses matplotlib to make a line plot with mean and confidence bands across seeds, with 'ours' in a distinct color and an Okabe-Ito colorblind-safe palette. Sizes the figure to the ICML single-column width of 3.25 in, using a serif/Times font or usetex to fix the font problem. Exports PDF plus 300 DPI PNG and saves the script at figures/gen_fig_<name>.py.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Here are my numbers: GPT-4 gets 86.4 on MMLU and 67.0 on HumanEval, our model gets 88.1 and 71.2, Llama-3 gets 79.3 and 62.1. What's the best way to show this in the paper, and can you draw it?",
+      "expected_output": "Recognizes 3 methods across 2 benchmarks and automatically chooses a grouped bar chart via matplotlib. Highlights our model with a distinct color, adds value labels, and exports PDF and PNG with a script saved under figures/.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a multi-panel figure for a Nature submission showing microscopy intensity with error bars and some missing data points. Can you audit it for color contrast, check whether the uncertainty display is honest, and plan the journal export (TIFF, 600 dpi)?",
+      "expected_output": "Should hand this to the scientific-visualization skill. It covers the figure audit, uncertainty and missing-data display, contrast review, and journal export planning for a non-ML-conference setting. It does not involve Gemini diagrams or ML-paper chart templates.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scientific-visualization"
+    }
+  ]
+}

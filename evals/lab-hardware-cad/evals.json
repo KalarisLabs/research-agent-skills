@@ -1,0 +1,38 @@
+{
+  "skill_name": "lab-hardware-cad",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need a 3D-printable adapter that holds a standard 96-well plate on my microscope stage insert. Can you model it?",
+      "expected_output": "Routes to labware-adapters, states the family, looks up the SLAS footprint/height/flange in standards.json (not from memory), sizes the pocket at maximum material condition plus clearance, declares interfaces() and checks() gauges, picks a process (FDM) with its tolerance limits, runs gen.py and check.py, and snapshots and views the PNG.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a PDMS mold design for a T-junction droplet generator, 50 µm tall x 100 µm wide channels, 1/16\" OD tubing inlets. Write me a parametric build123d script `droplet_mold_model.py` and export STEP plus a DXF for the photomask. Our mold will be made by SLA printing because the cleanroom is booked.",
+      "expected_output": "Routes to microfluidics, writes a parametric model with named constants including units and INTERFACE/DESIGN blocks, reads fabrication-limits and flags that SLA printing cannot reliably resolve 50 µm features and that resin may inhibit PDMS curing, suggests an alternative or caveats. Names tubing and other non-bundled dimensions as unchecked or asks for the vendor spec, exports STEP/DXF with a manifest, and verifies visually.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We want to hold a 1-inch filter in the beam path of our setup and bolt it to the optical table. I don't know what the hole spacing on our table is. What should we make?",
+      "expected_output": "Routes to optomechanics, does not guess the hole pattern, and asks whether the table is metric (25 mm) or imperial (1 inch) or for the vendor drawing, or looks up both standards. Then proceeds with a parametric mount with a beam corridor clear gauge, checks, and a snapshot once the pattern is confirmed.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I ran a COMSOL simulation of flow in my serpentine microfluidic channel. Can you help me compute the pressure drop and plot velocity profiles with matplotlib?",
+      "expected_output": "Should not use the CAD skill. This is CFD and scientific plotting, which the skill explicitly excludes. A correct answer handles it with a CFD or plotting approach, or says no listed skill applies.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Can you render a 3D ribbon diagram of PDB 1UBQ and color it by secondary structure?",
+      "expected_output": "Should not use the CAD skill. This is molecular structure visualization, not physical lab hardware. It should use a molecular visualization approach or no listed skill.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

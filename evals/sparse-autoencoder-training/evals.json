@@ -1,0 +1,40 @@
+{
+  "skill_name": "sparse-autoencoder-training",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I load a pretrained SAE for GPT-2 small and see which features fire on a sentence?",
+      "expected_output": "Loads GPT-2 small with TransformerLens/HookedSAETransformer and a matching SAE (e.g. release gpt2-small-res-jb) for the chosen layer and hook point. Encodes activations, lists top-activating features per token, and checks reconstruction quality. Notes that API names should be confirmed against the installed SAELens version.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm training an SAE on layer 8 residual stream of Gemma 2B with SAELens (d_model 2048, d_sae 16384). After 20k steps, about 40% of my features are dead and the L0 is ~600. Here's my config: l1_coefficient=2e-4, lr=5e-4, l1_warm_up_steps=0. What should I change and what metrics should I check?",
+      "expected_output": "Diagnoses the problems: no L1 warm-up and an L1 coefficient that is probably mismatched with the sparsity target. Suggests adding L1 warm-up (500-2000 steps), tuning the L1 coefficient, and possibly adjusting lr or resampling and ghost-grad-style fixes. Says to track L0 (target roughly 50-200), CE loss recovered (80-95%), dead feature fraction (<5%) and explained variance (>90%). Does not invent config flags, and asks about or states assumptions about the SAELens version.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to break apart a language model's internal activations into human-understandable concepts, because I think individual neurons are encoding multiple unrelated things at once. How should I go about it, and how do I check the concepts are really meaningful?",
+      "expected_output": "Recommends a sparse dictionary-learning approach (an SAE with a sparse bottleneck, trained on activations from a chosen layer) to address polysemanticity and superposition. Covers choosing the layer, expansion factor, L1 or TopK sparsity, and validation by L0, CE recovery, dead features and manual or Neuronpedia inspection of features. Is honest that interpretability is not guaranteed.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I just need to cache residual stream activations from GPT-2 and do activation patching on layer 6 attention heads to find which heads matter for indirect object identification. No SAEs involved. How do I set that up?",
+      "expected_output": "Points to TransformerLens hooks (run_with_cache, HookPoint patching) for activation patching and circuit analysis, with no SAE training or loading. Recognizes this as a causal intervention task for TransformerLens, not SAELens.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "transformer-lens-interpretability"
+    },
+    {
+      "id": 5,
+      "prompt": "What's the best way to fine-tune Llama 3 8B with QLoRA on my own dataset using limited VRAM?",
+      "expected_output": "Gives QLoRA fine-tuning guidance, such as Unsloth or the PEFT setup, 4-bit quantization and memory settings. Does not involve sparse autoencoders or interpretability.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "unsloth"
+    }
+  ]
+}

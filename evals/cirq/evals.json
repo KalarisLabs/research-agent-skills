@@ -1,0 +1,40 @@
+{
+  "skill_name": "cirq",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I add depolarizing noise to every gate in a Cirq circuit and compare the result to the ideal one?",
+      "expected_output": "Shows applying a noise model (e.g. cirq.ConstantQubitNoiseModel with cirq.depolarize, or circuit.with_noise) and running cirq.DensityMatrixSimulator against the ideal Simulator. Compares the results via fidelity or histograms, and notes that density-matrix simulation scales as O(2^2n).",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running cirq 1.6.1 with cirq-google and my 12-qubit circuit in qaoa_maxcut.py fails on a Willow processor target with 'Operation not supported by device gateset' (a CZ-decomposed circuit with a raw CNOT left in). How do I get it to compile and validate before submitting through Quantum Engine?",
+      "expected_output": "Explains compiling to the device-native gateset with cirq.optimize_for_target_gateset (e.g. cirq_google.SycamoreTargetGateset or the processor's gateset). Also covers validating with device.validate_circuit and checking connectivity via device.metadata.nx_graph. Mentions that Google hardware needs an approved GCP project, and advises testing on a simulator first.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to measure how good the two-qubit gates are on my 20-qubit chip by running random circuits of increasing depth and fitting the fidelity decay. Can you set up the characterization experiment and analysis in Python using Google's stack?",
+      "expected_output": "Proposes a cross-entropy benchmarking (XEB) workflow in Cirq, using cirq.experiments random-circuit XEB with parameter sweeps across depths and qubit pairs. Fits the exponential fidelity decay to extract per-cycle error. Validates on a noisy simulator first, with state and uncertainty reported.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to train a hybrid quantum-classical neural network where a variational circuit sits inside a PyTorch model and gradients flow through it. Which tool should I use and how do I set it up?",
+      "expected_output": "Recognizes this as quantum ML with autodiff and routes to pennylane (QNode with the torch interface), not Cirq. Does not build the solution around Cirq primitives.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pennylane"
+    },
+    {
+      "id": 5,
+      "prompt": "Transpile my circuit for ibm_brisbane using the Qiskit 2.x preset pass manager and submit it with the V2 Sampler in a Runtime session.",
+      "expected_output": "Uses qiskit: generate_preset_pass_manager with the backend target, SamplerV2 inside a Session or Batch on IBM Quantum Runtime. Does not use Cirq.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "qiskit"
+    }
+  ]
+}

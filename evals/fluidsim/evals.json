@@ -1,0 +1,38 @@
+{
+  "skill_name": "fluidsim",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need to run a 2D turbulence sim with fluidsim, 256x256 periodic box. Can you set it up safely?",
+      "expected_output": "Asks for or states equations, units/nondimensionalization, forcing, observables, and acceptance criteria. Selects a solver (e.g. ns2d), inspects generated default params, builds a bounded JSON plan (CPU/RAM/disk/wall-time, CFL, resolution), runs the validator and estimator, and proposes a tiny serial pilot. Does not launch the run.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a run in ~/runs/ns2d_forced_512/ with state_phys_t*.nc files and spectra1D.h5. I tried `params.time_stepping.CFL = 0.5` and got an AttributeError from ParamContainer when restarting with a modified script. I want to restart to t=200 on 8 MPI ranks on our cluster. What's wrong and how do I restart safely?",
+      "expected_output": "Explains that the 0.9 field is `cfl_coef`, not `CFL`, and that ParamContainer rejects undeclared attributes. Recommends `load_for_restart` or `fluidsim-restart --only-check`, and checking solver, grid, versions, forcing state, checksums, target time and output destination. Warns not to use `--modify-params` with untrusted text. Prepares but does not submit the MPI job. Does not call the restart converged or validated.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm simulating forced 3D homogeneous turbulence on a periodic cube in Python, and my collaborators want to know if our 128^3 spectral run is resolved enough to call it DNS. What should I check, and can you look at the output files?",
+      "expected_output": "Refuses to label it DNS from parameters or plots alone. Requires spectral tail and dealiasing evidence, small-scale resolution criteria, CFL and time-step history, budget/dissipation residuals, and grid and time refinement. Inspects outputs with the bounded read-only tools. Reports uncertainty and provenance.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a bunch of FITS images of a galaxy cluster and want to run source extraction and photometry. Which Python tools should I use?",
+      "expected_output": "Recognizes this as astronomy image processing, unrelated to FluidSim pseudospectral CFD. It should not use the fluidsim skill and should use an astronomy or photometry tool, such as astropy or photutils, if one is available.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Write me an OpenFOAM case for lid-driven cavity flow with simpleFoam and a blockMesh file.",
+      "expected_output": "Recognizes that OpenFOAM finite-volume cases are outside FluidSim's periodic pseudospectral Python framework. It does not apply the fluidsim skill and answers from OpenFOAM knowledge, or says it has no matching skill.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

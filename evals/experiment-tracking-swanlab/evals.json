@@ -1,0 +1,40 @@
+{
+  "skill_name": "experiment-tracking-swanlab",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I log loss and accuracy per epoch to SwanLab?",
+      "expected_output": "Shows swanlab.init with project/experiment name, then swanlab.log({\"loss\":..., \"accuracy\":...}) inside the epoch loop, using stable metric names and ending/finishing the run. Notes that the swanlab package must be installed.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning bert-base-uncased on SST-2 with a HuggingFace Trainer in train_sst2.py. I want the loss curves and my learning rate / batch size / seed recorded so I can compare three seeds side by side. The cluster has no internet, so it has to work offline. How should I set this up?",
+      "expected_output": "Uses the SwanLab Transformers callback (or report_to integration) passed to Trainer, calls swanlab.init with config containing lr, batch size and seed, and uses mode=\"local\" with swanlab[dashboard] installed for offline viewing (swanlab watch). Explains comparing the three seed runs in the dashboard, and says to verify API details against the installed version's docs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My lab doesn't want training data going to a third-party SaaS. I need something open-source that I can host on our own server to see training curves and also look at the generated images and audio samples from my GAN next to the loss plots. What should I use and how do I wire it into my PyTorch loop?",
+      "expected_output": "Recommends SwanLab in self-hosted or local mode, shows swanlab.init and swanlab.log with swanlab.Image and swanlab.Audio alongside scalar metrics in the PyTorch loop, mentions installing pillow/soundfile, and does not send data to a managed cloud without confirming.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Add wandb.init and wandb.log to my training script, and set up a hyperparameter sweep with a W&B sweep config.",
+      "expected_output": "Should not use the SwanLab skill; this is Weights & Biases work including sweeps, so the weights-and-biases skill applies.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "weights-and-biases"
+    },
+    {
+      "id": 5,
+      "prompt": "Write a PyTorch Lightning LightningModule and Trainer with ModelCheckpoint and EarlyStopping for my image classifier, using DDP on 4 GPUs. No experiment tracking needed.",
+      "expected_output": "Should not use the SwanLab skill; this is about structuring Lightning training code, callbacks and multi-GPU strategies, which belongs to the pytorch-lightning skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pytorch-lightning"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+diff --git a/skills/analytical-method-validation/scripts/_common.py b/skills/analytical-method-validation/scripts/_common.py
+index 50332f2..6a2f39c 100644
+--- a/skills/analytical-method-validation/scripts/_common.py
++++ b/skills/analytical-method-validation/scripts/_common.py
+@@ -829,7 +829,8 @@ def parse_rows(text: str, path_hint: str | None = None) -> list[dict[str, str]]:
+         for item in payload:
+             if not isinstance(item, dict):
+                 raise InputError("JSON rows must be objects")
+-            rows.append({str(k): "" if v is None else str(v) for k, v in item.items()})
++            # Normalise exactly like the CSV branch so both input formats behave identically.
++            rows.append({str(k).strip(): "" if v is None else str(v).strip() for k, v in item.items()})
+         if not rows:
+             raise InputError("no data rows found")
+         return rows
+@@ -843,6 +844,9 @@ def parse_rows(text: str, path_hint: str | None = None) -> list[dict[str, str]]:
+     for i, row in enumerate(reader):
+         if i >= MAX_ROWS:
+             raise InputError(f"more than {MAX_ROWS} rows")
++        # DictReader stores surplus fields under the None key as a list.
++        if None in row:
++            raise InputError(f"row {i + 1}: has more fields than the header")
+         rows.append({(k or "").strip(): (v or "").strip() for k, v in row.items()})
+     if not rows:
+         raise InputError("no data rows found")

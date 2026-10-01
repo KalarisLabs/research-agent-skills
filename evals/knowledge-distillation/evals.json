@@ -1,0 +1,40 @@
+{
+  "skill_name": "knowledge-distillation",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I shrink my 13B model into a 1B one without losing too much quality?",
+      "expected_output": "Recommends knowledge distillation with a teacher-student setup, explains temperature scaling and the combined soft-target and hard-label loss, and suggests a small trial run first. Asks about task, data, and GPU budget, and notes the licence of the teacher model.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm distilling Llama-2-13B (teacher) into a Llama-2-7B student on my instruction dataset train.jsonl. With forward KL my student produces bland, repetitive outputs. Should I move to reverse KL like MiniLLM, and how do I set the temperature and loss weights? I have 2x A100 80GB.",
+      "expected_output": "Explains that reverse KL is mode-seeking and the skill's claim about it, and sets that against the skill's note on forward KL. Gives a concrete setup: temperature of about 2, alpha weighting of soft and hard loss, and teacher in eval mode with no gradients. Points to the MiniLLM paper (arXiv 2306.08543) and its repo, checks memory and framework versions, runs a short pilot before full training, and does not invent API details.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We spend too much on GPT-4 API calls for our contract-clause classification and extraction. I want an open-source model we host ourselves that behaves similarly on this narrow task. What's a sound plan?",
+      "expected_output": "Proposes response distillation: generate synthetic labelled outputs from GPT-4 on representative documents, fine-tune an open student such as Mistral or LLaMA, and evaluate against held-out gold labels. Checks OpenAI terms of use and the student's licence, and asks about data privacy, data volume, and cost before large API runs. Reports uncertainty honestly.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Inference of my 7B model is too slow. Can I use a small draft model and Medusa heads to speed up decoding without changing the outputs?",
+      "expected_output": "Recognises this is about speculative decoding with draft models and Medusa heads, not training a compressed student, and directs to the speculative-decoding skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "speculative-decoding"
+    },
+    {
+      "id": 5,
+      "prompt": "I have three fine-tuned Mistral-7B checkpoints for code, math, and chat. How can I combine them into one model without retraining?",
+      "expected_output": "Recognises this as weight-space model merging, for example with mergekit using SLERP or TIES, rather than distillation, and directs to the model-merging skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "model-merging"
+    }
+  ]
+}

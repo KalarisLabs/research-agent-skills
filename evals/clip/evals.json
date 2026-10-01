@@ -1,0 +1,40 @@
+{
+  "skill_name": "clip",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I do zero-shot labeling of a folder of photos with CLIP?",
+      "expected_output": "Gives a working CLIP zero-shot workflow: load a model (ViT-B/32 by default), tokenize descriptive text labels, encode and normalize image and text embeddings, and take the softmax of the similarity scores. Notes that labels should be descriptive and that a GPU helps.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have ~40k product photos in /data/catalog/ as JPGs and want a text search box so users can type 'red leather ankle boots' and get the closest images back. I was thinking of ViT-L/14 embeddings stored in FAISS, but my laptop only has 6GB of VRAM and I keep getting CUDA out of memory when I encode in batches of 256. What should I change?",
+      "expected_output": "Recommends reducing the batch size, using fp16, or switching to ViT-B/32 to fit in 6GB. Explains that image embeddings are encoded once, L2-normalized and cached, and indexed in FAISS with an inner-product index. Text queries are encoded the same way. Starts with a small test run first and mentions the model's limits on fine-grained queries.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We're building a moderation pipeline for user-uploaded images on our research forum. We have no labeled data and no budget to train anything. Can we flag violent or explicit images by comparing the pictures against text descriptions of those categories? How would you set it up and how far can we trust it?",
+      "expected_output": "Proposes a zero-shot approach with a joint image-text embedding model (CLIP): encode text prompts for the categories and compute similarity against the images, with thresholds calibrated on a small hand-checked sample. Warns about web-data biases, weak accuracy on subtle cases, the need for human review, and checking the licence. Does not claim accuracy numbers it hasn't measured.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to upload a chest X-ray-style figure to a model and have a back-and-forth conversation about it, asking follow-up questions like 'what is the arrow pointing to?' and getting free-form answers.",
+      "expected_output": "Recognizes that this needs a multi-turn vision-language chat model, not CLIP's embedding similarity. Points to LLaVA (or a similar VLM) and mentions caveats about using such a model for medical images.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "llava"
+    },
+    {
+      "id": 5,
+      "prompt": "Generate a natural-language caption for each of my 500 microscopy images, and use the captions as the description field in my dataset.",
+      "expected_output": "Recognizes that CLIP does not generate text and that captioning needs a generative captioner such as BLIP-2. Recommends BLIP-2 with HuggingFace Transformers or LAVIS, and suggests spot-checking the captions.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "blip-2-vision-language"
+    }
+  ]
+}

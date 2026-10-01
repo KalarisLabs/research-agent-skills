@@ -1,0 +1,40 @@
+{
+  "skill_name": "generate-image",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Make me a cover image for my lab's seminar poster: a moody, photorealistic close-up of a petri dish with glowing bioluminescent bacteria, lots of dark space on the left for the title.",
+      "expected_output": "Uses the generate-image skill with a prompt naming subject, style, lighting and composition (empty space left, no text). Dry-runs or checks the model parameters, notes that the result is an illustration rather than real microscopy, and views the output file before using it.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I need a transparent-background PNG of a stylized mouse silhouette for my slide deck. I tried `--model openai/gpt-image-2 --background transparent` and it got rejected. What should I do?",
+      "expected_output": "Explains that transparent background is not supported on gpt-image-2 and switches to openai/gpt-image-1 (or gpt-image-1-mini) with --background transparent. Suggests --dry-run to validate for free, and notes that the OPENROUTER_API_KEY is needed for the real run.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have field_site.jpg, a photo of our alpine sampling station. Can you change the sky so it looks like sunset and keep everything else the same? Then give me a few variations to choose from.",
+      "expected_output": "Uses the generate-image skill to edit the photo, passing field_site.jpg with -i and a specific edit prompt ('change the sky to sunset colours, keep the rest unchanged'). Picks a model that allows several outputs per request, such as seedream-4.5, or runs the command multiple times. Warns that the image is uploaded to OpenRouter, so it must not be sensitive or unpublished, and checks the result.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Draw a flowchart of our CONSORT participant flow for the manuscript: 412 assessed, 87 excluded, 325 randomized into two arms, with the follow-up and analysis boxes labelled.",
+      "expected_output": "Recognizes this as a technical diagram with exact labels and routes it to scientific-schematics rather than generate-image, because image models garble text.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scientific-schematics"
+    },
+    {
+      "id": 5,
+      "prompt": "Make an infographic summarizing global antibiotic resistance statistics with a timeline and key numbers I can post on social media.",
+      "expected_output": "Routes to the infographics skill, which handles data-driven infographics with researched facts and quality review, and does not use generate-image.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "infographics"
+    }
+  ]
+}

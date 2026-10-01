@@ -1,0 +1,40 @@
+{
+  "skill_name": "huggingface-accelerate",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I make my train.py run on 4 GPUs without rewriting it?",
+      "expected_output": "Explains wrapping the script with Accelerator: create the accelerator, call prepare() on model, optimizer and dataloader, replace loss.backward() with accelerator.backward(loss), and drop manual .to(device). Then run `accelerate config` and `accelerate launch train.py`, with a smoke run first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a ResNet-50 fine-tuning script, finetune_cifar.py, with a plain loop: model.cuda(), loss.backward(), and a DataLoader with batch_size=64. Moving it to 2 A100s gives me 'RuntimeError: Expected all tensors to be on the same device' after I started using DDP. I also want bf16 and an effective batch size of 256. Can you fix it?",
+      "expected_output": "Diagnoses the manual .cuda()/.to(device) calls conflicting with distributed placement and removes them in favor of accelerator.prepare(). Enables bf16 via Accelerator(mixed_precision='bf16') or config. Sets gradient_accumulation_steps using the formula batch_size * num_gpus * accumulation (64*2*2=256), uses accelerator.accumulate(model), and launches with accelerate launch.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My 7B model doesn't fit in memory on a single 24GB card, and I want the same training code to also run on my colleague's MacBook for debugging. What's the most painless way to set this up so I don't maintain two scripts?",
+      "expected_output": "Recommends a hardware-agnostic wrapper (Accelerate) with a sharding backend such as DeepSpeed ZeRO or FSDP, with offload as needed, configured through accelerate config so the same script runs on CUDA and Apple MPS/CPU. Notes that a 7B model will likely not train on a laptop and that the debug run should use a tiny model or subset. Also recommends a smoke run and checking the installed versions.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm restructuring my training code into a LightningModule with a ModelCheckpoint and EarlyStopping callback and W&B logging. How should I organize it?",
+      "expected_output": "Recommends PyTorch Lightning (LightningModule, Trainer, callbacks, loggers) and does not suggest wrapping the loop with Accelerate.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pytorch-lightning"
+    },
+    {
+      "id": 5,
+      "prompt": "I need to train a 70B model across 16 nodes using tensor and pipeline parallelism with Megatron-Core. How do I pick TP/PP/DP sizes and tune micro-batch size?",
+      "expected_output": "Directs the user to Megatron-Core parallelism guidance: choosing TP/PP/DP/CP sizes, micro-batch tuning, and launch setup. This is not an Accelerate wrapper task.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "training-llms-megatron"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "skill_name": "pyopenms",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run untargeted feature detection on a DDA mzML file in Python?",
+      "expected_output": "Recommends the skill's detect_features_metabo.py (or the MassTraceDetection → ElutionPeakDetection → FeatureFindingMetabo pipeline), starts on a small subset, and states the parameters used. Does not use the removed FeatureFinder('centroided') API.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 12 plasma metabolomics runs (QC_01.mzML ... S10.mzML) from a Q Exactive in positive mode. I need a samples-by-features intensity table across all runs. My old script calling FeatureFinder('centroided') now crashes after I upgraded to pyopenms 3.5. Can you fix this and also group adducts like [M+Na]+ with [M+H]+ before annotating against HMDB?",
+      "expected_output": "Explains FeatureFinder('centroided') was removed and uses the metabolomics pipeline (detect_features_metabo.py / align_link_quantify.py) with RT alignment and consensus linking. Uses MetaboliteFeatureDeconvolution with Elements:Charge:Probability adduct syntax (e.g. H:+:0.4), not bracket notation. Runs accurate_mass_search.py and notes the missing HMDB2StructMapping.tsv in the pip wheel. Outputs a consensus-to-matrix CSV.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I ran a database search on my tryptic HeLa digest and got an idXML file. I want to rescore it, keep only peptide hits at 1% FDR, and make sure each spectrum only keeps its best hit. I also have the FASTA I searched against.",
+      "expected_output": "Uses process_identifications.py or the equivalent API to re-index against the FASTA, estimate FDR/q-values, and filter at 1% FDR with best-hit-per-spectrum. Notes that PeptideIdentificationList is required for idXML I/O. Exports idXML and CSV and reports the counts before and after filtering.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have an MGF of MS/MS spectra from a natural product extract and a reference library in .msp. Compute cosine and modified cosine similarity scores and give me the top 5 library matches per query spectrum.",
+      "expected_output": "Recognizes this is MS/MS spectral similarity and library matching, which belongs to matchms. It does not use pyopenms feature detection or identification scripts.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "matchms"
+    },
+    {
+      "id": 5,
+      "prompt": "Run differential expression between treated and control on my bulk RNA-seq count matrix with DESeq2 and make a volcano plot.",
+      "expected_output": "Recognizes this is RNA-seq differential expression, unrelated to mass spectrometry. It does not invoke pyopenms and should use a bulk RNA-seq or DESeq2 skill, or none.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

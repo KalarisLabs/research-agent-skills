@@ -1,0 +1,40 @@
+{
+  "skill_name": "llava",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run LLaVA on a folder of microscopy screenshots and ask it questions about each one?",
+      "expected_output": "Gives a LLaVA workflow: install, load a checkpoint such as LLaVA-v1.5-7B, run the same question over each image sequentially, and note the GPU requirement. Mentions checking VRAM first, testing on one image before the whole folder, and that outputs may hallucinate and need checking.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm on a single 24 GB RTX 4090 and want to run llava-v1.5-13b on scanned lab notebook pages from notebooks_2024/. Loading it in fp16 gives 'CUDA out of memory'. What should I change, and how well will it read the handwriting?",
+      "expected_output": "Explains that 13B in FP16 needs about 28 GB, so it won't fit in 24 GB. Recommends 4-bit quantization (about 8 GB) or the 7B model, and suggests lowering resolution. Warns that LLaVA struggles with small text and fine print, so handwriting transcription will be unreliable. Suggests testing on one page first and does not invent flags.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want an open-source assistant that can look at a chest X-ray figure from a paper and then answer follow-up questions about it over several turns, running locally. What do you suggest, and how would I set it up?",
+      "expected_output": "Proposes an open vision-language chat model such as LLaVA with multi-turn conversation state. Sets it up locally with GPU and licence checks. Cautions that it is not clinically validated and may hallucinate, and asks about the data source (patient data) before proceeding.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need zero-shot classification of 5,000 wildlife camera-trap images into 12 species labels, and I want to rank images by similarity to a text query like 'fox at night'.",
+      "expected_output": "Recommends CLIP for zero-shot classification and text-image similarity retrieval, using image and text embeddings and cosine similarity. Does not use LLaVA, which is slower and designed for conversation.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "clip"
+    },
+    {
+      "id": 5,
+      "prompt": "Using Hugging Face Transformers, generate short one-sentence captions for my 2,000 product photos with BLIP-2 OPT-2.7b and extract image-text matching scores.",
+      "expected_output": "Uses the BLIP-2 skill with Blip2Processor and Blip2ForConditionalGeneration, with batched caption generation and image-text matching. Does not use LLaVA's conversational pipeline.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "blip-2-vision-language"
+    }
+  ]
+}

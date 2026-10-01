@@ -1,0 +1,18 @@
+{
+  "skill_name": "cover-letter-to-editor",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a cover letter submitting our manuscript to Science, with suggested reviewers.",
+      "expected_output": "One-page letter: finding with number, why this journal, declarations, conflict-free reviewers",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Write a job application cover letter for a postdoc position.",
+      "expected_output": "Skill not used",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

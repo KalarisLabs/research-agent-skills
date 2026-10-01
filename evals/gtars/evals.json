@@ -1,0 +1,39 @@
+{
+  "skill_name": "gtars",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get the union of two peak BED files into one non-overlapping set with gtars?",
+      "expected_output": "Uses gtars Python RegionSet from the submodule import, loads both files after checking the local paths exist, then concatenates and calls reduce(). Notes that reduce merges adjacent as well as overlapping intervals, and that strand is dropped.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 24 ATAC-seq replicate peak files (hg38, narrowPeak trimmed to BED) in ./peaks/ from 8 donors. I want a consensus peak set to use as the universe for tokenizing cells for a scEmbed-style model, and then train/val/test splits. I tried `from gtars import RegionSet` and got an ImportError. Can you plan this out?",
+      "expected_output": "Explains that imports come from submodules, not the gtars top level. Recommends validating BED coordinates (0-based half-open), contigs and assembly first. Says to freeze splits by donor and build the consensus/universe from training donors only, to avoid leakage. Uses the consensus binding and plans a tokenizer from a local universe, with no implicit network access or cache writes.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a few thousand enhancer regions and a set of GWAS hit windows. I want to know which enhancers sit nearest each hit, plus the stretches of genome not covered by either list. Some of my files use '1' and others use 'chr1' for contigs. What's the safest way to go about it?",
+      "expected_output": "Identifies closest and gaps as the relevant interval operations in gtars. Warns that '1' and 'chr1' are not interchangeable, so contig naming must be reconciled in a separately reviewed step rather than guessed. Requires a recorded assembly and chromosome sizes, and checks coordinates and sorting before running. Pilots on a small file first.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to compute per-base pileup depth from a CRAM file and run overlap joins directly on Polars DataFrames, reading BED and VCF lazily. What should I use?",
+      "expected_output": "Recognizes this as a polars-bio task (Polars DataFrames, per-base depth, CRAM/VCF I/O) and not a gtars task. Recommends polars-bio.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "polars-bio"
+    },
+    {
+      "id": 5,
+      "prompt": "Call variants from my aligned BAM files with samtools and bcftools and filter the VCF by quality.",
+      "expected_output": "Recognizes this as general BAM/VCF processing, which is outside gtars. Recommends samtools/bcftools directly and does not use the gtars skill.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

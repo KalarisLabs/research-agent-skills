@@ -1,0 +1,39 @@
+{
+  "skill_name": "bids",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get all the T1w files for sub-03 out of my BIDS folder in Python?",
+      "expected_output": "Uses PyBIDS BIDSLayout on the dataset root and calls layout.get() with subject='03', suffix='T1w' (and extension/return_type as needed). Shows how to get file paths and mentions that BIDSLayout indexes the dataset.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have DICOMs from a Siemens Prisma in sourcedata/dicom/sub-101/ses-1 with a T1 MPRAGE, two resting-state BOLD runs and an AP/PA spin-echo fieldmap pair. I ran dcm2bids_helper and now need a config so the output lands as sub-101_ses-1_task-rest_run-01_bold.nii.gz and so on, with the fieldmaps getting IntendedFor. The conversion keeps failing with 'No matching description' for the fieldmaps. What should I do?",
+      "expected_output": "Explains the dcm2bids workflow: inspect the helper's tmp_dcm2bids/helper JSON sidecars, write config descriptions with datatype/suffix/criteria (SeriesDescription or ProtocolName) that match the fieldmap series, and set entities (dir-AP/PA) and IntendedFor/sidecar_changes. Mentions running dcm2bids with -d -p -s -c, then validating the result with the BIDS validator.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm about to put my EEG study with 40 participants on OpenNeuro. Its folders and files are named in my own lab convention and I have no idea what metadata I need. What do I need to do first so it's accepted?",
+      "expected_output": "Recommends restructuring into BIDS: sub-/ses-/eeg directories, BIDS filenames, dataset_description.json (Name, BIDSVersion), participants.tsv, README, and per-recording sidecars (TaskName, SamplingFrequency, EEGReference, PowerLineFrequency), channels.tsv and events.tsv. Then run the bids-validator, fix errors, and use .bidsignore for non-BIDS files.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have Neuropixels 2.0 recordings in SpikeGLX format. How do I run Kilosort and compute unit quality metrics like ISI violations and amplitude cutoff?",
+      "expected_output": "Recognizes this as extracellular Neuropixels spike sorting and QC analysis, not BIDS organization. It should use neuropixels-analysis (SpikeInterface/Kilosort, quality metrics) rather than the bids skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "neuropixels-analysis"
+    },
+    {
+      "id": 5,
+      "prompt": "Write a Python script that loads my fMRI NIfTI file and runs a first-level GLM with nilearn, then plots a thresholded z-map.",
+      "expected_output": "Provides nilearn FirstLevelModel code with design matrix and contrast computation, thresholding, and plotting. It does not need BIDS organization or validation tooling.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

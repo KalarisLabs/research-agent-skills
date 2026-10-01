@@ -1,0 +1,40 @@
+{
+  "skill_name": "guidance",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I force a local Llama model to only output a date like 2024-03-15? Regex-constrained decoding please.",
+      "expected_output": "Uses Guidance with a regex constraint (gen(regex=...)) on a local backend such as Transformers or llama.cpp, shows a date pattern like \\d{4}-\\d{2}-\\d{2}, and explains that invalid tokens are masked during generation. Suggests testing with a small known input first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm labeling clinical trial abstracts in abstracts.csv into exactly four categories (RCT, cohort, case report, review) using a llama.cpp GGUF model on my workstation. Sometimes the model returns 'Randomized study' or adds explanations and my pandas parsing breaks. How can I make it only ever emit one of the four labels?",
+      "expected_output": "Recommends Guidance select() with the four fixed labels on the llama.cpp backend so output is guaranteed to be one of them, with a loop over the CSV rows. Includes a check on a small labeled subset and notes the installed version's API should be verified.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want a model to produce SQL-like queries for my lab's sample database, and the output must always parse under a specific grammar, no syntax errors ever. I also want it to first think of the table to use, then fill in the query, in several steps with Python if-statements in between. How should I build this?",
+      "expected_output": "Proposes Guidance with a context-free grammar and @guidance functions combining multi-step generation with Python control flow, using a backend that supports grammar constraints (local models preferred). Notes that hosted API backends may have limited grammar support and asks about the target grammar and model.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a Pydantic model for extracting patient-reported outcomes from notes. If validation fails I want the LLM to automatically retry with the error message fed back. What's the best way to set this up with the Anthropic API?",
+      "expected_output": "Recognizes this as a Pydantic response model with validation-error retries, which is Instructor's use case, not Guidance. Recommends Instructor with max_retries and a validator.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "instructor"
+    },
+    {
+      "id": 5,
+      "prompt": "I need to guarantee that my vLLM-served model returns JSON matching a Pydantic schema, using an FSM-based approach and integer/float type constraints. Which library should I use?",
+      "expected_output": "Identifies this as schema-driven structured generation with Pydantic and FSM sampling on vLLM, which is Outlines' domain, and recommends Outlines rather than Guidance.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "outlines"
+    }
+  ]
+}

@@ -1,0 +1,558 @@
+{
+  "router": "bm25",
+  "hit@1": 1.0,
+  "hit@3": 1.0,
+  "false_trigger": 0.12,
+  "cases": [
+    {
+      "skill": "abstract-and-title",
+      "prompt": "Cut my 320-word abstract to 250 words for PLOS ONE and suggest three better titles.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "abstract-and-title",
+        "plos",
+        "nature-portfolio"
+      ]
+    },
+    {
+      "skill": "abstract-and-title",
+      "prompt": "Write the methods section describing our ELISA protocol.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "analytical-method-validation",
+        "peer-review",
+        "cell-press"
+      ]
+    },
+    {
+      "skill": "acm-sigconf",
+      "prompt": "Set up my CHI 2026 submission in acmart with anonymous review mode and CCS concepts.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "acm-sigconf",
+        "ara-compiler",
+        "literature-review"
+      ]
+    },
+    {
+      "skill": "acm-sigconf",
+      "prompt": "Format my paper for IEEE Transactions.",
+      "should_trigger": false,
+      "rank": 4,
+      "top": [
+        "ieee-transactions",
+        "apa7",
+        "systems-paper-writing"
+      ]
+    },
+    {
+      "skill": "apa7",
+      "prompt": "Convert my reference list to APA 7th edition and fix the heading levels in my thesis.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "apa7",
+        "literature-review",
+        "scientific-slides"
+      ]
+    },
+    {
+      "skill": "apa7",
+      "prompt": "Format my bibliography in IEEE numbered style.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "ieee-transactions",
+        "science-aaas",
+        "citation-management"
+      ]
+    },
+    {
+      "skill": "arxiv-submission",
+      "prompt": "arXiv failed to compile my paper, help me prepare the source upload.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "arxiv-submission",
+        "firecrawl-research-index",
+        "research-lookup"
+      ]
+    },
+    {
+      "skill": "arxiv-submission",
+      "prompt": "Find recent arXiv papers on diffusion models.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "paper-lookup",
+        "paperzilla",
+        "paper-corpus-rag"
+      ]
+    },
+    {
+      "skill": "bibtex-hygiene",
+      "prompt": "My refs.bib has duplicates and BERT shows up lowercase in the bibliography. Clean it.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "bibtex-hygiene",
+        "citation-management",
+        "literature-review"
+      ]
+    },
+    {
+      "skill": "bibtex-hygiene",
+      "prompt": "Convert my EndNote library to Zotero.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "reference-manager-interop",
+        "pyzotero",
+        "markitdown"
+      ]
+    },
+    {
+      "skill": "cell-press",
+      "prompt": "Write highlights, an eTOC blurb and the Key Resources Table for our Cell Reports submission.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "cell-press",
+        "abstract-and-title",
+        "clinical-reports"
+      ]
+    },
+    {
+      "skill": "cell-press",
+      "prompt": "Format for Nature Communications.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "nature-portfolio",
+        "springer-lncs",
+        "reproducibility-statement"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "ChatGPT wrote my references. Check that every entry in references.bib actually exists.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "scientific-writing",
+        "apa7"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Add page numbers to my table of contents.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "exa-search",
+        "paperclip",
+        "parallel-web"
+      ]
+    },
+    {
+      "skill": "cover-letter-to-editor",
+      "prompt": "Write a cover letter submitting our manuscript to Science, with suggested reviewers.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "cover-letter-to-editor",
+        "rebuttal-and-response-to-reviewers",
+        "science-aaas"
+      ]
+    },
+    {
+      "skill": "cover-letter-to-editor",
+      "prompt": "Write a job application cover letter for a postdoc position.",
+      "should_trigger": false,
+      "rank": 1,
+      "top": [
+        "cover-letter-to-editor",
+        "rebuttal-and-response-to-reviewers",
+        "long-context"
+      ]
+    },
+    {
+      "skill": "elsevier-cas",
+      "prompt": "Prepare my manuscript for an Elsevier journal using the CAS double-column template with highlights and a CRediT statement.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "elsevier-cas",
+        "abstract-and-title",
+        "cell-press"
+      ]
+    },
+    {
+      "skill": "elsevier-cas",
+      "prompt": "Submit to PLOS ONE.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "plos",
+        "adaptyv",
+        "pacsomatic"
+      ]
+    },
+    {
+      "skill": "firecrawl-research-index",
+      "prompt": "Use Firecrawl Research to find recent papers on CRISPR base editing off-target effects, and give me a short list with source IDs and abstracts I can screen.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "firecrawl-research-index",
+        "paper-lookup",
+        "abstract-and-title"
+      ]
+    },
+    {
+      "skill": "firecrawl-research-index",
+      "prompt": "In Firecrawl's paper index, inspect arxiv:1706.03762, find passages about the attention mechanism, then look for related work that cites it.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "firecrawl-research-index",
+        "paper-corpus-rag",
+        "paper-lookup"
+      ]
+    },
+    {
+      "skill": "firecrawl-research-index",
+      "prompt": "I have 300 PDFs in a local folder. Build an index so I can chat with my own paper collection and cite exact pages.",
+      "should_trigger": false,
+      "rank": 4,
+      "top": [
+        "paper-corpus-rag",
+        "liteparse",
+        "markitdown"
+      ]
+    },
+    {
+      "skill": "firecrawl-research-index",
+      "prompt": "Run a complete PRISMA systematic review of treatments for adolescent anxiety, with database strategies, screening logs, risk of bias, and a flow diagram.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "systematic-review-prisma",
+        "literature-review",
+        "scientific-critical-thinking"
+      ]
+    },
+    {
+      "skill": "firecrawl-research-index",
+      "prompt": "Use Firecrawl to scrape the home page of a conference website and return its schedule.",
+      "should_trigger": false,
+      "rank": 1,
+      "top": [
+        "firecrawl-research-index",
+        "parallel-web",
+        "liteparse"
+      ]
+    },
+    {
+      "skill": "ieee-transactions",
+      "prompt": "Format my paper with IEEEtran for IEEE Transactions on Neural Networks and add index terms.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "ieee-transactions",
+        "networkx",
+        "torch-geometric"
+      ]
+    },
+    {
+      "skill": "ieee-transactions",
+      "prompt": "Write an APA-style literature review.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "literature-review",
+        "rebuttal-and-response-to-reviewers",
+        "folklore-variant-evidence"
+      ]
+    },
+    {
+      "skill": "nature-portfolio",
+      "prompt": "Reformat our paper for Nature: summary paragraph, Methods, Extended Data and reporting summary.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "nature-portfolio",
+        "cell-press",
+        "bgpt-paper-search"
+      ]
+    },
+    {
+      "skill": "nature-portfolio",
+      "prompt": "Write a Science Report.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "science-aaas",
+        "systematic-review-prisma",
+        "hugging-science"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "I have 300 PDFs of papers. Let me ask questions and get answers with citations to the exact passages.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "paper-lookup",
+        "firecrawl-research-index"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Train a new language model from scratch.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "sentencepiece",
+        "training-llms-megatron",
+        "ray-train"
+      ]
+    },
+    {
+      "skill": "plos",
+      "prompt": "What do I need for the PLOS ONE data availability statement and ethics statement?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "plos",
+        "reproducibility-statement",
+        "usfiscaldata"
+      ]
+    },
+    {
+      "skill": "plos",
+      "prompt": "Format for IEEE Access.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "ieee-transactions",
+        "lambda-labs-gpu-cloud",
+        "modal-serverless-gpu"
+      ]
+    },
+    {
+      "skill": "rebuttal-and-response-to-reviewers",
+      "prompt": "We got major revisions with 3 reviewers. Help me write the response letter.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "rebuttal-and-response-to-reviewers",
+        "cover-letter-to-editor",
+        "systems-paper-writing"
+      ]
+    },
+    {
+      "skill": "rebuttal-and-response-to-reviewers",
+      "prompt": "Review this paper as a peer reviewer.",
+      "should_trigger": false,
+      "rank": 1,
+      "top": [
+        "rebuttal-and-response-to-reviewers",
+        "peer-review",
+        "systems-paper-writing"
+      ]
+    },
+    {
+      "skill": "reference-manager-interop",
+      "prompt": "Convert my Mendeley RIS export to BibTeX for Overleaf.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "reference-manager-interop",
+        "pyzotero",
+        "bibtex-hygiene"
+      ]
+    },
+    {
+      "skill": "reference-manager-interop",
+      "prompt": "Verify these citations exist.",
+      "should_trigger": false,
+      "rank": 5,
+      "top": [
+        "citation-verification",
+        "literature-review",
+        "apa7"
+      ]
+    },
+    {
+      "skill": "reproducibility-statement",
+      "prompt": "Fill in the NeurIPS checklist and write our data and code availability statements.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "reproducibility-statement",
+        "usfiscaldata",
+        "ml-paper-writing"
+      ]
+    },
+    {
+      "skill": "reproducibility-statement",
+      "prompt": "Make my figures colorblind-friendly.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "academic-plotting",
+        "scientific-visualization",
+        "matplotlib"
+      ]
+    },
+    {
+      "skill": "research-knowledge-graph",
+      "prompt": "Build a citation network from my Zotero library and find the most influential and bridging papers.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "research-knowledge-graph",
+        "pyzotero",
+        "paper-corpus-rag"
+      ]
+    },
+    {
+      "skill": "research-knowledge-graph",
+      "prompt": "Draw a flowchart of my experimental protocol.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "protocolsio-integration",
+        "bgpt-paper-search",
+        "opentrons-integration"
+      ]
+    },
+    {
+      "skill": "research-skill-creator",
+      "prompt": "Turn our lab's qPCR analysis workflow into a reusable agent skill and contribute it.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "research-skill-creator",
+        "anndata",
+        "statistical-analysis"
+      ]
+    },
+    {
+      "skill": "research-skill-creator",
+      "prompt": "Analyze my qPCR data.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "networkx",
+        "neuropixels-analysis",
+        "statistical-analysis"
+      ]
+    },
+    {
+      "skill": "science-aaas",
+      "prompt": "Prepare our manuscript as a Science Report with a one-sentence summary.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "science-aaas",
+        "nature-portfolio",
+        "cell-press"
+      ]
+    },
+    {
+      "skill": "science-aaas",
+      "prompt": "Format for Cell.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "cell-press",
+        "cellxgene-census",
+        "depmap"
+      ]
+    },
+    {
+      "skill": "springer-lncs",
+      "prompt": "Prepare the LNCS camera-ready for our MICCAI paper with ORCIDs.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "springer-lncs",
+        "ml-paper-writing",
+        "citation-verification"
+      ]
+    },
+    {
+      "skill": "springer-lncs",
+      "prompt": "Submit to an ACM conference.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "acm-sigconf",
+        "ieee-transactions",
+        "presenting-conference-talks"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Plan a systematic review of exercise interventions for depression and make the PRISMA flow diagram.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "systematic-review-prisma",
+        "pyvene-interventions",
+        "literature-review"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Summarize this one paper for me.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "nature-portfolio",
+        "plos",
+        "ml-paper-writing"
+      ]
+    },
+    {
+      "skill": "unslop-academic-writing",
+      "prompt": "My introduction sounds like ChatGPT wrote it: delve, pivotal role, tapestry. Rewrite it so it reads like a human researcher.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "unslop-academic-writing",
+        "model-pruning",
+        "datalad"
+      ]
+    },
+    {
+      "skill": "unslop-academic-writing",
+      "prompt": "Remove the AI slop and em dashes from this thesis chapter without changing the claims.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "unslop-academic-writing",
+        "apa7",
+        "bibtex-hygiene"
+      ]
+    },
+    {
+      "skill": "unslop-academic-writing",
+      "prompt": "Translate my abstract into Spanish.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "abstract-and-title",
+        "whisper",
+        "cell-press"
+      ]
+    }
+  ]
+}

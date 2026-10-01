@@ -1,0 +1,40 @@
+{
+  "skill_name": "literature-review",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you do a systematic review of intermittent fasting and cognitive decline in older adults? I need a PDF at the end.",
+      "expected_output": "Uses the literature-review workflow: defines question and inclusion/exclusion criteria, searches at least 3 sources (e.g., PubMed, Semantic Scholar, preprint servers) while recording search strings and dates, screens studies with PRISMA counts, synthesizes by theme, verifies citations, and produces markdown plus PDF with a PRISMA flow figure.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm writing chapter 2 of my thesis on transformer-based protein language models for variant effect prediction. I've got about 40 papers in refs/plm_papers.bib from arXiv and bioRxiv. Draft the literature review section in Vancouver style, group it by theme rather than paper-by-paper, flag research gaps, and run verify_citations.py on the bibliography because my advisor caught two wrong DOIs last time.",
+      "expected_output": "Organizes the review thematically (not study by study), identifies gaps, formats the bibliography in Vancouver style, runs scripts/verify_citations.py on the references, reports any DOI mismatches or unverifiable entries honestly, and outputs markdown/PDF with the required schematic figure.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My lab wants to know what's actually known about microplastics crossing the blood-brain barrier and where the evidence is thin. Nobody has mapped this out yet. Can you pull together what's out there and give us something we can circulate?",
+      "expected_output": "Recognizes this as a scoping/literature synthesis task without being told the skill name. Searches multiple databases including preprints, documents queries, screens and extracts data, synthesizes themes, highlights evidence gaps and quality limitations, verifies citations, and produces a circulable markdown/PDF review.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write a PROSPERO-ready protocol for my meta-analysis of SGLT2 inhibitors and heart failure, with Embase and Scopus search strings and a dual-screening plan.",
+      "expected_output": "Should not use literature-review. It should use systematic-review-prisma, which covers protocol registration, reproducible Embase/Scopus search strings, and screening organization for PRISMA 2020 meta-analyses.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "systematic-review-prisma"
+    },
+    {
+      "id": 5,
+      "prompt": "Here is a DOI, 10.1038/s41586-021-03819-2. Get me the title, authors, and abstract, and tell me whether there's an open-access PDF.",
+      "expected_output": "Should not use literature-review since this is a single-paper lookup. It should use paper-lookup (or citation-management for metadata extraction) to resolve the DOI via Crossref/Unpaywall and return the metadata and OA link.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "paper-lookup"
+    }
+  ]
+}

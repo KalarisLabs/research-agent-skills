@@ -1,0 +1,39 @@
+{
+  "skill_name": "nemo-curator",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I dedupe a big text corpus on GPUs with NeMo Curator?",
+      "expected_output": "Explains the staged approach: exact dedup, then fuzzy (MinHash/LSH) and optionally semantic dedup, using GPU/RAPIDS with a Dask or multi-GPU cluster. Notes that API details should be checked against the installed version, and suggests testing on a small sample first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have about 2TB of Common Crawl WARC-derived JSONL shards in /data/cc/*.jsonl with 'text' and 'url' fields. I need to drop low-quality docs, redact emails and phone numbers, and remove near-duplicates before pretraining a 7B model. I have 4 A100 80GB nodes. Can you set up a NeMo Curator pipeline and write the output as Parquet?",
+      "expected_output": "Checks environment (GPU memory, Curator version, input format) and confirms parameters such as thresholds with the user. Builds a pipeline with heuristic quality filters, PII redaction, and exact and fuzzy dedup. Runs it on a small subset first, writes Parquet output, validates results by inspecting samples and counts, and reports versions and parameters used without fabricating numbers.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I scraped millions of web pages for pretraining a language model. A lot of it is boilerplate, repeated pages, junk, and has personal info in it. What's the best way to get this into shape using my multi-GPU server before training?",
+      "expected_output": "Recommends a GPU-accelerated curation workflow covering heuristic quality filtering, exact/fuzzy/semantic deduplication, PII redaction, and optional classifier or toxicity filtering, using a GPU data curation toolkit such as NeMo Curator. Asks about data format, GPU resources, and thresholds, and recommends a small pilot run first.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm on a laptop with no GPU and want to deduplicate and filter a 50GB text dataset using an open-source CPU pipeline. Which tool should I use?",
+      "expected_output": "Recommends a CPU-based tool such as datatrove or dolma instead of the GPU-based NeMo Curator, and explains why: there is no GPU available. Does not walk through a NeMo Curator setup.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "I need to add runtime safety rails to my chatbot so it refuses to discuss off-topic or harmful subjects, using Colang flows.",
+      "expected_output": "Points to NeMo Guardrails and Colang 2.0 flows for runtime conversation rails. Does not use data curation or dataset filtering.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "nemo-guardrails"
+    }
+  ]
+}

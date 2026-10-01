@@ -1,0 +1,40 @@
+{
+  "skill_name": "polars",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "my pandas groupby is painfully slow, how do I convert it to polars?",
+      "expected_output": "Shows the polars equivalent using group_by().agg() with pl.col expressions, notes there is no index and typing is strict, and suggests lazy/scan for speed. Checks the installed polars version and asks about or states assumptions on the data rather than inventing an API.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 40 GB of Parquet files in data/trips/*.parquet (columns: trip_id, vendor, pickup_ts, fare, distance_km). I need average fare per km by vendor and by hour of day, and the script keeps getting killed with a MemoryError when I use pd.read_parquet. Can you rewrite it?",
+      "expected_output": "Rewrites using pl.scan_parquet on the glob with lazy expressions (dt.hour, fare/distance_km, group_by on vendor and hour), selecting only needed columns for projection pushdown, and collecting with the streaming engine. Does a small sample run first, handles zero or null distances explicitly, and reports the versions used.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got sensor logs from several lab instruments in separate CSVs. I want to join them on timestamp, compute a rolling 5-minute mean per instrument without a Python loop, and write one compact columnar file I can reload quickly later. What's a fast, clean way to do this?",
+      "expected_output": "Recommends Polars even though it is not named. Covers reading CSVs with a lazy scan, parsing the timestamp dtype, a join or join_asof on timestamp, rolling aggregation with over() or group_by_dynamic per instrument, and writing Parquet. Asks how to handle mismatched timestamps and missing values, or states its assumption.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "My pandas/NumPy analysis of a 2 TB dataset has to run across a cluster of 50 machines. How do I scale it out with minimal code changes?",
+      "expected_output": "Recommends dask for distributed scaling of existing pandas/NumPy code across a cluster, not polars, which is single-machine. Mentions Dask DataFrame or Dask arrays and partitioning.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "dask"
+    },
+    {
+      "id": 5,
+      "prompt": "I need to run batch inference with a PyTorch model over millions of images on a GPU cluster, with streaming data loading to keep the GPUs busy. How should I set up the data pipeline?",
+      "expected_output": "Points to Ray Data for streaming batch inference across CPU/GPU workers with image loading, not a DataFrame library like polars.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ray-data"
+    }
+  ]
+}

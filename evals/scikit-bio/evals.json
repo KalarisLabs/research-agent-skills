@@ -1,0 +1,40 @@
+{
+  "skill_name": "scikit-bio",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run PERMANOVA on a distance matrix in skbio?",
+      "expected_output": "Shows loading or building a DistanceMatrix and calling skbio.stats.distance.permanova with a grouping vector or metadata column and a permutations count (999 or more). Interprets the pseudo-F and p-value, and suggests pairing with PERMDISP because PERMANOVA is sensitive to dispersion differences.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a QIIME2 export, feature-table.biom, plus a rooted tree.nwk from the same ASVs and metadata.tsv with a 'treatment' column. I need Faith's PD per sample, weighted UniFrac between samples, then a PCoA and a test of whether treatment groups differ. My faith_pd call raises an error about taxa not found in the tree. What's the right code?",
+      "expected_output": "Reads the BIOM table and Newick tree with skbio (TreeNode.read, Table.read). Passes integer counts with `taxa=` set to the feature IDs that match tree tip names, and fixes the error by checking or pruning ID mismatches (the old `otu_ids` name is only a deprecated alias). Then computes faith_pd (a Series) and weighted UniFrac via beta_diversity (a DistanceMatrix), runs pcoa, and runs permanova on the 'treatment' grouping with 999+ permutations.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have 16S amplicon counts from gut samples in two diet groups. I want to know which taxa are significantly more abundant in one group, and I know the data are compositional and have lots of zeros. What should I do?",
+      "expected_output": "Recommends compositional differential abundance methods from skbio.stats.composition, such as ancom or dirmult_ttest. Gives code that feeds raw integer counts rather than pre-normalized proportions, handles zeros (pseudocount or the Dirichlet-multinomial model), and reports significant features with multiple-testing correction.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Using Biopython, fetch accession NM_000546 from NCBI with Entrez.efetch, parse the GenBank record with SeqIO, and print the CDS features and their translations.",
+      "expected_output": "Uses Bio.Entrez and Bio.SeqIO from Biopython to fetch and parse the record, iterates over the CDS features, and translates them. It does not use scikit-bio, because the task is general sequence scripting plus NCBI access that Biopython handles.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "biopython"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a Newick gene tree and a species tree. Reconcile them to infer duplication and speciation events, annotate the nodes with NCBI taxonomy, and render an interactive view.",
+      "expected_output": "Uses the ETE toolkit for gene-tree/species-tree reconciliation, event inference, NCBI taxonomy annotation and interactive visualization. It does not use scikit-bio, whose tree module has no reconciliation or taxonomy annotation.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "etetoolkit"
+    }
+  ]
+}

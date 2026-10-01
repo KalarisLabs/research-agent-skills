@@ -1,0 +1,9 @@
+autogpt-agents
+crewai-multi-agent
+dspy
+evolving-ai-agents
+guidance
+instructor
+langchain
+llamaindex
+outlines

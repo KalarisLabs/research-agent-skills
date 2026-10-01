@@ -1,0 +1,39 @@
+{
+  "skill_name": "pyhealth",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have MIMIC-IV downloaded locally. How do I train a model to predict in-hospital mortality and evaluate it properly?",
+      "expected_output": "Builds a PyHealth pipeline: MIMIC4Dataset with ehr_root= (not root=), a MIMIC-IV-specific mortality task via set_task, split_by_patient, a model (e.g. Transformer/RETAIN) and Trainer with a binary monitor like pr_auc or roc_auc. Notes that credentialed data needs care and recommends testing on a small or synthetic sample first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My script crashes at `MortalityPredictionMIMIC3(...)` when I run it on `MIMIC4Dataset(root='/data/mimiciv/2.2', tables=['diagnoses_icd','procedures_icd'])`. Then I pass the dataset directly to `Transformer(dataset=base, feature_keys=['conditions','procedures'], label_key='label', mode='binary')` and get an error. Parsing also takes 40 minutes every time I rerun it. What's wrong?",
+      "expected_output": "Identifies four problems: MIMIC-IV needs ehr_root= rather than root=; the MIMIC-III task must be swapped for a MIMIC-IV task (MortalityPredictionMIMIC4 or InHospitalMortalityMIMIC4); models need the SampleDataset returned by base.set_task(task), not the BaseDataset; and cache_dir= should be set to persist parsing. Checks the installed PyHealth version's API instead of inventing arguments.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got nightly polysomnography recordings from a sleep clinic as EDF files with technician-scored hypnograms. I want a neural network that labels each 30-second epoch as wake, REM or N1-N3, and I'd like to avoid hand-writing the training loop. What's a good approach?",
+      "expected_output": "Recommends a PyHealth sleep-staging workflow (SleepEDF-style dataset loading, a sleep staging task, a suitable signal model, split by patient, Trainer with a multiclass monitor such as accuracy or f1_macro). Asks about the EDF format and channels, and keeps the data de-identified.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a CSV of 5,000 customer records with 20 numeric columns and need a PyTorch MLP to predict churn. Can you write the training loop with early stopping?",
+      "expected_output": "Recognizes this as generic tabular PyTorch with no clinical or EHR data, so it does not use PyHealth. Writes a plain PyTorch MLP training loop with early stopping, or simply answers directly.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "I want to fine-tune a Hugging Face BERT model on clinical note snippets for a text classification task using the Trainer API and push it to the Hub.",
+      "expected_output": "Recognizes this as NLP fine-tuning with Hugging Face Transformers, not a PyHealth Dataset→Task→Model pipeline, and uses the transformers skill: tokenizer, AutoModelForSequenceClassification, TrainingArguments/Trainer and push_to_hub.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "transformers"
+    }
+  ]
+}

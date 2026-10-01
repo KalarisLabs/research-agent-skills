@@ -1,0 +1,40 @@
+{
+  "skill_name": "scientific-slides",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need slides for my 12-minute talk at a neuroscience meeting next month. Can you help?",
+      "expected_output": "Uses the scientific-slides skill: asks for or confirms author name, topic, and output format (PDF vs PowerPoint/Beamer), proposes a slide-by-slide plan sized to 12 minutes (roughly 10-12 slides), and recommends a minimal-text, visual-first design with citations.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My committee meets on the 14th for my PhD defense. I have results in results/figs/ (fig1_ablation.png, fig2_roc_curves.png, fig3_umap.png) and a draft thesis in thesis.pdf covering single-cell RNA-seq of zebrafish fin regeneration. Build me a defense deck in Beamer, and make sure nothing overflows or looks cramped when you're done.",
+      "expected_output": "Builds a Beamer-based defense deck with a structure suited to a dissertation defense (background, aims, results, discussion, future work), lists and incorporates the figures from results/figs/, compiles to PDF, and runs a visual review by converting pages to images and checking for overflow, readability, and consistency, iterating on any issues found.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have to present our lab's findings on CRISPR screens to the department for an hour on Friday. I'd like something that tells a clear story, not a wall of bullets, and I want to know how long to spend on each section so I don't run over.",
+      "expected_output": "Uses the scientific-slides skill to create a seminar-length (45-60 min) narrative structure with a timing allocation per section (intro, methods, results, discussion, Q&A), image-driven slides with minimal text, and a note on citations from literature lookup.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I just finished my NeurIPS paper (paper.tex compiled to paper.pdf). Generate the 15-minute oral talk as Beamer plus an editable PPTX, with speaker notes and a full talk script.",
+      "expected_output": "Does not use scientific-slides. The better fit is presenting-conference-talks, which turns a compiled paper into Beamer and PPTX with speaker notes and a script for ML conference talks.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "presenting-conference-talks"
+    },
+    {
+      "id": 5,
+      "prompt": "Make an A0 poster in PowerPoint for my conference, with exact print dimensions, accessibility checks, and a check that the file has no macros.",
+      "expected_output": "Does not use scientific-slides. The request is for a PowerPoint research poster with print-size and security checks, which belongs to pptx-posters.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pptx-posters"
+    }
+  ]
+}

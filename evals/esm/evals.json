@@ -1,0 +1,39 @@
+{
+  "skill_name": "esm",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get per-residue embeddings for a protein sequence with ESMC locally?",
+      "expected_output": "Shows loading ESMC.from_pretrained('esmc_300m') (underscore alias), wrapping the sequence in ESMProtein, encoding it and calling logits with return_embeddings=True. Mentions the local vs hosted model ID naming difference and the GPU/CPU device.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a 3,000-sequence file, kinases.fasta, and I'm trying to classify them as active/inactive with logistic regression. I tried esm.sdk.client('esmc-600m-2024-12') in a loop and keep hitting rate-limit errors (429) after a few hundred calls. How should I restructure this so it finishes reliably?",
+      "expected_output": "Recommends batching with the Forge/Biohub async methods using an explicit concurrency limit (semaphore), retry with exponential backoff, and caching embeddings to disk. Notes ESM_API_KEY should come from the environment (not hardcoded), suggests testing on a small subset first, and pooling embeddings (e.g., mean) as features for the classifier.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a crystal structure of a de novo binder backbone (binder.pdb) and I want new amino acid sequences that would fold into it. Is there a language-model route for that, and how would I check the designs afterward?",
+      "expected_output": "Describes inverse folding with ESM3: load the PDB into an ESMProtein with the structure track, prompt with the coordinates and generate the sequence track (e.g., esm3-open locally or a Forge model), then validate by folding the designed sequences (ESM3 structure prediction or ESMFold2) and comparing to the target backbone. Mentions the license/acceptance for esm3-open weights and biosafety considerations.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Can you predict the structure of this sequence with AlphaFold2 via ColabFold and give me the pLDDT per residue?",
+      "expected_output": "Should not use the esm skill; this is an AlphaFold/ColabFold task. Guide the user to run ColabFold/AlphaFold and extract pLDDT from the output, with no ESM-specific API.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "I want to fine-tune a generic Hugging Face BERT model on text reviews and extract sentence embeddings for semantic search.",
+      "expected_output": "Should not use the esm skill; this concerns text embeddings with general transformers, which belongs to a sentence-embedding or Hugging Face workflow rather than protein models.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "sentence-transformers"
+    }
+  ]
+}

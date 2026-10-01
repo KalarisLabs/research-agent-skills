@@ -1,0 +1,39 @@
+{
+  "skill_name": "scientific-schematics",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Draw me a PRISMA flow diagram for my systematic review: 1,240 records identified, 310 duplicates removed, 930 screened, 112 full-text assessed, 41 included.",
+      "expected_output": "Uses the scientific-schematics skill to generate a PRISMA flowchart PNG with the given counts via a detailed prompt, saves versioned PNGs and a review_log.json, and reports the score and critique. Tells the user to check the labels and numbers by eye.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm submitting to Nature Communications. I need a figure of our U-Net variant: 4 encoder blocks (64-512 channels) with 3x3 convs and max-pool, a bottleneck, 4 decoder blocks with skip connections, and a 1x1 conv output head. Save it to figures/unet_arch.png and tell me whether it would pass review for the journal threshold.",
+      "expected_output": "Runs the skill with the document type set to journal (8.5/10 threshold), writes the winning image to figures/unet_arch.png plus versioned files and unet_arch_review_log.json, and reports the score and critique. Notes that the output is raster PNG only and may need conversion for the journal's format requirements. If the review fails to run, says the image is unchecked rather than inventing a score.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "For my grant proposal I need a clear picture showing how EGF binding leads to a kinase cascade that ends with transcription changes in the nucleus. Something I can drop into the methods background section, with a quality check on it.",
+      "expected_output": "Recognizes this as a signaling pathway diagram request and uses the skill with the grant document type (8.0 threshold). Builds a specific prompt (EGFR, RAS, RAF, MEK, ERK, nucleus, with labelled phosphorylation steps) and returns the PNG, score and critique. Warns not to include unpublished data in the prompt.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Make me a vector SVG of a CONSORT diagram I can edit in Illustrator, and also a matplotlib bar chart of my trial's primary outcome by arm.",
+      "expected_output": "Does not use scientific-schematics, because it produces only raster PNG and no data plots. Suggests a plotting skill for the bar chart and a vector or diagram-as-code approach for the editable SVG.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Create a colorful infographic summarizing global vaccination rates by region, with key statistics and a timeline, for a public-health newsletter.",
+      "expected_output": "Does not use scientific-schematics. Routes to the infographics skill, which handles statistical infographics and timelines with optional research.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "infographics"
+    }
+  ]
+}

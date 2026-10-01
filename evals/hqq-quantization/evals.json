@@ -1,0 +1,40 @@
+{
+  "skill_name": "hqq-quantization",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I quantize Llama-3-8B to 4-bit when I don't have any calibration data?",
+      "expected_output": "Recommends HQQ and shows loading the model with HqqConfig (nbits=4, group_size=64) in Transformers, or BaseQuantizeConfig with HQQLinear. Notes that no calibration dataset is needed and suggests checking generation quality afterwards.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm on an A100 and need to quantize mistralai/Mistral-7B-Instruct-v0.3 for a benchmark. I'm working in quantize.py with transformers 4.44 and hqq 0.2.x. I want attention layers at 4-bit and the MLP layers at 2-bit, then I want to save it and reload it for generation. I also need the fastest 4-bit backend. How should I configure this?",
+      "expected_output": "Gives a mixed-precision setup with per-layer quantization configs: attention at higher precision (4-bit, group_size=64) and MLP at 2-bit with a smaller group size. Shows saving and reloading the quantized model, and recommends the Marlin backend (or TorchAO int4) for 4-bit on Ampere+ GPUs. Warns that 2-bit quality can degrade and should be verified.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to compress a 70B model enough to fit on a single GPU, but I have no representative dataset and I can't spend hours on a long quantization run. I'd also like to fine-tune it with LoRA afterwards. What approach would work?",
+      "expected_output": "Suggests a calibration-free, fast quantization method (HQQ) at 4-bit or lower. Explains that it takes minutes, needs no dataset, and works with PEFT/LoRA (r=16-32) for QLoRA-style fine-tuning. Mentions out-of-memory mitigations and verifying quality.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a Llama-2-13B model and want to run it on my MacBook M2 with llama.cpp. Convert it to a Q4_K_M quantized file.",
+      "expected_output": "Uses the GGUF conversion workflow with llama.cpp (convert_hf_to_gguf.py, then llama-quantize Q4_K_M). Does not use HQQ, which is aimed at GPU backends rather than CPU or Apple Silicon deployment.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "gguf-quantization"
+    },
+    {
+      "id": 5,
+      "prompt": "I have a 512-sample calibration set from WikiText and want the highest-accuracy 4-bit quantization of my model using group size 128 with the ExLlamaV2 kernel. Walk me through it.",
+      "expected_output": "Uses GPTQ with AutoGPTQ and the calibration dataset, with group_size=128 and the ExLlamaV2 kernel. Does not use HQQ, since a calibration set is available and calibration-based accuracy is the goal.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "gptq"
+    }
+  ]
+}

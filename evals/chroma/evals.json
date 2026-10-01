@@ -1,0 +1,40 @@
+{
+  "skill_name": "chroma",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I set up a local Chroma DB for my paper embeddings?",
+      "expected_output": "Gives a minimal working example using a persistent Chroma client (with a path), creating a collection, adding documents with IDs and metadata, and querying. Notes that the installed version and embedding model should be confirmed before indexing.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm building a RAG pipeline over 4,000 PDF methods sections saved in ./papers/. I chunked them into ~500-token pieces and call collection.add(documents=chunks, ids=ids) with chromadb 1.3.3, but I get 'DuplicateIDError' halfway through and my notebook loses everything on restart. How do I fix both?",
+      "expected_output": "Explains that IDs must be unique (e.g. build them from the file name and chunk index, or use upsert) and that data is lost on restart because an in-memory client is being used, so it should switch to PersistentClient with a path. Suggests batching adds, testing on a small subset first, and checking retrieval on known question-passage pairs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have about 20k abstracts from our lab's literature collection and want to find the ones related to a question I type in plain English. I'd like it to run on my laptop, be free and open source, let me restrict results to papers after 2020, and not need a cloud account. What should I use and how should I set it up?",
+      "expected_output": "Recommends a local, open-source embedding store such as Chroma, with a persistent client, publication year stored as metadata, and a metadata filter (e.g. where year > 2020) at query time. Mentions choosing an embedding model, validating recall@k on a labeled set, and reporting the versions used.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write me a Pinecone serverless index setup that upserts 1M vectors into namespaces by tenant and queries with a metadata filter.",
+      "expected_output": "Recognizes this is about the managed Pinecone service and uses the pinecone skill (index creation, namespaces, upsert and query with filters) rather than Chroma.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pinecone"
+    },
+    {
+      "id": 5,
+      "prompt": "Compute sentence embeddings with all-MiniLM-L6-v2 for my 500 survey responses and give me the pairwise cosine similarity matrix.",
+      "expected_output": "Uses the sentence-transformers library directly to encode the texts and compute cosine similarity, with no vector database needed.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "sentence-transformers"
+    }
+  ]
+}

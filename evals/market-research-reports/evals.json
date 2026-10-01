@@ -1,0 +1,38 @@
+{
+  "skill_name": "market-research-reports",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you help me size the market for industrial IoT sensors in Germany?",
+      "expected_output": "Should fix market definition first (product, customer, geography, period, unit, denominator, currency/base year), ask a focused question or state a provisional scope, then plan top-down and bottom-up sizing as scenarios with sourced assumptions rather than one certain figure.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I've got source_ledger.csv with 14 sources and a claims.csv for my draft report on the European heat pump market. Some of the numbers come from Statista, which just repackages Eurostat data. Can you check that every claim maps to valid source IDs and tell me whether my corroboration is real?",
+      "expected_output": "Should validate the source and claims ledgers and audit claim-to-source mappings, flag missing or unknown IDs, and note that Statista and Eurostat are not independent corroboration. It should recommend citing the original Eurostat source and keeping dates, vintage and base-year fields in the ledger.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My startup is selling to dental clinics in Canada and I need to show a board how big the opportunity might be over the next 5 years, with a pessimistic and optimistic view, and which assumptions matter most. I'd rather not just quote some analyst number.",
+      "expected_output": "Should build documented downside/base/upside scenarios with explicit annual rate paths and assumption IDs, reconcile top-down and bottom-up estimates and report the gap, and run sensitivity and switching values. It should avoid calling the bounds confidence intervals or assigning probabilities, treat SOM as a capture assumption and not a guaranteed forecast, and separate evidence from recommendations.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write a Python script that scrapes Amazon product reviews for wireless earbuds and runs sentiment analysis with a transformer model, then plots sentiment by brand.",
+      "expected_output": "Should not use the market research reports skill. It is a scraping and NLP engineering task, so it should be handled with general coding or an NLP/data-science approach, noting the terms-of-service and scraping caveats.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Should I buy Nvidia stock now? Give me a price target and tell me whether the semiconductor sector is overvalued.",
+      "expected_output": "Should not use the market research reports skill. This is a request for investment advice and price prediction, which the skill excludes. A careful answer would decline to give personalized investment advice and offer general, sourced information instead.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

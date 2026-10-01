@@ -1,0 +1,30 @@
+name: Bug report
+description: A skill gives wrong guidance, a script fails, or the installer misbehaves.
+labels: [bug]
+body:
+  - type: input
+    id: skill
+    attributes:
+      label: Skill or component
+      placeholder: e.g. citation-verification, CLI, install.sh
+    validations:
+      required: true
+  - type: dropdown
+    id: harness
+    attributes:
+      label: Agent / harness
+      options: [Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode, Windsurf, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+      description: Include the prompt, the agent's output, and error messages. Remove private data.
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: OS, Python/Node versions, output of `npx research-agent-skills doctor`

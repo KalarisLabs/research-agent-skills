@@ -1,0 +1,38 @@
+{
+  "skill_name": "matlab",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you review this .m function before I send it to my lab? It uses inv(A)*b and a for loop that grows an array.",
+      "expected_output": "Reviews the MATLAB code statically without running it. Recommends A\\b over inv(A)*b, preallocation, and an arguments block for input validation, and asks about release and toolboxes.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm porting our lab's spectral analysis from MATLAB R2022b to run on GNU Octave 11 on a Linux cluster. The code uses `arguments` blocks, a `timetable` of sensor readings loaded from sensors.csv with readtable, and `exportgraphics` for figures. Running it gives 'parse error near line 12'. What will break and how do I fix it?",
+      "expected_output": "Explains that Octave only partially supports MATLAB: arguments blocks, timetable, and exportgraphics are unsupported or differ in Octave, so the code needs replacements such as inputParser and print. It notes that Octave packages are not MATLAB toolboxes, and it does not assume any product is installed. It suggests a static scan and tolerance-based tests.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "A collaborator emailed me a results.mat file from an unknown source and I need to see what variables are inside. I'd rather not just double-click it in MATLAB. How should I go about it?",
+      "expected_output": "Warns against load on an untrusted MAT file because objects and function handles can run code. Recommends a static header and dataset inventory first, with isolation and explicit approval before any load. Suggests simple formats like CSV, JSON, or HDF5 for future exchange.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "How do I compute a truncated SVD of a large sparse matrix with scipy.sparse.linalg and plot the singular value decay in matplotlib?",
+      "expected_output": "This is pure Python numerical work with NumPy and SciPy, so the matlab skill should not be used. Answer directly with scipy.sparse.linalg.svds and matplotlib.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Write a pandas script that cleans a CSV of patient lab values, imputes missing entries, and saves a summary table to Parquet.",
+      "expected_output": "This is Python/pandas data wrangling with no MATLAB involvement, so the matlab skill should not trigger. Answer with a pandas workflow.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

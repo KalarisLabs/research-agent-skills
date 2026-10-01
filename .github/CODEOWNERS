@@ -1,0 +1,12 @@
+# Default owners
+*                               @saynchowdhury
+
+# Security-sensitive paths require maintainer review
+/skills/**/scripts/             @saynchowdhury
+/security/                      @saynchowdhury
+/.github/                       @saynchowdhury
+/cli/                           @saynchowdhury
+/install.sh                     @saynchowdhury
+/install.ps1                    @saynchowdhury
+/tools/                         @saynchowdhury
+/third_party/                   @saynchowdhury

@@ -1,0 +1,15 @@
+abstract-and-title
+cover-letter-to-editor
+dhdna-profiler
+markdown-mermaid-writing
+market-research-reports
+ml-paper-writing
+peer-review
+rebuttal-and-response-to-reviewers
+reproducibility-statement
+research-grants
+scholar-evaluation
+scientific-critical-thinking
+scientific-writing
+systems-paper-writing
+unslop-academic-writing

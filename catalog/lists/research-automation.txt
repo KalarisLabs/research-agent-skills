@@ -1,0 +1,8 @@
+ara-compiler
+ara-research-manager
+ara-rigor-reviewer
+arbor
+autoresearch
+autoskill
+pi-agent
+research-skill-creator

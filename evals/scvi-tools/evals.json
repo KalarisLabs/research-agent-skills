@@ -1,0 +1,40 @@
+{
+  "skill_name": "scvi-tools",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I fix batch effects across 4 donors using scVI?",
+      "expected_output": "Gives the scVI workflow: keep raw counts (e.g. in a layer), select HVGs, call SCVI.setup_anndata with batch_key='donor', train, then take get_latent_representation for neighbors/UMAP. Notes that raw counts are required and that integration should be validated (e.g. batch mixing against bio conservation).",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have pbmc_cite.h5mu with RNA and a 'protein_expression' layer from 3 10x CITE-seq lanes. I ran TOTALVI.setup_mudata and then model.train() and got a NaN loss after a few epochs. The protein counts include some isotype controls. What should I check, and how do I get a joint latent space and denoised protein values afterward?",
+      "expected_output": "Uses totalVI (scvi.model.TOTALVI) with MuData setup. Suggests debugging steps: confirm raw integer counts in both modalities, filter genes/proteins, set batch_key, and try a lower learning rate or smaller batch/early stopping. Then explains get_latent_representation and get_normalized_expression with protein output. Doesn't invent API details and says to check the installed version's docs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a reference scRNA-seq atlas with cell type labels and a new unlabeled query dataset from a different lab. I want to transfer the labels onto the query cells and get a confidence for each assignment, without retraining everything from scratch if possible.",
+      "expected_output": "Recommends a semi-supervised label-transfer approach: scANVI built from a pretrained scVI reference, with query mapping via load_query_data and fine-tuning (scArches). Uses labels_key and unlabeled_category, predicts labels and probabilities with soft=True, and notes checking low-confidence cells and gene overlap between reference and query.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have an h5ad of 20k cells. Please normalize, log-transform, find the top 2000 HVGs, run PCA, build a neighbor graph, cluster with Leiden, and make a UMAP colored by cluster.",
+      "expected_output": "Should use the scanpy skill for the standard preprocessing and clustering pipeline. It should not train a deep generative model such as scVI.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scanpy"
+    },
+    {
+      "id": 5,
+      "prompt": "I have bulk RNA-seq counts from 6 treated and 6 control mouse liver samples. Run differential expression with a design formula and BH-adjusted p-values.",
+      "expected_output": "Should use PyDESeq2 for bulk count differential expression with a design formula and Benjamini-Hochberg correction. It should not use scvi-tools, which is for single-cell data.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pydeseq2"
+    }
+  ]
+}

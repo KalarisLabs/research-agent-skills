@@ -1,0 +1,39 @@
+{
+  "skill_name": "dspy",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I turn a dspy Signature into an optimized program?",
+      "expected_output": "Explains defining a Signature (inline or class), wrapping it in a module such as Predict or ChainOfThought, then compiling with an optimizer (e.g. BootstrapFewShot) using a trainset and a metric. Notes that the installed DSPy version and LM configuration should be checked, and does not invent APIs.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a hand-written few-shot prompt in prompts/triage.txt that classifies 2,000 clinical notes in notes_labeled.csv into 6 urgency classes with claude-sonnet. Accuracy is stuck around 71%. I'd like to port it to DSPy and use MIPROv2 to tune it, and I keep getting 'AttributeError: module dspy has no attribute OpenAI' when I configure the LM. Can you help?",
+      "expected_output": "Diagnoses the error as an outdated API (newer DSPy uses dspy.LM('anthropic/...') with dspy.configure) and advises checking the installed version. Builds a class Signature with typed output for the urgency label, splits the CSV into train/dev Examples, defines an accuracy metric, runs MIPRO, and evaluates on held-out data. Asks for consent before sending patient data to an external API and before spending on optimization runs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm building a question-answering system over our lab's 5,000 protocol PDFs. The retrieval step then answer generation needs to be tuned automatically against about 150 question/answer pairs I wrote, so I don't have to keep rewriting prompts by hand every time we swap the underlying model. What's a good approach?",
+      "expected_output": "Recommends a declarative multi-stage RAG program (retrieve then generate with ChainOfThought) in DSPy, with a metric over the 150 labeled pairs and an optimizer such as BootstrapFewShot or MIPRO to compile it. Explains that re-optimizing on a new LM replaces manual prompt rewriting, and suggests saving and evaluating the compiled program on a held-out split.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Set up a LangChain agent with a ReAct loop, a Tavily search tool, and ConversationBufferMemory so my chatbot can answer questions about recent papers.",
+      "expected_output": "Should use the langchain skill, not DSPy. The answer builds a LangChain agent with tool calling, search tool and memory, with no automatic prompt optimization.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "langchain"
+    },
+    {
+      "id": 5,
+      "prompt": "Write me a quick one-off prompt that asks GPT-4 to summarize this abstract into three bullet points. I just need it once.",
+      "expected_output": "Gives a simple manual prompt directly. It does not set up DSPy signatures or optimizers, because a one-off task needs no optimization framework.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

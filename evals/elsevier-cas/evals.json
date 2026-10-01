@@ -1,0 +1,18 @@
+{
+  "skill_name": "elsevier-cas",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Prepare my manuscript for an Elsevier journal using the CAS double-column template with highlights and a CRediT statement.",
+      "expected_output": "cas-dc setup, highlights, CRediT roles, declarations incl. generative AI; checks Guide for Authors",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Submit to PLOS ONE.",
+      "expected_output": "Skill not used (plos applies)",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

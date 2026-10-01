@@ -1,0 +1,40 @@
+{
+  "skill_name": "pytorch-lightning",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I make my PyTorch model stop training when val loss stops improving and keep only the best 3 checkpoints?",
+      "expected_output": "Uses Lightning's EarlyStopping (monitor='val_loss', mode='min', patience) and ModelCheckpoint (save_top_k=3, monitor='val_loss'), passed to Trainer(callbacks=[...]). Notes that val_loss must be logged with self.log() in validation_step.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm training a 1.3B-parameter transformer defined in model.py on a node with 8x A100 80GB. My current script uses a hand-written train loop and I keep getting 'CUDA out of memory' with DDP. I'd like to move it into LightningModule/Trainer form and shard it. Can you restructure it with bf16 mixed precision and tell me which strategy to use?",
+      "expected_output": "Converts the model into a LightningModule (training_step, configure_optimizers, save_hyperparameters) and configures Trainer(accelerator='gpu', devices=8, strategy='fsdp', precision='bf16-mixed'). Explains that DDP replicates the full model and FSDP shards it for 500M+ params, mentions DeepSpeed as an alternative, and suggests fast_dev_run first and checking the installed lightning version.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a folder of microscopy images with a CSV of labels. I want a reusable class that downloads/prepares them once, makes a reproducible 80/10/10 split, and hands out train, val and test loaders that work on multiple GPUs without each process redoing the preprocessing. How should I structure that?",
+      "expected_output": "Proposes a LightningDataModule: prepare_data() for one-time download/preprocessing (no state assignment), setup(stage) for splitting with a seeded generator and building datasets, plus train/val/test_dataloader methods. Explains why prepare_data runs on a single process while setup runs on every process.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a plain PyTorch training script and want to make it run on multiple GPUs and with bf16 using HuggingFace Accelerate (accelerator.prepare, accelerate launch). Can you help me wrap it?",
+      "expected_output": "Recognizes this is an Accelerate request, not Lightning: wraps the existing loop with Accelerator, prepare(), accelerator.backward(), and runs via accelerate config/launch with mixed_precision='bf16'.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "huggingface-accelerate"
+    },
+    {
+      "id": 5,
+      "prompt": "I'm already logging to MLflow in my sklearn pipeline. How do I register a model version in the Model Registry and move it from Staging to Production, and search past runs by metric?",
+      "expected_output": "Answers with MLflow APIs (log_model, register_model, model versions/stage or alias transitions, search_runs) and does not involve Lightning Trainer or modules.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "mlflow"
+    }
+  ]
+}

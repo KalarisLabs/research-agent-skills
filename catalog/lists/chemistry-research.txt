@@ -1,0 +1,10 @@
+citation-verification
+datamol
+deepchem
+medchem
+molecular-dynamics
+pymatgen
+rdkit
+scientific-visualization
+scientific-writing
+statistical-analysis

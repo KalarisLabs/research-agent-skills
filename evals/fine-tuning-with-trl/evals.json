@@ -1,0 +1,40 @@
+{
+  "skill_name": "fine-tuning-with-trl",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I run DPO on my preference pairs with TRL?",
+      "expected_output": "Explains DPO needs a dataset with prompt/chosen/rejected columns and no reward model. Shows a DPOConfig with beta plus a DPOTrainer, or the trl CLI alternative, and suggests a small smoke run first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning Qwen2.5-7B on an A100 40GB with my file pairs.jsonl (fields: question, good_answer, bad_answer). DPOTrainer crashes with 'CUDA out of memory' about 20 steps in. The reference model is eating memory I guess. What should I change?",
+      "expected_output": "Checks nvidia-smi and the installed TRL version. Maps the columns to prompt/chosen/rejected. Suggests reducing per-device batch size and max length, using gradient accumulation, gradient checkpointing, LoRA/QLoRA and bf16. Notes that DPO stores a reference model (about 24GB for 7B). Does not invent flags.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a base 8B model and thousands of human-ranked response pairs from annotators. I want a model that follows instructions and matches those human rankings, and I'd like a reward model along the way so I can score generations. Walk me through the stages and how to check it worked.",
+      "expected_output": "Lays out the full RLHF pipeline: SFT on instruction data, then reward model training on the ranked pairs, then PPO (or a lighter alternative) against that reward model, and then evaluation on held-out data against a baseline. Mentions memory needs, a smoke run and logging of configs and seeds, and asks about hardware and data format.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to train Qwen with GRPO on GSM8K using several reward functions (correctness, format, length), with Unsloth and LoRA merging afterwards. Can you set up the reward functions and monitoring?",
+      "expected_output": "Recognizes this as detailed GRPO work with composed reward functions, Unsloth and LoRA merging, so it belongs to the more specialized grpo-rl-training skill rather than the general TRL skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "grpo-rl-training"
+    },
+    {
+      "id": 5,
+      "prompt": "I'd like reference-free preference optimization with SimPO to avoid loading a reference model. How do I configure the gamma margin and length-normalized reward?",
+      "expected_output": "Recognizes SimPO as a reference-free DPO alternative, which is covered by simpo-training and not by the general TRL skill, and answers with SimPO-specific configuration.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "simpo-training"
+    }
+  ]
+}

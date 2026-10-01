@@ -1,0 +1,11 @@
+academic-plotting
+generate-image
+infographics
+latex-posters
+matplotlib
+pptx-posters
+presenting-conference-talks
+scientific-schematics
+scientific-slides
+scientific-visualization
+seaborn

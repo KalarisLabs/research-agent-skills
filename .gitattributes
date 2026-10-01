@@ -1,0 +1,19 @@
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.png binary
+*.jpg binary
+*.gif binary
+*.pdf binary
+*.webp binary
+# Generated files: collapse in diffs
+.claude-plugin/marketplace.json linguist-generated=true
+plugin.json linguist-generated=true
+catalog/*.json linguist-generated=true
+third_party/upstream-manifest.json linguist-generated=true
+THIRD_PARTY_NOTICES.md linguist-generated=true
+# Excluded from release tarballs (installers only need skills/, catalog/ and licenses)
+/.github export-ignore
+/tests export-ignore
+/docs export-ignore
+/cli export-ignore
+/evals export-ignore

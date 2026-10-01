@@ -1,0 +1,39 @@
+{
+  "skill_name": "research-grants",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Help me write the Specific Aims page for my R01 on gut microbiome modulation of anti-PD1 response.",
+      "expected_output": "Produces a one-page NIH Specific Aims structure: hook/gap, long-term goal and objective, central hypothesis, 2-3 independent aims with rationale and expected outcomes, and impact. Notes the 1-page limit and ties to Significance, Innovation and Approach criteria.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm submitting to NSF CBET and my draft is in proposal_v3.docx. The Project Description is 17 pages and my Broader Impacts section is just one paragraph about 'training students'. How do I fix this?",
+      "expected_output": "Flags that the Project Description must be cut to the 15-page limit (checking the solicitation and PAPPG 24-1), and explains Broader Impacts must be a distinct, specific, assessable section with concrete activities, partners and metrics beyond generic student training. Advises that Intellectual Merit and Broader Impacts are weighted equally.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My lab got a summary statement with a score of 38 on our first NIH submission and I need to turn it around for the next cycle. Reviewers said the approach was underpowered and the innovation was incremental. What's my plan?",
+      "expected_output": "Outlines a resubmission strategy: triage reviewer critiques, write an Introduction to the Resubmission responding point by point, address power and rigor with revised methods or preliminary data, and reframe innovation. Notes that NIH allows a resubmission and that responses should be respectful and specific.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Please proofread and tighten the Discussion section of my manuscript on perovskite solar cell stability before I submit it to Nature Energy.",
+      "expected_output": "Should be handled by a general scientific manuscript writing skill, not the grants skill. Gives editing advice on a journal Discussion section, with no grant-specific agency criteria or budgets.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scientific-writing"
+    },
+    {
+      "id": 5,
+      "prompt": "Make a Gantt chart figure in matplotlib from this CSV of task start and end dates for my lab's project plan.",
+      "expected_output": "Should write plotting code that reads the CSV and renders a Gantt chart with matplotlib. It does not need grant-specific guidance, and it should not be driven by agency formatting or review criteria.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

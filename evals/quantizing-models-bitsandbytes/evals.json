@@ -1,0 +1,40 @@
+{
+  "skill_name": "quantizing-models-bitsandbytes",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "how do i load llama 2 13b in 4-bit on my 12GB 3060?",
+      "expected_output": "Gives a BitsAndBytesConfig with load_in_4bit, NF4 quant type, and bfloat16/float16 compute dtype, loaded through from_pretrained with device_map. Checks that the estimated memory fits in 12GB (about 8GB for 13B in 4-bit) and suggests CPU offload or a smaller model if it doesn't.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning Mistral-7B on my instruction dataset `train.jsonl` with a single 24GB RTX 4090. Full-precision LoRA hits `torch.cuda.OutOfMemoryError` at step 0 with batch size 8. Can you set it up so it fits? I'd like to use the HF Trainer and keep the loss comparable to what I got on the A100.",
+      "expected_output": "Sets up QLoRA: a 4-bit NF4 base model with double quantization, prepare_model_for_kbit_training, and peft LoRA adapters. Uses a paged 8-bit optimizer, gradient checkpointing, a smaller per-device batch size with gradient accumulation, and a smoke run before the full run. Checks GPU and library versions first. Says plainly that no results have been measured and that loss may differ slightly from the A100 run.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My lab only has a couple of older 16GB GPUs, and I need to run a 7B language model for inference and also cut the optimizer state memory while training a small adapter. What's the least invasive way to shrink memory without changing my HuggingFace code much?",
+      "expected_output": "Recommends bitsandbytes quantization through the Transformers integration: 8-bit or 4-bit loading via a quantization config, plus an 8-bit Adam/AdamW optimizer. Explains the memory and accuracy trade-offs, checks that the GPU's compute capability is supported, and recommends validating accuracy against a baseline.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to quantize Llama-3-8B to 4-bit with AutoGPTQ using group size 128 and serve it with the Marlin kernel. Walk me through calibration and the quantization script.",
+      "expected_output": "Recognizes this as a GPTQ task (calibration data, group size, Marlin kernel) and does not use bitsandbytes on-the-fly NF4 loading. Uses the gptq skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "gptq"
+    },
+    {
+      "id": 5,
+      "prompt": "I want to quantize a 70B instruction-tuned model to 4-bit without any calibration data, so I can serve it with vLLM. What's the fastest approach?",
+      "expected_output": "Recognizes the request is for calibration-free quantization for vLLM serving, which fits Half-Quadratic Quantization. Points to the hqq-quantization skill rather than bitsandbytes.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "hqq-quantization"
+    }
+  ]
+}

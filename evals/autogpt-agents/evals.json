@@ -1,0 +1,40 @@
+{
+  "skill_name": "autogpt-agents",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I set up AutoGPT locally with Docker?",
+      "expected_output": "Explains the Docker-based install of the AutoGPT Platform and lists the access points: frontend at localhost:3000, backend API at localhost:8006/api, WebSocket at ws://localhost:8001/ws. Notes the PostgreSQL, Redis and RabbitMQ dependencies, and suggests checking the installed version's docs before running anything.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running the AutoGPT platform in Docker for my lab's literature-monitoring agent. I built a graph in the builder with a webhook block feeding an AITextGeneratorBlock and then an OUTPUT block, but when GitHub fires the webhook the execution just hangs in 'running' and never finishes. Services show as up. How do I debug this?",
+      "expected_output": "Walks through diagnosing a stuck execution: check the execution status via REST polling or WebSocket updates, inspect the backend, RabbitMQ and Redis logs, and verify the credentials for the LLM provider are configured under Profile > Integrations. Also checks the webhook trigger and block links, consults the troubleshooting reference, and never invents commands or APIs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want something that watches a set of preprint servers every morning, summarizes new papers that match my topics, and posts the summaries to our lab Discord without me touching anything. I'd like to build it by dragging boxes together instead of writing code. What are my options?",
+      "expected_output": "Recommends a no-code visual agent builder with a scheduled trigger (AutoGPT Platform), using AI blocks for summarization and a Discord integration block. Describes the graph structure and credentials setup, asks about the preprint sources and topics, and mentions the cost and credits monitoring for LLM usage.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Write me a LangChain ReAct agent in Python with tool calling and a Chroma vector store so it can answer questions over my PDFs.",
+      "expected_output": "Should go to the langchain skill: it provides code-level guidance for a ReAct agent with tools and vector store retrieval, not the AutoGPT visual builder.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "langchain"
+    },
+    {
+      "id": 5,
+      "prompt": "I need a team of three role-based agents (researcher, writer, reviewer) that collaborate sequentially to draft a grant section. Which framework should I use and how do I define the roles?",
+      "expected_output": "Should go to crewai-multi-agent, which covers role-based multi-agent collaboration with sequential or hierarchical process definitions, rather than AutoGPT's graph-based workflow builder.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "crewai-multi-agent"
+    }
+  ]
+}

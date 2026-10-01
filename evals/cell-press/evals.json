@@ -1,0 +1,18 @@
+{
+  "skill_name": "cell-press",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write highlights, an eTOC blurb and the Key Resources Table for our Cell Reports submission.",
+      "expected_output": "Highlights within character limit, eTOC blurb, STAR Methods KRT with RRIDs; verifies current limits",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Format for Nature Communications.",
+      "expected_output": "Skill not used (nature-portfolio applies)",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

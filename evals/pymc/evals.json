@@ -1,0 +1,38 @@
+{
+  "skill_name": "pymc",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you help me fit a hierarchical logistic model for patient response across 12 hospitals? I want partial pooling.",
+      "expected_output": "Builds a PyMC multilevel Bernoulli/logit model with hospital-level varying intercepts, preferably non-centered with dims. Runs a prior predictive check, samples with NUTS using multiple chains and a seed, then checks R-hat, ESS and divergences before interpreting results.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My PyMC model on trial_counts.csv (Poisson likelihood, site random effects) gives 'There were 214 divergences after tuning' and r_hat of 1.07 for tau. Raising target_accept to 0.99 didn't help. What should I do?",
+      "expected_output": "Explains that divergences invalidate the fit and that raising target_accept alone is not a fix. Recommends non-centered parameterization of the site effects, tighter priors on tau, and checking for overdispersion (consider NegativeBinomial). Re-checks divergences, R-hat and ESS after refitting, and suggests trace/pair or rank plots.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have two candidate models for reaction times in a psychology experiment, one with a per-subject slope and one without. How do I decide which one predicts new subjects better, with uncertainty on the difference, in a Bayesian framework?",
+      "expected_output": "Recommends PSIS-LOO cross-validation via ArviZ, with log_likelihood stored in both fits. Compares ELPD difference with its standard error, checks Pareto-k reliability, and does not rely on a point estimate alone. Notes that posterior predictive checks complement the comparison.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Run an ordinary least squares regression of blood pressure on age and BMI in statsmodels and give me the coefficient table with p-values.",
+      "expected_output": "Uses statsmodels OLS and reports the coefficients, standard errors, p-values and confidence intervals. Does not build a Bayesian PyMC model.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Train a random forest in scikit-learn to classify tumor vs normal from my expression matrix and report 5-fold cross-validated AUC.",
+      "expected_output": "Uses scikit-learn RandomForestClassifier with stratified 5-fold CV and reports mean and std of AUC, avoiding leakage in preprocessing. Does not use PyMC.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

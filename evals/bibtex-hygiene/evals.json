@@ -1,0 +1,18 @@
+{
+  "skill_name": "bibtex-hygiene",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My refs.bib has duplicates and BERT shows up lowercase in the bibliography. Clean it.",
+      "expected_output": "Runs bib_lint.py, fixes duplicate keys/works, braces acronyms",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Convert my EndNote library to Zotero.",
+      "expected_output": "Skill not used (reference-manager-interop applies)",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

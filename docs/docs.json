@@ -1,0 +1,65 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Research Agent Skills",
+  "description": "Open source AI agent skills for academia: research papers, academic writing, literature reviews and scientific workflows in ML, AI, biology, chemistry, medicine and physics.",
+  "theme": "mint",
+  "colors": {
+    "primary": "#165D74",
+    "light": "#1B7894",
+    "dark": "#69C3D6"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get started",
+        "pages": ["index", "getting-started/installation", "getting-started/quickstart"]
+      },
+      {
+        "group": "Research guides",
+        "pages": [
+          "guides/by-field",
+          "guides/write-a-research-paper",
+          "guides/thesis-and-dissertation",
+          "guides/no-slop-academic-writing",
+          "guides/systematic-review"
+        ]
+      },
+      {
+        "group": "Explore skills",
+        "pages": ["skills/index"]
+      },
+      {
+        "group": "Reference",
+        "pages": [
+          "reference/cli",
+          "reference/architecture",
+          "reference/benchmarks",
+          "reference/security",
+          "reference/contributing",
+          "faq"
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/KalarisLabs/research-agent-skills"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Install skills",
+      "href": "/getting-started/installation"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/KalarisLabs/research-agent-skills"
+    }
+  },
+  "seo": {
+    "indexing": "all"
+  }
+}

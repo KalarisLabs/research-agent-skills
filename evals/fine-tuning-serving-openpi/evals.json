@@ -1,0 +1,40 @@
+{
+  "skill_name": "fine-tuning-serving-openpi",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I serve the pi0.5 DROID policy on one GPU so my robot can query it?",
+      "expected_output": "Explains starting the OpenPI serve_policy.py WebSocket server with the DROID environment preset (pi05_droid config, default checkpoint gs://openpi-assets/checkpoints/pi05_droid). Notes that one A100/H100 with about 24 GB suffices. Mentions installing openpi-client on the robot side and verifying connectivity.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm fine-tuning on my own LeRobot dataset, hf repo my-lab/ur5_pick_place, starting from pi05_libero in openpi's config.py. I launched train.py and it died with a missing norm stats error. After I fixed that, JAX OOM'd on my 1x A100 80GB. What should I do?",
+      "expected_output": "Says to run scripts/compute_norm_stats.py --config-name <config> after setting repo_id and transforms in a copied config, and to re-run it after any config or dataset change. For OOM, suggests XLA_PYTHON_CLIENT_MEM_FRACTION=0.9, a smaller batch size, or fsdp_devices. Also says to check that weight_loader matches pi0.5, and to validate by serving the checkpoint.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My lab's vision-language-action model checkpoint was trained in JAX, but our deployment stack only supports PyTorch and we want to train further with multiple GPUs. How do we get there?",
+      "expected_output": "Describes the OpenPI PyTorch workflow: sync dependencies, apply the required patches to the installed transformers package, convert the JAX checkpoint with the conversion script, then train with torchrun for multi-GPU DDP or run inference programmatically. Mentions the checkpoint directory convention, the PYTORCH_CUDA_ALLOC_CONF expandable_segments fix for OOM on load, and reapplying the patch if training diverges after library changes.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to fine-tune OpenVLA-OFT with LoRA and an L1 continuous action head on ALOHA. Can you give me the training command and config?",
+      "expected_output": "Should not use the OpenPI skill. OpenVLA-OFT fine-tuning with LoRA and continuous action heads belongs to fine-tuning-openvla-oft.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "fine-tuning-openvla-oft"
+    },
+    {
+      "id": 5,
+      "prompt": "Set up NVIDIA Cosmos Policy for headless EGL evaluation on LIBERO on our cluster and profile the inference latency.",
+      "expected_output": "Should not use the OpenPI skill. Cosmos Policy evaluation on LIBERO with EGL rendering belongs to evaluating-cosmos-policy.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "evaluating-cosmos-policy"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "serving-llms-vllm",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I serve Llama-3-8B with vLLM behind an OpenAI-style API?",
+      "expected_output": "Gives the vllm serve command (or python -m vllm.entrypoints.openai.api_server) for the model, shows how to query it with the OpenAI client at /v1, and states the assumptions about GPU and vLLM version. Suggests testing one request first and checking the installed version's --help for flags.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm trying to load Qwen2.5-72B-Instruct-AWQ on 2x A100 80GB for our lab's chat tool and vLLM crashes with 'CUDA out of memory' during model loading. Command: vllm serve Qwen/Qwen2.5-72B-Instruct-AWQ --tensor-parallel-size 2. What should I change?",
+      "expected_output": "Diagnoses the OOM by comparing model size to memory and suggests lowering --gpu-memory-utilization and --max-model-len, limiting --max-num-seqs, and confirming --quantization awq and the tensor-parallel setting. It asks for or notes the vLLM version and GPU state (nvidia-smi), and does not invent flags.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have 200,000 abstracts in abstracts.jsonl and need to run an open-weights model over all of them to extract structured summaries on one shared GPU server. What's the fastest way to do this without writing a request loop against an API?",
+      "expected_output": "Recommends offline batch inference with the vLLM LLM class and SamplingParams, which batches prompts automatically. Starts with a small subset, validates the outputs, and asks about the model, GPU and output format before the full run, since the job uses a shared GPU.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Walk me through quantizing my fine-tuned Llama-2-13B to 4-bit with GPTQ using AutoGPTQ, including picking the group size and calibration data.",
+      "expected_output": "Should use the gptq skill. It covers the quantization workflow with AutoGPTQ, group size and calibration data, not vLLM serving.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "gptq"
+    },
+    {
+      "id": 5,
+      "prompt": "We're NVIDIA-only and need the absolute lowest latency on H100s. How do I build a TensorRT engine for Llama-3-70B with FP8 and in-flight batching?",
+      "expected_output": "Should use the tensorrt-llm skill. It covers building a TensorRT-LLM engine with FP8 and in-flight batching, not serving with vLLM.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "tensorrt-llm"
+    }
+  ]
+}

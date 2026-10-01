@@ -1,0 +1,39 @@
+{
+  "skill_name": "sentencepiece",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I train a 32k Unigram SentencePiece model on my raw text file?",
+      "expected_output": "Shows training with sentencepiece SentencePieceTrainer.train (input file, model_prefix, vocab_size=32000, model_type=unigram), then loading the .model with SentencePieceProcessor and encoding/decoding. Notes that no pre-tokenization is needed and suggests confirming the installed version's options.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm building a Japanese-Chinese-Korean translation model from corpus_cjk.txt (about 2GB, no word segmentation). I need a subword vocab of ~64k, and I want the same vocab every time I rerun the pipeline. Tokenization currently chokes on missing characters and I see lots of <unk>. What should I do?",
+      "expected_output": "Recommends SentencePiece with character_coverage=1.0 (or near it) for CJK to reduce <unk>, an explicit vocab_size, a chosen model_type (BPE or Unigram), and a fixed seed/config for reproducibility. Suggests a small-subset smoke run first, an estimate of training time/memory, and checking the <unk> rate on held-out text.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to fine-tune a T5-style model on multilingual text, and I need to build a tokenizer from scratch that uses the same approach T5 uses, without any language-specific preprocessing. How should I set that up?",
+      "expected_output": "Identifies that T5 uses a SentencePiece Unigram tokenizer, and gives a training setup on raw text with a ~32k vocab and the whitespace-marker (▁) behavior explained. Shows how to wrap or load it for transformers (e.g. T5Tokenizer) and verifies encode/decode round-trips.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to train a WordPiece tokenizer with a BertNormalizer and BertPreTokenizer using the HuggingFace tokenizers library, then enable padding and truncation and get offset alignment for NER labels.",
+      "expected_output": "Should use the huggingface-tokenizers skill, which covers the normalizer/pre-tokenizer pipeline, WordPiece training, padding/truncation and alignment tracking. SentencePiece is not the right tool here.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "huggingface-tokenizers"
+    },
+    {
+      "id": 5,
+      "prompt": "How many tokens will this prompt use with GPT-4? I want to estimate API cost for 10,000 abstracts.",
+      "expected_output": "Should use tiktoken (OpenAI's tokenizer) with the cl100k_base or model-specific encoding to count tokens and estimate cost. No listed skill covers this, and SentencePiece is not used by GPT-4.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

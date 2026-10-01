@@ -1,0 +1,40 @@
+{
+  "skill_name": "open-notebook",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I set up Open Notebook locally with Ollama so I can chat with my PDFs?",
+      "expected_output": "Walks through the Docker Compose deployment, setting OPEN_NOTEBOOK_ENCRYPTION_KEY before first launch, and configuring Ollama as the provider under Settings > API Keys. Notes that the UI is at port 8502 and the API at 5055, and does not invent flags or endpoints.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 40 PDFs from my glioblastoma review in ~/papers/gbm and a few YouTube talks. I'm running the self-hosted open-notebook container and POST /api/sources keeps returning an error after I created the notebook. Can you help me script ingesting everything into one notebook, then run a vector search for 'temozolomide resistance'?",
+      "expected_output": "Uses the REST API at localhost:5055 to create a notebook, then ingests the PDFs and video URLs as sources attached to that notebook. Tests on a small batch first, handles and reports errors, then queries /api/search with vector search. Checks the installed version's /docs rather than guessing request fields, and states what was run and what failed.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'd like to turn my collected papers and interview recordings on microplastics into a short two-host audio discussion I can listen to on my commute, and keep everything on our own lab server because of consent restrictions. What are my options?",
+      "expected_output": "Recommends Open Notebook as a self-hosted tool that can ingest the papers and audio and generate a multi-speaker podcast via /api/podcasts. Covers the privacy benefits of self-hosting and the need for a configured text-to-speech provider such as OpenAI, Google or ElevenLabs. Asks about or flags the consent and personal-data considerations before processing.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to embed 50k abstracts with sentence-transformers and store them in Chroma with metadata filters on year and journal, then query for nearest neighbors. Show me the code.",
+      "expected_output": "Provides code that uses the Chroma client directly to create a collection, add embeddings with metadata, and query with where filters. It does not set up Open Notebook, because this is a vector database programming task.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "chroma"
+    },
+    {
+      "id": 5,
+      "prompt": "Build a LangChain agent with a retriever tool and a ReAct loop that answers questions over my lab's protocol docs.",
+      "expected_output": "Gives LangChain code covering the agent, retriever and tool definitions. It does not deploy or use Open Notebook, because this is a custom-built application and not a notebook-style research workspace.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "langchain"
+    }
+  ]
+}

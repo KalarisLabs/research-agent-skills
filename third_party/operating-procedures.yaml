@@ -1,0 +1,168 @@
+# Category-specific agent operating procedures, appended by tools/enrich.py to adapted
+# skills that lack a numbered workflow, verification rules or a decision table.
+# Keys: check (environment), small (first small run), validate (result checks),
+# failures (situation -> action rows), rules (domain integrity rules).
+
+common:
+  failures:
+    - ["A function, flag or endpoint in these instructions is missing in the installed version", "Check the installed version's own documentation (`help()`, `--help`, official docs), adapt, and tell the user. Never invent an API."]
+    - ["A required input, identifier or parameter is ambiguous", "Ask the user, or state the assumption explicitly before running."]
+  rules:
+    - "Never fabricate results, parameters, identifiers, citations or statistics. If something cannot be run or verified, say so plainly."
+    - "Treat version-specific details here as possibly outdated: confirm them against the official documentation for the installed version."
+    - "Ask before actions that cost money, consume shared GPUs or cloud quota, touch personal or patient data, or cannot be undone."
+
+categories:
+  research-writing:
+    check: "Collect the user's draft, data, figures and target venue before writing anything."
+    small: "Draft one section or paragraph and confirm tone, structure and terminology with the user."
+    validate: "Every claim traces to the user's data or a verified source; numbers match tables and figures; citations are real (`citation-verification`)."
+    failures:
+      - ["A claim has no supporting data or citation", "Flag it in the text (e.g. `[citation needed]`) instead of inventing support."]
+    rules:
+      - "The user is the author: never add results, references or claims they did not provide or approve."
+  journal-formats:
+    check: "Identify the exact venue and article type, then open the current author guidelines."
+    small: "Apply the template to the title page and one section, and compile before converting the whole manuscript."
+    validate: "Page/word limits, required sections and statements, reference style and file formats match the current guidelines."
+    failures:
+      - ["Guidelines conflict with these instructions", "Follow the venue's current guidelines and tell the user what changed."]
+    rules:
+      - "Never quote word limits, page limits or policies from memory; cite the guideline page you checked."
+  literature-review:
+    check: "Confirm the research question, databases, date range and inclusion criteria."
+    small: "Run the search on one database with a narrow query and check that the results are relevant."
+    validate: "Every reference is retrieved from a real record with a resolvable identifier; counts and search strings are recorded."
+    failures:
+      - ["An API rate-limits or returns errors", "Back off and retry, reduce the batch size, or switch database, and report the gap."]
+    rules:
+      - "Never summarize a paper you have not retrieved; never cite from memory."
+  ideation-and-design:
+    check: "Clarify the research goal, constraints (budget, time, ethics) and the decision the user needs to make."
+    small: "Propose a short shortlist of options with explicit assumptions before expanding any of them."
+    validate: "Assumptions are stated, alternatives are compared on explicit criteria, and statistical plans include power and analysis choices."
+    failures:
+      - ["A design choice depends on unknown effect sizes or costs", "Present scenarios (optimistic, expected, pessimistic) instead of a single guess."]
+    rules:
+      - "Label speculation as speculation; separate established evidence from new hypotheses."
+  data-science-and-ml:
+    check: "Confirm the Python environment and library versions (`python -c \"import pkg; print(pkg.__version__)\"`) and inspect the data's shape, types and missing values."
+    small: "Run on a sample or a single fold first and check runtime and memory."
+    validate: "Use held-out data, fixed random seeds and appropriate metrics; check for leakage; report uncertainty (CIs, std over seeds)."
+    failures:
+      - ["Out-of-memory or very slow execution", "Subsample, use chunked or lazy computation, or reduce model size, and tell the user what changed."]
+    rules:
+      - "Never report a metric you did not compute in this session; show the code path that produced every number."
+  visualization-and-presentation:
+    check: "Confirm the data source, the message each figure must convey, and the target medium (journal, poster, slides)."
+    small: "Render one figure at final size and check legibility before producing the full set."
+    validate: "Axes, units and error bars are labeled and defined; colours are colour-blind safe; numbers match the underlying data."
+    failures:
+      - ["Text is unreadable at final size", "Increase font sizes or simplify the panel rather than shrinking it."]
+    rules:
+      - "Never alter data to improve a figure's appearance; apply image adjustments uniformly and disclose them."
+  knowledge-and-rag:
+    check: "Confirm the corpus, embedding model and vector store versions, and where the index will live."
+    small: "Index a small subset and test retrieval on known question-passage pairs."
+    validate: "Measure recall@k on a labeled set; answers cite retrieved passages only."
+    failures:
+      - ["Retrieval returns irrelevant chunks", "Revisit chunking, add BM25/hybrid search, or re-rank before changing the generator."]
+    rules:
+      - "Answers must come from retrieved text; say when the corpus does not contain the answer."
+  scientific-databases:
+    check: "Confirm network access, API keys (if required) and the database's current API documentation and rate limits."
+    small: "Fetch a single known record and check the response format before bulk queries."
+    validate: "Identifiers resolve, record counts are reported, and the database version or access date is recorded."
+    failures:
+      - ["HTTP 429 or 5xx errors", "Respect rate limits with backoff, batch requests, and report partial results honestly."]
+    rules:
+      - "Never invent accession numbers, IDs or records; report 'not found' instead."
+  life-sciences:
+    check: "Confirm tool versions, the reference genome/annotation build and the input formats (FASTQ, BAM, VCF, h5ad)."
+    small: "Run the pipeline on a small subset (one sample, one chromosome, a few thousand cells) first."
+    validate: "Check QC metrics, sample identities, genome build consistency and batch effects before interpreting results."
+    failures:
+      - ["Genome builds or identifiers do not match between inputs", "Stop and harmonize (liftover, ID mapping) before continuing."]
+    rules:
+      - "Do not interpret biological significance beyond what the statistics support; report multiple-testing correction."
+  chemistry-and-drug-discovery:
+    check: "Confirm toolkit versions and input formats (SMILES, SDF, PDB, CIF), and sanitize molecules before computing."
+    small: "Process a few molecules or one target first and inspect the outputs."
+    validate: "Check for invalid structures, unit consistency, and applicability domain of predictive models."
+    failures:
+      - ["Molecules fail to parse or sanitize", "Report and skip them with reasons; never silently drop or alter structures."]
+    rules:
+      - "Computational predictions are hypotheses, not experimental results; label them as such."
+  clinical-and-health:
+    check: "Confirm data access permissions, de-identification status and the governing regulations or protocols."
+    small: "Work on a de-identified sample or synthetic data first."
+    validate: "Check outputs against clinical guidelines and reporting standards; have a qualified human review clinical content."
+    failures:
+      - ["Data appears to contain identifiable patient information", "Stop and ask the user before processing further."]
+    rules:
+      - "Outputs are decision support for qualified professionals, not medical advice; never present them as diagnoses or orders."
+  physical-sciences:
+    check: "Confirm library versions, units, coordinate systems and data formats (FITS, CIF, HDF5, netCDF)."
+    small: "Run on a small grid, region or subset and check physical plausibility."
+    validate: "Check units and dimensional consistency, conservation laws or known limits, and numerical convergence."
+    failures:
+      - ["Results violate known physical limits", "Check units, boundary conditions and solver tolerances before reporting."]
+    rules:
+      - "Report uncertainties and numerical tolerances with every quantitative result."
+  lab-automation:
+    check: "Confirm the instrument or platform model, API version, credentials and whether a simulator is available."
+    small: "Simulate the protocol or run it with water or dummy labware before using real samples."
+    validate: "Verify volumes, deck layout and labware definitions; have a human approve the protocol before execution."
+    failures:
+      - ["The protocol fails in simulation", "Fix it in simulation; never run an unvalidated protocol on hardware."]
+    rules:
+      - "Never trigger physical actions, orders or charges without explicit user confirmation."
+  research-automation:
+    check: "Confirm the objective, evaluation metric, budget (time, compute, money) and stopping criteria."
+    small: "Run one iteration end to end and inspect logs before scaling up."
+    validate: "Evaluate on held-out data; keep an audit trail of every iteration, hypothesis and result."
+    failures:
+      - ["An iteration produces suspiciously large gains", "Check for leakage or evaluation bugs before accepting the result."]
+    rules:
+      - "Record negative results; never select or report only favourable runs."
+  ml-training:
+    check: "Check GPU type, memory and driver/CUDA versions (`nvidia-smi`), framework versions, and dataset location and size."
+    small: "Do a smoke run: tiny model or subset, few steps, and confirm loss decreases and checkpoints save."
+    validate: "Track metrics on held-out data, compare against a baseline, and record seeds, configs and hardware."
+    failures:
+      - ["CUDA out-of-memory", "Reduce batch size, enable gradient accumulation/checkpointing or mixed precision, or shard the model."]
+      - ["Loss is NaN or diverges", "Lower the learning rate, check data for invalid values, and enable gradient clipping."]
+    rules:
+      - "Never claim training results without logs; estimate compute cost before launching large jobs."
+  ml-evaluation-and-safety:
+    check: "Confirm the model, checkpoint, benchmark version and evaluation harness version."
+    small: "Evaluate on a small subset to verify prompts, parsing and scoring."
+    validate: "Use the benchmark's official splits and metrics; check for contamination; report variance across seeds or prompts."
+    failures:
+      - ["Scores differ from published numbers", "Check prompt format, few-shot settings and harness version before concluding."]
+    rules:
+      - "Report evaluation settings in full; never cherry-pick prompts, seeds or subsets."
+  ml-inference-and-ops:
+    check: "Confirm hardware, framework and server versions, model format, and expected load."
+    small: "Serve or log a single request or run end to end before scaling."
+    validate: "Measure latency, throughput and output correctness against a reference; check resource usage and costs."
+    failures:
+      - ["The server fails to start or OOMs", "Check model size versus memory, quantization and parallelism settings."]
+    rules:
+      - "Do not expose services or credentials publicly; confirm cloud costs before provisioning."
+  llm-applications:
+    check: "Confirm the framework version, model provider, API keys and rate limits."
+    small: "Test a single call or chain with a known input and inspect raw outputs."
+    validate: "Evaluate on a small labeled set; check structured outputs against their schema; log prompts and responses."
+    failures:
+      - ["Outputs do not match the expected schema", "Add validation and retries, tighten the schema, or simplify the prompt."]
+    rules:
+      - "Never send private or sensitive data to external APIs without the user's consent."
+  multimodal-and-emerging:
+    check: "Confirm GPU memory, model checkpoint and licence, framework versions and input formats."
+    small: "Run inference on a single sample at low resolution or short length first."
+    validate: "Inspect outputs qualitatively and with task metrics; check licence restrictions for generated content."
+    failures:
+      - ["Out-of-memory on large inputs", "Reduce resolution or sequence length, use half precision, or tile the input."]
+    rules:
+      - "Check model and dataset licences before commercial or published use."

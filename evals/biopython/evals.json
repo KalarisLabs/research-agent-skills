@@ -1,0 +1,40 @@
+{
+  "skill_name": "biopython",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I reverse-complement a DNA string and translate it in Python?",
+      "expected_output": "Uses Bio.Seq: Seq(...).reverse_complement() and .translate(), mentions choosing the right frame and genetic code table (e.g., table=11 for bacteria) and to_stop handling. Provides a short runnable snippet.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a GenBank file called plasmid_pUC19.gb and need a FASTA of just the CDS translations for each annotated gene, plus a GFF-free list of locus_tags. I'm getting 'ValueError: Sequence content is undefined' on some features when I call feature.extract(record.seq). What's going on and how do I fix it?",
+      "expected_output": "Uses Bio.SeqIO.parse(..., 'genbank') and iterates record.features of type CDS, using feature.extract(record.seq) and translate, or the /translation qualifier. Explains that the error arises when the record has no sequence (e.g., a sequence-less/CON or contig-style record), so the sequence must be fetched or the qualifier translation used. Writes output with SeqIO.write in fasta format and collects locus_tag qualifiers, handling missing qualifiers.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got about 40 accession numbers for the cytochrome b gene from different mammals. I want to pull them from NCBI, line them up, and draw a tree showing how the species relate to each other, all in one Python script.",
+      "expected_output": "Builds a pipeline with Bio.Entrez (email set, optional NCBI_API_KEY from env, efetch in batches, rate limits respected), parses with SeqIO, performs a multiple alignment with an external tool (e.g., MUSCLE/MAFFT via subprocess, since Bio.Application was removed), reads it with AlignIO, computes distances with Bio.Phylo.TreeConstruction (DistanceCalculator and DistanceTreeConstructor NJ/UPGMA), and draws or saves the tree. Starts on a small subset and states assumptions and versions.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have 16S rRNA amplicon data and need to compute Faith's PD and weighted UniFrac between my samples, then run PERMANOVA on the PCoA ordination by treatment group.",
+      "expected_output": "Recognizes this is community-ecology diversity analysis, not Biopython work, and directs to scikit-bio (alpha/beta diversity, UniFrac, PCoA, PERMANOVA) rather than using Biopython.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scikit-bio"
+    },
+    {
+      "id": 5,
+      "prompt": "What's the quickest way to look up the Ensembl ID and protein sequence for human TP53 without writing much code? Just something like a one-liner.",
+      "expected_output": "Recommends gget (e.g., gget search / gget seq) for a quick single lookup instead of building Biopython Entrez code, and gives a short gget command or call.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "gget"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "qdrant-vector-search",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I set up Qdrant with payload filtering for my paper abstracts?",
+      "expected_output": "Shows how to install and run Qdrant, create a collection with the right vector size and distance metric (e.g. COSINE for text embeddings), upsert points with payload, and run a filtered search. Recommends creating payload indexes on filtered fields, and checks the installed client version rather than assuming the API.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have 2.3M PubMed abstracts embedded with BAAI/bge-base-en-v1.5 (768-d) in embeddings.parquet, with fields year, journal and mesh_terms. I need to load them into a self-hosted Docker instance and query for nearest neighbors restricted to year >= 2020 and a given journal. My filtered queries are taking several seconds. What should I do?",
+      "expected_output": "Creates the collection with size 768 and COSINE, batch-upserts the points, and creates payload indexes on year and journal, which is the likely cause of the slow filtered queries. Considers scalar quantization or on-disk storage for 2.3M vectors. Starts with a small subset and validates recall on known pairs. States the versions and parameters used, and asks about any value it cannot determine.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We're building an internal literature QA system for our lab. Each chunk needs both a dense embedding and a BM25-style sparse representation, and we want to combine them with metadata filters like publication year. Data must stay on our own servers and be able to scale to tens of millions of chunks. Which vector store and architecture would you use, and how do I implement it?",
+      "expected_output": "Recommends a self-hosted vector database that supports named dense and sparse vectors per point, hybrid search with payload filtering, and sharding/replication, i.e. Qdrant. Sketches the collection config with named dense and sparse vectors, hybrid querying with fusion or re-ranking, and payload indexes. Plans a small test with recall@k on labeled question-passage pairs, and answers only from retrieved passages.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want a managed, zero-ops vector database. Show me how to create a Pinecone serverless index, upsert vectors into a namespace and query with a metadata filter.",
+      "expected_output": "Uses the pinecone skill: Pinecone Python client, serverless index creation, namespaced upserts and a filtered query. Does not use Qdrant.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "pinecone"
+    },
+    {
+      "id": 5,
+      "prompt": "I have 5M 128-d SIFT vectors and want to benchmark an IVF-PQ index against HNSW in FAISS on GPU for pure k-NN recall and throughput. No metadata is involved.",
+      "expected_output": "Uses the faiss skill: builds IVF-PQ and HNSW indexes, runs the GPU benchmark, and compares recall and QPS. Does not use Qdrant.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "faiss"
+    }
+  ]
+}

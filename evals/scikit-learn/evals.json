@@ -1,0 +1,40 @@
+{
+  "skill_name": "scikit-learn",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "random forest vs gradient boosting on my csv, which is better? use cross-val",
+      "expected_output": "Loads the CSV, inspects shape, types and missing values, then compares RandomForest and GradientBoosting with cross-validation inside a Pipeline, using a fixed random_state and an appropriate metric. Reports mean and std of the scores actually computed, and notes any assumptions such as the target column.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have patients.csv with columns age, bmi, sex, smoker, region and a binary target 'readmitted' (about 8% positive). I'm doing StandardScaler on everything and then train_test_split, then LogisticRegression, and I get a ConvergenceWarning plus suspiciously high AUC. Can you fix this and set up a proper evaluation?",
+      "expected_output": "Identifies the leakage from scaling before splitting and that one-hot encoding is needed for the categoricals. Builds a ColumnTransformer plus Pipeline with a stratified split or StratifiedKFold, increases max_iter or scales numerics to address the warning, and uses imbalance-aware metrics (ROC AUC, PR AUC, balanced accuracy). Flags that patient data is sensitive and reports only metrics it computed.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got a table of 5,000 customers with about 20 numeric behavior measurements and no labels. I want to find natural groups and work out how many groups there really are, then show them in 2D.",
+      "expected_output": "Scales the features, runs KMeans (and possibly GMM or agglomerative) across a range of k, and uses silhouette scores and the elbow method to choose the cluster count. Projects with PCA for a 2D plot, states that cluster validity without ground truth is uncertain, and uses fixed seeds.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Cluster my 10x Genomics PBMC dataset (h5ad file) and find marker genes for each cluster using Leiden and a UMAP.",
+      "expected_output": "Recognizes this as a single-cell RNA-seq workflow involving QC, normalization, Leiden clustering, UMAP and differential expression, and uses the scanpy skill rather than scikit-learn.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scanpy"
+    },
+    {
+      "id": 5,
+      "prompt": "I have accelerometer recordings from wearables as multivariate time series and want to classify activity type using ROCKET or other time-series-specific classifiers.",
+      "expected_output": "Recognizes this as time series classification needing specialized algorithms, and directs to the aeon skill rather than generic scikit-learn tabular estimators.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "aeon"
+    }
+  ]
+}

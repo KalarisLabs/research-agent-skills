@@ -1,0 +1,38 @@
+{
+  "skill_name": "scikit-survival",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get Uno's C-index for my Coxnet model in sksurv? I keep getting an error about survival_train.",
+      "expected_output": "Explains that concordance_index_ipcw takes the training structured array (survival_train) first, then test outcome, and higher-is-riskier test risk scores. The censoring distribution must come from training data only, not pooled train+test. Notes that tau must stay within test follow-up and below the end of training support.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have clinic_outcomes.csv with columns age, sex, creatinine, stage, months_to_relapse, relapsed (0/1), and about 8% missing creatinine. I want to compare a random survival forest and a penalized Cox model, tune hyperparameters, and report an honest cross-validated integrated Brier score and time-dependent AUC. Currently I impute and scale the whole table first, then run GridSearchCV. Can you fix this workflow?",
+      "expected_output": "Identifies the leakage from imputing and scaling before the split and tuning on the same folds used for reporting. Builds the structured array with boolean event first and time second. Puts imputer, encoder and scaler in a Pipeline fit on training folds only, and uses nested CV or an untouched holdout. Passes survival_train to the Brier and AUC metrics, uses a strictly increasing time grid inside test follow-up, and feeds survival probabilities of shape (n_test, n_times) to Brier and risk scores to AUC. Caveats that none of these metrics alone shows clinical utility.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My transplant cohort has patients who either relapse, die without relapse, or are censored at last follow-up. I want to estimate the probability of relapse by 3 years without treating death as just censoring. What should I do in Python?",
+      "expected_output": "Recommends nonparametric cumulative incidence with competing risks, using a separate integer event vector (0=censored, 1=relapse, 2=death), rather than 1 minus Kaplan-Meier with deaths censored. Explains the cif output shape (K+1, n_times) and that row 1 is relapse incidence at the chosen time. Mentions that Fine-Gray regression is not available in scikit-survival, and that cause-specific Cox models answer a different question.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Can you fit a Fine-Gray subdistribution hazard regression for my competing-risks data with covariates and give me the subdistribution hazard ratios?",
+      "expected_output": "Should not use this skill's workflow to produce Fine-Gray output, since scikit-survival does not provide Fine-Gray regression. A better answer points to R (cmprsk or tidycmprsk) or another package that implements it.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "I have RNA-seq counts for treated vs control mice and want to run differential expression with DESeq2 and make a volcano plot.",
+      "expected_output": "Recognizes this is a bulk RNA-seq differential expression task unrelated to survival modelling. It should not use the scikit-survival skill. It should use a DESeq2 or RNA-seq analysis workflow if one is available.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

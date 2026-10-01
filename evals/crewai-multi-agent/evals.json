@@ -1,0 +1,40 @@
+{
+  "skill_name": "crewai-multi-agent",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Set up a crew with a researcher and a writer agent that hand work off to each other for a lit summary.",
+      "expected_output": "Defines two role-based agents (role, goal, backstory) and sequential tasks, where the writer task uses the researcher's output as context. It assembles a Crew with a sequential process, notes the crewai install and the LLM and API key setup, and runs a small test first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm on crewai 1.2 and my agents.yaml / tasks.yaml crew for screening ~200 abstracts from abstracts.csv keeps looping on the 'screener' agent until it hits a rate limit error (429 from OpenAI). How do I fix this?",
+      "expected_output": "Diagnoses the loop and the rate limit: set max_iter and max_rpm on the agent or crew, limit tools to 3-5, and check that task context and expected_output are specified. Checks the YAML wiring. Suggests testing on a few abstracts first and does not invent API parameters.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want a few specialized AI workers for a systematic review pipeline: one finds papers, one extracts effect sizes, one checks the extracted numbers, and a coordinator that assigns the work and remembers earlier findings between runs. How should I build that?",
+      "expected_output": "Recommends a role-based multi-agent setup with a hierarchical process (auto-created manager or manager_llm) and memory enabled (short-term, long-term, entity). It defines per-role agents and tasks, adds a verification step on the extracted values, and notes cost and rate limits and a small pilot run.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Build a RAG question-answering chatbot over my PDF collection with a Chroma vector store and conversation memory, using LangChain retrievers.",
+      "expected_output": "Recognizes this as a single-pipeline RAG app that belongs to the langchain skill, not a multi-agent crew. Uses LangChain document loaders, a retriever and a vector store.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "langchain"
+    },
+    {
+      "id": 5,
+      "prompt": "Help me deploy a persistent autonomous agent with a visual block-based workflow builder that runs continuously and posts to Slack.",
+      "expected_output": "Identifies a visual-workflow, continuously running agent platform, which fits autogpt-agents rather than a CrewAI role-based crew. Describes how to set up and deploy the agent.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "autogpt-agents"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "skill_name": "ara-rigor-reviewer",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you give my ARA a rigor review before I publish it? It's in ./artifacts/lora-merge-ara",
+      "expected_output": "Reads PAPER.md, logic/claims.md, logic/experiments.md and trace/exploration_tree.yaml, scores the six dimensions 1-5 with strengths, weaknesses and suggestions, and writes a severity-ranked level2_report.json with an overall grade from Strong Accept to Reject.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Level 1 passed on ara_out/protein-fold-bench. Claim C03 says our retrieval reranker 'generalizes across all protein families' but it only cites E02, which is run on 4 CATH superfamilies. Also the falsification criterion for C03 just says 'if it doesn't work'. Can you critique whether these claims actually hold up and write up the findings?",
+      "expected_output": "Performs a Level 2 semantic review: flags C03 as over-scoped (universal claim vs. narrow E02 evidence, a D1/D3 issue), flags the tautological falsification criterion as a D2 weakness with a suggestion for a concrete threshold and condition, scores all six dimensions, and writes level2_report.json with severity-ranked findings.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I've got this research artifact folder with claims, experiments and a log of what we tried. Structure checks are done. I want an honest second opinion on whether the dead ends in our log are real or just tidied up for show, and whether our argument hangs together.",
+      "expected_output": "Recognizes this as a semantic epistemic review: evaluates exploration integrity (specific failure modes, genuine lessons, non-strawman alternatives, consistency with claims) and argument coherence, and produces the scored level2_report.json review.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I just finished a long debugging session on my training pipeline where we tried three optimizers and abandoned one after it diverged. Can you record the decisions, dead ends and claims into the ara/ folder?",
+      "expected_output": "Should use the session-provenance recording skill to write the decisions, dead ends and claims into the ara/ directory, not perform a review or score anything.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ara-research-manager"
+    },
+    {
+      "id": 5,
+      "prompt": "Turn this PDF of our Nature paper and the GitHub repo into an ARA with claims, concepts and an exploration graph.",
+      "expected_output": "Should compile the PDF and repo into a new ARA artifact, not review an existing one.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ara-compiler"
+    }
+  ]
+}

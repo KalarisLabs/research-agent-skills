@@ -1,0 +1,39 @@
+{
+  "skill_name": "brainstorming-research-ideas",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm a second-year PhD student and I have no idea what to work on next. Help me find a good research direction?",
+      "expected_output": "Uses the skill's structured ideation lenses (e.g., problem-first vs solution-first, abstraction ladder, tension hunting) and walks the user through them with guiding questions. Asks about their area and interests rather than just listing generic topics, and steers toward concrete, defensible directions.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My group has spent a year on sparse-autoencoder feature steering for Llama-3 8B and our last three experiments on the steering-eval repo all gave marginal gains. I'm thinking of pivoting, but I'm not sure whether to go more general, narrower, or move to another field entirely. Can you help me work out where to take this?",
+      "expected_output": "Applies the abstraction ladder (move up, down, sideways) to the SAE steering focus, producing concrete candidate ideas at each level with a publishability check. May also add the tension, failure/boundary probing, or simplicity lenses, and ends with a way to compare options for the pivot.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Everyone in my subfield says you must pick between model accuracy and privacy when training on hospital records. I want to figure out whether that trade-off is real and whether there's a paper in it. How should I think about it?",
+      "expected_output": "Uses tension and contradiction hunting: lists the desiderata, asks whether the privacy-utility trade-off is fundamental or an artifact of current methods, and notes that either a reconciliation or a Pareto-frontier characterization could be the contribution. Includes self-check items such as confirming the tension is real and finding papers that optimize each side.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Use combinatorial creativity, conceptual blending and constraint manipulation to generate novel research directions for my work on long-context transformers.",
+      "expected_output": "Should use creative-thinking-for-research, which covers cognitive-science creativity strategies such as combinatorial creativity and constraint manipulation, not this skill's ten ideation lenses.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "creative-thinking-for-research"
+    },
+    {
+      "id": 5,
+      "prompt": "I already have my research question and hypothesis on gut microbiome diversity and depression. Help me design the experiment: sample size, controls and statistical tests.",
+      "expected_output": "Should not use the brainstorming skill, since the question is already defined and the need is experimental design and statistics. Should use a domain-specific experimental design or statistics skill, or none.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

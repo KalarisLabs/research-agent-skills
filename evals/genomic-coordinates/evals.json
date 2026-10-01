@@ -1,0 +1,39 @@
+{
+  "skill_name": "genomic-coordinates",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My peak caller output BED looks one base off when I load it next to my GTF annotations in IGV. What's going on?",
+      "expected_output": "Explains BED is 0-based half-open while GTF is 1-based inclusive, and gives the conversion (start+1, end unchanged; reverse for GTF to BED). Notes the end coordinate never moves, and asks which tool/convention produced each file or suggests auditing the files for convention violations.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm merging ClinVar (GRCh38 VCF) with my cohort's VCF, but a bunch of known pathogenic indels in my samples (e.g. BRCA1 deletions in repeat regions) show up as novel. I'm doing a plain join on CHROM/POS/REF/ALT in pandas. bcftools says 'REF does not match the reference' for a few records too. How do I fix this?",
+      "expected_output": "Diagnoses that the same indel can be written differently (non-parsimonious or not left-aligned), and recommends splitting multi-allelics then trimming and left-aligning with bcftools norm against the reference FASTA before joining. Treats the REF mismatches as a possible assembly or contig mismatch (e.g. GRCh37 vs GRCh38) and says to check the contigs and build rather than adjusting coordinates.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a transcript-level HGVS c.742C>T for a TP53 variant from a clinical report and need the genomic position so I can look it up in my aligned data. Which transcript, which strand, and how do I get to the genomic coordinate safely?",
+      "expected_output": "Says c. positions cannot be converted by simple arithmetic and need a versioned transcript accession (e.g. NM_000546.x) and the assembly. Recommends a tool that holds the transcript model (VEP, Mutalyzer, bcftools csq or the hgvs package), notes TP53 is on the minus strand, and that the result should be reported with the assembly named.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Using polars-bio in Python, how do I compute the overlap between two BED DataFrames and then cluster the overlapping intervals, scanning the files lazily?",
+      "expected_output": "Uses polars-bio's overlap and cluster functions with lazy scan_bed or read_bed on Polars DataFrames. This is interval-operation API usage rather than coordinate-convention conversion or auditing.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "polars-bio"
+    },
+    {
+      "id": 5,
+      "prompt": "Write a Python function that parses a tab-separated gene expression matrix and runs a differential expression test between two groups with multiple testing correction.",
+      "expected_output": "Provides a general differential expression workflow (e.g. t-test or a DE method with FDR correction). It has nothing to do with genomic coordinate conventions, so no coordinate skill applies.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

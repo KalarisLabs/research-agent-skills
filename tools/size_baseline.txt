@@ -1,0 +1,2 @@
+# Skills temporarily allowed over the 500-line SKILL.md budget (now enforced for every skill).
+# tools/enrich.py splits oversized imported skills into references/ automatically. Keep this list empty.

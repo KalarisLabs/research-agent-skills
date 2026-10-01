@@ -1,0 +1,40 @@
+{
+  "skill_name": "hypogenic",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to try hypogenic on my review-classification data. Where do I start?",
+      "expected_output": "Does not start a model call. Walks through the local-review-first workflow: record package, dataset, provider/model, split policy and budgets, validate the config, audit the dataset, plan cost, and get separate confirmation before any external LLM call.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I've got a hypogenic task config at configs/deceptive_reviews.yaml and the HypoBench deceptive-review train/val/test JSONs. Before I spend anything on OpenAI, can you check the splits for leakage and estimate the worst-case cost for 20 iterations with gpt-4o-mini?",
+      "expected_output": "Uses the local audit_dataset and plan_run tools (no model calls or package import). Checks checksums, schemas and cross-split duplicates, noting the pinned deceptive-review example fails with cross-split duplicates. Builds a bounded upper-bound cost plan, requires current pricing to be filled in because the plan is unready without it, and asks for separate confirmation before sending data.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a few thousand labeled tweets about whether people are sarcastic. I'd like an LLM to automatically propose textual patterns that predict the label, keep the ones that score well on held-out data, and then give me the ranked list as JSON. Is there an existing open-source tool for that, and how do I run it reproducibly?",
+      "expected_output": "Identifies HypoGeniC/HypoRefine (hypogenic==0.3.5, ChicagoHAI) as the fitting tool. Advises pinning the version and hash in an isolated environment, preserving the train/val/test split with test locked, and that the output is candidate hypotheses with predictive stats and not scientific validation. Calls out privacy/provider review before uploading tweet text.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I think a high-fat diet alters gut microbiome diversity via bile acid signaling. Help me turn this into a falsifiable hypothesis with testable predictions and a study design.",
+      "expected_output": "Recognizes this as researcher-led hypothesis formulation, not HypoGeniC software use. Redirects to the hypothesis-generation skill, without running dataset-driven LLM hypothesis mining.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "hypothesis-generation"
+    },
+    {
+      "id": 5,
+      "prompt": "Brainstorm some novel research directions at the intersection of protein language models and antibiotic resistance.",
+      "expected_output": "Treats this as open-ended ideation and uses a scientific brainstorming skill, or none. Does not invoke the hypogenic workflow, since there is no labeled dataset or package.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "scientific-brainstorming"
+    }
+  ]
+}

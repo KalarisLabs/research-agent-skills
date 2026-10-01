@@ -1,0 +1,40 @@
+{
+  "skill_name": "pyvene-interventions",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I do activation patching with pyvene on GPT-2?",
+      "expected_output": "Shows building an IntervenableConfig with RepresentationConfig (layer, component such as block_output) and VanillaIntervention, wrapping the model in IntervenableModel, and running with base and source inputs plus unit_locations. Notes the need to check the installed pyvene version's API.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm replicating ROME-style causal tracing on gpt2-xl for the prompt 'The Space Needle is located in the city of'. I corrupted the subject tokens with Gaussian noise, and now I want to restore the clean hidden state at each (layer, token position) and plot a heatmap of the recovered probability for ' Seattle'. I'm using pyvene and getting a dimension mismatch error when I set the intervention location. How should I set this up and fix it?",
+      "expected_output": "Describes a sweep over layers and positions where each config restores clean activations via VanillaIntervention at the right component (e.g., block_output or mlp_output). Explains how to fix the mismatch by checking the component, unit_locations format and hidden dimension. Gives the corrupted-vs-clean setup and heatmap of the target-token probability. Does not invent APIs and states assumptions such as noise level and the version.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I think a model represents whether a number is greater than a threshold in a low-dimensional linear subspace of one layer's residual stream. I want to learn that subspace by training with counterfactual pairs and then test if swapping it flips the model's output. What approach and library setup would you recommend?",
+      "expected_output": "Recommends distributed alignment search (DAS) with interchange intervention training, using pyvene's RotatedSpaceIntervention (trainable low-rank rotation) on counterfactual base/source pairs. It trains on interchange accuracy and evaluates on held-out pairs. It mentions confirming parameters like subspace dimension with the user.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Using TransformerLens, how do I cache all attention patterns for GPT-2 small with run_with_cache and visualize the induction heads?",
+      "expected_output": "Uses TransformerLens HookedTransformer, run_with_cache and the hook names to inspect attention patterns and identify induction heads. It should not rely on pyvene.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "transformer-lens-interpretability"
+    },
+    {
+      "id": 5,
+      "prompt": "I have observational data from a cohort study showing coffee drinkers have less liver disease. Help me write out rival explanations and a preregistration-ready analysis plan to separate causation from confounding.",
+      "expected_output": "Produces candidate hypotheses, confounders and rival explanations, discriminating predictions, and a preregistration-style analysis plan, with no neural-network intervention tooling.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "hypothesis-generation"
+    }
+  ]
+}

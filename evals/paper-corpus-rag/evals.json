@@ -1,0 +1,18 @@
+{
+  "skill_name": "paper-corpus-rag",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have 300 PDFs of papers. Let me ask questions and get answers with citations to the exact passages.",
+      "expected_output": "Converts PDFs, indexes with paper_index.py, answers only from retrieved chunks with file#chunk citations",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Train a new language model from scratch.",
+      "expected_output": "Skill not used",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

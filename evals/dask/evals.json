@@ -1,0 +1,40 @@
+{
+  "skill_name": "dask",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "my pandas script keeps getting OOM killed on a 40GB folder of CSVs, how do I make it work without rewriting everything?",
+      "expected_output": "Recommends Dask DataFrame (dd.read_csv/read_parquet with lazy evaluation), suggests converting CSV to Parquet, reading directly through Dask rather than loading into pandas first, and avoiding repeated compute() calls. Mentions chunk/partition sizing (~100 MB) and trying a small sample first.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have ~600 GB of Sentinel-2 derived GeoTIFF stacks converted to Zarr, shape (time, band, y, x). I'm computing per-pixel NDVI percentiles with NumPy on my 64 GB workstation and it crashes with MemoryError. I tried dask.array but the dashboard shows millions of tasks and the scheduler hangs for minutes before anything runs. What should I change?",
+      "expected_output": "Diagnoses an overly large task graph and advises increasing chunk sizes (~100 MB), using da.from_zarr with appropriate chunks, map_blocks to fuse operations, and checking graph size. Suggests the distributed scheduler with dashboard, testing on a small slice first, and avoiding repeated compute() or premature persist().",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need to run the same preprocessing function on about 5,000 independent log files and some of them depend on the output of others. I'd like to spread this over our 4-node cluster and add new jobs dynamically as results come in. What's a good way to set this up?",
+      "expected_output": "Recommends Dask distributed with Futures (client.submit/map, as_completed) or dask.delayed/Bags for dynamic task graphs across the cluster, explains scheduler/Client setup, and mentions testing on a few files first and monitoring via the dashboard.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have a 2 GB Parquet file of gene expression metadata that fits in RAM. I want the fastest possible groupby/aggregation with lazy expressions and a streaming engine, no cluster. Which library and how do I write it?",
+      "expected_output": "Should recommend polars (LazyFrame with scan_parquet, expressions, group_by/agg, streaming collect) rather than Dask, since data fits in memory and in-memory speed is the goal.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "polars"
+    },
+    {
+      "id": 5,
+      "prompt": "I'm building a batch inference pipeline that streams millions of images from S3 through a GPU model and writes embeddings back out. Which tool should I use to scale this across GPU nodes?",
+      "expected_output": "Should recommend Ray Data for streaming CPU/GPU batch inference and multi-modal data loading rather than Dask.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "ray-data"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+astropy
+citation-verification
+matlab
+pymatgen
+qiskit
+qutip
+reproducibility-statement
+scientific-visualization
+scientific-writing
+statistical-analysis
+sympy

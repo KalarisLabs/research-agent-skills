@@ -1,0 +1,8 @@
+{
+  "skill_name": "unslop-academic-writing",
+  "evals": [
+    {"id": 1, "prompt": "My introduction sounds like ChatGPT wrote it: delve, pivotal role, tapestry. Rewrite it so it reads like a human researcher.", "expected_output": "Runs slop_check.py, fixes content before words, keeps numbers and citations, re-measures", "files": []},
+    {"id": 2, "prompt": "Remove the AI slop and em dashes from this thesis chapter without changing the claims.", "expected_output": "Linter-guided rewrite preserving claims, hedges sized to evidence", "files": []},
+    {"id": 3, "prompt": "Translate my abstract into Spanish.", "expected_output": "Skill not used", "files": [], "should_trigger": false}
+  ]
+}

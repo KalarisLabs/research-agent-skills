@@ -1,0 +1,65 @@
+diff --git a/skills/arbor/scripts/tree.py b/skills/arbor/scripts/tree.py
+index e5adc5e..40e1c5e 100644
+--- a/skills/arbor/scripts/tree.py
++++ b/skills/arbor/scripts/tree.py
+@@ -103,6 +103,12 @@ def _children(tree, node_id):
+     return [nid for nid, n in tree["nodes"].items() if n.get("parent") == node_id]
+ 
+ 
++def _id_order(node_id):
++    """Sort key for node ids minted as n0, n1, ... so that n10 follows n9."""
++    digits = node_id.lstrip("n")
++    return (0, int(digits), "") if digits.isdigit() else (1, 0, node_id)
++
++
+ def _ancestors(tree, node_id):
+     """Path from node up to (and including) root, nearest first."""
+     path = []
+@@ -225,7 +231,10 @@ def cmd_set_evidence(args):
+         meta["branch_ref"] = args.branch_ref
+     if args.insight is not None:
+         node["insight"] = args.insight
+-    node["status"] = args.status or "executed"
++    status = args.status or "executed"
++    if status not in VALID_STATUS:
++        sys.exit(f"error: status must be one of {sorted(VALID_STATUS)}")
++    node["status"] = status
+     _stamp(node)
+     _save(_tree_path(args.run_dir), tree)
+     print(f"Wrote evidence to {args.node}: dev_score={meta['dev_score']} status={node['status']}")
+@@ -396,7 +405,7 @@ def cmd_observe(args):
+     print("\n-- Active frontier (selectable hypotheses) --")
+     if not frontier:
+         print("  (empty — ideate new children under a promising node)")
+-    for n in sorted(frontier, key=lambda x: x["id"]):
++    for n in sorted(frontier, key=lambda x: _id_order(x["id"])):
+         anc = _ancestors(tree, n["id"])
+         anc_ins = " | ".join(
+             nodes[a]["insight"].replace("\n", " ")[:80] for a in anc if nodes[a]["insight"].strip()
+@@ -410,7 +419,7 @@ def cmd_observe(args):
+     print("\n-- Executed / merged nodes (evidence) --")
+     if not executed:
+         print("  (none yet)")
+-    for n in sorted(executed, key=lambda x: x["id"]):
++    for n in sorted(executed, key=lambda x: _id_order(x["id"])):
+         print(f"  {n['id']} [{n['status']}]{_fmt_score(n, run)}: {n['hypothesis']}")
+         if n["insight"].strip():
+             print(f"      insight: {n['insight'].splitlines()[0][:120]}")
+@@ -420,7 +429,7 @@ def cmd_observe(args):
+     print("\n-- Pruned lessons (negative constraints — avoid these) --")
+     if not pruned:
+         print("  (none yet)")
+-    for n in sorted(pruned, key=lambda x: x["id"]):
++    for n in sorted(pruned, key=lambda x: _id_order(x["id"])):
+         reason = n["metadata"].get("prune_reason", "")
+         print(f"  {n['id']}: {n['hypothesis']}" + (f" — {reason}" if reason else ""))
+ 
+@@ -451,7 +460,7 @@ def cmd_status(args):
+         sym = symbol.get(n["status"], "?")
+         best = " <== M_best" if nid == run["best_node"] else ""
+         print(f"{prefix}[{sym}] {nid} {n['hypothesis'][:70]}{_fmt_score(n, run)}{best}")
+-        kids = sorted(_children(tree, nid))
++        kids = sorted(_children(tree, nid), key=_id_order)
+         for i, c in enumerate(kids):
+             render(c, prefix + "    ")
+ 

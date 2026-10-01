@@ -1,0 +1,40 @@
+{
+  "skill_name": "blip-2-vision-language",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I've got a folder of 2,000 camera-trap photos. Can I auto-generate a short caption for each one with BLIP-2?",
+      "expected_output": "Uses BLIP-2 (Blip2ForConditionalGeneration/Blip2Processor, e.g. blip2-opt-2.7b) to caption images in a batch loop. Starts with a single image test, mentions fp16/GPU needs, and notes that outputs should be checked qualitatively for hallucinations.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm trying to load Salesforce/blip2-flan-t5-xxl in my lab's 16GB RTX 4080 with transformers and get 'CUDA out of memory' during from_pretrained. I'm running VQA on histology slide thumbnails in ./slides/*.png. How do I get this to fit?",
+      "expected_output": "Explains that FlanT5-XXL needs about 26GB in FP16, so it won't fit on 16GB. Recommends INT8 (about 14GB, tight) or INT4 (about 8GB) via bitsandbytes with BitsAndBytesConfig and device_map='auto', or a smaller variant such as flan-t5-xl. Shows the VQA prompt format ('Question: ... Answer:') and warns that results on histology images are unvalidated and need checking.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to build a tool where users upload a photo and type a natural-language question about it, like 'how many people are wearing helmets?', and the model answers without me having to train anything on labeled data. What open model and approach should I use?",
+      "expected_output": "Recommends a zero-shot pretrained VLM approach, with BLIP-2 as a fit, via HuggingFace Transformers or LAVIS. Gives the VQA prompting pattern and caveats such as counting being unreliable. It mentions that InstructBLIP or LLaVA may suit more conversational use, and asks about GPU limits and licence.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want a multi-turn chatbot where users upload an image and have a back-and-forth conversation about it, following detailed instructions. Which model should I set up?",
+      "expected_output": "Recommends LLaVA (or InstructBLIP) for instruction-following multimodal chat rather than BLIP-2, and does not set up a BLIP-2 pipeline.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "llava"
+    },
+    {
+      "id": 5,
+      "prompt": "I need to do zero-shot classification of bird photos into 200 species by computing cosine similarity between image embeddings and text prompts like 'a photo of a {species}'. Show me the code.",
+      "expected_output": "Uses CLIP for plain image-text similarity and zero-shot classification: encodes images and prompts, normalizes embeddings, and takes the softmax or argmax over similarities. Does not use BLIP-2.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "clip"
+    }
+  ]
+}

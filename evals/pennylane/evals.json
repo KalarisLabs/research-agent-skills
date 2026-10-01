@@ -1,0 +1,40 @@
+{
+  "skill_name": "pennylane",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How do I get gradients of a quantum circuit's expectation value w.r.t. its parameters and train it with Adam?",
+      "expected_output": "Uses PennyLane: defines a QNode on a device such as default.qubit, returns qml.expval, picks a diff_method (backprop on simulators, parameter-shift or adjoint otherwise), and runs an optimizer loop such as qml.AdamOptimizer. Checks that the cost decreases and states the library version used.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a 4-qubit angle-embedding classifier in qml.qnode with a torch.nn.Linear head, for iris_features.csv (4 features, 3 classes). Training with the torch interface gives 'RuntimeError: element 0 of tensors does not require grad' and the loss stays flat. Can you fix it so it trains end to end and then run it on a hardware-style device?",
+      "expected_output": "Diagnoses the broken gradient path: QNode not created with interface='torch' or diff_method set wrongly, or parameters not torch tensors with requires_grad=True. Uses qml.qnn.TorchLayer or an equivalent, notes that backprop works only on simulators and parameter-shift is needed for hardware, and tests on a small subset first. Reports the versions used and does not invent APIs.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to find the ground-state energy of an H2 molecule at several bond lengths with a variational quantum approach, and I'd like the same code to run on different vendors' backends by changing one line. Can you set that up?",
+      "expected_output": "Builds the molecular Hamiltonian with qml.qchem, chooses an ansatz (e.g., UCCSD or Givens rotations) and runs a VQE loop with an optimizer. Sweeps the bond lengths, compares the energies with the exact or FCI values, and shows how to swap the device by changing the device string or plugin. States the convergence tolerance and the units (Hartree).",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I need to transpile my circuit for ibm_brisbane's native gate set and submit it with the V2 Estimator in a Runtime session with error mitigation turned on. What settings should I use?",
+      "expected_output": "Recognizes this as IBM-specific work: Qiskit transpilation against the target, V2 primitives and Runtime sessions or error mitigation options. It does not use PennyLane as the main tool and recommends the qiskit skill.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "qiskit"
+    },
+    {
+      "id": 5,
+      "prompt": "I'm running a Google Quantum AI experiment on a Willow-like processor. How do I build a noise-aware circuit with cirq and calibrate it using a randomized benchmarking characterization routine?",
+      "expected_output": "Recognizes this as work targeting Google hardware, with noise-aware circuit design and characterization in Cirq. Recommends the cirq skill and not PennyLane autodiff.",
+      "files": [],
+      "should_trigger": false,
+      "better_skill": "cirq"
+    }
+  ]
+}

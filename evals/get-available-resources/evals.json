@@ -1,0 +1,38 @@
+{
+  "skill_name": "get-available-resources",
+  "provenance": "generated (claude-sonnet-5-5), pending review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How many CPUs and how much RAM can I actually use here?",
+      "expected_output": "Runs the bundled detector (stdout JSON, no stress tests) and reports effective CPU capacity and memory limit, distinguishing host-visible resources from affinity/cgroup/scheduler limits. Treats missing observations as unknown rather than unlimited.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm about to launch a joblib parallel run of 400 scRNA-seq pseudobulk DE fits from de_fits.py inside our Slurm cluster. Last time it died with 'Killed' (OOM) on a node that showed 128 cores in htop. Can you work out how many workers I can safely use, keeping about 8 GiB aside for the OS and main process?",
+      "expected_output": "Takes a snapshot, then runs the planner with --reserve-memory-mib 8192 and workload cpu/mixed, giving suggested_workers and threads_per_worker together to avoid BLAS/OpenMP oversubscription. Explains that Slurm/cgroup limits and affinity override the 128 visible host cores, and avoids reporting job IDs, hostnames or paths.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to fine-tune a protein language model on this workstation. Before I pick a batch size and decide whether to try GPU training, can you tell me what hardware the process can really reach, including any accelerators and free disk for checkpoints?",
+      "expected_output": "Collects a redacted snapshot covering memory, disk (free vs user-available, noting quotas may be stricter) and accelerator candidates. States that GPU visibility does not prove CUDA/ROCm/Metal runtime usability (runtime_usable_devices null, not_tested) and advises running the framework's own check in the target environment, without installing drivers or running benchmarks.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "My PyTorch training script throws 'CUDA out of memory' at batch size 64 on my A100. Help me reduce memory usage with gradient checkpointing and mixed precision.",
+      "expected_output": "Gives model-level memory-reduction guidance (gradient checkpointing, AMP/bf16, smaller batch, gradient accumulation) rather than running a host resource inventory. This is a training-optimization question, so the resource-detection skill is not needed.",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "Write a Python function that uses multiprocessing to compute pairwise Tanimoto similarities for a list of SMILES strings.",
+      "expected_output": "Writes the multiprocessing and RDKit similarity code directly. It does not run a hardware inventory, since no resource-aware planning was requested.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

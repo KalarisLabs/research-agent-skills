@@ -1,0 +1,18 @@
+{
+  "skill_name": "nature-portfolio",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Reformat our paper for Nature: summary paragraph, Methods, Extended Data and reporting summary.",
+      "expected_output": "Verifies current Nature guide limits, restructures, lists mandatory statements",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Write a Science Report.",
+      "expected_output": "Skill not used (science-aaas applies)",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

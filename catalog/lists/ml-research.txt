@@ -1,0 +1,12 @@
+academic-plotting
+evaluating-llms-harness
+exploratory-data-analysis
+huggingface-accelerate
+ml-paper-writing
+ml-training-recipes
+pytorch-lightning
+reproducibility-statement
+scikit-learn
+shap
+statistical-analysis
+transformers
