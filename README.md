@@ -14,7 +14,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/KalarisLabs/research-agent-skills?style=social)](https://github.com/KalarisLabs/research-agent-skills)
 
-[Install](#install-in-30-seconds) · [Who it's for](#built-for-researchers) · [Benchmarks](#measured-not-claimed) · [Skills](#skill-catalog) · [skills.sh](https://skills.sh/kalarislabs/research-agent-skills) · [Docs](https://docs.kalarislabs.com/) · [FAQ](#faq)
+[Install](#install-in-30-seconds) · [Who it's for](#built-for-researchers) · [Benchmarks](#measured-not-claimed) · [Skills](#skill-catalog) · [skills.sh](https://skills.sh/kalarislabs/research-agent-skills) · [Docs](docs/) · [FAQ](#faq)
 
 </div>
 
@@ -72,7 +72,7 @@ Each field bundle is a focused starting set. [Browse all categories](catalog/ski
 | Windows without Node.js | `irm https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/install.ps1 \| iex` |
 
 Our npm and standalone installers verify pinned release downloads with SHA-256. The skills.sh CLI manages its own installation flow. `npx research-agent-skills doctor` checks your setup.
-Full guide: [Installation](https://docs.kalarislabs.com/getting-started/installation/).
+Full guide: [Installation](docs/getting-started/installation.md).
 
 </details>
 
@@ -83,11 +83,11 @@ The skills follow the [Agent Skills specification](https://agentskills.io/specif
 
 | You are... | Start with |
 |---|---|
-| **A PhD or master's student** writing a thesis, dissertation or first paper | `scientific-writing`, `unslop-academic-writing`, `literature-review`, `apa7` or your journal's skill · [Thesis guide](https://docs.kalarislabs.com/guides/thesis-and-dissertation/) |
-| **A researcher or PI** submitting manuscripts and grants | journal-format skills, `abstract-and-title`, `cover-letter-to-editor`, `rebuttal-and-response-to-reviewers`, `research-grants` · [Paper guide](https://docs.kalarislabs.com/guides/write-a-research-paper/) |
-| **Running a systematic review or meta-analysis** | `systematic-review-prisma`, `citation-verification`, `statistical-analysis` · [Review guide](https://docs.kalarislabs.com/guides/systematic-review/) |
+| **A PhD or master's student** writing a thesis, dissertation or first paper | `scientific-writing`, `unslop-academic-writing`, `literature-review`, `apa7` or your journal's skill · [Thesis guide](docs/guides/thesis-and-dissertation.md) |
+| **A researcher or PI** submitting manuscripts and grants | journal-format skills, `abstract-and-title`, `cover-letter-to-editor`, `rebuttal-and-response-to-reviewers`, `research-grants` · [Paper guide](docs/guides/write-a-research-paper.md) |
+| **Running a systematic review or meta-analysis** | `systematic-review-prisma`, `citation-verification`, `statistical-analysis` · [Review guide](docs/guides/systematic-review.md) |
 | **An ML / AI researcher** | `ml-paper-writing` (NeurIPS, ICML, ICLR, ACL, AAAI templates), `arxiv-submission`, and the `ml-*` categories |
-| **In biology, chemistry, medicine, physics or earth science** | 100+ database and analysis skills · [Skills by field](https://docs.kalarislabs.com/guides/by-field/) |
+| **In biology, chemistry, medicine, physics or earth science** | 100+ database and analysis skills · [Skills by field](docs/guides/by-field.md) |
 | **A librarian or research software engineer** | `reference-manager-interop` (Zotero, Mendeley, EndNote), `paper-corpus-rag`, `research-knowledge-graph`, `research-skill-creator` |
 
 ### Find an agent skill for your research task
@@ -170,7 +170,7 @@ COLM · OSDI/NSDI/ASPLOS/SOSP · NIH and NSF grants · conference posters and sl
 ## Skill catalog
 
 Grouped by category and generated from [`catalog/skills.json`](catalog/skills.json). The
-[documentation site](https://docs.kalarislabs.com/skills/) has a page per skill.
+[documentation directory](docs/skills/) has a page per skill.
 
 <!-- catalog:start -->
 
@@ -591,9 +591,9 @@ Grouped by category and generated from [`catalog/skills.json`](catalog/skills.js
 
 ## Documentation
 
-- **Getting started:** [Installation](https://docs.kalarislabs.com/getting-started/installation/) · [Quickstart](https://docs.kalarislabs.com/getting-started/quickstart/)
-- **Guides:** [Write a research paper with AI](https://docs.kalarislabs.com/guides/write-a-research-paper/) · [Thesis and dissertation](https://docs.kalarislabs.com/guides/thesis-and-dissertation/) · [No-slop academic writing](https://docs.kalarislabs.com/guides/no-slop-academic-writing/) · [Systematic reviews](https://docs.kalarislabs.com/guides/systematic-review/) · [Skills by field](https://docs.kalarislabs.com/guides/by-field/)
-- **Reference:** [CLI](cli/README.md) · [Architecture](https://docs.kalarislabs.com/reference/architecture/) · [Benchmarks](benchmarks/README.md) · [Security](SECURITY.md) · [Contributing](CONTRIBUTING.md)
+- **Getting started:** [Installation](docs/getting-started/installation.md) · [Quickstart](docs/getting-started/quickstart.md)
+- **Guides:** [Write a research paper with AI](docs/guides/write-a-research-paper.md) · [Thesis and dissertation](docs/guides/thesis-and-dissertation.md) · [No-slop academic writing](docs/guides/no-slop-academic-writing.md) · [Systematic reviews](docs/guides/systematic-review.md) · [Skills by field](docs/guides/by-field.md)
+- **Reference:** [CLI](cli/README.md) · [Architecture](docs/reference/architecture.md) · [Benchmarks](benchmarks/README.md) · [Security](SECURITY.md) · [Contributing](CONTRIBUTING.md)
 - **For AI search and agents:** [`llms.txt`](llms.txt)
 
 ## Security
@@ -629,7 +629,7 @@ Yes. MIT license. Some skills document third-party software or bundle publisher 
 (see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).
 </details>
 
-More in the [FAQ](https://docs.kalarislabs.com/faq/).
+More in the [FAQ](docs/faq.md).
 
 ## Contributing
 
