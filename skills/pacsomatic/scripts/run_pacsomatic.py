@@ -83,7 +83,7 @@ def detect_java_major_version():
 
 def ensure_no_spaces(label, value):
     if any(ch.isspace() for ch in value):
-        fail(f"{label} must not contain spaces: {value!r}")
+        fail(f"{label} must not contain whitespace")
 
 
 def validate_repo(repo_path):
