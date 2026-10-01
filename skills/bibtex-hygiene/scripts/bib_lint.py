@@ -177,7 +177,8 @@ def lint(entries: list[Entry]) -> list[dict]:
             add(e, "error", "year-format", f"year '{year}' is not a 4-digit year")
         pages = f.get("pages", "")
         if pages and re.fullmatch(r"\d+\s*[-–]\s*\d+", pages) and "--" not in pages:
-            add(e, "info", "pages-dash", f"use an en dash in page ranges: '{re.sub(r'\s*[-–]\s*', '--', pages)}'")
+            normalized_pages = re.sub(r"\s*[-–]\s*", "--", pages)
+            add(e, "info", "pages-dash", f"use an en dash in page ranges: '{normalized_pages}'")
         journal = f.get("journal", "").lower()
         if ("arxiv" in journal or f.get("eprinttype", "").lower() == "arxiv" or f.get("archiveprefix", "").lower() == "arxiv"):
             add(e, "info", "preprint", "arXiv preprint: check whether a peer-reviewed version exists and cite it")
