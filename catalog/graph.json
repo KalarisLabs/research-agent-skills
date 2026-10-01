@@ -1829,6 +1829,14 @@
       "path": "skills/reproducibility-statement"
     },
     {
+      "id": "skill:research-agent-skills",
+      "type": "skill",
+      "label": "research-agent-skills",
+      "description": "Navigate and install the complete Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, physics, and academic writing. Use when a researcher wants the whole collection for Codex, Claude Code or Gemini CLI via skills.sh, needs to choose a field bundle, or asks which specialist SKILL.md files cover a cross-disciplinary research workflow. For a narrow task with a matching specialist skill already available, use that skill directly.",
+      "category": "research-automation",
+      "path": "skills/research-agent-skills"
+    },
+    {
       "id": "skill:research-grants",
       "type": "skill",
       "label": "research-grants",
@@ -5359,6 +5367,11 @@
       "type": "references"
     },
     {
+      "source": "skill:research-agent-skills",
+      "target": "category:research-automation",
+      "type": "in_category"
+    },
+    {
       "source": "skill:research-grants",
       "target": "category:research-writing",
       "type": "in_category"
@@ -5442,6 +5455,11 @@
       "source": "skill:research-skill-creator",
       "target": "category:research-automation",
       "type": "in_category"
+    },
+    {
+      "source": "skill:research-skill-creator",
+      "target": "skill:research-agent-skills",
+      "type": "references"
     },
     {
       "source": "skill:rowan",

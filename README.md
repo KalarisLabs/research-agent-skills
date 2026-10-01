@@ -57,6 +57,12 @@ Then ask your agent, for example *"Verify every reference in refs.bib"* or
 
 Each field bundle is a focused starting set. [Browse all categories](catalog/skills.json) when you need a specialist skill.
 
+**The complete collection:** [`research-agent-skills`](skills/research-agent-skills/SKILL.md) is the
+single collection entry, with an index of all 280 specialist skills. On skills.sh, each
+specialist also has its own installable entry. To install the complete set into this
+project for Codex, run `npx skills add KalarisLabs/research-agent-skills --skill '*' --agent codex --yes`.
+Replace `codex` with your agent, or use `npx research-agent-skills install --all --project`.
+
 <details>
 <summary><b>Other installation methods</b></summary>
 
@@ -454,7 +460,7 @@ Grouped by category and generated from [`catalog/skills.json`](catalog/skills.js
 
 </details>
 
-<details><summary><b>research-automation</b> (8) · Autonomous research loops, agent harnesses and research artifacts</summary>
+<details><summary><b>research-automation</b> (9) · Autonomous research loops, agent harnesses and research artifacts</summary>
 
 | Skill | What it does |
 |---|---|
@@ -465,6 +471,7 @@ Grouped by category and generated from [`catalog/skills.json`](catalog/skills.js
 | [`autoresearch`](skills/autoresearch/SKILL.md) | Orchestrates end-to-end autonomous AI research projects using a two-loop architecture. |
 | [`autoskill`](skills/autoskill/SKILL.md) | Observe the user's screen via screenpipe, detect repeated research workflows, match them against existing research-agent-skills, and draft new skills (or compo… |
 | [`pi-agent`](skills/pi-agent/SKILL.md) | Build with and use Pi, the minimal terminal coding harness. |
+| [`research-agent-skills`](skills/research-agent-skills/SKILL.md) | Navigate and install the complete Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, phys… |
 | [`research-skill-creator`](skills/research-skill-creator/SKILL.md) | Create, improve and test agent skills for research workflows (paper writing, lab protocols, analysis pipelines, domain databases) that meet the Agent Skills sp… |
 
 </details>

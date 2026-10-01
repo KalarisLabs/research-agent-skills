@@ -5,7 +5,7 @@
     "url": "https://github.com/KalarisLabs/research-agent-skills"
   },
   "metadata": {
-    "description": "Research Agent Skills: 280 agent skills for scientific research, paper writing, literature review and domain science.",
+    "description": "Research Agent Skills: 281 agent skills for scientific research, paper writing, literature review and domain science.",
     "version": "1.1.0"
   },
   "plugins": [
@@ -505,6 +505,7 @@
         "./skills/autoresearch",
         "./skills/autoskill",
         "./skills/pi-agent",
+        "./skills/research-agent-skills",
         "./skills/research-skill-creator"
       ]
     },

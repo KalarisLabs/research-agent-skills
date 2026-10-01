@@ -1,6 +1,6 @@
 ---
 title: Skill catalog
-description: All 280 research agent skills by category.
+description: All 281 research agent skills by category.
 ---
 
 # Skill catalog
@@ -270,6 +270,7 @@ Autonomous research loops, agent harnesses and research artifacts.
 - [`autoresearch`](/skills/autoresearch) — Orchestrates end-to-end autonomous AI research projects using a two-loop architecture.
 - [`autoskill`](/skills/autoskill) — Observe the user's screen via screenpipe, detect repeated research workflows, match them against existing research-agent-skills, and draft new skills (or compo…
 - [`pi-agent`](/skills/pi-agent) — Build with and use Pi, the minimal terminal coding harness.
+- [`research-agent-skills`](/skills/research-agent-skills) — Navigate and install the complete Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, phys…
 - [`research-skill-creator`](/skills/research-skill-creator) — Create, improve and test agent skills for research workflows (paper writing, lab protocols, analysis pipelines, domain databases) that meet the Agent Skills sp…
 
 ## ml-training

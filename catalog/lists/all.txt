@@ -212,6 +212,7 @@ rebuttal-and-response-to-reviewers
 reference-manager-interop
 relsa-severity-assessment
 reproducibility-statement
+research-agent-skills
 research-grants
 research-knowledge-graph
 research-lookup

@@ -6,6 +6,8 @@ Outputs (all committed except docs pages):
     catalog/skills.json               machine-readable index used by the CLI and docs
     catalog/graph.json                skills/categories knowledge graph (nodes + edges)
     catalog/graph.graphml             same graph as GraphML (Gephi, yEd, NetworkX, graph tools)
+    skills.sh.json                    skills.sh repository page groupings
+    skills/research-agent-skills/references/catalog.md  bundled offline skill index
     THIRD_PARTY_NOTICES.md            upstream copyright + license notices for imported skills
     README.md                         skill catalog tables between <!-- catalog:start/end --> markers
     docs/skills/*.md                  (with --docs) one page per skill for the documentation site
@@ -87,6 +89,27 @@ CURATED_BUNDLES = {
         "citation-verification", "scientific-writing",
     ]),
 }
+
+DIRECTORY_GROUPS = [
+    ("Academic writing", "Papers, theses, citations, literature reviews and journal formats.",
+     ["research-writing", "journal-formats", "literature-review"]),
+    ("Research methods", "Research design, data sources, knowledge retrieval and automation.",
+     ["ideation-and-design", "knowledge-and-rag", "scientific-databases", "research-automation"]),
+    ("Machine learning", "Data science, model training, evaluation and deployment.",
+     ["data-science-and-ml", "ml-training", "ml-evaluation-and-safety", "ml-inference-and-ops"]),
+    ("Artificial intelligence", "Language models, agents and multimodal research.",
+     ["llm-applications", "multimodal-and-emerging"]),
+    ("Biology", "Bioinformatics, life sciences and lab automation.",
+     ["life-sciences", "lab-automation"]),
+    ("Chemistry", "Cheminformatics, drug discovery and molecular research.",
+     ["chemistry-and-drug-discovery"]),
+    ("Medicine", "Clinical, biomedical and health research.",
+     ["clinical-and-health"]),
+    ("Physics", "Physics, astronomy, quantum and materials science.",
+     ["physical-sciences"]),
+    ("Figures and slides", "Scientific visualization, schematics and presentations.",
+     ["visualization-and-presentation"]),
+]
 
 
 def bundle_definitions(skills: list[Skill]) -> dict[str, dict]:
@@ -182,6 +205,42 @@ def build_plugin_manifest(index: dict) -> dict:
         "license": "MIT",
         "keywords": KEYWORDS,
     }
+
+
+def build_skills_sh_config(index: dict) -> dict:
+    category_ids = {c["id"] for c in index["categories"]}
+    grouped_ids = {category for _, _, categories in DIRECTORY_GROUPS for category in categories}
+    if category_ids != grouped_ids:
+        raise ValueError(f"skills.sh category mapping differs: {category_ids ^ grouped_ids}")
+    featured = "research-agent-skills"
+    if featured not in {entry["name"] for entry in index["skills"]}:
+        raise ValueError(f"missing collection skill: {featured}")
+    groups = [{"title": "Full collection", "description": "Research Agent Skills by Kalaris Labs.",
+               "skills": [featured]}]
+    seen = {featured}
+    for title, description, categories in DIRECTORY_GROUPS:
+        names = [entry["name"] for entry in index["skills"]
+                 if entry["category"] in categories and entry["name"] not in seen]
+        seen.update(names)
+        groups.append({"title": title, "description": description, "skills": names})
+    missing = {entry["name"] for entry in index["skills"]} - seen
+    if missing:
+        raise ValueError(f"skills.sh grouping omits: {', '.join(sorted(missing))}")
+    return {"$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+            "notGrouped": "bottom", "groupings": groups}
+
+
+def build_collection_reference(index: dict) -> str:
+    lines = ["# Research Agent Skills index", "",
+             f"{len(index['skills']) - 1} specialist skills in this Kalaris Labs collection.",
+             "Select a specialist by the research task; install the full collection only when requested.", ""]
+    for title, _, categories in DIRECTORY_GROUPS:
+        lines += [f"## {title}", ""]
+        lines += [f"- `{entry['name']}` — {_first_sentence(entry['description'])}"
+                  for entry in index["skills"]
+                  if entry["category"] in categories and entry["name"] != "research-agent-skills"]
+        lines.append("")
+    return "\n".join(lines)
 
 
 SKILL_REF_RE = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)+)`")
@@ -366,6 +425,8 @@ def main(argv: list[str] | None = None) -> int:
         ROOT / "catalog" / "skills.json": _json(index),
         ROOT / "catalog" / "graph.json": _json(graph),
         ROOT / "catalog" / "graph.graphml": graph_to_graphml(graph),
+        ROOT / "skills.sh.json": _json(build_skills_sh_config(index)),
+        ROOT / "skills" / "research-agent-skills" / "references" / "catalog.md": build_collection_reference(index),
         ROOT / "THIRD_PARTY_NOTICES.md": build_notices(manifest),
         ROOT / "llms.txt": build_llms_txt(index),
         ROOT / "docs" / "llms.txt": build_llms_txt(index),

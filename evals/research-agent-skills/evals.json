@@ -1,0 +1,24 @@
+{
+  "skill_name": "research-agent-skills",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Set up the complete Kalaris Labs research skill collection in this Codex project, then show me how its biology and paper-writing skills are organized.",
+      "expected_output": "Uses the full skills.sh collection install for Codex at project scope and consults the bundled index to identify relevant specialist skills.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I work across AI models and clinical literature. Which Research Agent Skills should I install for model evaluation, evidence review, and manuscript writing?",
+      "expected_output": "Routes to a small set of relevant specialist skills across AI, medicine, and academic writing rather than assuming every skill is needed.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Verify the DOI and title of this one citation using the citation-verification skill I already installed.",
+      "expected_output": "Skill not used; use the installed citation-verification specialist directly.",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

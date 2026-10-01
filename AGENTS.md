@@ -12,6 +12,7 @@ them. See README.md.
 - `third_party/`: upstream import config, categories, rebrand rules, patches, provenance manifest.
 - `security/`: domain allowlist and reviewed-finding baselines.
 - Generated (never hand-edit): `.claude-plugin/marketplace.json`, `plugin.json`, `catalog/*`,
+  `skills.sh.json`, `skills/research-agent-skills/references/catalog.md`,
   `THIRD_PARTY_NOTICES.md`, `docs/skills/*`, the README catalog block. Regenerate with
   `uv run tools/build_catalog.py --docs` before publishing documentation.
 

@@ -54,10 +54,21 @@ scope prompts and flags; review its choice before installing.
 
 ## skills.sh discovery
 
+The [collection skill](https://github.com/KalarisLabs/research-agent-skills/blob/main/skills/research-agent-skills/SKILL.md)
+indexes all 280 specialist skills. Each specialist remains separately installable.
+To install the entire collection into this project for Codex, run:
+
+```sh
+npx skills add KalarisLabs/research-agent-skills --skill '*' --agent codex --yes
+```
+
+Use another agent name if appropriate, or add `--global` for a user-wide install.
+
 The public repository's `skills/<name>/SKILL.md` folders are discoverable by the Vercel skills CLI.
-There is no repository setting that submits this collection to the directory. Once the complete repository
-is published, run `npx skills add KalarisLabs/research-agent-skills --list` to check discovery, then
-install a skill through that CLI. [Browse the live directory listing](https://skills.sh/kalarislabs/research-agent-skills).
+The directory page lists skills it has seen through CLI installs. The root `skills.sh.json` groups
+those entries by audience; it does not submit unseen skills. Run
+`npx skills add KalarisLabs/research-agent-skills --list` to verify repository discovery.
+[Browse the directory listing](https://skills.sh/kalarislabs/research-agent-skills).
 The directory's rankings use the CLI's anonymous install telemetry.
 
 ## Python for skill scripts

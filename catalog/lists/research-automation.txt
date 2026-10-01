@@ -5,4 +5,5 @@ arbor
 autoresearch
 autoskill
 pi-agent
+research-agent-skills
 research-skill-creator

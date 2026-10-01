@@ -71,7 +71,7 @@
     {
       "id": "research-automation",
       "description": "Autonomous research loops, agent harnesses and research artifacts",
-      "count": 8
+      "count": 9
     },
     {
       "id": "ml-training",
@@ -3703,6 +3703,30 @@
         "ethics statement"
       ],
       "path": "skills/reproducibility-statement",
+      "has_scripts": false,
+      "origin": "original"
+    },
+    {
+      "name": "research-agent-skills",
+      "description": "Navigate and install the complete Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, physics, and academic writing. Use when a researcher wants the whole collection for Codex, Claude Code or Gemini CLI via skills.sh, needs to choose a field bundle, or asks which specialist SKILL.md files cover a cross-disciplinary research workflow. For a narrow task with a matching specialist skill already available, use that skill directly.",
+      "category": "research-automation",
+      "version": "1.0",
+      "license": "MIT",
+      "compatibility": "The skill index works offline. Installing additional skills requires Node.js 18+ and access to the public GitHub repository.",
+      "tags": [
+        "academia",
+        "research agents",
+        "scientific research",
+        "academic writing",
+        "skill collection",
+        "AI",
+        "machine learning",
+        "biology",
+        "chemistry",
+        "medicine",
+        "physics"
+      ],
+      "path": "skills/research-agent-skills",
       "has_scripts": false,
       "origin": "original"
     },
