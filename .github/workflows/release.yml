@@ -17,6 +17,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  vendor-security:
+    name: Vendor security gate
+    uses: ./.github/workflows/vendor-security.yml
+    secrets:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      SOCKET_CLI_API_TOKEN: ${{ secrets.SOCKET_CLI_API_TOKEN }}
+
   verify:
     name: Verify
     runs-on: ubuntu-latest
@@ -52,7 +59,7 @@ jobs:
 
   build:
     name: Build, attest and sign
-    needs: verify
+    needs: [verify, vendor-security]
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
@@ -102,11 +109,16 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: 22
+          node-version: 24
           package-manager-cache: false   # never restore caches into release builds
           registry-url: https://registry.npmjs.org
       - working-directory: cli
         run: |
+          npm install --global npm@11.15.0
           npm ci --ignore-scripts
           npm run build
-          npm publish --provenance --access public
+          if npm view "research-agent-skills@${GITHUB_REF_NAME#v}" version >/dev/null 2>&1; then
+            echo "::notice::This npm version was already published during the one-time bootstrap"
+          else
+            npm publish --provenance --access public
+          fi

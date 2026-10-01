@@ -1,0 +1,78 @@
+name: Vendor security
+
+# Full skill analysis and dependency-policy checks. Enable on main by setting
+# the repository variable VENDOR_SCANS_ENABLED=true after adding the two secrets.
+# Release calls this workflow unconditionally and fails closed without secrets.
+on:
+  workflow_call:
+    secrets:
+      SNYK_TOKEN:
+        required: true
+      SOCKET_CLI_API_TOKEN:
+        required: true
+  push:
+    branches: [main]
+  schedule:
+    - cron: "41 5 * * 1"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  snyk-agent-scan:
+    name: Snyk Agent Scan (all skills)
+    if: github.event_name == 'workflow_call' || vars.VENDOR_SCANS_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    steps:
+      - uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - name: Analyze all 281 skills
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          test -n "$SNYK_TOKEN" || { echo '::error::Set the SNYK_TOKEN repository secret'; exit 1; }
+          mkdir -p reports
+          uvx --from snyk-agent-scan==0.6.8 snyk-agent-scan scan skills --json > reports/snyk-agent-scan.json
+      - name: Require complete coverage and no high or critical risks
+        run: python tools/snyk_agent_scan_gate.py reports/snyk-agent-scan.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: snyk-agent-scan-report
+          path: reports/snyk-agent-scan.json
+          retention-days: 30
+
+  socket:
+    name: Socket dependency policy
+    if: github.event_name == 'workflow_call' || vars.VENDOR_SCANS_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Require Socket API token
+        env:
+          SOCKET_CLI_API_TOKEN: ${{ secrets.SOCKET_CLI_API_TOKEN }}
+        run: test -n "$SOCKET_CLI_API_TOKEN" || { echo '::error::Set the SOCKET_CLI_API_TOKEN repository secret'; exit 1; }
+      - name: Scan dependency manifests against Socket policy
+        env:
+          SOCKET_CLI_API_TOKEN: ${{ secrets.SOCKET_CLI_API_TOKEN }}
+        run: npx --yes socket@1.4.1 ci

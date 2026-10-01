@@ -15,6 +15,24 @@ and can get the repository delisted. Usefulness, visibility in academic channels
 - Domain: configure `docs.kalarislabs.com` in Mintlify before adding the Cloudflare DNS record, then verify HTTPS and the sitemap.
 - Environments: `npm` (trusted publishing) and `benchmarks` (holds `ANTHROPIC_API_KEY` for manual benchmark runs).
 
+## Vendor security and npm release setup
+
+1. Add GitHub repository secrets `SNYK_TOKEN` and `SOCKET_CLI_API_TOKEN` in
+   **Settings → Secrets and variables → Actions**. Do not paste tokens into an
+   issue or chat. The Socket token needs `full-scans:create`, `full-scans:list`,
+   and `security-policy:read` permissions. Set the repository variable
+   `VENDOR_SCANS_ENABLED=true` after both are present. The vendor workflow then
+   scans main and runs weekly; the release workflow always requires both scans.
+2. The first `research-agent-skills` npm version must be published by an npm
+   account owner from `cli/` using `npm login` and `npm publish --access public`.
+   Confirm the package name and tarball contents first with `npm pack --dry-run`.
+   Do not create the release tag until this bootstrap publish is visible on npm.
+3. In npm package settings, add a trusted GitHub Actions publisher: organization
+   `KalarisLabs`, repository `research-agent-skills`, workflow `release.yml`,
+   environment `npm`, and **Allow npm publish**. Future tag releases use OIDC
+   and provenance without a long-lived npm publishing token. The release job
+   recognizes a version already published during bootstrap.
+
 ## Citable research software (academics search and cite here)
 
 - [ ] Connect the repository to **Zenodo** so each release mints a DOI, then add the DOI badge to the README and `CITATION.cff`.
