@@ -47,8 +47,15 @@ try {
   $asset = "research-agent-skills-$Version.tar.gz"
   $base = if ($env:RAS_BASE_URL) { $env:RAS_BASE_URL } else { "https://github.com/$Repo/releases/download/v$Version" }
   Write-Host "Downloading $asset ..."
-  Invoke-WebRequest -UseBasicParsing "$base/$asset" -OutFile (Join-Path $tmp $asset)
-  Invoke-WebRequest -UseBasicParsing "$base/SHA256SUMS" -OutFile (Join-Path $tmp 'SHA256SUMS')
+  foreach ($file in @($asset, 'SHA256SUMS')) {
+    $source = [Uri]("$base/$file")
+    $destination = Join-Path $tmp $file
+    if ($source.IsFile) {
+      Copy-Item -LiteralPath $source.LocalPath -Destination $destination
+    } else {
+      Invoke-WebRequest -UseBasicParsing $source.AbsoluteUri -OutFile $destination
+    }
+  }
   $line = Get-Content (Join-Path $tmp 'SHA256SUMS') | Where-Object { $_ -match "^([0-9a-f]{64})\s+\*?$([regex]::Escape($asset))$" } | Select-Object -First 1
   if (-not $line) { throw "SHA256SUMS has no entry for $asset" }
   $expected = ($line -split '\s+')[0].ToLower()
