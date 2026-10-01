@@ -12,7 +12,6 @@ description: "Trains and applies scvi-tools probabilistic deep generative models
 ## Install
 
 ```bash
-npx research-agent-skills install scvi-tools
 npx skills add KalarisLabs/research-agent-skills --skill scvi-tools
 ```
 

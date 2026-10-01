@@ -12,7 +12,6 @@ description: "Compiles any research input — PDF papers, GitHub repositories, e
 ## Install
 
 ```bash
-npx research-agent-skills install ara-compiler
 npx skills add KalarisLabs/research-agent-skills --skill ara-compiler
 ```
 

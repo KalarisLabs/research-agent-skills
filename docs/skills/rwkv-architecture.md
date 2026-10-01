@@ -12,7 +12,6 @@ description: "Covers the RWKV (Receptance Weighted Key Value) architecture, an R
 ## Install
 
 ```bash
-npx research-agent-skills install rwkv-architecture
 npx skills add KalarisLabs/research-agent-skills --skill rwkv-architecture
 ```
 

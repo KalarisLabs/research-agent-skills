@@ -12,7 +12,6 @@ description: "Fine-tune LLMs using reinforcement learning with TRL - SFT for ins
 ## Install
 
 ```bash
-npx research-agent-skills install fine-tuning-with-trl
 npx skills add KalarisLabs/research-agent-skills --skill fine-tuning-with-trl
 ```
 

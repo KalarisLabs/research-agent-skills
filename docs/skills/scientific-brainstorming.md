@@ -12,7 +12,6 @@ description: "Facilitates evidence-aware scientific ideation with independent ge
 ## Install
 
 ```bash
-npx research-agent-skills install scientific-brainstorming
 npx skills add KalarisLabs/research-agent-skills --skill scientific-brainstorming
 ```
 

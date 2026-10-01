@@ -12,7 +12,6 @@ description: "Logs and views ML training data in TensorBoard using PyTorch Summa
 ## Install
 
 ```bash
-npx research-agent-skills install tensorboard
 npx skills add KalarisLabs/research-agent-skills --skill tensorboard
 ```
 

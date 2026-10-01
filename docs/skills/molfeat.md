@@ -12,7 +12,6 @@ description: "Converts SMILES strings or RDKit/datamol molecules into numerical 
 ## Install
 
 ```bash
-npx research-agent-skills install molfeat
 npx skills add KalarisLabs/research-agent-skills --skill molfeat
 ```
 

@@ -12,7 +12,6 @@ description: "Runs constraint-based metabolic modeling with COBRApy (Python, imp
 ## Install
 
 ```bash
-npx research-agent-skills install cobrapy
 npx skills add KalarisLabs/research-agent-skills --skill cobrapy
 ```
 

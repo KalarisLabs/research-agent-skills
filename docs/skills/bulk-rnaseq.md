@@ -12,7 +12,6 @@ description: "End-to-end bulk RNA-seq orchestrator — takes raw FASTQ reads thr
 ## Install
 
 ```bash
-npx research-agent-skills install bulk-rnaseq
 npx skills add KalarisLabs/research-agent-skills --skill bulk-rnaseq
 ```
 

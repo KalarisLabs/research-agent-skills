@@ -12,7 +12,6 @@ description: "Runs the parallel-cli tool for web workflows: web search, URL and 
 ## Install
 
 ```bash
-npx research-agent-skills install parallel-web
 npx skills add KalarisLabs/research-agent-skills --skill parallel-web
 ```
 

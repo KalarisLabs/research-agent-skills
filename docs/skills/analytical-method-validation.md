@@ -12,7 +12,6 @@ description: "Plans and evaluates analytical method validation, verification, an
 ## Install
 
 ```bash
-npx research-agent-skills install analytical-method-validation
 npx skills add KalarisLabs/research-agent-skills --skill analytical-method-validation
 ```
 

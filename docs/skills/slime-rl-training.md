@@ -12,7 +12,6 @@ description: "Provides guidance for LLM post-training with RL using slime, a Meg
 ## Install
 
 ```bash
-npx research-agent-skills install slime-rl-training
 npx skills add KalarisLabs/research-agent-skills --skill slime-rl-training
 ```
 

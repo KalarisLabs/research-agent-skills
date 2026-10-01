@@ -12,7 +12,6 @@ description: "Provides guidance for training and analyzing Sparse Autoencoders (
 ## Install
 
 ```bash
-npx research-agent-skills install sparse-autoencoder-training
 npx skills add KalarisLabs/research-agent-skills --skill sparse-autoencoder-training
 ```
 

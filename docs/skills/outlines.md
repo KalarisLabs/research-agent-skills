@@ -12,7 +12,6 @@ description: "Generates guaranteed-valid structured output from LLMs with Outlin
 ## Install
 
 ```bash
-npx research-agent-skills install outlines
 npx skills add KalarisLabs/research-agent-skills --skill outlines
 ```
 

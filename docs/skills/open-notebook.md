@@ -12,7 +12,6 @@ description: "Self-hosted, open-source alternative to Google NotebookLM for AI-p
 ## Install
 
 ```bash
-npx research-agent-skills install open-notebook
 npx skills add KalarisLabs/research-agent-skills --skill open-notebook
 ```
 

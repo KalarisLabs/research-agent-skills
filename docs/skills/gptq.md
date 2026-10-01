@@ -12,7 +12,6 @@ description: "Quantizes LLMs to 4-bit (also 3-bit) with GPTQ using group-wise qu
 ## Install
 
 ```bash
-npx research-agent-skills install gptq
 npx skills add KalarisLabs/research-agent-skills --skill gptq
 ```
 

@@ -12,7 +12,6 @@ description: "Provides the HuggingFace Tokenizers library (Rust core with Python
 ## Install
 
 ```bash
-npx research-agent-skills install huggingface-tokenizers
 npx skills add KalarisLabs/research-agent-skills --skill huggingface-tokenizers
 ```
 

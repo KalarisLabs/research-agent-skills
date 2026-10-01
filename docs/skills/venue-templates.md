@@ -12,7 +12,6 @@ description: "Prepare journal manuscripts, conference papers, research posters, 
 ## Install
 
 ```bash
-npx research-agent-skills install venue-templates
 npx skills add KalarisLabs/research-agent-skills --skill venue-templates
 ```
 

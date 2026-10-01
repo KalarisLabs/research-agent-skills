@@ -12,7 +12,6 @@ description: "Use when working with LaminDB, the open-source lineage-native lake
 ## Install
 
 ```bash
-npx research-agent-skills install lamindb
 npx skills add KalarisLabs/research-agent-skills --skill lamindb
 ```
 

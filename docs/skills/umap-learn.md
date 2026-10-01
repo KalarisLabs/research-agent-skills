@@ -12,7 +12,6 @@ description: "Reduces and embeds high-dimensional data with umap-learn (UMAP) in
 ## Install
 
 ```bash
-npx research-agent-skills install umap-learn
 npx skills add KalarisLabs/research-agent-skills --skill umap-learn
 ```
 

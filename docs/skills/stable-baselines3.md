@@ -12,7 +12,6 @@ description: "Production-ready reinforcement learning algorithms (PPO, SAC, DQN,
 ## Install
 
 ```bash
-npx research-agent-skills install stable-baselines3
 npx skills add KalarisLabs/research-agent-skills --skill stable-baselines3
 ```
 

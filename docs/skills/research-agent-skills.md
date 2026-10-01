@@ -12,7 +12,6 @@ description: "Navigate the Research Agent Skills collection by Kalaris Labs for 
 ## Install
 
 ```bash
-npx research-agent-skills install research-agent-skills
 npx skills add KalarisLabs/research-agent-skills --skill research-agent-skills
 ```
 

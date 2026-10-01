@@ -12,7 +12,6 @@ description: "Provide qualitative-first, evidence-traceable developmental review
 ## Install
 
 ```bash
-npx research-agent-skills install scholar-evaluation
 npx skills add KalarisLabs/research-agent-skills --skill scholar-evaluation
 ```
 

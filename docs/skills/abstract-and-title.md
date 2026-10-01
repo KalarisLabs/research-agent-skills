@@ -12,7 +12,6 @@ description: "Write and sharpen research paper titles, abstracts (structured and
 ## Install
 
 ```bash
-npx research-agent-skills install abstract-and-title
 npx skills add KalarisLabs/research-agent-skills --skill abstract-and-title
 ```
 

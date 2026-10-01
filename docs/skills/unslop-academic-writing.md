@@ -12,7 +12,6 @@ description: "Remove AI slop from research writing so papers, theses, grant prop
 ## Install
 
 ```bash
-npx research-agent-skills install unslop-academic-writing
 npx skills add KalarisLabs/research-agent-skills --skill unslop-academic-writing
 ```
 

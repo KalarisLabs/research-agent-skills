@@ -12,7 +12,6 @@ description: "Tracks ML experiments with SwanLab, an open-source tool covering s
 ## Install
 
 ```bash
-npx research-agent-skills install experiment-tracking-swanlab
 npx skills add KalarisLabs/research-agent-skills --skill experiment-tracking-swanlab
 ```
 

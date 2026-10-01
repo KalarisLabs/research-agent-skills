@@ -12,7 +12,6 @@ description: "Extend context windows of transformer models using RoPE, YaRN, ALi
 ## Install
 
 ```bash
-npx research-agent-skills install long-context
 npx skills add KalarisLabs/research-agent-skills --skill long-context
 ```
 

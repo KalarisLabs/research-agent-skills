@@ -12,7 +12,6 @@ description: "Trains large language models (2B-462B parameters) with NVIDIA Mega
 ## Install
 
 ```bash
-npx research-agent-skills install training-llms-megatron
 npx skills add KalarisLabs/research-agent-skills --skill training-llms-megatron
 ```
 

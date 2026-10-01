@@ -12,7 +12,6 @@ description: "Estimates intracellular metabolic fluxes from steady-state carbon-
 ## Install
 
 ```bash
-npx research-agent-skills install 13c-metabolic-flux
 npx skills add KalarisLabs/research-agent-skills --skill 13c-metabolic-flux
 ```
 

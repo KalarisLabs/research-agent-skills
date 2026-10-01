@@ -12,7 +12,6 @@ description: "OpenAI's model connecting vision and language."
 ## Install
 
 ```bash
-npx research-agent-skills install clip
 npx skills add KalarisLabs/research-agent-skills --skill clip
 ```
 

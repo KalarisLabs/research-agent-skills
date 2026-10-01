@@ -12,7 +12,6 @@ description: "Filters and triages small-molecule libraries with the Python medch
 ## Install
 
 ```bash
-npx research-agent-skills install medchem
 npx skills add KalarisLabs/research-agent-skills --skill medchem
 ```
 

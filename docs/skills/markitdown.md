@@ -12,7 +12,6 @@ description: "Converts documents to Markdown with Microsoft MarkItDown (Python A
 ## Install
 
 ```bash
-npx research-agent-skills install markitdown
 npx skills add KalarisLabs/research-agent-skills --skill markitdown
 ```
 

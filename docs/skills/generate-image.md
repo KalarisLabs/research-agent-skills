@@ -12,7 +12,6 @@ description: "Generate or edit images with AI models through the OpenRouter Imag
 ## Install
 
 ```bash
-npx research-agent-skills install generate-image
 npx skills add KalarisLabs/research-agent-skills --skill generate-image
 ```
 

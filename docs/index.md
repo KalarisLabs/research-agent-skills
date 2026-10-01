@@ -12,12 +12,13 @@ revise prose in your own voice and verify references against scholarly records.
 Built for academia across machine learning, AI, biology, chemistry, medicine and physics.
 
 ```bash
-npx research-agent-skills
+npx skills add KalarisLabs/research-agent-skills
 ```
 
-Created by **Sayan Chowdhury** at **Kalaris Labs** · MIT licensed · installer targets Claude Code,
-OpenAI Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode and Windsurf. [Choose a bundle](/getting-started/installation)
-or install into one project with `--project`.
+Created by **Sayan Chowdhury** at **Kalaris Labs** · MIT licensed. Choose the skills and agent
+harnesses you need for this project, or add `--global` for your user account. [See installation
+options](/getting-started/installation) for Claude Code, OpenAI Codex, Cursor, Gemini CLI,
+GitHub Copilot, OpenCode and Windsurf.
 
 ## Choose a research workflow
 

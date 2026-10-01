@@ -12,7 +12,6 @@ description: "Python/HTSlib workflows for genomic files."
 ## Install
 
 ```bash
-npx research-agent-skills install pysam
 npx skills add KalarisLabs/research-agent-skills --skill pysam
 ```
 

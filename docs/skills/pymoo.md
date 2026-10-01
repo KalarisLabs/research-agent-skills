@@ -12,7 +12,6 @@ description: "Solves single- and multi-objective optimization problems in Python
 ## Install
 
 ```bash
-npx research-agent-skills install pymoo
 npx skills add KalarisLabs/research-agent-skills --skill pymoo
 ```
 

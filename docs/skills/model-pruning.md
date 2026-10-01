@@ -12,7 +12,6 @@ description: "Reduce LLM size and accelerate inference using pruning techniques 
 ## Install
 
 ```bash
-npx research-agent-skills install model-pruning
 npx skills add KalarisLabs/research-agent-skills --skill model-pruning
 ```
 

@@ -12,7 +12,6 @@ description: "Builds clinical deep-learning pipelines with PyHealth using its Da
 ## Install
 
 ```bash
-npx research-agent-skills install pyhealth
 npx skills add KalarisLabs/research-agent-skills --skill pyhealth
 ```
 

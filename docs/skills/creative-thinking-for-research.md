@@ -12,7 +12,6 @@ description: "Applies cognitive science frameworks for creative thinking to CS a
 ## Install
 
 ```bash
-npx research-agent-skills install creative-thinking-for-research
 npx skills add KalarisLabs/research-agent-skills --skill creative-thinking-for-research
 ```
 

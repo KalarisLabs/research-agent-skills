@@ -12,7 +12,6 @@ description: "Organizes, queries, validates, and converts neuroscience and biome
 ## Install
 
 ```bash
-npx research-agent-skills install bids
 npx skills add KalarisLabs/research-agent-skills --skill bids
 ```
 

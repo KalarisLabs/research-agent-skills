@@ -12,7 +12,6 @@ description: "Hugging Face Transformers for loading Hub models, running pipeline
 ## Install
 
 ```bash
-npx research-agent-skills install transformers
 npx skills add KalarisLabs/research-agent-skills --skill transformers
 ```
 

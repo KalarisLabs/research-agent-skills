@@ -12,7 +12,6 @@ description: "Covers the EvolutionaryScale/Biohub `esm` Python SDK: ESM3 generat
 ## Install
 
 ```bash
-npx research-agent-skills install esm
 npx skills add KalarisLabs/research-agent-skills --skill esm
 ```
 

@@ -12,7 +12,6 @@ description: "Multi-cloud orchestration for ML workloads with automatic cost opt
 ## Install
 
 ```bash
-npx research-agent-skills install skypilot-multi-cloud-orchestration
 npx skills add KalarisLabs/research-agent-skills --skill skypilot-multi-cloud-orchestration
 ```
 

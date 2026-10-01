@@ -12,7 +12,6 @@ description: "Half-Quadratic Quantization for LLMs without calibration data."
 ## Install
 
 ```bash
-npx research-agent-skills install hqq-quantization
 npx skills add KalarisLabs/research-agent-skills --skill hqq-quantization
 ```
 

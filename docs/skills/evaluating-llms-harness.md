@@ -12,7 +12,6 @@ description: "Evaluates LLMs across 60+ academic benchmarks (MMLU, HumanEval, GS
 ## Install
 
 ```bash
-npx research-agent-skills install evaluating-llms-harness
 npx skills add KalarisLabs/research-agent-skills --skill evaluating-llms-harness
 ```
 

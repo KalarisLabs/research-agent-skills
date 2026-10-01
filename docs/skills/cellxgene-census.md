@@ -12,7 +12,6 @@ description: "Query the CZ CELLxGENE Census programmatically for versioned publi
 ## Install
 
 ```bash
-npx research-agent-skills install cellxgene-census
 npx skills add KalarisLabs/research-agent-skills --skill cellxgene-census
 ```
 

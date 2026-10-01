@@ -12,7 +12,6 @@ description: "Query the Cancer Dependency Map (DepMap) for cancer cell line gene
 ## Install
 
 ```bash
-npx research-agent-skills install depmap
 npx skills add KalarisLabs/research-agent-skills --skill depmap
 ```
 

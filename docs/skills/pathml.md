@@ -12,7 +12,6 @@ description: "Covers local, research-only computational pathology with PathML 3.
 ## Install
 
 ```bash
-npx research-agent-skills install pathml
 npx skills add KalarisLabs/research-agent-skills --skill pathml
 ```
 

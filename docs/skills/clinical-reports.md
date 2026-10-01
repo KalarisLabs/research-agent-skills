@@ -12,7 +12,6 @@ description: "Generates fail-closed draft JSON templates and runs local determin
 ## Install
 
 ```bash
-npx research-agent-skills install clinical-reports
 npx skills add KalarisLabs/research-agent-skills --skill clinical-reports
 ```
 

@@ -12,7 +12,6 @@ description: "Reads, inspects, writes, and transforms local DICOM files with pyd
 ## Install
 
 ```bash
-npx research-agent-skills install pydicom
 npx skills add KalarisLabs/research-agent-skills --skill pydicom
 ```
 

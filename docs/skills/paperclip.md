@@ -12,7 +12,6 @@ description: "Search and read full-text biomedical papers, FDA/PMDA/EMA regulato
 ## Install
 
 ```bash
-npx research-agent-skills install paperclip
 npx skills add KalarisLabs/research-agent-skills --skill paperclip
 ```
 

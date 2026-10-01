@@ -12,7 +12,6 @@ description: "Extracts tiles and preprocesses H&E whole slide images with the hi
 ## Install
 
 ```bash
-npx research-agent-skills install histolab
 npx skills add KalarisLabs/research-agent-skills --skill histolab
 ```
 

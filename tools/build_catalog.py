@@ -32,7 +32,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from common import (  # noqa: E402
     BRAND,
-    DOCS_URL,
     PROJECT_NAME,
     REPO_SLUG,
     REPO_URL,
@@ -342,10 +341,10 @@ def build_llms_txt(index: dict) -> str:
            "research paper and thesis writing without AI slop, journal formatting (Nature, Science, Cell, IEEE, "
            "ACM, Elsevier, Springer LNCS, PLOS, APA 7, arXiv), literature and systematic reviews (PRISMA 2020), "
            "citation verification, and 100+ scientific databases and analysis packages. "
-           "Install: `npx research-agent-skills`.",
+           f"Install: `npx skills add {REPO_SLUG}`.",
            "", "## Docs", "",
            f"- [README]({raw}/README.md): overview, installation for Claude Code, Codex, Cursor, Gemini CLI, Copilot",
-           f"- [Documentation site]({DOCS_URL}): guides for papers, theses, systematic reviews",
+           f"- [Documentation guides]({REPO_URL}/tree/main/docs): papers, theses, systematic reviews and installation",
            f"- [Machine-readable catalog]({raw}/catalog/skills.json): every skill with category and description",
            f"- [Benchmarks]({raw}/benchmarks/README.md): how skills are evaluated", ""]
     for cat in index["categories"]:
@@ -383,7 +382,6 @@ def build_docs(skills: list[Skill], index: dict) -> dict[Path, str]:
             f"**Version:** {e['version']}", "",
             "## Install", "",
             "```bash",
-            f"npx research-agent-skills install {s.name}",
             f"npx skills add {REPO_SLUG} --skill {s.name}",
             "```", "",
             "## When to use it", "",
@@ -393,8 +391,12 @@ def build_docs(skills: list[Skill], index: dict) -> dict[Path, str]:
             "references and any scripts. The agent installer copies the full skill folder.",
             "",
         ])
-    idx = ["---", "title: Skill catalog", f"description: All {len(skills)} research agent skills by category.",
-           "---", "", "# Skill catalog", ""]
+    idx = ["---", "title: Research Agent Skills for Academia | Kalaris Labs",
+           (f"description: Browse {len(skills)} AI agent skills for academic writing and scientific research "
+            "across AI, machine learning, biology, chemistry, medicine and physics."),
+           "---", "", f"# {len(skills)} research agent skills for academia", "",
+           "Install one skill with `npx skills add KalarisLabs/research-agent-skills --skill <name>`, "
+           "or [choose from the full collection](/getting-started/installation).", ""]
     for cat in index["categories"]:
         if by_cat.get(cat["id"]):
             idx += [f"## {cat['id']}", "", f"{cat['description']}.", ""]

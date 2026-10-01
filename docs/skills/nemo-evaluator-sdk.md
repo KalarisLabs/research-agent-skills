@@ -12,7 +12,6 @@ description: "Evaluates LLMs across 100+ benchmarks from 18+ harnesses (MMLU, Hu
 ## Install
 
 ```bash
-npx research-agent-skills install nemo-evaluator-sdk
 npx skills add KalarisLabs/research-agent-skills --skill nemo-evaluator-sdk
 ```
 

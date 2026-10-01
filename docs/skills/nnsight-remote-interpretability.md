@@ -12,7 +12,6 @@ description: "Provides guidance for interpreting and manipulating neural network
 ## Install
 
 ```bash
-npx research-agent-skills install nnsight-remote-interpretability
 npx skills add KalarisLabs/research-agent-skills --skill nnsight-remote-interpretability
 ```
 

@@ -12,7 +12,6 @@ description: "Reserved and on-demand GPU cloud instances for ML training and inf
 ## Install
 
 ```bash
-npx research-agent-skills install lambda-labs-gpu-cloud
 npx skills add KalarisLabs/research-agent-skills --skill lambda-labs-gpu-cloud
 ```
 

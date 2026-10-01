@@ -12,7 +12,6 @@ description: "This skill should be used for time series machine learning tasks i
 ## Install
 
 ```bash
-npx research-agent-skills install aeon
 npx skills add KalarisLabs/research-agent-skills --skill aeon
 ```
 

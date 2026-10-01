@@ -12,7 +12,6 @@ description: "Records research provenance at the end of a coding or research ses
 ## Install
 
 ```bash
-npx research-agent-skills install ara-research-manager
 npx skills add KalarisLabs/research-agent-skills --skill ara-research-manager
 ```
 

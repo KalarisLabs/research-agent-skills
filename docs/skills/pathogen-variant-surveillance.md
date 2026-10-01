@@ -12,7 +12,6 @@ description: "Query live pathogen genomic surveillance data through the GenSpect
 ## Install
 
 ```bash
-npx research-agent-skills install pathogen-variant-surveillance
 npx skills add KalarisLabs/research-agent-skills --skill pathogen-variant-surveillance
 ```
 

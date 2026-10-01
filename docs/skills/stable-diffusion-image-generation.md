@@ -12,7 +12,6 @@ description: "Generates images with Stable Diffusion models (SD 1.5, SDXL, SD 3.
 ## Install
 
 ```bash
-npx research-agent-skills install stable-diffusion-image-generation
 npx skills add KalarisLabs/research-agent-skills --skill stable-diffusion-image-generation
 ```
 

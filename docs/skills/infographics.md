@@ -12,7 +12,6 @@ description: "Generates infographics from natural-language prompts using Nano Ba
 ## Install
 
 ```bash
-npx research-agent-skills install infographics
 npx skills add KalarisLabs/research-agent-skills --skill infographics
 ```
 

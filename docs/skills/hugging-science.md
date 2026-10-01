@@ -12,7 +12,6 @@ description: "Use when the user is doing AI/ML work in a scientific domain such 
 ## Install
 
 ```bash
-npx research-agent-skills install hugging-science
 npx skills add KalarisLabs/research-agent-skills --skill hugging-science
 ```
 

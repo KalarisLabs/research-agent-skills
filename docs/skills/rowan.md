@@ -12,7 +12,6 @@ description: "Rowan is a cloud-native molecular modeling and medicinal-chemistry
 ## Install
 
 ```bash
-npx research-agent-skills install rowan
 npx skills add KalarisLabs/research-agent-skills --skill rowan
 ```
 

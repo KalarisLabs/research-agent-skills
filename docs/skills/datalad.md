@@ -12,7 +12,6 @@ description: "Retrieve, version, and publish scientific datasets with DataLad an
 ## Install
 
 ```bash
-npx research-agent-skills install datalad
 npx skills add KalarisLabs/research-agent-skills --skill datalad
 ```
 

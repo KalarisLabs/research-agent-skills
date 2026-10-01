@@ -12,7 +12,6 @@ description: "Verify that every reference in a manuscript really exists and matc
 ## Install
 
 ```bash
-npx research-agent-skills install citation-verification
 npx skills add KalarisLabs/research-agent-skills --skill citation-verification
 ```
 

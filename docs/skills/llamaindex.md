@@ -12,7 +12,6 @@ description: "Data framework for building LLM applications with RAG."
 ## Install
 
 ```bash
-npx research-agent-skills install llamaindex
 npx skills add KalarisLabs/research-agent-skills --skill llamaindex
 ```
 

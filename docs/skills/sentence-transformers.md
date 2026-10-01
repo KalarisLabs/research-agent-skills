@@ -12,7 +12,6 @@ description: "Generates sentence, text, and image embeddings locally with the Py
 ## Install
 
 ```bash
-npx research-agent-skills install sentence-transformers
 npx skills add KalarisLabs/research-agent-skills --skill sentence-transformers
 ```
 

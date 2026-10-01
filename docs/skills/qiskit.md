@@ -12,7 +12,6 @@ description: "Build, simulate, transpile, and execute quantum circuits with Qisk
 ## Install
 
 ```bash
-npx research-agent-skills install qiskit
 npx skills add KalarisLabs/research-agent-skills --skill qiskit
 ```
 

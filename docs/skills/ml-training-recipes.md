@@ -12,7 +12,6 @@ description: "Battle-tested PyTorch training recipes for all domains — LLMs, v
 ## Install
 
 ```bash
-npx research-agent-skills install ml-training-recipes
 npx skills add KalarisLabs/research-agent-skills --skill ml-training-recipes
 ```
 

@@ -12,7 +12,6 @@ description: "Multivariate severity assessment and humane endpoint prediction fo
 ## Install
 
 ```bash
-npx research-agent-skills install relsa-severity-assessment
 npx skills add KalarisLabs/research-agent-skills --skill relsa-severity-assessment
 ```
 

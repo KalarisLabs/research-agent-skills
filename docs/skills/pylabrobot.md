@@ -12,7 +12,6 @@ description: "Develop and review PyLabRobot lab-automation resources, liquid-han
 ## Install
 
 ```bash
-npx research-agent-skills install pylabrobot
 npx skills add KalarisLabs/research-agent-skills --skill pylabrobot
 ```
 

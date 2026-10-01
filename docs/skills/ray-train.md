@@ -12,7 +12,6 @@ description: "Distributed training orchestration across clusters."
 ## Install
 
 ```bash
-npx research-agent-skills install ray-train
 npx skills add KalarisLabs/research-agent-skills --skill ray-train
 ```
 

@@ -12,7 +12,6 @@ description: "Searches OpenAlex, PubMed, and Google Scholar, extracts metadata f
 ## Install
 
 ```bash
-npx research-agent-skills install citation-management
 npx skills add KalarisLabs/research-agent-skills --skill citation-management
 ```
 

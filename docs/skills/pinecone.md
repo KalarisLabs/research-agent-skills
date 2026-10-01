@@ -12,7 +12,6 @@ description: "Guides use of Pinecone, a managed serverless vector database, thro
 ## Install
 
 ```bash
-npx research-agent-skills install pinecone
 npx skills add KalarisLabs/research-agent-skills --skill pinecone
 ```
 

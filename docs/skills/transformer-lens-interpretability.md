@@ -12,7 +12,6 @@ description: "Provides guidance for mechanistic interpretability research using 
 ## Install
 
 ```bash
-npx research-agent-skills install transformer-lens-interpretability
 npx skills add KalarisLabs/research-agent-skills --skill transformer-lens-interpretability
 ```
 

@@ -12,7 +12,6 @@ description: "Guided statistical analysis for research data - test selection, as
 ## Install
 
 ```bash
-npx research-agent-skills install statistical-analysis
 npx skills add KalarisLabs/research-agent-skills --skill statistical-analysis
 ```
 

@@ -12,7 +12,6 @@ description: "How to use the Adaptyv Bio Foundry API and Python SDK for protein 
 ## Install
 
 ```bash
-npx research-agent-skills install adaptyv
 npx skills add KalarisLabs/research-agent-skills --skill adaptyv
 ```
 

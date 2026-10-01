@@ -12,7 +12,6 @@ description: "Transcribes and translates audio with OpenAI's Whisper (openai-whi
 ## Install
 
 ```bash
-npx research-agent-skills install whisper
 npx skills add KalarisLabs/research-agent-skills --skill whisper
 ```
 

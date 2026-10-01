@@ -12,7 +12,6 @@ description: "Format papers for Springer Lecture Notes in Computer Science (LNCS
 ## Install
 
 ```bash
-npx research-agent-skills install springer-lncs
 npx skills add KalarisLabs/research-agent-skills --skill springer-lncs
 ```
 

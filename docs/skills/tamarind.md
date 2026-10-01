@@ -12,7 +12,6 @@ description: "Access a collection of open-source molecular design and structural
 ## Install
 
 ```bash
-npx research-agent-skills install tamarind
 npx skills add KalarisLabs/research-agent-skills --skill tamarind
 ```
 

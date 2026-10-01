@@ -12,7 +12,6 @@ description: "Prepare evidence-bounded, constructive peer-review drafts and stru
 ## Install
 
 ```bash
-npx research-agent-skills install peer-review
 npx skills add KalarisLabs/research-agent-skills --skill peer-review
 ```
 

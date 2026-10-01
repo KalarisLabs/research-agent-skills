@@ -12,7 +12,6 @@ description: "Orchestrates end-to-end autonomous AI research projects using a tw
 ## Install
 
 ```bash
-npx research-agent-skills install autoresearch
 npx skills add KalarisLabs/research-agent-skills --skill autoresearch
 ```
 

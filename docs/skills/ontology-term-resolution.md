@@ -12,7 +12,6 @@ description: "Resolve free-text scientific labels to ontology term IDs and valid
 ## Install
 
 ```bash
-npx research-agent-skills install ontology-term-resolution
 npx skills add KalarisLabs/research-agent-skills --skill ontology-term-resolution
 ```
 

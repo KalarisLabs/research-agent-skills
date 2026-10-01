@@ -12,7 +12,6 @@ description: "Perform bounded, local exploratory analysis of explicitly supporte
 ## Install
 
 ```bash
-npx research-agent-skills install exploratory-data-analysis
 npx skills add KalarisLabs/research-agent-skills --skill exploratory-data-analysis
 ```
 

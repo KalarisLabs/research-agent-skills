@@ -12,7 +12,6 @@ description: "Complete mass spectrometry analysis platform."
 ## Install
 
 ```bash
-npx research-agent-skills install pyopenms
 npx skills add KalarisLabs/research-agent-skills --skill pyopenms
 ```
 

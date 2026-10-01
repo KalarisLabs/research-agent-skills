@@ -12,7 +12,6 @@ description: "Analyze, manipulate, compare, annotate, and visualize phylogenetic
 ## Install
 
 ```bash
-npx research-agent-skills install etetoolkit
 npx skills add KalarisLabs/research-agent-skills --skill etetoolkit
 ```
 

@@ -12,7 +12,6 @@ description: "Prepare submissions to Elsevier journals (including The Lancet fam
 ## Install
 
 ```bash
-npx research-agent-skills install elsevier-cas
 npx skills add KalarisLabs/research-agent-skills --skill elsevier-cas
 ```
 

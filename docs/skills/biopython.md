@@ -12,7 +12,6 @@ description: "Provides Biopython (Bio.Seq, Bio.SeqIO, Bio.Align, Bio.Entrez, Bio
 ## Install
 
 ```bash
-npx research-agent-skills install biopython
 npx skills add KalarisLabs/research-agent-skills --skill biopython
 ```
 

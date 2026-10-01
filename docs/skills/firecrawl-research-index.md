@@ -12,7 +12,6 @@ description: "Query Firecrawl Research Index paper endpoints for topic discovery
 ## Install
 
 ```bash
-npx research-agent-skills install firecrawl-research-index
 npx skills add KalarisLabs/research-agent-skills --skill firecrawl-research-index
 ```
 

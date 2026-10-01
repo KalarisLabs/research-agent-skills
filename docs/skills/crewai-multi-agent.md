@@ -12,7 +12,6 @@ description: "Multi-agent orchestration framework for autonomous AI collaboratio
 ## Install
 
 ```bash
-npx research-agent-skills install crewai-multi-agent
 npx skills add KalarisLabs/research-agent-skills --skill crewai-multi-agent
 ```
 

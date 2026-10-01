@@ -12,7 +12,6 @@ description: "Submit and manage protocols on Ginkgo Bioworks Cloud Lab (cloud.gi
 ## Install
 
 ```bash
-npx research-agent-skills install ginkgo-cloud-lab
 npx skills add KalarisLabs/research-agent-skills --skill ginkgo-cloud-lab
 ```
 

@@ -12,7 +12,6 @@ description: "Provides nanoGPT, Karpathy's minimal PyTorch GPT implementation (m
 ## Install
 
 ```bash
-npx research-agent-skills install nanogpt
 npx skills add KalarisLabs/research-agent-skills --skill nanogpt
 ```
 

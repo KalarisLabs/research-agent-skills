@@ -12,7 +12,6 @@ description: "Low-level plotting library for full customization."
 ## Install
 
 ```bash
-npx research-agent-skills install matplotlib
 npx skills add KalarisLabs/research-agent-skills --skill matplotlib
 ```
 

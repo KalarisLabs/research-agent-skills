@@ -12,7 +12,6 @@ description: "Look up precomputed AlphaGenome Atlas effects for any GRCh38 singl
 ## Install
 
 ```bash
-npx research-agent-skills install alphagenome
 npx skills add KalarisLabs/research-agent-skills --skill alphagenome
 ```
 

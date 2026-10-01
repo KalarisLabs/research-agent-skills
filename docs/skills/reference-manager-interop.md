@@ -12,7 +12,6 @@ description: "Move and sync reference libraries between Zotero, Mendeley, EndNot
 ## Install
 
 ```bash
-npx research-agent-skills install reference-manager-interop
 npx skills add KalarisLabs/research-agent-skills --skill reference-manager-interop
 ```
 

@@ -12,7 +12,6 @@ description: "Performs ARA Seal Level 2 semantic epistemic review of an Agent-Na
 ## Install
 
 ```bash
-npx research-agent-skills install ara-rigor-reviewer
 npx skills add KalarisLabs/research-agent-skills --skill ara-rigor-reviewer
 ```
 

@@ -12,7 +12,6 @@ description: "Format papers, theses and references in APA Style 7th edition for 
 ## Install
 
 ```bash
-npx research-agent-skills install apa7
 npx skills add KalarisLabs/research-agent-skills --skill apa7
 ```
 

@@ -12,7 +12,6 @@ description: "Statistical models library for Python."
 ## Install
 
 ```bash
-npx research-agent-skills install statsmodels
 npx skills add KalarisLabs/research-agent-skills --skill statsmodels
 ```
 

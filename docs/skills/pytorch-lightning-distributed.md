@@ -12,7 +12,6 @@ description: "High-level PyTorch framework with Trainer class, automatic distrib
 ## Install
 
 ```bash
-npx research-agent-skills install pytorch-lightning-distributed
 npx skills add KalarisLabs/research-agent-skills --skill pytorch-lightning-distributed
 ```
 

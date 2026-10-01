@@ -12,7 +12,6 @@ description: "Activation-aware weight quantization for 4-bit LLM compression wit
 ## Install
 
 ```bash
-npx research-agent-skills install awq-quantization
 npx skills add KalarisLabs/research-agent-skills --skill awq-quantization
 ```
 

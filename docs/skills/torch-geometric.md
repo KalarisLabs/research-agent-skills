@@ -12,7 +12,6 @@ description: "PyTorch Geometric (PyG) for graph neural networks — node/link/gr
 ## Install
 
 ```bash
-npx research-agent-skills install torch-geometric
 npx skills add KalarisLabs/research-agent-skills --skill torch-geometric
 ```
 

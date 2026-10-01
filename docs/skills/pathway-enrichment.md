@@ -12,7 +12,6 @@ description: "Run pathway and gene-set enrichment analysis on gene lists or rank
 ## Install
 
 ```bash
-npx research-agent-skills install pathway-enrichment
 npx skills add KalarisLabs/research-agent-skills --skill pathway-enrichment
 ```
 

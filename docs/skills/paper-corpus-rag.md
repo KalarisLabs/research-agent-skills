@@ -12,7 +12,6 @@ description: "Build grounded question answering and retrieval-augmented generati
 ## Install
 
 ```bash
-npx research-agent-skills install paper-corpus-rag
 npx skills add KalarisLabs/research-agent-skills --skill paper-corpus-rag
 ```
 

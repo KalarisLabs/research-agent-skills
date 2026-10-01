@@ -12,7 +12,6 @@ description: "Turn a bibliography or literature corpus into a knowledge graph of
 ## Install
 
 ```bash
-npx research-agent-skills install research-knowledge-graph
 npx skills add KalarisLabs/research-agent-skills --skill research-knowledge-graph
 ```
 

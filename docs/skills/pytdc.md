@@ -12,7 +12,6 @@ description: "Uses the PyTDC package (import tdc, Therapeutics Data Commons) to 
 ## Install
 
 ```bash
-npx research-agent-skills install pytdc
 npx skills add KalarisLabs/research-agent-skills --skill pytdc
 ```
 

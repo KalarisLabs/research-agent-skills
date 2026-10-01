@@ -12,7 +12,6 @@ description: "Provides PyTorch-native distributed LLM pretraining using torchtit
 ## Install
 
 ```bash
-npx research-agent-skills install distributed-llm-pretraining-torchtitan
 npx skills add KalarisLabs/research-agent-skills --skill distributed-llm-pretraining-torchtitan
 ```
 

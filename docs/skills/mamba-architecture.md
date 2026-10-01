@@ -12,7 +12,6 @@ description: "Explains how to use Mamba selective state-space models (state-spac
 ## Install
 
 ```bash
-npx research-agent-skills install mamba-architecture
 npx skills add KalarisLabs/research-agent-skills --skill mamba-architecture
 ```
 

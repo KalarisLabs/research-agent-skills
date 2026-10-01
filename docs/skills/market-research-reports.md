@@ -12,7 +12,6 @@ description: "Build evidence-traceable market research reports and assumption-dr
 ## Install
 
 ```bash
-npx research-agent-skills install market-research-reports
 npx skills add KalarisLabs/research-agent-skills --skill market-research-reports
 ```
 

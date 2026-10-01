@@ -12,7 +12,6 @@ description: "Reads and writes Zotero libraries from Python with pyzotero 1.13.0
 ## Install
 
 ```bash
-npx research-agent-skills install pyzotero
 npx skills add KalarisLabs/research-agent-skills --skill pyzotero
 ```
 

@@ -12,7 +12,6 @@ description: "Optimizes LLM inference with NVIDIA TensorRT for maximum throughpu
 ## Install
 
 ```bash
-npx research-agent-skills install tensorrt-llm
 npx skills add KalarisLabs/research-agent-skills --skill tensorrt-llm
 ```
 

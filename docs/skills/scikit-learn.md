@@ -12,7 +12,6 @@ description: "Covers classical machine learning in Python with scikit-learn (skl
 ## Install
 
 ```bash
-npx research-agent-skills install scikit-learn
 npx skills add KalarisLabs/research-agent-skills --skill scikit-learn
 ```
 

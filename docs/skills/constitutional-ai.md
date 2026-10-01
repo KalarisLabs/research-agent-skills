@@ -12,7 +12,6 @@ description: "Anthropic's method for training harmless AI through self-improveme
 ## Install
 
 ```bash
-npx research-agent-skills install constitutional-ai
 npx skills add KalarisLabs/research-agent-skills --skill constitutional-ai
 ```
 

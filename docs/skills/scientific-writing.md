@@ -12,7 +12,6 @@ description: "Draft, revise, and audit scientific manuscripts or reports with ex
 ## Install
 
 ```bash
-npx research-agent-skills install scientific-writing
 npx skills add KalarisLabs/research-agent-skills --skill scientific-writing
 ```
 

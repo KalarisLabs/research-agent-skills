@@ -12,7 +12,6 @@ description: "Create and audit editable scientific posters in macro-free PowerPo
 ## Install
 
 ```bash
-npx research-agent-skills install pptx-posters
 npx skills add KalarisLabs/research-agent-skills --skill pptx-posters
 ```
 

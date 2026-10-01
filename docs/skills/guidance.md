@@ -12,7 +12,6 @@ description: "Constrains LLM output during generation with Guidance (Microsoft R
 ## Install
 
 ```bash
-npx research-agent-skills install guidance
 npx skills add KalarisLabs/research-agent-skills --skill guidance
 ```
 

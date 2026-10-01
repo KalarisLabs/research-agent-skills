@@ -12,7 +12,6 @@ description: "Extract cognitive patterns and thinking fingerprints from any text
 ## Install
 
 ```bash
-npx research-agent-skills install dhdna-profiler
 npx skills add KalarisLabs/research-agent-skills --skill dhdna-profiler
 ```
 

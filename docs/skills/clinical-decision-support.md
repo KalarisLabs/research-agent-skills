@@ -12,7 +12,6 @@ description: "Prepare and validate research-only clinical decision-support evalu
 ## Install
 
 ```bash
-npx research-agent-skills install clinical-decision-support
 npx skills add KalarisLabs/research-agent-skills --skill clinical-decision-support
 ```
 

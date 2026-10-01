@@ -12,7 +12,6 @@ description: "Simulate and audit closed and open quantum-system models with QuTi
 ## Install
 
 ```bash
-npx research-agent-skills install qutip
 npx skills add KalarisLabs/research-agent-skills --skill qutip
 ```
 

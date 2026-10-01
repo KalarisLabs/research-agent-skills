@@ -12,7 +12,6 @@ description: "Performs RNA velocity analysis with scVelo on single-cell RNA-seq 
 ## Install
 
 ```bash
-npx research-agent-skills install scvelo
 npx skills add KalarisLabs/research-agent-skills --skill scvelo
 ```
 

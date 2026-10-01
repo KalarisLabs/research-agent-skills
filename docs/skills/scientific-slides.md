@@ -12,7 +12,6 @@ description: "Build slide decks and presentations for research talks."
 ## Install
 
 ```bash
-npx research-agent-skills install scientific-slides
 npx skills add KalarisLabs/research-agent-skills --skill scientific-slides
 ```
 

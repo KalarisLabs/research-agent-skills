@@ -12,7 +12,6 @@ description: "Scalable data processing for ML workloads."
 ## Install
 
 ```bash
-npx research-agent-skills install ray-data
 npx skills add KalarisLabs/research-agent-skills --skill ray-data
 ```
 

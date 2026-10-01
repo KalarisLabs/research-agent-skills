@@ -46,26 +46,26 @@ add `--global` for a user-level installation. To inspect all available skills fi
 Then ask your agent, for example *"Verify every reference in refs.bib"* or
 *"Unslop this introduction without changing any claims"*.
 
-The Kalaris Labs installer also offers curated bundles by research field. Its npm package is prepared for
-publication; the bundle commands below become available after the first npm release.
+Choose a starting skill for your field with a command that works today:
 
-| Researcher | Curated bundle | Example command |
-|---|---|---|
-| Academia across disciplines | `research-essentials` | `npx research-agent-skills install --bundle research-essentials --project` |
-| Machine learning | `ml-research` | `npx research-agent-skills install --bundle ml-research --project` |
-| Artificial intelligence | `ai-research` | `npx research-agent-skills install --bundle ai-research --project` |
-| Biology and bioinformatics | `biology-research` | `npx research-agent-skills install --bundle biology-research --project` |
-| Chemistry and materials | `chemistry-research` | `npx research-agent-skills install --bundle chemistry-research --project` |
-| Medicine and clinical research | `medicine-research` | `npx research-agent-skills install --bundle medicine-research --project` |
-| Physics and astronomy | `physics-research` | `npx research-agent-skills install --bundle physics-research --project` |
+| Researcher | Start with |
+|---|---|
+| Academia across disciplines | `npx skills add KalarisLabs/research-agent-skills --skill scientific-writing` |
+| Machine learning | `npx skills add KalarisLabs/research-agent-skills --skill ml-paper-writing` |
+| Artificial intelligence | `npx skills add KalarisLabs/research-agent-skills --skill evaluating-llms-harness` |
+| Biology and bioinformatics | `npx skills add KalarisLabs/research-agent-skills --skill scanpy` |
+| Chemistry and materials | `npx skills add KalarisLabs/research-agent-skills --skill rdkit` |
+| Medicine and clinical research | `npx skills add KalarisLabs/research-agent-skills --skill clinical-reports` |
+| Physics and astronomy | `npx skills add KalarisLabs/research-agent-skills --skill astropy` |
 
-Each field bundle is a focused starting set. [Browse all categories](catalog/skills.json) when you need a specialist skill.
+The planned npm installer will add curated bundles for these fields after its first release.
+[Browse all categories](catalog/skills.json) when you need a specialist skill.
 
 **The complete collection:** [`research-agent-skills`](skills/research-agent-skills/SKILL.md) is the
 single collection entry, with an index of all 280 specialist skills. On skills.sh, each
 specialist also has its own installable entry. To install the complete set into this
 project for Codex, run `npx skills add KalarisLabs/research-agent-skills --skill '*' --agent codex --yes`.
-Replace `codex` with your agent, or use `npx research-agent-skills install --all --project`.
+Replace `codex` with your agent.
 
 <details>
 <summary><b>Other installation methods</b></summary>

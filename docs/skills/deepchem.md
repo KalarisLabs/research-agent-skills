@@ -12,7 +12,6 @@ description: "Molecular ML with diverse featurizers and pre-built datasets."
 ## Install
 
 ```bash
-npx research-agent-skills install deepchem
 npx skills add KalarisLabs/research-agent-skills --skill deepchem
 ```
 

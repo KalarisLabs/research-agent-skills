@@ -12,7 +12,6 @@ description: "Explains how to use Salesforce BLIP-2 (Q-Former bridging a frozen 
 ## Install
 
 ```bash
-npx research-agent-skills install blip-2-vision-language
 npx skills add KalarisLabs/research-agent-skills --skill blip-2-vision-language
 ```
 

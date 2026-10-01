@@ -29,7 +29,7 @@ and update when advisories are published.
 | Layer | Control |
 |---|---|
 | Every pull request | Agent Skills spec validation; repository policy (file types, sizes, links, paths); prompt-injection and payload lint over **all** files including tests; Cisco AI Defense skill-scanner (static, YARA, behavioral dataflow); CodeQL; Semgrep; Bandit; ShellCheck; secret scanning (TruffleHog); dependency review |
-| Vendor scans on main and before releases | Snyk Agent Scan analyzes every skill folder and blocks incomplete scans or high/critical risks. Socket checks dependency manifests against the organization's security and license policy. Enable the continuous main-branch scans with `VENDOR_SCANS_ENABLED=true` after adding the API secrets; release scans are mandatory. |
+| Optional vendor scans | With `VENDOR_SCANS_ENABLED=true` and the corresponding secrets, Snyk Agent Scan checks every skill folder and Socket checks dependency manifests against the organization's security and license policy. The release workflow always repeats local validation, prompt-injection lint, Cisco AI Defense scanning and tests. |
 | Network egress in scripts | Domains contacted by skill scripts must be listed in `security/allowed-domains.txt` (CODEOWNERS review required) |
 | Accepted findings | Reviewed false positives are pinned by fingerprint in `security/lint-baseline.json` and `security/skill-scanner-baseline.json`; any new finding fails CI |
 | Workflows | Actions pinned by commit SHA, least-privilege `permissions`, no `pull_request_target` checkouts, zizmor + actionlint, harden-runner, OpenSSF Scorecard |

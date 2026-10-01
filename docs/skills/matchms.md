@@ -12,7 +12,6 @@ description: "Process, clean, compare, and search tandem mass spectra with match
 ## Install
 
 ```bash
-npx research-agent-skills install matchms
 npx skills add KalarisLabs/research-agent-skills --skill matchms
 ```
 

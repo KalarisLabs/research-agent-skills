@@ -12,7 +12,6 @@ description: "Adds runtime safety rails to LLM applications with NVIDIA NeMo Gua
 ## Install
 
 ```bash
-npx research-agent-skills install nemo-guardrails
 npx skills add KalarisLabs/research-agent-skills --skill nemo-guardrails
 ```
 

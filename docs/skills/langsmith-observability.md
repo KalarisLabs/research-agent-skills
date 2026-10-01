@@ -12,7 +12,6 @@ description: "LLM observability platform for tracing, evaluation, and monitoring
 ## Install
 
 ```bash
-npx research-agent-skills install langsmith-observability
 npx skills add KalarisLabs/research-agent-skills --skill langsmith-observability
 ```
 

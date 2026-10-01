@@ -12,7 +12,6 @@ description: "Adds PyTorch FSDP2 (fully_shard) to training scripts with correct 
 ## Install
 
 ```bash
-npx research-agent-skills install pytorch-fsdp2
 npx skills add KalarisLabs/research-agent-skills --skill pytorch-fsdp2
 ```
 

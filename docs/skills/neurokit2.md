@@ -12,7 +12,6 @@ description: "Use NeuroKit2 to build or audit reproducible research workflows fo
 ## Install
 
 ```bash
-npx research-agent-skills install neurokit2
 npx skills add KalarisLabs/research-agent-skills --skill neurokit2
 ```
 

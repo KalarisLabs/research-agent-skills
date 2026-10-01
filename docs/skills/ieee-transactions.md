@@ -12,7 +12,6 @@ description: "Format and submit papers to IEEE journals (Transactions, Journals,
 ## Install
 
 ```bash
-npx research-agent-skills install ieee-transactions
 npx skills add KalarisLabs/research-agent-skills --skill ieee-transactions
 ```
 

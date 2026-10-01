@@ -12,7 +12,6 @@ description: "Provides guidance for PyTorch-native agentic RL using torchforge, 
 ## Install
 
 ```bash
-npx research-agent-skills install torchforge-rl-training
 npx skills add KalarisLabs/research-agent-skills --skill torchforge-rl-training
 ```
 

@@ -12,7 +12,6 @@ description: "GPU-accelerated data curation for LLM training."
 ## Install
 
 ```bash
-npx research-agent-skills install nemo-curator
 npx skills add KalarisLabs/research-agent-skills --skill nemo-curator
 ```
 

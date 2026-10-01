@@ -12,7 +12,6 @@ description: "Provides guidance for performing causal interventions on PyTorch m
 ## Install
 
 ```bash
-npx research-agent-skills install pyvene-interventions
 npx skills add KalarisLabs/research-agent-skills --skill pyvene-interventions
 ```
 

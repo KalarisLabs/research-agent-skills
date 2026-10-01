@@ -12,7 +12,6 @@ description: "Guides writing of competitive research grant proposals for NSF, NI
 ## Install
 
 ```bash
-npx research-agent-skills install research-grants
 npx skills add KalarisLabs/research-agent-skills --skill research-grants
 ```
 

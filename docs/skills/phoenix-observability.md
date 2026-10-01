@@ -12,7 +12,6 @@ description: "Open-source AI observability platform for LLM tracing, evaluation,
 ## Install
 
 ```bash
-npx research-agent-skills install phoenix-observability
 npx skills add KalarisLabs/research-agent-skills --skill phoenix-observability
 ```
 

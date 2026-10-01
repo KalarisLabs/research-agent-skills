@@ -6,11 +6,11 @@ and can get the repository delisted. Usefulness, visibility in academic channels
 ## Repository settings (GitHub → About)
 
 - **Description:** `AI agent skills for academic writing & scientific research: papers, theses, systematic reviews (PRISMA), journal formatting, citation verification, no AI slop. Claude Code, Codex, Cursor, Gemini CLI.`
-- **Website:** https://docs.kalarislabs.com/
+- **Website:** https://skills.sh/kalarislabs/research-agent-skills until the Mintlify docs site is live; then switch to https://docs.kalarislabs.com/.
 - **Topics (max 20):** `agent-skills` `claude-code` `codex` `ai-agents` `academic-writing` `scientific-writing` `research-paper` `thesis` `literature-review` `systematic-review` `prisma` `citation` `latex` `zotero` `peer-review` `bioinformatics` `open-science` `research-tools` `llm` `claude-skills`
 - Social preview image (1280×640): project name, "AI skills for academic writing & research", agent logos.
-- Enable Discussions, private vulnerability reporting, secret scanning + push protection. Protect `main`
-  (required checks, 1 CODEOWNERS review by @saynchowdhury, linear history).
+- Keep Discussions, private vulnerability reporting, secret scanning and push protection enabled. Protect `main`
+  with a pull request, an independent approval, required CI checks and linear history.
 - Mintlify: connect the GitHub repository with `docs/` as the documentation root. `docs.yml` validates generated pages and links; Mintlify deploys from the connected repository.
 - Domain: configure `docs.kalarislabs.com` in Mintlify before adding the Cloudflare DNS record, then verify HTTPS and the sitemap.
 - Environments: `npm` (trusted publishing) and `benchmarks` (holds `ANTHROPIC_API_KEY` for manual benchmark runs).
@@ -22,7 +22,9 @@ and can get the repository delisted. Usefulness, visibility in academic channels
    issue or chat. The Socket token needs `full-scans:create`, `full-scans:list`,
    and `security-policy:read` permissions. Set the repository variable
    `VENDOR_SCANS_ENABLED=true` after both are present. The vendor workflow then
-   scans main and runs weekly; the release workflow always requires both scans.
+   scans main and runs weekly, and becomes an additional release gate. Without
+   those credentials, releases still run local validation, prompt-injection
+   lint, Cisco AI Defense scanning and tests.
 2. The first `research-agent-skills` npm version must be published by an npm
    account owner from `cli/` using `npm login` and `npm publish --access public`.
    Confirm the package name and tarball contents first with `npm pack --dry-run`.

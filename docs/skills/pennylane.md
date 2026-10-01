@@ -12,7 +12,6 @@ description: "Hardware-agnostic quantum ML framework with automatic differentiat
 ## Install
 
 ```bash
-npx research-agent-skills install pennylane
 npx skills add KalarisLabs/research-agent-skills --skill pennylane
 ```
 

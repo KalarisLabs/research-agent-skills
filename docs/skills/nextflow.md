@@ -12,7 +12,6 @@ description: "Build, run, and debug Nextflow data pipelines and nf-core workflow
 ## Install
 
 ```bash
-npx research-agent-skills install nextflow
 npx skills add KalarisLabs/research-agent-skills --skill nextflow
 ```
 

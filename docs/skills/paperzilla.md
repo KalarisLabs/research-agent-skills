@@ -12,7 +12,6 @@ description: "Chat with your agent about projects, recommendations, and canonica
 ## Install
 
 ```bash
-npx research-agent-skills install paperzilla
 npx skills add KalarisLabs/research-agent-skills --skill paperzilla
 ```
 

@@ -12,7 +12,6 @@ description: "Run a multi-perspective Mind Council deliberation on any question,
 ## Install
 
 ```bash
-npx research-agent-skills install consciousness-council
 npx skills add KalarisLabs/research-agent-skills --skill consciousness-council
 ```
 

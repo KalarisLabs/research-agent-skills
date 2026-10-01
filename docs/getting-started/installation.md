@@ -5,20 +5,22 @@ description: Install research agent skills for Claude Code, Codex, Cursor, Gemin
 
 # Installation
 
-## One command
+## Install now with skills.sh
 
 ```bash
-npx research-agent-skills            # interactive: pick bundles/categories and agents
-npx research-agent-skills install    # non-interactive: research-essentials for detected agents
+npx skills add KalarisLabs/research-agent-skills
+npx skills add KalarisLabs/research-agent-skills --list
 ```
 
-Both commands install into the selected agent's **global user directory** by default. The interactive command
-asks which bundles or categories and harnesses to use. Use `--project` for the current repository instead.
-The installer has explicit targets for Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode,
-Windsurf and generic `.agents/skills` consumers. Other harnesses need to support the Agent Skills folder format;
-tool permissions and advanced metadata can differ.
+The first command lets you choose skills and agent harnesses; the second lists all available skills.
+The skills.sh CLI installs into the current project by default. Add `--global` for your user account.
+It supports Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode, Windsurf and other
+Agent Skills consumers. Tool permissions and advanced metadata can differ by harness.
 
-## Choose what to install
+## Curated research bundles
+
+The Kalaris Labs npm installer provides field bundles after its first release. Until then, use
+the skills.sh command above to select individual skills.
 
 ```bash
 npx research-agent-skills list --categories

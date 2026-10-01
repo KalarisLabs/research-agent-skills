@@ -12,7 +12,6 @@ description: "Prepare manuscripts for Science and the Science family of journals
 ## Install
 
 ```bash
-npx research-agent-skills install science-aaas
 npx skills add KalarisLabs/research-agent-skills --skill science-aaas
 ```
 

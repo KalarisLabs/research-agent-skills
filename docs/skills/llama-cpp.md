@@ -12,7 +12,6 @@ description: "Runs LLM inference on CPU, Apple Silicon, and consumer GPUs withou
 ## Install
 
 ```bash
-npx research-agent-skills install llama-cpp
 npx skills add KalarisLabs/research-agent-skills --skill llama-cpp
 ```
 

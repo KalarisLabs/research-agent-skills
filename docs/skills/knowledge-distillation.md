@@ -12,7 +12,6 @@ description: "Compress large language models using knowledge distillation from t
 ## Install
 
 ```bash
-npx research-agent-skills install knowledge-distillation
 npx skills add KalarisLabs/research-agent-skills --skill knowledge-distillation
 ```
 

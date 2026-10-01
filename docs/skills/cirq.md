@@ -12,7 +12,6 @@ description: "Google quantum computing framework."
 ## Install
 
 ```bash
-npx research-agent-skills install cirq
 npx skills add KalarisLabs/research-agent-skills --skill cirq
 ```
 

@@ -12,7 +12,6 @@ description: "Create and audit truthful, accessible, publication-ready scientifi
 ## Install
 
 ```bash
-npx research-agent-skills install scientific-visualization
 npx skills add KalarisLabs/research-agent-skills --skill scientific-visualization
 ```
 

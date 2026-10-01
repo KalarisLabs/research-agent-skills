@@ -12,7 +12,6 @@ description: "Guidance and local audit CLIs for Python workflows using GeoPandas
 ## Install
 
 ```bash
-npx research-agent-skills install geopandas
 npx skills add KalarisLabs/research-agent-skills --skill geopandas
 ```
 

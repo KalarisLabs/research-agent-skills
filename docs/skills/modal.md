@@ -12,7 +12,6 @@ description: "Modal is a serverless cloud platform for running Python on demand,
 ## Install
 
 ```bash
-npx research-agent-skills install modal
 npx skills add KalarisLabs/research-agent-skills --skill modal
 ```
 

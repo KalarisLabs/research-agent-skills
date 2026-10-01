@@ -12,7 +12,6 @@ description: "Simple Preference Optimization for LLM alignment."
 ## Install
 
 ```bash
-npx research-agent-skills install simpo-training
 npx skills add KalarisLabs/research-agent-skills --skill simpo-training
 ```
 

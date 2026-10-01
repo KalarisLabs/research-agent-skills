@@ -12,7 +12,6 @@ description: "Implements and trains LLMs using Lightning AI's LitGPT with 20+ pr
 ## Install
 
 ```bash
-npx research-agent-skills install implementing-llms-litgpt
 npx skills add KalarisLabs/research-agent-skills --skill implementing-llms-litgpt
 ```
 

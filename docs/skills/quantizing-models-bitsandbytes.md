@@ -12,7 +12,6 @@ description: "Quantizes LLMs to 8-bit or 4-bit for 50-75% memory reduction with 
 ## Install
 
 ```bash
-npx research-agent-skills install quantizing-models-bitsandbytes
 npx skills add KalarisLabs/research-agent-skills --skill quantizing-models-bitsandbytes
 ```
 

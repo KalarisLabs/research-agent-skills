@@ -12,7 +12,6 @@ description: "Enables Flash Attention for transformer models using PyTorch nativ
 ## Install
 
 ```bash
-npx research-agent-skills install optimizing-attention-flash
 npx skills add KalarisLabs/research-agent-skills --skill optimizing-attention-flash
 ```
 

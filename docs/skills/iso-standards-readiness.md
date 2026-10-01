@@ -12,7 +12,6 @@ description: "Prepares and structurally reviews readiness evidence for ISO manag
 ## Install
 
 ```bash
-npx research-agent-skills install iso-standards-readiness
 npx skills add KalarisLabs/research-agent-skills --skill iso-standards-readiness
 ```
 

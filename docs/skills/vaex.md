@@ -12,7 +12,6 @@ description: "Processes and analyzes tabular datasets too large for RAM using Va
 ## Install
 
 ```bash
-npx research-agent-skills install vaex
 npx skills add KalarisLabs/research-agent-skills --skill vaex
 ```
 

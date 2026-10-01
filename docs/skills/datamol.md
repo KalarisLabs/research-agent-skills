@@ -12,7 +12,6 @@ description: "Wraps RDKit through the datamol Python library (import datamol as 
 ## Install
 
 ```bash
-npx research-agent-skills install datamol
 npx skills add KalarisLabs/research-agent-skills --skill datamol
 ```
 

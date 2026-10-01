@@ -12,7 +12,6 @@ description: "Inspects and plans work with Gtars, the Rust/Python/CLI toolkit fo
 ## Install
 
 ```bash
-npx research-agent-skills install gtars
 npx skills add KalarisLabs/research-agent-skills --skill gtars
 ```
 

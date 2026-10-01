@@ -12,7 +12,6 @@ description: "Runs systematic literature reviews by searching PubMed, arXiv, bio
 ## Install
 
 ```bash
-npx research-agent-skills install literature-review
 npx skills add KalarisLabs/research-agent-skills --skill literature-review
 ```
 

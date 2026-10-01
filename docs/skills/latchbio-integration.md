@@ -12,7 +12,6 @@ description: "Build, register, debug, and operate bioinformatics workflows on La
 ## Install
 
 ```bash
-npx research-agent-skills install latchbio-integration
 npx skills add KalarisLabs/research-agent-skills --skill latchbio-integration
 ```
 

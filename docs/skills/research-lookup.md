@@ -12,7 +12,6 @@ description: "Compile current scholarly evidence for a scientific manuscript or 
 ## Install
 
 ```bash
-npx research-agent-skills install research-lookup
 npx skills add KalarisLabs/research-agent-skills --skill research-lookup
 ```
 

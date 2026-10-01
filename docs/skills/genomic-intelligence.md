@@ -12,7 +12,6 @@ description: "Predict regulatory features, gene structure, and expression direct
 ## Install
 
 ```bash
-npx research-agent-skills install genomic-intelligence
 npx skills add KalarisLabs/research-agent-skills --skill genomic-intelligence
 ```
 

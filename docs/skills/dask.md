@@ -12,7 +12,6 @@ description: "Distributed computing for larger-than-RAM pandas/NumPy workflows."
 ## Install
 
 ```bash
-npx research-agent-skills install dask
 npx skills add KalarisLabs/research-agent-skills --skill dask
 ```
 

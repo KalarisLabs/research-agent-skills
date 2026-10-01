@@ -12,7 +12,6 @@ description: "Benchling Python SDK and REST API integration for registry entitie
 ## Install
 
 ```bash
-npx research-agent-skills install benchling-integration
 npx skills add KalarisLabs/research-agent-skills --skill benchling-integration
 ```
 

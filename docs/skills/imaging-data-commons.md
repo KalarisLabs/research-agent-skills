@@ -12,7 +12,6 @@ description: "Query and download public cancer imaging data from NCI Imaging Dat
 ## Install
 
 ```bash
-npx research-agent-skills install imaging-data-commons
 npx skills add KalarisLabs/research-agent-skills --skill imaging-data-commons
 ```
 

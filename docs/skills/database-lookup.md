@@ -12,7 +12,6 @@ description: "Query documented public database APIs with explicit endpoints, fil
 ## Install
 
 ```bash
-npx research-agent-skills install database-lookup
 npx skills add KalarisLabs/research-agent-skills --skill database-lookup
 ```
 

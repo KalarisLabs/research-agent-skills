@@ -12,7 +12,6 @@ description: "Standard single-cell RNA-seq analysis pipeline."
 ## Install
 
 ```bash
-npx research-agent-skills install scanpy
 npx skills add KalarisLabs/research-agent-skills --skill scanpy
 ```
 

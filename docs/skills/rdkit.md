@@ -12,7 +12,6 @@ description: "Guides use of RDKit (Python) for reading and writing SMILES, MOL/S
 ## Install
 
 ```bash
-npx research-agent-skills install rdkit
 npx skills add KalarisLabs/research-agent-skills --skill rdkit
 ```
 

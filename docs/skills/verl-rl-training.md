@@ -12,7 +12,6 @@ description: "Provides guidance for training LLMs with reinforcement learning us
 ## Install
 
 ```bash
-npx research-agent-skills install verl-rl-training
 npx skills add KalarisLabs/research-agent-skills --skill verl-rl-training
 ```
 

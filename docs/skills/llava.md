@@ -12,7 +12,6 @@ description: "Large Language and Vision Assistant."
 ## Install
 
 ```bash
-npx research-agent-skills install llava
 npx skills add KalarisLabs/research-agent-skills --skill llava
 ```
 

@@ -12,7 +12,6 @@ description: "Prepare the reproducibility, transparency and open-science parts o
 ## Install
 
 ```bash
-npx research-agent-skills install reproducibility-statement
 npx skills add KalarisLabs/research-agent-skills --skill reproducibility-statement
 ```
 

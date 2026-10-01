@@ -1,9 +1,11 @@
 ---
-title: Skill catalog
-description: All 281 research agent skills by category.
+title: Research Agent Skills for Academia | Kalaris Labs
+description: Browse 281 AI agent skills for academic writing and scientific research across AI, machine learning, biology, chemistry, medicine and physics.
 ---
 
-# Skill catalog
+# 281 research agent skills for academia
+
+Install one skill with `npx skills add KalarisLabs/research-agent-skills --skill <name>`, or [choose from the full collection](/getting-started/installation).
 
 ## research-writing
 

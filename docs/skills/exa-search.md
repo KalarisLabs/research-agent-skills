@@ -12,7 +12,6 @@ description: "Web toolkit powered by Exa, tuned for scientific and technical con
 ## Install
 
 ```bash
-npx research-agent-skills install exa-search
 npx skills add KalarisLabs/research-agent-skills --skill exa-search
 ```
 

@@ -2,10 +2,8 @@ name: Mintlify docs checks
 
 on:
   pull_request:
-    paths: ["skills/**", "docs/**", "tools/build_catalog.py", "README.md"]
   push:
     branches: [main]
-    paths: ["skills/**", "docs/**", "tools/build_catalog.py", "README.md"]
   workflow_dispatch:
 
 permissions: {}

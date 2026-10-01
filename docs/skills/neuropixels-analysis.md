@@ -12,7 +12,6 @@ description: "Analyze Neuropixels extracellular recordings end-to-end with Spike
 ## Install
 
 ```bash
-npx research-agent-skills install neuropixels-analysis
 npx skills add KalarisLabs/research-agent-skills --skill neuropixels-analysis
 ```
 

@@ -12,7 +12,6 @@ description: "Plan and write responses to peer review, including journal \"respo
 ## Install
 
 ```bash
-npx research-agent-skills install rebuttal-and-response-to-reviewers
 npx skills add KalarisLabs/research-agent-skills --skill rebuttal-and-response-to-reviewers
 ```
 

@@ -12,7 +12,6 @@ description: "Writes scientific documents and documentation as markdown with emb
 ## Install
 
 ```bash
-npx research-agent-skills install markdown-mermaid-writing
 npx skills add KalarisLabs/research-agent-skills --skill markdown-mermaid-writing
 ```
 

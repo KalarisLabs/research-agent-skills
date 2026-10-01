@@ -12,7 +12,6 @@ description: "Sample-size and statistical power calculations for planning studie
 ## Install
 
 ```bash
-npx research-agent-skills install statistical-power
 npx skills add KalarisLabs/research-agent-skills --skill statistical-power
 ```
 

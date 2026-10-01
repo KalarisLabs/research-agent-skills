@@ -12,7 +12,6 @@ description: "Local document and PDF parsing that returns spatial text with boun
 ## Install
 
 ```bash
-npx research-agent-skills install liteparse
 npx skills add KalarisLabs/research-agent-skills --skill liteparse
 ```
 

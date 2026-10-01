@@ -12,7 +12,6 @@ description: "DiffDock and DiffDock-L molecular docking."
 ## Install
 
 ```bash
-npx research-agent-skills install diffdock
 npx skills add KalarisLabs/research-agent-skills --skill diffdock
 ```
 

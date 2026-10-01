@@ -12,7 +12,6 @@ description: "Evaluate scientific claims and evidence quality."
 ## Install
 
 ```bash
-npx research-agent-skills install scientific-critical-thinking
 npx skills add KalarisLabs/research-agent-skills --skill scientific-critical-thinking
 ```
 

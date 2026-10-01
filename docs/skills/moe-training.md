@@ -12,7 +12,6 @@ description: "Train Mixture of Experts (MoE) models using DeepSpeed or HuggingFa
 ## Install
 
 ```bash
-npx research-agent-skills install moe-training
 npx skills add KalarisLabs/research-agent-skills --skill moe-training
 ```
 

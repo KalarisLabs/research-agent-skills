@@ -12,7 +12,6 @@ description: "Format ACM conference papers and journal articles with the acmart 
 ## Install
 
 ```bash
-npx research-agent-skills install acm-sigconf
 npx skills add KalarisLabs/research-agent-skills --skill acm-sigconf
 ```
 

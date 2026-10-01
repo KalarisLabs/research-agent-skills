@@ -12,7 +12,6 @@ description: "Guides GRPO (Group Relative Policy Optimization) fine-tuning of la
 ## Install
 
 ```bash
-npx research-agent-skills install grpo-rl-training
 npx skills add KalarisLabs/research-agent-skills --skill grpo-rl-training
 ```
 

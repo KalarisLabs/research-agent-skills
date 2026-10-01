@@ -12,7 +12,6 @@ description: "Plans and audits use of ChicagoHAI HypoGeniC/HypoRefine for LLM-as
 ## Install
 
 ```bash
-npx research-agent-skills install hypogenic
 npx skills add KalarisLabs/research-agent-skills --skill hypogenic
 ```
 

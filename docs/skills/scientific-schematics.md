@@ -12,7 +12,6 @@ description: "Generates publication-style scientific diagrams as raster PNG imag
 ## Install
 
 ```bash
-npx research-agent-skills install scientific-schematics
 npx skills add KalarisLabs/research-agent-skills --skill scientific-schematics
 ```
 

@@ -12,7 +12,6 @@ description: "Explain and audit machine-learning predictions with SHAP."
 ## Install
 
 ```bash
-npx research-agent-skills install shap
 npx skills add KalarisLabs/research-agent-skills --skill shap
 ```
 

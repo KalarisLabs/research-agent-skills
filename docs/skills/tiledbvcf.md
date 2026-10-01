@@ -12,7 +12,6 @@ description: "Stores and queries genomic variant data in TileDB-VCF datasets usi
 ## Install
 
 ```bash
-npx research-agent-skills install tiledbvcf
 npx skills add KalarisLabs/research-agent-skills --skill tiledbvcf
 ```
 

@@ -12,7 +12,6 @@ description: "Use when you need exact symbolic math in Python — algebra, calcu
 ## Install
 
 ```bash
-npx research-agent-skills install sympy
 npx skills add KalarisLabs/research-agent-skills --skill sympy
 ```
 

@@ -12,7 +12,6 @@ description: "Queries 20+ bioinformatics databases and analysis services through
 ## Install
 
 ```bash
-npx research-agent-skills install gget
 npx skills add KalarisLabs/research-agent-skills --skill gget
 ```
 

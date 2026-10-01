@@ -12,7 +12,6 @@ description: "Search scientific papers and retrieve structured experimental data
 ## Install
 
 ```bash
-npx research-agent-skills install bgpt-paper-search
 npx skills add KalarisLabs/research-agent-skills --skill bgpt-paper-search
 ```
 

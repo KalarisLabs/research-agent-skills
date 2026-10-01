@@ -12,7 +12,6 @@ description: "GGUF format and llama.cpp quantization for efficient CPU/GPU infer
 ## Install
 
 ```bash
-npx research-agent-skills install gguf-quantization
 npx skills add KalarisLabs/research-agent-skills --skill gguf-quantization
 ```
 

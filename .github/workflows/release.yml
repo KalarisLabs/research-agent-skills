@@ -19,6 +19,7 @@ concurrency:
 jobs:
   vendor-security:
     name: Vendor security gate
+    if: vars.VENDOR_SCANS_ENABLED == 'true'
     uses: ./.github/workflows/vendor-security.yml
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -33,6 +34,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          fetch-depth: 0
           persist-credentials: false
       - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
         with:
@@ -48,11 +50,19 @@ jobs:
           v="${TAG#v}"
           test "$v" = "$(cat VERSION)"
           test "$v" = "$(node -p "require('./cli/package.json').version")"
+      - name: Tag commit belongs to protected main
+        run: git merge-base --is-ancestor "$GITHUB_SHA" origin/main
       - run: uv sync --locked
       - run: uv run tools/validate.py --quiet
       - run: uv run tools/build_catalog.py --check
       - run: uv run tools/brand_guard.py
       - run: uv run tools/lint_injection.py
+      - name: Scan shipped skills with Cisco AI Defense
+        run: |
+          mkdir -p reports
+          uvx --from cisco-ai-skill-scanner==2.1.0 skill-scanner scan-all skills --recursive --use-behavioral \
+            --format json --output reports/skill-scanner.json
+          uv run tools/skill_scanner_gate.py reports/skill-scanner.json
       - run: uv run python -m pytest -q
       - working-directory: cli
         run: npm ci --ignore-scripts && npm test
@@ -60,6 +70,9 @@ jobs:
   build:
     name: Build, attest and sign
     needs: [verify, vendor-security]
+    if: >-
+      !cancelled() && needs.verify.result == 'success' &&
+      (needs.vendor-security.result == 'success' || needs.vendor-security.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:

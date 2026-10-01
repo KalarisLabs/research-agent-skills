@@ -12,7 +12,6 @@ description: "Runs differential expression analysis on bulk RNA-seq count data w
 ## Install
 
 ```bash
-npx research-agent-skills install pydeseq2
 npx skills add KalarisLabs/research-agent-skills --skill pydeseq2
 ```
 

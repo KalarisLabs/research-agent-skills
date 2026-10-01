@@ -12,7 +12,6 @@ description: "Autonomous AI agent platform for building and deploying continuous
 ## Install
 
 ```bash
-npx research-agent-skills install autogpt-agents
 npx skills add KalarisLabs/research-agent-skills --skill autogpt-agents
 ```
 

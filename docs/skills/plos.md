@@ -12,7 +12,6 @@ description: "Prepare manuscripts for PLOS journals (PLOS ONE, PLOS Biology, PLO
 ## Install
 
 ```bash
-npx research-agent-skills install plos
 npx skills add KalarisLabs/research-agent-skills --skill plos
 ```
 

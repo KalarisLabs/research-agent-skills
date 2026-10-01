@@ -12,7 +12,6 @@ description: "Provides geospatial and Earth observation workflows using GeoPanda
 ## Install
 
 ```bash
-npx research-agent-skills install geomaster
 npx skills add KalarisLabs/research-agent-skills --skill geomaster
 ```
 

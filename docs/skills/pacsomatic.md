@@ -12,7 +12,6 @@ description: "Operator toolkit for nf-core/pacsomatic matched tumor-normal workf
 ## Install
 
 ```bash
-npx research-agent-skills install pacsomatic
 npx skills add KalarisLabs/research-agent-skills --skill pacsomatic
 ```
 

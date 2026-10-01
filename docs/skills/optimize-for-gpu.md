@@ -12,7 +12,6 @@ description: "GPU-accelerates scientific Python on NVIDIA hardware and verifies 
 ## Install
 
 ```bash
-npx research-agent-skills install optimize-for-gpu
 npx skills add KalarisLabs/research-agent-skills --skill optimize-for-gpu
 ```
 

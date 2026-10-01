@@ -12,7 +12,6 @@ description: "Classifies LLM prompts and responses as safe or unsafe using Meta'
 ## Install
 
 ```bash
-npx research-agent-skills install llamaguard
 npx skills add KalarisLabs/research-agent-skills --skill llamaguard
 ```
 

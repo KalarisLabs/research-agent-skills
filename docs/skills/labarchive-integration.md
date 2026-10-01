@@ -12,7 +12,6 @@ description: "Securely integrate with the official LabArchives ELN REST-like API
 ## Install
 
 ```bash
-npx research-agent-skills install labarchive-integration
 npx skills add KalarisLabs/research-agent-skills --skill labarchive-integration
 ```
 

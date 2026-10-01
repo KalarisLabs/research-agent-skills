@@ -12,7 +12,6 @@ description: "Builds, fits, checks, and compares Bayesian models in Python with 
 ## Install
 
 ```bash
-npx research-agent-skills install pymc
 npx skills add KalarisLabs/research-agent-skills --skill pymc
 ```
 

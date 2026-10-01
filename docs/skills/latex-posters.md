@@ -12,7 +12,6 @@ description: "Creates research posters in LaTeX with beamerposter, tikzposter, o
 ## Install
 
 ```bash
-npx research-agent-skills install latex-posters
 npx skills add KalarisLabs/research-agent-skills --skill latex-posters
 ```
 

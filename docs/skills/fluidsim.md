@@ -12,7 +12,6 @@ description: "Plan, configure, inspect, restart, and analyze bounded FluidSim co
 ## Install
 
 ```bash
-npx research-agent-skills install fluidsim
 npx skills add KalarisLabs/research-agent-skills --skill fluidsim
 ```
 

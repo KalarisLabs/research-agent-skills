@@ -12,7 +12,6 @@ description: "Particle Image Velocimetry (PIV) analysis with OpenPIV."
 ## Install
 
 ```bash
-npx research-agent-skills install openpiv
 npx skills add KalarisLabs/research-agent-skills --skill openpiv
 ```
 

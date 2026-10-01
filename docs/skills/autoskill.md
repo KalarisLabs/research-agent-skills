@@ -12,7 +12,6 @@ description: "Observe the user's screen via screenpipe, detect repeated research
 ## Install
 
 ```bash
-npx research-agent-skills install autoskill
 npx skills add KalarisLabs/research-agent-skills --skill autoskill
 ```
 

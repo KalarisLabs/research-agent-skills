@@ -12,7 +12,6 @@ description: "Logs and tracks machine learning experiments with Weights & Biases
 ## Install
 
 ```bash
-npx research-agent-skills install weights-and-biases
 npx skills add KalarisLabs/research-agent-skills --skill weights-and-biases
 ```
 

@@ -12,7 +12,6 @@ description: "Runs deepTools command-line programs on NGS alignment data: bamCov
 ## Install
 
 ```bash
-npx research-agent-skills install deeptools
 npx skills add KalarisLabs/research-agent-skills --skill deeptools
 ```
 

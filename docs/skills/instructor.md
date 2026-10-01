@@ -12,7 +12,6 @@ description: "Extracts structured, validated data from LLM responses using the I
 ## Install
 
 ```bash
-npx research-agent-skills install instructor
 npx skills add KalarisLabs/research-agent-skills --skill instructor
 ```
 

@@ -12,7 +12,6 @@ description: "Track physical units and propagate measurement uncertainty in scie
 ## Install
 
 ```bash
-npx research-agent-skills install uncertainty-and-units
 npx skills add KalarisLabs/research-agent-skills --skill uncertainty-and-units
 ```
 

@@ -12,7 +12,6 @@ description: "Builds and optimizes language model programs with DSPy (Stanford N
 ## Install
 
 ```bash
-npx research-agent-skills install dspy
 npx skills add KalarisLabs/research-agent-skills --skill dspy
 ```
 

@@ -12,7 +12,6 @@ description: "Evaluates code generation models across HumanEval, MBPP, MultiPL-E
 ## Install
 
 ```bash
-npx research-agent-skills install evaluating-code-models
 npx skills add KalarisLabs/research-agent-skills --skill evaluating-code-models
 ```
 

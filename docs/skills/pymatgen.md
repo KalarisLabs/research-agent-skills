@@ -12,7 +12,6 @@ description: "Analyzes, validates, converts, and transforms crystal structures a
 ## Install
 
 ```bash
-npx research-agent-skills install pymatgen
 npx skills add KalarisLabs/research-agent-skills --skill pymatgen
 ```
 

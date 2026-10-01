@@ -12,7 +12,6 @@ description: "Facebook's library for efficient similarity search and clustering 
 ## Install
 
 ```bash
-npx research-agent-skills install faiss
 npx skills add KalarisLabs/research-agent-skills --skill faiss
 ```
 

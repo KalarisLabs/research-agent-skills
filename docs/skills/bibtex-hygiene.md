@@ -12,7 +12,6 @@ description: "Clean, deduplicate and validate BibTeX/BibLaTeX bibliographies bef
 ## Install
 
 ```bash
-npx research-agent-skills install bibtex-hygiene
 npx skills add KalarisLabs/research-agent-skills --skill bibtex-hygiene
 ```
 

@@ -12,7 +12,6 @@ description: "Search 18 scholarly APIs for papers, preprints, citations, open-ac
 ## Install
 
 ```bash
-npx research-agent-skills install paper-lookup
 npx skills add KalarisLabs/research-agent-skills --skill paper-lookup
 ```
 

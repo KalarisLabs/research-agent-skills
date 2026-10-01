@@ -12,7 +12,6 @@ description: "High-performance vector similarity search engine for RAG and seman
 ## Install
 
 ```bash
-npx research-agent-skills install qdrant-vector-search
 npx skills add KalarisLabs/research-agent-skills --skill qdrant-vector-search
 ```
 

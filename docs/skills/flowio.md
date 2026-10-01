@@ -12,7 +12,6 @@ description: "Read, inspect, and write Flow Cytometry Standard (FCS) 2.0, 3.0, a
 ## Install
 
 ```bash
-npx research-agent-skills install flowio
 npx skills add KalarisLabs/research-agent-skills --skill flowio
 ```
 

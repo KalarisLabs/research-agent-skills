@@ -12,7 +12,6 @@ description: "Merge multiple fine-tuned models using mergekit to combine capabil
 ## Install
 
 ```bash
-npx research-agent-skills install model-merging
 npx skills add KalarisLabs/research-agent-skills --skill model-merging
 ```
 

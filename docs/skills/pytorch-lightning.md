@@ -12,7 +12,6 @@ description: "Organizes PyTorch training code with the lightning package (PyTorc
 ## Install
 
 ```bash
-npx research-agent-skills install pytorch-lightning
 npx skills add KalarisLabs/research-agent-skills --skill pytorch-lightning
 ```
 

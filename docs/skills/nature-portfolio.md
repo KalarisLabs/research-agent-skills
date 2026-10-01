@@ -12,7 +12,6 @@ description: "Prepare manuscripts for Nature and Nature Portfolio journals (Natu
 ## Install
 
 ```bash
-npx research-agent-skills install nature-portfolio
 npx skills add KalarisLabs/research-agent-skills --skill nature-portfolio
 ```
 

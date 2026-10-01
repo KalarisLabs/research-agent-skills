@@ -12,7 +12,6 @@ description: "Provides guidance for enterprise-grade RL training using miles, a 
 ## Install
 
 ```bash
-npx research-agent-skills install miles-rl-training
 npx skills add KalarisLabs/research-agent-skills --skill miles-rl-training
 ```
 

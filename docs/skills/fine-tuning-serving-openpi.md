@@ -12,7 +12,6 @@ description: "Fine-tune and serve Physical Intelligence OpenPI models (pi0, pi0-
 ## Install
 
 ```bash
-npx research-agent-skills install fine-tuning-serving-openpi
 npx skills add KalarisLabs/research-agent-skills --skill fine-tuning-serving-openpi
 ```
 

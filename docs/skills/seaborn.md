@@ -12,7 +12,6 @@ description: "Statistical visualization with pandas integration."
 ## Install
 
 ```bash
-npx research-agent-skills install seaborn
 npx skills add KalarisLabs/research-agent-skills --skill seaborn
 ```
 

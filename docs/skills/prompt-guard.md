@@ -12,7 +12,6 @@ description: "Classifies text with Meta's Prompt Guard, an 86M-parameter model l
 ## Install
 
 ```bash
-npx research-agent-skills install prompt-guard
 npx skills add KalarisLabs/research-agent-skills --skill prompt-guard
 ```
 

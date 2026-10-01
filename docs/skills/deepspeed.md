@@ -12,7 +12,6 @@ description: "Covers DeepSpeed for distributed deep learning training and I/O: Z
 ## Install
 
 ```bash
-npx research-agent-skills install deepspeed
 npx skills add KalarisLabs/research-agent-skills --skill deepspeed
 ```
 

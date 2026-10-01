@@ -12,7 +12,6 @@ description: "Generates publication-quality figures for ML papers from research 
 ## Install
 
 ```bash
-npx research-agent-skills install academic-plotting
 npx skills add KalarisLabs/research-agent-skills --skill academic-plotting
 ```
 

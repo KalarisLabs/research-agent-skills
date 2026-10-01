@@ -12,7 +12,6 @@ description: "Retrieve ClinGen gene-disease validity assertions for a public gen
 ## Install
 
 ```bash
-npx research-agent-skills install folklore-variant-evidence
 npx skills add KalarisLabs/research-agent-skills --skill folklore-variant-evidence
 ```
 

@@ -12,7 +12,6 @@ description: "Framework for building LLM-powered applications with agents, chain
 ## Install
 
 ```bash
-npx research-agent-skills install langchain
 npx skills add KalarisLabs/research-agent-skills --skill langchain
 ```
 

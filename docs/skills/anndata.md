@@ -12,7 +12,6 @@ description: "Data structure for annotated matrices in single-cell analysis."
 ## Install
 
 ```bash
-npx research-agent-skills install anndata
 npx skills add KalarisLabs/research-agent-skills --skill anndata
 ```
 

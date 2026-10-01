@@ -12,7 +12,6 @@ description: "Convert genomic intervals between coordinate conventions, normalis
 ## Install
 
 ```bash
-npx research-agent-skills install genomic-coordinates
 npx skills add KalarisLabs/research-agent-skills --skill genomic-coordinates
 ```
 

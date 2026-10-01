@@ -12,7 +12,6 @@ description: "Python library polars-bio for genomic interval operations and bioi
 ## Install
 
 ```bash
-npx research-agent-skills install polars-bio
 npx skills add KalarisLabs/research-agent-skills --skill polars-bio
 ```
 

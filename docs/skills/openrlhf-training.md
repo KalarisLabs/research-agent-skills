@@ -12,7 +12,6 @@ description: "High-performance RLHF framework with Ray+vLLM acceleration."
 ## Install
 
 ```bash
-npx research-agent-skills install openrlhf-training
 npx skills add KalarisLabs/research-agent-skills --skill openrlhf-training
 ```
 

@@ -12,7 +12,6 @@ description: "Create, improve and test agent skills for research workflows (pape
 ## Install
 
 ```bash
-npx research-agent-skills install research-skill-creator
 npx skills add KalarisLabs/research-agent-skills --skill research-skill-creator
 ```
 

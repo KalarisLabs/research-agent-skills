@@ -12,7 +12,6 @@ description: "Guides fine-tuning of large language models with LLaMA-Factory, co
 ## Install
 
 ```bash
-npx research-agent-skills install llama-factory
 npx skills add KalarisLabs/research-agent-skills --skill llama-factory
 ```
 

@@ -12,7 +12,6 @@ description: "Use when working with Outpost Bio's open microbiome foundation mod
 ## Install
 
 ```bash
-npx research-agent-skills install waypoint-bio
 npx skills add KalarisLabs/research-agent-skills --skill waypoint-bio
 ```
 

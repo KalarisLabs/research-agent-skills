@@ -12,7 +12,6 @@ description: "Write journal submission cover letters, presubmission inquiries, t
 ## Install
 
 ```bash
-npx research-agent-skills install cover-letter-to-editor
 npx skills add KalarisLabs/research-agent-skills --skill cover-letter-to-editor
 ```
 

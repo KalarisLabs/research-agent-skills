@@ -12,7 +12,6 @@ description: "Builds, tests, and analyzes bounded process-based discrete-event s
 ## Install
 
 ```bash
-npx research-agent-skills install simpy
 npx skills add KalarisLabs/research-agent-skills --skill simpy
 ```
 

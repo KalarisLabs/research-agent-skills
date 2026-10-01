@@ -12,7 +12,6 @@ description: "Format and structurally validate local treatment-plan documentatio
 ## Install
 
 ```bash
-npx research-agent-skills install treatment-plans
 npx skills add KalarisLabs/research-agent-skills --skill treatment-plans
 ```
 

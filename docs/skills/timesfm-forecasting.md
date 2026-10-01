@@ -12,7 +12,6 @@ description: "Zero-shot time series forecasting with Google's TimesFM foundation
 ## Install
 
 ```bash
-npx research-agent-skills install timesfm-forecasting
 npx skills add KalarisLabs/research-agent-skills --skill timesfm-forecasting
 ```
 

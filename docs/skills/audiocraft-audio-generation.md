@@ -12,7 +12,6 @@ description: "PyTorch library for audio generation including text-to-music (Musi
 ## Install
 
 ```bash
-npx research-agent-skills install audiocraft-audio-generation
 npx skills add KalarisLabs/research-agent-skills --skill audiocraft-audio-generation
 ```
 

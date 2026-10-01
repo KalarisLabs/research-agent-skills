@@ -12,7 +12,6 @@ description: "Serverless GPU cloud platform for running ML workloads."
 ## Install
 
 ```bash
-npx research-agent-skills install modal-serverless-gpu
 npx skills add KalarisLabs/research-agent-skills --skill modal-serverless-gpu
 ```
 

@@ -12,7 +12,6 @@ description: "Python library scikit-bio for biological sequence and community-ec
 ## Install
 
 ```bash
-npx research-agent-skills install scikit-bio
 npx skills add KalarisLabs/research-agent-skills --skill scikit-bio
 ```
 

@@ -12,7 +12,6 @@ description: "Design experiments and studies BEFORE data is collected — choosi
 ## Install
 
 ```bash
-npx research-agent-skills install experimental-design
 npx skills add KalarisLabs/research-agent-skills --skill experimental-design
 ```
 

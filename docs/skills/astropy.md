@@ -12,7 +12,6 @@ description: "Core Python library for astronomy and astrophysics workflows that 
 ## Install
 
 ```bash
-npx research-agent-skills install astropy
 npx skills add KalarisLabs/research-agent-skills --skill astropy
 ```
 

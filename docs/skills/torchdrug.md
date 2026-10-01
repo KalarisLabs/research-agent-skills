@@ -12,7 +12,6 @@ description: "Build and troubleshoot TorchDrug 0.2.1 workflows for molecular gra
 ## Install
 
 ```bash
-npx research-agent-skills install torchdrug
 npx skills add KalarisLabs/research-agent-skills --skill torchdrug
 ```
 

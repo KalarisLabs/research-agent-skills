@@ -12,7 +12,6 @@ description: "Detect host inventory and effective CPU, memory, disk, scheduler, 
 ## Install
 
 ```bash
-npx research-agent-skills install get-available-resources
 npx skills add KalarisLabs/research-agent-skills --skill get-available-resources
 ```
 

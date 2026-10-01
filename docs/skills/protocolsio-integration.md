@@ -12,7 +12,6 @@ description: "Reads, validates, and exports protocols.io data using the document
 ## Install
 
 ```bash
-npx research-agent-skills install protocolsio-integration
 npx skills add KalarisLabs/research-agent-skills --skill protocolsio-integration
 ```
 

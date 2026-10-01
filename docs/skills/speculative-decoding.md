@@ -12,7 +12,6 @@ description: "Accelerate LLM inference using speculative decoding, Medusa multip
 ## Install
 
 ```bash
-npx research-agent-skills install speculative-decoding
 npx skills add KalarisLabs/research-agent-skills --skill speculative-decoding
 ```
 

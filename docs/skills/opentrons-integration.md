@@ -12,7 +12,6 @@ description: "Author, review, migrate, simulate, and troubleshoot official Opent
 ## Install
 
 ```bash
-npx research-agent-skills install opentrons-integration
 npx skills add KalarisLabs/research-agent-skills --skill opentrons-integration
 ```
 

@@ -12,7 +12,6 @@ description: "Drives the Fictiv on-demand manufacturing web app (app.fictiv.com)
 ## Install
 
 ```bash
-npx research-agent-skills install fictiv
 npx skills add KalarisLabs/research-agent-skills --skill fictiv
 ```
 

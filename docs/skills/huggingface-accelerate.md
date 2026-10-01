@@ -12,7 +12,6 @@ description: "Wraps existing PyTorch training scripts with HuggingFace Accelerat
 ## Install
 
 ```bash
-npx research-agent-skills install huggingface-accelerate
 npx skills add KalarisLabs/research-agent-skills --skill huggingface-accelerate
 ```
 

@@ -12,7 +12,6 @@ description: "Generates conference presentation slides (Beamer LaTeX PDF and edi
 ## Install
 
 ```bash
-npx research-agent-skills install presenting-conference-talks
 npx skills add KalarisLabs/research-agent-skills --skill presenting-conference-talks
 ```
 

@@ -12,7 +12,6 @@ description: "Securely inspect and automate microscopy data workflows against OM
 ## Install
 
 ```bash
-npx research-agent-skills install omero-integration
 npx skills add KalarisLabs/research-agent-skills --skill omero-integration
 ```
 

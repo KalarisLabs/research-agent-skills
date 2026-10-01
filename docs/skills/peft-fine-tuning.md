@@ -12,7 +12,6 @@ description: "Fine-tunes LLMs with Hugging Face PEFT, using LoRA, QLoRA, IA3, Ad
 ## Install
 
 ```bash
-npx research-agent-skills install peft-fine-tuning
 npx skills add KalarisLabs/research-agent-skills --skill peft-fine-tuning
 ```
 

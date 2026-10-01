@@ -12,7 +12,6 @@ description: "Queries the NCATS Translator ARAX production API for bounded, type
 ## Install
 
 ```bash
-npx research-agent-skills install ncats-arax
 npx skills add KalarisLabs/research-agent-skills --skill ncats-arax
 ```
 

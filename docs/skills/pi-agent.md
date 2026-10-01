@@ -12,7 +12,6 @@ description: "Build with and use Pi, the minimal terminal coding harness."
 ## Install
 
 ```bash
-npx research-agent-skills install pi-agent
 npx skills add KalarisLabs/research-agent-skills --skill pi-agent
 ```
 

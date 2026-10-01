@@ -12,7 +12,6 @@ description: "Prepare and post preprints to arXiv without processing failures or
 ## Install
 
 ```bash
-npx research-agent-skills install arxiv-submission
 npx skills add KalarisLabs/research-agent-skills --skill arxiv-submission
 ```
 

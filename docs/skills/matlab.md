@@ -12,7 +12,6 @@ description: "Designs, reviews, and migrates MATLAB R2026a and GNU Octave numeri
 ## Install
 
 ```bash
-npx research-agent-skills install matlab
 npx skills add KalarisLabs/research-agent-skills --skill matlab
 ```
 

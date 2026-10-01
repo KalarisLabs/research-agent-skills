@@ -12,7 +12,6 @@ description: "Query the 1000 Genomes Project dataset (3,202 whole-genome-sequenc
 ## Install
 
 ```bash
-npx research-agent-skills install onekgpd
 npx skills add KalarisLabs/research-agent-skills --skill onekgpd
 ```
 

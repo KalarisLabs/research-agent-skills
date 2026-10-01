@@ -12,7 +12,6 @@ description: "Language-independent tokenizer treating text as raw Unicode."
 ## Install
 
 ```bash
-npx research-agent-skills install sentencepiece
 npx skills add KalarisLabs/research-agent-skills --skill sentencepiece
 ```
 

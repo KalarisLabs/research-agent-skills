@@ -33,7 +33,7 @@ description: Answers about using AI agent skills for academic research, includin
     handling is governed by its provider.
 
 ??? question "Which skills should I install?"
-    Start with `npx research-agent-skills` (the research-essentials bundle), then add your field's category.
+    Start with `npx skills add KalarisLabs/research-agent-skills` and choose the skills for your research task.
     Installing everything works but places every skill description in your agent's context.
 
 ??? question "How do you know the skills are any good?"

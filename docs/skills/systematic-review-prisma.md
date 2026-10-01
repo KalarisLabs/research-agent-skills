@@ -12,7 +12,6 @@ description: "Plan, run and report systematic reviews and meta-analyses to PRISM
 ## Install
 
 ```bash
-npx research-agent-skills install systematic-review-prisma
 npx skills add KalarisLabs/research-agent-skills --skill systematic-review-prisma
 ```
 

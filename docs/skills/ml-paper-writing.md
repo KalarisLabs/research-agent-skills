@@ -12,7 +12,6 @@ description: "Write publication-ready ML/AI papers for NeurIPS, ICML, ICLR, ACL,
 ## Install
 
 ```bash
-npx research-agent-skills install ml-paper-writing
 npx skills add KalarisLabs/research-agent-skills --skill ml-paper-writing
 ```
 

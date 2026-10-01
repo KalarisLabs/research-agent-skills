@@ -12,7 +12,6 @@ description: "Create, analyze, and visualize complex networks and graphs in Pyth
 ## Install
 
 ```bash
-npx research-agent-skills install networkx
 npx skills add KalarisLabs/research-agent-skills --skill networkx
 ```
 

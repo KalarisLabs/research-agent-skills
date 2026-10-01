@@ -12,7 +12,6 @@ description: "Version-aware guidance for PufferLib reinforcement-learning enviro
 ## Install
 
 ```bash
-npx research-agent-skills install pufferlib
 npx skills add KalarisLabs/research-agent-skills --skill pufferlib
 ```
 

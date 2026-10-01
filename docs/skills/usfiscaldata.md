@@ -12,7 +12,6 @@ description: "Query the U.S."
 ## Install
 
 ```bash
-npx research-agent-skills install usfiscaldata
 npx skills add KalarisLabs/research-agent-skills --skill usfiscaldata
 ```
 

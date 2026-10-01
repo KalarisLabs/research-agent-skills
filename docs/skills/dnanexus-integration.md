@@ -12,7 +12,6 @@ description: "Build and operate reproducible genomics workloads on DNAnexus with
 ## Install
 
 ```bash
-npx research-agent-skills install dnanexus-integration
 npx skills add KalarisLabs/research-agent-skills --skill dnanexus-integration
 ```
 

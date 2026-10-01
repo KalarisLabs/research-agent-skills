@@ -12,7 +12,6 @@ description: "Fine-tunes and evaluates OpenVLA-OFT and OpenVLA-OFT+ policies for
 ## Install
 
 ```bash
-npx research-agent-skills install fine-tuning-openvla-oft
 npx skills add KalarisLabs/research-agent-skills --skill fine-tuning-openvla-oft
 ```
 

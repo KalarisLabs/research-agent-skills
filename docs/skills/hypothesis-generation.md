@@ -12,7 +12,6 @@ description: "Formulate evidence-bounded scientific questions, candidate hypothe
 ## Install
 
 ```bash
-npx research-agent-skills install hypothesis-generation
 npx skills add KalarisLabs/research-agent-skills --skill hypothesis-generation
 ```
 

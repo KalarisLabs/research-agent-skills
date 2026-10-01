@@ -12,7 +12,6 @@ description: "Guides researchers through structured ideation frameworks to disco
 ## Install
 
 ```bash
-npx research-agent-skills install brainstorming-research-ideas
 npx skills add KalarisLabs/research-agent-skills --skill brainstorming-research-ideas
 ```
 

@@ -12,7 +12,6 @@ description: "Runs and analyzes molecular dynamics simulations using OpenMM and 
 ## Install
 
 ```bash
-npx research-agent-skills install molecular-dynamics
 npx skills add KalarisLabs/research-agent-skills --skill molecular-dynamics
 ```
 

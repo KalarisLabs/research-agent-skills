@@ -12,7 +12,6 @@ description: "Provides guidance for fine-tuning large language models with Axolo
 ## Install
 
 ```bash
-npx research-agent-skills install axolotl
 npx skills add KalarisLabs/research-agent-skills --skill axolotl
 ```
 

@@ -12,7 +12,6 @@ description: "Pharmacokinetic and pharmacodynamic modelling and simulation - non
 ## Install
 
 ```bash
-npx research-agent-skills install pkpd-modeling
 npx skills add KalarisLabs/research-agent-skills --skill pkpd-modeling
 ```
 

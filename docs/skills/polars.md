@@ -12,7 +12,6 @@ description: "High-performance DataFrame library for Python ETL, analytics, and 
 ## Install
 
 ```bash
-npx research-agent-skills install polars
 npx skills add KalarisLabs/research-agent-skills --skill polars
 ```
 

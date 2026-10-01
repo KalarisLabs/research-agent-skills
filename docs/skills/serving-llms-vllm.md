@@ -12,7 +12,6 @@ description: "Serves LLMs with high throughput using vLLM's PagedAttention and c
 ## Install
 
 ```bash
-npx research-agent-skills install serving-llms-vllm
 npx skills add KalarisLabs/research-agent-skills --skill serving-llms-vllm
 ```
 

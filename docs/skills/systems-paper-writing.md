@@ -12,7 +12,6 @@ description: "Provides paragraph-level structural blueprints for 10-12 page syst
 ## Install
 
 ```bash
-npx research-agent-skills install systems-paper-writing
 npx skills add KalarisLabs/research-agent-skills --skill systems-paper-writing
 ```
 

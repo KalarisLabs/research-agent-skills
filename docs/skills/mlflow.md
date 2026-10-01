@@ -12,7 +12,6 @@ description: "Tracks machine learning experiments and manages model lifecycles w
 ## Install
 
 ```bash
-npx research-agent-skills install mlflow
 npx skills add KalarisLabs/research-agent-skills --skill mlflow
 ```
 

@@ -12,7 +12,6 @@ description: "Guides use of Zarr-Python 3 for storing chunked, compressed N-dime
 ## Install
 
 ```bash
-npx research-agent-skills install zarr-python
 npx skills add KalarisLabs/research-agent-skills --skill zarr-python
 ```
 

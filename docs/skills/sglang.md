@@ -12,7 +12,6 @@ description: "Fast structured generation and serving for LLMs with RadixAttentio
 ## Install
 
 ```bash
-npx research-agent-skills install sglang
 npx skills add KalarisLabs/research-agent-skills --skill sglang
 ```
 

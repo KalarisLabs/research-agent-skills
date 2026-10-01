@@ -12,7 +12,6 @@ description: "Prepare manuscripts for Cell Press journals (Cell, Molecular Cell,
 ## Install
 
 ```bash
-npx research-agent-skills install cell-press
 npx skills add KalarisLabs/research-agent-skills --skill cell-press
 ```
 

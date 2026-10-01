@@ -12,7 +12,6 @@ description: "Autonomously improve a real artifact (code, training recipe, agent
 ## Install
 
 ```bash
-npx research-agent-skills install arbor
 npx skills add KalarisLabs/research-agent-skills --skill arbor
 ```
 

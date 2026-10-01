@@ -12,7 +12,6 @@ description: "Provides guidance for automatically evolving and optimizing AI age
 ## Install
 
 ```bash
-npx research-agent-skills install evolving-ai-agents
 npx skills add KalarisLabs/research-agent-skills --skill evolving-ai-agents
 ```
 

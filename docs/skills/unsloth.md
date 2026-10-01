@@ -12,7 +12,6 @@ description: "Provides guidance on fine-tuning large language models with Unslot
 ## Install
 
 ```bash
-npx research-agent-skills install unsloth
 npx skills add KalarisLabs/research-agent-skills --skill unsloth
 ```
 

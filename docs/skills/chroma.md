@@ -12,7 +12,6 @@ description: "Open-source embedding database for AI applications."
 ## Install
 
 ```bash
-npx research-agent-skills install chroma
 npx skills add KalarisLabs/research-agent-skills --skill chroma
 ```
 

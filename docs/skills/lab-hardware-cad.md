@@ -12,7 +12,6 @@ description: "Design custom laboratory hardware as parametric build123d models a
 ## Install
 
 ```bash
-npx research-agent-skills install lab-hardware-cad
 npx skills add KalarisLabs/research-agent-skills --skill lab-hardware-cad
 ```
 

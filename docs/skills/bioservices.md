@@ -12,7 +12,6 @@ description: "Unified Python interface to 40+ bioinformatics services."
 ## Install
 
 ```bash
-npx research-agent-skills install bioservices
 npx skills add KalarisLabs/research-agent-skills --skill bioservices
 ```
 

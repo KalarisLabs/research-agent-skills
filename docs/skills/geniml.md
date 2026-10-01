@@ -12,7 +12,6 @@ description: "Plans and audits local genomic-interval machine learning workflows
 ## Install
 
 ```bash
-npx research-agent-skills install geniml
 npx skills add KalarisLabs/research-agent-skills --skill geniml
 ```
 

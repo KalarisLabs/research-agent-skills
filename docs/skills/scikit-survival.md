@@ -12,7 +12,6 @@ description: "Builds, evaluates, and audits right-censored survival analysis wor
 ## Install
 
 ```bash
-npx research-agent-skills install scikit-survival
 npx skills add KalarisLabs/research-agent-skills --skill scikit-survival
 ```
 

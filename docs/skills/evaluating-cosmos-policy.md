@@ -12,7 +12,6 @@ description: "Evaluates NVIDIA Cosmos Policy on LIBERO and RoboCasa simulation e
 ## Install
 
 ```bash
-npx research-agent-skills install evaluating-cosmos-policy
 npx skills add KalarisLabs/research-agent-skills --skill evaluating-cosmos-policy
 ```
 

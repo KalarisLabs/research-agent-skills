@@ -12,7 +12,6 @@ description: "Foundation model for image segmentation with zero-shot transfer."
 ## Install
 
 ```bash
-npx research-agent-skills install segment-anything-model
 npx skills add KalarisLabs/research-agent-skills --skill segment-anything-model
 ```
 

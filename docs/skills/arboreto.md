@@ -12,7 +12,6 @@ description: "Infer gene regulatory networks (GRNs) from gene expression data us
 ## Install
 
 ```bash
-npx research-agent-skills install arboreto
 npx skills add KalarisLabs/research-agent-skills --skill arboreto
 ```
 
