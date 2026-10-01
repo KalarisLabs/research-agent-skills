@@ -15,13 +15,22 @@ on:
   schedule:
     - cron: "41 5 * * 1"
   workflow_dispatch:
+    inputs:
+      scanner:
+        description: Run both scanners or check one integration
+        type: choice
+        options: [both, snyk, socket]
+        default: both
 
 permissions: {}
 
 jobs:
   snyk-agent-scan:
     name: Snyk Agent Scan (all skills)
-    if: github.event_name == 'workflow_call' || vars.VENDOR_SCANS_ENABLED == 'true'
+    if: >-
+      github.event_name == 'workflow_call' ||
+      (github.event_name == 'workflow_dispatch' && (inputs.scanner == 'both' || inputs.scanner == 'snyk')) ||
+      ((github.event_name == 'push' || github.event_name == 'schedule') && vars.VENDOR_SCANS_ENABLED == 'true')
     runs-on: ubuntu-latest
     timeout-minutes: 45
     permissions:
@@ -52,7 +61,10 @@ jobs:
 
   socket:
     name: Socket dependency policy
-    if: github.event_name == 'workflow_call' || vars.VENDOR_SCANS_ENABLED == 'true'
+    if: >-
+      github.event_name == 'workflow_call' ||
+      (github.event_name == 'workflow_dispatch' && (inputs.scanner == 'both' || inputs.scanner == 'socket')) ||
+      ((github.event_name == 'push' || github.event_name == 'schedule') && vars.VENDOR_SCANS_ENABLED == 'true')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:

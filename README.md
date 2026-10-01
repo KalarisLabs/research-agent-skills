@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="PUBLIC/Research%20agent%20skills%20KALARISLABS%20GRPHIC.png" alt="Research Agent Skills for academia and scientific research by Kalaris Labs" width="100%" />
+
 # Research Agent Skills
 
 ### Research skills for academia: AI, machine learning, biology, chemistry, medicine and physics
@@ -10,7 +12,6 @@
 [![Skill security](https://github.com/KalarisLabs/research-agent-skills/actions/workflows/skill-security.yml/badge.svg)](https://github.com/KalarisLabs/research-agent-skills/actions/workflows/skill-security.yml)
 [![Benchmarks](https://github.com/KalarisLabs/research-agent-skills/actions/workflows/benchmarks.yml/badge.svg)](benchmarks/README.md)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/KalarisLabs/research-agent-skills/badge)](https://securityscorecards.dev/viewer/?uri=github.com/KalarisLabs/research-agent-skills)
-[![npm](https://img.shields.io/npm/v/research-agent-skills?label=npx%20research-agent-skills)](https://www.npmjs.com/package/research-agent-skills)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/KalarisLabs/research-agent-skills?style=social)](https://github.com/KalarisLabs/research-agent-skills)
 
@@ -36,14 +37,17 @@ It is built around the three ways AI research assistance goes wrong:
 ## Install in 30 seconds
 
 ```bash
-npx research-agent-skills
+npx skills add KalarisLabs/research-agent-skills
 ```
 
-This interactive command lets you choose a bundle or category and the agent harnesses to install into.
-The default choice is **research-essentials**: writing, journal formats, literature review, ideation and figures.
-Installation defaults to your user account (global); add `--project` to install into the current project.
+The skills.sh CLI lets you select individual skills and agent harnesses. It installs into the current project;
+add `--global` for a user-level installation. To inspect all available skills first, run
+`npx skills add KalarisLabs/research-agent-skills --list`.
 Then ask your agent, for example *"Verify every reference in refs.bib"* or
 *"Unslop this introduction without changing any claims"*.
+
+The Kalaris Labs installer also offers curated bundles by research field. Its npm package is prepared for
+publication; the bundle commands below become available after the first npm release.
 
 | Researcher | Curated bundle | Example command |
 |---|---|---|
@@ -65,6 +69,8 @@ Replace `codex` with your agent, or use `npx research-agent-skills install --all
 
 <details>
 <summary><b>Other installation methods</b></summary>
+
+The `research-agent-skills` npm CLI and standalone installers require the first tagged release.
 
 | Method | Command |
 |---|---|
