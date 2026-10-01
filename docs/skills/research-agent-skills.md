@@ -1,11 +1,11 @@
 ---
 title: "research-agent-skills — AI agent skill for research automation"
-description: "Navigate and install the complete Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine,…"
+description: "Navigate the Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, physics, and academi…"
 ---
 
 # `research-agent-skills`
 
-> Navigate and install the complete Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, physics, and academic writing. Use when a researcher wants the whole collection for Codex, Claude Code or Gemini CLI via skills.sh, needs to choose a field bundle, or asks which specialist SKILL.md files cover a cross-disciplinary research workflow. For a narrow task with a matching specialist skill already available, use that skill directly.
+> Navigate the Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, physics, and academic writing. Use when a researcher needs to choose a field of study, identify relevant specialist SKILL.md files, or coordinate a cross-disciplinary research workflow. For a narrow task with a matching specialist skill already available, use that skill directly.
 
 **Category:** [research-automation](/skills#research-automation) · **License:** MIT · **Version:** 1.0
 
@@ -18,7 +18,7 @@ npx skills add KalarisLabs/research-agent-skills --skill research-agent-skills
 
 ## When to use it
 
-Navigate and install the complete Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, physics, and academic writing. Use when a researcher wants the whole collection for Codex, Claude Code or Gemini CLI via skills.sh, needs to choose a field bundle, or asks which specialist SKILL.md files cover a cross-disciplinary research workflow. For a narrow task with a matching specialist skill already available, use that skill directly.
+Navigate the Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, physics, and academic writing. Use when a researcher needs to choose a field of study, identify relevant specialist SKILL.md files, or coordinate a cross-disciplinary research workflow. For a narrow task with a matching specialist skill already available, use that skill directly.
 
 ## Full playbook
 
