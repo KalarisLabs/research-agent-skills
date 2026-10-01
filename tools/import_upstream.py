@@ -120,7 +120,9 @@ def enrich_imported(names: list[str]) -> None:
         stats["procedure"] += enrich.add_procedure(load_skill(s.path))
     skills = {s.name: s for s in load_skills()}
     neighbours: dict[str, list[tuple[float, str]]] = {}
-    for a, b, sim in tfidf_overlap(list(skills.values()), 0.08):
+    # The collection router is an index, not a specialist recommendation.
+    specialists = [s for s in skills.values() if s.name != "research-agent-skills"]
+    for a, b, sim in tfidf_overlap(specialists, 0.08):
         neighbours.setdefault(a, []).append((sim, b))
         neighbours.setdefault(b, []).append((sim, a))
     for name in names:
