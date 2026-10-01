@@ -3,7 +3,6 @@ from pathlib import Path
 
 import pytest
 
-
 BACKENDS = Path(__file__).resolve().parents[1] / "skills" / "autoskill" / "scripts" / "backends.py"
 
 
