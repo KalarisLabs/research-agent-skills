@@ -28,6 +28,9 @@ BLOCKING = {"CRITICAL", "HIGH"}
 
 def finding_key(skill: str, finding: dict) -> str:
     path = str(finding.get("file_path") or "").replace("\\", "/").lower()
+    marker = f"/skills/{skill.lower()}/"
+    if marker in path:
+        path = path.rsplit(marker, 1)[1]
     return f"{skill}|{finding.get('rule_id')}|{path}"
 
 

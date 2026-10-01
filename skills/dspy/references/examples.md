@@ -148,6 +148,7 @@ class RerankedRAG(dspy.Module):
 
 ```python
 from dspy.predict import ReAct
+from scripts.safe_arithmetic import calculate as safe_calculate
 
 # Define tools
 def search_wikipedia(query: str) -> str:
@@ -161,8 +162,7 @@ def search_wikipedia(query: str) -> str:
 def calculate(expression: str) -> str:
     """Evaluate mathematical expression safely."""
     try:
-        # Use safe eval
-        result = eval(expression, {"__builtins__": {}}, {})
+        result = safe_calculate(expression)
         return str(result)
     except:
         return "Invalid expression"

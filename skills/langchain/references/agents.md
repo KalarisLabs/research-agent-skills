@@ -18,11 +18,12 @@ This is the **ReAct pattern** (Reasoning + Acting).
 ```python
 from langchain.agents import create_agent
 from langchain_anthropic import ChatAnthropic
+from scripts.safe_arithmetic import calculate
 
 # Define tools
 def calculator(expression: str) -> str:
     """Evaluate a math expression."""
-    return str(eval(expression))
+    return str(calculate(expression))
 
 def search(query: str) -> str:
     """Search for information."""

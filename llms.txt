@@ -246,7 +246,7 @@
 - [autoresearch](https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/skills/autoresearch/SKILL.md): Orchestrates end-to-end autonomous AI research projects using a two-loop architecture.
 - [autoskill](https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/skills/autoskill/SKILL.md): Observe the user's screen via screenpipe, detect repeated research workflows, match them against existing research-agent-skills, and draft new skills (or composition recipes that chain existing ones)…
 - [pi-agent](https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/skills/pi-agent/SKILL.md): Build with and use Pi, the minimal terminal coding harness.
-- [research-agent-skills](https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/skills/research-agent-skills/SKILL.md): Navigate and install the complete Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, physics, and academic writing.
+- [research-agent-skills](https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/skills/research-agent-skills/SKILL.md): Navigate the Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, physics, and academic writing.
 - [research-skill-creator](https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/skills/research-skill-creator/SKILL.md): Create, improve and test agent skills for research workflows (paper writing, lab protocols, analysis pipelines, domain databases) that meet the Agent Skills specification and this repository's qualit…
 
 ## ml-training

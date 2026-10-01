@@ -139,12 +139,13 @@ result = chain.run(topic="machine learning")
 ```python
 from langchain.agents import create_tool_calling_agent, AgentExecutor
 from langchain.tools import Tool
+from scripts.safe_arithmetic import calculate
 
 # Define custom tool
 calculator = Tool(
     name="Calculator",
-    func=lambda x: eval(x),
-    description="Useful for math calculations. Input: valid Python expression."
+    func=lambda x: str(calculate(x)),
+    description="Useful for arithmetic with numbers and +, -, *, /."
 )
 
 # Create agent with tools

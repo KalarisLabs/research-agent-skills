@@ -376,6 +376,7 @@ print(f"Department: {lm['department']}")
 
 ```python
 from guidance import models, gen, select, guidance
+from scripts.safe_arithmetic import calculate
 
 @guidance(stateless=False)
 def react_agent(lm, question, tools, max_rounds=5):
@@ -411,7 +412,7 @@ def react_agent(lm, question, tools, max_rounds=5):
 
 # Define tools
 tools = {
-    "calculator": lambda expr: eval(expr),
+    "calculator": calculate,
     "search": lambda query: f"Search results for '{query}': [Mock results]",
     "weather": lambda city: f"Weather in {city}: Sunny, 72°F"
 }

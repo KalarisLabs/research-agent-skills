@@ -233,6 +233,7 @@ researcher = Agent(
 ```python
 from crewai.tools import BaseTool
 from pydantic import Field
+from scripts.safe_arithmetic import calculate
 
 class CalculatorTool(BaseTool):
     name: str = "Calculator"
@@ -240,7 +241,7 @@ class CalculatorTool(BaseTool):
 
     def _run(self, expression: str) -> str:
         try:
-            result = eval(expression)
+            result = calculate(expression)
             return f"Result: {result}"
         except Exception as e:
             return f"Error: {str(e)}"

@@ -981,7 +981,7 @@
         "Production"
       ],
       "path": "skills/crewai-multi-agent",
-      "has_scripts": false,
+      "has_scripts": true,
       "origin": "adapted"
     },
     {
@@ -1170,7 +1170,7 @@
         "Modular AI"
       ],
       "path": "skills/dspy",
-      "has_scripts": false,
+      "has_scripts": true,
       "origin": "adapted"
     },
     {
@@ -1735,7 +1735,7 @@
         "Multi-Step Workflows"
       ],
       "path": "skills/guidance",
-      "has_scripts": false,
+      "has_scripts": true,
       "origin": "adapted"
     },
     {
@@ -2053,7 +2053,7 @@
         "Production"
       ],
       "path": "skills/langchain",
-      "has_scripts": false,
+      "has_scripts": true,
       "origin": "adapted"
     },
     {
@@ -3708,11 +3708,11 @@
     },
     {
       "name": "research-agent-skills",
-      "description": "Navigate and install the complete Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, physics, and academic writing. Use when a researcher wants the whole collection for Codex, Claude Code or Gemini CLI via skills.sh, needs to choose a field bundle, or asks which specialist SKILL.md files cover a cross-disciplinary research workflow. For a narrow task with a matching specialist skill already available, use that skill directly.",
+      "description": "Navigate the Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, physics, and academic writing. Use when a researcher needs to choose a field of study, identify relevant specialist SKILL.md files, or coordinate a cross-disciplinary research workflow. For a narrow task with a matching specialist skill already available, use that skill directly.",
       "category": "research-automation",
       "version": "1.0",
       "license": "MIT",
-      "compatibility": "The skill index works offline. Installing additional skills requires Node.js 18+ and access to the public GitHub repository.",
+      "compatibility": "The skill index works offline. Specialist skills must be available in the agent's environment before use.",
       "tags": [
         "academia",
         "research agents",

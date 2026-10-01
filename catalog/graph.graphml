@@ -1603,7 +1603,7 @@
     <node id="skill:research-agent-skills">
       <data key="n0">skill</data>
       <data key="n1">research-agent-skills</data>
-      <data key="n2">Navigate and install the complete Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, physics, and academic writing. Use when a researcher wants the whole collection for Codex, Claude Code or Gemini CLI via skills.sh, needs to choose a field bundle, or asks which specialist SKILL.md files cover a cross-disciplinary research workflow. For a narrow task with a matching specialist skill already available, use that skill directly.</data>
+      <data key="n2">Navigate the Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, physics, and academic writing. Use when a researcher needs to choose a field of study, identify relevant specialist SKILL.md files, or coordinate a cross-disciplinary research workflow. For a narrow task with a matching specialist skill already available, use that skill directly.</data>
       <data key="n3">research-automation</data>
       <data key="n4">skills/research-agent-skills</data>
     </node>

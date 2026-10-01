@@ -471,7 +471,7 @@ Grouped by category and generated from [`catalog/skills.json`](catalog/skills.js
 | [`autoresearch`](skills/autoresearch/SKILL.md) | Orchestrates end-to-end autonomous AI research projects using a two-loop architecture. |
 | [`autoskill`](skills/autoskill/SKILL.md) | Observe the user's screen via screenpipe, detect repeated research workflows, match them against existing research-agent-skills, and draft new skills (or compo… |
 | [`pi-agent`](skills/pi-agent/SKILL.md) | Build with and use Pi, the minimal terminal coding harness. |
-| [`research-agent-skills`](skills/research-agent-skills/SKILL.md) | Navigate and install the complete Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, phys… |
+| [`research-agent-skills`](skills/research-agent-skills/SKILL.md) | Navigate the Research Agent Skills collection by Kalaris Labs for academia across AI, machine learning, biology, chemistry, medicine, physics, and academic wri… |
 | [`research-skill-creator`](skills/research-skill-creator/SKILL.md) | Create, improve and test agent skills for research workflows (paper writing, lab protocols, analysis pipelines, domain databases) that meet the Agent Skills sp… |
 
 </details>

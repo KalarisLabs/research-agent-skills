@@ -3,9 +3,6 @@ import os
 import sys
 from urllib.parse import urlparse
 
-import httpx
-
-
 def _is_loopback(host):
     if host in ("localhost", ""):
         return True
@@ -18,10 +15,8 @@ def _is_loopback(host):
 def check_remote_endpoint(endpoint, label):
     """Reject cleartext transport to a remote host, and name the destination.
 
-    This backend sends summaries derived from the user's screen-capture history.
-    The endpoint is read from config.yaml, so it is worth being explicit about
-    where that data is about to go, and refusing to send it -- along with an API
-    key header -- over plaintext HTTP to anything but the local machine.
+    Endpoints are read from config.yaml. Requests can carry screen-derived data
+    or an API key, so remote endpoints must use HTTPS.
     """
     parsed = urlparse(endpoint)
     host = parsed.hostname or ""
@@ -40,7 +35,7 @@ def check_remote_endpoint(endpoint, label):
 
     if not _is_loopback(host):
         print(
-            f"[autoskill] sending screen-derived summaries to {parsed.scheme}://{host}",
+            f"[autoskill] connecting to {parsed.scheme}://{host} for {label}",
             file=sys.stderr,
         )
 
@@ -49,9 +44,12 @@ def check_remote_endpoint(endpoint, label):
 
 class ClaudeBackend:
     def __init__(self, api_key, model, client=None):
+        if client is None:
+            import httpx
+            client = httpx.Client(base_url="https://api.anthropic.com", timeout=60.0)
         self.api_key = api_key
         self.model = model
-        self.client = client or httpx.Client(base_url="https://api.anthropic.com", timeout=60.0)
+        self.client = client
 
     def __call__(self, prompt):
         response = self.client.post(
@@ -74,9 +72,12 @@ class ClaudeBackend:
 
 class LocalBackend:
     def __init__(self, endpoint, model, client=None):
+        if client is None:
+            import httpx
+            client = httpx.Client(base_url=endpoint, timeout=120.0)
         self.endpoint = endpoint
         self.model = model
-        self.client = client or httpx.Client(base_url=endpoint, timeout=120.0)
+        self.client = client
 
     def __call__(self, prompt):
         response = self.client.post(
@@ -101,6 +102,7 @@ def make_backend(config):
         return ClaudeBackend(api_key=api_key, model=model)
 
     if kind == "foundry":
+        import httpx
         api_key = os.environ.get("FOUNDRY_API_KEY")
         if not api_key:
             raise RuntimeError("FOUNDRY_API_KEY environment variable not set")

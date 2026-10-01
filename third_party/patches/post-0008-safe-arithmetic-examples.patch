@@ -1,0 +1,335 @@
+diff --git a/skills/crewai-multi-agent/SKILL.md b/skills/crewai-multi-agent/SKILL.md
+index 0f5f3d5..5310b75 100644
+--- a/skills/crewai-multi-agent/SKILL.md
++++ b/skills/crewai-multi-agent/SKILL.md
+@@ -233,6 +233,7 @@ researcher = Agent(
+ ```python
+ from crewai.tools import BaseTool
+ from pydantic import Field
++from scripts.safe_arithmetic import calculate
+ 
+ class CalculatorTool(BaseTool):
+     name: str = "Calculator"
+@@ -240,7 +241,7 @@ class CalculatorTool(BaseTool):
+ 
+     def _run(self, expression: str) -> str:
+         try:
+-            result = eval(expression)
++            result = calculate(expression)
+             return f"Result: {result}"
+         except Exception as e:
+             return f"Error: {str(e)}"
+diff --git a/skills/crewai-multi-agent/references/tools.md b/skills/crewai-multi-agent/references/tools.md
+index 6f7d282..64ca94a 100644
+--- a/skills/crewai-multi-agent/references/tools.md
++++ b/skills/crewai-multi-agent/references/tools.md
+@@ -273,6 +273,7 @@ api_tool = APITool(api_key="your-key", base_url="https://api.example.com")
+ ```python
+ from crewai.tools import BaseTool
+ from pydantic import Field, field_validator
++from scripts.safe_arithmetic import calculate
+ 
+ class CalculatorTool(BaseTool):
+     name: str = "Calculator"
+@@ -290,11 +291,7 @@ class CalculatorTool(BaseTool):
+ 
+     def _run(self, expression: str) -> str:
+         try:
+-            # Simple eval with safety checks
+-            for char in expression:
+-                if char.isalpha():
+-                    return "Error: Letters not allowed"
+-            result = eval(expression)
++            result = calculate(expression)
+             return f"Result: {result}"
+         except Exception as e:
+             return f"Error: {str(e)}"
+diff --git a/skills/dspy/references/examples.md b/skills/dspy/references/examples.md
+index 2f568c7..748a406 100644
+--- a/skills/dspy/references/examples.md
++++ b/skills/dspy/references/examples.md
+@@ -148,6 +148,7 @@ class RerankedRAG(dspy.Module):
+ 
+ ```python
+ from dspy.predict import ReAct
++from scripts.safe_arithmetic import calculate as safe_calculate
+ 
+ # Define tools
+ def search_wikipedia(query: str) -> str:
+@@ -161,8 +162,7 @@ def search_wikipedia(query: str) -> str:
+ def calculate(expression: str) -> str:
+     """Evaluate mathematical expression safely."""
+     try:
+-        # Use safe eval
+-        result = eval(expression, {"__builtins__": {}}, {})
++        result = safe_calculate(expression)
+         return str(result)
+     except:
+         return "Invalid expression"
+diff --git a/skills/dspy/references/modules.md b/skills/dspy/references/modules.md
+index aa373d0..7bc6a37 100644
+--- a/skills/dspy/references/modules.md
++++ b/skills/dspy/references/modules.md
+@@ -123,6 +123,7 @@ print(result.answer)  # 150.0
+ 
+ ```python
+ from dspy.predict import ReAct
++from scripts.safe_arithmetic import calculate as safe_calculate
+ 
+ # Define tools
+ def search_wikipedia(query: str) -> str:
+@@ -132,7 +133,7 @@ def search_wikipedia(query: str) -> str:
+ 
+ def calculate(expression: str) -> float:
+     """Evaluate a mathematical expression."""
+-    return eval(expression)
++    return safe_calculate(expression)
+ 
+ # Create ReAct agent
+ class ResearchQA(dspy.Signature):
+diff --git a/skills/guidance/references/common-patterns.md b/skills/guidance/references/common-patterns.md
+index fe6374b..4a656b0 100644
+--- a/skills/guidance/references/common-patterns.md
++++ b/skills/guidance/references/common-patterns.md
+@@ -69,12 +69,13 @@ print(lm["answer"])
+ 
+ ```python
+ from guidance import models, gen, select, guidance
++from scripts.safe_arithmetic import calculate
+ 
+ @guidance(stateless=False)
+ def react_agent(lm, question):
+     """ReAct agent with tool use."""
+     tools = {
+-        "calculator": lambda expr: eval(expr),
++        "calculator": calculate,
+         "search": lambda query: f"Search results for: {query}",
+     }
+ 
+diff --git a/skills/guidance/references/examples.md b/skills/guidance/references/examples.md
+index 3153887..2c7ac27 100644
+--- a/skills/guidance/references/examples.md
++++ b/skills/guidance/references/examples.md
+@@ -376,6 +376,7 @@ print(f"Department: {lm['department']}")
+ 
+ ```python
+ from guidance import models, gen, select, guidance
++from scripts.safe_arithmetic import calculate
+ 
+ @guidance(stateless=False)
+ def react_agent(lm, question, tools, max_rounds=5):
+@@ -411,7 +412,7 @@ def react_agent(lm, question, tools, max_rounds=5):
+ 
+ # Define tools
+ tools = {
+-    "calculator": lambda expr: eval(expr),
++    "calculator": calculate,
+     "search": lambda query: f"Search results for '{query}': [Mock results]",
+     "weather": lambda city: f"Weather in {city}: Sunny, 72°F"
+ }
+diff --git a/skills/langchain/SKILL.md b/skills/langchain/SKILL.md
+index aa752c0..7e12b5c 100644
+--- a/skills/langchain/SKILL.md
++++ b/skills/langchain/SKILL.md
+@@ -139,12 +139,13 @@ result = chain.run(topic="machine learning")
+ ```python
+ from langchain.agents import create_tool_calling_agent, AgentExecutor
+ from langchain.tools import Tool
++from scripts.safe_arithmetic import calculate
+ 
+ # Define custom tool
+ calculator = Tool(
+     name="Calculator",
+-    func=lambda x: eval(x),
+-    description="Useful for math calculations. Input: valid Python expression."
++    func=lambda x: str(calculate(x)),
++    description="Useful for arithmetic with numbers and +, -, *, /."
+ )
+ 
+ # Create agent with tools
+diff --git a/skills/langchain/references/agents.md b/skills/langchain/references/agents.md
+index fe8e6fe..1b43826 100644
+--- a/skills/langchain/references/agents.md
++++ b/skills/langchain/references/agents.md
+@@ -18,11 +18,12 @@ This is the **ReAct pattern** (Reasoning + Acting).
+ ```python
+ from langchain.agents import create_agent
+ from langchain_anthropic import ChatAnthropic
++from scripts.safe_arithmetic import calculate
+ 
+ # Define tools
+ def calculator(expression: str) -> str:
+     """Evaluate a math expression."""
+-    return str(eval(expression))
++    return str(calculate(expression))
+ 
+ def search(query: str) -> str:
+     """Search for information."""
+diff --git a/skills/langchain/scripts/safe_arithmetic.py b/skills/langchain/scripts/safe_arithmetic.py
+new file mode 100644
+index 0000000..803ae6a
+--- /dev/null
++++ b/skills/langchain/scripts/safe_arithmetic.py
+@@ -0,0 +1,36 @@
++"""Evaluate bounded arithmetic from agent input without executing Python code."""
++
++import ast
++import math
++import operator
++
++
++_OPERATORS = {
++    ast.Add: operator.add,
++    ast.Sub: operator.sub,
++    ast.Mult: operator.mul,
++    ast.Div: operator.truediv,
++}
++_UNARY = {ast.UAdd: operator.pos, ast.USub: operator.neg}
++
++
++def calculate(expression: str) -> float:
++    if len(expression) > 80:
++        raise ValueError("expression is too long")
++
++    def walk(node: ast.AST, depth: int = 0) -> float:
++        if depth > 12:
++            raise ValueError("expression is too deep")
++        if isinstance(node, ast.Constant) and type(node.value) in (int, float):
++            value = float(node.value)
++        elif isinstance(node, ast.BinOp) and type(node.op) in _OPERATORS:
++            value = _OPERATORS[type(node.op)](walk(node.left, depth + 1), walk(node.right, depth + 1))
++        elif isinstance(node, ast.UnaryOp) and type(node.op) in _UNARY:
++            value = _UNARY[type(node.op)](walk(node.operand, depth + 1))
++        else:
++            raise ValueError("only numeric literals and +, -, *, / are allowed")
++        if not math.isfinite(value) or abs(value) > 1e12:
++            raise ValueError("result is out of range")
++        return value
++
++    return walk(ast.parse(expression, mode="eval").body)
+diff --git a/skills/crewai-multi-agent/scripts/safe_arithmetic.py b/skills/crewai-multi-agent/scripts/safe_arithmetic.py
+new file mode 100644
+index 0000000..803ae6a
+--- /dev/null
++++ b/skills/crewai-multi-agent/scripts/safe_arithmetic.py
+@@ -0,0 +1,36 @@
++"""Evaluate bounded arithmetic from agent input without executing Python code."""
++
++import ast
++import math
++import operator
++
++
++_OPERATORS = {
++    ast.Add: operator.add,
++    ast.Sub: operator.sub,
++    ast.Mult: operator.mul,
++    ast.Div: operator.truediv,
++}
++_UNARY = {ast.UAdd: operator.pos, ast.USub: operator.neg}
++
++
++def calculate(expression: str) -> float:
++    if len(expression) > 80:
++        raise ValueError("expression is too long")
++
++    def walk(node: ast.AST, depth: int = 0) -> float:
++        if depth > 12:
++            raise ValueError("expression is too deep")
++        if isinstance(node, ast.Constant) and type(node.value) in (int, float):
++            value = float(node.value)
++        elif isinstance(node, ast.BinOp) and type(node.op) in _OPERATORS:
++            value = _OPERATORS[type(node.op)](walk(node.left, depth + 1), walk(node.right, depth + 1))
++        elif isinstance(node, ast.UnaryOp) and type(node.op) in _UNARY:
++            value = _UNARY[type(node.op)](walk(node.operand, depth + 1))
++        else:
++            raise ValueError("only numeric literals and +, -, *, / are allowed")
++        if not math.isfinite(value) or abs(value) > 1e12:
++            raise ValueError("result is out of range")
++        return value
++
++    return walk(ast.parse(expression, mode="eval").body)
+diff --git a/skills/dspy/scripts/safe_arithmetic.py b/skills/dspy/scripts/safe_arithmetic.py
+new file mode 100644
+index 0000000..803ae6a
+--- /dev/null
++++ b/skills/dspy/scripts/safe_arithmetic.py
+@@ -0,0 +1,36 @@
++"""Evaluate bounded arithmetic from agent input without executing Python code."""
++
++import ast
++import math
++import operator
++
++
++_OPERATORS = {
++    ast.Add: operator.add,
++    ast.Sub: operator.sub,
++    ast.Mult: operator.mul,
++    ast.Div: operator.truediv,
++}
++_UNARY = {ast.UAdd: operator.pos, ast.USub: operator.neg}
++
++
++def calculate(expression: str) -> float:
++    if len(expression) > 80:
++        raise ValueError("expression is too long")
++
++    def walk(node: ast.AST, depth: int = 0) -> float:
++        if depth > 12:
++            raise ValueError("expression is too deep")
++        if isinstance(node, ast.Constant) and type(node.value) in (int, float):
++            value = float(node.value)
++        elif isinstance(node, ast.BinOp) and type(node.op) in _OPERATORS:
++            value = _OPERATORS[type(node.op)](walk(node.left, depth + 1), walk(node.right, depth + 1))
++        elif isinstance(node, ast.UnaryOp) and type(node.op) in _UNARY:
++            value = _UNARY[type(node.op)](walk(node.operand, depth + 1))
++        else:
++            raise ValueError("only numeric literals and +, -, *, / are allowed")
++        if not math.isfinite(value) or abs(value) > 1e12:
++            raise ValueError("result is out of range")
++        return value
++
++    return walk(ast.parse(expression, mode="eval").body)
+diff --git a/skills/guidance/scripts/safe_arithmetic.py b/skills/guidance/scripts/safe_arithmetic.py
+new file mode 100644
+index 0000000..803ae6a
+--- /dev/null
++++ b/skills/guidance/scripts/safe_arithmetic.py
+@@ -0,0 +1,36 @@
++"""Evaluate bounded arithmetic from agent input without executing Python code."""
++
++import ast
++import math
++import operator
++
++
++_OPERATORS = {
++    ast.Add: operator.add,
++    ast.Sub: operator.sub,
++    ast.Mult: operator.mul,
++    ast.Div: operator.truediv,
++}
++_UNARY = {ast.UAdd: operator.pos, ast.USub: operator.neg}
++
++
++def calculate(expression: str) -> float:
++    if len(expression) > 80:
++        raise ValueError("expression is too long")
++
++    def walk(node: ast.AST, depth: int = 0) -> float:
++        if depth > 12:
++            raise ValueError("expression is too deep")
++        if isinstance(node, ast.Constant) and type(node.value) in (int, float):
++            value = float(node.value)
++        elif isinstance(node, ast.BinOp) and type(node.op) in _OPERATORS:
++            value = _OPERATORS[type(node.op)](walk(node.left, depth + 1), walk(node.right, depth + 1))
++        elif isinstance(node, ast.UnaryOp) and type(node.op) in _UNARY:
++            value = _UNARY[type(node.op)](walk(node.operand, depth + 1))
++        else:
++            raise ValueError("only numeric literals and +, -, *, / are allowed")
++        if not math.isfinite(value) or abs(value) > 1e12:
++            raise ValueError("result is out of range")
++        return value
++
++    return walk(ast.parse(expression, mode="eval").body)

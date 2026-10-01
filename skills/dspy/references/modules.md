@@ -123,6 +123,7 @@ print(result.answer)  # 150.0
 
 ```python
 from dspy.predict import ReAct
+from scripts.safe_arithmetic import calculate as safe_calculate
 
 # Define tools
 def search_wikipedia(query: str) -> str:
@@ -132,7 +133,7 @@ def search_wikipedia(query: str) -> str:
 
 def calculate(expression: str) -> float:
     """Evaluate a mathematical expression."""
-    return eval(expression)
+    return safe_calculate(expression)
 
 # Create ReAct agent
 class ResearchQA(dspy.Signature):

@@ -69,12 +69,13 @@ print(lm["answer"])
 
 ```python
 from guidance import models, gen, select, guidance
+from scripts.safe_arithmetic import calculate
 
 @guidance(stateless=False)
 def react_agent(lm, question):
     """ReAct agent with tool use."""
     tools = {
-        "calculator": lambda expr: eval(expr),
+        "calculator": calculate,
         "search": lambda query: f"Search results for: {query}",
     }
 

@@ -5,6 +5,7 @@
 *.gif binary
 *.pdf binary
 *.webp binary
+third_party/patches/*.patch whitespace=-blank-at-eol
 # Generated files: collapse in diffs
 .claude-plugin/marketplace.json linguist-generated=true
 plugin.json linguist-generated=true
