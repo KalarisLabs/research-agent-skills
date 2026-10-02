@@ -4,7 +4,9 @@ description: Command reference for npx research-agent-skills, covering install, 
 ---
 
 The `research-agent-skills` CLI installs skills from a verified release into supported agent directories.
-Run `npx research-agent-skills` for interactive selection, or use these commands directly:
+The npm CLI commands below become available after the first package release. Until then,
+[install skills with skills.sh](/getting-started/installation). After release, run
+`npx research-agent-skills` for interactive selection, or use these commands directly:
 
 | Command | Purpose |
 |---|---|
