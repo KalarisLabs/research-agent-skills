@@ -25,7 +25,6 @@ from two_level_simulation import SimulationConfig, run_simulation
 
 
 def _parse_rtols(value: str) -> list[float]:
-    """Parse rtols for *value* and return list[float]."""
     pieces = [piece.strip() for piece in value.split(",")]
     if not pieces or any(not piece for piece in pieces):
         raise CliError("rtols must be a comma-separated number list")
@@ -57,7 +56,6 @@ def _base_config(
     trajectories: int,
     rtol: float,
 ) -> SimulationConfig:
-    """Base config and return SimulationConfig."""
     return SimulationConfig(
         solver=solver,
         initial_state="excited",
@@ -309,7 +307,6 @@ def run_sweep(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Run a bounded synthetic QuTiP convergence sweep over deterministic "

@@ -43,7 +43,6 @@ YEAR_RE = re.compile(r"^(?:1[5-9]\d{2}|20\d{2}|2100)$")
 
 
 def load_references(raw_path: str) -> list[dict[str, str]]:
-    """Load references for *raw_path* and return list[dict[str, str]]."""
     rows = read_csv_records(
         raw_path,
         required_fields=REFERENCE_FIELDS,
@@ -88,7 +87,6 @@ def load_references(raw_path: str) -> list[dict[str, str]]:
 
 
 def extract_citations(markdown: str) -> tuple[dict[str, list[int]], list[int]]:
-    """Extract citations for *markdown* and return tuple[dict[str, list[int]], list[int]]."""
     citations: dict[str, list[int]] = {}
     malformed_lines: list[int] = []
     for line_number, line in enumerate(markdown.splitlines(), start=1):
@@ -110,7 +108,6 @@ def extract_citations(markdown: str) -> tuple[dict[str, list[int]], list[int]]:
 
 
 def audit(markdown: str, references: list[dict[str, str]]) -> dict[str, Any]:
-    """Audit for *markdown*, *references* and return dict[str, Any]."""
     citations, malformed_lines = extract_citations(markdown)
     by_id = {row["reference_id"]: row for row in references}
     cited_ids = set(citations)
@@ -178,7 +175,6 @@ def audit(markdown: str, references: list[dict[str, str]]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit Pandoc-style Markdown citations such as [@ref-id] against a "
@@ -195,7 +191,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report = audit(

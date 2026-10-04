@@ -54,7 +54,6 @@ def _is_local(target: str) -> bool:
 
 
 def unlink_dead_links(skill_dir: Path) -> int:
-    """Unlink dead links for *skill_dir* and return int."""
     fixed = 0
     for md in sorted(skill_dir.rglob("*.md")):
         text = md.read_text(encoding="utf-8")
@@ -65,7 +64,6 @@ def unlink_dead_links(skill_dir: Path) -> int:
                 continue
 
             def repl(m: re.Match, base: Path = md.parent) -> str:
-                """Repl for *m*, *base* and return str."""
                 nonlocal fixed
                 bang, label, target = m.groups()
                 path = target.split("#", 1)[0]
@@ -113,7 +111,6 @@ def _relink_moved(text: str) -> str:
 
 
 def split_oversized(skill_dir: Path, budget: int) -> list[str]:
-    """Split oversized for *skill_dir*, *budget* and return list[str]."""
     path = skill_dir / "SKILL.md"
     text = path.read_text(encoding="utf-8")
     meta, body = split_frontmatter(text)
@@ -146,7 +143,6 @@ def split_oversized(skill_dir: Path, budget: int) -> list[str]:
 
 
 def procedure_block(category: str) -> str:
-    """Procedure block for *category* and return str."""
     c = _PROC["categories"].get(category, {})
     common = _PROC["common"]
     steps = [
@@ -172,7 +168,6 @@ def needs_procedure(body: str) -> bool:
 
 
 def add_procedure(skill: Skill) -> bool:
-    """Add procedure for *skill* and return bool."""
     path = skill.path / "SKILL.md"
     text = path.read_text(encoding="utf-8")
     meta, body = split_frontmatter(text)
@@ -183,7 +178,6 @@ def add_procedure(skill: Skill) -> bool:
 
 
 def add_related(skill: Skill, related: list[tuple[str, str]]) -> bool:
-    """Add related for *skill*, *related* and return bool."""
     path = skill.path / "SKILL.md"
     meta, body = split_frontmatter(path.read_text(encoding="utf-8"))
     if not related or re.search(r"^#+ .*(related|see also)", body, re.I | re.M):

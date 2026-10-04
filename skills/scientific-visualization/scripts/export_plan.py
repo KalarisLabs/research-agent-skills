@@ -17,7 +17,6 @@ PROFILE_PATH = Path(__file__).resolve().parents[1] / "assets" / "publisher_profi
 
 
 def load_profiles() -> dict[str, Any]:
-    """Load profiles and return dict[str, Any]."""
     try:
         document = json.loads(PROFILE_PATH.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
@@ -100,7 +99,6 @@ def _finding(
     expected: Any,
     detail: str,
 ) -> dict[str, Any]:
-    """Finding and return dict[str, Any]."""
     return {
         "name": name,
         "status": status,
@@ -111,7 +109,6 @@ def _finding(
 
 
 def _normalized_mode(mode: str | None) -> str | None:
-    """Normalized mode for *mode* and return str | None."""
     if mode is None:
         return None
     if mode in {"RGB", "RGBA"}:
@@ -413,7 +410,6 @@ def validate_against_plan(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan publication export from dated official-source snapshots and "
@@ -444,7 +440,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     try:
         args = parser.parse_args(argv)

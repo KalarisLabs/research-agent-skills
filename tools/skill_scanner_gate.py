@@ -35,7 +35,6 @@ def finding_key(skill: str, finding: dict) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("report", type=Path)
     ap.add_argument("--update-baseline", action="store_true")

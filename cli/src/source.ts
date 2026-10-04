@@ -80,8 +80,6 @@ export async function latestVersion(): Promise<string> {
   return tag.replace(/^v/, "");
 }
 
-/** Resolve source. */
-
 export async function resolveSource(opts: { source?: string; version: string; log: (m: string) => void }): Promise<Source> {
   if (opts.source) {
     const root = resolve(opts.source);

@@ -108,7 +108,6 @@ def reject_nonlocal(value: str, *, label: str) -> None:
 
 
 def _root_path(value: str | Path) -> Path:
-    """Root path for *value* and return Path."""
     raw = str(value)
     reject_nonlocal(raw, label="root")
     candidate = Path(raw).expanduser()
@@ -124,7 +123,6 @@ def _root_path(value: str | Path) -> Path:
 
 
 def _reject_symlink_components(candidate: Path, root: Path) -> None:
-    """Reject symlink components for *candidate*, *root*."""
     current = candidate
     while True:
         if current.is_symlink():
@@ -138,7 +136,6 @@ def _reject_symlink_components(candidate: Path, root: Path) -> None:
 
 
 def _candidate_path(value: str | Path, root: Path, *, label: str) -> Path:
-    """Candidate path and return Path."""
     raw = str(value)
     reject_nonlocal(raw, label=label)
     supplied = Path(raw).expanduser()

@@ -74,7 +74,6 @@ class ApiError(RuntimeError):
         http_status: int | None = None,
         api_status: int | str | None = None,
     ) -> None:
-        """Initialize with message, http_status, api_status."""
         super().__init__(message)
         self.http_status = http_status
         self.api_status = api_status
@@ -103,7 +102,6 @@ class NoRedirectHandler(urllib.request.HTTPRedirectHandler):
         headers: Mapping[str, str],
         newurl: str,
     ) -> None:
-        """Redirect request."""
         del req, fp, code, msg, headers, newurl
         return None
 
@@ -141,7 +139,6 @@ def parse_json_bytes(raw: bytes, *, source: str = "response") -> Any:
 
 
 def _path_inside_cwd(raw_path: str, *, must_exist: bool) -> Path:
-    """Path inside cwd for *raw_path*, *must_exist* and return Path."""
     base = Path.cwd().resolve()
     candidate = Path(raw_path)
     unresolved = candidate if candidate.is_absolute() else base / candidate
@@ -295,7 +292,6 @@ def sanitize_untrusted(
 
 
 def emit_json(payload: Any, *, stream: Any = None) -> None:
-    """Emit json for *payload*, *stream*."""
     if stream is None:
         import sys
 
@@ -307,7 +303,6 @@ def emit_json(payload: Any, *, stream: Any = None) -> None:
 
 
 def emit_error(error: Exception) -> int:
-    """Emit error for *error* and return int."""
     import sys
 
     payload: dict[str, Any] = {
@@ -323,7 +318,6 @@ def emit_error(error: Exception) -> int:
 
 
 def validate_timeout(value: float) -> float:
-    """Validate timeout for *value* and return float."""
     if (
         not math.isfinite(value)
         or not MIN_TIMEOUT_SECONDS <= value <= MAX_TIMEOUT_SECONDS
@@ -349,7 +343,6 @@ def is_official_host(host: str, *, allow_tenant: bool = False) -> bool:
 
 
 def validate_origin(raw_origin: str, *, allow_tenant: bool = False) -> str:
-    """Validate origin for *raw_origin*, *allow_tenant* and return str."""
     parsed = urllib.parse.urlsplit(raw_origin)
     try:
         port = parsed.port
@@ -380,7 +373,6 @@ def validate_remote_url(
     allow_tenant: bool = False,
     allowed_paths: Sequence[str] = ("/api/", "/view/"),
 ) -> str:
-    """Validate remote url and return str."""
     parsed = urllib.parse.urlsplit(raw_url)
     try:
         port = parsed.port
@@ -409,7 +401,6 @@ def build_url(
     path: str,
     params: Mapping[str, Any] | None = None,
 ) -> str:
-    """Build url and return str."""
     normalized_origin = validate_origin(origin, allow_tenant=True)
     if not path.startswith("/") or "\\" in path or "\x00" in path:
         raise SafetyError("request path must be an absolute URL path")
@@ -469,7 +460,6 @@ def credential_status(
 
 
 def _bounded_read(response: Any, max_bytes: int) -> bytes:
-    """Bounded read for *response*, *max_bytes* and return bytes."""
     content_length = response.headers.get("Content-Length")
     if content_length:
         try:
@@ -495,7 +485,6 @@ def _bounded_read(response: Any, max_bytes: int) -> bytes:
 
 
 def _retry_delay(headers: Mapping[str, str], attempt: int) -> float:
-    """Retry delay for *headers*, *attempt* and return float."""
     raw = headers.get("Retry-After")
     if raw is not None:
         try:
@@ -508,7 +497,6 @@ def _retry_delay(headers: Mapping[str, str], attempt: int) -> float:
 
 
 def _api_error_from_body(status: int, body: bytes) -> ApiError:
-    """Api error from body for *status*, *body* and return ApiError."""
     api_status: int | str | None = None
     if body:
         try:
@@ -614,7 +602,6 @@ def request_bytes(
 
 
 def require_api_success(payload: Any) -> Mapping[str, Any]:
-    """Require api success for *payload* and return Mapping[str, Any]."""
     if not isinstance(payload, Mapping):
         raise ApiError("protocols.io returned a non-object JSON response")
     status = payload.get("status_code", 0)

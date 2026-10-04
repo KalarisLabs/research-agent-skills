@@ -29,7 +29,6 @@ def _check(
     detail: str,
     severity: str = "error",
 ) -> None:
-    """Check."""
     checks.append(
         {
             "name": name,
@@ -46,7 +45,6 @@ def _finite_sequence(
     name: str,
     maximum: int,
 ) -> list[float]:
-    """Finite sequence and return list[float]."""
     if not isinstance(value, list) or not 2 <= len(value) <= maximum:
         raise CliError(f"{name} must contain from 2 through {maximum} values")
     result: list[float] = []
@@ -61,7 +59,6 @@ def _audit_simulation(
     *,
     tolerance: float,
 ) -> list[dict[str, Any]]:
-    """Audit simulation for *document*, *tolerance* and return list[dict[str, Any]]."""
     checks: list[dict[str, Any]] = []
     required = {
         "qutip_version",
@@ -240,7 +237,6 @@ def _audit_convergence(
     *,
     tolerance: float,
 ) -> list[dict[str, Any]]:
-    """Audit convergence for *document*, *tolerance* and return list[dict[str, Any]]."""
     checks: list[dict[str, Any]] = []
     runs = document.get("runs")
     comparisons = document.get("comparisons")
@@ -369,7 +365,6 @@ def audit_document(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit bounded QuTiP skill JSON without importing QuTiP or "
@@ -383,7 +378,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     tolerance = finite_float(
         args.tolerance,

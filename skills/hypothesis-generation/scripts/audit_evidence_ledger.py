@@ -66,7 +66,6 @@ NOVELTY_STATES = {
 
 
 def load_ledger(raw_path: str) -> list[dict[str, Any]]:
-    """Load ledger for *raw_path* and return list[dict[str, Any]]."""
     rows = read_csv_records(raw_path, fields=FIELDS)
     parsed: list[dict[str, Any]] = []
     source_ids: list[str] = []
@@ -133,7 +132,6 @@ def load_ledger(raw_path: str) -> list[dict[str, Any]]:
 
 
 def load_search_boundary(payload: Any) -> dict[str, Any]:
-    """Load search boundary for *payload* and return dict[str, Any]."""
     root = require_object(payload, "search_boundary")
     fields = {
         "schema_version",
@@ -209,7 +207,6 @@ def load_search_boundary(payload: Any) -> dict[str, Any]:
 
 
 def _record_claim_ids(record: dict[str, Any]) -> set[str]:
-    """Record claim ids for *record* and return set[str]."""
     identifiers = {"OBS1", record["project_id"]}
     identifiers.update(item["hypothesis_id"] for item in record["hypotheses"])
     identifiers.update(item["estimand_id"] for item in record["causal_estimands"])
@@ -233,7 +230,6 @@ def audit(
     boundary: dict[str, Any],
     record: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Audit and return dict[str, Any]."""
     errors: list[dict[str, str]] = []
     warnings: list[dict[str, str]] = []
     source_type_counts: Counter[str] = Counter()
@@ -302,7 +298,6 @@ def audit(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit a bounded local evidence CSV and search-boundary JSON without "
@@ -322,7 +317,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         record = (

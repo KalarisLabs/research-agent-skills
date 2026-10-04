@@ -269,7 +269,6 @@ def _unsafe_xml(text: str) -> bool:
 
 
 def _parse_xml(raw: bytes, *, location: str) -> ET.Element:
-    """Parse xml for *raw*, *location* and return ET.Element."""
     if len(raw) > MAX_XML_BYTES:
         raise CliError(
             f"XML part {location} is {len(raw)} bytes; limit is {MAX_XML_BYTES}"
@@ -291,7 +290,6 @@ def _parse_xml(raw: bytes, *, location: str) -> ET.Element:
 
 
 def _relationship_source_directory(rels_name: str) -> str:
-    """Relationship source directory for *rels_name* and return str."""
     if rels_name == "_rels/.rels":
         return ""
     marker = "/_rels/"
@@ -303,7 +301,6 @@ def _relationship_source_directory(rels_name: str) -> str:
 
 
 def _resolve_internal_target(rels_name: str, target: str) -> str:
-    """Resolve internal target for *rels_name*, *target* and return str."""
     if not target or "\x00" in target or "\\" in target:
         raise CliError(f"unsafe internal relationship target in {rels_name}: {target!r}")
     if target.startswith("/") or "%" in target or "?" in target or "#" in target:
@@ -322,7 +319,6 @@ def _resolve_internal_target(rels_name: str, target: str) -> str:
 def _preflight_members(
     archive: zipfile.ZipFile,
 ) -> tuple[list[zipfile.ZipInfo], list[dict[str, Any]], set[str], int]:
-    """Preflight members for *archive* and return tuple[list[zipfile.ZipInfo], list[dict[str, Any]], set[str], int]."""
     findings: list[dict[str, Any]] = []
     members = archive.infolist()
     if len(members) > MAX_MEMBERS:
@@ -483,7 +479,6 @@ def _inspect_content_types(
     archive: zipfile.ZipFile,
     names: set[str],
 ) -> list[dict[str, Any]]:
-    """Inspect content types for *archive*, *names* and return list[dict[str, Any]]."""
     findings: list[dict[str, Any]] = []
     if "[Content_Types].xml" not in names:
         return findings
@@ -593,7 +588,6 @@ def _inspect_relationships(
     archive: zipfile.ZipFile,
     names: set[str],
 ) -> tuple[list[dict[str, Any]], int]:
-    """Inspect relationships for *archive*, *names* and return tuple[list[dict[str, Any]], int]."""
     findings: list[dict[str, Any]] = []
     relationship_count = 0
     for rels_name in sorted(name for name in names if name.endswith(".rels")):
@@ -833,7 +827,6 @@ def _inspect_slide_accessibility(
     archive: zipfile.ZipFile,
     names: set[str],
 ) -> dict[str, Any]:
-    """Inspect slide accessibility for *archive*, *names* and return dict[str, Any]."""
     picture_count = 0
     pictures_with_alt_text = 0
     missing_alt: list[dict[str, str]] = []
@@ -910,7 +903,6 @@ def _inspect_forbidden_markup(
     archive: zipfile.ZipFile,
     names: set[str],
 ) -> list[dict[str, Any]]:
-    """Inspect forbidden markup for *archive*, *names* and return list[dict[str, Any]]."""
     findings: list[dict[str, Any]] = []
     for part_name in sorted(
         name
@@ -1055,7 +1047,6 @@ def _local_name(tag: str) -> str:
 
 
 def _shape_transform(shape: ET.Element) -> tuple[int, int, int, int] | None:
-    """Shape transform for *shape* and return tuple[int, int, int, int] | None."""
     kind = _local_name(shape.tag)
     if kind == "graphicFrame":
         transform = shape.find(f"./{{{P_NS}}}xfrm")
@@ -1090,7 +1081,6 @@ def _shape_text(shape: ET.Element) -> str:
 
 
 def _font_sizes_pt(shape: ET.Element) -> list[float]:
-    """Font sizes pt for *shape* and return list[float]."""
     sizes: list[float] = []
     for tag in ("rPr", "defRPr", "endParaRPr"):
         for node in shape.findall(f".//{{{A_NS}}}{tag}"):
@@ -1108,7 +1098,6 @@ def _intersection(
     first: tuple[int, int, int, int],
     second: tuple[int, int, int, int],
 ) -> tuple[int, int]:
-    """Intersection for *first*, *second* and return tuple[int, int]."""
     first_x, first_y, first_w, first_h = first
     second_x, second_y, second_w, second_h = second
     overlap_w = min(first_x + first_w, second_x + second_w) - max(

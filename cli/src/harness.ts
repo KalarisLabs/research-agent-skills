@@ -13,8 +13,6 @@ export interface Harness {
   detect: { paths: string[]; bins: string[] };
 }
 
-/** Harnesses. */
-
 export function harnesses(home: string = homedir()): Harness[] {
   const h = (p: string) => join(home, p);
   return [
@@ -47,8 +45,6 @@ export function detectHarnesses(all: Harness[] = harnesses()): Harness[] {
   return all.filter((h) => h.id !== "agents" &&
     (h.detect.paths.some((p) => existsSync(p)) || h.detect.bins.some((b) => onPath(b))));
 }
-
-/** Resolve harnesses. */
 
 export function resolveHarnesses(spec: string | undefined, all: Harness[] = harnesses()): Harness[] {
   if (!spec || spec === "auto") {

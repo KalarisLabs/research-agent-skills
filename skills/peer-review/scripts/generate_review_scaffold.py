@@ -50,7 +50,6 @@ def generate(payload: Any, template_path: Path = TEMPLATE_PATH) -> str:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Generate a private local Markdown review scaffold after intake "
@@ -66,7 +65,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         from _common import read_json

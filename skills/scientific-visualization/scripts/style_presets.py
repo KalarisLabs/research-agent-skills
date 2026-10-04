@@ -141,7 +141,6 @@ STYLE_NOTICES = {
 
 
 def _load_palette_asset() -> ModuleType:
-    """Load palette asset and return ModuleType."""
     asset = ASSET_ROOT / "color_palettes.py"
     spec = importlib.util.spec_from_file_location(
         "_scientific_visualization_color_palettes", asset
@@ -185,7 +184,6 @@ def get_style(
 
 
 def _matplotlib_style(style: dict[str, Any]) -> dict[str, Any]:
-    """Matplotlib style for *style* and return dict[str, Any]."""
     try:
         import matplotlib as mpl
     except ImportError as exc:
@@ -415,7 +413,6 @@ def reset_to_default() -> None:
 
 
 def _serializable_style(style_name: str, palette_name: str) -> dict[str, Any]:
-    """Serializable style for *style_name*, *palette_name* and return dict[str, Any]."""
     style = get_style(style_name, palette_name=palette_name)
     colors = style.pop("_palette_colors")
     return {
@@ -432,7 +429,6 @@ def _serializable_style(style_name: str, palette_name: str) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect or write deterministic Matplotlib style presets. "
@@ -458,7 +454,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     try:
         args = parser.parse_args(argv)

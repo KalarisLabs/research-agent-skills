@@ -141,7 +141,6 @@ def coverage_report(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     parser = argparse.ArgumentParser(
         description="Report Waypoint tokenizer vocabulary coverage for a dataset.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,

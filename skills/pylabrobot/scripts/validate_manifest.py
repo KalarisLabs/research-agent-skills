@@ -13,7 +13,6 @@ else:
 
 
 def build_parser() -> argparse.ArgumentParser:
-  """Build parser and return argparse.ArgumentParser."""
   parser = argparse.ArgumentParser(
       description=(
           "Validate protocol-manifest schema v1.0. This command is dependency-free "
@@ -25,7 +24,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-  """Main for *argv* and return int."""
   args = build_parser().parse_args(argv)
   try:
     manifest = validate_manifest(load_json(args.input))

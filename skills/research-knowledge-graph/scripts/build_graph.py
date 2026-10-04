@@ -51,7 +51,6 @@ def norm_doi(d: str) -> str:
 
 # ---------- library readers ----------
 def _bib_value(text: str, i: int) -> tuple[str, int]:
-    """Bib value for *text*, *i* and return tuple[str, int]."""
     parts = []
     while True:
         while text[i].isspace():
@@ -82,7 +81,6 @@ def _bib_value(text: str, i: int) -> tuple[str, int]:
 
 
 def read_library(path: Path) -> list[dict]:
-    """Read library for *path* and return list[dict]."""
     text = path.read_text(encoding="utf-8-sig")
     papers = []
     if path.suffix.lower() == ".json":
@@ -122,7 +120,6 @@ def read_library(path: Path) -> list[dict]:
 
 # ---------- OpenAlex enrichment ----------
 def openalex(doi: str, mailto: str | None) -> dict | None:
-    """Openalex for *doi*, *mailto* and return dict | None."""
     params = {"select": "id,doi,title,publication_year,authorships,primary_location,topics,referenced_works,cited_by_count"}
     if mailto:
         params["mailto"] = mailto
@@ -137,7 +134,6 @@ def openalex(doi: str, mailto: str | None) -> dict | None:
 
 
 def build(papers: list[dict], enrich: bool, mailto: str | None, max_topics: int) -> tuple[dict, dict]:
-    """Build and return tuple[dict, dict]."""
     nodes: dict[str, dict] = {}
     edges: set[tuple[str, str, str]] = set()
     oa_to_paper: dict[str, str] = {}
@@ -192,7 +188,6 @@ def build(papers: list[dict], enrich: bool, mailto: str | None, max_topics: int)
 
 
 def write_graphml(graph: dict, path: Path) -> None:
-    """Write graphml for *graph*, *path*."""
     keys = sorted({k for n in graph["nodes"] for k in n if k != "id"})
     out = ['<?xml version="1.0" encoding="UTF-8"?>', '<graphml xmlns="http://graphml.graphdrawing.org/xmlns">']
     out += [f'  <key id="n_{k}" for="node" attr.name="{k}" attr.type="string"/>' for k in keys]
@@ -209,7 +204,6 @@ def write_graphml(graph: dict, path: Path) -> None:
 
 
 def write_csv(graph: dict, out: Path) -> None:
-    """Write csv for *graph*, *out*."""
     with (out / "nodes.csv").open("w", encoding="utf-8", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(["id:ID", "label", ":LABEL", "year", "doi"])
@@ -223,7 +217,6 @@ def write_csv(graph: dict, out: Path) -> None:
 
 
 def write_vault(graph: dict, nodes: dict, out: Path) -> None:
-    """Write vault."""
     vault = out / "vault"
     names = {}
     for n in graph["nodes"]:
@@ -251,7 +244,6 @@ def write_vault(graph: dict, nodes: dict, out: Path) -> None:
 
 
 def main() -> int:
-    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("library", type=Path)
     ap.add_argument("--out", type=Path, default=Path("knowledge-graph"))

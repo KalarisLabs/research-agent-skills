@@ -42,7 +42,6 @@ def strip_comments(tex: str) -> str:
 
 
 def main() -> int:
-    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("folder", type=Path)
     ap.add_argument("--json", action="store_true")

@@ -91,7 +91,6 @@ URL_HOST_RE = re.compile(r"https?://([A-Za-z0-9][A-Za-z0-9.-]*\.[A-Za-z]{2,})(?:
 
 @dataclass
 class Finding:
-    """Finding."""
     rule: str
     severity: str
     path: str
@@ -106,7 +105,6 @@ class Finding:
 
 
 def iter_files(paths: list[Path]) -> list[Path]:
-    """Iter files for *paths* and return list[Path]."""
     out: list[Path] = []
     for p in paths:
         if p.is_file():
@@ -124,7 +122,6 @@ def rel(path: Path) -> str:
 
 
 def scan_file(path: Path) -> tuple[list[Finding], set[str]]:
-    """Scan file for *path* and return tuple[list[Finding], set[str]]."""
     findings: list[Finding] = []
     hosts: set[str] = set()
     try:
@@ -177,7 +174,6 @@ def load_allowed() -> set[str]:
 
 
 def to_sarif(findings: list[Finding]) -> dict:
-    """To sarif for *findings* and return dict."""
     level = {"HIGH": "error", "MEDIUM": "warning", "LOW": "note"}
     rules = {r.id: r.description for r in RULES}
     rules.update({"RAS011": "Invisible/bidirectional Unicode character", "RAS012": "Script contacts unreviewed domain",
@@ -202,7 +198,6 @@ def to_sarif(findings: list[Finding]) -> dict:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("paths", nargs="*", type=Path)
     ap.add_argument("--sarif", type=Path, help="write SARIF report to this path")

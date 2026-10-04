@@ -28,7 +28,6 @@ def _required_time(value: object, path: str, issues: list[Issue]) -> None:
 
 
 def check_completeness(documents: dict[str, dict]) -> dict:
-    """Check completeness for *documents* and return dict."""
     issues = validate_package_structure(documents)
     if issues:
         return report_payload(
@@ -548,7 +547,6 @@ def check_completeness(documents: dict[str, dict]) -> dict:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Check required documentation, review, routing, sign-off, and "
@@ -560,7 +558,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         documents, _ = load_package(args.package)

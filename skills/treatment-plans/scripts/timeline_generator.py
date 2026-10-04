@@ -38,7 +38,6 @@ def build_schedule(
     from_date: str | None = None,
     through_date: str | None = None,
 ) -> tuple[dict, dict]:
-    """Build schedule and return tuple[dict, dict]."""
     issues = validate_package_structure(documents)
     if issues:
         return (
@@ -65,7 +64,6 @@ def build_schedule(
         record_index: int | None,
         date_field: str,
     ) -> None:
-        """Add event."""
         if value is None:
             return
         event_date = value[:10]
@@ -216,7 +214,6 @@ def build_schedule(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Write a local JSON schedule containing only dates explicitly "
@@ -241,7 +238,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         documents, _ = load_package(args.package)

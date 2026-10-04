@@ -12,7 +12,6 @@ from urllib.parse import urlparse
 import time
 
 class CitationVerifier:
-    """Citation verifier."""
     def __init__(self):
         self.session = requests.Session()
         self.session.headers.update({

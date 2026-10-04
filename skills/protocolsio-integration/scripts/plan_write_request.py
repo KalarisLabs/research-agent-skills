@@ -81,7 +81,6 @@ _UPDATE_FIELDS = frozenset(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan and redact a documented protocols.io write/upload request. "
@@ -148,7 +147,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _payload(path: str | None) -> dict[str, Any]:
-    """Payload for *path* and return dict[str, Any]."""
     if path is None:
         return {}
     value = load_local_json(path)
@@ -160,7 +158,6 @@ def _payload(path: str | None) -> dict[str, Any]:
 
 
 def _sensitive_paths(value: Any, prefix: str = "$") -> list[str]:
-    """Sensitive paths for *value*, *prefix* and return list[str]."""
     paths: list[str] = []
     if isinstance(value, Mapping):
         for key, item in value.items():
@@ -178,7 +175,6 @@ def _sensitive_paths(value: Any, prefix: str = "$") -> list[str]:
 
 
 def _drop_sensitive(value: Any) -> Any:
-    """Drop sensitive for *value* and return Any."""
     if isinstance(value, Mapping):
         result: dict[str, Any] = {}
         for key, item in value.items():
@@ -199,7 +195,6 @@ def _exact_fields(
     optional: set[str],
     operation: str,
 ) -> None:
-    """Exact fields."""
     missing = sorted(required - set(payload))
     unknown = sorted(set(payload) - required - optional)
     if missing:
@@ -217,7 +212,6 @@ def _slug(value: str | None, *, name: str) -> str:
 
 
 def _protocol_uri(value: str | None) -> str:
-    """Protocol uri for *value* and return str."""
     if (
         value is None
         or _PROTOCOL_URI_RE.fullmatch(value) is None
@@ -231,7 +225,6 @@ def _protocol_uri(value: str | None) -> str:
 
 
 def _int_id(value: Any, *, name: str) -> int:
-    """Int id for *value*, *name* and return int."""
     if isinstance(value, bool):
         raise SafetyError(f"{name} must be an integer")
     if isinstance(value, int):
@@ -248,7 +241,6 @@ def _int_id(value: Any, *, name: str) -> int:
 
 
 def _validate_update(payload: Mapping[str, Any]) -> None:
-    """Validate update for *payload*."""
     _exact_fields(
         payload,
         required=set(),
@@ -305,7 +297,6 @@ def _validate_update(payload: Mapping[str, Any]) -> None:
 
 
 def _validate_steps(payload: Mapping[str, Any], *, deleting: bool) -> None:
-    """Validate steps for *payload*, *deleting*."""
     _exact_fields(
         payload,
         required={"steps"},
@@ -348,7 +339,6 @@ def _validate_steps(payload: Mapping[str, Any], *, deleting: bool) -> None:
 
 
 def _validate_publish(payload: Mapping[str, Any]) -> None:
-    """Validate publish for *payload*."""
     _exact_fields(
         payload,
         required=set(),
@@ -362,7 +352,6 @@ def _validate_publish(payload: Mapping[str, Any]) -> None:
 
 
 def _validate_comment(payload: Mapping[str, Any]) -> None:
-    """Validate comment for *payload*."""
     _exact_fields(
         payload,
         required={"body"},
@@ -377,7 +366,6 @@ def _validate_comment(payload: Mapping[str, Any]) -> None:
 
 
 def _validate_ids(payload: Mapping[str, Any], *, operation: str) -> None:
-    """Validate ids for *payload*, *operation*."""
     _exact_fields(
         payload,
         required={"ids"},
@@ -392,7 +380,6 @@ def _validate_ids(payload: Mapping[str, Any], *, operation: str) -> None:
 
 
 def _hash_file(path: Path, maximum: int) -> str:
-    """Hash file for *path*, *maximum* and return str."""
     digest = hashlib.sha256()
     total = 0
     with path.open("rb") as handle:
@@ -415,7 +402,6 @@ def _upload_plan(
     local_max_bytes: int,
     origin: str,
 ) -> tuple[str, dict[str, Any], list[dict[str, Any]]]:
-    """Upload plan and return tuple[str, dict[str, Any], list[dict[str, Any]]]."""
     if raw_path is None:
         raise SafetyError("upload-file requires --upload-file")
     if not 1 <= local_max_bytes <= MAX_UPLOAD_INSPECTION_BYTES:
@@ -472,7 +458,6 @@ def build_plan(
     local_max_upload_bytes: int,
     confirmation: str | None,
 ) -> dict[str, Any]:
-    """Build plan and return dict[str, Any]."""
     core_origin = validate_origin(origin)
     sensitive = _sensitive_paths(payload)
     clean_payload = _drop_sensitive(payload)
@@ -650,7 +635,6 @@ def urllib_target(url: str) -> str:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         report = build_plan(

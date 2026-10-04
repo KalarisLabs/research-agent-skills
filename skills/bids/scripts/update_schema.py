@@ -65,7 +65,6 @@ def update_beps():
 
 
 def main():
-    """Main."""
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument(
         "--schema-url",

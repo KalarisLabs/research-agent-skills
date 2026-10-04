@@ -31,7 +31,6 @@ class MyBiObjectiveProblem(ElementwiseProblem):
     """
 
     def __init__(self):
-        """Initialize instance."""
         super().__init__(
             n_var=2,                    # Number of decision variables
             n_obj=2,                    # Number of objectives
@@ -69,7 +68,6 @@ class ConstrainedProblem(ElementwiseProblem):
     """
 
     def __init__(self):
-        """Initialize instance."""
         super().__init__(
             n_var=2,
             n_obj=2,

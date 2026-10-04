@@ -69,7 +69,6 @@ WEIGHTS = {
 
 @dataclass
 class FitSpec:
-    """Fit spec."""
     model: str
     route: str
     dose: float
@@ -81,7 +80,6 @@ class FitSpec:
 
     @property
     def parameter_names(self) -> list[str]:
-        """Parameter names and return list[str]."""
         names = list(MODELS[self.model])
         if self.route == "oral":
             names = [f"{n}/F" for n in names]
@@ -94,7 +92,6 @@ class FitSpec:
 
 
 def _regimen(spec: FitSpec) -> list[Dose]:
-    """Regimen for *spec* and return list[Dose]."""
     return build_regimen(
         spec.dose,
         interval=spec.interval,
@@ -110,7 +107,6 @@ def predictor(spec: FitSpec) -> Callable[[np.ndarray, np.ndarray], np.ndarray]:
     n_disp = len(MODELS[spec.model])
 
     def predict(times: np.ndarray, theta: np.ndarray) -> np.ndarray:
-        """Predict for *times*, *theta* and return np.ndarray."""
         cl, v1 = theta[0], theta[1]
         q = tuple(theta[2:n_disp:2])
         vp = tuple(theta[3:n_disp:2])
@@ -139,7 +135,6 @@ def predictor(spec: FitSpec) -> Callable[[np.ndarray, np.ndarray], np.ndarray]:
 
 @dataclass
 class FitResult:
-    """Fit result."""
     theta: np.ndarray
     names: list[str]
     se_log: np.ndarray
@@ -165,7 +160,6 @@ class FitResult:
 
 
 def _weights(y: np.ndarray, yhat: np.ndarray, scheme: str) -> np.ndarray:
-    """Weights and return np.ndarray."""
     floor = 1e-12
     if scheme == "uniform":
         return np.ones_like(y)
@@ -225,7 +219,6 @@ def fit_one(
     starts: int = 5,
     seed: int = 20260727,
 ) -> FitResult:
-    """Fit one and return FitResult."""
     predict = predictor(spec)
     names = spec.parameter_names
     p = len(names)
@@ -237,7 +230,6 @@ def fit_one(
     rng = np.random.default_rng(seed)
 
     def residual(log_theta: np.ndarray) -> np.ndarray:
-        """Residual for *log_theta* and return np.ndarray."""
         theta = np.exp(log_theta)
         try:
             yhat = predict(time, theta)
@@ -324,7 +316,6 @@ def fit_one(
 
 
 def secondary_parameters(spec: FitSpec, theta: np.ndarray) -> dict[str, float]:
-    """Secondary parameters for *spec*, *theta* and return dict[str, float]."""
     n_disp = len(MODELS[spec.model])
     cl, v1 = theta[0], theta[1]
     q = tuple(theta[2:n_disp:2])
@@ -374,7 +365,6 @@ def runs_test_p(residuals: np.ndarray) -> float:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Fit 1/2/3-compartment models with identifiability and model-selection diagnostics.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -403,7 +393,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _fit_and_report(spec: FitSpec, args, subject: str, time, conc, report: Report) -> FitResult:
-    """Fit and report and return FitResult."""
     result = fit_one(spec, time, conc, args.weight, starts=args.starts)
     label = f"subject {subject}" if subject else "fit"
 
@@ -494,7 +483,6 @@ def _fit_and_report(spec: FitSpec, args, subject: str, time, conc, report: Repor
 
 
 def run(argv: Sequence[str] | None = None) -> int:
-    """Run for *argv* and return int."""
     args = build_parser().parse_args(argv)
     if args.route == "iv-infusion" and not args.tinf:
         print("error: --route iv-infusion needs --tinf", file=sys.stderr)

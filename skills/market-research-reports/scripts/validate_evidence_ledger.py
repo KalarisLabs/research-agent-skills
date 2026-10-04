@@ -95,7 +95,6 @@ REVISION_STATUSES = {
 
 
 def _publication_date(value: Any, context: str) -> str:
-    """Publication date for *value*, *context* and return str."""
     text = require_text(value, context, maximum=10)
     if text == "not-stated":
         return text
@@ -106,7 +105,6 @@ def _publication_date(value: Any, context: str) -> str:
 
 
 def _url(value: Any, context: str) -> str:
-    """Url for *value*, *context* and return str."""
     text = require_text(value, context, maximum=2_048)
     parsed = urlsplit(text)
     if parsed.scheme not in {"http", "https"} or not parsed.netloc:
@@ -117,7 +115,6 @@ def _url(value: Any, context: str) -> str:
 
 
 def _archive_path(value: Any, context: str) -> str:
-    """Archive path for *value*, *context* and return str."""
     text = require_text(value, context, allow_empty=True, maximum=1_024)
     if not text:
         return ""
@@ -130,7 +127,6 @@ def _archive_path(value: Any, context: str) -> str:
 
 
 def _load_records(path: str | Path) -> list[dict[str, Any]]:
-    """Load records for *path* and return list[dict[str, Any]]."""
     suffix = Path(path).suffix.lower()
     if suffix == ".csv":
         return read_csv_records(path, required_fields=REQUIRED_FIELDS)
@@ -147,7 +143,6 @@ def _load_records(path: str | Path) -> list[dict[str, Any]]:
 
 
 def validate_records(records: list[dict[str, Any]]) -> dict[str, Any]:
-    """Validate records for *records* and return dict[str, Any]."""
     errors: list[str] = []
     warnings: list[str] = []
     valid_ids: list[str] = []
@@ -268,7 +263,6 @@ def validate_records(records: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a strict local CSV/JSON evidence ledger. "
@@ -284,7 +278,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report = validate_records(_load_records(args.ledger))

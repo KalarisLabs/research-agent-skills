@@ -48,7 +48,6 @@ class ExtractedDocument:
 
 
 def _build_contents(text: bool, highlights: bool) -> dict[str, Any]:
-    """Build contents for *text*, *highlights* and return dict[str, Any]."""
     contents: dict[str, Any] = {}
     if text:
         contents["text"] = True
@@ -61,7 +60,6 @@ def _build_contents(text: bool, highlights: bool) -> dict[str, Any]:
 
 
 def _to_typed(item: Any) -> ExtractedDocument:
-    """To typed for *item* and return ExtractedDocument."""
     return ExtractedDocument(
         url=getattr(item, "url", ""),
         id=getattr(item, "id", None),
@@ -74,7 +72,6 @@ def _to_typed(item: Any) -> ExtractedDocument:
 
 
 def run(args: argparse.Namespace) -> dict[str, Any]:
-    """Run for *args* and return dict[str, Any]."""
     api_key = os.environ.get("EXA_API_KEY")
     if not api_key:
         print("EXA_API_KEY environment variable is not set.", file=sys.stderr)
@@ -104,7 +101,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     payload = run(args)
     text = json.dumps(payload, indent=2, ensure_ascii=False)

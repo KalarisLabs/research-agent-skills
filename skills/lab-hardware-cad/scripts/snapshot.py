@@ -43,7 +43,6 @@ DEFAULT_VIEWS = ["iso", "front", "right", "top", "left", "bottom"]
 
 
 def _require_matplotlib():
-    """Require matplotlib."""
     try:
         import matplotlib  # noqa: PLC0415
     except ImportError as exc:  # pragma: no cover - environment dependent
@@ -143,7 +142,6 @@ def _tessellate(shape, deviation: float):
 
 
 def main() -> int:
-    """Main and return int."""
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )

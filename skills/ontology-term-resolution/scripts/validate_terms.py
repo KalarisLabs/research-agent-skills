@@ -224,7 +224,6 @@ def write_output(results: list[dict], fmt: str, output: str | None) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Validate ontology CURIEs against EBI OLS4.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -252,7 +251,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     pairs = read_pairs(args)
     if not pairs:

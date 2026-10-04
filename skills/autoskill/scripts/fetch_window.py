@@ -2,7 +2,6 @@ _MAX_PAGES = 10_000  # bounded exit: hard ceiling so the loop cannot spin foreve
 
 
 def fetch_window(client, start_time, end_time, page_size=50, token=None):
-    """Fetch window."""
     events = []
     offset = 0
     headers = {"Authorization": f"Bearer {token}"} if token else {}

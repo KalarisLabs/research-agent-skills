@@ -41,7 +41,6 @@ def run_workflow(
     seed: int,
     theta_value: float,
 ) -> dict[str, Any]:
-    """Run workflow and return dict[str, Any]."""
     import numpy as np
     from qiskit import QuantumCircuit
     from qiskit.circuit import Parameter
@@ -114,7 +113,6 @@ def run_workflow(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Run a two-qubit parameterized circuit with "
@@ -148,7 +146,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def print_human(result: dict[str, Any]) -> None:
-    """Print human for *result*."""
     print("Qiskit:", result["qiskit_version"])
     print(
         "Inputs:",
@@ -179,7 +176,6 @@ def print_human(result: dict[str, Any]) -> None:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         result = run_workflow(

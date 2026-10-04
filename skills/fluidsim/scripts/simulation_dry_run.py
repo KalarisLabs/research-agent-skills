@@ -153,7 +153,6 @@ if __name__ == "__main__":
 
 
 def build_plan(config: dict[str, Any], script: str) -> dict[str, Any]:
-    """Build plan for *config*, *script* and return dict[str, Any]."""
     execution = config["execution"]
     resources = config["resources"]
     execute_argv = [
@@ -193,7 +192,6 @@ def build_plan(config: dict[str, Any], script: str) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Generate an opt-in FluidSim script from validated local JSON. The "
@@ -215,7 +213,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         config_path = checked_input(

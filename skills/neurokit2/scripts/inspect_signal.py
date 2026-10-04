@@ -27,9 +27,7 @@ from _common import (
 
 
 class OnlineStats:
-    """Online stats."""
     def __init__(self) -> None:
-        """Initialize instance."""
         self.numeric = 0
         self.missing = 0
         self.nonfinite = 0
@@ -47,7 +45,6 @@ class OnlineStats:
         self.max_gap_run = 0
 
     def add_cell(self, cell: str) -> float | None:
-        """Add cell for *cell* and return float | None."""
         normalized = cell.strip()
         if normalized.lower() in MISSING_TOKENS:
             self.missing += 1
@@ -92,7 +89,6 @@ class OnlineStats:
         return value
 
     def report(self, unit: str | None) -> dict[str, Any]:
-        """Report for *unit* and return dict[str, Any]."""
         variance = self.m2 / (self.numeric - 1) if self.numeric > 1 else None
         return {
             "flat_transition_fraction": (
@@ -113,7 +109,6 @@ class OnlineStats:
 
 
 def _parse_units(value: str | None, selected: list[str]) -> dict[str, str]:
-    """Parse units for *value*, *selected* and return dict[str, str]."""
     if value is None:
         return {}
     result: dict[str, str] = {}
@@ -143,7 +138,6 @@ def inspect_csv(
     max_rows: int,
     max_channels: int,
 ) -> dict[str, Any]:
-    """Inspect csv and return dict[str, Any]."""
     if not 1 <= max_rows <= MAX_ROWS:
         raise CliError(f"--max-rows must be between 1 and {MAX_ROWS}")
     if not 1 <= max_channels <= MAX_CHANNELS:
@@ -300,7 +294,6 @@ def inspect_csv(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect a bounded local CSV for numeric coverage, gaps, flat runs, "
@@ -335,7 +328,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
-    """Main."""
     args = build_parser().parse_args()
     require_deidentified(args.deidentified)
     declared_rate = (

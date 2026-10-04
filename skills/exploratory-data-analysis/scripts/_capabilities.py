@@ -158,7 +158,6 @@ def _reference(
     reference: str,
     note: str,
 ) -> dict[str, str]:
-    """Reference and return dict[str, str]."""
     return {
         "format": format_name,
         "tier": "reference_only",
@@ -461,7 +460,6 @@ def capability_for_path(path: Path) -> dict[str, Any]:
 
 
 def _first_nonempty_text_byte(path: Path, *, limit: int = 8192) -> bytes | None:
-    """First nonempty text byte for *path*, *limit* and return bytes | None."""
     with path.open("rb") as handle:
         chunk = handle.read(limit)
     for line in chunk.splitlines():

@@ -27,7 +27,6 @@ from _common import add_io_args, configure_scanpy, die, info, load_anndata, save
 
 
 def load_mapping(path):
-    """Load mapping for *path*."""
     if path.lower().endswith(".json"):
         with open(path) as fh:
             return {str(k): v for k, v in json.load(fh).items()}
@@ -39,7 +38,6 @@ def load_mapping(path):
 
 
 def main():
-    """Main."""
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     add_io_args(p, default_output="annotated.h5ad")

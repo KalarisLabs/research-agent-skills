@@ -12,7 +12,6 @@ _KINDS = ("new-skills", "composition-recipes")
 
 
 def promote(proposed_path, skills_dir, name):
-    """Promote."""
     proposed_path = Path(proposed_path)
     skills_dir = Path(skills_dir)
 
@@ -34,7 +33,6 @@ def promote(proposed_path, skills_dir, name):
 
 
 def main(argv=None):
-    """Main for *argv*."""
     parser = argparse.ArgumentParser(
         prog="autoskill-promote",
         description="Move a proposed skill from _proposed/<ts>/ into skills/",

@@ -35,7 +35,6 @@ def nonnegative_int(value: str) -> int:
 
 
 def detect_kind(path: Path) -> str:
-    """Detect kind for *path* and return str."""
     name = path.name.lower()
 
     if name.endswith((".bam", ".sam", ".cram")):
@@ -86,7 +85,6 @@ def detect_kind(path: Path) -> str:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -153,7 +151,6 @@ def contig_records(
     lengths: tuple[int, ...] | list[int],
     maximum: int,
 ) -> tuple[list[dict[str, Any]], bool]:
-    """Contig records and return tuple[list[dict[str, Any]], bool]."""
     records = [
         {"name": name, "length": int(length)}
         for name, length in zip(names, lengths)
@@ -179,7 +176,6 @@ def inspect_alignment(
     max_items: int,
     include_identifiers: bool,
 ) -> dict[str, Any]:
-    """Inspect alignment and return dict[str, Any]."""
     if path.name.lower().endswith(".cram") and reference is None:
         raise ValueError("CRAM inspection requires --reference")
 
@@ -268,7 +264,6 @@ def inspect_variant(
     max_items: int,
     include_identifiers: bool,
 ) -> dict[str, Any]:
-    """Inspect variant and return dict[str, Any]."""
     kwargs: dict[str, Any] = {"threads": threads}
     if index is not None:
         kwargs["index_filename"] = str(index)
@@ -322,7 +317,6 @@ def inspect_fasta(
     index: Optional[Path],
     max_items: int,
 ) -> dict[str, Any]:
-    """Inspect fasta and return dict[str, Any]."""
     kwargs: dict[str, Any] = {}
     if index is not None:
         kwargs["filepath_index"] = str(index)
@@ -344,7 +338,6 @@ def inspect_fasta(
 
 
 def inspect_fastx(path: Path) -> dict[str, Any]:
-    """Inspect fastx for *path* and return dict[str, Any]."""
     with pysam.FastxFile(str(path), persist=False):
         return {
             "format": "FASTA/FASTQ",
@@ -364,7 +357,6 @@ def inspect_tabix(
     threads: int,
     max_items: int,
 ) -> dict[str, Any]:
-    """Inspect tabix and return dict[str, Any]."""
     kwargs: dict[str, Any] = {"threads": threads}
     if index is not None:
         kwargs["index"] = str(index)
@@ -385,7 +377,6 @@ def inspect_tabix(
 
 
 def inspect_file(args: argparse.Namespace) -> dict[str, Any]:
-    """Inspect file for *args* and return dict[str, Any]."""
     path = require_local_file(args.input, "input")
     reference = (
         require_local_file(args.reference, "reference")
@@ -447,7 +438,6 @@ def inspect_file(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def write_report(report: dict[str, Any], output: Optional[Path]) -> None:
-    """Write report for *report*, *output*."""
     text = json.dumps(
         report,
         indent=2,
@@ -464,7 +454,6 @@ def write_report(report: dict[str, Any], output: Optional[Path]) -> None:
 
 
 def main(argv: Optional[list[str]] = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
 

@@ -50,7 +50,6 @@ PLACEHOLDER_MARKERS = ("REPLACE_", "REQUIRES_", "YYYY-MM-DD")
 
 
 def _find_placeholders(value: Any, location: str = "$") -> list[str]:
-    """Find placeholders for *value*, *location* and return list[str]."""
     findings: list[str] = []
     if isinstance(value, dict):
         for key, nested in value.items():
@@ -64,7 +63,6 @@ def _find_placeholders(value: Any, location: str = "$") -> list[str]:
 
 
 def check_documentation(document: dict[str, Any]) -> tuple[IssueLog, dict[str, Any]]:
-    """Check documentation for *document* and return tuple[IssueLog, dict[str, Any]]."""
     log = IssueLog()
     summary: dict[str, Any] = {
         "method": None,
@@ -234,7 +232,6 @@ def check_documentation(document: dict[str, Any]) -> tuple[IssueLog, dict[str, A
 
 
 def main() -> int:
-    """Main and return int."""
     parser = argparse.ArgumentParser(
         description=(
             "Check metadata documenting Safe Harbor or Expert Determination work. "

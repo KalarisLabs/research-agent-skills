@@ -40,7 +40,6 @@ def _identifier(value: Any, *, context: str) -> str:
 
 
 def validate_graph(args: argparse.Namespace) -> dict[str, Any]:
-    """Validate graph for *args* and return dict[str, Any]."""
     root = checked_root(args.root)
     document = load_json_object(
         args.input,
@@ -179,7 +178,6 @@ def _parse_csv_float(
     name: str,
     minimum: float | None = None,
 ) -> float:
-    """Parse csv float and return float."""
     try:
         value = float(raw)
     except ValueError as exc:
@@ -192,7 +190,6 @@ def _parse_csv_float(
 
 
 def validate_multiplex(args: argparse.Namespace) -> dict[str, Any]:
-    """Validate multiplex for *args* and return dict[str, Any]."""
     root = checked_root(args.root)
     path = checked_input_file(
         args.input,
@@ -360,7 +357,6 @@ def validate_multiplex(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate bounded local graph JSON or multiplex cell CSV without "
@@ -396,7 +392,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
-    """Main."""
     args = build_parser().parse_args()
     if args.command == "graph":
         if not 1 <= args.max_input_bytes <= MAX_JSON_BYTES:

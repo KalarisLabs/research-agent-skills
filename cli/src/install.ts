@@ -19,8 +19,6 @@ export interface Selection {
   all?: boolean;
 }
 
-/** Select skills. */
-
 export function selectSkills(catalog: Catalog & { bundles?: Record<string, { categories: string[]; skills?: string[] }> },
   sel: Selection): SkillEntry[] {
   const byName = new Map(catalog.skills.map((s) => [s.name, s]));
@@ -61,8 +59,6 @@ function writeLock(dir: string, lock: LockFile): void {
   writeFileSync(join(dir, LOCK_NAME), JSON.stringify(lock, null, 2) + "\n");
 }
 
-/** Hash tree. */
-
 export function hashTree(dir: string): Record<string, string> {
   const out: Record<string, string> = {};
   const walk = (d: string) => {
@@ -81,8 +77,6 @@ function isSymlink(p: string): boolean {
 }
 
 export interface InstallResult { installed: string[]; updated: string[]; skipped: string[] }
-
-/** Install skills. */
 
 export function installSkills(src: Source, skills: SkillEntry[], targetDir: string,
   opts: { mode: "copy" | "symlink"; force: boolean; dryRun: boolean; log: (m: string) => void }): InstallResult {
@@ -121,8 +115,6 @@ export function installSkills(src: Source, skills: SkillEntry[], targetDir: stri
   }
   return res;
 }
-
-/** Uninstall skills. */
 
 export function uninstallSkills(targetDir: string, names: string[] | "all", dryRun: boolean): string[] {
   const lock = readLock(targetDir);

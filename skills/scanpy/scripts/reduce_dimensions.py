@@ -18,7 +18,6 @@ from _common import add_io_args, configure_scanpy, info, load_anndata, save_annd
 
 
 def main():
-    """Main."""
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     add_io_args(p, default_output="reduced.h5ad")

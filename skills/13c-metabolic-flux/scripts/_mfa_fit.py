@@ -15,9 +15,7 @@ def fixed_range(low, high):
 
 
 class FluxSpace:
-    """Flux space."""
     def __init__(self, network, fixed=None):
-        """Initialize with network, fixed."""
         self.network = network
         self.a = network.equalities.copy()
         self.b = network.rhs.copy()
@@ -50,7 +48,6 @@ class FluxSpace:
         self.dimension = self.basis.shape[1]
 
     def linear(self, objective):
-        """Linear for *objective*."""
         result = linprog(objective, A_eq=self.a, b_eq=self.b / self.scale, bounds=self.bounds,
                          method="highs", options={"time_limit": 10., "primal_feasibility_tolerance": 1e-9,
                                                    "dual_feasibility_tolerance": 1e-9})
@@ -72,7 +69,6 @@ class FluxSpace:
         return self.network.feasible(flux) and np.max(np.abs(self.a @ flux - self.b)) < 1e-8 * scale
 
     def starting_points(self, count, rng, warm=None):
-        """Starting points."""
         if not self.dimension:
             return [self.base]
         vertices = [self.base]
@@ -94,7 +90,6 @@ class FluxSpace:
 
 
 def fit(observations, starts=8, seed=2026, maxiter=1000, fixed=None, warm=None):
-    """Fit."""
     require(type(starts) is int and 1 <= starts <= 100, "starts must be 1..100")
     require(type(maxiter) is int and 1 <= maxiter <= 10000, "maxiter must be 1..10000")
     require(observations.size > 0, "Fitting needs measurements")
@@ -149,7 +144,6 @@ def fit(observations, starts=8, seed=2026, maxiter=1000, fixed=None, warm=None):
 
 
 def diagnostics(observations, fitted):
-    """Diagnostics for *observations*, *fitted*."""
     network, vector, space = observations.network, fitted["vector"], fitted["space"]
     residual, predictions = observations.residuals(vector, details=True)
     columns = []
@@ -207,7 +201,6 @@ def diagnostics(observations, fitted):
 
 def profile(observations, fitted, reaction, points=21, starts=4, seed=2026,
             maxiter=1000, confidence=.95):
-    """Profile."""
     network, space = observations.network, fitted["space"]
     require(reaction in network.ids, f"Unknown profile reaction {reaction}")
     require(type(points) is int and 5 <= points <= 201, "profile points must be 5..201")

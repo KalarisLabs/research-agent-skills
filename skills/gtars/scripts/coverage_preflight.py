@@ -28,7 +28,6 @@ TOOL = "gtars-coverage-preflight"
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Check a sorted local BED/narrowPeak input, chromosome sizes, bounds, "
@@ -113,7 +112,6 @@ MAX_DENSE_GAP = 10_000_000
 
 
 def preflight(args: argparse.Namespace) -> tuple[dict, int]:
-    """Preflight for *args* and return tuple[dict, int]."""
     assembly = args.assembly.strip()
     if not assembly or len(assembly) > 200:
         raise SafetyError("assembly must contain 1-200 characters")
@@ -245,7 +243,6 @@ def preflight(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report, status = preflight(args)

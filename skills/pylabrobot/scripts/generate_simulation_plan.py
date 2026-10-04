@@ -35,7 +35,6 @@ else:
 
 
 def build_parser() -> argparse.ArgumentParser:
-  """Build parser and return argparse.ArgumentParser."""
   parser = argparse.ArgumentParser(
       description=(
           "Generate a deterministic JSON plan for offline review. The output is data, "
@@ -48,7 +47,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _steps(operations: list[dict[str, Any]]) -> list[dict[str, Any]]:
-  """Steps for *operations* and return list[dict[str, Any]]."""
   steps: list[dict[str, Any]] = []
   for operation in operations:
     common = {
@@ -92,7 +90,6 @@ def _steps(operations: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-  """Main for *argv* and return int."""
   args = build_parser().parse_args(argv)
   try:
     manifest = validate_manifest(load_json(args.manifest))

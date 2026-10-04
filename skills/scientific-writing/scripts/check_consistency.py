@@ -79,7 +79,6 @@ def _check_fields(
     location: str,
     issues: list[Issue],
 ) -> None:
-    """Check fields."""
     for key in sorted(set(value) - expected):
         issues.append(
             issue("error", "UNKNOWN_SCHEMA_FIELD", location=location, item_id=key)
@@ -98,7 +97,6 @@ def _validate_ids(
     code: str,
     issues: list[Issue],
 ) -> list[str]:
-    """Validate ids and return list[str]."""
     ids = require_list(values, location)
     valid: list[str] = []
     for raw_value in ids:
@@ -110,7 +108,6 @@ def _validate_ids(
 
 
 def validate_numeric_facts(data: dict[str, Any]) -> tuple[list[Issue], int]:
-    """Validate numeric facts for *data* and return tuple[list[Issue], int]."""
     issues: list[Issue] = []
     facts = require_list(data.get("numeric_facts"), "numeric_facts")
     seen_ids: set[str] = set()
@@ -241,7 +238,6 @@ def validate_numeric_facts(data: dict[str, Any]) -> tuple[list[Issue], int]:
 
 
 def validate_methods_results(data: dict[str, Any]) -> tuple[list[Issue], int, int]:
-    """Validate methods results for *data* and return tuple[list[Issue], int, int]."""
     issues: list[Issue] = []
     methods: dict[str, dict[str, Any]] = {}
     expected_outcomes: dict[str, set[str]] = {}
@@ -376,7 +372,6 @@ def validate_methods_results(data: dict[str, Any]) -> tuple[list[Issue], int, in
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Check a local JSON registry for repeated numeric values, units, "
@@ -388,7 +383,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def cli() -> int:
-    """Cli and return int."""
     args = build_parser().parse_args()
     data = require_object(read_json(args.registry), "consistency_registry")
     root_issues: list[Issue] = []

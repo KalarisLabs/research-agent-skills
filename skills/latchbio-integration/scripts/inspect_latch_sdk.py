@@ -122,7 +122,6 @@ def safe_signature(obj: Any) -> str | None:
 
 
 def inspect_symbol(module_name: str, symbol_name: str) -> dict[str, Any]:
-    """Inspect symbol for *module_name*, *symbol_name* and return dict[str, Any]."""
     qualified_name = f"{module_name}.{symbol_name}"
     try:
         module = importlib.import_module(module_name)
@@ -169,7 +168,6 @@ def inspect_methods(
     class_name: str,
     method_names: list[str],
 ) -> dict[str, Any]:
-    """Inspect methods and return dict[str, Any]."""
     try:
         cls = getattr(importlib.import_module(module_name), class_name)
     except Exception as exc:
@@ -186,7 +184,6 @@ def inspect_methods(
 
 
 def build_report() -> dict[str, Any]:
-    """Build report and return dict[str, Any]."""
     try:
         latch_version = version("latch")
     except PackageNotFoundError:
@@ -215,7 +212,6 @@ def build_report() -> dict[str, Any]:
 
 
 def print_text(report: dict[str, Any]) -> None:
-    """Print text for *report*."""
     print(f"Python: {report['python']}")
     print(f"Platform: {report['platform']}")
     print(f"Latch SDK: {report['latch_version'] or 'not installed'}")
@@ -247,7 +243,6 @@ def print_text(report: dict[str, Any]) -> None:
 
 
 def has_required_failures(report: dict[str, Any]) -> bool:
-    """Has required failures for *report* and return bool."""
     required = {
         "latch.workflow",
         "latch.resources.tasks.small_task",
@@ -265,7 +260,6 @@ def has_required_failures(report: dict[str, Any]) -> bool:
 
 
 def main() -> int:
-    """Main and return int."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--json",

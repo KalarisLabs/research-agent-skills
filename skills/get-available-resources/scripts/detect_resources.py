@@ -103,7 +103,6 @@ def _warning(
     *,
     severity: str = "warning",
 ) -> None:
-    """Warning."""
     warnings.append(
         {
             "code": code,
@@ -120,7 +119,6 @@ def _provenance(
     source: str,
     status: str,
 ) -> None:
-    """Provenance."""
     records.append(
         {"component": component, "source": source, "status": status}
     )
@@ -146,7 +144,6 @@ def _try_read(
     read_text: Callable[[Path], str],
     path: Path,
 ) -> str | None:
-    """Try read for *read_text*, *path* and return str | None."""
     try:
         return read_text(path)
     except (OSError, ValueError, UnicodeError):
@@ -154,7 +151,6 @@ def _try_read(
 
 
 def _bounded_nonnegative(value: str | int | None) -> int | None:
-    """Bounded nonnegative for *value* and return int | None."""
     if isinstance(value, bool) or value is None:
         return None
     try:
@@ -193,7 +189,6 @@ def parse_cpu_list(value: str) -> int | None:
 
 
 def _parse_cpu_max(value: str) -> float | None:
-    """Parse cpu max for *value* and return float | None."""
     fields = value.strip().split()
     if len(fields) != 2 or fields[0] == "max":
         return None
@@ -235,7 +230,6 @@ def _run_bounded_command(
     truncated = threading.Event()
 
     def drain(name: str, stream: Any) -> None:
-        """Drain for *name*, *stream*."""
         try:
             while True:
                 chunk = stream.read(4096)
@@ -301,7 +295,6 @@ def _load_psutil(
     warnings: list[dict[str, str]],
     provenance: list[dict[str, str]],
 ) -> Any | None:
-    """Load psutil for *warnings*, *provenance* and return Any | None."""
     try:
         module = importlib.import_module("psutil")
     except (ImportError, OSError):
@@ -321,7 +314,6 @@ def _load_psutil(
 def _linux_physical_cores(
     read_text: Callable[[Path], str],
 ) -> int | None:
-    """Linux physical cores for *read_text* and return int | None."""
     payload = _try_read(read_text, Path("/proc/cpuinfo"))
     if not payload:
         return None
@@ -343,7 +335,6 @@ def _mac_sysctl_values(
     warnings: list[dict[str, str]],
     provenance: list[dict[str, str]],
 ) -> dict[str, Any]:
-    """Mac sysctl values and return dict[str, Any]."""
     result = run_command(APPLE_SYSCTL_QUERY, timeout=2.0)
     if result["status"] != "ok":
         _warning(
@@ -383,7 +374,6 @@ def _detect_cpu_inventory(
     warnings: list[dict[str, str]],
     provenance: list[dict[str, str]],
 ) -> dict[str, int | None]:
-    """Detect cpu inventory and return dict[str, int | None]."""
     host_logical = os.cpu_count()
     if (
         not isinstance(host_logical, int)
@@ -443,7 +433,6 @@ def _detect_process_cpu_count(
     warnings: list[dict[str, str]],
     provenance: list[dict[str, str]],
 ) -> dict[str, int | None]:
-    """Detect process cpu count and return dict[str, int | None]."""
     affinity_count: int | None = None
     affinity_source: str | None = None
     get_affinity = getattr(os, "sched_getaffinity", None)
@@ -504,7 +493,6 @@ def _detect_process_cpu_count(
 
 
 def _cgroup_relative_path(payload: str) -> tuple[str, ...] | None:
-    """Cgroup relative path for *payload* and return tuple[str, ...] | None."""
     for line in payload.splitlines():
         fields = line.split(":", 2)
         if len(fields) == 3 and fields[0] == "0" and fields[1] == "":
@@ -639,7 +627,6 @@ def detect_cgroup_v2(
 
 
 def _parse_slurm_count(value: str | None) -> int | None:
-    """Parse slurm count for *value* and return int | None."""
     if value is None or not 0 < len(value) <= 128:
         return None
     stripped = value.strip()
@@ -654,7 +641,6 @@ def _parse_slurm_count(value: str | None) -> int | None:
 
 
 def _parse_slurm_memory(value: str | None) -> int | None:
-    """Parse slurm memory for *value* and return int | None."""
     if value is None or not 0 < len(value) <= 128:
         return None
     match = re.fullmatch(r"\s*(\d+)\s*([KkMmGgTt]?)\s*", value)
@@ -670,7 +656,6 @@ def _parse_slurm_memory(value: str | None) -> int | None:
 
 
 def _parse_first_repeated_count(value: str | None) -> int | None:
-    """Parse first repeated count for *value* and return int | None."""
     if value is None or len(value) > 4096:
         return None
     match = re.match(r"\s*(\d+)(?:\(x\d+\))?", value)
@@ -793,7 +778,6 @@ def _effective_cpu(
     cgroup: Mapping[str, Any],
     scheduler: Mapping[str, Any],
 ) -> dict[str, Any]:
-    """Effective cpu and return dict[str, Any]."""
     candidates: list[tuple[str, float]] = []
     for source, value in (
         ("host_logical", host.get("logical")),
@@ -826,7 +810,6 @@ def _effective_cpu(
 
 
 def _parse_linux_meminfo(payload: str) -> dict[str, int | None]:
-    """Parse linux meminfo for *payload* and return dict[str, int | None]."""
     values: dict[str, int] = {}
     for line in payload.splitlines():
         match = re.fullmatch(r"([A-Za-z_()]+):\s+(\d+)\s+kB", line.strip())
@@ -852,7 +835,6 @@ def _detect_memory(
     warnings: list[dict[str, str]],
     provenance: list[dict[str, str]],
 ) -> dict[str, Any]:
-    """Detect memory and return dict[str, Any]."""
     host_total: int | None = None
     host_available: int | None = None
     swap_total: int | None = None
@@ -1001,7 +983,6 @@ def _detect_disk(
     warnings: list[dict[str, str]],
     provenance: list[dict[str, str]],
 ) -> dict[str, Any]:
-    """Detect disk for *warnings*, *provenance* and return dict[str, Any]."""
     try:
         usage = shutil.disk_usage(Path.cwd())
         total = _bounded_nonnegative(usage.total)
@@ -1059,7 +1040,6 @@ def _detect_disk(
 
 
 def _mib_to_bytes(value: str) -> int | None:
-    """Mib to bytes for *value* and return int | None."""
     try:
         amount = float(value)
     except ValueError:
@@ -1071,7 +1051,6 @@ def _mib_to_bytes(value: str) -> int | None:
 
 
 def parse_nvidia_csv(payload: str) -> list[dict[str, Any]]:
-    """Parse nvidia csv for *payload* and return list[dict[str, Any]]."""
     devices: list[dict[str, Any]] = []
     try:
         rows = csv.reader(io.StringIO(payload))
@@ -1111,7 +1090,6 @@ def _recursive_scalar(
     value: Any,
     accepted_keys: set[str],
 ) -> tuple[str, Any] | None:
-    """Recursive scalar for *value*, *accepted_keys* and return tuple[str, Any] | None."""
     if isinstance(value, dict):
         for key, child in value.items():
             normalized = re.sub(r"[^a-z0-9]+", "_", str(key).lower()).strip("_")
@@ -1130,7 +1108,6 @@ def _recursive_scalar(
 
 
 def _amd_entries(data: Any) -> list[tuple[int, dict[str, Any]]]:
-    """Amd entries for *data* and return list[tuple[int, dict[str, Any]]]."""
     entries: list[tuple[int, dict[str, Any]]] = []
     if isinstance(data, list):
         for index, item in enumerate(data):
@@ -1173,7 +1150,6 @@ def _amd_entries(data: Any) -> list[tuple[int, dict[str, Any]]]:
 
 
 def _amd_memory_bytes(entry: Mapping[str, Any]) -> int | None:
-    """Amd memory bytes for *entry* and return int | None."""
     for key, value in entry.items():
         normalized = re.sub(r"[^a-z0-9]+", "_", str(key).lower()).strip("_")
         if (
@@ -1203,7 +1179,6 @@ def _amd_memory_bytes(entry: Mapping[str, Any]) -> int | None:
 
 
 def parse_amd_json(payload: str) -> list[dict[str, Any]]:
-    """Parse amd json for *payload* and return list[dict[str, Any]]."""
     try:
         data = json.loads(payload)
         entries = _amd_entries(data)
@@ -1251,7 +1226,6 @@ def parse_apple_profiler_json(
     *,
     machine: str,
 ) -> list[dict[str, Any]]:
-    """Parse apple profiler json for *payload*, *machine* and return list[dict[str, Any]]."""
     try:
         data = json.loads(payload)
     except (json.JSONDecodeError, RecursionError):
@@ -1294,7 +1268,6 @@ def parse_apple_profiler_json(
 
 
 def _visibility_summary(environ: Mapping[str, str]) -> dict[str, Any]:
-    """Visibility summary for *environ* and return dict[str, Any]."""
     summary: dict[str, Any] = {}
     for key in ACCELERATOR_ENV_KEYS:
         if key not in environ:
@@ -1340,7 +1313,6 @@ def _accelerator_upper_bounds(
     visibility: Mapping[str, Mapping[str, Any]],
     scheduler: Mapping[str, Any],
 ) -> dict[str, int | None]:
-    """Accelerator upper bounds and return dict[str, int | None]."""
     result: dict[str, int | None] = {}
     scheduler_count = scheduler.get("allocation", {}).get("gpus_per_process")
     if scheduler_count is None:
@@ -1382,7 +1354,6 @@ def _record_probe_failure(
     warnings: list[dict[str, str]],
     provenance: list[dict[str, str]],
 ) -> None:
-    """Record probe failure."""
     status = str(result.get("status", "error"))
     _provenance(provenance, component, tool, status)
     if status != "not_found":
@@ -1405,7 +1376,6 @@ def _detect_accelerators(
     warnings: list[dict[str, str]],
     provenance: list[dict[str, str]],
 ) -> dict[str, Any]:
-    """Detect accelerators and return dict[str, Any]."""
     devices: list[dict[str, Any]] = []
 
     nvidia = run_command(NVIDIA_QUERY, timeout=4.0)
@@ -1554,7 +1524,6 @@ def _container_context(
     cgroup: Mapping[str, Any],
     exists: Callable[[Path], bool] = Path.exists,
 ) -> dict[str, Any]:
-    """Container context for *cgroup*, *exists* and return dict[str, Any]."""
     evidence: list[str] = []
     for marker, label in (
         (Path("/.dockerenv"), "docker_marker"),
@@ -1756,7 +1725,6 @@ def detect_all_resources(output_path: str | None = None) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Report host inventory and effective process limits as deterministic JSON"
@@ -1783,7 +1751,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.force and not args.output:

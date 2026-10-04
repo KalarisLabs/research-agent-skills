@@ -44,7 +44,6 @@ class VariantError(ValueError):
 
 
 def classify(ref: str, alt: str) -> str:
-    """Classify for *ref*, *alt* and return str."""
     if len(ref) == len(alt) == 1:
         return "snv"
     if len(ref) == len(alt):
@@ -178,7 +177,6 @@ def read_records(path: str, split: bool) -> list[tuple[str, int, str, str]]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Check, trim, and left-align VCF-style variants."
     )
@@ -206,7 +204,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def run(records, reference, window) -> list[dict]:
-    """Run and return list[dict]."""
     rows = []
     for contig, pos, ref, alt in records:
         label = f"{contig}:{pos}:{ref}:{alt}"
@@ -241,7 +238,6 @@ def run(records, reference, window) -> list[dict]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
 

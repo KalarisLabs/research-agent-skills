@@ -519,7 +519,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
 
 def main() -> None:
-    """Main."""
     print("=" * 60)
     print("  GENERATING SELF-CONTAINED HTML")
     print("=" * 60)

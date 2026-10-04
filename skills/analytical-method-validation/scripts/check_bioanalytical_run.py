@@ -67,7 +67,6 @@ def calibrator_tolerance(label: str, crit: dict) -> float:
 
 
 def check_run(path: str, crit: dict) -> tuple[list[dict], list[str]]:
-    """Check run for *path*, *crit* and return tuple[list[dict], list[str]]."""
     rows = parse_rows(read_input(path), path)
     require_columns(rows, ["type", "nominal", "measured"])
     findings: list[str] = []
@@ -160,7 +159,6 @@ def check_run(path: str, crit: dict) -> tuple[list[dict], list[str]]:
 
 
 def check_isr(path: str, crit: dict) -> tuple[list[dict], list[str]]:
-    """Check isr for *path*, *crit* and return tuple[list[dict], list[str]]."""
     rows = parse_rows(read_input(path), path)
     require_columns(rows, ["original", "repeat"])
     tol = crit["isr_tolerance_pct"]
@@ -189,7 +187,6 @@ def check_isr(path: str, crit: dict) -> tuple[list[dict], list[str]]:
 
 
 def check_total_error(path: str, crit: dict) -> tuple[list[dict], list[str]]:
-    """Check total error for *path*, *crit* and return tuple[list[dict], list[str]]."""
     if crit["total_error_pct"] is None:
         raise InputError(
             "ICH M10 states a total-error criterion for ligand binding assays only; "
@@ -220,7 +217,6 @@ def check_total_error(path: str, crit: dict) -> tuple[list[dict], list[str]]:
 
 
 def main() -> int:
-    """Main and return int."""
     parser = argparse.ArgumentParser(
         description="Apply ICH M10 acceptance criteria to bioanalytical data."
     )

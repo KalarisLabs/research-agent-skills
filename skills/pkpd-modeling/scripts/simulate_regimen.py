@@ -64,7 +64,6 @@ def summarise_interval(evaluate, start: float, end: float, points: int = 4001) -
 
 
 def _regimen_spec(text: str) -> tuple[float, float]:
-    """Regimen spec for *text* and return tuple[float, float]."""
     if "@" not in text:
         raise argparse.ArgumentTypeError(f"regimen must look like 500@12 (dose@interval), got {text!r}")
     dose_text, interval_text = text.split("@", 1)
@@ -75,7 +74,6 @@ def _regimen_spec(text: str) -> tuple[float, float]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Simulate single- and multiple-dose regimens, deterministically or with IIV.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -117,7 +115,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def run(argv: Sequence[str] | None = None) -> int:
-    """Run for *argv* and return int."""
     args = build_parser().parse_args(argv)
     if len(args.q) != len(args.v2):
         raise InputError(f"{len(args.q)} --q values but {len(args.v2)} --v2 values; they pair up")
@@ -179,7 +176,6 @@ def run(argv: Sequence[str] | None = None) -> int:
     # ---- deterministic profile
     if args.nonlinear:
         def evaluate(grid: np.ndarray) -> np.ndarray:
-            """Evaluate for *grid* and return np.ndarray."""
             return simulate_michaelis_menten(
                 grid,
                 regimen,
@@ -203,7 +199,6 @@ def run(argv: Sequence[str] | None = None) -> int:
         disp = disposition(args.cl, args.v, args.q, args.v2)
 
         def evaluate(grid: np.ndarray) -> np.ndarray:
-            """Evaluate for *grid* and return np.ndarray."""
             return simulate_linear(grid, regimen, disp, ka=args.ka, f=args.f, tlag=args.tlag)
 
         conc = evaluate(times)
@@ -272,7 +267,6 @@ def run(argv: Sequence[str] | None = None) -> int:
             aucs[i] = float(np.trapezoid(profile, window))
 
         def percentiles(values: np.ndarray, label: str) -> dict:
-            """Percentiles for *values*, *label* and return dict."""
             return {
                 "metric": label,
                 "p5": float(np.percentile(values, 5)),

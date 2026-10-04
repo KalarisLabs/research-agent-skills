@@ -48,7 +48,6 @@ def get_dataset(split="train"):
     data = load_dataset('openai/gsm8k', 'main')[split]
 
     def process_example(x):
-        """Process example for *x*."""
         # Extract ground truth answer
         answer = x['answer'].split('####')[1].strip() if '####' in x['answer'] else None
 

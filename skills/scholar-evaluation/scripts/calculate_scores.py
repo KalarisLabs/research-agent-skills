@@ -10,7 +10,6 @@ import _common
 
 
 def calculate(rubric: dict, evaluation: dict) -> dict:
-    """Calculate for *rubric*, *evaluation* and return dict."""
     rubric_issues = _common.validate_rubric(rubric)
     _common.require_valid(rubric_issues)
     evaluation_issues = _common.validate_evaluation(evaluation, rubric)
@@ -23,7 +22,6 @@ def calculate(rubric: dict, evaluation: dict) -> dict:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Compute bounded descriptive rubric scores with explicit missing, "
@@ -43,7 +41,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         rubric = _common.read_json(args.rubric)

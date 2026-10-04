@@ -23,7 +23,6 @@ METRIC_OPERATIONS = {"area", "buffer", "distance", "nearest", "precision"}
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect CRS axes, units, datum-operation candidates, grid availability, "
@@ -74,7 +73,6 @@ def _dynamic(crs: Any) -> bool:
 
 
 def _candidate_summary(transformer: Any) -> dict[str, Any]:
-    """Candidate summary for *transformer* and return dict[str, Any]."""
     accuracy = float(transformer.accuracy)
     area = transformer.area_of_use
     return {
@@ -86,7 +84,6 @@ def _candidate_summary(transformer: Any) -> dict[str, Any]:
 
 
 def plan(args: argparse.Namespace) -> dict[str, Any]:
-    """Plan for *args* and return dict[str, Any]."""
     try:
         from pyproj import CRS
         from pyproj.aoi import AreaOfInterest
@@ -200,7 +197,6 @@ def plan(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         report = plan(args)

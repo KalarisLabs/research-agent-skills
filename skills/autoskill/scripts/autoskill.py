@@ -11,7 +11,6 @@ import sys
 
 
 def main(argv=None):
-    """Main for *argv*."""
     parser = argparse.ArgumentParser(prog="autoskill", description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("command", choices=["run", "doctor", "promote"],

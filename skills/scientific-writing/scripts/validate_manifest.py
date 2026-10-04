@@ -75,7 +75,6 @@ def _check_unknown_fields(
     location: str,
     issues: list[Issue],
 ) -> None:
-    """Check unknown fields."""
     for key in sorted(set(obj) - allowed):
         issues.append(
             issue("error", "UNKNOWN_SCHEMA_FIELD", location=location, item_id=key)
@@ -89,7 +88,6 @@ def _missing_or_placeholder(
     location: str,
     issues: list[Issue],
 ) -> None:
-    """Missing or placeholder."""
     value = obj.get(key)
     if not is_nonempty_string(value) or is_placeholder(value):
         issues.append(
@@ -104,7 +102,6 @@ def _validate_human_gate(
     submission_ready: bool,
     issues: list[Issue],
 ) -> None:
-    """Validate human gate."""
     gate = require_object(value, location)
     completed = gate.get("completed")
     if not isinstance(completed, bool):
@@ -122,7 +119,6 @@ def _validate_human_gate(
 
 
 def validate_manuscript_manifest(data: dict[str, Any]) -> list[Issue]:
-    """Validate manuscript manifest for *data* and return list[Issue]."""
     issues: list[Issue] = []
     _check_unknown_fields(
         data,
@@ -242,7 +238,6 @@ def validate_source_manifest(
     *,
     require_verified: bool,
 ) -> list[Issue]:
-    """Validate source manifest for *data*, *require_verified* and return list[Issue]."""
     issues: list[Issue] = []
     _check_unknown_fields(
         data,
@@ -427,7 +422,6 @@ def detect_kind(data: dict[str, Any]) -> str:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a local JSON manuscript or source manifest. "
@@ -450,7 +444,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def cli() -> int:
-    """Cli and return int."""
     args = build_parser().parse_args()
     data = require_object(read_json(args.manifest))
     kind = detect_kind(data) if args.kind == "auto" else args.kind

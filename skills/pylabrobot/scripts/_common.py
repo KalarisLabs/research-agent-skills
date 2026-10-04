@@ -100,7 +100,6 @@ def safe_input_path(raw_path: str, allowed_suffixes: Sequence[str]) -> Path:
 
 
 def load_json(raw_path: str) -> dict[str, Any]:
-  """Load json for *raw_path* and return dict[str, Any]."""
   path = safe_input_path(raw_path, (".json",))
   try:
     text = path.read_text(encoding="utf-8")
@@ -120,7 +119,6 @@ def load_json(raw_path: str) -> dict[str, Any]:
 
 
 def load_csv(raw_path: str) -> list[dict[str, str]]:
-  """Load csv for *raw_path* and return list[dict[str, str]]."""
   path = safe_input_path(raw_path, (".csv",))
   try:
     with path.open("r", encoding="utf-8", newline="") as handle:
@@ -152,7 +150,6 @@ def _exact_keys(
     optional: Iterable[str],
     where: str,
 ) -> dict[str, Any]:
-  """Exact keys and return dict[str, Any]."""
   if not isinstance(obj, dict):
     raise ValidationError(f"{where} must be an object")
   required_set = set(required)
@@ -180,7 +177,6 @@ def _number(
     maximum: float,
     minimum_inclusive: bool = True,
 ) -> float:
-  """Number and return float."""
   if isinstance(value, bool) or not isinstance(value, (int, float)):
     raise ValidationError(f"{where} must be a number")
   result = float(value)
@@ -202,7 +198,6 @@ def _integer(value: Any, where: str, minimum: int, maximum: int) -> int:
 
 
 def _string_list(value: Any, where: str, maximum_items: int = 256) -> list[str]:
-  """String list and return list[str]."""
   if not isinstance(value, list) or not value or len(value) > maximum_items:
     raise ValidationError(f"{where} must be a non-empty list with at most {maximum_items} items")
   result: list[str] = []
@@ -214,7 +209,6 @@ def _string_list(value: Any, where: str, maximum_items: int = 256) -> list[str]:
 
 
 def _xyz(value: Any, where: str, *, positive: bool) -> dict[str, float]:
-  """Xyz and return dict[str, float]."""
   obj = _exact_keys(value, ("x", "y", "z"), (), where)
   minimum_inclusive = not positive
   return {
@@ -237,7 +231,6 @@ def row_index(row_letters: str) -> int:
 
 
 def validate_well(well: str, rows: int, columns: int, where: str) -> str:
-  """Validate well and return str."""
   match = WELL_RE.fullmatch(well)
   if match is None:
     raise ValidationError(f"{where} must be an uppercase well such as A1")
@@ -248,7 +241,6 @@ def validate_well(well: str, rows: int, columns: int, where: str) -> str:
 
 
 def _validate_grid(value: Any, kind: str, where: str) -> dict[str, Any]:
-  """Validate grid and return dict[str, Any]."""
   if kind == "tip_rack":
     obj = _exact_keys(value, ("rows", "columns", "tip_capacity_uL"), (), where)
     return {
@@ -457,7 +449,6 @@ def _parse_float_text(
     minimum: float = 0.0,
     minimum_inclusive: bool = True,
 ) -> float:
-  """Parse float text and return float."""
   try:
     parsed = float(value)
   except ValueError as exc:
@@ -481,7 +472,6 @@ def _parse_int_text(value: str, where: str, minimum: int, maximum: int) -> int:
 
 
 def _endpoint(value: str, where: str) -> tuple[str, str]:
-  """Endpoint for *value*, *where* and return tuple[str, str]."""
   if value.count(":") != 1:
     raise ValidationError(f"{where} must use resource:WELL syntax")
   resource, well = value.split(":")
@@ -492,7 +482,6 @@ def _endpoint(value: str, where: str) -> tuple[str, str]:
 
 
 def validate_transfers(rows: list[dict[str, str]]) -> list[dict[str, Any]]:
-  """Validate transfers for *rows* and return list[dict[str, Any]]."""
   normalized: list[dict[str, Any]] = []
   identifiers: set[str] = set()
   for index, row in enumerate(rows):
@@ -548,7 +537,6 @@ def validate_transfers(rows: list[dict[str, str]]) -> list[dict[str, Any]]:
 
 
 def geometry_report(manifest: dict[str, Any]) -> dict[str, Any]:
-  """Geometry report for *manifest* and return dict[str, Any]."""
   deck_size = manifest["deck"]["size_mm"]
   resources = manifest["resources"]
   out_of_bounds: list[dict[str, Any]] = []
@@ -592,7 +580,6 @@ def plan_transfers(
     manifest: dict[str, Any],
     transfers: list[dict[str, Any]],
 ) -> dict[str, Any]:
-  """Plan transfers for *manifest*, *transfers* and return dict[str, Any]."""
   resources = {resource["name"]: resource for resource in manifest["resources"]}
   constraints = manifest["constraints"]
   liquid_classes = set(constraints["allowed_liquid_classes"])

@@ -31,7 +31,6 @@ _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Compare a local JSON tokenizer manifest with a local universe BED. "
@@ -71,7 +70,6 @@ def _mapping(value, label: str) -> dict:
 
 
 def check(args: argparse.Namespace) -> tuple[dict, int]:
-    """Check for *args* and return tuple[dict, int]."""
     assembly = args.assembly.strip()
     if not assembly or len(assembly) > 200:
         raise SafetyError("assembly must contain 1-200 characters")
@@ -227,7 +225,6 @@ def check(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report, status = check(args)

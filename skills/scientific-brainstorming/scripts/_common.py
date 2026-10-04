@@ -29,7 +29,6 @@ def bounded_float(minimum: float, maximum: float):
     """Return an argparse converter for a finite bounded float."""
 
     def convert(raw: str) -> float:
-        """Convert for *raw* and return float."""
         try:
             value = float(raw)
         except ValueError as exc:

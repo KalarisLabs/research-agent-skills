@@ -76,7 +76,6 @@ class ThresholdResult:
         return list(zip(edges[:-1], edges[1:]))
 
     def zone_names(self) -> list[str]:
-        """Zone names and return list[str]."""
         n_zones = len(self.thresholds) + 1
         if n_zones == 1:
             return ["all"]
@@ -99,7 +98,6 @@ class ThresholdResult:
         return out
 
     def describe(self) -> str:
-        """Describe and return str."""
         lines = [
             f"KDE on {self.n} RELSA scores  (bandwidth = {self.bandwidth:.4f})",
             "  candidate thresholds (density minima): "
@@ -114,7 +112,6 @@ class ThresholdResult:
         return "\n".join(lines)
 
     def as_dict(self) -> dict:
-        """As dict and return dict."""
         return {
             "thresholds": [round(float(t), 4) for t in self.thresholds],
             "modes": [round(float(m), 4) for m in self.modes],
@@ -293,7 +290,6 @@ def plot_thresholds(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Find candidate RELSA severity thresholds by kernel density estimation.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -329,7 +325,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     frame = pd.read_csv(args.scores)
     if args.column not in frame.columns:

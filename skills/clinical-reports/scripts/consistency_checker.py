@@ -43,7 +43,6 @@ TOP_LEVEL_FIELDS = {
 
 
 def _array(data: dict[str, Any], field: str, errors: list[str]) -> list[Any]:
-    """Array and return list[Any]."""
     value = data.get(field, [])
     if not isinstance(value, list):
         errors.append(f"{field} must be an array")
@@ -69,7 +68,6 @@ def _track_id(
     seen: set[str],
     errors: list[str],
 ) -> str | None:
-    """Track id and return str | None."""
     try:
         identifier = require_identifier(value, field)
     except ValidationError as exc:
@@ -356,7 +354,6 @@ def validate_consistency(data: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Check bounded structured dates, units, n/N percentages, and totals. "
@@ -370,7 +367,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         _, data = load_json_object(args.input_file)

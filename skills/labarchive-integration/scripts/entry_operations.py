@@ -192,7 +192,6 @@ def _dump(payload: Mapping[str, Any], *, compact: bool, stream: Any) -> None:
 def _load_credentials(
     args: argparse.Namespace, env: Mapping[str, str]
 ) -> tuple[str, str]:
-    """Load credentials for *args*, *env* and return tuple[str, str]."""
     access_key_id = env.get(ENV_ACCESS_KEY_ID, "").strip()
     if not access_key_id:
         raise ConfigError(
@@ -210,7 +209,6 @@ def _load_credentials(
 
 
 def command_self_test(args: argparse.Namespace) -> int:
-    """Command self test for *args* and return int."""
     actual = create_signature(
         _OFFICIAL_VECTOR["access_key_id"],
         _OFFICIAL_VECTOR["api_method_input"],
@@ -232,7 +230,6 @@ def command_self_test(args: argparse.Namespace) -> int:
 def command_eln_plan(
     args: argparse.Namespace, env: Mapping[str, str] | None = None
 ) -> int:
-    """Command eln plan for *args*, *env* and return int."""
     selected_env = os.environ if env is None else env
     access_key_id, access_password = _load_credentials(args, selected_env)
     api_class = validate_eln_component(args.api_class, "ELN API class")
@@ -267,7 +264,6 @@ def command_eln_plan(
 def command_inventory_plan(
     args: argparse.Namespace, env: Mapping[str, str] | None = None
 ) -> int:
-    """Command inventory plan for *args*, *env* and return int."""
     selected_env = os.environ if env is None else env
     access_key_id, access_password = _load_credentials(args, selected_env)
     user_id = selected_env.get(ENV_USER_ID, "")
@@ -303,7 +299,6 @@ def command_inventory_plan(
 
 
 def _add_plan_options(parser: argparse.ArgumentParser) -> None:
-    """Add plan options for *parser*."""
     parser.add_argument(
         "--expires-ms",
         type=int,
@@ -321,7 +316,6 @@ def _add_plan_options(parser: argparse.ArgumentParser) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Generate redacted, offline LabArchives signing plans. "
@@ -363,7 +357,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

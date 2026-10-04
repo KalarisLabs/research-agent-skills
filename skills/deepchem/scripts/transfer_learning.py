@@ -316,7 +316,6 @@ def load_custom_dataset(data_path, target_cols, smiles_col, model_type):
 
 
 def main():
-    """Main."""
     parser = argparse.ArgumentParser(
         description='Transfer learning for molecular property prediction'
     )

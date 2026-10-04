@@ -36,7 +36,6 @@ def _cluster_query(cluster: dict) -> str:
 
 
 def _write_plan(proposed_path: Path, clusters: list[dict]) -> None:
-    """Write plan for *proposed_path*, *clusters*."""
     lines = ["# Dry-run plan", ""]
     for i, c in enumerate(clusters, 1):
         lines += [
@@ -51,7 +50,6 @@ def _write_plan(proposed_path: Path, clusters: list[dict]) -> None:
 
 
 def _write_report(proposed_path: Path, results: list[dict]) -> None:
-    """Write report for *proposed_path*, *results*."""
     lines = ["# autoskill report", ""]
     if not results:
         lines.append("No clusters met the minimum size threshold. Nothing to propose.")
@@ -75,7 +73,6 @@ def _write_report(proposed_path: Path, results: list[dict]) -> None:
 def run(config, *, start_time, end_time, out_dir,
         screenpipe_client, backend, embedder, skills_dir,
         screenpipe_token=None, now=None, dry_run=False):
-    """Run."""
     now = now or _default_now
     try:
         events = fetch_window(screenpipe_client, start_time, end_time,
@@ -141,7 +138,6 @@ def run(config, *, start_time, end_time, out_dir,
 
 
 def main(argv=None):
-    """Main for *argv*."""
     import argparse
     import sys
 

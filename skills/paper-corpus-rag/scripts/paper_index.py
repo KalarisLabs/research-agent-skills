@@ -39,7 +39,6 @@ HEADING_RE = re.compile(r"^(#{1,6})\s+(.+)$|^(\d+(?:\.\d+)*)\s+([A-Z][^\n]{2,80}
 
 
 def read_doc(path: Path) -> str:
-    """Read doc for *path* and return str."""
     if path.suffix.lower() == ".pdf":
         try:
             from pypdf import PdfReader  # optional
@@ -71,7 +70,6 @@ def chunk_text(text: str, size: int = 1200, overlap: int = 200) -> list[tuple[st
 
 
 def cmd_index(args: argparse.Namespace) -> int:
-    """Cmd index for *args* and return int."""
     root = Path(args.folder)
     con = sqlite3.connect(args.db)
     con.executescript(SCHEMA)
@@ -116,7 +114,6 @@ def fts_query(q: str) -> str:
 
 
 def cmd_query(args: argparse.Namespace) -> int:
-    """Cmd query for *args* and return int."""
     con = sqlite3.connect(args.db)
     rows = con.execute(
         "SELECT path, chunk, section, snippet(chunks, 0, '[', ']', ' ... ', 24), bm25(chunks), text "
@@ -141,7 +138,6 @@ def cmd_stats(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
-    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     i = sub.add_parser("index")

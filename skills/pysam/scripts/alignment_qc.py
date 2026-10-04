@@ -32,7 +32,6 @@ def nonnegative_int(value: str) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -82,7 +81,6 @@ def require_local_file(path: Path, label: str) -> Path:
 
 
 def alignment_mode(path: Path) -> str:
-    """Alignment mode for *path* and return str."""
     name = path.name.lower()
     if name.endswith(".sam"):
         return "r"
@@ -111,7 +109,6 @@ def selected_reads(
 
 
 def empty_counts() -> dict[str, int]:
-    """Empty counts and return dict[str, int]."""
     return {
         "total_records": 0,
         "primary_records": 0,
@@ -134,7 +131,6 @@ def empty_counts() -> dict[str, int]:
 
 
 def inspect_alignments(args: argparse.Namespace) -> dict[str, Any]:
-    """Inspect alignments for *args* and return dict[str, Any]."""
     path = require_local_file(args.input, "input")
     reference = (
         require_local_file(args.reference, "reference")
@@ -283,7 +279,6 @@ def inspect_alignments(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def write_report(report: dict[str, Any], output: Optional[Path]) -> None:
-    """Write report for *report*, *output*."""
     text = json.dumps(
         report,
         indent=2,
@@ -300,7 +295,6 @@ def write_report(report: dict[str, Any], output: Optional[Path]) -> None:
 
 
 def main(argv: Optional[list[str]] = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
 

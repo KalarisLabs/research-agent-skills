@@ -224,7 +224,6 @@ def command_stats(args: argparse.Namespace) -> None:
 
 
 def command_ascii(args: argparse.Namespace) -> None:
-    """Command ascii for *args*."""
     tree = load_tree(args.input, args.parser)
     print(
         tree.to_str(
@@ -248,7 +247,6 @@ def command_convert(args: argparse.Namespace) -> None:
 
 
 def command_reroot(args: argparse.Namespace) -> None:
-    """Command reroot for *args*."""
     tree = load_tree(args.input, args.parser)
     if args.midpoint:
         tree.set_midpoint_outgroup(topological=args.topological)
@@ -276,7 +274,6 @@ def command_prune(args: argparse.Namespace) -> None:
 
 
 def command_compare(args: argparse.Namespace) -> None:
-    """Command compare for *args*."""
     tree_a = load_tree(args.tree_a, args.parser_a)
     tree_b = load_tree(args.tree_b, args.parser_b)
 
@@ -323,7 +320,6 @@ def command_compare(args: argparse.Namespace) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Validated ETE 4 tree operations",
     )
@@ -434,7 +430,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         args.handler(args)

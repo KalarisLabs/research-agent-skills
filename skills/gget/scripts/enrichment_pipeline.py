@@ -167,7 +167,6 @@ def enrichment_pipeline(
 
 
 def main():
-    """Main."""
     parser = argparse.ArgumentParser(
         description="Perform comprehensive enrichment analysis using gget"
     )

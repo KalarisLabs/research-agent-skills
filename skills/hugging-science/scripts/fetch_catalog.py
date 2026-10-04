@@ -72,7 +72,6 @@ KNOWN_TOPICS = [
 
 @dataclass
 class Entry:
-    """Entry."""
     title: str
     section: str  # "datasets" | "models" | "blog posts" | "unknown"
     type: str = ""
@@ -83,7 +82,6 @@ class Entry:
     description: str = ""
 
     def matches_filter(self, kind: str | None, tag: str | None) -> bool:
-        """Matches filter for *kind*, *tag* and return bool."""
         if kind:
             section_aliases = {
                 "datasets": {"datasets", "dataset"},
@@ -101,7 +99,6 @@ class Entry:
 
 
 def fetch(url: str) -> str:
-    """Fetch for *url* and return str."""
     req = urllib.request.Request(url, headers={"User-Agent": "hugging-science-skill/1.0"})
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
@@ -212,7 +209,6 @@ def _defang(text: str) -> str:
 
 
 def render_entry(e: Entry) -> str:
-    """Render entry for *e* and return str."""
     lines = [f"### {_defang(e.title)}"]
     if e.type:
         lines.append(f"- Type: {_defang(e.type)}")
@@ -233,7 +229,6 @@ def render_entry(e: Entry) -> str:
 
 
 def render_entries(entries: Iterable[Entry], group_by_section: bool = True) -> str:
-    """Render entries for *entries*, *group_by_section* and return str."""
     entries = list(entries)
     if not entries:
         return "(no entries matched)"
@@ -253,7 +248,6 @@ def render_entries(entries: Iterable[Entry], group_by_section: bool = True) -> s
 
 
 def cmd_topics(_: argparse.Namespace) -> None:
-    """Cmd topics for *_*."""
     print("Known Hugging Science topic slugs (use as `topic <slug>`):\n")
     for t in KNOWN_TOPICS:
         print(f"  {t}")
@@ -264,7 +258,6 @@ def cmd_topics(_: argparse.Namespace) -> None:
 
 
 def cmd_topic(args: argparse.Namespace) -> None:
-    """Cmd topic for *args*."""
     slug = args.slug.strip().lower().replace("_", "-").replace(" ", "-")
     md = fetch(f"{BASE}/topics/{slug}.md")
     entries = parse_markdown(md)
@@ -278,7 +271,6 @@ def cmd_topic(args: argparse.Namespace) -> None:
 
 
 def cmd_all(args: argparse.Namespace) -> None:
-    """Cmd all for *args*."""
     md = fetch(f"{BASE}/llms-full.txt")
     if args.raw:
         print(md)
@@ -294,7 +286,6 @@ def cmd_all(args: argparse.Namespace) -> None:
 
 
 def cmd_search(args: argparse.Namespace) -> None:
-    """Cmd search for *args*."""
     md = fetch(f"{BASE}/llms-full.txt")
     entries = parse_markdown(md)
     needle = args.query.lower()
@@ -316,7 +307,6 @@ def cmd_search(args: argparse.Namespace) -> None:
 
 
 def cmd_raw(args: argparse.Namespace) -> None:
-    """Cmd raw for *args*."""
     name = args.name.lower()
     if name in ("llms", "index"):
         url = f"{BASE}/llms.txt"
@@ -334,7 +324,6 @@ def cmd_raw(args: argparse.Namespace) -> None:
 
 
 def main() -> None:
-    """Main."""
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="cmd", required=True)
 

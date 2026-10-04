@@ -101,7 +101,6 @@ def element_text(element: ET.Element) -> str:
     parts: list[str] = []
 
     def walk(node: ET.Element) -> None:
-        """Walk for *node*."""
         if node.tag in SKIP_TAGS:
             # Keep the tail: text following an <xref> continues the sentence.
             if node.tail:
@@ -157,7 +156,6 @@ ID_TYPES = {"pmid": "pmid", "pmcid": "pmcid", "pmc": "pmcid", "doi": "doi"}
 
 
 def extract_metadata(article: ET.Element) -> dict[str, Any]:
-    """Extract metadata for *article* and return dict[str, Any]."""
     front = article.find("front")
     metadata: dict[str, Any] = {
         "title": None,
@@ -209,7 +207,6 @@ def extract_metadata(article: ET.Element) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Convert PMC/Europe PMC JATS XML to sectioned text. Exits 2 when the document "
@@ -249,7 +246,6 @@ def matches(section: dict[str, Any], wanted: list[str]) -> bool:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
 
     try:

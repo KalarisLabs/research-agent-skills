@@ -43,7 +43,6 @@ def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def _reject_url(value: str) -> None:
-    """Reject url for *value*."""
     lowered = value.strip().lower()
     if "://" in lowered or lowered.startswith(
         ("http:", "https:", "ftp:", "s3:", "gs:", "file:")

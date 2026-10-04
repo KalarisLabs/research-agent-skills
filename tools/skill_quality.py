@@ -52,7 +52,6 @@ STOP = set("the and for with use when this that from into your are can will not 
 
 
 def _load_slop():
-    """Load slop."""
     path = SKILLS_DIR / "unslop-academic-writing" / "scripts" / "slop_check.py"
     if not path.exists():
         return None
@@ -72,7 +71,6 @@ def tests_text() -> str:
 
 
 def score_skill(s: Skill, tests_blob: str) -> dict:
-    """Score skill for *s*, *tests_blob* and return dict."""
     desc = " ".join(str(s.meta.get("description", "")).split())
     body = s.body
     lines = (s.path / "SKILL.md").read_text(encoding="utf-8").count("\n") + 1
@@ -156,7 +154,6 @@ def score_skill(s: Skill, tests_blob: str) -> dict:
 
 
 def tfidf_overlap(skills: list[Skill], threshold: float) -> list[tuple[str, str, float]]:
-    """Tfidf overlap for *skills*, *threshold* and return list[tuple[str, str, float]]."""
     docs = {s.name: [t for t in TOKEN.findall(str(s.meta.get("description", "")).lower()) if t not in STOP]
             for s in skills}
     df = Counter(t for toks in docs.values() for t in set(toks))
@@ -179,7 +176,6 @@ def tfidf_overlap(skills: list[Skill], threshold: float) -> list[tuple[str, str,
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("skills", nargs="*", help="skill names (default: all)")
     ap.add_argument("--origin", choices=["all", "original", "adapted"], default="all")

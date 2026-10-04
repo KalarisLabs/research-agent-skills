@@ -62,7 +62,6 @@ def write_jsonl(name: str, rows: list[dict]) -> None:
 
 
 def cmd_fetch(args: argparse.Namespace) -> int:
-    """Cmd fetch for *args* and return int."""
     rows, per_topic = [], max(1, args.n // len(TOPICS))
     for topic in TOPICS:
         q = (f'"{topic}" AND OPEN_ACCESS:y AND LICENSE:"cc by" AND PUB_YEAR:[2012 TO 2018] AND HAS_ABSTRACT:y '
@@ -85,7 +84,6 @@ def cmd_fetch(args: argparse.Namespace) -> int:
 
 
 def generate(title: str, with_skill: bool, model: str | None) -> str:
-    """Generate and return str."""
     exe = shutil.which("claude")
     if not exe:
         sys.exit("claude CLI not found on PATH")
@@ -101,7 +99,6 @@ def generate(title: str, with_skill: bool, model: str | None) -> str:
 
 
 def cmd_generate(args: argparse.Namespace) -> int:
-    """Cmd generate for *args* and return int."""
     human = read_jsonl("human.jsonl")[: args.limit]
     if not human:
         sys.exit("run `fetch` first")
@@ -127,7 +124,6 @@ def auroc(pos: list[float], neg: list[float]) -> float:
 
 
 def cmd_score(args: argparse.Namespace) -> int:
-    """Cmd score for *args* and return int."""
     slop = load_slop()
     sets = {"human": read_jsonl("human.jsonl"), "ai_baseline": read_jsonl("ai_baseline.jsonl"),
             "ai_unslop": read_jsonl("ai_unslop.jsonl")}
@@ -153,7 +149,6 @@ def cmd_score(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
-    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     f = sub.add_parser("fetch")

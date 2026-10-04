@@ -41,7 +41,6 @@ def _prepare_manifest(
     study_design: str,
     guidelines: list[str],
 ) -> str:
-    """Prepare manifest and return str."""
     data = require_object(
         read_json(ASSET_DIR / "manuscript_manifest_template.json"),
         "manuscript_manifest_template",
@@ -68,7 +67,6 @@ def generate(
     study_design: str,
     guidelines: list[str],
 ) -> list[str]:
-    """Generate and return list[str]."""
     if output_dir.exists() or output_dir.is_symlink():
         raise InputError("output directory already exists; refusing to overwrite")
     parent = output_dir.parent
@@ -97,7 +95,6 @@ def generate(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Create a deterministic local manuscript workspace. Generated files "
@@ -117,7 +114,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def cli() -> int:
-    """Cli and return int."""
     args = build_parser().parse_args()
     if not DOCUMENT_ID_RE.fullmatch(args.document_id):
         raise InputError("document-id must be 2-64 safe identifier characters")

@@ -79,7 +79,6 @@ def _list(value: Any, name: str, *, maximum: int = 500) -> list[Any]:
 def _validate_product(
     value: Any, *, field: str, index: int, warnings: list[str]
 ) -> str:
-    """Validate product and return str."""
     if not isinstance(value, dict) or set(value) != PRODUCT_KEYS:
         raise CliError(
             f"{field}[{index}] must contain exactly {sorted(PRODUCT_KEYS)}"
@@ -114,7 +113,6 @@ def _validate_path(
     kind: str = "any",
     suffixes: set[str] | None = None,
 ) -> str:
-    """Validate path and return str."""
     text = _string(raw, name)
     if allow_missing:
         candidate = Path(text)
@@ -133,7 +131,6 @@ def _validate_path(
 
 
 def validate(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
-    """Validate for *args* and return tuple[dict[str, Any], int]."""
     root = checked_root(args.root)
     manifest_path = checked_input(
         args.manifest, root=root, suffixes={".json"}, max_bytes=2 * 1024 * 1024
@@ -322,7 +319,6 @@ def validate(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
 
 
 def parser() -> argparse.ArgumentParser:
-    """Parser and return argparse.ArgumentParser."""
     result = argparse.ArgumentParser(
         description=(
             "Validate a strict local MATLAB/Octave project, product, and license-"

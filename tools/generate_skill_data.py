@@ -81,7 +81,6 @@ Reply with JSON only:
 
 
 def claude(prompt: str, model: str) -> str:
-    """Claude for *prompt*, *model* and return str."""
     exe = shutil.which("claude")
     if not exe:
         sys.exit("claude CLI not found on PATH")
@@ -101,7 +100,6 @@ def excerpt(body: str, limit: int = 14000) -> str:
 
 
 def valid_description(d: str) -> list[str]:
-    """Valid description for *d* and return list[str]."""
     problems = []
     if not 200 <= len(d) <= 1024:
         problems.append(f"length {len(d)}")
@@ -125,7 +123,6 @@ def adapted_names() -> set[str]:
 
 
 def cmd_descriptions(args: argparse.Namespace) -> int:
-    """Cmd descriptions for *args* and return int."""
     existing = yaml.safe_load(OVERRIDES.read_text(encoding="utf-8")) if OVERRIDES.exists() else {}
     overrides: dict = (existing or {}).get("descriptions", {})
     adapted = adapted_names()
@@ -134,7 +131,6 @@ def cmd_descriptions(args: argparse.Namespace) -> int:
     print(f"{len(todo)} descriptions to generate")
 
     def work(s):
-        """Work for *s*."""
         for _ in range(3):
             try:
                 prompt = DESC_PROMPT.format(name=s.name, desc=s.meta.get("description", ""), body=excerpt(s.body))
@@ -164,7 +160,6 @@ def cmd_descriptions(args: argparse.Namespace) -> int:
 
 
 def cmd_evals(args: argparse.Namespace) -> int:
-    """Cmd evals for *args* and return int."""
     skills = {s.name: s for s in load_skills()}
     pairs = tfidf_overlap(list(skills.values()), 0.12)
     neighbours: dict[str, list[tuple[float, str]]] = {}
@@ -176,7 +171,6 @@ def cmd_evals(args: argparse.Namespace) -> int:
     print(f"{len(todo)} eval suites to generate")
 
     def work(name: str):
-        """Work for *name*."""
         s = skills[name]
         sib = sorted(neighbours.get(name, []), reverse=True)[:6]
         siblings = "\n".join(f"- {b}: {' '.join(str(skills[b].meta.get('description', '')).split())[:300]}"
@@ -219,7 +213,6 @@ def cmd_evals(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
-    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     for name in ("descriptions", "evals"):

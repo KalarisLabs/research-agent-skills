@@ -128,7 +128,6 @@ def _resolve(test, effect_size, alpha, alternative, **kw):
 # correlation power (Fisher z transform) -- closed form, no statsmodels solver
 # --------------------------------------------------------------------------- #
 def _corr_power(r, n, alpha, alternative):
-    """Corr power."""
     from scipy import stats
     z = math.atanh(r)
     se = 1.0 / math.sqrt(n - 3)
@@ -140,7 +139,6 @@ def _corr_power(r, n, alpha, alternative):
 
 
 def _corr_sample_size(r, alpha, power, alternative):
-    """Corr sample size."""
     from scipy import stats
     z = abs(math.atanh(r))
     if alternative == "two-sided":

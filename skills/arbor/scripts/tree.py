@@ -61,7 +61,6 @@ def _run_path(run_dir):
 
 
 def _load(path, what):
-    """Load for *path*, *what*."""
     if not path.exists():
         sys.exit(
             f"error: no {what} found at {path}. Run `tree.py init` first "
@@ -134,7 +133,6 @@ def _stamp(node):
 
 
 def cmd_init(args):
-    """Cmd init for *args*."""
     d = _dir(args.run_dir)
     if _tree_path(args.run_dir).exists() and not args.force:
         sys.exit(
@@ -180,7 +178,6 @@ def cmd_init(args):
 
 
 def cmd_add_node(args):
-    """Cmd add node for *args*."""
     tree = _load_tree(args.run_dir)
     parent = _node(tree, args.parent)
     run = _load_run(args.run_dir)
@@ -210,7 +207,6 @@ def cmd_add_node(args):
 
 
 def cmd_set_status(args):
-    """Cmd set status for *args*."""
     tree = _load_tree(args.run_dir)
     node = _node(tree, args.node)
     if args.status not in VALID_STATUS:
@@ -358,7 +354,6 @@ def cmd_cycle(args):
 
 
 def _fmt_score(node, run):
-    """Fmt score for *node*, *run*."""
     s = node["metadata"].get("dev_score")
     t = node["metadata"].get("test_score")
     bits = []
@@ -461,7 +456,6 @@ def cmd_status(args):
     }
 
     def render(nid, prefix=""):
-        """Render for *nid*, *prefix*."""
         n = nodes[nid]
         sym = symbol.get(n["status"], "?")
         best = " <== M_best" if nid == run["best_node"] else ""
@@ -508,7 +502,6 @@ def cmd_validate(args):
 
 
 def build_parser():
-    """Build parser."""
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--run-dir", default=".", help="Run directory holding .arbor/ (default: current dir)")
     sub = p.add_subparsers(dest="command", required=True)

@@ -109,7 +109,6 @@ def rewrite_text(text: str) -> str:
 
 
 def _stringify(value: Any) -> Any:
-    """Stringify for *value* and return Any."""
     if isinstance(value, dict):
         return value  # structured harness metadata (e.g. `openclaw`) is kept as-is
     if isinstance(value, (list, tuple)):
@@ -120,7 +119,6 @@ def _stringify(value: Any) -> Any:
 
 
 def normalize_frontmatter(meta: dict[str, Any], name: str, category: str) -> dict[str, Any]:
-    """Normalize frontmatter and return dict[str, Any]."""
     meta = dict(meta)
     md: dict[str, Any] = dict(meta.get("metadata") or {})
 
@@ -200,7 +198,6 @@ def ensure_utf8_console(source: str) -> str:
 
 
 def rebrand_skill(skill_dir: Path, name: str, category: str) -> None:
-    """Rebrand skill."""
     for path in sorted(skill_dir.rglob("*")):
         if not path.is_file() or (path.suffix not in TEXT_SUFFIXES and path.name not in TEXT_NAMES):
             continue

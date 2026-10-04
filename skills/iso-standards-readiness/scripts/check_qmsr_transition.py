@@ -24,7 +24,6 @@ ITEM_STATUSES = {
 
 
 def validate(data: dict[str, Any]) -> tuple[Review, dict[str, int]]:
-    """Validate for *data* and return tuple[Review, dict[str, int]]."""
     review = Review()
     metadata = review.object(data.get("metadata"), "metadata")
     if metadata is not None:
@@ -151,7 +150,6 @@ def validate(data: dict[str, Any]) -> tuple[Review, dict[str, int]]:
 
 
 def main() -> int:
-    """Main and return int."""
     parser = standard_parser(
         "Check QMSR transition evidence using the current post-2026 Part 820 model.",
         "Path to the local QMSR-transition JSON file",

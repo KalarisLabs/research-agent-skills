@@ -86,7 +86,6 @@ def _content_value(value: str) -> bool:
 
 
 def _comment_blocks(lines: list[str]) -> list[dict[str, Any]]:
-    """Comment blocks for *lines* and return list[dict[str, Any]]."""
     starts: list[tuple[int, re.Match[str]]] = []
     for index, line in enumerate(lines):
         match = COMMENT_HEADING_RE.match(line.strip())
@@ -112,7 +111,6 @@ def _comment_blocks(lines: list[str]) -> list[dict[str, Any]]:
 
 
 def lint(markdown: str) -> dict[str, Any]:
-    """Lint for *markdown* and return dict[str, Any]."""
     lines = markdown.splitlines()
     errors: list[dict[str, str]] = []
     warnings: list[dict[str, str]] = []
@@ -228,7 +226,6 @@ def lint(markdown: str) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Lint a local structured review for author/editor channel separation, "
@@ -244,7 +241,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report = lint(read_markdown(args.review))

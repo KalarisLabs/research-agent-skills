@@ -89,7 +89,6 @@ ANALYSIS_METADATA_FIELDS = {
 
 @dataclass(frozen=True)
 class AggregateRow:
-    """Aggregate row."""
     analysis_set: str
     treatment_group: str
     meddra_version: str
@@ -182,7 +181,6 @@ def load_aggregate_metadata(
 
 
 def _label(value: str | None, field: str) -> str:
-    """Label for *value*, *field* and return str."""
     if value is None:
         raise ValidationError(f"{field} is required")
     text = value.strip()
@@ -411,7 +409,6 @@ def render_markdown(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Format aggregate-only AE CSV rows as review-only Markdown. "
@@ -431,7 +428,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         rows = load_aggregate_csv(args.input_file)

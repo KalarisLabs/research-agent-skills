@@ -34,7 +34,6 @@ _ARCHIVES = (".tar.gz", ".tgz", ".zip", ".crate", ".whl")
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inventory, hash, and version-screen local Gtars wheels, crates, "
@@ -80,7 +79,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _read_prefix(path: Path, length: int = 16) -> bytes:
-    """Read prefix for *path*, *length* and return bytes."""
     flags = os.O_RDONLY
     if hasattr(os, "O_NOFOLLOW"):
         flags |= os.O_NOFOLLOW
@@ -94,7 +92,6 @@ def _read_prefix(path: Path, length: int = 16) -> bytes:
 
 
 def _native_format(prefix: bytes) -> str | None:
-    """Native format for *prefix* and return str | None."""
     if prefix.startswith(b"\x7fELF"):
         return "elf"
     if prefix.startswith(b"MZ"):
@@ -112,7 +109,6 @@ def _native_format(prefix: bytes) -> str | None:
 
 
 def _parse_metadata(path: Path, max_bytes: int) -> dict[str, str | None]:
-    """Parse metadata for *path*, *max_bytes* and return dict[str, str | None]."""
     text = "\n".join(
         line
         for _, line in iter_text_lines(
@@ -135,7 +131,6 @@ def _read_checksums(
     max_bytes: int,
     max_files: int,
 ) -> dict[str, str]:
-    """Read checksums and return dict[str, str]."""
     expected: dict[str, str] = {}
     for line_number, line in iter_text_lines(
         path,
@@ -157,7 +152,6 @@ def _read_checksums(
 
 
 def inspect(args: argparse.Namespace) -> tuple[dict, int]:
-    """Inspect for *args* and return tuple[dict, int]."""
     if len(args.artifact) > args.max_files:
         raise SafetyError("artifact count exceeds max-files")
     paths = [local_path(raw, kind="file") for raw in args.artifact]
@@ -321,7 +315,6 @@ def inspect(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report, status = inspect(args)

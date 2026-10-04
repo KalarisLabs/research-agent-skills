@@ -140,7 +140,6 @@ def analyze_sequences(
 
 
 def main():
-    """Main."""
     parser = argparse.ArgumentParser(
         description="Perform batch sequence analysis using gget"
     )

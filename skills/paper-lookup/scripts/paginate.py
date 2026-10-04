@@ -63,7 +63,6 @@ class Page:
 
 @dataclass
 class Api:
-    """Api."""
     name: str
     #: Seconds to wait between requests. Serialized: never parallelize one host.
     delay: float
@@ -74,7 +73,6 @@ class Api:
 
 
 def fetch(url: str, *, headers: dict[str, str] | None = None) -> Any:
-    """Fetch for *url*, *headers* and return Any."""
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, **(headers or {})})
     try:
         with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT) as response:
@@ -107,7 +105,6 @@ def _rxiv_url(server: str) -> Callable[[str, Any, int], str]:
 
 
 def _rxiv_parse(payload: Any, state: Any) -> Page:
-    """Rxiv parse for *payload*, *state* and return Page."""
     if not isinstance(payload, dict):
         raise RuntimeError(f"expected a JSON object, got {type(payload).__name__}")
 
@@ -157,7 +154,6 @@ def _rxiv_parse(payload: Any, state: Any) -> Page:
 
 
 def _europepmc_url(query: str, state: Any, limit: int) -> str:
-    """Europepmc url and return str."""
     params = {
         "query": query,
         "format": "json",
@@ -169,7 +165,6 @@ def _europepmc_url(query: str, state: Any, limit: int) -> str:
 
 
 def _europepmc_parse(payload: Any, state: Any) -> Page:
-    """Europepmc parse for *payload*, *state* and return Page."""
     if not isinstance(payload, dict):
         raise RuntimeError(f"expected a JSON object, got {type(payload).__name__}")
     # Europe PMC reports errors with HTTP 200 and an errCode in the body.
@@ -201,7 +196,6 @@ def _europepmc_parse(payload: Any, state: Any) -> Page:
 
 
 def _openalex_url(query: str, state: Any, limit: int) -> str:
-    """Openalex url and return str."""
     # `query` is a raw parameter string, e.g. `search=crispr` or
     # `filter=publication_year:2024`, so both forms work without a second flag.
     base = "https://api.openalex.org/works?"
@@ -216,7 +210,6 @@ def _openalex_url(query: str, state: Any, limit: int) -> str:
 
 
 def _openalex_parse(payload: Any, _state: Any) -> Page:
-    """Openalex parse for *payload*, *_state* and return Page."""
     if not isinstance(payload, dict):
         raise RuntimeError(f"expected a JSON object, got {type(payload).__name__}")
     meta = payload.get("meta") or {}
@@ -247,7 +240,6 @@ def _crossref_url(query: str, state: Any, limit: int) -> str:
 
 
 def _crossref_parse(payload: Any, _state: Any) -> Page:
-    """Crossref parse for *payload*, *_state* and return Page."""
     if not isinstance(payload, dict):
         raise RuntimeError(f"expected a JSON object, got {type(payload).__name__}")
     message = payload.get("message") or {}
@@ -321,7 +313,6 @@ def walk(
     max_calls: int,
     verbose: bool,
 ) -> tuple[list[Any], Reconciliation, list[str]]:
-    """Walk and return tuple[list[Any], Reconciliation, list[str]]."""
     records: list[Any] = []
     reconciliation = Reconciliation()
     urls: list[str] = []
@@ -383,7 +374,6 @@ def walk(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Paginate one of this skill's APIs with the correct step, the correct stop "
@@ -420,7 +410,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
 
     if args.list_apis:

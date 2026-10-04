@@ -326,13 +326,11 @@ def _request_echo(args, *, samples, region, regions, hom, het) -> dict:
 
 
 def _run_count_variants(args, samples: list[str] | None) -> None:
-    """Run count variants for *args*, *samples*."""
     region, regions = _build_regions(args)
     hom, het = _zygosity(args)
     ann = _build_annotation_filter(args)
 
     def fetch():
-        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             return client.count_variants(
                 region=region,
@@ -365,7 +363,6 @@ def _run_count_variants(args, samples: list[str] | None) -> None:
 
 
 def _run_select_variants(args, samples: list[str] | None) -> None:
-    """Run select variants for *args*, *samples*."""
     region, regions = _build_regions(args)
     hom, het = _zygosity(args)
     ann = _build_annotation_filter(args)
@@ -373,7 +370,6 @@ def _run_select_variants(args, samples: list[str] | None) -> None:
     limit = args.limit
 
     def fetch():
-        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             if page_size is not None:
                 pq = client.paginate_variants(
@@ -461,13 +457,11 @@ def cmd_select_variants_in_samples(args) -> None:
 
 
 def cmd_count_samples(args) -> None:
-    """Cmd count samples for *args*."""
     region, regions = _build_regions(args)
     hom, het = _zygosity(args)
     ann = _build_annotation_filter(args)
 
     def fetch():
-        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             return client.count_samples(
                 region=region,
@@ -499,13 +493,11 @@ def cmd_count_samples(args) -> None:
 
 
 def cmd_select_samples(args) -> None:
-    """Cmd select samples for *args*."""
     region, regions = _build_regions(args)
     hom, het = _zygosity(args)
     ann = _build_annotation_filter(args)
 
     def fetch():
-        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             return client.select_samples(
                 region=region,
@@ -550,9 +542,7 @@ def cmd_select_samples(args) -> None:
 
 
 def cmd_count_samples_hom_ref(args) -> None:
-    """Cmd count samples hom ref for *args*."""
     def fetch():
-        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             return client.count_samples_hom_ref(chr=args.chrom, position=args.position)
 
@@ -581,9 +571,7 @@ def cmd_count_samples_hom_ref(args) -> None:
 
 
 def cmd_select_samples_hom_ref(args) -> None:
-    """Cmd select samples hom ref for *args*."""
     def fetch():
-        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             return client.select_samples_hom_ref(chr=args.chrom, position=args.position)
 
@@ -605,9 +593,7 @@ def cmd_select_samples_hom_ref(args) -> None:
 
 
 def cmd_kinship(args) -> None:
-    """Cmd kinship for *args*."""
     def fetch():
-        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             return client.kinship_duo(sample1=args.sample1, sample2=args.sample2)
 
@@ -636,9 +622,7 @@ def cmd_kinship(args) -> None:
 
 
 def cmd_dataset_info(args) -> None:
-    """Cmd dataset info for *args*."""
     def fetch():
-        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             return client.dataset_info()
 
@@ -680,7 +664,6 @@ def cmd_dataset_info(args) -> None:
 
 
 def _add_annotation_flags(p: argparse.ArgumentParser) -> None:
-    """Add annotation flags for *p*."""
     g = p.add_argument_group("annotation filters (different fields AND; CSV within a field OR)")
     g.add_argument("--af-lt", type=float, help="Keep variants with 1000 Genomes AF < this value.")
     g.add_argument("--af-gt", type=float, help="Keep variants with 1000 Genomes AF > this value.")
@@ -712,7 +695,6 @@ def _add_annotation_flags(p: argparse.ArgumentParser) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     conn_parser = argparse.ArgumentParser(add_help=False)
     conn_parser.add_argument(
         "--output",
@@ -804,7 +786,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> None:
-    """Main for *argv*."""
     # Incompleteness is surfaced via result metadata and the summary, not warnings.
     warnings.simplefilter("ignore", DnaerysIncompleteResultWarning)
     args = build_parser().parse_args(argv)

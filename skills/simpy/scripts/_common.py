@@ -368,7 +368,6 @@ def _beta_continued_fraction(a: float, b: float, x: float) -> float:
 
 
 def _regularized_incomplete_beta(a: float, b: float, x: float) -> float:
-    """Regularized incomplete beta and return float."""
     if not 0.0 <= x <= 1.0:
         raise CliError("internal beta argument is outside [0, 1]")
     if x in {0.0, 1.0}:

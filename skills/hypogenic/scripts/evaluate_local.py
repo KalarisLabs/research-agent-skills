@@ -43,7 +43,6 @@ else:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan split-safe evaluation or compute metrics from saved strict JSON. "
@@ -82,7 +81,6 @@ def make_evaluation_plan(
     config_sha256: str,
     manifest_sha256: str,
 ) -> dict:
-    """Make evaluation plan and return dict."""
     split_names = [split["name"] for split in manifest["splits"]]
     return {
         "ok": split_names == list(SPLIT_NAMES),
@@ -152,7 +150,6 @@ def make_evaluation_plan(
 
 
 def make_report(result: dict, *, result_sha256: str) -> dict:
-    """Make report for *result*, *result_sha256* and return dict."""
     metrics = classification_metrics(result["records"])
     return {
         "ok": True,
@@ -177,7 +174,6 @@ def make_report(result: dict, *, result_sha256: str) -> dict:
 
 
 def _plan(args: argparse.Namespace) -> int:
-    """Plan for *args* and return int."""
     config_path = checked_input_file(
         args.config,
         root=args.root,
@@ -215,7 +211,6 @@ def _plan(args: argparse.Namespace) -> int:
 
 
 def _report(args: argparse.Namespace) -> int:
-    """Report for *args* and return int."""
     result_path = checked_input_file(
         args.results,
         root=args.root,

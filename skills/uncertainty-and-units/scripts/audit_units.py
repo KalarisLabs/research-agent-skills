@@ -197,7 +197,6 @@ class Auditor(ast.NodeVisitor):
     """Collect unit and uncertainty findings from one parsed module."""
 
     def __init__(self, source: str, filename: str) -> None:
-        """Initialize with source, filename."""
         self.filename = filename
         self.findings: list[dict[str, Any]] = []
         self.registry_sites: list[ast.AST] = []
@@ -215,7 +214,6 @@ class Auditor(ast.NodeVisitor):
         message: str,
         remedy: str,
     ) -> None:
-        """Report."""
         self.findings.append(
             {
                 "rule": rule,
@@ -243,7 +241,6 @@ class Auditor(ast.NodeVisitor):
     # --- string literals ---------------------------------------------------
 
     def visit_Constant(self, node: ast.Constant) -> None:
-        """Visit constant for *node*."""
         if isinstance(node.value, str):
             tokens = _tokens(node.value)
             if any(token.startswith("delta_") for token in tokens):
@@ -273,7 +270,6 @@ class Auditor(ast.NodeVisitor):
         self.generic_visit(node)
 
     def _check_constant_literal(self, node: ast.Constant, value: float) -> None:
-        """Check constant literal for *node*, *value*."""
         if value == 0 or not math.isfinite(value):
             return
         if significant_digits(value) < 3:
@@ -295,7 +291,6 @@ class Auditor(ast.NodeVisitor):
     # --- attribute access --------------------------------------------------
 
     def visit_Attribute(self, node: ast.Attribute) -> None:
-        """Visit attribute for *node*."""
         if node.attr == "magnitude":
             source = node.value
             preserved = (
@@ -319,7 +314,6 @@ class Auditor(ast.NodeVisitor):
     # --- calls -------------------------------------------------------------
 
     def visit_Call(self, node: ast.Call) -> None:
-        """Visit call for *node*."""
         name = self._call_name(node)
         keywords = {keyword.arg for keyword in node.keywords if keyword.arg}
 
@@ -489,7 +483,6 @@ def render_markdown(document: dict[str, Any]) -> str:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Statically audit Python sources for stripped units, offset-temperature "
@@ -559,7 +552,6 @@ def exit_code(document: dict[str, Any], fail_on: str) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     arguments = build_parser().parse_args(argv)
     try:
         document = run(arguments)

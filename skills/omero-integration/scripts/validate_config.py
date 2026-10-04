@@ -18,7 +18,6 @@ from omero_common import (
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate only named OMERO_* variables locally. By default this "
@@ -69,7 +68,6 @@ def resolve_host(host: str, port: int, *, limit: int = 10) -> list[str]:
 
 
 def format_text(payload: dict[str, Any]) -> str:
-    """Format text for *payload* and return str."""
     endpoint = payload["endpoint"]
     lines = [
         "OMERO configuration is valid.",
@@ -89,7 +87,6 @@ def format_text(payload: dict[str, Any]) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         config = load_connection_config(require_auth=args.require_auth)

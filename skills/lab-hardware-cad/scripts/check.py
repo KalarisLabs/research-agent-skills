@@ -49,7 +49,6 @@ from _common import (  # noqa: E402
 
 
 def cmd_standards(args) -> int:
-    """Cmd standards for *args* and return int."""
     data = load_standards()
     standards = data["standards"]
 
@@ -93,7 +92,6 @@ def cmd_standards(args) -> int:
 
 
 def cmd_facts(args) -> int:
-    """Cmd facts for *args* and return int."""
     shape = load_shape(args.target)
     facts = shape_facts(shape)
     box = facts["bounding_box_mm"]
@@ -169,7 +167,6 @@ def _evaluate(
 
 
 def cmd_fit(args) -> int:
-    """Cmd fit for *args* and return int."""
     entry = get_standard(args.standard)
     offset = float(args.clearance)
     results = []
@@ -429,7 +426,6 @@ def cmd_probe(args) -> int:
 
 
 def _parse_floats(raw: str, count: int, flag: str) -> list[float]:
-    """Parse floats and return list[float]."""
     parts = [p for p in raw.replace(" ", "").split(",") if p]
     if len(parts) != count:
         raise LabCadError(f"{flag} expects {count} comma-separated numbers, got {raw!r}")
@@ -470,7 +466,6 @@ def cmd_bores(args) -> int:
 
 
 def _min_distance(shape_a, shape_b) -> float | None:
-    """Min distance for *shape_a*, *shape_b* and return float | None."""
     for method in ("distance_to", "distance"):
         func = getattr(shape_a, method, None)
         if callable(func):
@@ -488,7 +483,6 @@ def _min_distance(shape_a, shape_b) -> float | None:
 
 
 def cmd_clearance(args) -> int:
-    """Cmd clearance for *args* and return int."""
     shape_a = load_shape(args.a)
     shape_b = load_shape(args.b)
 
@@ -537,7 +531,6 @@ def cmd_clearance(args) -> int:
 
 
 def main() -> int:
-    """Main and return int."""
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )

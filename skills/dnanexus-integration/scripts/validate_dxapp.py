@@ -74,7 +74,6 @@ class Issue:
 
 
 class Validator:
-    """Validator."""
     def __init__(self, manifest: Any, kind: str) -> None:
         self.manifest = manifest
         self.requested_kind = kind
@@ -87,7 +86,6 @@ class Validator:
         path: str,
         message: str,
     ) -> None:
-        """Add."""
         self.issues.append(Issue(severity, code, path, message))
 
     def error(self, code: str, path: str, message: str) -> None:
@@ -97,7 +95,6 @@ class Validator:
         self.add("warning", code, path, message)
 
     def validate(self) -> tuple[str, list[Issue]]:
-        """Validate and return tuple[str, list[Issue]]."""
         if not isinstance(self.manifest, dict):
             self.error(
                 "root-type",
@@ -124,7 +121,6 @@ class Validator:
         return "applet"
 
     def validate_metadata(self, kind: str) -> None:
-        """Validate metadata for *kind*."""
         name = self.manifest.get("name")
         if not isinstance(name, str) or not name:
             self.error("missing-name", "$.name", "name is required")
@@ -165,7 +161,6 @@ class Validator:
             )
 
     def validate_specs(self, kind: str) -> None:
-        """Validate specs for *kind*."""
         for spec_name in ("inputSpec", "outputSpec"):
             value = self.manifest.get(spec_name)
             if value is None:
@@ -197,7 +192,6 @@ class Validator:
         spec_name: str,
         parameters: list[Any],
     ) -> None:
-        """Validate parameter list for *spec_name*, *parameters*."""
         seen: set[str] = set()
         is_output = spec_name == "outputSpec"
 
@@ -252,7 +246,6 @@ class Validator:
                         )
 
     def validate_run_spec(self) -> None:
-        """Validate run spec."""
         run_spec = self.manifest.get("runSpec")
         if not isinstance(run_spec, dict):
             self.error(
@@ -341,7 +334,6 @@ class Validator:
         self.validate_timeout_policy(run_spec.get("timeoutPolicy"))
 
     def validate_exec_depends(self, dependencies: Any) -> None:
-        """Validate exec depends for *dependencies*."""
         if dependencies is None:
             return
         if not isinstance(dependencies, list):
@@ -376,7 +368,6 @@ class Validator:
                 )
 
     def validate_execution_policy(self, policy: Any) -> None:
-        """Validate execution policy for *policy*."""
         if policy is None:
             return
         if not isinstance(policy, dict):
@@ -426,7 +417,6 @@ class Validator:
                 )
 
     def validate_timeout_policy(self, policy: Any) -> None:
-        """Validate timeout policy for *policy*."""
         if policy is None:
             return
         if not isinstance(policy, dict):
@@ -465,7 +455,6 @@ class Validator:
                     )
 
     def validate_regional_options(self) -> None:
-        """Validate regional options."""
         regional = self.manifest.get("regionalOptions")
         if regional is None:
             return
@@ -516,7 +505,6 @@ class Validator:
         requirements: Any,
         path: str,
     ) -> None:
-        """Validate system requirements for *requirements*, *path*."""
         if not isinstance(requirements, dict) or not requirements:
             self.error(
                 "system-requirements-type",
@@ -559,7 +547,6 @@ class Validator:
                 )
 
     def validate_instance_selector(self, selector: Any, path: str) -> None:
-        """Validate instance selector for *selector*, *path*."""
         if not isinstance(selector, dict):
             self.error(
                 "instance-selector-type",
@@ -587,7 +574,6 @@ class Validator:
             )
 
     def validate_access(self) -> None:
-        """Validate access."""
         access = self.manifest.get("access")
         if access is None:
             return
@@ -645,7 +631,6 @@ class Validator:
             )
 
     def validate_https_app(self) -> None:
-        """Validate https app."""
         https_app = self.manifest.get("httpsApp")
         if https_app is None:
             return
@@ -673,7 +658,6 @@ class Validator:
         value: Any,
         path: str = "$",
     ) -> None:
-        """Scan for embedded secrets for *value*, *path*."""
         if isinstance(value, dict):
             for key, child in value.items():
                 child_path = f"{path}.{key}"
@@ -699,7 +683,6 @@ class Validator:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -741,7 +724,6 @@ def print_text(
     kind: str,
     issues: list[Issue],
 ) -> None:
-    """Print text."""
     counts = summarize(issues)
     print(f"Manifest: {path}")
     print(f"Kind: {kind}")
@@ -752,7 +734,6 @@ def print_text(
 
 
 def main(argv: Optional[list[str]] = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     path = args.manifest.expanduser()

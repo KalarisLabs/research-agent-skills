@@ -51,7 +51,6 @@ def _partitions(
     seed: int,
     max_steps: int,
 ) -> list[tuple[int, int, int, int, int]]:
-    """Partitions and return list[tuple[int, int, int, int, int]]."""
     parts: list[tuple[int, int, int, int, int]] = []
     base, remainder = divmod(num_envs, workers)
     start = 0
@@ -64,7 +63,6 @@ def _partitions(
 
 
 def _summarize(samples: list[float]) -> dict[str, float]:
-    """Summarize for *samples* and return dict[str, float]."""
     ordered = sorted(samples)
 
     def percentile(fraction: float) -> float:
@@ -179,7 +177,6 @@ def benchmark(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     safe_methods = [method for method in ("spawn", "forkserver") if method in mp.get_all_start_methods()]
     parser = argparse.ArgumentParser(
         description=(
@@ -208,7 +205,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

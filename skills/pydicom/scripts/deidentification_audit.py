@@ -66,7 +66,6 @@ BULK_OR_CONTENT_KEYWORDS = {
 
 
 def _has_value(element: Any) -> bool:
-    """Has value for *element* and return bool."""
     value = element.value
     if value is None:
         return False
@@ -85,7 +84,6 @@ def audit_dataset(
     file_id: str,
     max_elements: int,
 ) -> dict[str, Any]:
-    """Audit dataset and return dict[str, Any]."""
     actions = profile["actions"]
     categories: Counter[str] = Counter()
     residual_keywords: Counter[str] = Counter()
@@ -180,7 +178,6 @@ def audit_dataset(
 
 
 def build_report(args: argparse.Namespace) -> dict[str, Any]:
-    """Build report for *args* and return dict[str, Any]."""
     max_input_bytes = parse_size(
         args.max_input_bytes,
         name="max_input_bytes",
@@ -286,7 +283,6 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit bounded DICOM metadata for residual identifier categories; "
@@ -345,7 +341,6 @@ Examples:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         report = build_report(args)

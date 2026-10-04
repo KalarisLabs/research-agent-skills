@@ -27,7 +27,6 @@ else:
 
 
 def build_parser() -> argparse.ArgumentParser:
-  """Build parser and return argparse.ArgumentParser."""
   parser = argparse.ArgumentParser(
       description=(
           "Check resource bounds and static axis-aligned collisions in an offline "
@@ -39,7 +38,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-  """Main for *argv* and return int."""
   args = build_parser().parse_args(argv)
   try:
     manifest = validate_manifest(load_json(args.input))

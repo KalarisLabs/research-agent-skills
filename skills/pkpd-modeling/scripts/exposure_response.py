@@ -191,7 +191,6 @@ def fit_cqtc(conc: np.ndarray, delta_qtc: np.ndarray, cmax: float | None) -> dic
 
 
 def quartile_summary(exposure: np.ndarray, response: np.ndarray, n_bins: int) -> list[dict]:
-    """Quartile summary and return list[dict]."""
     edges = np.quantile(exposure, np.linspace(0, 1, n_bins + 1))
     edges[-1] = np.nextafter(edges[-1], np.inf)
     rows = []
@@ -218,7 +217,6 @@ def quartile_summary(exposure: np.ndarray, response: np.ndarray, n_bins: int) ->
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Exposure-response modelling: Emax, logistic, concentration-QTc, quartiles.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -239,7 +237,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def run(argv: Sequence[str] | None = None) -> int:
-    """Run for *argv* and return int."""
     args = build_parser().parse_args(argv)
     modes = [m for m in ("emax", "logistic", "cqtc", "quartiles") if getattr(args, m)]
     if len(modes) != 1:

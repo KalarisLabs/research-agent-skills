@@ -100,7 +100,6 @@ def bounded_int(minimum: int, maximum: int) -> Callable[[str], int]:
     """Return an argparse converter for a bounded integer."""
 
     def convert(value: str) -> int:
-        """Convert for *value* and return int."""
         try:
             parsed = int(value)
         except ValueError as exc:
@@ -459,7 +458,6 @@ def reduce_expression(
     """Reduce a validated expression tree against concrete values."""
 
     def walk(node: ast.AST) -> Any:
-        """Walk for *node* and return Any."""
         if isinstance(node, ast.Expression):
             return walk(node.body)
         if isinstance(node, ast.Constant):
@@ -559,7 +557,6 @@ def array_functions() -> dict[str, Callable[..., Any]]:
     }
 
     def erf(value: Any) -> Any:
-        """Erf for *value* and return Any."""
         try:
             from scipy.special import erf as scipy_erf
         except ImportError as exc:

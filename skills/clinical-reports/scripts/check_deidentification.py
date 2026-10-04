@@ -82,7 +82,6 @@ def _required_true(
     field: str,
     errors: list[str],
 ) -> None:
-    """Required true."""
     try:
         if not require_bool(data.get(field), field):
             errors.append(f"{field} must be true")
@@ -268,7 +267,6 @@ def validate_process(data: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Check bounded JSON de-identification process documentation. "
@@ -282,7 +280,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         _, data = load_json_object(args.input_file)

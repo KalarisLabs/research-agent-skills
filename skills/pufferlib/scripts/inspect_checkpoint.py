@@ -51,7 +51,6 @@ _SIDECAR_FIELDS = {
 
 
 def _open_regular_no_follow(path: Path) -> tuple[BinaryIO, os.stat_result]:
-    """Open regular no follow for *path* and return tuple[BinaryIO, os.stat_result]."""
     flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
     try:
         descriptor = os.open(path, flags)
@@ -68,7 +67,6 @@ def _open_regular_no_follow(path: Path) -> tuple[BinaryIO, os.stat_result]:
 
 
 def _detect_format(prefix: bytes, suffix: str) -> dict[str, Any]:
-    """Detect format for *prefix*, *suffix* and return dict[str, Any]."""
     if prefix.startswith(b"PK\x03\x04"):
         return {
             "family": "zip-container",
@@ -93,7 +91,6 @@ def _detect_format(prefix: bytes, suffix: str) -> dict[str, Any]:
 
 
 def _hash_and_prefix(handle: BinaryIO, *, chunk_bytes: int = 1_048_576) -> tuple[str, bytes]:
-    """Hash and prefix for *handle*, *chunk_bytes* and return tuple[str, bytes]."""
     digest = hashlib.sha256()
     prefix = b""
     while True:
@@ -109,7 +106,6 @@ def _hash_and_prefix(handle: BinaryIO, *, chunk_bytes: int = 1_048_576) -> tuple
 def _safe_sidecar(
     metadata_path: str | None, *, root: str | Path
 ) -> tuple[dict[str, Any] | None, list[str]]:
-    """Safe sidecar for *metadata_path*, *root* and return tuple[dict[str, Any] | None, list[str]]."""
     if metadata_path is None:
         return None, []
     raw = load_json_object(metadata_path, root=root, max_bytes=262_144)
@@ -175,7 +171,6 @@ def inspect_checkpoint(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Hash and classify one local checkpoint without torch.load, pickle, "
@@ -197,7 +192,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

@@ -36,8 +36,6 @@ function octal(buf: Buffer, start: number, len: number): number {
   return s ? parseInt(s, 8) : 0;
 }
 
-/** Parse pax. */
-
 function parsePax(data: Buffer): Record<string, string> {
   const out: Record<string, string> = {};
   let i = 0;

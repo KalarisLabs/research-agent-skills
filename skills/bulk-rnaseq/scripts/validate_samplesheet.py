@@ -47,7 +47,6 @@ class Report:
         self.warnings.append(msg)
 
     def summarize(self) -> int:
-        """Summarize and return int."""
         for w in self.warnings:
             print(f"  WARN  {w}")
         for e in self.errors:
@@ -65,7 +64,6 @@ def _is_remote(path: str) -> bool:
 
 
 def validate_samplesheet(path: Path, check_files: bool, rep: Report) -> pd.DataFrame | None:
-    """Validate samplesheet and return pd.DataFrame | None."""
     if not path.is_file():
         rep.error(f"samplesheet not found: {path}")
         return None
@@ -134,7 +132,6 @@ def validate_samplesheet(path: Path, check_files: bool, rep: Report) -> pd.DataF
 
 def validate_metadata(meta_path: Path, sheet: pd.DataFrame | None,
                       condition_col: str, min_rep: int, rep: Report) -> None:
-    """Validate metadata."""
     if not meta_path.is_file():
         rep.error(f"metadata not found: {meta_path}")
         return
@@ -183,7 +180,6 @@ def validate_metadata(meta_path: Path, sheet: pd.DataFrame | None,
 
 
 def main() -> None:
-    """Main."""
     p = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )

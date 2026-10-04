@@ -32,7 +32,6 @@ _MD5 = re.compile(r"^[0-9a-f]{32}$")
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a local refget metadata JSON document and optionally compare "
@@ -81,14 +80,12 @@ def _read_fasta(
     max_bytes: int,
     max_records: int,
 ) -> list[dict[str, object]]:
-    """Read fasta and return list[dict[str, object]]."""
     records: list[dict[str, object]] = []
     name: str | None = None
     chunks: list[bytes] = []
     names: set[str] = set()
 
     def finish() -> None:
-        """Finish."""
         nonlocal name, chunks
         if name is None:
             return
@@ -142,7 +139,6 @@ def _read_fasta(
 
 
 def validate(args: argparse.Namespace) -> tuple[dict, int]:
-    """Validate for *args* and return tuple[dict, int]."""
     assembly = args.assembly.strip()
     if not assembly or len(assembly) > 200:
         raise SafetyError("assembly must contain 1-200 characters")
@@ -302,7 +298,6 @@ def validate(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report, status = validate(args)

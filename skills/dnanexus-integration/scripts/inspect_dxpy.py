@@ -143,7 +143,6 @@ def safe_signature(obj: Any) -> Optional[str]:
 
 
 def inspect_symbol(module_name: str, symbol_name: str) -> dict[str, Any]:
-    """Inspect symbol for *module_name*, *symbol_name* and return dict[str, Any]."""
     qualified_name = f"{module_name}.{symbol_name}"
     try:
         module = importlib.import_module(module_name)
@@ -175,7 +174,6 @@ def inspect_methods(
     class_name: str,
     method_names: list[str],
 ) -> dict[str, Any]:
-    """Inspect methods and return dict[str, Any]."""
     try:
         cls = getattr(importlib.import_module(module_name), class_name)
     except Exception as error:
@@ -199,7 +197,6 @@ def numeric_version(value: str) -> tuple[int, ...]:
 
 
 def build_report() -> dict[str, Any]:
-    """Build report and return dict[str, Any]."""
     try:
         dxpy_version = version("dxpy")
     except PackageNotFoundError:
@@ -261,7 +258,6 @@ def missing_required_symbols(report: dict[str, Any]) -> list[str]:
 
 
 def missing_required_methods(report: dict[str, Any]) -> list[str]:
-    """Missing required methods for *report* and return list[str]."""
     required = {
         "DXFile.describe",
         "DXFile.clone",
@@ -282,7 +278,6 @@ def missing_required_methods(report: dict[str, Any]) -> list[str]:
 
 
 def print_text(report: dict[str, Any]) -> None:
-    """Print text for *report*."""
     print(f"Python: {report['python']}")
     print(f"Platform: {report['platform']}")
     print(f"dxpy: {report['dxpy_version'] or 'not installed'}")
@@ -328,7 +323,6 @@ def print_text(report: dict[str, Any]) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -347,7 +341,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Optional[list[str]] = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     report = build_report()
 

@@ -287,7 +287,6 @@ def create_plots(ds, output_dir):
 
 
 def main():
-    """Main."""
     parser = argparse.ArgumentParser(
         description="Run PyDESeq2 differential expression analysis",
         formatter_class=argparse.RawDescriptionHelpFormatter,

@@ -55,7 +55,6 @@ def export_phy(
 
 
 def main():
-    """Main."""
     parser = argparse.ArgumentParser(description='Export to Phy')
     parser.add_argument('analyzer', help='Path to sorting analyzer')
     parser.add_argument('--output', '-o', default='phy_export/', help='Output directory')

@@ -66,7 +66,6 @@ def s2_from_cv(cv: float) -> float:
 
 @dataclass
 class AverageBE:
-    """Average be."""
     gmr: float
     ci_low: float
     ci_high: float
@@ -149,7 +148,6 @@ def crossover_2x2(records: list[dict], design: str = "2x2") -> AverageBE:
 
 
 def parallel_design(records: list[dict]) -> AverageBE:
-    """Parallel design for *records* and return AverageBE."""
     test = np.asarray([r["logvalue"] for r in records if r["treatment"] == "T"])
     ref = np.asarray([r["logvalue"] for r in records if r["treatment"] == "R"])
     if len(test) < 2 or len(ref) < 2:
@@ -177,7 +175,6 @@ def parallel_design(records: list[dict]) -> AverageBE:
 
 @dataclass
 class ReferenceVariability:
-    """Reference variability."""
     s2wr: float
     df: int
     n_subjects: int
@@ -293,7 +290,6 @@ def sample_size(cv: float, gmr: float, target: float, design: str = "2x2", limit
 
 
 def load_records(args: argparse.Namespace) -> list[dict]:
-    """Load records for *args* and return list[dict]."""
     rows = read_table(args.input)
     require_columns(rows, [args.subject_column, args.treatment_column, args.value_column], str(args.input))
     records = []
@@ -322,7 +318,6 @@ def load_records(args: argparse.Namespace) -> list[dict]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Average, reference-scaled, and prospective bioequivalence calculations.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -352,7 +347,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def run(argv: Sequence[str] | None = None) -> int:
-    """Run for *argv* and return int."""
     args = build_parser().parse_args(argv)
     report = Report()
 

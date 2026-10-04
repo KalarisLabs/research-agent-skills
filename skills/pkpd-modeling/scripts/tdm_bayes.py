@@ -41,7 +41,6 @@ except ImportError as exc:  # pragma: no cover
 
 @dataclass
 class PopulationModel:
-    """Population model."""
     name: str
     description: str
     cl_pop: float          # L/h at the reference covariates
@@ -141,7 +140,6 @@ def map_estimate(
 
 
 def exposure_metrics(cl: float, v: float, dose: float, interval: float, infusion: float) -> dict:
-    """Exposure metrics and return dict."""
     disp = disposition(cl, v)
     regimen = build_regimen(dose, interval=interval, n_doses=60, duration=infusion)
     grid = np.linspace(59 * interval, 60 * interval, 2001)
@@ -166,7 +164,6 @@ def recommend_dose(cl: float, target_auc24: float) -> float:
 
 
 def _level(text: str) -> tuple[float, float]:
-    """Level for *text* and return tuple[float, float]."""
     if "@" not in text:
         raise argparse.ArgumentTypeError(f"--level must look like 18.2@11.5 (conc@time), got {text!r}")
     conc_text, time_text = text.split("@", 1)
@@ -180,7 +177,6 @@ def _level(text: str) -> tuple[float, float]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="MAP Bayesian individualisation of a population PK model from measured levels.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -207,7 +203,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def run(argv: Sequence[str] | None = None) -> int:
-    """Run for *argv* and return int."""
     args = build_parser().parse_args(argv)
     if bool(args.model) == bool(args.custom):
         raise InputError("choose either --model NAME or --custom")

@@ -84,7 +84,6 @@ class TemplateDataModule(L.LightningDataModule):
         train_val_split: float = 0.8,
         pin_memory: bool = True,
     ):
-        """Initialize with data_dir, batch_size, num_workers, train_val_split, pin_memory."""
         super().__init__()
 
         # Save hyperparameters

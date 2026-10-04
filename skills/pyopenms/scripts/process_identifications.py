@@ -25,7 +25,6 @@ except ImportError:
 
 
 def index_peptides(fasta, prot_ids, pep_ids):
-    """Index peptides."""
     fasta_entries = []
     ms.FASTAFile().load(fasta, fasta_entries)
     indexer = ms.PeptideIndexing()
@@ -38,7 +37,6 @@ def index_peptides(fasta, prot_ids, pep_ids):
 
 
 def main():
-    """Main."""
     parser = argparse.ArgumentParser(description="Filter and export peptide identifications.")
     parser.add_argument("input", help="Input idXML")
     parser.add_argument("--fasta", help="Protein FASTA (target+decoy) for re-indexing")

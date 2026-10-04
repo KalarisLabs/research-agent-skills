@@ -56,7 +56,6 @@ class IssueLog:
         return not self.errors
 
     def as_dict(self) -> dict[str, Any]:
-        """As dict and return dict[str, Any]."""
         return {
             "status": "pass" if self.ok else "fail",
             "errors": self.errors,
@@ -154,7 +153,6 @@ def write_text(raw_path: str, text: str, suffixes: Iterable[str]) -> None:
 def require_nonempty_text(
     value: Any, field_name: str, *, max_length: int = MAX_TEXT_LENGTH
 ) -> str:
-    """Require nonempty text and return str."""
     if not isinstance(value, str) or not value.strip():
         raise InputError(f"{field_name} must be non-empty text")
     text = value.strip()
@@ -187,7 +185,6 @@ def nonnegative_int(value: Any, field_name: str) -> int:
 
 
 def source_ids(document: dict[str, Any]) -> set[str]:
-    """Source ids for *document* and return set[str]."""
     sources = require_list(document.get("sources"), "sources", maximum=MAX_SOURCES)
     identifiers: set[str] = set()
     for index, source in enumerate(sources):
@@ -208,7 +205,6 @@ def source_ids(document: dict[str, Any]) -> set[str]:
 def validate_references(
     references: Any, known_sources: set[str], field_name: str
 ) -> list[str]:
-    """Validate references and return list[str]."""
     values = require_list(references, field_name, maximum=50)
     normalized: list[str] = []
     for index, value in enumerate(values):

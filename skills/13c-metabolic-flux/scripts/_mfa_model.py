@@ -47,7 +47,6 @@ def unique(items, label):
 
 
 def read_json(path):
-    """Read json for *path*."""
     def pairs(items):
         result = {}
         for key, value in items:
@@ -63,9 +62,7 @@ def read_json(path):
 
 
 class Network:
-    """Network."""
     def __init__(self, spec):
-        """Initialize with spec."""
         fields(spec, {"schema_version", "name", "flux_unit", "provenance", "metabolites",
                       "reactions", "fragments"})
         require(type(spec["schema_version"]) is int and spec["schema_version"] == 1,
@@ -199,7 +196,6 @@ class Network:
                     and np.max(np.abs(self.equalities @ vector - self.rhs)) <= tolerance)
 
     def engine(self):
-        """Engine."""
         if self._engine is None:
             import mfapy
             metabolites = {
@@ -220,7 +216,6 @@ class Network:
         return self._engine
 
     def predict(self, vector, experiment):
-        """Predict for *vector*, *experiment*."""
         engine = self.engine()
         # mfapy's generated steady-state solver drops rows with absolute turnover
         # <= 0.001. MIDs are invariant to uniform flux scaling: keep every positive
@@ -254,9 +249,7 @@ class Network:
 
 
 class Observations:
-    """Observations."""
     def __init__(self, spec, network):
-        """Initialize with spec, network."""
         fields(spec, {"schema_version", "steady_state", "shared_fluxes", "mdv_basis",
                       "correction_notes", "experiments"})
         require(type(spec["schema_version"]) is int and spec["schema_version"] == 1, "Unsupported schema")
@@ -344,7 +337,6 @@ class Observations:
         self.size = sum(len(block[3]) for block in self.blocks) + len(self.flux_blocks)
 
     def residuals(self, vector, details=False):
-        """Residuals for *vector*, *details*."""
         predictions = {exp["id"]: self.network.predict(vector, exp) for exp in self.spec["experiments"]}
         residuals, records = [], []
         for exp, fid, observed, keep, chol in self.blocks:

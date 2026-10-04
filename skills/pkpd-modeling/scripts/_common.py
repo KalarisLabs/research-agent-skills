@@ -152,7 +152,6 @@ def read_table(source: str | Path) -> list[dict[str, str]]:
 
 
 def require_columns(rows: Sequence[Mapping[str, Any]], required: Iterable[str], where: str) -> None:
-    """Require columns."""
     present = set(rows[0].keys())
     missing = [c for c in required if c not in present]
     if missing:
@@ -179,13 +178,11 @@ def group_by(rows: Sequence[Mapping[str, Any]], key: str) -> dict[str, list[Mapp
 
 @dataclass
 class Table:
-    """Table."""
     title: str
     rows: list[dict[str, Any]]
     columns: list[str] | None = None
 
     def headers(self) -> list[str]:
-        """Headers and return list[str]."""
         if self.columns:
             return list(self.columns)
         seen: list[str] = []
@@ -225,7 +222,6 @@ class Report:
     # -- rendering
 
     def _render_table(self, table: Table) -> str:
-        """Render table for *table* and return str."""
         headers = table.headers()
         cells = [[fmt(row.get(h)) for h in headers] for row in table.rows]
         widths = [len(h) for h in headers]
@@ -241,7 +237,6 @@ class Report:
         return "\n".join(out)
 
     def emit(self, fmt_name: str, stream=None, err=None) -> int:
-        """Emit and return int."""
         stream = stream or sys.stdout
         err = err or sys.stderr
 
@@ -281,7 +276,6 @@ class Report:
 
 
 def _json_default(obj: Any) -> Any:
-    """Json default for *obj* and return Any."""
     if hasattr(obj, "item"):  # numpy scalar
         return obj.item()
     if hasattr(obj, "tolist"):  # numpy array

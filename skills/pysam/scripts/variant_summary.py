@@ -33,7 +33,6 @@ def nonnegative_int(value: str) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -107,7 +106,6 @@ def is_symbolic_or_breakend(allele: str) -> bool:
 
 
 def classify_record(record: pysam.VariantRecord) -> str:
-    """Classify record for *record* and return str."""
     alts = record.alts or ()
     if not alts:
         return "no_alt"
@@ -135,7 +133,6 @@ def update_substitution_counts(
     record: pysam.VariantRecord,
     counts: Counter[str],
 ) -> None:
-    """Update substitution counts for *record*, *counts*."""
     alts = record.alts or ()
     if len(alts) != 1:
         return
@@ -156,7 +153,6 @@ def update_genotype_counts(
     counts: Counter[str],
     ploidy_counts: Counter[int],
 ) -> None:
-    """Update genotype counts."""
     for call in record.samples.values():
         genotype = call.get("GT")
         counts["genotypes_seen"] += 1
@@ -191,7 +187,6 @@ def update_genotype_counts(
 
 
 def summarize_variants(args: argparse.Namespace) -> dict[str, Any]:
-    """Summarize variants for *args* and return dict[str, Any]."""
     path = require_local_file(args.input, "input")
     index = (
         require_local_file(args.index, "index")
@@ -320,7 +315,6 @@ def summarize_variants(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def write_report(report: dict[str, Any], output: Optional[Path]) -> None:
-    """Write report for *report*, *output*."""
     text = json.dumps(
         report,
         indent=2,
@@ -337,7 +331,6 @@ def write_report(report: dict[str, Any], output: Optional[Path]) -> None:
 
 
 def main(argv: Optional[list[str]] = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
 

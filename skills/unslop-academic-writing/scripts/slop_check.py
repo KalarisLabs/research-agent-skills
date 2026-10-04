@@ -109,7 +109,6 @@ class Finding:
 
 
 def read_input(path: str) -> str:
-    """Read input for *path* and return str."""
     if path == "-":
         return sys.stdin.read()
     if path.lower().endswith(".docx"):
@@ -163,7 +162,6 @@ def split_sentences(text: str) -> list[str]:
 
 
 def analyse(text: str) -> dict:
-    """Analyse for *text* and return dict."""
     lines = prose_lines(text)
     prose = "\n".join(t for _, t in lines)
     words = re.findall(r"[A-Za-z][A-Za-z'-]*", prose)
@@ -241,7 +239,6 @@ def analyse(text: str) -> dict:
 
 
 def main() -> int:
-    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("path", help="file (.md .tex .txt .docx) or - for stdin")
     ap.add_argument("--json", action="store_true")

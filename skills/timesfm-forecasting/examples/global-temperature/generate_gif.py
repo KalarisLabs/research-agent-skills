@@ -155,7 +155,6 @@ def create_frame(
 
 
 def main() -> None:
-    """Main."""
     print("=" * 60)
     print("  GENERATING ANIMATED GIF")
     print("=" * 60)

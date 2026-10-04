@@ -36,7 +36,6 @@ EXPECTED_VERSIONS = {
 
 
 def _require_exact_dependencies() -> dict[str, str]:
-    """Require exact dependencies and return dict[str, str]."""
     installed: dict[str, str] = {}
     for distribution, expected in EXPECTED_VERSIONS.items():
         try:
@@ -79,7 +78,6 @@ def _set_text_shape(
     MSO_AUTO_SIZE: Any,
     existing_shape: Any | None = None,
 ) -> None:
-    """Set text shape."""
     if existing_shape is None:
         shape = slide.shapes.add_textbox(
             Inches(float(element["x_in"])),
@@ -146,7 +144,6 @@ def _add_picture(
     metadata: dict[str, Any],
     Inches: Any,
 ) -> tuple[str, str]:
-    """Add picture and return tuple[str, str]."""
     width_px = int(metadata["width_px"])
     height_px = int(metadata["height_px"])
     box_width = float(element["width_in"])
@@ -175,7 +172,6 @@ def _build_presentation(
     image_inventory: dict[str, Any],
     output_path: Path,
 ) -> dict[str, str]:
-    """Build presentation and return dict[str, str]."""
     try:
         from pptx import Presentation
         from pptx.dml.color import RGBColor
@@ -396,7 +392,6 @@ def generate_poster(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Generate one editable, macro-free PPTX poster from strict, approved "
@@ -416,7 +411,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     try:
         args = parser.parse_args(argv)

@@ -632,7 +632,6 @@ def model_info(model_id: str, timeout: float) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     parser = argparse.ArgumentParser(
         description="Generate or edit images via the OpenRouter Image API.",
         formatter_class=argparse.RawDescriptionHelpFormatter,

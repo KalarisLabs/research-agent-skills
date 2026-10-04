@@ -64,7 +64,6 @@ PRESETS = {
 
 
 def run_poppler(command: str, pdf_path: Path) -> subprocess.CompletedProcess[str] | None:
-    """Run poppler for *command*, *pdf_path* and return subprocess.CompletedProcess[str] | None."""
     try:
         return subprocess.run(
             [command, str(pdf_path)],
@@ -80,7 +79,6 @@ def run_poppler(command: str, pdf_path: Path) -> subprocess.CompletedProcess[str
 
 
 def pdf_info(pdf_path: Path) -> dict[str, str] | None:
-    """Pdf info for *pdf_path* and return dict[str, str] | None."""
     result = run_poppler("pdfinfo", pdf_path)
     if result is None:
         return None
@@ -94,7 +92,6 @@ def pdf_info(pdf_path: Path) -> dict[str, str] | None:
 
 
 def embedded_fonts(pdf_path: Path) -> list[str] | None:
-    """Embedded fonts for *pdf_path* and return list[str] | None."""
     result = run_poppler("pdffonts", pdf_path)
     if result is None:
         return None
@@ -113,7 +110,6 @@ def page_count_result(
     max_content_pages: int | None,
     excluded: str | None,
 ) -> dict[str, str]:
-    """Page count result and return dict[str, str]."""
     if total_pages is None:
         return {
             "status": "skip",
@@ -162,7 +158,6 @@ def page_count_result(
 
 
 def font_result(fonts: list[str] | None) -> dict[str, str]:
-    """Font result for *fonts* and return dict[str, str]."""
     if fonts is None:
         return {
             "status": "skip",
@@ -184,7 +179,6 @@ def font_result(fonts: list[str] | None) -> dict[str, str]:
 
 
 def metadata_result(info: dict[str, str] | None) -> dict[str, str]:
-    """Metadata result for *info* and return dict[str, str]."""
     if info is None:
         return {
             "status": "skip",
@@ -211,7 +205,6 @@ def write_report(
     checked: str | None,
     results: dict[str, dict[str, str]],
 ) -> None:
-    """Write report."""
     lines = [
         "Submission PDF Inspection",
         "=" * 60,
@@ -234,7 +227,6 @@ def write_report(
 
 
 def parse_args() -> argparse.Namespace:
-    """Parse args and return argparse.Namespace."""
     parser = argparse.ArgumentParser(
         description="Inspect page count, fonts, and metadata without claiming full compliance"
     )
@@ -257,7 +249,6 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
-    """Main and return int."""
     args = parse_args()
     pdf_path = Path(args.file)
     if not pdf_path.is_file():

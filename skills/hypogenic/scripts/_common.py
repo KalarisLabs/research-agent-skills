@@ -86,7 +86,6 @@ def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def _reject_url_or_secret_path(value: str) -> None:
-    """Reject url or secret path for *value*."""
     lowered = value.strip().lower()
     if "\x00" in value:
         raise CliError("paths must not contain a NUL byte")
@@ -103,7 +102,6 @@ def _absolute_lexical(path: Path) -> Path:
 
 
 def _reject_symlink_components(path: Path) -> None:
-    """Reject symlink components for *path*."""
     absolute = _absolute_lexical(path)
     current = Path(absolute.anchor)
     for part in absolute.parts[1:]:
@@ -227,7 +225,6 @@ def _validate_plain_document(value: Any) -> Any:
     nodes = 0
 
     def visit(item: Any, depth: int) -> Any:
-        """Visit for *item*, *depth* and return Any."""
         nonlocal nodes
         nodes += 1
         if nodes > MAX_DOCUMENT_NODES:
@@ -291,7 +288,6 @@ def _load_yaml(text: str) -> Any:
         pass
 
     def construct_mapping(loader: Any, node: Any, deep: bool = False) -> dict[str, Any]:
-        """Construct mapping and return dict[str, Any]."""
         loader.flatten_mapping(node)
         mapping: dict[str, Any] = {}
         for key_node, value_node in node.value:
@@ -357,7 +353,6 @@ def load_json_document(
     root: str | os.PathLike[str] = ".",
     max_bytes: int = MAX_JSON_BYTES,
 ) -> Any:
-    """Load json document and return Any."""
     path = checked_input_file(
         value,
         root=root,
@@ -385,7 +380,6 @@ def validate_keys(
     optional: Iterable[str] = (),
     context: str,
 ) -> dict[str, Any]:
-    """Validate keys and return dict[str, Any]."""
     if not isinstance(value, dict):
         raise CliError(f"{context} must be an object")
     required_set = set(required)
@@ -414,7 +408,6 @@ def finite_number(
     minimum: float = 0.0,
     maximum: float = 1_000_000_000.0,
 ) -> float:
-    """Finite number and return float."""
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise CliError(f"{name} must be numeric")
     number = float(value)
@@ -424,7 +417,6 @@ def finite_number(
 
 
 def nonempty_text(value: Any, *, name: str, maximum: int = 1024) -> str:
-    """Nonempty text and return str."""
     if (
         not isinstance(value, str)
         or not value.strip()
@@ -452,7 +444,6 @@ def normalized_sha256(value: Any, *, name: str) -> str:
 
 
 def normalized_date(value: Any, *, name: str) -> str:
-    """Normalized date for *value*, *name* and return str."""
     if not isinstance(value, str) or DATE_RE.fullmatch(value) is None:
         raise CliError(f"{name} must use YYYY-MM-DD")
     try:
@@ -463,7 +454,6 @@ def normalized_date(value: Any, *, name: str) -> str:
 
 
 def _validate_no_secret_fields(value: Any, *, context: str = "config") -> None:
-    """Validate no secret fields for *value*, *context*."""
     if isinstance(value, dict):
         for key, child in value.items():
             lowered = key.lower()
@@ -792,7 +782,6 @@ def named_env_presence(config: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _validate_prompt_value(value: Any, *, context: str, depth: int = 0) -> None:
-    """Validate prompt value."""
     if depth > 16:
         raise CliError(f"{context} exceeds prompt-template depth 16")
     if isinstance(value, str):
@@ -878,7 +867,6 @@ def validate_task_config(document: Any) -> dict[str, Any]:
 
 
 def validate_dataset_manifest(document: Any) -> dict[str, Any]:
-    """Validate dataset manifest for *document* and return dict[str, Any]."""
     top = validate_keys(
         document,
         required=(
@@ -986,7 +974,6 @@ def validate_dataset_manifest(document: Any) -> dict[str, Any]:
 
 
 def validate_hypothesis_bank(document: Any) -> list[dict[str, Any]]:
-    """Validate hypothesis bank for *document* and return list[dict[str, Any]]."""
     if not isinstance(document, dict) or not document:
         raise CliError("hypothesis bank root must be a nonempty object")
     if len(document) > MAX_HYPOTHESES:
@@ -1092,7 +1079,6 @@ def validate_hypothesis_bank(document: Any) -> list[dict[str, Any]]:
 
 
 def validate_result_document(document: Any) -> dict[str, Any]:
-    """Validate result document for *document* and return dict[str, Any]."""
     top = validate_keys(
         document,
         required=(
@@ -1236,7 +1222,6 @@ def classification_metrics(records: Sequence[Mapping[str, str | None]]) -> dict[
 
 
 def canonical_json_bytes(value: Any) -> bytes:
-    """Canonical json bytes for *value* and return bytes."""
     try:
         return json.dumps(
             value,
@@ -1250,7 +1235,6 @@ def canonical_json_bytes(value: Any) -> bytes:
 
 
 def sha256_file(path: Path, *, max_bytes: int = MAX_JSON_BYTES) -> str:
-    """Sha256 file for *path*, *max_bytes* and return str."""
     try:
         size = path.stat().st_size
     except OSError as exc:
@@ -1268,7 +1252,6 @@ def sha256_file(path: Path, *, max_bytes: int = MAX_JSON_BYTES) -> str:
 
 
 def summarize_numbers(values: Sequence[float | int]) -> dict[str, float | int | None]:
-    """Summarize numbers for *values* and return dict[str, float | int | None]."""
     if not values:
         return {"minimum": None, "maximum": None, "mean": None}
     return {
@@ -1290,7 +1273,6 @@ def count_values(values: Iterable[str]) -> list[dict[str, Any]]:
 
 
 def strict_json_bytes(document: Any) -> bytes:
-    """Strict json bytes for *document* and return bytes."""
     try:
         payload = (
             json.dumps(
@@ -1316,7 +1298,6 @@ def emit_json(document: Any, *, stream: Any = None) -> None:
 
 
 def emit_error(error: Exception) -> int:
-    """Emit error for *error* and return int."""
     emit_json(
         {
             "ok": False,

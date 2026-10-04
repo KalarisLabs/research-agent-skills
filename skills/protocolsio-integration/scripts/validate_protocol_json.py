@@ -37,7 +37,6 @@ _GUID_RE = re.compile(r"^[A-Fa-f0-9]{32}$")
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a bounded saved protocol JSON response and emit an offline "
@@ -60,7 +59,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _protocol_object(payload: Any) -> Mapping[str, Any]:
-    """Protocol object for *payload* and return Mapping[str, Any]."""
     if not isinstance(payload, Mapping):
         raise SafetyError("JSON root must be an object")
     status = payload.get("status_code", 0)
@@ -85,7 +83,6 @@ def _bounded_string(
     maximum: int = 2_048,
     nullable: bool = True,
 ) -> str | None:
-    """Bounded string and return str | None."""
     if value is None and nullable:
         return None
     if not isinstance(value, str):
@@ -103,7 +100,6 @@ def _bounded_int(
     maximum: int = 2_147_483_647,
     nullable: bool = True,
 ) -> int | None:
-    """Bounded int and return int | None."""
     if value is None and nullable:
         return None
     if isinstance(value, bool) or not isinstance(value, int):
@@ -118,7 +114,6 @@ def _bounded_list(
     name: str,
     maximum: int,
 ) -> list[Any]:
-    """Bounded list and return list[Any]."""
     value = protocol.get(name, [])
     if value is None:
         return []
@@ -130,7 +125,6 @@ def _bounded_list(
 
 
 def _validate_public(value: Any) -> bool | None:
-    """Validate public for *value* and return bool | None."""
     if value is None:
         return None
     if isinstance(value, bool):
@@ -141,7 +135,6 @@ def _validate_public(value: Any) -> bool | None:
 
 
 def _validate_authors(authors: list[Any]) -> list[str]:
-    """Validate authors for *authors* and return list[str]."""
     names: list[str] = []
     for index, author in enumerate(authors):
         if not isinstance(author, Mapping):
@@ -158,7 +151,6 @@ def _validate_authors(authors: list[Any]) -> list[str]:
 
 
 def _validate_steps(steps: list[Any]) -> dict[str, Any]:
-    """Validate steps for *steps* and return dict[str, Any]."""
     guids: set[str] = set()
     previous_by_guid: dict[str, str | None] = {}
     steps_without_guid = 0
@@ -243,7 +235,6 @@ def validate_and_summarize(
     require_version: bool,
     max_steps: int,
 ) -> dict[str, Any]:
-    """Validate and summarize and return dict[str, Any]."""
     if not 1 <= max_steps <= MAX_STEPS:
         raise SafetyError(f"max_steps must be between 1 and {MAX_STEPS}")
     protocol = _protocol_object(payload)
@@ -350,7 +341,6 @@ def validate_and_summarize(
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         report = validate_and_summarize(

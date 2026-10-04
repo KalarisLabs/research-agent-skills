@@ -61,7 +61,6 @@ def dump_frontmatter(data: dict[str, Any], body: str) -> str:
 
 @dataclass
 class Skill:
-    """Skill."""
     path: Path          # skill directory
     meta: dict[str, Any]
     body: str

@@ -61,7 +61,6 @@ _ORG_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$")
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan or execute bounded read-only protocols.io requests. Network "
@@ -184,7 +183,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _add_protocol_arguments(parser: argparse.ArgumentParser) -> None:
-    """Add protocol arguments for *parser*."""
     parser.add_argument("--id", required=True, help="Protocol ID, URI, or DOI.")
     parser.add_argument(
         "--content-format",
@@ -200,7 +198,6 @@ def _add_protocol_arguments(parser: argparse.ArgumentParser) -> None:
 
 
 def _require_token(environ: Mapping[str, str]) -> str:
-    """Require token for *environ* and return str."""
     token = environ.get(ACCESS_TOKEN_ENV)
     if not token:
         raise SafetyError(
@@ -221,7 +218,6 @@ def _get_items(payload: Mapping[str, Any]) -> list[Any]:
 
 
 def _has_pagination(payload: Mapping[str, Any]) -> bool:
-    """Has pagination for *payload* and return bool."""
     if isinstance(payload.get("pagination"), Mapping):
         return True
     nested = payload.get("payload")
@@ -239,7 +235,6 @@ def _request_json(
     opener: Any | None,
     sleep: Any,
 ) -> tuple[Mapping[str, Any], int]:
-    """Request json and return tuple[Mapping[str, Any], int]."""
     result = request_bytes(
         url,
         token=token,
@@ -257,7 +252,6 @@ def _request_json(
 
 
 def _plan(args: argparse.Namespace) -> dict[str, Any]:
-    """Plan for *args* and return dict[str, Any]."""
     origin = validate_origin(args.origin)
     params: dict[str, Any] = {}
     authentication = "bearer"
@@ -341,7 +335,6 @@ def _execute_list(
     opener: Any | None,
     sleep: Any,
 ) -> dict[str, Any]:
-    """Execute list and return dict[str, Any]."""
     current_url = str(plan["url"])
     collected: list[Any] = []
     pages = 0
@@ -400,7 +393,6 @@ def _execute_pdf(
     opener: Any | None,
     sleep: Any,
 ) -> dict[str, Any]:
-    """Execute pdf and return dict[str, Any]."""
     token = None if args.anonymous else _require_token(environ)
     result = request_bytes(
         str(plan["url"]),
@@ -438,7 +430,6 @@ def execute(
     opener: Any | None = None,
     sleep: Any = None,
 ) -> dict[str, Any]:
-    """Execute and return dict[str, Any]."""
     if sleep is None:
         import time
 
@@ -484,7 +475,6 @@ def execute(
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         if not 1 <= args.max_response_bytes <= MAX_JSON_RESPONSE_BYTES:

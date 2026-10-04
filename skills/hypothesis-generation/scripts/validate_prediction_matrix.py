@@ -41,7 +41,6 @@ FIELDS = (
 
 
 def load_matrix(raw_path: str) -> list[dict[str, Any]]:
-    """Load matrix for *raw_path* and return list[dict[str, Any]]."""
     rows = read_csv_records(raw_path, fields=FIELDS)
     parsed: list[dict[str, Any]] = []
     prediction_ids: list[str] = []
@@ -125,7 +124,6 @@ def _unknown(
 def validate_matrix(
     rows: list[dict[str, Any]], record: dict[str, Any] | None = None
 ) -> dict[str, Any]:
-    """Validate matrix for *rows*, *record* and return dict[str, Any]."""
     errors: list[dict[str, str]] = []
     warnings: list[dict[str, str]] = []
     hypothesis_counts: Counter[str] = Counter()
@@ -254,7 +252,6 @@ def validate_matrix(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a bounded local prediction/rival CSV and emit identifiers "
@@ -273,7 +270,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         record = (

@@ -59,7 +59,6 @@ STATUS_FIELDS = (
 
 
 def load_checklist(payload: Any) -> dict[str, Any]:
-    """Load checklist for *payload* and return dict[str, Any]."""
     root = require_object(payload, "checklist")
     require_exact_keys(
         root,
@@ -141,7 +140,6 @@ def load_checklist(payload: Any) -> dict[str, Any]:
 
 
 def audit(checklist: dict[str, Any]) -> dict[str, Any]:
-    """Audit for *checklist* and return dict[str, Any]."""
     errors: list[dict[str, str]] = []
     warnings: list[dict[str, str]] = []
     gaps_by_measurement: dict[str, list[str]] = {}
@@ -211,7 +209,6 @@ def audit(checklist: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit a bounded local JSON operationalization checklist and report "
@@ -227,7 +224,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report = audit(load_checklist(read_json(args.checklist)))

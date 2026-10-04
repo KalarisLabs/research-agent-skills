@@ -26,7 +26,6 @@ VERIFICATION_STATUSES = {"verified", "unverified"}
 def validate_manifest(
     manifest: Any, rubric: dict, evaluation: dict
 ) -> tuple[list[_common.Issue], dict[str, dict]]:
-    """Validate manifest and return tuple[list[_common.Issue], dict[str, dict]]."""
     issues: list[_common.Issue] = []
     evidence_by_id: dict[str, dict] = {}
     if not _common.exact_keys(
@@ -140,7 +139,6 @@ def validate_manifest(
 
 
 def check_traceability(rubric: dict, evaluation: dict, manifest: dict) -> dict:
-    """Check traceability and return dict."""
     rubric_issues = _common.validate_rubric(rubric)
     _common.require_valid(rubric_issues)
     evaluation_issues = _common.validate_evaluation(evaluation, rubric)
@@ -196,7 +194,6 @@ def check_traceability(rubric: dict, evaluation: dict, manifest: dict) -> dict:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Verify local evidence identifiers and criterion mappings. "
@@ -218,7 +215,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report = check_traceability(

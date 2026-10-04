@@ -43,7 +43,6 @@ def _numeric_row(values: list[Any]) -> str | None:
 
 
 def matlab_literal(value: Any, *, depth: int = 0) -> str:
-    """Matlab literal for *value*, *depth* and return str."""
     if depth > 12:
         raise CliError("argument nesting exceeds 12")
     if value is None:
@@ -92,7 +91,6 @@ def matlab_literal(value: Any, *, depth: int = 0) -> str:
 
 
 def _executable(value: str, engine: str) -> str:
-    """Executable for *value*, *engine* and return str."""
     default = "matlab" if engine == "matlab" else "octave"
     command = value or default
     if not SAFE_COMMAND.fullmatch(command):
@@ -104,7 +102,6 @@ def _executable(value: str, engine: str) -> str:
 
 
 def build_plan(args: argparse.Namespace) -> dict[str, Any]:
-    """Build plan for *args* and return dict[str, Any]."""
     root = checked_root(args.root)
     target = checked_input(
         args.target,
@@ -209,7 +206,6 @@ def build_plan(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def parser() -> argparse.ArgumentParser:
-    """Parser and return argparse.ArgumentParser."""
     result = argparse.ArgumentParser(
         description=(
             "Plan a MATLAB -batch or GNU Octave command. The tool validates "
@@ -247,7 +243,6 @@ def parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     try:
         args = parser().parse_args()
         if args.max_input_bytes < 1 or args.max_input_bytes > 64 * 1024 * 1024:

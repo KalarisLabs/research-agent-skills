@@ -32,7 +32,6 @@ _CURSOR_RE = re.compile(r"^[A-Za-z0-9._~+/=-]{1,2048}$")
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect a saved pagination object. The helper validates but never "
@@ -73,7 +72,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _pagination_object(payload: Any) -> Mapping[str, Any]:
-    """Pagination object for *payload* and return Mapping[str, Any]."""
     if not isinstance(payload, Mapping):
         raise SafetyError("response root must be an object")
     direct = payload.get("pagination")
@@ -92,7 +90,6 @@ def _bounded_int(
     minimum: int,
     maximum: int,
 ) -> int | None:
-    """Bounded int and return int | None."""
     if value is None:
         return None
     if isinstance(value, bool) or not isinstance(value, int):
@@ -103,7 +100,6 @@ def _bounded_int(
 
 
 def _validated_next_url(next_page: Any, current_url: str) -> str | None:
-    """Validated next url for *next_page*, *current_url* and return str | None."""
     if next_page is None:
         return None
     if not isinstance(next_page, str) or len(next_page) > 4_096:
@@ -162,7 +158,6 @@ def inspect_pagination(
     max_pages: int,
     max_items: int,
 ) -> dict[str, Any]:
-    """Inspect pagination and return dict[str, Any]."""
     if not 1 <= max_pages <= MAX_PAGES:
         raise SafetyError(f"max_pages must be between 1 and {MAX_PAGES}")
     if not 1 <= max_items <= MAX_ITEMS:
@@ -233,7 +228,6 @@ def inspect_pagination(
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         report = inspect_pagination(

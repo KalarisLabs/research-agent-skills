@@ -31,7 +31,6 @@ except ImportError:
 
 
 def main():
-    """Main."""
     parser = argparse.ArgumentParser(description="Apply signal processing to spectra.")
     parser.add_argument("input", help="Input mzML/mzXML file")
     parser.add_argument("output", help="Output mzML file")

@@ -259,7 +259,6 @@ def train_on_custom_data(data_path, model_type, task_type, target_cols, smiles_c
 
 
 def main():
-    """Main."""
     parser = argparse.ArgumentParser(
         description='Train graph neural networks for molecular property prediction'
     )

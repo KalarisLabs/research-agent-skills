@@ -88,7 +88,6 @@ def _export_dxf(part, path: Path, build123d, height: float | None) -> float:
 
 
 def main() -> int:
-    """Main and return int."""
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("model", type=Path, help="path to a *_model.py exposing build() -> Part")
     parser.add_argument("--outdir", type=Path, default=Path("out"), help="output directory (default: out)")

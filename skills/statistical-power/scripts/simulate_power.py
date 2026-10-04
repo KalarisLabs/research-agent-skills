@@ -25,7 +25,6 @@ import numpy as np
 
 @dataclass
 class PowerEstimate:
-    """Power estimate."""
     power: float
     n_sims: int
     n: int
@@ -108,7 +107,6 @@ def example_two_group_difference(effect=0.5, sd=1.0, alpha=0.05):
     from scipy import stats
 
     def gen_and_test(n, rng):  # n per group
-        """Gen and test for *n*, *rng*."""
         a = rng.normal(0.0, sd, n)
         b = rng.normal(effect, sd, n)
         _, p = stats.ttest_ind(a, b)
@@ -128,7 +126,6 @@ def example_logistic_regression(beta=0.8, base_rate=0.2, x_sd=1.0, alpha=0.05):
     intercept = math.log(base_rate / (1 - base_rate))
 
     def gen_and_test(n, rng):
-        """Gen and test for *n*, *rng*."""
         x = rng.normal(0, x_sd, n)
         logit = intercept + beta * x
         p = 1 / (1 + np.exp(-logit))
@@ -158,7 +155,6 @@ def example_cluster_randomized(effect=0.3, icc=0.05, cluster_size=20,
     tau = math.sqrt(icc * resid_sd**2 / (1 - icc)) if icc > 0 else 0.0
 
     def gen_and_test(n, rng):  # n clusters per arm
-        """Gen and test for *n*, *rng*."""
         rows = []
         cid = 0
         for arm in (0, 1):
@@ -189,7 +185,6 @@ def example_linear_mixed_repeated(effect=0.4, n_timepoints=3, subj_sd=0.7,
     import pandas as pd
 
     def gen_and_test(n, rng):  # n subjects
-        """Gen and test for *n*, *rng*."""
         rows = []
         for s in range(n):
             b0 = rng.normal(0, subj_sd)

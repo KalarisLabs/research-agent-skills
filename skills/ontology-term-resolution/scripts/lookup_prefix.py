@@ -151,7 +151,6 @@ def lookup_one(value: str) -> dict:
 
 
 def write_output(results: list[dict], fmt: str, output: str | None) -> None:
-    """Write output."""
     stream = open(output, "w", encoding="utf-8", newline="") if output else sys.stdout
     try:
         if fmt == "json":
@@ -169,7 +168,6 @@ def write_output(results: list[dict], fmt: str, output: str | None) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Look up ontology prefixes and check CURIEs against Bioregistry. "
@@ -190,7 +188,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     values = read_inputs(args)
     if not values:

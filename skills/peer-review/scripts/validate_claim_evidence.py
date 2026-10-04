@@ -65,7 +65,6 @@ ALIGNMENT_ISSUES = {
 
 
 def load_matrix(raw_path: str) -> list[dict[str, Any]]:
-    """Load matrix for *raw_path* and return list[dict[str, Any]]."""
     rows = read_csv_records(
         raw_path,
         required_fields=FIELDS,
@@ -126,7 +125,6 @@ def load_matrix(raw_path: str) -> list[dict[str, Any]]:
 
 
 def validate_matrix(rows: list[dict[str, Any]]) -> dict[str, Any]:
-    """Validate matrix for *rows* and return dict[str, Any]."""
     errors: list[dict[str, str]] = []
     warnings: list[dict[str, str]] = []
     support_counts = Counter()
@@ -195,7 +193,6 @@ def validate_matrix(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a local claim-evidence CSV and emit only identifiers and "
@@ -211,7 +208,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report = validate_matrix(load_matrix(args.matrix))

@@ -197,7 +197,6 @@ def write_json_output(results: dict[str, dict], output_path: str) -> None:
 
 
 def main() -> None:
-    """Main."""
     parser = argparse.ArgumentParser(
         description="Forecast time series from CSV using TimesFM."
     )

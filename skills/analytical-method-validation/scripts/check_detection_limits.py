@@ -57,7 +57,6 @@ QL_FACTOR = 10.0
 
 
 def main() -> int:
-    """Main and return int."""
     parser = argparse.ArgumentParser(
         description="Estimate detection and quantitation limits per ICH Q2(R2) 3.2.3."
     )

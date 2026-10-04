@@ -85,7 +85,6 @@ def select_scorers(names: Sequence[str] | None, organism: str, include_active: b
 
 
 def make_model(args: argparse.Namespace):
-    """Make model for *args*."""
     api_key = common.load_api_key(args.api_key_env)
     common.require_alphagenome()
     import grpc  # noqa: PLC0415
@@ -107,7 +106,6 @@ def organism_enum(name: str):
 
 
 def list_tracks(model, args: argparse.Namespace) -> int:
-    """List tracks for *model*, *args* and return int."""
     metadata = model.output_metadata(organism_enum(args.organism)).concatenate()
     frame = metadata
     if args.output_type:
@@ -127,7 +125,6 @@ def list_tracks(model, args: argparse.Namespace) -> int:
 
 
 def list_scorers() -> int:
-    """List scorers and return int."""
     from alphagenome.models import variant_scorers  # noqa: PLC0415
 
     rows = []
@@ -143,7 +140,6 @@ def list_scorers() -> int:
 
 
 def score(model, args: argparse.Namespace) -> int:
-    """Score for *model*, *args* and return int."""
     from alphagenome.models import variant_scorers  # noqa: PLC0415
 
     specs, warnings = common.collect_variants(args.variant, args.input)
@@ -193,7 +189,6 @@ def score(model, args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         prog="score_variants.py",
         description="Score variants on demand with the AlphaGenome model (recommended scorers, tidy output).",
@@ -224,7 +219,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     if args.list_scorers:
         common.require_alphagenome()

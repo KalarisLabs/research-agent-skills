@@ -87,7 +87,6 @@ def _length_to_inches(value: str | None) -> tuple[float | None, str | None]:
 
 
 def _base_metadata(path: Path) -> dict[str, Any]:
-    """Base metadata for *path* and return dict[str, Any]."""
     info = path.stat()
     return {
         "path": str(path),
@@ -254,7 +253,6 @@ def _pdf_font_report(page: Any) -> dict[str, Any]:
         }
 
     def embedded_status(font: Any) -> bool | None:
-        """Embedded status for *font* and return bool | None."""
         try:
             subtype = str(font.get("/Subtype", ""))
             if subtype == "/Type3":
@@ -440,7 +438,6 @@ def inspect_file(
 
 
 def _normalize_formats(values: Iterable[str]) -> list[str]:
-    """Normalize formats for *values* and return list[str]."""
     normalized: list[str] = []
     for value in values:
         for item in value.split(","):
@@ -459,7 +456,6 @@ def _check(
     expected: Any,
     detail: str,
 ) -> dict[str, Any]:
-    """Check and return dict[str, Any]."""
     return {
         "name": name,
         "status": status,
@@ -645,7 +641,6 @@ def screen_metadata(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect local raster, SVG, PDF, EPS, or PS metadata and optionally "
@@ -704,7 +699,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     try:
         args = parser.parse_args(argv)

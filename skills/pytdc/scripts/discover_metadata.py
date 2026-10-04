@@ -17,7 +17,6 @@ from _common import (
 
 
 def _window(values: Iterable[Any], offset: int, limit: int) -> dict[str, Any]:
-    """Window and return dict[str, Any]."""
     items = list(values)
     selected = items[offset : offset + limit]
     return {
@@ -115,7 +114,6 @@ def collect_metadata(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Read task, dataset, benchmark, evaluator, and oracle names from the "
@@ -150,7 +148,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.task and args.kind not in {"datasets", "all"}:

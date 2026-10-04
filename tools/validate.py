@@ -50,7 +50,6 @@ CODE_RE = re.compile(r"```.*?```|~~~.*?~~~|`[^`\n]*`", re.S)
 
 @dataclass
 class Report:
-    """Report."""
     errors: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
 
@@ -73,7 +72,6 @@ def load_size_baseline() -> set[str]:
 
 
 def check_frontmatter(skill_dir: Path, meta: dict, rep: Report, categories: set[str]) -> None:
-    """Check frontmatter."""
     sid = skill_dir.name
     name = meta.get("name")
     if not isinstance(name, str) or not name:
@@ -124,7 +122,6 @@ def check_frontmatter(skill_dir: Path, meta: dict, rep: Report, categories: set[
 
 
 def check_files(skill_dir: Path, rep: Report) -> None:
-    """Check files for *skill_dir*, *rep*."""
     sid, total = skill_dir.name, 0
     for path in sorted(skill_dir.rglob("*")):
         rel = path.relative_to(skill_dir).as_posix()
@@ -173,7 +170,6 @@ def check_files(skill_dir: Path, rep: Report) -> None:
 
 
 def validate_skill(skill_dir: Path, rep: Report, categories: set[str], baseline: set[str]) -> None:
-    """Validate skill."""
     sid = skill_dir.name
     skill_md = skill_dir / "SKILL.md"
     if not skill_md.is_file():
@@ -196,7 +192,6 @@ def validate_skill(skill_dir: Path, rep: Report, categories: set[str], baseline:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("paths", nargs="*", type=Path, help="skill directories (default: all)")
     ap.add_argument("--strict", action="store_true", help="treat warnings as errors")

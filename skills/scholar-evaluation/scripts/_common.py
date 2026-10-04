@@ -118,7 +118,6 @@ def _pairs_no_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def _check_local_file(path: Path, suffix: str) -> None:
-    """Check local file for *path*, *suffix*."""
     if path.suffix.lower() != suffix:
         raise ValidationError("INPUT_SUFFIX_NOT_ALLOWED")
     if not path.exists():
@@ -132,7 +131,6 @@ def _check_local_file(path: Path, suffix: str) -> None:
 
 
 def _scan_structure(value: Any, path: str = "$") -> None:
-    """Scan structure for *value*, *path*."""
     nodes = 0
     stack: list[tuple[Any, str, int]] = [(value, path, 0)]
     while stack:
@@ -239,7 +237,6 @@ def is_nonempty_text(value: Any, maximum: int = MAX_TEXT_CHARS) -> bool:
 
 
 def is_reference(value: Any) -> bool:
-    """Is reference for *value* and return bool."""
     if not is_nonempty_text(value, 500):
         return False
     lowered = value.strip().lower()
@@ -251,7 +248,6 @@ def is_reference(value: Any) -> bool:
 
 
 def is_date(value: Any) -> bool:
-    """Is date for *value* and return bool."""
     if not isinstance(value, str):
         return False
     try:
@@ -267,7 +263,6 @@ def exact_keys(
     path: str,
     issues: list[Issue],
 ) -> bool:
-    """Exact keys and return bool."""
     if not isinstance(value, dict):
         issues.append(Issue("SCHEMA_OBJECT_REQUIRED", path))
         return False
@@ -319,7 +314,6 @@ def validate_text_list(
     maximum: int = 100,
     references: bool = False,
 ) -> None:
-    """Validate text list."""
     if not isinstance(value, list):
         issues.append(Issue("LIST_REQUIRED", path))
         return
@@ -333,7 +327,6 @@ def validate_text_list(
 
 
 def _validate_scale(scale: Any, issues: list[Issue]) -> tuple[float, float, float]:
-    """Validate scale for *scale*, *issues* and return tuple[float, float, float]."""
     path = "$.scale"
     expected = {"minimum", "maximum", "step", "anchors"}
     if not exact_keys(scale, expected, path, issues):
@@ -376,7 +369,6 @@ def _validate_scale(scale: Any, issues: list[Issue]) -> tuple[float, float, floa
 
 
 def _validate_proxy_absence(value: Any, path: str, issues: list[Issue]) -> None:
-    """Validate proxy absence."""
     strings: list[str] = []
     stack = [value]
     while stack:

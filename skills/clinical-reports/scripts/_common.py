@@ -100,7 +100,6 @@ def _object_without_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def _check_tree(value: Any, *, depth: int = 0, counter: list[int] | None = None) -> None:
-    """Check tree."""
     if counter is None:
         counter = [0]
     counter[0] += 1

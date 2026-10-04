@@ -160,7 +160,6 @@ def predict_new_molecules(model, smiles_list, transformers=None):
 
 
 def main():
-    """Main."""
     parser = argparse.ArgumentParser(
         description='Train a molecular solubility prediction model'
     )

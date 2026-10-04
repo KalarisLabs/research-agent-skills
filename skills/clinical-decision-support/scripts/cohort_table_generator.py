@@ -36,7 +36,6 @@ def _format_count(count: int, denominator: int) -> str:
 def _build_table(
     document: dict[str, Any], minimum: int
 ) -> tuple[IssueLog, list[str], list[list[str]], list[str]]:
-    """Build table for *document*, *minimum* and return tuple[IssueLog, list[str], list[list[str]], list[str]]."""
     log = IssueLog()
     notes: list[str] = []
     headers: list[str] = ["Characteristic"]
@@ -220,7 +219,6 @@ def _build_table(
 def _to_markdown(
     title: str, headers: list[str], rows: list[list[str]], notes: list[str]
 ) -> str:
-    """To markdown and return str."""
     lines = [
         f"# {title}",
         "",
@@ -236,7 +234,6 @@ def _to_markdown(
 
 
 def _to_csv(headers: list[str], rows: list[list[str]], notes: list[str]) -> str:
-    """To csv and return str."""
     stream = io.StringIO()
     writer = csv.writer(stream, lineterminator="\n")
     writer.writerow(headers)
@@ -249,7 +246,6 @@ def _to_csv(headers: list[str], rows: list[list[str]], notes: list[str]) -> str:
 
 
 def main() -> int:
-    """Main and return int."""
     parser = argparse.ArgumentParser(
         description=(
             "Generate a bounded descriptive cohort table from local aggregate JSON "

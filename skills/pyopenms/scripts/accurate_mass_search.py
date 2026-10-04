@@ -24,7 +24,6 @@ except ImportError:
 
 
 def main():
-    """Main."""
     parser = argparse.ArgumentParser(description="Accurate-mass metabolite annotation.")
     parser.add_argument("input", help="Input featureXML (or consensusXML)")
     parser.add_argument("--out-mztab", help="Output mzTab file")

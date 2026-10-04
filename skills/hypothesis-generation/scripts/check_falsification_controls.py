@@ -37,7 +37,6 @@ NEGATIVE_TYPES = {"negative_exposure", "negative_outcome", "procedural_negative"
 
 
 def _parse_falsifier(raw: Any, context: str) -> dict[str, Any]:
-    """Parse falsifier for *raw*, *context* and return dict[str, Any]."""
     value = require_object(raw, context)
     require_exact_keys(
         value,
@@ -74,7 +73,6 @@ def _parse_falsifier(raw: Any, context: str) -> dict[str, Any]:
 
 
 def _parse_discriminating_tests(raw: Any, context: str) -> list[dict[str, str]]:
-    """Parse discriminating tests for *raw*, *context* and return list[dict[str, str]]."""
     values = require_list(raw, context, minimum=1, maximum=100)
     parsed: list[dict[str, str]] = []
     identifiers: list[str] = []
@@ -120,7 +118,6 @@ def _parse_discriminating_tests(raw: Any, context: str) -> list[dict[str, str]]:
 
 
 def _parse_nulls(raw: Any, context: str) -> list[dict[str, str]]:
-    """Parse nulls for *raw*, *context* and return list[dict[str, str]]."""
     values = require_list(raw, context, minimum=1, maximum=100)
     parsed: list[dict[str, str]] = []
     identifiers: list[str] = []
@@ -152,7 +149,6 @@ def _parse_nulls(raw: Any, context: str) -> list[dict[str, str]]:
 
 
 def _parse_controls(raw: Any, context: str) -> list[dict[str, str]]:
-    """Parse controls for *raw*, *context* and return list[dict[str, str]]."""
     values = require_list(raw, context, minimum=1, maximum=100)
     parsed: list[dict[str, str]] = []
     identifiers: list[str] = []
@@ -199,7 +195,6 @@ def _parse_controls(raw: Any, context: str) -> list[dict[str, str]]:
 
 
 def _parse_outcome_interpretation(raw: Any, context: str) -> dict[str, str]:
-    """Parse outcome interpretation for *raw*, *context* and return dict[str, str]."""
     value = require_object(raw, context)
     fields = {
         "consistent_with_candidate",
@@ -214,7 +209,6 @@ def _parse_outcome_interpretation(raw: Any, context: str) -> dict[str, str]:
 
 
 def load_checklist(payload: Any) -> dict[str, Any]:
-    """Load checklist for *payload* and return dict[str, Any]."""
     root = require_object(payload, "checklist")
     require_exact_keys(
         root,
@@ -308,7 +302,6 @@ def _normalize(value: str) -> str:
 def audit(
     checklist: dict[str, Any], record: dict[str, Any] | None = None
 ) -> dict[str, Any]:
-    """Audit for *checklist*, *record* and return dict[str, Any]."""
     errors: list[dict[str, str]] = []
     warnings: list[dict[str, str]] = []
     review_counts: Counter[str] = Counter()
@@ -428,7 +421,6 @@ def audit(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit a bounded local falsification/control JSON checklist without "
@@ -447,7 +439,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         record = (

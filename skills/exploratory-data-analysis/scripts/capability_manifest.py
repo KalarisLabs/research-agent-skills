@@ -27,7 +27,6 @@ from _common import (
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "List exact EDA capabilities or inspect a bounded local file without "
@@ -146,7 +145,6 @@ def inspect_manifest(
 
 
 def _main() -> None:
-    """Main."""
     args = build_parser().parse_args()
     if args.command == "list":
         emit_json(

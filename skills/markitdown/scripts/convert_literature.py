@@ -298,7 +298,6 @@ def create_index(records: list[LiteratureRecord], output_dir: Path) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Convert trusted local literature PDFs to Markdown with provenance. "
@@ -343,7 +342,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     parser = build_parser()
     args = parser.parse_args()
 

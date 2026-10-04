@@ -69,7 +69,6 @@ FEASIBILITY_STATES = {
 
 
 def _parse_observation(raw: Any) -> dict[str, Any]:
-    """Parse observation for *raw* and return dict[str, Any]."""
     value = require_object(raw, "record.observation")
     require_exact_keys(
         value,
@@ -95,7 +94,6 @@ def _parse_observation(raw: Any) -> dict[str, Any]:
 
 
 def _parse_question(raw: Any) -> dict[str, str]:
-    """Parse question for *raw* and return dict[str, str]."""
     value = require_object(raw, "record.research_question")
     fields = {
         "statement",
@@ -126,7 +124,6 @@ def _parse_question(raw: Any) -> dict[str, str]:
 
 
 def _parse_hypotheses(raw: Any) -> list[dict[str, Any]]:
-    """Parse hypotheses for *raw* and return list[dict[str, Any]]."""
     entries = require_list(raw, "record.hypotheses", minimum=1, maximum=50)
     parsed: list[dict[str, Any]] = []
     identifiers: list[str] = []
@@ -188,7 +185,6 @@ def _parse_hypotheses(raw: Any) -> list[dict[str, Any]]:
 
 
 def _parse_estimands(raw: Any) -> list[dict[str, Any]]:
-    """Parse estimands for *raw* and return list[dict[str, Any]]."""
     entries = require_list(raw, "record.causal_estimands", maximum=50)
     parsed: list[dict[str, Any]] = []
     identifiers: list[str] = []
@@ -249,7 +245,6 @@ def _parse_estimands(raw: Any) -> list[dict[str, Any]]:
 
 
 def _parse_predictions(raw: Any) -> list[dict[str, Any]]:
-    """Parse predictions for *raw* and return list[dict[str, Any]]."""
     entries = require_list(raw, "record.predictions", minimum=1, maximum=200)
     parsed: list[dict[str, Any]] = []
     identifiers: list[str] = []
@@ -312,7 +307,6 @@ def _parse_predictions(raw: Any) -> list[dict[str, Any]]:
 
 
 def _parse_alternatives(raw: Any) -> list[dict[str, Any]]:
-    """Parse alternatives for *raw* and return list[dict[str, Any]]."""
     entries = require_list(raw, "record.alternative_explanations", minimum=1, maximum=100)
     parsed: list[dict[str, Any]] = []
     identifiers: list[str] = []
@@ -359,7 +353,6 @@ def _parse_alternatives(raw: Any) -> list[dict[str, Any]]:
 
 
 def _parse_nulls(raw: Any) -> list[dict[str, Any]]:
-    """Parse nulls for *raw* and return list[dict[str, Any]]."""
     entries = require_list(raw, "record.null_hypotheses", minimum=1, maximum=100)
     parsed: list[dict[str, Any]] = []
     identifiers: list[str] = []
@@ -398,7 +391,6 @@ def _parse_nulls(raw: Any) -> list[dict[str, Any]]:
 
 
 def _parse_controls(raw: Any) -> list[dict[str, Any]]:
-    """Parse controls for *raw* and return list[dict[str, Any]]."""
     entries = require_list(raw, "record.negative_controls", minimum=1, maximum=100)
     parsed: list[dict[str, Any]] = []
     identifiers: list[str] = []
@@ -445,7 +437,6 @@ def _parse_controls(raw: Any) -> list[dict[str, Any]]:
 
 
 def _parse_operationalizations(raw: Any) -> list[dict[str, Any]]:
-    """Parse operationalizations for *raw* and return list[dict[str, Any]]."""
     entries = require_list(raw, "record.operationalizations", minimum=1, maximum=200)
     parsed: list[dict[str, Any]] = []
     identifiers: list[str] = []
@@ -497,7 +488,6 @@ def _parse_operationalizations(raw: Any) -> list[dict[str, Any]]:
 
 
 def _parse_analysis_plan(raw: Any) -> dict[str, Any]:
-    """Parse analysis plan for *raw* and return dict[str, Any]."""
     plan = require_object(raw, "record.analysis_plan")
     require_exact_keys(
         plan,
@@ -596,7 +586,6 @@ def _parse_analysis_plan(raw: Any) -> dict[str, Any]:
 
 
 def _parse_evidence(raw: Any) -> dict[str, Any]:
-    """Parse evidence for *raw* and return dict[str, Any]."""
     value = require_object(raw, "record.evidence")
     require_exact_keys(
         value,
@@ -633,7 +622,6 @@ def _parse_evidence(raw: Any) -> dict[str, Any]:
 
 
 def _parse_risk_register(raw: Any) -> dict[str, list[str]]:
-    """Parse risk register for *raw* and return dict[str, list[str]]."""
     value = require_object(raw, "record.risk_register")
     fields = {
         "confounding",
@@ -653,7 +641,6 @@ def _parse_risk_register(raw: Any) -> dict[str, list[str]]:
 
 
 def _parse_ethics(raw: Any) -> dict[str, Any]:
-    """Parse ethics for *raw* and return dict[str, Any]."""
     value = require_object(raw, "record.ethics_and_feasibility")
     gate_fields = {
         "human_subjects_gate",
@@ -694,7 +681,6 @@ def _parse_ethics(raw: Any) -> dict[str, Any]:
 
 
 def _parse_ai_use(raw: Any) -> dict[str, Any]:
-    """Parse ai use for *raw* and return dict[str, Any]."""
     value = require_object(raw, "record.ai_use")
     fields = {
         "used",
@@ -1063,7 +1049,6 @@ def validate_record(record: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a bounded local hypothesis JSON record and emit identifiers, "
@@ -1079,7 +1064,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         record = load_hypothesis_record(read_json(args.record))

@@ -62,7 +62,6 @@ CONSISTENCY_FIELDS = (
 
 
 def check(rows: list[dict[str, str]]) -> dict[str, Any]:
-    """Check for *rows* and return dict[str, Any]."""
     errors: list[str] = []
     record_ids: list[str] = []
     groups: dict[str, dict[str, set[str]]] = {}
@@ -189,7 +188,6 @@ def check(rows: list[dict[str, str]]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Check a local CSV for internally comparable units, currencies, base "
@@ -206,7 +204,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report = check(read_csv_records(args.input, required_fields=REQUIRED_FIELDS))

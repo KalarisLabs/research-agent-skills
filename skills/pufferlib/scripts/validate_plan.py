@@ -126,7 +126,6 @@ def _integer(
     maximum: int,
     errors: list[str],
 ) -> int | None:
-    """Integer and return int | None."""
     if isinstance(value, bool) or not isinstance(value, int):
         errors.append(f"{path} must be an integer")
         return None
@@ -146,7 +145,6 @@ def _boolean(value: Any, *, path: str, errors: list[str]) -> bool | None:
 def _validate_package(
     package: dict[str, Any], profile: str, errors: list[str]
 ) -> None:
-    """Validate package."""
     if profile == "pypi-3.0.0":
         errors.extend(
             require_keys(
@@ -179,7 +177,6 @@ def _validate_package(
 
 
 def _validate_environment(environment: dict[str, Any], errors: list[str]) -> None:
-    """Validate environment for *environment*, *errors*."""
     errors.extend(
         require_keys(
             environment,
@@ -208,7 +205,6 @@ def _validate_environment(environment: dict[str, Any], errors: list[str]) -> Non
 
 
 def _validate_training(training: dict[str, Any], errors: list[str]) -> None:
-    """Validate training for *training*, *errors*."""
     errors.extend(
         require_keys(
             training,
@@ -257,7 +253,6 @@ def _validate_vectorization(
     training: dict[str, Any],
     errors: list[str],
 ) -> None:
-    """Validate vectorization."""
     if profile == "pypi-3.0.0":
         allowed = {
             "backend",
@@ -388,7 +383,6 @@ def _validate_vectorization(
 def _validate_evaluation(
     evaluation: dict[str, Any], training: dict[str, Any], errors: list[str]
 ) -> None:
-    """Validate evaluation."""
     allowed = {"deterministic", "episodes", "seed", "separate"}
     errors.extend(
         require_keys(
@@ -423,7 +417,6 @@ def _validate_evaluation(
 def _validate_logging(
     logging: dict[str, Any], profile: str, errors: list[str]
 ) -> None:
-    """Validate logging."""
     allowed = {
         "backend",
         "disclosure_ack",
@@ -463,7 +456,6 @@ def _validate_logging(
 
 
 def _validate_checkpoint(checkpoint: dict[str, Any], errors: list[str]) -> None:
-    """Validate checkpoint for *checkpoint*, *errors*."""
     allowed = {"format", "trusted_only"}
     errors.extend(
         require_keys(
@@ -534,7 +526,6 @@ def validate_plan(plan: Any) -> list[str]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a strict local JSON plan. With no --config, validate the "
@@ -549,7 +540,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

@@ -196,7 +196,6 @@ def print_results(hits, max_display=20):
 
 
 def main():
-    """Main."""
     parser = argparse.ArgumentParser(
         description='Molecular similarity search using fingerprints',
         formatter_class=argparse.RawDescriptionHelpFormatter,

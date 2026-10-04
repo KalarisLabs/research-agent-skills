@@ -86,7 +86,6 @@ def weekly_counts(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Weekly lineage prevalence from a LAPIS instance.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -119,7 +118,6 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
 
     try:

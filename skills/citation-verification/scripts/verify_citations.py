@@ -37,7 +37,6 @@ TITLE_OK, TITLE_WEAK = 0.90, 0.75
 
 
 def http_json(url: str, retries: int = 3) -> dict | None:
-    """Http json for *url*, *retries* and return dict | None."""
     mailto = os.environ.get("CROSSREF_MAILTO")
     headers = {"User-Agent": UA + (f" mailto:{mailto}" if mailto else ""), "Accept": "application/json"}
     for attempt in range(retries):
@@ -61,7 +60,6 @@ def http_json(url: str, retries: int = 3) -> dict | None:
 
 # --- minimal BibTeX reader (same grammar as bibtex-hygiene/scripts/bib_lint.py) ---
 def _value(text: str, i: int) -> tuple[str, int]:
-    """Value for *text*, *i* and return tuple[str, int]."""
     parts = []
     while True:
         while i < len(text) and text[i].isspace():
@@ -95,7 +93,6 @@ def _value(text: str, i: int) -> tuple[str, int]:
 
 
 def parse_bib(text: str) -> list[dict]:
-    """Parse bib for *text* and return list[dict]."""
     out = []
     for m in re.finditer(r"@(\w+)\s*[{(]\s*([^,\s]+)\s*,", text):
         if m.group(1).lower() in ("comment", "preamble", "string"):
@@ -171,7 +168,6 @@ def arxiv_search(title: str, author: str) -> list[dict]:
 
 
 def cr_fields(rec: dict) -> dict:
-    """Cr fields for *rec* and return dict."""
     authors = rec.get("author") or []
     year = None
     for k in ("published-print", "published-online", "issued", "created"):
@@ -185,7 +181,6 @@ def cr_fields(rec: dict) -> dict:
 
 
 def check_entry(e: dict) -> dict:
-    """Check entry for *e* and return dict."""
     title, doi = e.get("title", ""), re.sub(r"^(https?://(dx\.)?doi\.org/|doi:)", "", e.get("doi", ""), flags=re.I)
     year = re.sub(r"\D", "", e.get("year", ""))[:4]
     author = first_surname(e.get("author", ""))
@@ -265,7 +260,6 @@ def check_entry(e: dict) -> dict:
 
 
 def main() -> int:
-    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("bib", nargs="?")
     ap.add_argument("--doi", nargs="+", default=[])

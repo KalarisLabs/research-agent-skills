@@ -194,7 +194,6 @@ def generate_summary(df: pd.DataFrame, output_file: Path) -> None:
 
 
 def main() -> None:
-    """Main."""
     parser = argparse.ArgumentParser(
         description="Batch molecular filtering using medchem",
         formatter_class=argparse.RawDescriptionHelpFormatter,
