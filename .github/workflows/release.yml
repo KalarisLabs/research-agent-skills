@@ -112,6 +112,7 @@ jobs:
   npm:
     name: Publish CLI to npm
     needs: build
+    if: ${{ !cancelled() && needs.build.result == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     environment: npm
