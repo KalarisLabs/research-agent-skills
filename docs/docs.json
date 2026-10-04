@@ -12,12 +12,11 @@
     "groups": [
       {
         "group": "Get started",
-        "pages": ["index", "getting-started/installation", "getting-started/quickstart"]
+        "pages": ["index", "getting-started/quickstart", "getting-started/installation"]
       },
       {
-        "group": "Research guides",
+        "group": "Research workflows",
         "pages": [
-          "guides/by-field",
           "guides/write-a-research-paper",
           "guides/thesis-and-dissertation",
           "guides/no-slop-academic-writing",
@@ -25,7 +24,19 @@
         ]
       },
       {
-        "group": "Explore skills",
+        "group": "Skills by discipline",
+        "pages": [
+          "guides/by-field",
+          "fields/machine-learning",
+          "fields/artificial-intelligence",
+          "fields/biology",
+          "fields/chemistry",
+          "fields/medicine",
+          "fields/physics"
+        ]
+      },
+      {
+        "group": "All skills",
         "pages": ["skills/index"]
       },
       {

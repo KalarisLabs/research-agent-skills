@@ -30,7 +30,6 @@ npx research-agent-skills install --bundle biology-research --project
 npx research-agent-skills install --bundle ml-research --harness codex --project
 npx research-agent-skills install --category life-sciences --harness claude-code,codex
 npx research-agent-skills install --project          # into ./.claude/skills, ./.agents/skills, ...
-npx research-agent-skills install --version 1.0.0    # pin a release
 ```
 
 Manage installs with `installed`, `update`, `uninstall <skills|--all>` and `doctor`.
