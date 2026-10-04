@@ -19,6 +19,8 @@ concurrency:
 jobs:
   vendor-security:
     name: Vendor security gate
+    permissions:
+      contents: read
     if: vars.VENDOR_SCANS_ENABLED == 'true'
     uses: ./.github/workflows/vendor-security.yml
     secrets:
