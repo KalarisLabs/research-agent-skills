@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "research-agent-skills",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "281 Agent Skills for researchers: scientific and research paper writing, journal formats, literature review, citations, data science, ML research and domain science.",
   "author": {
     "name": "Kalaris Labs",
