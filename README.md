@@ -659,7 +659,7 @@ If Research Agent Skills helped your work, please cite it ("Cite this repository
   author  = {Chowdhury, Sayan and {Kalaris Labs}},
   title   = {Research Agent Skills: AI agent skills for academic writing and scientific research},
   year    = {2026},
-  version = {1.1.0},
+  version = {1.1.1},
   url     = {https://github.com/KalarisLabs/research-agent-skills},
   license = {MIT}
 }

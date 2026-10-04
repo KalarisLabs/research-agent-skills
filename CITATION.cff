@@ -10,8 +10,8 @@ authors:
 repository-code: "https://github.com/KalarisLabs/research-agent-skills"
 url: "https://docs.kalarislabs.com/"
 license: MIT
-version: 1.1.0
-date-released: "2026-10-01"
+version: 1.1.1
+date-released: "2026-10-04"
 keywords:
   - agent skills
   - AI agents
