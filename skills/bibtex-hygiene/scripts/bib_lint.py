@@ -104,6 +104,7 @@ def _read_value(text: str, i: int) -> tuple[str, int]:
 
 
 def parse_bib(text: str) -> list[Entry]:
+    """Parse bib for *text* and return list[Entry]."""
     entries: list[Entry] = []
     for m in re.finditer(r"@(\w+)\s*([{(])", text):
         etype = m.group(1).lower()
@@ -136,6 +137,7 @@ def norm_title(t: str) -> str:
 
 
 def lint(entries: list[Entry]) -> list[dict]:
+    """Lint for *entries* and return list[dict]."""
     out: list[dict] = []
 
     def add(e: Entry, severity: str, code: str, msg: str) -> None:
@@ -190,6 +192,7 @@ def lint(entries: list[Entry]) -> list[dict]:
 
 
 def normalized_bib(entries: list[Entry]) -> str:
+    """Normalized bib for *entries* and return str."""
     chunks = []
     order = ["author", "editor", "title", "journal", "booktitle", "publisher", "school", "institution", "year",
              "volume", "number", "pages", "doi", "url", "eprint", "archiveprefix", "primaryclass", "note"]
@@ -207,6 +210,7 @@ def normalized_bib(entries: list[Entry]) -> str:
 
 
 def main() -> int:
+    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("bib")
     ap.add_argument("--json", action="store_true")

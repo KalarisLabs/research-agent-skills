@@ -41,6 +41,7 @@ COMPETING_METHODS = {
 
 
 def validate_plan(document: dict[str, Any]) -> IssueLog:
+    """Validate plan for *document* and return IssueLog."""
     log = IssueLog()
     try:
         require_nonempty_text(document.get("schema_version"), "schema_version")
@@ -263,6 +264,7 @@ def validate_plan(document: dict[str, Any]) -> IssueLog:
 
 
 def main() -> int:
+    """Main and return int."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a local survival-analysis plan. No subject-level data are read "

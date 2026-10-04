@@ -39,6 +39,7 @@ def _local_name(tag: str) -> str:
 
 
 def _member_path_error(name: str) -> str | None:
+    """Member path error for *name* and return str | None."""
     if not name or "\x00" in name:
         return "empty or NUL-containing member name"
     if "\\" in name:
@@ -69,6 +70,7 @@ def _manifest_reference(
     archive_names: set[str],
     errors: list[str],
 ) -> str | None:
+    """Manifest reference and return str | None."""
     element = _find_child(entry_info, element_name)
     if element is None:
         errors.append(f"manifest is missing required {element_name} element")
@@ -99,6 +101,7 @@ def _parse_manifest(
     errors: list[str],
     warnings: list[str],
 ) -> dict[str, Any]:
+    """Parse manifest and return dict[str, Any]."""
     manifest: dict[str, Any] = {
         "present": True,
         "parsed": False,
@@ -318,6 +321,7 @@ def _write_json_safely(
     force: bool,
     compact: bool,
 ) -> None:
+    """Write json safely."""
     parent = output_path.expanduser().parent.resolve(strict=True)
     if not parent.is_dir():
         raise InspectionError(f"output parent is not a directory: {parent}")
@@ -356,6 +360,7 @@ def _emit_json(payload: Mapping[str, Any], *, compact: bool) -> None:
 
 
 def command_inspect(args: argparse.Namespace) -> int:
+    """Command inspect for *args* and return int."""
     input_path = Path(args.input)
     report = inspect_container(
         input_path,
@@ -379,6 +384,7 @@ def command_inspect(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect a local LabArchives LA container ZIP without extracting it. "
@@ -422,6 +428,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

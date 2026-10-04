@@ -33,6 +33,7 @@ def _accelerator_decision(
     snapshot: Mapping[str, Any],
     requested: str,
 ) -> dict[str, Any]:
+    """Accelerator decision for *snapshot*, *requested* and return dict[str, Any]."""
     if requested == "none":
         return {
             "candidate_count_upper_bound": 0,
@@ -237,6 +238,7 @@ def build_plan(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Plan bounded workers and memory from a resource snapshot"
     )
@@ -287,6 +289,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.force and not args.output:

@@ -24,6 +24,7 @@ IMAGE_PATTERN = re.compile(r"^Image:([1-9][0-9]*)$")
 
 
 def positive_argument(value: str) -> int:
+    """Positive argument for *value* and return int."""
     try:
         parsed = int(value, 10)
     except ValueError as exc:
@@ -51,6 +52,7 @@ def image_selector(value: str) -> str:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Create a bounded local OMERO import/export plan. This command "
@@ -212,6 +214,7 @@ def scan_import_path(
 
 
 def plan_import(args: argparse.Namespace) -> dict[str, Any]:
+    """Plan import for *args* and return dict[str, Any]."""
     bounded_int(
         args.max_paths,
         name="max-paths",
@@ -281,6 +284,7 @@ def plan_import(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def validated_output_directory(raw_path: str) -> Path:
+    """Validated output directory for *raw_path* and return Path."""
     requested = Path(raw_path).expanduser()
     if requested.is_symlink():
         raise ValueError("output directory must not be a symlink")
@@ -294,6 +298,7 @@ def validated_output_directory(raw_path: str) -> Path:
 
 
 def plan_export(args: argparse.Namespace) -> dict[str, Any]:
+    """Plan export for *args* and return dict[str, Any]."""
     bounded_int(
         args.max_images,
         name="max-images",
@@ -365,6 +370,7 @@ def plan_export(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

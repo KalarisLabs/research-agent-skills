@@ -66,6 +66,7 @@ def _validate_roles(
     item_id: str,
     issues: list[Issue],
 ) -> None:
+    """Validate roles."""
     roles = require_list(roles_value, f"{item_id}.credit_roles")
     if not roles:
         issues.append(issue("error", "NO_CREDIT_ROLE", item_id=item_id))
@@ -80,6 +81,7 @@ def _validate_roles(
 
 
 def validate_people(data: dict[str, Any]) -> tuple[list[Issue], set[str]]:
+    """Validate people for *data* and return tuple[list[Issue], set[str]]."""
     issues: list[Issue] = []
     author_ids: set[str] = set()
     for index, raw_author in enumerate(require_list(data.get("authors"), "authors")):
@@ -157,6 +159,7 @@ def validate_accountability(
     data: dict[str, Any],
     author_ids: set[str],
 ) -> list[Issue]:
+    """Validate accountability for *data*, *author_ids* and return list[Issue]."""
     issues: list[Issue] = []
     corresponding = data.get("corresponding_author_id")
     if corresponding not in author_ids:
@@ -182,6 +185,7 @@ def validate_accountability(
 
 
 def validate_ai_disclosure(data: dict[str, Any]) -> tuple[list[Issue], int]:
+    """Validate ai disclosure for *data* and return tuple[list[Issue], int]."""
     issues: list[Issue] = []
     ai_use = require_object(data.get("ai_use"), "ai_use")
     used = ai_use.get("used")
@@ -253,6 +257,7 @@ def validate_ai_disclosure(data: dict[str, Any]) -> tuple[list[Issue], int]:
 
 
 def validate_declarations(data: dict[str, Any]) -> list[Issue]:
+    """Validate declarations for *data* and return list[Issue]."""
     issues: list[Issue] = []
     declarations = require_object(data.get("declarations"), "declarations")
     for declaration_id in (
@@ -285,6 +290,7 @@ def validate_declarations(data: dict[str, Any]) -> list[Issue]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a local authorship JSON record against human accountability, "
@@ -298,6 +304,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def cli() -> int:
+    """Cli and return int."""
     args = build_parser().parse_args()
     data = require_object(read_json(args.authorship), "authorship")
     if data.get("schema_version") != "1.0":

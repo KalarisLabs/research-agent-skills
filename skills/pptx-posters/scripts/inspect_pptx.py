@@ -11,6 +11,7 @@ from _pptx import inspect_pptx
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Boundedly inspect a local .pptx against the strict one-slide generated "
@@ -26,6 +27,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     try:
         args = parser.parse_args(argv)

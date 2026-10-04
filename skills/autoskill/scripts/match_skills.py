@@ -3,6 +3,7 @@ from pathlib import Path
 
 
 def _parse_frontmatter(content: str) -> dict:
+    """Parse frontmatter for *content* and return dict."""
     if not content.startswith("---"):
         return {}
     _, _, rest = content.partition("---\n")
@@ -17,6 +18,7 @@ def _parse_frontmatter(content: str) -> dict:
 
 
 def load_skill_descriptions(skills_dir):
+    """Load skill descriptions for *skills_dir*."""
     skills_dir = Path(skills_dir)
     skills = []
     for skill_md in sorted(skills_dir.glob("*/SKILL.md")):
@@ -36,6 +38,7 @@ def _cosine(a, b):
 
 
 def top_k_matches(query, skills, embedder, k):
+    """Top k matches."""
     q = embedder(query)
     scored = [
         {"name": s["name"], "description": s["description"],

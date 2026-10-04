@@ -32,6 +32,7 @@ def select_backend(
     min_qubits: int,
     use_fractional_gates: bool | None,
 ) -> Any:
+    """Select backend and return Any."""
     feature_kwargs: dict[str, Any] = {}
     if use_fractional_gates is not None:
         feature_kwargs["use_fractional_gates"] = use_fractional_gates
@@ -51,6 +52,7 @@ def select_backend(
 
 
 def inspect_backend(backend: Any) -> dict[str, Any]:
+    """Inspect backend for *backend* and return dict[str, Any]."""
     status = backend.status()
     operation_names = sorted(backend.operation_names)
 
@@ -118,6 +120,7 @@ def inspect_backend(backend: Any) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Select and inspect one accessible IBM Quantum backend. "
@@ -156,6 +159,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def print_human(report: dict[str, Any]) -> None:
+    """Print human for *report*."""
     backend = report["backend"]
     target = report["target"]
 
@@ -181,6 +185,7 @@ def print_human(report: dict[str, Any]) -> None:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
 
     try:

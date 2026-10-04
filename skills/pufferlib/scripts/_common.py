@@ -82,6 +82,7 @@ def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def _assert_finite_json(value: Any, path: str = "$") -> None:
+    """Assert finite json for *value*, *path*."""
     if isinstance(value, float) and not math.isfinite(value):
         raise UserInputError(f"{path} contains a non-finite number")
     if isinstance(value, dict):

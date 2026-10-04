@@ -10,6 +10,7 @@ _VALID_BACKENDS = {"local", "claude", "foundry"}
 
 
 def default_screenpipe_probe(config):
+    """Default screenpipe probe for *config*."""
     sp = config.get("screenpipe", {})
     try:
         url = check_remote_endpoint(sp.get("url", "http://localhost:3030"), "screenpipe")
@@ -27,6 +28,7 @@ def default_screenpipe_probe(config):
 
 
 def default_llm_probe(config):
+    """Default llm probe for *config*."""
     kind = config.get("backend")
     if kind == "local":
         endpoint = config.get("local", {}).get("endpoint", "http://localhost:1234/v1")
@@ -49,6 +51,7 @@ def default_llm_probe(config):
 
 
 def check(config, *, skills_dir, screenpipe_probe, llm_probe):
+    """Check."""
     result = {}
 
     kind = config.get("backend")
@@ -77,6 +80,7 @@ def _format_report(result: dict) -> str:
 
 
 def main(argv=None):
+    """Main for *argv*."""
     import yaml
 
     parser = argparse.ArgumentParser(

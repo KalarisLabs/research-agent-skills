@@ -192,6 +192,7 @@ def validate_structure(structure: Any, args: argparse.Namespace) -> dict[str, An
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a composition or bounded local periodic structure. "
@@ -237,6 +238,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         input_paths: tuple[Any, ...] = ()

@@ -286,6 +286,7 @@ def print_top_predictions(results, n=10):
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(
         description='Analyze DiffDock prediction results',
         formatter_class=argparse.RawDescriptionHelpFormatter,

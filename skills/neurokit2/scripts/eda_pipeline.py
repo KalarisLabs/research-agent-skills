@@ -40,6 +40,7 @@ def _finite_values(values: Any) -> list[float]:
 
 
 def _stats(values: Any) -> dict[str, float | int | None]:
+    """Stats for *values* and return dict[str, float | int | None]."""
     finite = _finite_values(values)
     return {
         "count": len(finite),
@@ -51,6 +52,7 @@ def _stats(values: Any) -> dict[str, float | int | None]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Clean, explicitly decompose, and detect SCRs in bounded "
@@ -97,6 +99,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
+    """Main."""
     args = build_parser().parse_args()
     sampling_rate = finite_float(
         args.sampling_rate,

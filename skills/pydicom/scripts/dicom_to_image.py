@@ -71,6 +71,7 @@ METADATA_TAGS = [
 
 
 def _infer_format(path: str, explicit: str | None) -> str:
+    """Infer format for *path*, *explicit* and return str."""
     if explicit:
         return explicit
     suffix = Path(path).suffix.casefold()
@@ -87,6 +88,7 @@ def _infer_format(path: str, explicit: str | None) -> str:
 
 
 def _normalize(array: Any, *, numpy: Any, bit_depth: int) -> tuple[Any, dict[str, Any]]:
+    """Normalize and return tuple[Any, dict[str, Any]]."""
     maximum = 255 if bit_depth == 8 else 65535
     dtype = numpy.uint8 if bit_depth == 8 else numpy.uint16
     work = numpy.asarray(array)
@@ -120,6 +122,7 @@ def _apply_grayscale_transforms(
     voi: str,
     voi_index: int,
 ) -> tuple[Any, list[str]]:
+    """Apply grayscale transforms and return tuple[Any, list[str]]."""
     from pydicom.pixels import (
         apply_modality_lut,
         apply_voi,
@@ -158,6 +161,7 @@ def _apply_grayscale_transforms(
 
 
 def render_frame(args: argparse.Namespace) -> dict[str, Any]:
+    """Render frame for *args* and return dict[str, Any]."""
     if not args.acknowledge_pixel_phi:
         raise ToolError(
             "conversion requires --acknowledge-pixel-phi because pixels may identify a person"
@@ -350,6 +354,7 @@ def render_frame(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Render one bounded DICOM frame to PNG, TIFF, or explicit lossy JPEG "
@@ -444,6 +449,7 @@ Examples:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         if args.frame < 0 or args.voi_index < 0:

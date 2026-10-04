@@ -59,6 +59,7 @@ PLACEHOLDER_MARKERS = ("REPLACE_", "REQUIRES_", "YYYY-MM-DD")
 
 
 def _find_unsafe_keys(value: Any, location: str = "$") -> list[str]:
+    """Find unsafe keys for *value*, *location* and return list[str]."""
     findings: list[str] = []
     if isinstance(value, dict):
         for key, nested in value.items():
@@ -73,6 +74,7 @@ def _find_unsafe_keys(value: Any, location: str = "$") -> list[str]:
 
 
 def _find_placeholders(value: Any, location: str = "$") -> list[str]:
+    """Find placeholders for *value*, *location* and return list[str]."""
     findings: list[str] = []
     if isinstance(value, dict):
         for key, nested in value.items():
@@ -86,6 +88,7 @@ def _find_placeholders(value: Any, location: str = "$") -> list[str]:
 
 
 def validate_artifact(document: dict[str, Any]) -> IssueLog:
+    """Validate artifact for *document* and return IssueLog."""
     log = IssueLog()
     try:
         require_nonempty_text(document.get("schema_version"), "schema_version", max_length=20)
@@ -237,6 +240,7 @@ def validate_artifact(document: dict[str, Any]) -> IssueLog:
 
 
 def main() -> int:
+    """Main and return int."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a bounded local JSON metadata artifact. Structural checks only; "

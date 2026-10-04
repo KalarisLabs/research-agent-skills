@@ -332,6 +332,7 @@ def has_placeholder(value: Any) -> tuple[str, str] | None:
     """Return the first JSON path and placeholder string, if present."""
 
     def walk(item: Any, path: str) -> tuple[str, str] | None:
+        """Walk for *item*, *path* and return tuple[str, str] | None."""
         if isinstance(item, str):
             for pattern in _PLACEHOLDER_PATTERNS:
                 if pattern.search(item):

@@ -30,6 +30,7 @@ def _expect_mapping(
     path: str,
     errors: list[dict[str, str]],
 ) -> Mapping[str, Any]:
+    """Expect mapping and return Mapping[str, Any]."""
     value = parent.get(key)
     if not isinstance(value, dict):
         errors.append(
@@ -49,6 +50,7 @@ def _check_optional_number(
     path: str,
     errors: list[dict[str, str]],
 ) -> None:
+    """Check optional number."""
     if not _is_optional_nonnegative_number(parent.get(key)):
         errors.append(
             {
@@ -339,6 +341,7 @@ def _diff_values(
     path: str,
     changes: list[dict[str, Any]],
 ) -> None:
+    """Diff values."""
     if len(changes) >= MAX_DIFFS:
         return
     if isinstance(before, dict) and isinstance(after, dict):
@@ -434,6 +437,7 @@ def diff_snapshots(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Validate or structurally diff resource snapshot JSON"
     )
@@ -462,6 +466,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.force and not args.output:

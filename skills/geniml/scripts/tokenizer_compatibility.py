@@ -31,6 +31,7 @@ TOOL = "tokenizer-universe-compatibility"
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Compare a local model bundle and universe using checksums and bounded "
@@ -85,6 +86,7 @@ def _count_universe(
     max_bytes: int,
     max_records: int,
 ) -> tuple[int, int, Counter[str]]:
+    """Count universe and return tuple[int, int, Counter[str]]."""
     records = 0
     duplicates = 0
     issues: Counter[str] = Counter()
@@ -126,6 +128,7 @@ def _count_universe(
 
 
 def _parquet_magic(path: Path) -> bool:
+    """Parquet magic for *path* and return bool."""
     flags = os.O_RDONLY
     if hasattr(os, "O_NOFOLLOW"):
         flags |= os.O_NOFOLLOW
@@ -144,6 +147,7 @@ def _parquet_magic(path: Path) -> bool:
 
 
 def inspect(args: argparse.Namespace) -> tuple[dict, int]:
+    """Inspect for *args* and return tuple[dict, int]."""
     if not args.assembly.strip() or len(args.assembly) > 200:
         raise SafetyError("assembly must be a nonempty value of at most 200 characters")
     model_dir = local_path(args.model_dir, kind="dir")
@@ -308,6 +312,7 @@ def inspect(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report, exit_code = inspect(args)

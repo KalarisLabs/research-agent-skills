@@ -13,6 +13,7 @@ sys.dont_write_bytecode = True
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
     for name in ("check", "simulate", "fit"):

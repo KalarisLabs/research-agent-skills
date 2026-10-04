@@ -26,6 +26,7 @@ PROTON = 1.0072764665789
 
 
 def read_fasta(path):
+    """Read fasta for *path*."""
     entries = []
     fe = ms.FASTAFile()
     seqs = []
@@ -45,6 +46,7 @@ def digest(seq_str, enzyme, missed, min_len, max_len):
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(description="In-silico protein digestion.")
     parser.add_argument("fasta", nargs="?", help="FASTA file (optional if --sequence given)")
     parser.add_argument("--sequence", help="Single protein sequence")

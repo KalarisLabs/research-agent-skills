@@ -33,6 +33,7 @@ INITIAL_STATES = {"excited", "ground", "plus"}
 
 @dataclass(frozen=True)
 class SimulationConfig:
+    """Simulation config."""
     solver: str
     initial_state: str
     omega: float
@@ -49,6 +50,7 @@ class SimulationConfig:
 
     @classmethod
     def from_namespace(cls, args: argparse.Namespace) -> "SimulationConfig":
+        """From namespace for *args* and return 'SimulationConfig'."""
         solver = str(args.solver)
         if solver not in {"mesolve", "mcsolve"}:
             raise CliError("solver must be mesolve or mcsolve")
@@ -138,6 +140,7 @@ class SimulationConfig:
 
 
 def _initial_state(qutip: Any, label: str) -> Any:
+    """Initial state for *qutip*, *label* and return Any."""
     excited = qutip.basis(2, 0)
     ground = qutip.basis(2, 1)
     if label == "excited":
@@ -148,6 +151,7 @@ def _initial_state(qutip: Any, label: str) -> Any:
 
 
 def _state_audit(state: Any, tolerance: float) -> dict[str, Any]:
+    """State audit for *state*, *tolerance* and return dict[str, Any]."""
     if state is None:
         return {"available": False}
     if state.isket:
@@ -184,6 +188,7 @@ def _state_audit(state: Any, tolerance: float) -> dict[str, Any]:
 
 
 def _seed_manifest(seeds: Any) -> list[Any] | None:
+    """Seed manifest for *seeds* and return list[Any] | None."""
     if seeds is None:
         return None
     manifest: list[Any] = []
@@ -351,6 +356,7 @@ def run_simulation(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Run a bounded two-level Lindblad or quantum-jump simulation and "
@@ -379,6 +385,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     config = SimulationConfig.from_namespace(args)
     report = run_simulation(config)

@@ -75,6 +75,7 @@ def int_type(*, minimum: int = 0, maximum: int, label: str):
 
 
 def _reject_unsafe_text_path(raw: str) -> None:
+    """Reject unsafe text path for *raw*."""
     if not raw or "\x00" in raw:
         raise SafetyError("path must be nonempty and contain no NUL byte")
     lowered = raw.strip().lower()
@@ -87,6 +88,7 @@ def _reject_unsafe_text_path(raw: str) -> None:
 
 
 def _reject_symlink_components(path: Path) -> None:
+    """Reject symlink components for *path*."""
     current = Path(path.anchor)
     for part in path.parts[1:]:
         current = current / part
@@ -138,6 +140,7 @@ def local_path(
 
 
 def _open_binary_nofollow(path: Path):
+    """Open binary nofollow for *path*."""
     flags = os.O_RDONLY
     if hasattr(os, "O_NOFOLLOW"):
         flags |= os.O_NOFOLLOW

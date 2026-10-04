@@ -61,6 +61,7 @@ def name_str(n: dict, bib: bool = True) -> str:
 
 
 def make_key(item: dict, used: set[str]) -> str:
+    """Make key for *item*, *used* and return str."""
     fam = (item.get("author") or [{}])[0]
     fam = fam.get("family") or fam.get("literal") or "anon"
     word = next((w for w in re.findall(r"[A-Za-z]+", item.get("title", "")) if len(w) > 3), "ref")
@@ -77,6 +78,7 @@ def make_key(item: dict, used: set[str]) -> str:
 
 # ---------- BibTeX ----------
 def _bib_value(text: str, i: int) -> tuple[str, int]:
+    """Bib value for *text*, *i* and return tuple[str, int]."""
     parts = []
     while True:
         while text[i].isspace():
@@ -107,6 +109,7 @@ def _bib_value(text: str, i: int) -> tuple[str, int]:
 
 
 def read_bib(text: str) -> list[dict]:
+    """Read bib for *text* and return list[dict]."""
     items = []
     for m in re.finditer(r"@(\w+)\s*[{(]\s*([^,\s]+)\s*,", text):
         btype = m.group(1).lower()
@@ -149,6 +152,7 @@ def read_bib(text: str) -> list[dict]:
 
 
 def write_bib(items: list[dict]) -> str:
+    """Write bib for *items* and return str."""
     used: set[str] = set()
     out = []
     for it in items:
@@ -182,6 +186,7 @@ def write_bib(items: list[dict]) -> str:
 
 # ---------- RIS ----------
 def read_ris(text: str) -> list[dict]:
+    """Read ris for *text* and return list[dict]."""
     items, cur = [], {}
     for line in text.splitlines():
         m = re.match(r"^([A-Z][A-Z0-9])  - ?(.*)$", line.rstrip())
@@ -217,6 +222,7 @@ def read_ris(text: str) -> list[dict]:
 
 
 def write_ris(items: list[dict]) -> str:
+    """Write ris for *items* and return str."""
     out = []
     for it in items:
         lines = [f"TY  - {CSL2RIS.get(it.get('type', ''), 'GEN')}"]
@@ -249,6 +255,7 @@ EXT = {".bib": "bib", ".bibtex": "bib", ".ris": "ris", ".txt": "ris", ".json": "
 
 
 def main() -> int:
+    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("input", type=Path)
     ap.add_argument("output", type=Path)

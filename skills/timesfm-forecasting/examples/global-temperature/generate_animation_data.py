@@ -28,6 +28,7 @@ OUTPUT_FILE = Path(__file__).parent / "output" / "animation_data.json"
 
 
 def main() -> None:
+    """Main."""
     print("=" * 60)
     print("  TIMESFM ANIMATION DATA GENERATOR")
     print("  Dynamic horizon - forecasts always reach 2025-12")

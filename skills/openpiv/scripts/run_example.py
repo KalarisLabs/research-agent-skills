@@ -36,6 +36,7 @@ def bundled_image_pair() -> tuple[Path, Path]:
 
 
 def main() -> int:
+    """Main and return int."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output_dir", default="openpiv-example")
     parser.add_argument("--window_size", type=int, default=32)

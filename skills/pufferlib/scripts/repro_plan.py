@@ -120,6 +120,7 @@ def generate_plan(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Emit a local reproducibility/evaluation plan; no packages, checkpoints, "
@@ -137,6 +138,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

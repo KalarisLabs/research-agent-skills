@@ -20,6 +20,7 @@ from basic_simulation_template import QueueConfig, run_simulation
 
 
 def _trace_text(records: list[dict[str, Any]]) -> str:
+    """Trace text for *records* and return str."""
     return "".join(
         json.dumps(
             record,
@@ -48,6 +49,7 @@ def run_scenario(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Run the built-in bounded M/M/c/K-style queue scenario. The local "
@@ -75,6 +77,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

@@ -159,6 +159,7 @@ def compute_metrics(
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(description='Compute quality metrics')
     parser.add_argument('sorting', help='Path to sorting directory')
     parser.add_argument('recording', help='Path to preprocessed recording')

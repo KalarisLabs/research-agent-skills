@@ -52,6 +52,7 @@ _METADATA_KEYS = {
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inventory and hash a local Geniml model bundle without importing "
@@ -88,6 +89,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _walk_regular_files(root: Path, max_files: int) -> list[Path]:
+    """Walk regular files for *root*, *max_files* and return list[Path]."""
     files: list[Path] = []
     pending = [root]
     while pending:
@@ -110,6 +112,7 @@ def _walk_regular_files(root: Path, max_files: int) -> list[Path]:
 
 
 def _risk_for(path: Path) -> str:
+    """Risk for for *path* and return str."""
     suffix = path.suffix.lower()
     if suffix in _DESERIALIZATION_RISK:
         return "deserialization"
@@ -123,6 +126,7 @@ def _risk_for(path: Path) -> str:
 
 
 def _safe_json(path: Path, max_bytes: int):
+    """Safe json for *path*, *max_bytes*."""
     lines = [
         line
         for _, line in iter_text_lines(
@@ -143,6 +147,7 @@ def _read_checksum_manifest(
     max_bytes: int,
     max_files: int,
 ) -> dict[str, str]:
+    """Read checksum manifest and return dict[str, str]."""
     expected: dict[str, str] = {}
     for line_number, line in iter_text_lines(
         path,
@@ -174,6 +179,7 @@ def _read_checksum_manifest(
 
 
 def _redacted_metadata(value) -> tuple[dict[str, object], int]:
+    """Redacted metadata for *value* and return tuple[dict[str, object], int]."""
     if not isinstance(value, dict):
         raise SafetyError("config metadata must be a mapping")
     selected: dict[str, object] = {}
@@ -195,6 +201,7 @@ def _redacted_metadata(value) -> tuple[dict[str, object], int]:
 
 
 def inspect(args: argparse.Namespace) -> tuple[dict, int]:
+    """Inspect for *args* and return tuple[dict, int]."""
     model_dir = local_path(args.model_dir, kind="dir")
     files = _walk_regular_files(model_dir, args.max_files)
     if not files:
@@ -345,6 +352,7 @@ def inspect(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report, exit_code = inspect(args)

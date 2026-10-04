@@ -28,6 +28,7 @@ TOOL = "interval-corpus-auditor"
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit a local CSV/TSV manifest for paths, assemblies, duplicate "
@@ -111,6 +112,7 @@ def _manifest_local_path(raw: str, manifest: Path) -> Path:
 
 
 def audit(args: argparse.Namespace) -> tuple[dict, int]:
+    """Audit for *args* and return tuple[dict, int]."""
     manifest = local_path(args.manifest, kind="file")
     delimiter = delimiter_from_path(manifest, args.delimiter)
     fields, rows = read_delimited_manifest(
@@ -291,6 +293,7 @@ def audit(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report, exit_code = audit(args)

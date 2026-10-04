@@ -112,6 +112,7 @@ def search_templates(
     template_type: str | None = None,
     keyword: str | None = None,
 ) -> list[dict]:
+    """Search templates and return list[dict]."""
     results = []
     for category_name, category in TEMPLATES.items():
         if template_type and template_type != "all" and category_name != template_type:
@@ -137,6 +138,7 @@ def search_templates(
 
 
 def print_template(template: dict, detailed: bool = True) -> None:
+    """Print template for *template*, *detailed*."""
     path = template_path(template["category"], template["file"])
     print(f"\n{template['full_name']}")
     print(f"  ID: {template['id']}")
@@ -156,6 +158,7 @@ def print_template(template: dict, detailed: bool = True) -> None:
 
 
 def parse_args() -> argparse.Namespace:
+    """Parse args and return argparse.Namespace."""
     parser = argparse.ArgumentParser(
         description="Query templates actually bundled with venue-templates"
     )
@@ -177,6 +180,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    """Main and return int."""
     args = parse_args()
     if not any([args.list_all, args.venue, args.template_type, args.keyword]):
         print("Specify --list-all, --venue, --type, or --keyword.")

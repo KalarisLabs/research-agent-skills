@@ -189,6 +189,7 @@ def create_template_csv(output_path, num_examples=3):
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(
         description='Prepare and validate DiffDock batch CSV files',
         formatter_class=argparse.RawDescriptionHelpFormatter,

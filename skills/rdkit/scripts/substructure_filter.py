@@ -252,6 +252,7 @@ def print_summary(total, filtered, match_info):
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(
         description='Filter molecules by substructure patterns',
         formatter_class=argparse.RawDescriptionHelpFormatter,

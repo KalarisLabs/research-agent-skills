@@ -13,6 +13,7 @@ from pathlib import Path
 
 
 def check(report: dict, skills_root: Path) -> tuple[list[str], list[str]]:
+    """Check for *report*, *skills_root* and return tuple[list[str], list[str]]."""
     expected = {p.name for p in skills_root.iterdir() if (p / "SKILL.md").is_file()}
     errors: list[str] = []
     warnings: list[str] = []
@@ -56,6 +57,7 @@ def check(report: dict, skills_root: Path) -> tuple[list[str], list[str]]:
 
 
 def main() -> int:
+    """Main and return int."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("report", type=Path)
     parser.add_argument("--skills-root", type=Path, default=Path("skills"))

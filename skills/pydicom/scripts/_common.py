@@ -303,6 +303,7 @@ class ToolError(ValueError):
 
 
 def bounded_int(value: Any, *, name: str, minimum: int, maximum: int) -> int:
+    """Bounded int and return int."""
     if isinstance(value, bool):
         raise ToolError(f"{name} must be an integer")
     try:
@@ -321,6 +322,7 @@ def parse_size(
     minimum: int = 1,
     maximum: int = HARD_MAX_INPUT_BYTES,
 ) -> int:
+    """Parse size and return int."""
     if isinstance(value, int):
         result = value
     elif isinstance(value, str):
@@ -338,6 +340,7 @@ def parse_size(
 def require_text(
     value: Any, *, name: str, minimum: int = 1, maximum: int = 1_000
 ) -> str:
+    """Require text and return str."""
     if not isinstance(value, str) or not minimum <= len(value) <= maximum:
         raise ToolError(f"{name} must be a string of length {minimum}..{maximum}")
     if any(ord(character) < 32 for character in value):
@@ -352,6 +355,7 @@ def safe_plugin_name(value: str) -> str:
 
 
 def _reject_path_text(value: str) -> None:
+    """Reject path text for *value*."""
     stripped = value.strip()
     lowered = stripped.casefold()
     if not stripped or "\x00" in value or stripped.startswith("~"):
@@ -367,6 +371,7 @@ def _absolute(path: Path) -> Path:
 
 
 def _reject_symlink_components(path: Path) -> None:
+    """Reject symlink components for *path*."""
     absolute = _absolute(path)
     current = Path(absolute.anchor)
     for part in absolute.parts[1:]:
@@ -382,6 +387,7 @@ def _reject_symlink_components(path: Path) -> None:
 
 
 def checked_root(value: str | os.PathLike[str]) -> Path:
+    """Checked root for *value* and return Path."""
     raw = os.fspath(value)
     _reject_path_text(raw)
     candidate = _absolute(Path(raw))
@@ -410,6 +416,7 @@ def checked_input(
     kind: str = "file",
     max_bytes: int = DEFAULT_MAX_INPUT_BYTES,
 ) -> Path:
+    """Checked input and return Path."""
     raw = os.fspath(value)
     _reject_path_text(raw)
     root_path = checked_root(root)
@@ -444,6 +451,7 @@ def checked_output(
     root: str | os.PathLike[str] = ".",
     force: bool = False,
 ) -> Path:
+    """Checked output and return Path."""
     raw = os.fspath(value)
     _reject_path_text(raw)
     root_path = checked_root(root)
@@ -472,6 +480,7 @@ def checked_output_directory(
     *,
     root: str | os.PathLike[str] = ".",
 ) -> Path:
+    """Checked output directory for *value*, *root* and return Path."""
     raw = os.fspath(value)
     _reject_path_text(raw)
     root_path = checked_root(root)
@@ -511,6 +520,7 @@ def collect_local_files(
     max_bytes: int,
     recursive: bool = True,
 ) -> list[Path]:
+    """Collect local files and return list[Path]."""
     bounded_int(max_files, name="max_files", minimum=1, maximum=HARD_MAX_FILES)
     if source.is_file():
         return [source]
@@ -564,6 +574,7 @@ def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def load_json(path: Path, *, max_bytes: int = MAX_JSON_BYTES) -> Any:
+    """Load json for *path*, *max_bytes* and return Any."""
     if path.stat().st_size > max_bytes:
         raise ToolError("JSON input exceeds the configured byte limit")
     try:
@@ -580,6 +591,7 @@ def load_json(path: Path, *, max_bytes: int = MAX_JSON_BYTES) -> Any:
 
 
 def json_bytes(document: Any) -> bytes:
+    """Json bytes for *document* and return bytes."""
     try:
         payload = (
             json.dumps(
@@ -603,6 +615,7 @@ def emit_json(document: Any) -> None:
 
 
 def fail_json(tool: str, exc: Exception) -> int:
+    """Fail json for *tool*, *exc* and return int."""
     message = (
         str(exc)[:500]
         if isinstance(exc, ToolError)
@@ -626,6 +639,7 @@ def atomic_write(
     force: bool = False,
     max_bytes: int = MAX_REPORT_BYTES,
 ) -> None:
+    """Atomic write."""
     if len(payload) > max_bytes:
         raise ToolError("generated output exceeds the configured byte limit")
     descriptor, temporary_name = tempfile.mkstemp(
@@ -653,6 +667,7 @@ def atomic_generated_file(
     force: bool = False,
     max_bytes: int = HARD_MAX_OUTPUT_BYTES,
 ) -> None:
+    """Atomic generated file."""
     descriptor, temporary_name = tempfile.mkstemp(
         prefix=f".{destination.name}.",
         suffix=destination.suffix or ".tmp",
@@ -682,6 +697,7 @@ def atomic_generated_file(
 
 
 def require_pydicom() -> Any:
+    """Require pydicom and return Any."""
     try:
         import pydicom
     except ImportError as exc:
@@ -697,6 +713,7 @@ def require_pydicom() -> Any:
 
 
 def require_pixel_stack() -> tuple[Any, Any, Any]:
+    """Require pixel stack and return tuple[Any, Any, Any]."""
     pydicom = require_pydicom()
     try:
         import numpy
@@ -718,6 +735,7 @@ def safe_dcmread(
     defer_size: str | int | None = None,
     specific_tags: Iterable[str | int] | None = None,
 ) -> Any:
+    """Safe dcmread and return Any."""
     pydicom = require_pydicom()
     try:
         return pydicom.dcmread(
@@ -736,6 +754,7 @@ def element_tag(element: Any) -> str:
 
 
 def valid_uid(value: Any) -> bool:
+    """Valid uid for *value* and return bool."""
     if not isinstance(value, str) or not 1 <= len(value) <= 64:
         return False
     if not _UID_PATTERN.fullmatch(value):
@@ -747,6 +766,7 @@ def valid_uid(value: Any) -> bool:
 
 
 def derive_uid(original: str, *, key: bytes, scope: str) -> str:
+    """Derive uid and return str."""
     if not valid_uid(original):
         raise ToolError("an instance UID selected for remapping is invalid")
     digest = hmac.new(
@@ -765,6 +785,7 @@ def derive_uid(original: str, *, key: bytes, scope: str) -> str:
 
 
 def derive_token(value: str, *, key: bytes, scope: str, length: int = 24) -> str:
+    """Derive token and return str."""
     digest = hmac.new(
         key,
         b"pydicom-skill-token-v1\0"
@@ -781,6 +802,7 @@ def sha256_text(value: str) -> str:
 
 
 def frame_count(dataset: Any) -> tuple[int, list[str]]:
+    """Frame count for *dataset* and return tuple[int, list[str]]."""
     warnings: list[str] = []
     raw = dataset.get("NumberOfFrames", 1)
     try:
@@ -801,6 +823,7 @@ def pixel_plan(
     max_frames: int = HARD_MAX_FRAMES,
     max_decompressed_bytes: int = HARD_MAX_DECOMPRESSED_BYTES,
 ) -> dict[str, Any]:
+    """Pixel plan and return dict[str, Any]."""
     rows = bounded_int(dataset.get("Rows"), name="Rows", minimum=1, maximum=1_000_000)
     columns = bounded_int(
         dataset.get("Columns"), name="Columns", minimum=1, maximum=1_000_000
@@ -872,6 +895,7 @@ def counter_dict(counter: Counter[str]) -> dict[str, int]:
 
 
 def validate_profile(document: Any) -> dict[str, Any]:
+    """Validate profile for *document* and return dict[str, Any]."""
     if not isinstance(document, Mapping):
         raise ToolError("action profile must be a JSON object")
     allowed = {"name", "version", "actions", "private_policy", "date_policy"}
@@ -907,6 +931,7 @@ def validate_profile(document: Any) -> dict[str, Any]:
 
 
 def starter_profile() -> dict[str, Any]:
+    """Starter profile and return dict[str, Any]."""
     return {
         "actions": dict(DEFAULT_ACTIONS),
         "date_policy": "empty",

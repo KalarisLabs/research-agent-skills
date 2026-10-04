@@ -35,6 +35,7 @@ CLASSIFICATIONS = {"public", "internal", "confidential", "restricted"}
 
 
 def _safe_evidence_file(base: Path, relative_text: str) -> Path:
+    """Safe evidence file for *base*, *relative_text* and return Path."""
     relative = Path(relative_text)
     if relative.is_absolute() or ".." in relative.parts:
         raise InputError(f"evidence path must be relative and contained: {relative}")
@@ -65,6 +66,7 @@ def _text_array(
     path: str,
     allowed: set[str],
 ) -> list[str]:
+    """Text array and return list[str]."""
     raw = review.list(value, path, min_items=1)
     if raw is None:
         return []
@@ -91,6 +93,7 @@ def validate(
     verify_files: bool,
     profile: StandardProfile,
 ) -> tuple[Review, dict[str, int]]:
+    """Validate and return tuple[Review, dict[str, int]]."""
     review = Review()
     domains = set(profile.process_domains)
     metadata = review.object(data.get("metadata"), "metadata")
@@ -210,6 +213,7 @@ def validate(
 
 
 def main() -> int:
+    """Main and return int."""
     parser = standard_parser(
         "Validate a local audit/readiness evidence manifest.",
         "Path to the local evidence-manifest JSON file",

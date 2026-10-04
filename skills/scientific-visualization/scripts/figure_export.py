@@ -38,6 +38,7 @@ MAX_FORMATS = 8
 
 
 def _normalize_formats(formats: Iterable[str]) -> list[str]:
+    """Normalize formats for *formats* and return list[str]."""
     normalized: list[str] = []
     for item in formats:
         for value in item.split(","):
@@ -69,6 +70,7 @@ def _base_output_path(value: str | os.PathLike[str]) -> Path:
 
 
 def _font_rc(font_mode: str) -> dict[str, Any]:
+    """Font rc for *font_mode* and return dict[str, Any]."""
     if font_mode == "current":
         return {}
     if font_mode == "truetype":
@@ -102,6 +104,7 @@ def _atomic_savefig(
     save_kwargs: dict[str, Any],
     overwrite: bool,
 ) -> None:
+    """Atomic savefig."""
     destination = checked_output_file(destination, force=overwrite)
     descriptor, temporary_name = tempfile.mkstemp(
         prefix=f".{destination.stem}.",
@@ -133,6 +136,7 @@ def _atomic_savefig(
 
 
 def _validate_provenance(provenance: dict[str, Any] | None) -> dict[str, Any]:
+    """Validate provenance for *provenance* and return dict[str, Any]."""
     if provenance is None:
         return {}
     if not isinstance(provenance, dict):
@@ -360,6 +364,7 @@ def save_publication_figure(
 
 
 def _load_profiles() -> dict[str, Any]:
+    """Load profiles and return dict[str, Any]."""
     profile_path = Path(__file__).resolve().parents[1] / "assets" / "publisher_profiles.json"
     try:
         document = json.loads(profile_path.read_text(encoding="utf-8"))
@@ -533,6 +538,7 @@ def verify_font_embedding(pdf_path: str | os.PathLike[str]) -> dict[str, Any]:
 
 
 def _demo_figure() -> Any:
+    """Demo figure and return Any."""
     try:
         import matplotlib.pyplot as plt
     except ImportError as exc:
@@ -560,6 +566,7 @@ def _demo_figure() -> Any:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Render a deterministic Matplotlib export smoke-test. Programmatic "
@@ -600,6 +607,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     try:
         args = parser.parse_args(argv)

@@ -217,6 +217,7 @@ class Reference:
     """
 
     def __init__(self, path: str | Path) -> None:
+        """Initialize with path."""
         self.path = Path(path)
         if not self.path.exists():
             raise ReferenceError(f"reference not found: {self.path}")
@@ -232,6 +233,7 @@ class Reference:
             self._alias.setdefault(canonical_contig(name), name)
 
     def _load_fai(self, fai: Path) -> None:
+        """Load fai for *fai*."""
         for line in fai.read_text().splitlines():
             if not line.strip():
                 continue
@@ -242,6 +244,7 @@ class Reference:
             self._index[name] = (int(length), int(offset), int(linebases), int(linewidth))
 
     def _load_all(self) -> None:
+        """Load all."""
         name = None
         chunks: list[str] = []
         with self.path.open() as handle:
@@ -257,6 +260,7 @@ class Reference:
             self._cache[name] = "".join(chunks)
 
     def _resolve(self, contig: str) -> str:
+        """Resolve for *contig* and return str."""
         if contig in self._index or contig in self._cache:
             return contig
         alias = self._alias.get(canonical_contig(contig))

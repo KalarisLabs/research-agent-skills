@@ -40,6 +40,7 @@ else:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect bounded local output JSON. Raw hypotheses, prompts, responses, "
@@ -58,6 +59,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def inspect_hypotheses(document: object, *, file_sha256: str) -> dict:
+    """Inspect hypotheses for *document*, *file_sha256* and return dict."""
     entries = validate_hypothesis_bank(document)
     normalized_counts = Counter(entry["normalized_sha256"] for entry in entries)
     duplicate_hashes = sorted(
@@ -101,6 +103,7 @@ def inspect_hypotheses(document: object, *, file_sha256: str) -> dict:
 
 
 def inspect_results(document: object, *, file_sha256: str) -> dict:
+    """Inspect results for *document*, *file_sha256* and return dict."""
     result = validate_result_document(document)
     records = result["records"]
     predictions = [
@@ -137,6 +140,7 @@ def inspect_results(document: object, *, file_sha256: str) -> dict:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         path = checked_input_file(

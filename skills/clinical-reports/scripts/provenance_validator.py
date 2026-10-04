@@ -232,6 +232,7 @@ def validate_provenance(data: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Check bounded local source-fact traceability metadata. "
@@ -245,6 +246,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         _, data = load_json_object(args.input_file)

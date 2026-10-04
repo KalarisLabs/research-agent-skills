@@ -27,6 +27,7 @@ TOOL = "vector_inventory"
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inventory one allowlisted local vector file without loading feature "
@@ -67,6 +68,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def inventory(args: argparse.Namespace) -> dict:
+    """Inventory for *args* and return dict."""
     max_features = bounded_limit(
         args.max_features,
         name="max_features",

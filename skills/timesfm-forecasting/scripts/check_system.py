@@ -78,6 +78,7 @@ MODEL_PROFILES: dict[str, dict[str, Any]] = {
 
 @dataclass
 class CheckResult:
+    """Check result."""
     name: str
     status: str  # "pass", "warn", "fail"
     detail: str
@@ -93,6 +94,7 @@ class CheckResult:
 
 @dataclass
 class SystemReport:
+    """System report."""
     model: str
     checks: list[CheckResult] = field(default_factory=list)
     verdict: str = ""
@@ -105,6 +107,7 @@ class SystemReport:
         return all(c.status != "fail" for c in self.checks)
 
     def to_dict(self) -> dict[str, Any]:
+        """To dict and return dict[str, Any]."""
         return {
             "model": self.model,
             "passed": self.passed,
@@ -153,6 +156,7 @@ def _get_total_ram_gb() -> float:
             kernel32 = ctypes.windll.kernel32  # type: ignore[attr-defined]
 
             class MEMORYSTATUSEX(ctypes.Structure):
+                """Memorystatusex (ctypes.Structure)."""
                 _fields_ = [
                     ("dwLength", ctypes.c_ulong),
                     ("dwMemoryLoad", ctypes.c_ulong),
@@ -204,6 +208,7 @@ def _get_available_ram_gb() -> float:
             kernel32 = ctypes.windll.kernel32  # type: ignore[attr-defined]
 
             class MEMORYSTATUSEX(ctypes.Structure):
+                """Memorystatusex (ctypes.Structure)."""
                 _fields_ = [
                     ("dwLength", ctypes.c_ulong),
                     ("dwMemoryLoad", ctypes.c_ulong),
@@ -495,6 +500,7 @@ def print_report(report: SystemReport) -> None:
 
 
 def main() -> None:
+    """Main."""
     parser = argparse.ArgumentParser(
         description="Check system requirements for TimesFM."
     )

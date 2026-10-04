@@ -27,6 +27,7 @@ from _common import configure_scanpy, info, load_anndata, save_anndata
 
 
 def build_parser():
+    """Build parser."""
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("input", help="Input raw-counts file (.h5ad, .h5, .csv, 10x dir, ...)")
@@ -69,6 +70,7 @@ def apply_config(args):
 
 
 def main():
+    """Main."""
     args = apply_config(build_parser().parse_args())
     sc = configure_scanpy(figdir=args.figdir)
 

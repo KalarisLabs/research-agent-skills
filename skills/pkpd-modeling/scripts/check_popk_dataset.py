@@ -45,6 +45,7 @@ MISSING = {"", ".", "na", "n/a", "nan", "null", "none"}
 
 
 def _num(value: str) -> float | None:
+    """Num for *value* and return float | None."""
     text = (value or "").strip()
     if text.lower() in MISSING:
         return None
@@ -59,10 +60,12 @@ def _is_missing(value: str) -> bool:
 
 
 class Findings:
+    """Findings."""
     def __init__(self) -> None:
         self.items: list[dict[str, object]] = []
 
     def add(self, severity: str, check: str, detail: str, rows: Sequence[int] = ()) -> None:
+        """Add."""
         listed = list(rows)[:8]
         self.items.append(
             {
@@ -82,6 +85,7 @@ class Findings:
 
 
 def check_dataset(rows: list[dict[str, str]], args: argparse.Namespace) -> tuple[Findings, dict]:
+    """Check dataset for *rows*, *args* and return tuple[Findings, dict]."""
     found = Findings()
     columns = list(rows[0].keys())
     upper = {c.lower(): c for c in columns}
@@ -342,6 +346,7 @@ def check_dataset(rows: list[dict[str, str]], args: argparse.Namespace) -> tuple
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Validate a population PK dataset against NONMEM/nlmixr2 data conventions.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -367,6 +372,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def run(argv: Sequence[str] | None = None) -> int:
+    """Run for *argv* and return int."""
     args = build_parser().parse_args(argv)
     args.covariates = [c.strip() for c in args.covariates.split(",") if c.strip()]
     args.time_varying = [c.strip() for c in args.time_varying.split(",") if c.strip()]

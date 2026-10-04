@@ -61,6 +61,7 @@ DEFAULT_MODALITIES: tuple[str, ...] = ("RNA_SEQ", "DNASE", "CHIP_TF")
 
 
 def parse_modalities(text: str | Sequence[str] | None) -> list[str]:
+    """Parse modalities for *text* and return list[str]."""
     if not text:
         return []
     items = text.split(",") if isinstance(text, str) else list(text)
@@ -157,6 +158,7 @@ def build_url(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         prog="atlas_link.py",
         description="Build AlphaGenome Atlas website deep links (no network, no key).",
@@ -176,6 +178,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         url = build_url(

@@ -37,6 +37,7 @@ def load_exp(path):
 
 
 def plot_spectrum(args):
+    """Plot spectrum for *args*."""
     exp = load_exp(args.input)
     if args.rt is not None:
         spec = min((s for s in exp), key=lambda s: abs(s.getRT() - args.rt))
@@ -52,6 +53,7 @@ def plot_spectrum(args):
 
 
 def plot_tic(args):
+    """Plot tic for *args*."""
     exp = load_exp(args.input)
     rts, tic = [], []
     for s in exp:
@@ -69,6 +71,7 @@ def plot_tic(args):
 
 
 def plot_featuremap(args):
+    """Plot featuremap for *args*."""
     fm = ms.FeatureMap()
     ms.FeatureXMLFile().load(args.input, fm)
     df = fm.get_df()
@@ -84,6 +87,7 @@ def plot_featuremap(args):
 
 
 def plot_map2d(args):
+    """Plot map2d for *args*."""
     exp = load_exp(args.input)
     rts, mzs, ints = [], [], []
     for s in exp:
@@ -108,6 +112,7 @@ PLOTS = {"spectrum": plot_spectrum, "tic": plot_tic,
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(description="Visualize MS data.")
     parser.add_argument("kind", choices=list(PLOTS), help="Plot type")
     parser.add_argument("input", help="Input file")

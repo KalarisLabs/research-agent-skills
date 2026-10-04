@@ -58,6 +58,7 @@ ENTRY_FIELDS = {
 
 
 def _validate_entry(entry: Any, index: int) -> tuple[str, str, str, str, list[str]]:
+    """Validate entry for *entry*, *index* and return tuple[str, str, str, str, list[str]]."""
     entry = require_exact_keys(entry, ENTRY_FIELDS, f"entries[{index}]")
     system = require_string(entry.get("system"), f"entries[{index}].system", max_length=32)
     if system not in CODE_PATTERNS:
@@ -106,6 +107,7 @@ def _validate_entry(entry: Any, index: int) -> tuple[str, str, str, str, list[st
 
 
 def _load_dictionary(raw_path: str) -> dict[tuple[str, str, str], str]:
+    """Load dictionary for *raw_path* and return dict[tuple[str, str, str], str]."""
     _, data = load_json_object(raw_path)
     require_exact_keys(
         data,
@@ -244,6 +246,7 @@ def validate_terminology_manifest(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Check a bounded terminology JSON manifest. Optional dictionary comparison "
@@ -258,6 +261,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         _, data = load_json_object(args.input_file)

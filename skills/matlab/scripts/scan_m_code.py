@@ -175,6 +175,7 @@ RULES: tuple[tuple[str, str, str, re.Pattern[str]], ...] = (
 
 
 def _without_comments(line: str, *, in_block: bool) -> tuple[str, bool]:
+    """Without comments for *line*, *in_block* and return tuple[str, bool]."""
     stripped = line.lstrip()
     if in_block:
         if stripped.startswith("%}"):
@@ -206,6 +207,7 @@ def _without_comments(line: str, *, in_block: bool) -> tuple[str, bool]:
 def scan_source(
     path: Path, root: Path, *, max_file_bytes: int
 ) -> list[dict[str, Any]]:
+    """Scan source and return list[dict[str, Any]]."""
     findings: list[dict[str, Any]] = []
     text = read_text(path, max_bytes=max_file_bytes)
     in_block = False
@@ -238,6 +240,7 @@ def scan_source(
 
 
 def _opaque_finding(path: Path, root: Path) -> dict[str, Any] | None:
+    """Opaque finding for *path*, *root* and return dict[str, Any] | None."""
     suffix = path.suffix.casefold()
     details = OPAQUE_SUFFIXES.get(suffix)
     if suffix.startswith(".mex"):
@@ -268,6 +271,7 @@ def collect(
     max_file_bytes: int,
     max_total_bytes: int,
 ) -> list[Path]:
+    """Collect and return list[Path]."""
     if source.is_file():
         suffix = source.suffix.casefold()
         supported = (
@@ -323,6 +327,7 @@ def collect(
 
 
 def scan(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
+    """Scan for *args* and return tuple[dict[str, Any], int]."""
     root = checked_root(args.root)
     source = checked_input(args.input, root=root, kind="any")
     max_files = bounded_int(
@@ -398,6 +403,7 @@ def scan(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
 
 
 def parser() -> argparse.ArgumentParser:
+    """Parser and return argparse.ArgumentParser."""
     result = argparse.ArgumentParser(
         description=(
             "Statically triage reviewed MATLAB text and flag opaque artifacts. "

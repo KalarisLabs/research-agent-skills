@@ -29,6 +29,7 @@ OK = {"verified", "found-add-doi"}
 
 
 def main() -> int:
+    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--json", type=Path)
     args = ap.parse_args()

@@ -47,6 +47,7 @@ def normalize_isbn(value: str) -> str:
 
 
 def valid_isbn(value: str) -> bool:
+    """Valid isbn for *value* and return bool."""
     normalized = normalize_isbn(value)
     if len(normalized) == 10:
         if not re.fullmatch(r"[0-9]{9}[0-9Xx]", normalized):
@@ -72,6 +73,7 @@ def _record_duplicate(
     code: str,
     issues: list[Issue],
 ) -> None:
+    """Record duplicate."""
     if not normalized:
         return
     prior = seen.get(normalized)
@@ -89,6 +91,7 @@ def _record_duplicate(
 
 
 def check_sources(data: dict[str, Any]) -> tuple[list[Issue], int]:
+    """Check sources for *data* and return tuple[list[Issue], int]."""
     issues = validate_source_manifest(data, require_verified=False)
     sources = require_list(data.get("sources"), "sources")
     evidence_ids: set[str] = set()
@@ -194,6 +197,7 @@ def check_sources(data: dict[str, Any]) -> tuple[list[Issue], int]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate DOI, PMID, PMCID, ISBN, and URL syntax and flag duplicates "
@@ -205,6 +209,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def cli() -> int:
+    """Cli and return int."""
     args = build_parser().parse_args()
     data = require_object(read_json(args.sources), "source_manifest")
     if data.get("schema_version") != "1.0":

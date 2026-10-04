@@ -55,6 +55,8 @@ interface Args {
 const BOOL_FLAGS = new Set(["all", "project", "global", "symlink", "copy", "force", "dry-run", "yes", "help", "categories",
   "json"]);
 
+/** Parse args. */
+
 export function parseArgs(argv: string[]): Args {
   const flags: Record<string, string | boolean> = {};
   const positional: string[] = [];
@@ -88,6 +90,8 @@ async function getSource(a: Args): Promise<Source> {
 function scopeOf(a: Args): "global" | "project" {
   return a.flags.project ? "project" : "global";
 }
+
+/** Interactive. */
 
 async function interactive(catalog: Catalog & { bundles?: Record<string, { description: string; categories: string[]; skills?: string[] }> }):
   Promise<{ sel: Selection; chosen: Harness[] }> {
@@ -124,6 +128,8 @@ async function interactive(catalog: Catalog & { bundles?: Record<string, { descr
   }
 }
 
+/** Cmd install. */
+
 async function cmdInstall(a: Args): Promise<number> {
   const src = await getSource(a);
   const catalog = src.catalog as Catalog & { bundles?: Record<string, { description: string; categories: string[]; skills?: string[] }> };
@@ -151,6 +157,8 @@ async function cmdInstall(a: Args): Promise<number> {
   return 0;
 }
 
+/** Cmd list. */
+
 async function cmdList(a: Args): Promise<number> {
   const { catalog } = await getSource(a);
   if (a.flags.categories) {
@@ -164,6 +172,8 @@ async function cmdList(a: Args): Promise<number> {
   log(`\n${skills.length} skills`);
   return 0;
 }
+
+/** Cmd search. */
 
 async function cmdSearch(a: Args): Promise<number> {
   const { catalog } = await getSource(a);
@@ -197,6 +207,8 @@ async function cmdInstalled(a: Args): Promise<number> {
   return 0;
 }
 
+/** Cmd update. */
+
 async function cmdUpdate(a: Args): Promise<number> {
   const src = await getSource(a);
   for (const dir of allTargetDirs(a)) {
@@ -226,6 +238,8 @@ function version(cmd: string, args: string[]): string | undefined {
   return r.status === 0 ? (r.stdout || r.stderr).trim().split("\n")[0] : undefined;
 }
 
+/** Cmd doctor. */
+
 async function cmdDoctor(a: Args): Promise<number> {
   let problems = 0;
   log(`research-agent-skills ${PKG.version} on Node ${process.version} (${process.platform})`);
@@ -245,6 +259,8 @@ async function cmdDoctor(a: Args): Promise<number> {
   }
   return problems ? 1 : 0;
 }
+
+/** Main. */
 
 export async function main(argv: string[] = process.argv.slice(2)): Promise<number> {
   if (argv.length === 1 && (argv[0] === "--version" || argv[0] === "-v")) { log(PKG.version); return 0; }

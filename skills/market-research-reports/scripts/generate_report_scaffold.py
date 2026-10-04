@@ -118,6 +118,7 @@ def _string_list(value: Any, context: str) -> list[str]:
 
 
 def _period(value: Any, context: str) -> str:
+    """Period for *value*, *context* and return str."""
     text = require_text(value, context, maximum=9)
     if not PERIOD_RE.fullmatch(text):
         raise ValidationError(f"{context} must be YYYY-YYYY")
@@ -130,6 +131,7 @@ def _period(value: Any, context: str) -> str:
 
 
 def validate_manifest(payload: dict[str, Any]) -> dict[str, Any]:
+    """Validate manifest for *payload* and return dict[str, Any]."""
     required = (
         "schema_version",
         "report_id",
@@ -208,6 +210,7 @@ def validate_manifest(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def _safe_new_directory(raw_path: str | Path) -> Path:
+    """Safe new directory for *raw_path* and return Path."""
     path = Path(raw_path).expanduser()
     if path.exists() or path.is_symlink():
         raise ValidationError(f"output directory already exists: {path}")
@@ -232,6 +235,7 @@ def _one_line(value: str) -> str:
 
 
 def generate(manifest: dict[str, Any], output_dir: str | Path) -> dict[str, Any]:
+    """Generate for *manifest*, *output_dir* and return dict[str, Any]."""
     destination = _safe_new_directory(output_dir)
     destination.mkdir(mode=0o755)
     (destination / "data").mkdir()
@@ -419,6 +423,7 @@ Render references from `data/source_ledger.csv`; do not cite unmapped sources.
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Generate a new local Markdown market-report scaffold and strict "
@@ -431,6 +436,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         manifest = validate_manifest(require_object(read_json(args.manifest), "root"))

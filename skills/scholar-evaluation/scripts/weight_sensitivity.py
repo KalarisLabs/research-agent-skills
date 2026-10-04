@@ -19,6 +19,7 @@ def _normalized(weights: dict[str, float]) -> dict[str, float]:
 def _scenarios(
     base_weights: dict[str, float], delta: float
 ) -> list[tuple[str, str | None, float, dict[str, float]]]:
+    """Scenarios for *base_weights*, *delta* and return list[tuple[str, str | None, float, dict[str, float]]]."""
     scenarios = [("base", None, 1.0, dict(base_weights))]
     for criterion_id in sorted(base_weights):
         for label, multiplier in (("decrease", 1.0 - delta), ("increase", 1.0 + delta)):
@@ -49,6 +50,7 @@ def analyze(
     evaluations: list[dict[str, Any]],
     delta: float,
 ) -> dict[str, Any]:
+    """Analyze and return dict[str, Any]."""
     rubric_issues = _common.validate_rubric(rubric)
     _common.require_valid(rubric_issues)
     if not 2 <= len(evaluations) <= _common.MAX_EVALUATIONS:
@@ -205,6 +207,7 @@ def analyze(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Perturb rubric weights and report score ranges and ordinal-order "
@@ -233,6 +236,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report = analyze(

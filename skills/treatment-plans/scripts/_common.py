@@ -129,6 +129,7 @@ def _text(
     pattern: str | None = None,
     format_name: str | None = None,
 ) -> dict[str, Any]:
+    """Text and return dict[str, Any]."""
     return {
         "kind": "string",
         "minimum": minimum,
@@ -151,6 +152,7 @@ def _nullable(schema: dict[str, Any]) -> dict[str, Any]:
 def _array(
     item: dict[str, Any], *, minimum: int = 0, maximum: int = MAX_LIST_ITEMS
 ) -> dict[str, Any]:
+    """Array and return dict[str, Any]."""
     return {
         "kind": "array",
         "item": item,
@@ -622,6 +624,7 @@ DOCUMENT_SCHEMAS = {
 
 
 def _reject_nonlocal_path(raw_path: str | Path) -> Path:
+    """Reject nonlocal path for *raw_path* and return Path."""
     text = str(raw_path)
     lowered = text.strip().lower()
     if not lowered or "\x00" in text or "://" in lowered:
@@ -701,6 +704,7 @@ def safe_output_file(raw_path: str | Path) -> Path:
 def _duplicate_safe_object(
     pairs: list[tuple[str, Any]],
 ) -> dict[str, Any]:
+    """Duplicate safe object for *pairs* and return dict[str, Any]."""
     result: dict[str, Any] = {}
     for key, value in pairs:
         if key in result:
@@ -714,6 +718,7 @@ def _reject_constant(_: str) -> None:
 
 
 def _check_bounds(value: Any, *, depth: int = 0, counter: list[int]) -> None:
+    """Check bounds."""
     if depth > MAX_DEPTH:
         raise ValidationError("JSON_MAX_DEPTH_EXCEEDED")
     counter[0] += 1
@@ -820,6 +825,7 @@ def _validate_schema(
     path: str,
     issues: list[Issue],
 ) -> None:
+    """Validate schema."""
     kind = schema["kind"]
     if kind == "nullable":
         if value is None:
@@ -880,6 +886,7 @@ def _validate_schema(
 def _duplicate_field_issues(
     records: Any, field: str, path: str
 ) -> list[Issue]:
+    """Duplicate field issues and return list[Issue]."""
     if not isinstance(records, list):
         return []
     seen: set[str] = set()
@@ -1014,6 +1021,7 @@ def report_payload(
     counts: dict[str, int] | None = None,
     extra: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """Report payload and return dict[str, Any]."""
     issue_list = list(issues)
     payload: dict[str, Any] = {
         "check": check,
@@ -1090,6 +1098,7 @@ def copy_template_document(
     subject_ref: str,
     classification: str,
 ) -> dict[str, Any]:
+    """Copy template document and return dict[str, Any]."""
     document = read_json(template_path)
     document["subject_ref"] = subject_ref
     document["data_classification"] = classification
@@ -1129,6 +1138,7 @@ def all_fact_references(
     references: list[tuple[str, str]] = []
 
     def collect(value: Any, path: str) -> None:
+        """Collect for *value*, *path*."""
         if isinstance(value, dict):
             for key, nested in value.items():
                 nested_path = f"{path}.{key}"
@@ -1155,6 +1165,7 @@ def record_ids(
     list_field: str,
     id_field: str,
 ) -> set[str]:
+    """Record ids and return set[str]."""
     records = document.get(list_field)
     if not isinstance(records, list):
         return set()

@@ -114,6 +114,7 @@ def require_mapping(value: Any, *, context: str) -> Mapping[str, Any]:
 def require_text(
     value: Any, *, name: str, minimum: int = 1, maximum: int = 2_000
 ) -> str:
+    """Require text and return str."""
     if not isinstance(value, str):
         raise ToolError(f"{name} must be a string")
     if not minimum <= len(value) <= maximum:
@@ -126,6 +127,7 @@ def require_text(
 def require_text_list(
     value: Any, *, name: str, minimum: int = 1, maximum: int = 100
 ) -> list[str]:
+    """Require text list and return list[str]."""
     if not isinstance(value, list) or not minimum <= len(value) <= maximum:
         raise ToolError(f"{name} must contain {minimum}..{maximum} strings")
     return [
@@ -177,6 +179,7 @@ def safe_relative_path(
 
 
 def _reject_unsafe_path_text(value: str) -> None:
+    """Reject unsafe path text for *value*."""
     stripped = value.strip()
     lowered = stripped.casefold()
     if not stripped or "\x00" in value:
@@ -196,6 +199,7 @@ def _absolute_lexical(path: Path) -> Path:
 
 
 def _reject_symlink_components(path: Path) -> None:
+    """Reject symlink components for *path*."""
     absolute = _absolute_lexical(path)
     current = Path(absolute.anchor)
     for part in absolute.parts[1:]:
@@ -368,6 +372,7 @@ def load_json(path: Path, *, max_bytes: int = MAX_JSON_BYTES) -> Any:
 
 
 def strict_json_loads(text: str) -> Any:
+    """Strict json loads for *text* and return Any."""
     try:
         return json.loads(
             text,
@@ -381,6 +386,7 @@ def strict_json_loads(text: str) -> Any:
 
 
 def json_bytes(document: Any) -> bytes:
+    """Json bytes for *document* and return bytes."""
     try:
         payload = (
             json.dumps(
@@ -404,6 +410,7 @@ def emit_json(document: Any) -> None:
 
 
 def fail_json(tool: str, exc: Exception) -> int:
+    """Fail json for *tool*, *exc* and return int."""
     emit_json(
         {
             "error": type(exc).__name__,

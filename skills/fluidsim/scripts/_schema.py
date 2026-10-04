@@ -232,6 +232,7 @@ def _record(
 
 
 def _validate_parameter_structure(parameters: Mapping[str, Any]) -> None:
+    """Validate parameter structure for *parameters*."""
     validate_keys(
         parameters, allowed=PARAMETER_KEYS, required={"oper", "time_stepping"}, context="parameters"
     )

@@ -88,6 +88,7 @@ def _scalar(value: Any) -> Any:
 def _attributes(
     obj: Any, *, count: list[int], max_attributes: int
 ) -> list[dict[str, Any]]:
+    """Attributes and return list[dict[str, Any]]."""
     result: list[dict[str, Any]] = []
     for name in sorted(obj.attrs):
         count[0] += 1
@@ -210,6 +211,7 @@ def inspect_hdf5_metadata(
 
 
 def _kind(path: Path) -> str:
+    """Kind for *path* and return str."""
     name = path.name.casefold()
     if name.startswith("state_phys"):
         return "physical_state"
@@ -234,6 +236,7 @@ def inventory(
     max_attributes: int,
     max_depth: int,
 ) -> dict[str, Any]:
+    """Inventory and return dict[str, Any]."""
     files = iter_local_files(
         path, suffixes=None, max_files=max_files, recursive=True
     )
@@ -289,6 +292,7 @@ def inventory(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inventory local FluidSim output. HDF5/netCDF4 datasets are described "
@@ -306,6 +310,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         max_files = bounded_int(

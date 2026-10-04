@@ -30,6 +30,7 @@ TOOL = "embedding-run-planner"
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate local inputs and emit a redacted Region2Vec, scEmbed, or "
@@ -102,6 +103,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _parquet_magic(path: Path) -> bool:
+    """Parquet magic for *path* and return bool."""
     flags = os.O_RDONLY
     if hasattr(os, "O_NOFOLLOW"):
         flags |= os.O_NOFOLLOW
@@ -127,6 +129,7 @@ def _render(path: Path, label: str, mode: str) -> str:
 
 
 def plan(args: argparse.Namespace) -> tuple[dict, int]:
+    """Plan for *args* and return tuple[dict, int]."""
     if not args.assembly.strip() or len(args.assembly) > 200:
         raise SafetyError("assembly must be a nonempty value of at most 200 characters")
     if args.mode != "bedspace" and (args.metadata or args.starspace_dir):
@@ -463,6 +466,7 @@ def plan(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report, exit_code = plan(args)

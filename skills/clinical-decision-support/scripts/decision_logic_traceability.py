@@ -67,10 +67,12 @@ def _safe_csv(value: Any) -> str:
 
 
 def _has_cycle(edges: dict[str, list[str]]) -> bool:
+    """Has cycle for *edges* and return bool."""
     visiting: set[str] = set()
     visited: set[str] = set()
 
     def visit(node: str) -> bool:
+        """Visit for *node* and return bool."""
         if node in visiting:
             return True
         if node in visited:
@@ -89,6 +91,7 @@ def _has_cycle(edges: dict[str, list[str]]) -> bool:
 def validate_matrix(
     document: dict[str, Any]
 ) -> tuple[IssueLog, list[dict[str, str]]]:
+    """Validate matrix for *document* and return tuple[IssueLog, list[dict[str, str]]]."""
     log = IssueLog()
     normalized: list[dict[str, str]] = []
     try:
@@ -253,6 +256,7 @@ def validate_matrix(
 
 
 def _csv_text(rows: list[dict[str, str]]) -> str:
+    """Csv text for *rows* and return str."""
     fieldnames = [
         "node_id",
         "type",
@@ -277,6 +281,7 @@ def _csv_text(rows: list[dict[str, str]]) -> str:
 
 
 def main() -> int:
+    """Main and return int."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate research/governance decision logic and emit a CSV traceability "

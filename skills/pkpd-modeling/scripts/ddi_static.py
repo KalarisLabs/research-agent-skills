@@ -99,6 +99,7 @@ def mechanistic_static(
     really 0.7 changes an unbounded prediction into a 3.3-fold ceiling.
     """
     def terms(i_conc: float, kdeg: float) -> tuple[float, float, float]:
+        """Terms for *i_conc*, *kdeg* and return tuple[float, float, float]."""
         a = 1.0 / (1.0 + i_conc / ki) if ki else 1.0
         if ki_inact and kinact:
             b = kdeg / (kdeg + kinact * i_conc / (ki_inact + i_conc))
@@ -146,6 +147,7 @@ def classify(auc_ratio: float) -> str:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="ICH M12 basic DDI models and the mechanistic static model.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -180,6 +182,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def run(argv: Sequence[str] | None = None) -> int:
+    """Run for *argv* and return int."""
     args = build_parser().parse_args(argv)
     if args.basic == args.msm:
         raise InputError("choose exactly one of --basic or --msm")

@@ -77,6 +77,7 @@ def run_sorting(
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(description='Run spike sorting')
     parser.add_argument('input', help='Path to preprocessed recording')
     parser.add_argument('--output', '-o', default='sorting/', help='Output directory')

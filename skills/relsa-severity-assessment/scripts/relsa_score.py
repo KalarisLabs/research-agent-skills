@@ -84,6 +84,7 @@ class ReferenceModel:
     notes: dict[str, str] = field(default_factory=dict)
 
     def to_json(self, path: str | Path) -> None:
+        """To json for *path*."""
         payload = {
             "variables": list(self.variables),
             "turned": list(self.turned),
@@ -99,6 +100,7 @@ class ReferenceModel:
 
     @classmethod
     def from_json(cls, path: str | Path) -> "ReferenceModel":
+        """From json for *path* and return 'ReferenceModel'."""
         payload = json.loads(Path(path).read_text())
         return cls(
             variables=tuple(payload["variables"]),
@@ -113,6 +115,7 @@ class ReferenceModel:
         )
 
     def describe(self) -> str:
+        """Describe and return str."""
         rows = [
             f"reference model: {self.label or '(unlabelled)'}",
             f"  animals={self.n_animals}  rows={self.n_rows}  "
@@ -331,6 +334,7 @@ def prepare(
 # CLI
 # --------------------------------------------------------------------------- #
 def _filter_group(frame: pd.DataFrame, pairs: Sequence[str]) -> pd.DataFrame:
+    """Filter group for *frame*, *pairs* and return pd.DataFrame."""
     for pair in pairs:
         if "=" not in pair:
             raise SystemExit(f"--reference-group expects col=value, got {pair!r}")
@@ -360,6 +364,7 @@ def _parse_score_scale(spec: str, frame: pd.DataFrame) -> tuple[str, tuple[float
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Compute RELSA severity scores for a RELSA-format table.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -422,6 +427,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     digits = None if args.full_precision else 2
 

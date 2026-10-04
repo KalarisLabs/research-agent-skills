@@ -41,6 +41,7 @@ class Findings:
         self.max_examples = max_examples
 
     def add(self, severity: str, rule: str, line: int | str, detail: str) -> None:
+        """Add."""
         self.counts[rule] += 1
         self.by_severity[severity] += 1
         if self.counts[rule] <= self.max_examples:
@@ -64,6 +65,7 @@ class Findings:
 
 
 def detect_format(path: Path) -> str:
+    """Detect format for *path* and return str."""
     suffixes = [s.lower() for s in path.suffixes]
     for suffix, fmt in (
         (".bed", "bed"), (".narrowpeak", "bed"), (".broadpeak", "bed"),
@@ -79,6 +81,7 @@ def detect_format(path: Path) -> str:
 
 
 def load_genome(path: Path | None) -> dict[str, int]:
+    """Load genome for *path* and return dict[str, int]."""
     if path is None:
         return {}
     sizes = {}
@@ -126,6 +129,7 @@ class SortState:
         self.position = -1
 
     def check(self, find: Findings, lineno: int, contig: str, pos: int, why: str) -> None:
+        """Check."""
         if contig != self.current:
             if contig in self.seen:
                 find.add(
@@ -151,6 +155,7 @@ class SortState:
 
 
 def audit_bed(path: Path, find: Findings, genome: dict[str, int]) -> None:
+    """Audit bed."""
     contigs: list[str] = []
     widths: Counter = Counter()
     total = zero_length = starts_at_zero = 0
@@ -280,6 +285,7 @@ def audit_bed12(find: Findings, lineno: int, fields: list[str], start: int, end:
 
 
 def audit_gff(path: Path, find: Findings, genome: dict[str, int], flavour: str) -> None:
+    """Audit gff."""
     contigs: list[str] = []
     gtf_attrs = gff3_attrs = 0
 
@@ -349,6 +355,7 @@ def audit_gff(path: Path, find: Findings, genome: dict[str, int], flavour: str) 
 
 
 def audit_vcf(path: Path, find: Findings, genome: dict[str, int]) -> None:
+    """Audit vcf."""
     contigs: list[str] = []
     header_seen = False
     order = SortState()
@@ -444,6 +451,7 @@ def audit_vcf(path: Path, find: Findings, genome: dict[str, int]) -> None:
 
 
 def audit_naming(find: Findings, contigs: list[str]) -> None:
+    """Audit naming for *find*, *contigs*."""
     style = naming_style(sorted(set(contigs)))
     if style == "mixed":
         prefixed = sorted({c for c in contigs if c.startswith("chr")})[:3]
@@ -456,6 +464,7 @@ def audit_naming(find: Findings, contigs: list[str]) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Audit a BED/GTF/GFF3/VCF file against its format's conventions."
     )
@@ -471,6 +480,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     if not args.file.exists():

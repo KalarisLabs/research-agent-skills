@@ -48,6 +48,7 @@ def _working_directory(path: Path) -> Iterator[None]:
 
 
 def classify_oracle(metadata: Any, query: str) -> tuple[str, str]:
+    """Classify oracle for *metadata*, *query* and return tuple[str, str]."""
     name = canonical_name(query, metadata.oracle_names, "oracle")
     if name in LOCAL_SCALAR_ORACLES:
         return name, "local_scalar"
@@ -70,6 +71,7 @@ def load_smiles(
     *,
     max_molecules: int,
 ) -> list[str]:
+    """Load smiles and return list[str]."""
     values = list(direct or [])
     if input_path:
         path = safe_input_file(
@@ -99,6 +101,7 @@ def score_plan(
     package_version: str,
     download_acknowledged: bool,
 ) -> dict[str, Any]:
+    """Score plan and return dict[str, Any]."""
     return {
         "action": "plan",
         "acknowledgement_required": (
@@ -127,6 +130,7 @@ def execute_scores(
     download_acknowledged: bool,
     package_version: str,
 ) -> dict[str, Any]:
+    """Execute scores and return dict[str, Any]."""
     if category == "checkpoint_download" and not download_acknowledged:
         raise CliError(
             f"{oracle_name} may download a model checkpoint; pass --download "
@@ -173,6 +177,7 @@ def dataset_plan(
     package_version: str,
     download_acknowledged: bool,
 ) -> dict[str, Any]:
+    """Dataset plan and return dict[str, Any]."""
     return {
         "action": "plan",
         "acknowledgement_required": "--execute --download",
@@ -203,6 +208,7 @@ def execute_dataset(
     preview: int,
     package_version: str,
 ) -> dict[str, Any]:
+    """Execute dataset and return dict[str, Any]."""
     from tdc.generation import MolGen  # Lazy optional import.
 
     loader = MolGen(name=dataset, path=str(data_dir))
@@ -248,6 +254,7 @@ def _add_output_arguments(parser: argparse.ArgumentParser) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan or explicitly execute bounded PyTDC molecular workflows. This "
@@ -341,6 +348,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         metadata, package_version = load_pytdc_metadata()

@@ -36,6 +36,7 @@ OBJECT_LIKE_CLASSES = {
 
 
 def identify_header(path: Path) -> dict[str, Any]:
+    """Identify header for *path* and return dict[str, Any]."""
     try:
         with path.open("rb") as handle:
             prefix = handle.read(8192)
@@ -78,6 +79,7 @@ def _redacted_name(name: str, index: int, kind: str) -> dict[str, Any]:
 def scipy_inventory(
     path: Path, *, max_nodes: int
 ) -> tuple[list[dict[str, Any]], list[str]]:
+    """Scipy inventory for *path*, *max_nodes* and return tuple[list[dict[str, Any]], list[str]]."""
     try:
         from scipy import io as scipy_io
     except ImportError as exc:
@@ -114,6 +116,7 @@ def scipy_inventory(
 def hdf5_inventory(
     path: Path, *, max_nodes: int, max_depth: int
 ) -> tuple[list[dict[str, Any]], list[str], dict[str, int]]:
+    """Hdf5 inventory and return tuple[list[dict[str, Any]], list[str], dict[str, int]]."""
     try:
         import h5py
     except ImportError as exc:
@@ -128,6 +131,7 @@ def hdf5_inventory(
     seen_objects: set[int] = set()
 
     def append_record(path_name: str, kind: str, details: dict[str, Any]) -> None:
+        """Append record."""
         if len(records) >= max_nodes:
             raise CliError(f"HDF5 object/link count exceeds {max_nodes}")
         records.append(
@@ -139,6 +143,7 @@ def hdf5_inventory(
         )
 
     def walk(group: Any, prefix: str, depth: int) -> None:
+        """Walk."""
         if depth > max_depth:
             raise CliError(f"HDF5 group depth exceeds {max_depth}")
         try:
@@ -231,6 +236,7 @@ def hdf5_inventory(
 
 
 def inventory(args: argparse.Namespace) -> dict[str, Any]:
+    """Inventory for *args* and return dict[str, Any]."""
     root = checked_root(args.root)
     max_file_bytes = bounded_int(
         args.max_file_bytes,
@@ -318,6 +324,7 @@ def inventory(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def parser() -> argparse.ArgumentParser:
+    """Parser and return argparse.ArgumentParser."""
     result = argparse.ArgumentParser(
         description=(
             "Inventory local MAT technical metadata without MATLAB, loadmat, "

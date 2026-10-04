@@ -120,6 +120,7 @@ def generate_rows(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Generate a deterministic local CSV of analytic biosignal-like fixtures. "
@@ -147,6 +148,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
+    """Main."""
     args = build_parser().parse_args()
     duration = finite_float(
         args.duration, name="--duration", minimum=0.1, maximum=3600.0

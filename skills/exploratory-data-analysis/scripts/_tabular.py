@@ -163,6 +163,7 @@ class PrioritySample:
         self._heap: list[tuple[int, float]] = []
 
     def add(self, value: float, *, row_index: int, column_index: int) -> None:
+        """Add."""
         material = f"{row_index}\0{column_index}\0{value!r}".encode("ascii")
         priority = int.from_bytes(
             hashlib.blake2s(material, digest_size=8).digest(),
@@ -179,6 +180,7 @@ class PrioritySample:
 
 
 def _quantile(sorted_values: Sequence[float], probability: float) -> float | None:
+    """Quantile for *sorted_values*, *probability* and return float | None."""
     if not sorted_values:
         return None
     if len(sorted_values) == 1:
@@ -196,6 +198,7 @@ def _quantile(sorted_values: Sequence[float], probability: float) -> float | Non
 
 @dataclass
 class ColumnAccumulator:
+    """Column accumulator."""
     column_index: int
     sample_limit: int = PROFILE_SAMPLE_SIZE
     total: int = 0
@@ -225,6 +228,7 @@ class ColumnAccumulator:
         row_index: int,
         missing_tokens: frozenset[str],
     ) -> None:
+        """Add."""
         self.total += 1
         if is_missing(value, missing_tokens):
             self.missing += 1
@@ -262,6 +266,7 @@ class ColumnAccumulator:
         )
 
     def as_report(self, *, column_id: str) -> dict[str, Any]:
+        """As report for *column_id* and return dict[str, Any]."""
         observed = self.total - self.missing
         if observed == 0:
             inferred = "all_missing_in_scanned_rows"
@@ -337,6 +342,7 @@ def profile_table(
     duplicate_tracking_truncated = False
 
     def on_header(names: list[str]) -> None:
+        """On header for *names*."""
         nonlocal header, accumulators
         header = names
         accumulators = [
@@ -344,6 +350,7 @@ def profile_table(
         ]
 
     def on_row(row_index: int, row: list[str]) -> None:
+        """On row for *row_index*, *row*."""
         nonlocal duplicate_rows, duplicate_tracking_truncated
         for accumulator, value in zip(accumulators, row, strict=True):
             accumulator.add(
@@ -479,6 +486,7 @@ def profile_json_structure(
 
 
 def _moment_skew(values: Sequence[float]) -> float | None:
+    """Moment skew for *values* and return float | None."""
     if len(values) < 3:
         return None
     mean = statistics.fmean(values)
@@ -496,6 +504,7 @@ def _distribution_report(
     nonnumeric_count: int,
     missing_count: int,
 ) -> dict[str, Any]:
+    """Distribution report and return dict[str, Any]."""
     ordered = sorted(values)
     if not ordered:
         return {
@@ -590,6 +599,7 @@ def audit_distributions(
     skipped_columns = 0
 
     def on_header(names: list[str]) -> None:
+        """On header for *names*."""
         nonlocal header, selected_indices, selected_ids, accumulators, skipped_columns
         header = names
         if columns:
@@ -620,6 +630,7 @@ def audit_distributions(
         }
 
     def on_row(row_index: int, row: list[str]) -> None:
+        """On row for *row_index*, *row*."""
         for index in selected_indices:
             accumulators[index].add(
                 row[index],
@@ -662,6 +673,7 @@ def audit_distributions(
 
 
 def _parse_time(value: str) -> datetime | None:
+    """Parse time for *value* and return datetime | None."""
     text = value.strip()
     if not text:
         return None
@@ -707,6 +719,7 @@ def audit_missingness_and_leakage(
     tracking_truncated = False
 
     def on_header(names: list[str]) -> None:
+        """On header for *names*."""
         nonlocal header, group_index, entity_index, split_index, time_index
         nonlocal overall_missing
         header = names
@@ -721,6 +734,7 @@ def audit_missingness_and_leakage(
         key: str,
         row: list[str],
     ) -> None:
+        """Update partition."""
         if key not in mapping:
             if len(mapping) >= MAX_DISTINCT_GROUPS:
                 raise CliError("too many distinct group or split values")
@@ -732,6 +746,7 @@ def audit_missingness_and_leakage(
         mapping[key] = (count + 1, counts)
 
     def on_row(_row_index: int, row: list[str]) -> None:
+        """On row for *_row_index*, *row*."""
         nonlocal time_parse_failures, missing_split_rows, tracking_truncated
         for index, value in enumerate(row):
             if is_missing(value, missing):
@@ -815,6 +830,7 @@ def audit_missingness_and_leakage(
         *,
         key_name: str,
     ) -> list[dict[str, Any]]:
+        """Partition report for *mapping*, *key_name* and return list[dict[str, Any]]."""
         reports: list[dict[str, Any]] = []
         for key in sorted(mapping):
             count, counts = mapping[key]

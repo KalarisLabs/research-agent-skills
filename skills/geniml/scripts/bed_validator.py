@@ -32,6 +32,7 @@ _VALID_STRANDS = {"+", "-", "."}
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a local BED file as 0-based half-open intervals and emit "
@@ -82,12 +83,14 @@ def _record_issue(
     line_number: int,
     maximum: int,
 ) -> None:
+    """Record issue."""
     counter[code] += 1
     if len(examples) < maximum:
         examples.append({"code": code, "line": line_number})
 
 
 def validate(args: argparse.Namespace) -> tuple[dict, int]:
+    """Validate for *args* and return tuple[dict, int]."""
     if not args.assembly.strip() or len(args.assembly) > 200:
         raise SafetyError("assembly must be a nonempty value of at most 200 characters")
 
@@ -349,6 +352,7 @@ def validate(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
+    """Main and return int."""
     parser = build_parser()
     args = parser.parse_args()
     try:

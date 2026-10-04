@@ -163,6 +163,7 @@ class Reconciliation:
         self.notes.append(message)
 
     def as_dict(self) -> dict[str, Any]:
+        """As dict and return dict[str, Any]."""
         summary: dict[str, Any] = {
             "expected_total": self.expected,
             "retrieved_total": self.retrieved,

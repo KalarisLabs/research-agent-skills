@@ -83,6 +83,7 @@ def read_sizes(path: Path) -> tuple[dict[str, int], str]:
 
 
 def read_fasta_names(path: Path) -> tuple[dict[str, int], str]:
+    """Read fasta names for *path* and return tuple[dict[str, int], str]."""
     sizes: dict[str, int] = {}
     name, count = None, 0
     with path.open() as handle:
@@ -120,6 +121,7 @@ def read_vcf(path: Path) -> tuple[dict[str, int], str]:
 
 
 def read_sam_header(path: Path) -> tuple[dict[str, int], str]:
+    """Read sam header for *path* and return tuple[dict[str, int], str]."""
     sizes: dict[str, int] = {}
     with path.open() as handle:
         for line in handle:
@@ -152,6 +154,7 @@ def read_intervals(path: Path, start_col: int, end_col: int) -> tuple[dict[str, 
 
 
 def load(path: Path) -> tuple[dict[str, int], str]:
+    """Load for *path* and return tuple[dict[str, int], str]."""
     suffixes = [s.lower() for s in path.suffixes]
     name = path.name.lower()
     if name.endswith((".fai", ".chrom.sizes", ".sizes", ".genome")):
@@ -313,6 +316,7 @@ def compare(loaded: list[tuple[Path, dict[str, int], str, bool]]) -> list[str]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Identify assemblies and check contig compatibility between files."
     )
@@ -333,6 +337,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
 

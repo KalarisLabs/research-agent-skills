@@ -60,6 +60,7 @@ def id_from_url(url: str) -> str:
 
 
 def link_for(entry: ET.Element, *, rel: str, mime: str | None = None) -> str | None:
+    """Link for and return str | None."""
     for link in entry.findall("atom:link", NS):
         if link.get("rel") != rel:
             continue
@@ -70,6 +71,7 @@ def link_for(entry: ET.Element, *, rel: str, mime: str | None = None) -> str | N
 
 
 def parse_entry(entry: ET.Element) -> dict[str, Any]:
+    """Parse entry for *entry* and return dict[str, Any]."""
     raw_id = collapse_ws(entry.findtext("atom:id", namespaces=NS))
     versioned = id_from_url(raw_id) if raw_id else ""
     arxiv_id, version = split_version(versioned)
@@ -110,6 +112,7 @@ def parse_entry(entry: ET.Element) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Parse an arXiv Atom feed into JSON records. Exits 3 when the feed is an "
@@ -129,6 +132,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
 
     try:

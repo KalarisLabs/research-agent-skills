@@ -39,6 +39,7 @@ def _name(value: Any, *, context: str) -> str:
 
 
 def _complex_scalar(value: Any, *, name: str) -> complex:
+    """Complex scalar for *value*, *name* and return complex."""
     if isinstance(value, Mapping):
         validate_keys(
             value,
@@ -63,6 +64,7 @@ def _numeric_data(
     dimension: int,
     context: str,
 ) -> tuple[list[complex] | list[list[complex]], bool]:
+    """Numeric data and return tuple[list[complex] | list[list[complex]], bool]."""
     if not isinstance(value, list) or not value:
         raise CliError(f"{context}.data must be a non-empty JSON array")
 
@@ -106,6 +108,7 @@ def _numeric_data(
 
 
 def _state_summary(qobj: Any, *, tolerance: float) -> tuple[dict[str, Any], bool]:
+    """State summary for *qobj*, *tolerance* and return tuple[dict[str, Any], bool]."""
     if qobj.isket:
         norm = float(qobj.norm())
         valid = abs(norm - 1.0) <= tolerance
@@ -304,6 +307,7 @@ def validate_model(document: Mapping[str, Any], qutip_module: Any | None = None)
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a bounded strict-JSON QuTiP model containing one "

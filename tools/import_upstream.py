@@ -49,6 +49,7 @@ def git(*args: str, cwd: Path | None = None) -> str:
 
 
 def checkout(source: dict, source_dir: Path | None) -> Path:
+    """Checkout for *source*, *source_dir* and return Path."""
     if source_dir:
         path = source_dir / source["id"]
         if not path.exists():
@@ -92,6 +93,7 @@ def final_name(source: dict, rel: str, skill_dir: Path) -> str:
 
 
 def category_for(name: str, rel: str, cats: dict) -> str:
+    """Category for and return str."""
     for category, names in cats["assign"].items():
         if name in names:
             return category
@@ -142,6 +144,7 @@ def _first_sentence(text: str, limit: int = 140) -> str:
 
 
 def main() -> None:
+    """Main."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--source-dir", type=Path, help="directory with pre-cloned checkouts named by source id")
     args = ap.parse_args()

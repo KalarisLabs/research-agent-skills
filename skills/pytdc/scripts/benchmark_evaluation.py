@@ -43,6 +43,7 @@ def benchmark_names(metadata: Any, group: str) -> list[str]:
 
 
 def validate_seeds(seeds: list[int]) -> list[int]:
+    """Validate seeds for *seeds* and return list[int]."""
     if not seeds:
         raise CliError("at least one seed is required")
     if len(seeds) > MAX_RUNS:
@@ -55,6 +56,7 @@ def validate_seeds(seeds: list[int]) -> list[int]:
 
 
 def _validate_values(values: Any, dataset: str) -> list[float]:
+    """Validate values for *values*, *dataset* and return list[float]."""
     if not isinstance(values, list) or not values:
         raise CliError(f"predictions for {dataset} must be a non-empty JSON array")
     checked: list[float] = []
@@ -74,6 +76,7 @@ def normalize_prediction_mapping(
     available: list[str],
     selected_dataset: str | None,
 ) -> tuple[dict[str, list[float]], int]:
+    """Normalize prediction mapping and return tuple[dict[str, list[float]], int]."""
     if not isinstance(value, dict) or not value:
         raise CliError("each prediction run must be a non-empty JSON object")
     normalized: dict[str, list[float]] = {}
@@ -168,6 +171,7 @@ def build_plan(
     metric: str | None,
     prediction_summary: dict[str, Any] | None,
 ) -> dict[str, Any]:
+    """Build plan and return dict[str, Any]."""
     return {
         "action": "plan",
         "acknowledgement_required": "--execute",
@@ -201,6 +205,7 @@ def execute_evaluation(
     data_dir: Path,
     package_version: str,
 ) -> dict[str, Any]:
+    """Execute evaluation and return dict[str, Any]."""
     module_name, class_name = GROUPS[group]
     group_class = getattr(importlib.import_module(module_name), class_name)
     benchmark_group = group_class(path=str(data_dir))
@@ -228,6 +233,7 @@ def execute_evaluation(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan a non-docking TDC BenchmarkGroup evaluation, or pass --execute "
@@ -280,6 +286,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.execute and not args.predictions:

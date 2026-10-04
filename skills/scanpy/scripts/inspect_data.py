@@ -29,6 +29,7 @@ def _is_integer_matrix(X, n=10000):
 
 
 def main():
+    """Main."""
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("input", help="Input file (.h5ad, .h5, .csv, .loom, or 10x mtx dir)")

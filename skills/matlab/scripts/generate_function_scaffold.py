@@ -25,6 +25,7 @@ SAFE_DIRECTORY = re.compile(r"^[A-Za-z][A-Za-z0-9_.-]{0,63}$")
 
 
 def _directory(root: Path, name: str, *, write: bool) -> Path:
+    """Directory and return Path."""
     if not SAFE_DIRECTORY.fullmatch(name):
         raise CliError("source/test directory must be one simple local directory name")
     path = root / name
@@ -46,6 +47,7 @@ def _title_name(name: str) -> str:
 
 
 def function_source(name: str) -> str:
+    """Function source for *name* and return str."""
     upper = name.upper()
     return f"""function result = {name}(data, options)
 %{upper} Scale a finite numeric matrix.
@@ -62,6 +64,7 @@ end
 
 
 def test_source(name: str, class_name: str) -> str:
+    """Test source for *name*, *class_name* and return str."""
     return f"""classdef {class_name} < matlab.unittest.TestCase
     methods (Test)
         function scalesFiniteMatrix(testCase)
@@ -80,6 +83,7 @@ end
 
 
 def generate(args: argparse.Namespace) -> dict[str, Any]:
+    """Generate for *args* and return dict[str, Any]."""
     root = checked_root(args.root)
     name = validate_identifier(args.name, name="function name")
     class_name = validate_identifier(
@@ -137,6 +141,7 @@ def generate(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def parser() -> argparse.ArgumentParser:
+    """Parser and return argparse.ArgumentParser."""
     result = argparse.ArgumentParser(
         description=(
             "Generate a MATLAB R2026a function and matlab.unittest class. "

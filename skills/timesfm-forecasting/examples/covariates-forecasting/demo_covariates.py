@@ -161,6 +161,7 @@ def create_visualization(data: dict) -> None:
     )
 
     def add_divider(ax, label_top=True):
+        """Add divider for *ax*, *label_top*."""
         ax.axvline(CONTEXT_LEN - 0.5, color="#9ca3af", lw=1.3, ls="--", alpha=0.8)
         ax.axvspan(
             CONTEXT_LEN - 0.5, TOTAL_LEN - 0.5, alpha=0.06, color="grey", zorder=0
@@ -403,6 +404,7 @@ def create_visualization(data: dict) -> None:
 
 
 def demonstrate_api() -> None:
+    """Demonstrate api."""
     print("\n" + "=" * 70)
     print("  TIMESFM COVARIATES API (TimesFM 2.5)")
     print("=" * 70)
@@ -429,6 +431,7 @@ point_fc, quant_fc = model.forecast_with_covariates(
 
 
 def explain_xreg_modes() -> None:
+    """Explain xreg modes."""
     print("\n" + "=" * 70)
     print("  XREG MODES")
     print("=" * 70)
@@ -448,6 +451,7 @@ def explain_xreg_modes() -> None:
 
 
 def main() -> None:
+    """Main."""
     print("=" * 70)
     print("  TIMESFM COVARIATES (XREG) EXAMPLE")
     print("=" * 70)

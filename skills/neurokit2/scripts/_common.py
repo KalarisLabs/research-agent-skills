@@ -45,6 +45,7 @@ def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def _reject_url(value: str) -> None:
+    """Reject url for *value*."""
     lowered = value.strip().lower()
     if "://" in lowered or lowered.startswith(
         ("http:", "https:", "ftp:", "s3:", "gs:", "file:")
@@ -59,6 +60,7 @@ def _absolute_lexical(path: Path) -> Path:
 
 
 def _reject_symlink_components(path: Path) -> None:
+    """Reject symlink components for *path*."""
     absolute = _absolute_lexical(path)
     current = Path(absolute.anchor)
     for part in absolute.parts[1:]:
@@ -298,6 +300,7 @@ def validate_keys(
     required: Iterable[str] = (),
     context: str,
 ) -> None:
+    """Validate keys."""
     allowed_set = set(allowed)
     required_set = set(required)
     unknown = sorted(set(value) - allowed_set)
@@ -315,6 +318,7 @@ def bounded_int(
     minimum: int,
     maximum: int,
 ) -> int:
+    """Bounded int and return int."""
     if isinstance(value, bool) or not isinstance(value, int):
         raise CliError(f"{name} must be an integer")
     if not minimum <= value <= maximum:
@@ -329,6 +333,7 @@ def finite_float(
     minimum: float | None = None,
     maximum: float | None = None,
 ) -> float:
+    """Finite float and return float."""
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise CliError(f"{name} must be numeric")
     number = float(value)
@@ -342,6 +347,7 @@ def finite_float(
 
 
 def parse_name_list(value: str | None, *, name: str) -> list[str]:
+    """Parse name list for *value*, *name* and return list[str]."""
     if value is None:
         return []
     names = [item.strip() for item in value.split(",")]
@@ -361,6 +367,7 @@ def require_deidentified(confirmed: bool) -> None:
 
 
 def _read_header(reader: Any) -> list[str]:
+    """Read header for *reader* and return list[str]."""
     try:
         header = next(reader)
     except StopIteration as exc:
@@ -447,6 +454,7 @@ def read_numeric_columns(
 
 
 def _format_csv_value(value: Any) -> str:
+    """Format csv value for *value* and return str."""
     if value is None:
         return ""
     if isinstance(value, bool):
@@ -504,6 +512,7 @@ def write_csv(
     root: str | os.PathLike[str] = ".",
     force: bool = False,
 ) -> bytes:
+    """Write csv and return bytes."""
     payload = csv_bytes(columns, rows)
     atomic_write_bytes(
         destination,

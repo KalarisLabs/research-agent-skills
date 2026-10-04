@@ -24,6 +24,7 @@ class InputError(ValueError):
 
 @dataclass(frozen=True)
 class Issue:
+    """Issue."""
     severity: str
     code: str
     location: str | None = None
@@ -34,6 +35,7 @@ class Issue:
 
 
 def _checked_file(path_value: str | Path, suffixes: Iterable[str]) -> Path:
+    """Checked file for *path_value*, *suffixes* and return Path."""
     path = Path(path_value)
     allowed = {suffix.lower() for suffix in suffixes}
     if path.is_symlink():
@@ -71,6 +73,7 @@ def _reject_nonfinite_json(_value: str) -> None:
 
 
 def _check_json_bounds(value: Any, depth: int = 0) -> int:
+    """Check json bounds for *value*, *depth* and return int."""
     if depth > MAX_JSON_DEPTH:
         raise InputError(f"JSON nesting exceeds {MAX_JSON_DEPTH} levels")
     count = 1
@@ -88,6 +91,7 @@ def _check_json_bounds(value: Any, depth: int = 0) -> int:
 
 
 def read_json(path_value: str | Path) -> Any:
+    """Read json for *path_value* and return Any."""
     text = read_text(path_value, {".json"})
     try:
         value = json.loads(
@@ -102,6 +106,7 @@ def read_json(path_value: str | Path) -> Any:
 
 
 def read_csv(path_value: str | Path) -> tuple[list[str], list[dict[str, str]]]:
+    """Read csv for *path_value* and return tuple[list[str], list[dict[str, str]]]."""
     text = read_text(path_value, {".csv"})
     csv.field_size_limit(MAX_CSV_FIELD_BYTES)
     try:
@@ -130,6 +135,7 @@ def issue(
     location: str | None = None,
     item_id: str | None = None,
 ) -> Issue:
+    """Issue and return Issue."""
     if severity not in {"error", "warning", "info"}:
         raise ValueError("unsupported issue severity")
     return Issue(severity=severity, code=code, location=location, item_id=item_id)
@@ -141,6 +147,7 @@ def emit_report(
     *,
     summary: dict[str, Any] | None = None,
 ) -> int:
+    """Emit report and return int."""
     ordered = sorted(
         issues,
         key=lambda item: (
@@ -192,6 +199,7 @@ def is_nonempty_string(value: Any) -> bool:
 
 
 def is_placeholder(value: Any) -> bool:
+    """Is placeholder for *value* and return bool."""
     if not isinstance(value, str):
         return False
     lowered = value.strip().lower()
@@ -205,6 +213,7 @@ def is_placeholder(value: Any) -> bool:
 def write_new_text(
     path_value: str | Path, content: str, suffixes: Iterable[str]
 ) -> Path:
+    """Write new text and return Path."""
     path = Path(path_value)
     allowed = {suffix.lower() for suffix in suffixes}
     if path.suffix.lower() not in allowed:

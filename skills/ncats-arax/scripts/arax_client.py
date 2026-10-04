@@ -102,6 +102,7 @@ class AraxClientError(Exception):
         response_body: bytes | None = None,
         attempts: int = 0,
     ) -> None:
+        """Initialize with message, exit_code, kind, http_status, response_body, attempts."""
         super().__init__(message)
         self.exit_code = exit_code
         self.kind = kind
@@ -112,26 +113,31 @@ class AraxClientError(Exception):
 
 class UsageError(AraxClientError):
     def __init__(self, message: str) -> None:
+        """Initialize with message."""
         super().__init__(message, exit_code=2, kind="invalid_input")
 
 
 class PreflightError(AraxClientError):
     def __init__(self, message: str, **kwargs: Any) -> None:
+        """Initialize with message, **kwargs."""
         super().__init__(message, exit_code=3, kind="preflight", **kwargs)
 
 
 class NormalizationError(AraxClientError):
     def __init__(self, message: str) -> None:
+        """Initialize with message."""
         super().__init__(message, exit_code=4, kind="normalization_no_result")
 
 
 class TransportError(AraxClientError):
     def __init__(self, message: str, **kwargs: Any) -> None:
+        """Initialize with message, **kwargs."""
         super().__init__(message, exit_code=5, kind="transport_or_http", **kwargs)
 
 
 class ResponseError(AraxClientError):
     def __init__(self, message: str, **kwargs: Any) -> None:
+        """Initialize with message, **kwargs."""
         super().__init__(message, exit_code=6, kind="invalid_response", **kwargs)
 
 
@@ -146,6 +152,7 @@ class HttpResult:
 
 @dataclass(frozen=True)
 class ServiceInfo:
+    """Service info."""
     base_url: str
     openapi_url: str
     arax_version: str | None
@@ -153,6 +160,7 @@ class ServiceInfo:
     warnings: tuple[dict[str, Any], ...]
 
     def as_dict(self, *, biolink_version: str | None = None) -> dict[str, Any]:
+        """As dict for *biolink_version* and return dict[str, Any]."""
         return {
             "base_url": self.base_url,
             "openapi_url": self.openapi_url,
@@ -164,6 +172,7 @@ class ServiceInfo:
 
 @dataclass(frozen=True)
 class QueryContract:
+    """Query contract."""
     kind: str
     mode: str
     provider_ids: tuple[str, ...]
@@ -183,6 +192,7 @@ class RejectRepeatedValueAction(argparse.Action):
         values: Any,
         option_string: str | None = None,
     ) -> None:
+        """Call protocol method."""
         if getattr(namespace, self.dest, None) is not None:
             parser.error(f"{option_string} may be supplied only once")
         setattr(namespace, self.dest, values)
@@ -202,6 +212,7 @@ def make_warning(
     message: str,
     context: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """Make warning and return dict[str, Any]."""
     if code not in WARNING_CODES:
         raise ValueError(f"unknown warning code: {code}")
     safe_context: dict[str, Any] = {}
@@ -223,6 +234,7 @@ def _append_warning(
     message: str,
     context: Mapping[str, Any] | None = None,
 ) -> None:
+    """Append warning."""
     warning = make_warning(code, message, context)
     identity = (warning["code"], json.dumps(warning["context"], sort_keys=True), warning["message"])
     existing = {
@@ -262,6 +274,7 @@ def validate_biolink_term(value: str, label: str = "Biolink term") -> str:
 
 
 def validate_provider_id(value: str) -> str:
+    """Validate provider id for *value* and return str."""
     if not isinstance(value, str) or len(value) > MAX_IDENTIFIER_LENGTH:
         raise UsageError("provider identifier must be at most 200 characters")
     if _has_control(value) or not PROVIDER_RE.fullmatch(value):
@@ -284,6 +297,7 @@ def validate_predicates(values: Sequence[str]) -> list[str]:
 
 
 def parse_qualifiers(values: Sequence[str]) -> list[tuple[str, str]]:
+    """Parse qualifiers for *values* and return list[tuple[str, str]]."""
     if len(values) > MAX_QUALIFIERS:
         raise UsageError("each query edge accepts at most six qualifiers")
     parsed: list[tuple[str, str]] = []
@@ -313,6 +327,7 @@ def validate_result_limit(value: int) -> int:
 
 
 def validate_base_url(value: str, allow_nonproduction: bool) -> tuple[str, list[dict[str, Any]]]:
+    """Validate base url for *value*, *allow_nonproduction* and return tuple[str, list[dict[str, Any]]]."""
     raw = value.rstrip("/")
     parts = urllib.parse.urlsplit(raw)
     try:
@@ -353,6 +368,7 @@ def resolve_mode(
     provider_values: Sequence[str],
     result_limit: int | None,
 ) -> tuple[list[str], int]:
+    """Resolve mode and return tuple[list[str], int]."""
     if mode == "lookup":
         if provider_values:
             raise UsageError("--kp is allowed only with --mode federated")
@@ -374,6 +390,7 @@ def build_query_edge(
     predicates: Sequence[str],
     qualifiers: Sequence[tuple[str, str]],
 ) -> dict[str, Any]:
+    """Build query edge and return dict[str, Any]."""
     edge: dict[str, Any] = {
         "subject": subject,
         "object": object_,
@@ -403,6 +420,7 @@ def build_operations(
     provider_ids: Sequence[str],
     result_limit: int,
 ) -> dict[str, list[str]]:
+    """Build operations and return dict[str, list[str]]."""
     kp_value = _provider_parameter(mode, provider_ids)
     actions = [
         f"expand(edge_key={edge_key},kp={kp_value},kp_timeout={KP_TIMEOUT_SECONDS},"
@@ -431,6 +449,7 @@ def build_one_hop_query(
     provider_ids: Sequence[str],
     result_limit: int,
 ) -> dict[str, Any]:
+    """Build one hop query and return dict[str, Any]."""
     if subject_id is None and object_id is None:
         raise UsageError("one-hop queries require at least one pinned endpoint")
     nodes: dict[str, dict[str, Any]] = {
@@ -473,6 +492,7 @@ def build_two_hop_query(
     expand_order: str,
     result_limit: int,
 ) -> dict[str, Any]:
+    """Build two hop query and return dict[str, Any]."""
     if expand_order not in {"right-first", "left-first"}:
         raise UsageError("expand order must be right-first or left-first")
     nodes = {
@@ -510,6 +530,7 @@ def build_two_hop_query(
 
 
 def serialize_request(body: Mapping[str, Any]) -> bytes:
+    """Serialize request for *body* and return bytes."""
     try:
         return json.dumps(
             body,
@@ -523,6 +544,7 @@ def serialize_request(body: Mapping[str, Any]) -> bytes:
 
 
 def _origin(url: str) -> tuple[str, str | None, int | None]:
+    """Origin for *url* and return tuple[str, str | None, int | None]."""
     parts = urllib.parse.urlsplit(url)
     try:
         port = parts.port
@@ -534,6 +556,7 @@ def _origin(url: str) -> tuple[str, str | None, int | None]:
 
 
 class SameOriginHttpsRedirectHandler(urllib.request.HTTPRedirectHandler):
+    """Same origin https redirect handler (urllib.request.HTTPRedirectHandler)."""
     def redirect_request(
         self,
         req: urllib.request.Request,
@@ -543,6 +566,7 @@ class SameOriginHttpsRedirectHandler(urllib.request.HTTPRedirectHandler):
         headers: Any,
         newurl: str,
     ) -> urllib.request.Request | None:
+        """Redirect request and return urllib.request.Request | None."""
         try:
             original_origin = _origin(req.full_url)
             redirect_origin = _origin(newurl)
@@ -587,6 +611,7 @@ def _headers_dict(headers: Any) -> dict[str, str]:
 
 
 def _retry_delay(headers: Mapping[str, str], now: Callable[[], datetime] | None = None) -> float:
+    """Retry delay for *headers*, *now* and return float."""
     raw = next((value for key, value in headers.items() if key.lower() == "retry-after"), None)
     if raw is None:
         return 1.0
@@ -617,6 +642,7 @@ def request_get_with_retry(
     timeout: int = GET_TIMEOUT_SECONDS,
     sleep: Callable[[float], None] = time.sleep,
 ) -> HttpResult:
+    """Request get with retry and return HttpResult."""
     request = urllib.request.Request(
         url,
         method="GET",
@@ -672,6 +698,7 @@ def request_get_with_retry(
 
 
 def post_query(url: str, request_bytes: bytes, *, timeout: int) -> HttpResult:
+    """Post query and return HttpResult."""
     request = urllib.request.Request(
         url,
         data=request_bytes,
@@ -719,6 +746,7 @@ def post_query(url: str, request_bytes: bytes, *, timeout: int) -> HttpResult:
 
 
 def _decode_json(body: bytes, label: str) -> Any:
+    """Decode json for *body*, *label* and return Any."""
     def reject_constant(value: str) -> None:
         raise ValueError(f"non-finite JSON number: {value}")
 
@@ -742,6 +770,7 @@ def _check_trapi_version(
     allow_untested: bool,
     warnings: list[dict[str, Any]],
 ) -> None:
+    """Check trapi version."""
     series = _version_series(trapi_version)
     if series not in SUPPORTED_TRAPI_SERIES and not allow_untested:
         raise PreflightError(
@@ -764,6 +793,7 @@ def parse_openapi_service_info(
     allow_untested_version: bool,
     initial_warnings: Sequence[dict[str, Any]] = (),
 ) -> ServiceInfo:
+    """Parse openapi service info and return ServiceInfo."""
     if not isinstance(payload, dict):
         raise PreflightError("OpenAPI document is not an object")
     info = payload.get("info")
@@ -802,6 +832,7 @@ def fetch_openapi(
     allow_untested_version: bool,
     initial_warnings: Sequence[dict[str, Any]] = (),
 ) -> tuple[ServiceInfo, HttpResult]:
+    """Fetch openapi and return tuple[ServiceInfo, HttpResult]."""
     openapi_url = base_url + "/openapi.json"
     try:
         result = request_get_with_retry(openapi_url)
@@ -846,6 +877,7 @@ def parse_normalization_response(
     max_synonyms: int,
     service: ServiceInfo,
 ) -> tuple[dict[str, Any], bool]:
+    """Parse normalization response and return tuple[dict[str, Any], bool]."""
     warnings = [make_warning("PUBLIC_QUERY", "The normalization request was sent to a public service.")]
     requires_confirmation = not _looks_like_curie(term)
     if requires_confirmation:
@@ -913,6 +945,7 @@ def parse_normalization_response(
 
 
 def _require_exact_keys(value: Mapping[str, Any], allowed: set[str], label: str) -> None:
+    """Require exact keys."""
     extras = set(value) - allowed
     missing = allowed - set(value)
     if extras or missing:
@@ -925,6 +958,7 @@ def _require_exact_keys(value: Mapping[str, Any], allowed: set[str], label: str)
 
 
 def _validate_edge_contract(edge: Any) -> tuple[str, str]:
+    """Validate edge contract for *edge* and return tuple[str, str]."""
     if not isinstance(edge, dict):
         raise UsageError("saved request contains an invalid query edge")
     allowed = {"subject", "object", "predicates"}
@@ -964,6 +998,7 @@ def _validate_edge_contract(edge: Any) -> tuple[str, str]:
 
 
 def _parse_kp_parameter(value: str) -> tuple[str, tuple[str, ...]]:
+    """Parse kp parameter for *value* and return tuple[str, tuple[str, ...]]."""
     if value == "infores:rtx-kg2":
         return "lookup", (value,)
     if not value.startswith("[") or not value.endswith("]"):
@@ -976,6 +1011,7 @@ def _parse_kp_parameter(value: str) -> tuple[str, tuple[str, ...]]:
 
 
 def validate_saved_request_contract(payload: Any) -> QueryContract:
+    """Validate saved request contract for *payload* and return QueryContract."""
     if not isinstance(payload, dict) or "workflow" in payload:
         raise UsageError("saved request is not a supported fixed-operation request")
     _require_exact_keys(
@@ -1080,6 +1116,7 @@ def validate_saved_request_contract(payload: Any) -> QueryContract:
 
 
 def _normalize_node_bindings(value: Any) -> tuple[dict[str, list[dict[str, Any]]], dict[str, set[str]]]:
+    """Normalize node bindings for *value* and return tuple[dict[str, list[dict[str, Any]]], dict[str, set[str]]]."""
     if not isinstance(value, dict):
         raise ResponseError("result node_bindings is not an object")
     normalized: dict[str, list[dict[str, Any]]] = {}
@@ -1104,6 +1141,7 @@ def _normalize_node_bindings(value: Any) -> tuple[dict[str, list[dict[str, Any]]
 
 
 def _resource_ids_for_role(sources: Sequence[dict[str, Any]], role: str) -> list[str]:
+    """Resource ids for role for *sources*, *role* and return list[str]."""
     found: list[str] = []
     for source in sources:
         resource_role = source.get("resource_role")
@@ -1115,6 +1153,7 @@ def _resource_ids_for_role(sources: Sequence[dict[str, Any]], role: str) -> list
 
 
 def extract_publications(edge: Mapping[str, Any]) -> list[str]:
+    """Extract publications for *edge* and return list[str]."""
     publications: list[str] = []
     attributes = edge.get("attributes", [])
     if not isinstance(attributes, list):
@@ -1135,6 +1174,7 @@ def _classify_logs(
     contract: QueryContract,
     warnings: list[dict[str, Any]],
 ) -> bool:
+    """Classify logs and return bool."""
     partial = False
     logs = payload.get("logs", [])
     if not isinstance(logs, list):
@@ -1196,6 +1236,7 @@ def parse_trapi_response(
     service: ServiceInfo | None = None,
     initial_warnings: Sequence[dict[str, Any]] = (),
 ) -> dict[str, Any]:
+    """Parse trapi response and return dict[str, Any]."""
     if not isinstance(payload, dict):
         raise ResponseError("TRAPI response is not an object")
     message = payload.get("message")
@@ -1433,6 +1474,7 @@ def render_text_summary(
     summary_path: str = "summary.json",
     response_path: str = "response.json",
 ) -> str:
+    """Render text summary and return str."""
     def rendered(value: Any, limit: int = 200) -> str:
         return _sanitize_text(value, limit)
 
@@ -1538,6 +1580,7 @@ def sha256_bytes(value: bytes) -> str:
 
 
 def prepare_output_directory(value: str | Path) -> Path:
+    """Prepare output directory for *value* and return Path."""
     path = Path(value)
     try:
         if path.exists():
@@ -1555,6 +1598,7 @@ def prepare_output_directory(value: str | Path) -> Path:
 
 
 def atomic_write_bytes(path: Path, value: bytes) -> None:
+    """Atomic write bytes for *path*, *value*."""
     try:
         if path.exists():
             raise ResponseError(f"refusing to overwrite existing artifact: {path.name}")
@@ -1600,6 +1644,7 @@ def atomic_write_bytes(path: Path, value: bytes) -> None:
 
 
 def atomic_write_json(path: Path, value: Mapping[str, Any]) -> bytes:
+    """Atomic write json for *path*, *value* and return bytes."""
     try:
         encoded = (
             json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False, allow_nan=False) + "\n"
@@ -1622,6 +1667,7 @@ def new_manifest(
     http_timeout: int,
     result_limit: int | None = None,
 ) -> dict[str, Any]:
+    """New manifest and return dict[str, Any]."""
     return {
         "manifest_version": "1.0",
         "run_id": str(uuid.uuid4()),
@@ -1672,6 +1718,7 @@ def _apply_service_to_manifest(manifest: dict[str, Any], service: ServiceInfo) -
 
 
 def _record_response(manifest: dict[str, Any], result: HttpResult, filename: str = "response.json") -> None:
+    """Record response."""
     manifest["response"].update(
         {
             "http_status": result.status,
@@ -1695,6 +1742,7 @@ def _retain_failure(
     error: AraxClientError,
     stage: str,
 ) -> None:
+    """Retain failure."""
     if output_dir is None or manifest is None:
         return
     try:
@@ -1734,6 +1782,7 @@ def _json_from_http(result: HttpResult, label: str) -> Any:
 
 
 def _preflight_summary(service: ServiceInfo) -> dict[str, Any]:
+    """Preflight summary for *service* and return dict[str, Any]."""
     return {
         "schema_version": "1.0",
         "kind": "preflight",
@@ -1748,6 +1797,7 @@ def _preflight_summary(service: ServiceInfo) -> dict[str, Any]:
 
 
 def handle_preflight(args: argparse.Namespace) -> int:
+    """Handle preflight for *args* and return int."""
     base_url, endpoint_warnings = validate_base_url(args.base_url, args.allow_nonproduction_endpoint)
     output_dir = prepare_output_directory(args.output_dir) if args.output_dir else None
     manifest = new_manifest(
@@ -1784,6 +1834,7 @@ def handle_preflight(args: argparse.Namespace) -> int:
 
 
 def handle_normalize(args: argparse.Namespace) -> int:
+    """Handle normalize for *args* and return int."""
     if not 0 <= args.max_synonyms <= 50:
         raise UsageError("--max-synonyms must be between 0 and 50")
     expected_category = (
@@ -1850,6 +1901,7 @@ def handle_normalize(args: argparse.Namespace) -> int:
 
 
 def _build_from_args(args: argparse.Namespace) -> tuple[dict[str, Any], QueryContract, int]:
+    """Build from args for *args* and return tuple[dict[str, Any], QueryContract, int]."""
     providers, limit = resolve_mode(args.mode, args.kp or [], args.result_limit)
     if args.command == "one-hop":
         body = build_one_hop_query(
@@ -1889,6 +1941,7 @@ def _validate_query_response_version(
     allow_untested_version: bool,
     warnings: list[dict[str, Any]],
 ) -> None:
+    """Validate query response version."""
     try:
         _check_trapi_version(
             payload.get("schema_version") if isinstance(payload.get("schema_version"), str) else None,
@@ -1900,6 +1953,7 @@ def _validate_query_response_version(
 
 
 def handle_graph_query(args: argparse.Namespace) -> int:
+    """Handle graph query for *args* and return int."""
     body, contract, timeout = _build_from_args(args)
     request_bytes = serialize_request(body)
     base_url, endpoint_warnings = validate_base_url(args.base_url, args.allow_nonproduction_endpoint)
@@ -1972,6 +2026,7 @@ def handle_graph_query(args: argparse.Namespace) -> int:
 
 
 def handle_summarize(args: argparse.Namespace) -> int:
+    """Handle summarize for *args* and return int."""
     request_path = Path(args.request)
     response_path = Path(args.response)
     try:
@@ -2022,6 +2077,7 @@ def _add_query_common(parser: argparse.ArgumentParser) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Bounded NCATS Translator ARAX lookup and provenance inspection"
     )
@@ -2071,6 +2127,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

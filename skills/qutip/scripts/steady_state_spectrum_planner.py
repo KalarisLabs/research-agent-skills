@@ -201,6 +201,7 @@ def create_plan(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan bounded QuTiP steady-state and direct/FFT spectrum checks "

@@ -64,6 +64,7 @@ def build_weights(xs: list[float], scheme: str) -> list[float] | None:
 
 
 def main() -> int:
+    """Main and return int."""
     parser = argparse.ArgumentParser(description="Check a calibration response for linearity.")
     parser.add_argument("--input", "-i", help="CSV/TSV/JSON file, or '-' for stdin")
     parser.add_argument("--weight", choices=sorted(WEIGHT_SCHEMES), default="none",

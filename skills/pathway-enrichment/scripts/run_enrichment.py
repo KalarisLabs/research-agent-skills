@@ -125,6 +125,7 @@ def _clean_index(index, organism: str):
 
 
 def _dotplot(df: pd.DataFrame, column: str, title: str, outpath: Path):
+    """Dotplot."""
     try:
         ax = gp.dotplot(df, column=column, title=title, top_term=15, cutoff=1.0)
         fig = ax.get_figure()
@@ -135,6 +136,7 @@ def _dotplot(df: pd.DataFrame, column: str, title: str, outpath: Path):
 
 
 def run_ora(args):
+    """Run ora for *args*."""
     genes = _clean_symbols(_read_gene_list(Path(args.genes)), args.organism)
     if len(genes) < 5:
         print(f"WARNING: only {len(genes)} genes after cleanup; ORA is underpowered.")
@@ -156,6 +158,7 @@ def run_ora(args):
 
 
 def run_gsea(args):
+    """Run gsea for *args*."""
     if args.deseq2:
         rnk = _build_rank_from_deseq2(Path(args.deseq2), args.organism)
     elif args.rnk:
@@ -183,6 +186,7 @@ def run_gsea(args):
 
 
 def main():
+    """Main."""
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="method", required=True)
 

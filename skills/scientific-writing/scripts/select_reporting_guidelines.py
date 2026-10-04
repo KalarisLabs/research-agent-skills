@@ -30,6 +30,7 @@ DISCLAIMER = (
 
 
 def load_registry() -> dict[str, dict[str, Any]]:
+    """Load registry and return dict[str, dict[str, Any]]."""
     root = require_object(read_json(REGISTRY_PATH), "registry")
     if root.get("schema_version") != "1.0":
         raise InputError("unsupported reporting-guideline registry version")
@@ -57,6 +58,7 @@ def select_guidelines(
     registry: dict[str, dict[str, Any]],
     args: argparse.Namespace,
 ) -> tuple[list[str], list[str], list[Issue]]:
+    """Select guidelines for *registry*, *args* and return tuple[list[str], list[str], list[Issue]]."""
     primary: list[str] = []
     extensions: list[str] = []
     issues: list[Issue] = []
@@ -88,6 +90,7 @@ def check_coverage(
     registry: dict[str, dict[str, Any]],
     coverage_path: str,
 ) -> tuple[list[Issue], dict[str, Any]]:
+    """Check coverage for *registry*, *coverage_path* and return tuple[list[Issue], dict[str, Any]]."""
     data = require_object(read_json(coverage_path), "coverage")
     if data.get("schema_version") != "1.0":
         raise InputError("unsupported reporting-coverage schema version")
@@ -167,6 +170,7 @@ def check_coverage(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Use the bundled offline registry to select candidate reporting guidance "
@@ -195,6 +199,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def cli() -> int:
+    """Cli and return int."""
     args = build_parser().parse_args()
     registry = load_registry()
     if args.command == "select":

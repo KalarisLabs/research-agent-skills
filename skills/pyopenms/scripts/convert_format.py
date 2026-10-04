@@ -31,6 +31,7 @@ def load_experiment(path):
 
 
 def filter_experiment(exp, ms_level=None, rt_min=None, rt_max=None, min_intensity=None):
+    """Filter experiment."""
     out = ms.MSExperiment()
     for spec in exp:
         if ms_level is not None and spec.getMSLevel() != ms_level:
@@ -53,6 +54,7 @@ def filter_experiment(exp, ms_level=None, rt_min=None, rt_max=None, min_intensit
 
 
 def store_experiment(exp, path):
+    """Store experiment for *exp*, *path*."""
     ext = path.lower()
     if ext.endswith(".mzml"):
         ms.MzMLFile().store(path, exp)
@@ -65,6 +67,7 @@ def store_experiment(exp, path):
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(description="Convert/filter MS files between formats.")
     parser.add_argument("input", help="Input file (mzML/mzXML/...)")
     parser.add_argument("output", help="Output file (.mzML, .mzXML, or .mgf)")

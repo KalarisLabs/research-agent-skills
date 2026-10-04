@@ -178,6 +178,7 @@ class BibTeXFormatter:
             Sorted list of entries
         """
         def get_sort_key(entry: Dict) -> str:
+            """Get sort key for *entry* and return str."""
             if sort_by == 'year':
                 # Zero-pad so string comparison orders numerically, and push
                 # undated entries to the end.

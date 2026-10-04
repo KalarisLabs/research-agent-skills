@@ -42,6 +42,7 @@ def _dtype_report(
     *,
     reveal_identifiers: bool,
 ) -> dict[str, Any]:
+    """Dtype report for *dtype*, *reveal_identifiers* and return dict[str, Any]."""
     fields = getattr(dtype, "fields", None)
     report: dict[str, Any] = {
         "kind": str(dtype.kind),
@@ -68,6 +69,7 @@ def _dtype_report(
 
 
 def _sample_array(array: Any, np: Any) -> Any:
+    """Sample array for *array*, *np* and return Any."""
     size = int(array.size)
     if size <= MAX_ARRAY_SAMPLE:
         return np.asarray(array).reshape(-1)
@@ -88,6 +90,7 @@ def _array_report(
     array_id: str | None,
     reveal_identifiers: bool,
 ) -> dict[str, Any]:
+    """Array report and return dict[str, Any]."""
     if bool(array.dtype.hasobject):
         raise CliError("NumPy object arrays are not accepted because they require pickle")
     report: dict[str, Any] = {
@@ -234,6 +237,7 @@ def inspect_numpy(
 
 
 def _shape_elements(shape: Any) -> int | None:
+    """Shape elements for *shape* and return int | None."""
     if shape is None:
         return None
     total = 1

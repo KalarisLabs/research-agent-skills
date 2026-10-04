@@ -287,6 +287,7 @@ PANGO_BLOBS: dict[str, str] = {}
 
 
 def _fetch_text(url: str) -> str:
+    """Fetch text for *url* and return str."""
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT) as response:

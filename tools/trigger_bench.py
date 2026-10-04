@@ -43,6 +43,7 @@ STOP = set("a an the and or of to in on for with by is are be this that it as at
 
 
 def tokens(text: str) -> list[str]:
+    """Tokens for *text* and return list[str]."""
     out = []
     for t in TOKEN.findall(text.lower()):
         t = t.strip(".-")
@@ -54,6 +55,7 @@ def tokens(text: str) -> list[str]:
 
 
 class BM25:
+    """Bm25."""
     def __init__(self, docs: dict[str, list[str]], k1: float = 1.4, b: float = 0.75):
         self.docs, self.k1, self.b = docs, k1, b
         self.avg = sum(len(d) for d in docs.values()) / max(len(docs), 1)
@@ -63,6 +65,7 @@ class BM25:
         self.tf = {k: Counter(v) for k, v in docs.items()}
 
     def rank(self, query: list[str]) -> list[tuple[str, float]]:
+        """Rank for *query* and return list[tuple[str, float]]."""
         scores = {}
         for name, tf in self.tf.items():
             dl = len(self.docs[name])
@@ -76,6 +79,7 @@ class BM25:
 
 
 def claude_rank(prompt: str, catalog: str, model: str | None) -> list[str]:
+    """Claude rank and return list[str]."""
     exe = shutil.which("claude")
     if not exe:
         sys.exit("claude CLI not found on PATH")
@@ -95,6 +99,7 @@ def claude_rank(prompt: str, catalog: str, model: str | None) -> list[str]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--router", choices=["bm25", "claude"], default="bm25")
     ap.add_argument("--model")

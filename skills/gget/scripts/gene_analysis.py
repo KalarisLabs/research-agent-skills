@@ -144,6 +144,7 @@ def analyze_gene(gene_name, species="homo_sapiens", output_prefix=None):
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(
         description="Perform comprehensive analysis of a gene using gget"
     )

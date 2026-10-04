@@ -39,6 +39,7 @@ class PDFToImagesConverter:
         first_page: Optional[int] = None,
         last_page: Optional[int] = None
     ):
+        """Initialize with pdf_path, output_prefix, dpi, format, first_page, last_page."""
         self.pdf_path = Path(pdf_path)
         self.output_prefix = output_prefix
         self.dpi = dpi
@@ -111,6 +112,7 @@ class PDFToImagesConverter:
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(
         description='Convert presentation PDFs to images',
         formatter_class=argparse.RawDescriptionHelpFormatter,

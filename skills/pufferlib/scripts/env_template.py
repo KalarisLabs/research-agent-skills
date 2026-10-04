@@ -32,6 +32,7 @@ class DiscreteSpace:
         return ()
 
     def contains(self, value: Any) -> bool:
+        """Contains for *value* and return bool."""
         return isinstance(value, int) and not isinstance(value, bool) and 0 <= value < self.n
 
     def sample(self, rng: random.Random) -> int:
@@ -48,6 +49,7 @@ class BoxSpace:
     dtype: str = "float32"
 
     def contains(self, value: Any) -> bool:
+        """Contains for *value* and return bool."""
         if len(self.shape) != 1 or not isinstance(value, (list, tuple)):
             return False
         if len(value) != self.shape[0]:
@@ -66,6 +68,7 @@ class SyntheticGymEnv:
     metadata = {"render_modes": []}
 
     def __init__(self, *, max_steps: int = 16) -> None:
+        """Initialize with max_steps."""
         if not 1 <= max_steps <= 10_000:
             raise UserInputError("max_steps must be between 1 and 10000")
         self.max_steps = max_steps
@@ -181,6 +184,7 @@ def run_demo(*, seed: int, steps: int, max_steps: int) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Run the dependency-free synthetic environment template."
     )
@@ -192,6 +196,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

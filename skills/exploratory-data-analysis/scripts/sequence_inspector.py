@@ -29,6 +29,7 @@ NUCLEOTIDE_CODES = frozenset("ACGTUNRYSWKMBDHVX-.")
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect a bounded local FASTA/FASTQ sample. Sequence text and record "
@@ -214,6 +215,7 @@ def inspect_sequence_file(
 
 
 def _main() -> None:
+    """Main."""
     args = build_parser().parse_args()
     max_bytes = bounded_file_limit(args.max_bytes)
     path = checked_input_file(

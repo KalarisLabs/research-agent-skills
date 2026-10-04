@@ -101,6 +101,7 @@ def map_one(
 
 
 def to_rows(results: list[dict]) -> list[dict]:
+    """To rows for *results* and return list[dict]."""
     rows: list[dict] = []
     for result in results:
         if not result["candidates"]:
@@ -138,6 +139,7 @@ def to_rows(results: list[dict]) -> list[dict]:
 
 
 def write_output(results: list[dict], fmt: str, output: str | None) -> None:
+    """Write output."""
     stream = open(output, "w", encoding="utf-8", newline="") if output else sys.stdout
     try:
         if fmt == "json":
@@ -155,6 +157,7 @@ def write_output(results: list[dict], fmt: str, output: str | None) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Map lab shorthand to ontology terms via EBI ZOOMA. "
@@ -193,6 +196,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     queries = read_inputs(args)
     if not queries:

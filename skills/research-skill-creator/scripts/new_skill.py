@@ -104,6 +104,7 @@ def known_categories(root: Path) -> list[str]:
 
 
 def main() -> int:
+    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("name")
     ap.add_argument("--category", required=True)

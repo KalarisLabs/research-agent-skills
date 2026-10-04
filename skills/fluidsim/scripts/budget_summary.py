@@ -69,6 +69,7 @@ class OnlineStats:
         self.mean = 0.0
 
     def add(self, value: Any) -> None:
+        """Add for *value*."""
         if isinstance(value, bool) or not isinstance(value, (int, float)):
             return
         number = float(value)
@@ -84,6 +85,7 @@ class OnlineStats:
         self.mean = self.mean * ((self.count - 1) / self.count) + number / self.count
 
     def report(self) -> dict[str, Any]:
+        """Report and return dict[str, Any]."""
         return {
             "count": self.count,
             "first": self.first,
@@ -95,6 +97,7 @@ class OnlineStats:
 
 
 def _iter_text(path: Path, *, max_records: int):
+    """Iter text for *path*, *max_records*."""
     if path.stat().st_size > MAX_TEXT_BYTES:
         raise ToolError("scalar diagnostic exceeds the text-size limit")
     consumed = 0
@@ -114,6 +117,7 @@ def _iter_text(path: Path, *, max_records: int):
 
 
 def summarize_scalar_file(path: Path, *, max_records: int) -> dict[str, Any]:
+    """Summarize scalar file for *path*, *max_records* and return dict[str, Any]."""
     metrics: dict[str, OnlineStats] = {}
     parsed_lines = 0
     json_lines = path.name.casefold().endswith(".json")
@@ -151,6 +155,7 @@ def summarize_scalar_file(path: Path, *, max_records: int) -> dict[str, Any]:
 
 
 def _bounded_slice(shape: tuple[int, ...], maximum: int) -> tuple[Any, ...]:
+    """Bounded slice for *shape*, *maximum* and return tuple[Any, ...]."""
     if not shape:
         return ()
     if len(shape) == 1:
@@ -165,6 +170,7 @@ def _bounded_slice(shape: tuple[int, ...], maximum: int) -> tuple[Any, ...]:
 
 
 def _summarize_values(values: Any, *, complete_record: bool) -> dict[str, Any]:
+    """Summarize values for *values*, *complete_record* and return dict[str, Any]."""
     flat = values.reshape(-1)
     if flat.dtype.kind == "c":
         flat = abs(flat)
@@ -196,6 +202,7 @@ def _summarize_values(values: Any, *, complete_record: bool) -> dict[str, Any]:
 def summarize_spectral_file(
     path: Path, *, max_datasets: int, max_values: int
 ) -> dict[str, Any]:
+    """Summarize spectral file and return dict[str, Any]."""
     try:
         import h5py  # Lazy optional dependency.
     except ImportError as exc:
@@ -291,6 +298,7 @@ def summarize(
     max_datasets: int,
     max_values: int,
 ) -> dict[str, Any]:
+    """Summarize and return dict[str, Any]."""
     files = iter_local_files(
         path, suffixes=None, max_files=max_files, recursive=True
     )
@@ -337,6 +345,7 @@ def summarize(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Summarize bounded local spatial means and latest spectral/budget "
@@ -353,6 +362,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         max_files = bounded_int(

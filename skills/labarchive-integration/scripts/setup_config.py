@@ -105,6 +105,7 @@ def _dump(payload: Mapping[str, Any], *, compact: bool, stream: Any) -> None:
 
 
 def _select_api_url(args: argparse.Namespace, env: Mapping[str, str]) -> str:
+    """Select api url for *args*, *env* and return str."""
     if args.api_url and args.region:
         raise ConfigError("use either --api-url or --region, not both")
     if args.api_url:
@@ -119,6 +120,7 @@ def _select_api_url(args: argparse.Namespace, env: Mapping[str, str]) -> str:
 
 
 def command_regions(args: argparse.Namespace) -> int:
+    """Command regions for *args* and return int."""
     payload = {
         "as_of": "2026-07-23",
         "regions": [
@@ -136,6 +138,7 @@ def command_regions(args: argparse.Namespace) -> int:
 def command_check(
     args: argparse.Namespace, env: Mapping[str, str] | None = None
 ) -> int:
+    """Command check for *args*, *env* and return int."""
     selected_env = os.environ if env is None else env
     api_url = _select_api_url(args, selected_env)
 
@@ -179,6 +182,7 @@ def command_check(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate official LabArchives ELN regional URLs and the presence "
@@ -234,6 +238,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

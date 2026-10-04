@@ -124,6 +124,7 @@ def rule_of_exponents(exponent: float) -> str:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description="Allometric scaling, paediatric maturation, and first-in-human dose estimation.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -159,6 +160,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def run(argv: Sequence[str] | None = None) -> int:
+    """Run for *argv* and return int."""
     args = build_parser().parse_args(argv)
     chosen = [m for m in ("scale", "exponent", "fih", "mabel") if getattr(args, m)]
     if len(chosen) != 1:

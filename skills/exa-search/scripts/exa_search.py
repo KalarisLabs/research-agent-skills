@@ -67,6 +67,7 @@ def _build_contents(text: bool, highlights: bool) -> dict[str, Any] | None:
 
 
 def _result_to_typed(item: Any) -> SearchResult:
+    """Result to typed for *item* and return SearchResult."""
     highlights = list(getattr(item, "highlights", None) or [])
     scores = list(getattr(item, "highlight_scores", None) or [])
     return SearchResult(
@@ -83,6 +84,7 @@ def _result_to_typed(item: Any) -> SearchResult:
 
 
 def run(args: argparse.Namespace) -> dict[str, Any]:
+    """Run for *args* and return dict[str, Any]."""
     api_key = os.environ.get("EXA_API_KEY")
     if not api_key:
         print("EXA_API_KEY environment variable is not set.", file=sys.stderr)
@@ -128,6 +130,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(description="Search the web with Exa.")
     parser.add_argument("query", help="Natural-language search query.")
     parser.add_argument(
@@ -163,6 +166,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     payload = run(args)
     text = json.dumps(payload, indent=2, ensure_ascii=False)

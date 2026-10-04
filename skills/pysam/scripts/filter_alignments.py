@@ -34,6 +34,7 @@ def nonnegative_int(value: str) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -119,6 +120,7 @@ def require_local_file(path: Path, label: str) -> Path:
 
 
 def alignment_mode(path: Path, *, writing: bool) -> str:
+    """Alignment mode for *path*, *writing* and return str."""
     name = path.name.lower()
     if name.endswith(".sam"):
         return "w" if writing else "r"
@@ -142,6 +144,7 @@ def exclusion_reasons(
     read: pysam.AlignedSegment,
     args: argparse.Namespace,
 ) -> list[str]:
+    """Exclusion reasons for *read*, *args* and return list[str]."""
     reasons = []
     if args.exclude_unmapped and read.is_unmapped:
         reasons.append("unmapped")
@@ -165,6 +168,7 @@ def validate_destinations(
     output_path: Path,
     summary_path: Optional[Path],
 ) -> None:
+    """Validate destinations."""
     if not output_path.parent.exists():
         raise FileNotFoundError(
             f"output parent does not exist: {output_path.parent}"
@@ -191,6 +195,7 @@ def validate_destinations(
 
 
 def filter_file(args: argparse.Namespace) -> dict[str, Any]:
+    """Filter file for *args* and return dict[str, Any]."""
     input_path = require_local_file(args.input, "input")
     output_path = args.output.expanduser()
     summary_path = (
@@ -320,6 +325,7 @@ def write_summary(
     report: dict[str, Any],
     output: Optional[Path],
 ) -> None:
+    """Write summary for *report*, *output*."""
     text = json.dumps(
         report,
         indent=2,
@@ -334,6 +340,7 @@ def write_summary(
 
 
 def main(argv: Optional[list[str]] = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
 

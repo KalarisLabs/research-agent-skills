@@ -134,6 +134,7 @@ def _validate_guidance(
     guidance: Any,
     errors: list[str],
 ) -> None:
+    """Validate guidance."""
     if not isinstance(guidance, dict):
         errors.append("guidance must be an object")
         return
@@ -264,6 +265,7 @@ def _validate_metadata(
     errors: list[str],
     warnings: list[str],
 ) -> None:
+    """Validate metadata."""
     if artifact_kind == "clinical_study_report_draft":
         fields = {
             "protocol_reference",
@@ -503,6 +505,7 @@ def validate_trial_manifest(data: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Check a bounded JSON ICH E3, CONSORT 2025, or SPIRIT 2025 "
@@ -516,6 +519,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         _, data = load_json_object(args.input_file)

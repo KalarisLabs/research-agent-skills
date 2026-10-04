@@ -414,6 +414,7 @@ def reference_score(reference: dict[str, Any]) -> tuple[int, int, int, int]:
 
 
 def _claim_map(references: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Claim map for *references* and return list[dict[str, Any]]."""
     claims: list[dict[str, Any]] = []
     for reference in references:
         if reference.get("retracted"):
@@ -431,6 +432,7 @@ def _claim_map(references: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def _synthesis(references: list[dict[str, Any]]) -> dict[str, Any]:
+    """Synthesis for *references* and return dict[str, Any]."""
     conflict_terms = (
         "conflict",
         "contradict",
@@ -473,6 +475,7 @@ def _synthesis(references: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def _section_briefs(references: list[dict[str, Any]]) -> dict[str, Any]:
+    """Section briefs for *references* and return dict[str, Any]."""
     briefs: dict[str, Any] = {
         "introduction": {
             "purpose": "Established background, significance, and unresolved gap.",
@@ -512,6 +515,7 @@ def _section_briefs(references: list[dict[str, Any]]) -> dict[str, Any]:
 def _coverage(
     references: list[dict[str, Any]], target_references: int
 ) -> dict[str, Any]:
+    """Coverage for *references*, *target_references* and return dict[str, Any]."""
     verified = [
         reference
         for reference in references

@@ -19,6 +19,7 @@ from _tabular import profile_table
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Profile bounded local CSV/TSV rows with aggregate statistics. "
@@ -66,6 +67,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _main() -> None:
+    """Main."""
     args = build_parser().parse_args()
     max_bytes = bounded_file_limit(args.max_bytes)
     path = checked_input_file(

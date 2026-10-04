@@ -25,6 +25,7 @@ PACKAGE_VERSION = re.compile(r"^[0-9]+\.[0-9]+\.[0-9]+$")
 
 
 def compatibility_data() -> dict[str, Any]:
+    """Compatibility data and return dict[str, Any]."""
     skill_root = checked_root(Path(__file__).resolve().parents[1])
     path = checked_input(
         skill_root / "assets" / "python_compatibility_r2026a.json",
@@ -46,6 +47,7 @@ def normalize_python(value: str) -> tuple[str, str]:
 
 
 def plan(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
+    """Plan for *args* and return tuple[dict[str, Any], int]."""
     release = validate_release(args.matlab_release)
     data = compatibility_data()
     if release != data["matlab_release"]:
@@ -134,6 +136,7 @@ def plan(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
 
 
 def parser() -> argparse.ArgumentParser:
+    """Parser and return argparse.ArgumentParser."""
     result = argparse.ArgumentParser(
         description=(
             "Check a requested CPython and MATLAB Engine version against the "

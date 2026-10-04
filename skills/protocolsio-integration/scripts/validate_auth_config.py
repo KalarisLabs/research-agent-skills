@@ -30,6 +30,7 @@ except ImportError:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate protocols.io named environment variables without network "
@@ -55,6 +56,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _validate_secret_value(name: str, value: str | None) -> None:
+    """Validate secret value for *name*, *value*."""
     if value is None:
         return
     if (
@@ -74,6 +76,7 @@ def validate_config(
     requirement: str,
     environ: Mapping[str, str],
 ) -> tuple[int, dict[str, object]]:
+    """Validate config and return tuple[int, dict[str, object]]."""
     normalized_origin = validate_origin(origin)
     normalized_tenant = (
         validate_origin(tenant_origin, allow_tenant=True) if tenant_origin else None
@@ -110,6 +113,7 @@ def validate_config(
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         code, report = validate_config(

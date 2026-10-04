@@ -69,6 +69,7 @@ def profile(base_url: str, filters: dict, *, amino_acid: bool, min_proportion: f
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(description="Mutation profile of a lineage.")
     parser.add_argument("lineage", help="lineage or clade name; 'NAME*' includes descendants")
     parser.add_argument("--versus", help="second lineage to diff against")
@@ -90,6 +91,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
 
     try:

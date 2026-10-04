@@ -43,6 +43,7 @@ def check_remote_endpoint(endpoint, label):
 
 
 class ClaudeBackend:
+    """Claude backend."""
     def __init__(self, api_key, model, client=None):
         if client is None:
             import httpx
@@ -52,6 +53,7 @@ class ClaudeBackend:
         self.client = client
 
     def __call__(self, prompt):
+        """Call protocol method."""
         response = self.client.post(
             "/v1/messages",
             headers={
@@ -71,6 +73,7 @@ class ClaudeBackend:
 
 
 class LocalBackend:
+    """Local backend."""
     def __init__(self, endpoint, model, client=None):
         if client is None:
             import httpx
@@ -80,6 +83,7 @@ class LocalBackend:
         self.client = client
 
     def __call__(self, prompt):
+        """Call protocol method."""
         response = self.client.post(
             "/chat/completions",
             json={
@@ -93,6 +97,7 @@ class LocalBackend:
 
 
 def make_backend(config):
+    """Make backend for *config*."""
     kind = config.get("backend")
     if kind == "claude":
         api_key = os.environ.get("ANTHROPIC_API_KEY")

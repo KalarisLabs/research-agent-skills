@@ -48,6 +48,7 @@ class CitationValidator:
     """Validate BibTeX entries for errors and inconsistencies."""
 
     def __init__(self):
+        """Initialize instance."""
         self.session = requests.Session()
         self.session.headers.update({
             'User-Agent': 'CitationValidator/1.0 (Citation Management Tool)'

@@ -60,6 +60,7 @@ PACKAGES = (
 
 
 def _package_versions() -> dict[str, str | None]:
+    """Package versions and return dict[str, str | None]."""
     versions: dict[str, str | None] = {}
     for package in PACKAGES:
         try:
@@ -70,6 +71,7 @@ def _package_versions() -> dict[str, str | None]:
 
 
 def _codec_capability(uid_value: str) -> dict[str, Any]:
+    """Codec capability for *uid_value* and return dict[str, Any]."""
     pydicom = require_pydicom()
     from pydicom.pixels import get_decoder, get_encoder
 
@@ -126,6 +128,7 @@ def _codec_capability(uid_value: str) -> dict[str, Any]:
 
 
 def inspect(args: argparse.Namespace) -> dict[str, Any]:
+    """Inspect for *args* and return dict[str, Any]."""
     requested = list(args.uid or [])
     selected_uid: str | None = None
     source: Path | None = None
@@ -179,6 +182,7 @@ def inspect(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect pydicom 3.0.2 decoder/encoder implementation and installed "
@@ -214,6 +218,7 @@ Availability is a deployment preflight, not a pixel-correctness guarantee.
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         report = inspect(args)

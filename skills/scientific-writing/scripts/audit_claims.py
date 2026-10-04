@@ -50,6 +50,7 @@ def _split_evidence_ids(value: str) -> list[str]:
 
 
 def load_sources(path: str) -> dict[str, bool]:
+    """Load sources for *path* and return dict[str, bool]."""
     data = require_object(read_json(path), "source_manifest")
     sources: dict[str, bool] = {}
     for index, raw_source in enumerate(require_list(data.get("sources"), "sources")):
@@ -73,6 +74,7 @@ def load_claims(
     path: str,
     sources: dict[str, bool],
 ) -> tuple[dict[str, dict[str, Any]], list[Issue]]:
+    """Load claims for *path*, *sources* and return tuple[dict[str, dict[str, Any]], list[Issue]]."""
     fields, rows = read_csv(path)
     if set(fields) != REQUIRED_FIELDS:
         missing = ",".join(sorted(REQUIRED_FIELDS - set(fields)))
@@ -132,6 +134,7 @@ def audit_markdown(
     claims: dict[str, dict[str, Any]],
     sources: dict[str, bool],
 ) -> tuple[list[Issue], set[str]]:
+    """Audit markdown and return tuple[list[Issue], set[str]]."""
     issues: list[Issue] = []
     used_claims: set[str] = set()
     in_fence = False
@@ -203,6 +206,7 @@ def audit_markdown(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit local Markdown claim markers against a CSV claim registry and "
@@ -216,6 +220,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def cli() -> int:
+    """Cli and return int."""
     args = build_parser().parse_args()
     sources = load_sources(args.sources)
     claims, issues = load_claims(args.claims, sources)

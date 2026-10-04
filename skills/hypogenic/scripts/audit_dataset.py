@@ -49,6 +49,7 @@ else:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit immutable local dataset files without network access and without "
@@ -94,6 +95,7 @@ def _data_root_from_manifest(
     manifest_root: str,
     relative_root: str,
 ) -> Path:
+    """Data root from manifest for *manifest_root*, *relative_root* and return Path."""
     base = checked_root(manifest_root)
     candidate = base / relative_root
     current = base
@@ -110,6 +112,7 @@ def _data_root_from_manifest(
 
 
 def _field_names(row: Mapping[str, Any], *, context: str) -> tuple[str, ...]:
+    """Field names for *row*, *context* and return tuple[str, ...]."""
     if not row or len(row) > 128:
         raise CliError(f"{context} must contain 1 to 128 fields")
     fields: list[str] = []
@@ -178,6 +181,7 @@ def _bounded_groups(
     maximum: int,
     cross_split_only: bool,
 ) -> list[dict[str, Any]]:
+    """Bounded groups and return list[dict[str, Any]]."""
     result: list[dict[str, Any]] = []
     for digest in sorted(groups):
         occurrences = groups[digest]
@@ -212,6 +216,7 @@ def audit(
     max_evidence_groups: int,
     manifest_sha256: str,
 ) -> dict[str, Any]:
+    """Audit and return dict[str, Any]."""
     label_field = manifest["label_field"]
     identity_fields = manifest["identity_fields"]
     exact_groups: dict[str, list[tuple[str, int]]] = defaultdict(list)
@@ -351,6 +356,7 @@ def audit(
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         max_file_bytes = bounded_int(

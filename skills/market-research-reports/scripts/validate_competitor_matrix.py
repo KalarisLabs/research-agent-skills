@@ -38,6 +38,7 @@ STATUSES = {"yes", "no", "partial", "unknown", "not-applicable"}
 
 
 def _source_ids(path: str | Path) -> set[str]:
+    """Source ids for *path* and return set[str]."""
     if Path(path).suffix.lower() == ".csv":
         records: list[dict[str, Any]] = read_csv_records(
             path, required_fields=("source_id",)
@@ -70,6 +71,7 @@ def _source_ids(path: str | Path) -> set[str]:
 def validate(
     rows: list[dict[str, str]], known_source_ids: set[str] | None = None
 ) -> dict[str, Any]:
+    """Validate for *rows*, *known_source_ids* and return dict[str, Any]."""
     errors: list[str] = []
     warnings: list[str] = []
     competitors: dict[str, str] = {}
@@ -189,6 +191,7 @@ def validate(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a strict local competitor-feature matrix for complete coverage, "
@@ -208,6 +211,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         rows = read_csv_records(args.matrix, required_fields=REQUIRED_FIELDS)

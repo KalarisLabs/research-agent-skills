@@ -40,6 +40,7 @@ SUFFIX_FORMAT = {
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan—but do not execute—a local vector export. Inspect only metadata, "
@@ -121,6 +122,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _format_risks(format_name: str) -> list[str]:
+    """Format risks for *format_name* and return list[str]."""
     risks = {
         "geopackage": [
             "One geometry column per layer; additional geometry columns need separate layers or explicit encoding.",
@@ -146,6 +148,7 @@ def _format_risks(format_name: str) -> list[str]:
 
 
 def plan(args: argparse.Namespace) -> dict[str, Any]:
+    """Plan for *args* and return dict[str, Any]."""
     max_features = bounded_limit(
         args.max_features,
         name="max_features",
@@ -292,6 +295,7 @@ def plan(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         report = plan(args)

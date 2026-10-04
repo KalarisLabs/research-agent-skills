@@ -39,6 +39,7 @@ def _bullet(label: str, value: Any) -> str:
 
 
 def _render_ethics(record: dict[str, Any]) -> str:
+    """Render ethics for *record* and return str."""
     ethics = record["ethics_and_feasibility"]
     lines = [
         _bullet(field.replace("_", " "), ethics[field])
@@ -60,6 +61,7 @@ def _render_ethics(record: dict[str, Any]) -> str:
 
 
 def _render_evidence(record: dict[str, Any]) -> str:
+    """Render evidence for *record* and return str."""
     evidence = record["evidence"]
     lines = [
         _bullet("search boundary ID", evidence["search_boundary_id"]),
@@ -71,6 +73,7 @@ def _render_evidence(record: dict[str, Any]) -> str:
 
 
 def _render_observation(record: dict[str, Any]) -> str:
+    """Render observation for *record* and return str."""
     observation = record["observation"]
     return "\n".join(
         [
@@ -83,6 +86,7 @@ def _render_observation(record: dict[str, Any]) -> str:
 
 
 def _render_question(record: dict[str, Any]) -> str:
+    """Render question for *record* and return str."""
     question = record["research_question"]
     return "\n".join(
         _bullet(field.replace("_", " "), question[field])
@@ -100,6 +104,7 @@ def _render_question(record: dict[str, Any]) -> str:
 
 
 def _render_hypotheses(record: dict[str, Any]) -> str:
+    """Render hypotheses for *record* and return str."""
     sections: list[str] = []
     for hypothesis in record["hypotheses"]:
         sections.extend(
@@ -123,6 +128,7 @@ def _render_hypotheses(record: dict[str, Any]) -> str:
 
 
 def _render_estimands(record: dict[str, Any]) -> str:
+    """Render estimands for *record* and return str."""
     if not record["causal_estimands"]:
         return "- Not applicable to the declared non-causal question."
     sections: list[str] = []
@@ -158,6 +164,7 @@ def _render_estimands(record: dict[str, Any]) -> str:
 
 
 def _render_predictions(record: dict[str, Any]) -> str:
+    """Render predictions for *record* and return str."""
     sections: list[str] = []
     for prediction in record["predictions"]:
         sections.extend(
@@ -183,6 +190,7 @@ def _render_predictions(record: dict[str, Any]) -> str:
 
 
 def _render_nulls_and_controls(record: dict[str, Any]) -> str:
+    """Render nulls and controls for *record* and return str."""
     sections = ["### Null hypotheses", ""]
     for null in record["null_hypotheses"]:
         sections.extend(
@@ -212,6 +220,7 @@ def _render_nulls_and_controls(record: dict[str, Any]) -> str:
 
 
 def _render_operationalizations(record: dict[str, Any]) -> str:
+    """Render operationalizations for *record* and return str."""
     sections: list[str] = []
     for measurement in record["operationalizations"]:
         sections.extend(
@@ -246,6 +255,7 @@ def _render_operationalizations(record: dict[str, Any]) -> str:
 
 
 def _render_analyses(record: dict[str, Any]) -> str:
+    """Render analyses for *record* and return str."""
     sections: list[str] = []
     for analysis in record["analysis_plan"]["analyses"]:
         sections.extend(
@@ -276,6 +286,7 @@ def _render_analyses(record: dict[str, Any]) -> str:
 
 
 def _render_ai_use(record: dict[str, Any]) -> str:
+    """Render ai use for *record* and return str."""
     ai_use = record["ai_use"]
     return "\n".join(
         [
@@ -353,6 +364,7 @@ def generate(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Generate a private local Markdown preregistration scaffold from a "
@@ -368,6 +380,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         record = load_hypothesis_record(read_json(args.record))

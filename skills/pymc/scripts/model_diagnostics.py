@@ -207,6 +207,7 @@ def create_diagnostic_report(idata, var_names=None, output_dir='diagnostics/', s
     # current figure, so the figure must be saved through the collection --
     # plt.savefig() would write a blank image.
     def _save(plot_collection, filename, label):
+        """Save."""
         plot_collection.savefig(
             output_path / filename, dpi=300, bbox_inches='tight'
         )

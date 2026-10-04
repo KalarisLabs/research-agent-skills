@@ -581,6 +581,7 @@ def deming(
         raise InputError("lambda_ratio must be > 0")
 
     def _fit(xv: Sequence[float], yv: Sequence[float]) -> tuple[float, float]:
+        """Fit for *xv*, *yv* and return tuple[float, float]."""
         xb, yb = mean(xv), mean(yv)
         sxx = math.fsum((x - xb) ** 2 for x in xv)
         syy = math.fsum((y - yb) ** 2 for y in yv)

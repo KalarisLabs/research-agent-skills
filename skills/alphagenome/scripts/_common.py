@@ -124,6 +124,7 @@ class VariantSpec:
         return len(self.ref) == 1 and len(self.alt) == 1
 
     def to_row(self) -> dict[str, object]:
+        """To row and return dict[str, object]."""
         return {
             "variant": str(self),
             "chromosome": self.chromosome,
@@ -210,6 +211,7 @@ def interval_width(start0: int, end: int) -> int:
 
 
 def _split_delimited(path: Path) -> tuple[list[str], list[list[str]]]:
+    """Split delimited for *path* and return tuple[list[str], list[list[str]]]."""
     text = path.read_text(encoding="utf-8")
     sample = text[:4096]
     if path.suffix.lower() == ".csv":
@@ -435,6 +437,7 @@ _FORMATS = ("tsv", "csv", "json", "parquet")
 
 
 def _stringify(value: object) -> object:
+    """Stringify for *value* and return object."""
     if value is None:
         return ""
     if isinstance(value, float):

@@ -69,6 +69,7 @@ DESIGN_MINIMA = {
 
 
 def main() -> int:
+    """Main and return int."""
     parser = argparse.ArgumentParser(
         description="Check accuracy and precision from validation data."
     )

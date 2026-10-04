@@ -229,6 +229,7 @@ def checked_output_file(
 
 
 def _strict_json_bytes(document: Any) -> bytes:
+    """Strict json bytes for *document* and return bytes."""
     try:
         payload = (
             json.dumps(

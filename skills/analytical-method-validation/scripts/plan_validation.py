@@ -51,6 +51,7 @@ STATUS_TEXT = {
 
 
 def plan_q2r2(attribute: str, technique: str | None, range_use: str | None) -> list[dict]:
+    """Plan q2r2 and return list[dict]."""
     tests = Q2R2_TESTS_BY_ATTRIBUTE[attribute]
     rows = []
     for characteristic, status in tests.items():
@@ -102,6 +103,7 @@ def plan_q2r2(attribute: str, technique: str | None, range_use: str | None) -> l
 
 
 def plan_m10(modality: str) -> list[dict]:
+    """Plan m10 for *modality* and return list[dict]."""
     crit = M10_CRITERIA[modality]
     rows = [
         {
@@ -185,6 +187,7 @@ def plan_m10(modality: str) -> list[dict]:
 
 def render_protocol(framework: str, attribute: str | None, modality: str | None,
                     technique: str | None, range_use: str | None) -> str:
+    """Render protocol and return str."""
     fw = FRAMEWORKS[framework]
     lines = [
         "# Analytical Procedure Validation Protocol",
@@ -277,6 +280,7 @@ def render_protocol(framework: str, attribute: str | None, modality: str | None,
 
 
 def main() -> int:
+    """Main and return int."""
     parser = argparse.ArgumentParser(
         description="Plan an analytical procedure validation study.",
         formatter_class=argparse.RawDescriptionHelpFormatter,

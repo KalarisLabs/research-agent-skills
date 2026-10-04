@@ -28,6 +28,7 @@ OUTPUT_FILE = EXAMPLE_DIR / "output" / "forecast_visualization.png"
 
 
 def main() -> None:
+    """Main."""
     # Load historical data
     df = pd.read_csv(INPUT_FILE, parse_dates=["date"])
 

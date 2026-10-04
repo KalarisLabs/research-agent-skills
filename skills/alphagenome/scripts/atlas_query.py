@@ -209,6 +209,7 @@ def max_abs_track(adata) -> dict[str, Any] | None:
 
 
 def scorer_rows(metadata: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Scorer rows for *metadata* and return list[dict[str, Any]]."""
     rows = []
     for name, meta in metadata.items():
         frame = getattr(meta, "track_metadata", None)
@@ -226,6 +227,7 @@ def scorer_rows(metadata: Mapping[str, Any]) -> list[dict[str, Any]]:
 
 
 def track_rows(metadata: Mapping[str, Any], scorer: str | None, query: str | None) -> list[dict[str, Any]]:
+    """Track rows and return list[dict[str, Any]]."""
     rows: list[dict[str, Any]] = []
     needle = query.lower() if query else None
     for name, meta in metadata.items():
@@ -252,6 +254,7 @@ def track_rows(metadata: Mapping[str, Any], scorer: str | None, query: str | Non
 
 
 def make_client(args: argparse.Namespace):
+    """Make client for *args*."""
     api_key = common.load_api_key(args.api_key_env)
     common.require_alphagenome()
     import grpc  # noqa: PLC0415
@@ -267,6 +270,7 @@ def make_client(args: argparse.Namespace):
 
 
 def to_genome_variant(spec: common.VariantSpec):
+    """To genome variant for *spec*."""
     from alphagenome.data import genome  # noqa: PLC0415
 
     return genome.Variant(
@@ -279,6 +283,7 @@ def to_genome_variant(spec: common.VariantSpec):
 
 
 def to_genome_interval(text: str, max_window: int):
+    """To genome interval for *text*, *max_window*."""
     from alphagenome.data import genome  # noqa: PLC0415
 
     chromosome, start0, end = common.parse_interval_string(text)
@@ -319,6 +324,7 @@ def _query_each(
 
 
 def cmd_avi(args: argparse.Namespace) -> int:
+    """Cmd avi for *args* and return int."""
     client = make_client(args)
     rows: list[dict[str, Any]] = []
 
@@ -398,6 +404,7 @@ def cmd_avi(args: argparse.Namespace) -> int:
 
 
 def cmd_scores(args: argparse.Namespace) -> int:
+    """Cmd scores for *args* and return int."""
     client = make_client(args)
     requested = list(args.scorers)
     filters = {
@@ -443,6 +450,7 @@ def cmd_scorers(args: argparse.Namespace) -> int:
 
 
 def cmd_tracks(args: argparse.Namespace) -> int:
+    """Cmd tracks for *args* and return int."""
     client = make_client(args)
     rows = track_rows(client.scorer_metadata(), args.scorer, args.query)
     if not args.output and len(rows) > 200 and not args.force_stdout:
@@ -475,6 +483,7 @@ def _add_variant_inputs(parser: argparse.ArgumentParser) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         prog="atlas_query.py",
         description="Query the AlphaGenome Atlas (precomputed variant effects, hg38).",

@@ -203,6 +203,7 @@ def print_properties(props):
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(
         description='Calculate molecular properties for molecules',
         formatter_class=argparse.RawDescriptionHelpFormatter,

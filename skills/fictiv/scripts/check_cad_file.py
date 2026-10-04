@@ -67,6 +67,7 @@ def human(n: float) -> str:
 
 # ---------------------------------------------------------------- STEP ----
 def inspect_step(path: str) -> dict:
+    """Inspect step for *path* and return dict."""
     info: dict = {}
     with open(path, "r", errors="ignore") as fh:
         data = fh.read()
@@ -112,6 +113,7 @@ def inspect_step(path: str) -> dict:
 
 # ----------------------------------------------------------------- STL ----
 def inspect_stl(path: str, max_tris: int = 3_000_000) -> dict:
+    """Inspect stl for *path*, *max_tris* and return dict."""
     info: dict = {}
     size = os.path.getsize(path)
     with open(path, "rb") as fh:
@@ -156,6 +158,7 @@ def inspect_stl(path: str, max_tris: int = 3_000_000) -> dict:
 
 # -------------------------------------------------------------- driver ----
 def check(path: str, process: str) -> dict:
+    """Check for *path*, *process* and return dict."""
     ext = os.path.splitext(path)[1].lower()
     r = {"file": path, "extension": ext, "process": process, "blocking": [], "warnings": [], "info": {}}
     if not os.path.isfile(path):
@@ -234,6 +237,7 @@ def check(path: str, process: str) -> dict:
 
 
 def main() -> int:
+    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("files", nargs="+")
     ap.add_argument("--process", choices=PROCESSES, default="cnc")

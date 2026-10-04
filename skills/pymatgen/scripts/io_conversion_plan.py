@@ -128,6 +128,7 @@ def build_plan(args: argparse.Namespace) -> dict:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan, but do not run, a local pymatgen conversion. No input file is "
@@ -170,6 +171,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         if "://" in args.input or "://" in args.output:

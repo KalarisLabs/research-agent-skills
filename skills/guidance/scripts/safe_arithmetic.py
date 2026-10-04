@@ -15,10 +15,12 @@ _UNARY = {ast.UAdd: operator.pos, ast.USub: operator.neg}
 
 
 def calculate(expression: str) -> float:
+    """Calculate for *expression* and return float."""
     if len(expression) > 80:
         raise ValueError("expression is too long")
 
     def walk(node: ast.AST, depth: int = 0) -> float:
+        """Walk for *node*, *depth* and return float."""
         if depth > 12:
             raise ValueError("expression is too deep")
         if isinstance(node, ast.Constant) and type(node.value) in (int, float):

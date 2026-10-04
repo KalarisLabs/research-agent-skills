@@ -96,6 +96,7 @@ def audit_cache(root: Path, *, max_files: int, largest_limit: int) -> dict[str, 
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit an existing PyTDC data/oracle directory without network access. "
@@ -127,6 +128,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         root = safe_directory(

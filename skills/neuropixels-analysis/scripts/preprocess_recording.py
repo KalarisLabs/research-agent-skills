@@ -90,6 +90,7 @@ def preprocess_recording(
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(description='Preprocess Neuropixels recording')
     parser.add_argument('input', help='Path to input recording')
     parser.add_argument('--output', '-o', default='preprocessed/', help='Output directory')

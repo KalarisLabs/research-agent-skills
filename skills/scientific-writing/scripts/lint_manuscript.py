@@ -63,6 +63,7 @@ OBSERVATIONAL_DESIGNS = {
 
 
 def load_manifest(path: str | None) -> tuple[dict[str, Any] | None, list[Issue]]:
+    """Load manifest for *path* and return tuple[dict[str, Any] | None, list[Issue]]."""
     if path is None:
         return None, [
             issue(
@@ -86,6 +87,7 @@ def load_manifest(path: str | None) -> tuple[dict[str, Any] | None, list[Issue]]
 
 
 def lint_text(text: str, manifest: dict[str, Any] | None) -> list[Issue]:
+    """Lint text for *text*, *manifest* and return list[Issue]."""
     issues: list[Issue] = []
     study_design = str((manifest or {}).get("study_design", "")).casefold()
     submission_ready = (manifest or {}).get("submission_ready") is True
@@ -140,6 +142,7 @@ def lint_text(text: str, manifest: dict[str, Any] | None) -> list[Issue]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Lint local Markdown without echoing source text. Flags unresolved "
@@ -156,6 +159,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def cli() -> int:
+    """Cli and return int."""
     args = build_parser().parse_args()
     manifest, issues = load_manifest(args.manifest)
     text = read_text(args.manuscript, {".md", ".markdown"})

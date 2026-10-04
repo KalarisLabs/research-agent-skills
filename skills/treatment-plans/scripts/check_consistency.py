@@ -22,6 +22,7 @@ from _common import (
 
 
 def _collect_ids(documents: dict[str, dict]) -> list[tuple[str, str]]:
+    """Collect ids for *documents* and return list[tuple[str, str]]."""
     values: list[tuple[str, str]] = []
 
     def collect(records: list, field: str, path: str) -> None:
@@ -102,6 +103,7 @@ def _collect_ids(documents: dict[str, dict]) -> list[tuple[str, str]]:
 def _duplicate_reference_issues(
     value: Any, path: str = "$"
 ) -> list[Issue]:
+    """Duplicate reference issues for *value*, *path* and return list[Issue]."""
     issues: list[Issue] = []
     if isinstance(value, dict):
         for key, nested in value.items():
@@ -121,6 +123,7 @@ def _duplicate_reference_issues(
 
 
 def check_consistency(documents: dict[str, dict]) -> dict:
+    """Check consistency for *documents* and return dict."""
     issues = validate_package_structure(documents)
     if issues:
         return report_payload(
@@ -361,6 +364,7 @@ def check_consistency(documents: dict[str, dict]) -> dict:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Check identifiers, links, classifications, status coherence, and "
@@ -372,6 +376,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         documents, _ = load_package(args.package)

@@ -153,6 +153,7 @@ def interactive_mode():
     )
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(
         description="Customize LaTeX templates with author and project information",
         formatter_class=argparse.RawDescriptionHelpFormatter,

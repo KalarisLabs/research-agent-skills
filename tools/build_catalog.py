@@ -113,6 +113,7 @@ DIRECTORY_GROUPS = [
 
 
 def bundle_definitions(skills: list[Skill]) -> dict[str, dict]:
+    """Bundle definitions for *skills* and return dict[str, dict]."""
     known = {s.name for s in skills}
     out = {name: {"description": description, "categories": categories, "skills": []}
            for name, (description, categories) in BUNDLES.items()}
@@ -143,6 +144,7 @@ def _first_sentence(text: str, limit: int = 160) -> str:
 
 
 def build_index(skills: list[Skill], cats: dict, manifest: dict) -> dict:
+    """Build index and return dict."""
     origin = {s["name"]: s["rewrite_status"] for s in manifest.get("skills", [])}
     entries = []
     for s in skills:
@@ -171,6 +173,7 @@ def build_index(skills: list[Skill], cats: dict, manifest: dict) -> dict:
 
 
 def build_marketplace(index: dict) -> dict:
+    """Build marketplace for *index* and return dict."""
     by_cat: dict[str, list[str]] = defaultdict(list)
     for e in index["skills"]:
         by_cat[e["category"]].append(f"./{e['path']}")
@@ -193,6 +196,7 @@ def build_marketplace(index: dict) -> dict:
 
 
 def build_plugin_manifest(index: dict) -> dict:
+    """Build plugin manifest for *index* and return dict."""
     return {
         "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
         "name": MARKETPLACE_NAME,
@@ -208,6 +212,7 @@ def build_plugin_manifest(index: dict) -> dict:
 
 
 def build_skills_sh_config(index: dict) -> dict:
+    """Build skills sh config for *index* and return dict."""
     category_ids = {c["id"] for c in index["categories"]}
     grouped_ids = {category for _, _, categories in DIRECTORY_GROUPS for category in categories}
     if category_ids != grouped_ids:
@@ -231,6 +236,7 @@ def build_skills_sh_config(index: dict) -> dict:
 
 
 def build_collection_reference(index: dict) -> str:
+    """Build collection reference for *index* and return str."""
     lines = ["# Research Agent Skills index", "",
              f"{len(index['skills']) - 1} specialist skills in this Kalaris Labs collection.",
              "Select a specialist by the research task; install the full collection only when requested.", ""]
@@ -247,6 +253,7 @@ SKILL_REF_RE = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)+)`")
 
 
 def build_graph(skills: list[Skill], index: dict) -> dict:
+    """Build graph for *skills*, *index* and return dict."""
     names = {s.name for s in skills}
     nodes = [{"id": f"category:{c['id']}", "type": "category", "label": c["id"], "description": c["description"]}
              for c in index["categories"]]
@@ -261,6 +268,7 @@ def build_graph(skills: list[Skill], index: dict) -> dict:
 
 
 def graph_to_graphml(graph: dict) -> str:
+    """Graph to graphml for *graph* and return str."""
     keys = [("type", "node"), ("label", "node"), ("description", "node"), ("category", "node"), ("path", "node"),
             ("type", "edge")]
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
@@ -282,6 +290,7 @@ def graph_to_graphml(graph: dict) -> str:
 
 
 def build_notices(manifest: dict) -> str:
+    """Build notices for *manifest* and return str."""
     by_source: dict[str, list[str]] = defaultdict(list)
     for s in manifest.get("skills", []):
         if s["rewrite_status"] == "imported":
@@ -314,6 +323,7 @@ def build_notices(manifest: dict) -> str:
 
 
 def build_readme_catalog(index: dict) -> str:
+    """Build readme catalog for *index* and return str."""
     by_cat: dict[str, list[dict]] = defaultdict(list)
     for e in index["skills"]:
         by_cat[e["category"]].append(e)
@@ -368,6 +378,7 @@ def update_readme(readme: str, index: dict) -> str:
 
 
 def build_docs(skills: list[Skill], index: dict) -> dict[Path, str]:
+    """Build docs for *skills*, *index* and return dict[Path, str]."""
     pages: dict[Path, str] = {}
     by_cat: dict[str, list[dict]] = defaultdict(list)
     for s, e in zip(skills, index["skills"], strict=True):
@@ -409,6 +420,7 @@ def build_docs(skills: list[Skill], index: dict) -> dict[Path, str]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--check", action="store_true", help="fail if committed outputs are out of date")
     ap.add_argument("--docs", action="store_true", help="also generate docs/skills pages")

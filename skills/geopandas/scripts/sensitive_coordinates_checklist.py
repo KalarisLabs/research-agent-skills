@@ -20,6 +20,7 @@ SENSITIVE_FLAGS = (
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Generate a conservative coordinate/privacy/generalization release "
@@ -86,6 +87,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def checklist(args: argparse.Namespace) -> dict:
+    """Checklist for *args* and return dict."""
     public = bool(args.public_output or args.audience == "public")
     flags = {name: bool(getattr(args, name)) for name in SENSITIVE_FLAGS}
     sensitive = any(flags.values())
@@ -217,6 +219,7 @@ def checklist(args: argparse.Namespace) -> dict:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         report = checklist(args)

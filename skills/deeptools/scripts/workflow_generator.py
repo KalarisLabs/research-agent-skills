@@ -425,6 +425,7 @@ echo "  ~400bp: di-nucleosome"
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(
         description="Generate deepTools workflow scripts",
         formatter_class=argparse.RawDescriptionHelpFormatter,

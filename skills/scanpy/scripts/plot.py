@@ -23,6 +23,7 @@ from _common import configure_scanpy, die, info, load_anndata
 
 
 def main():
+    """Main."""
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("input", help="Input .h5ad")

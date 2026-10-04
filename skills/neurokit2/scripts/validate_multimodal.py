@@ -42,6 +42,7 @@ def _stream_profile(
     root: Path,
     max_rows: int,
 ) -> tuple[dict[str, Any], list[str], list[str]]:
+    """Stream profile and return tuple[dict[str, Any], list[str], list[str]]."""
     validate_keys(
         stream,
         allowed={
@@ -175,6 +176,7 @@ def validate_manifest(
     root: Path,
     max_rows: int,
 ) -> dict[str, Any]:
+    """Validate manifest and return dict[str, Any]."""
     validate_keys(
         document,
         allowed={"schema_version", "streams", "alignment"},
@@ -312,6 +314,7 @@ def validate_manifest(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a strict JSON manifest of bounded local biosignal CSV "
@@ -332,6 +335,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
+    """Main."""
     args = build_parser().parse_args()
     require_deidentified(args.deidentified)
     if not 1 <= args.max_rows <= MAX_ROWS:

@@ -42,6 +42,7 @@ def _row_to_json(frame: Any) -> dict[str, float | int | None]:
 
 
 def _summary(values: Any) -> dict[str, float | int | None]:
+    """Summary for *values* and return dict[str, float | int | None]."""
     finite = values[values.notna()] if hasattr(values, "notna") else values
     if len(finite) == 0:
         return {"count": 0, "maximum": None, "mean": None, "minimum": None}
@@ -54,6 +55,7 @@ def _summary(values: Any) -> dict[str, float | int | None]:
 
 
 def _artifact_counts(info: dict[str, Any]) -> dict[str, int]:
+    """Artifact counts for *info* and return dict[str, int]."""
     result: dict[str, int] = {}
     for name in ("ectopic", "missed", "extra", "longshort"):
         value = info.get(f"ECG_fixpeaks_{name}", [])
@@ -65,6 +67,7 @@ def _artifact_counts(info: dict[str, Any]) -> dict[str, int]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Process a bounded deidentified ECG CSV or a reproducible synthetic "
@@ -102,6 +105,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
+    """Main."""
     args = build_parser().parse_args()
     sampling_rate = finite_float(
         args.sampling_rate,

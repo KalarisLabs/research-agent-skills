@@ -76,6 +76,7 @@ def generate_template(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Copy a bundled fail-closed JSON/CSV template. No interpolation, "
@@ -91,6 +92,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     if args.list:
         if args.output:

@@ -45,6 +45,7 @@ def _reject_symlink_chain(path: Path) -> None:
 
 
 def checked_root(value: str | Path) -> Path:
+    """Checked root for *value* and return Path."""
     raw = _raw_path(str(value))
     _reject_symlink_chain(raw)
     try:
@@ -64,6 +65,7 @@ def checked_input(
     suffixes: Iterable[str] | None = None,
     max_bytes: int = MAX_INPUT_BYTES,
 ) -> Path:
+    """Checked input and return Path."""
     raw = _raw_path(str(value))
     candidate = raw if raw.is_absolute() else root / raw
     _reject_symlink_chain(candidate)
@@ -102,6 +104,7 @@ def checked_output(
     root: Path,
     suffixes: Iterable[str] | None = None,
 ) -> Path:
+    """Checked output and return Path."""
     raw = _raw_path(str(value))
     candidate = raw if raw.is_absolute() else root / raw
     _reject_symlink_chain(candidate)
@@ -124,6 +127,7 @@ def checked_output(
 
 
 def read_bytes(path: Path, *, max_bytes: int = MAX_INPUT_BYTES) -> bytes:
+    """Read bytes for *path*, *max_bytes* and return bytes."""
     try:
         size = path.stat().st_size
         if size > max_bytes:
@@ -153,6 +157,7 @@ def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def _validate_json_shape(value: Any, *, depth: int = 0) -> int:
+    """Validate json shape for *value*, *depth* and return int."""
     if depth > MAX_JSON_DEPTH:
         raise CliError(f"JSON nesting exceeds {MAX_JSON_DEPTH}")
     if value is None or isinstance(value, (bool, int, float, str)):
@@ -171,6 +176,7 @@ def _validate_json_shape(value: Any, *, depth: int = 0) -> int:
 
 
 def parse_json_text(text: str) -> Any:
+    """Parse json text for *text* and return Any."""
     try:
         value = json.loads(text, object_pairs_hook=_reject_duplicate_keys)
     except CliError:
@@ -194,6 +200,7 @@ def bounded_int(
     minimum: int,
     maximum: int,
 ) -> int:
+    """Bounded int and return int."""
     try:
         number = int(value)
     except (TypeError, ValueError) as exc:
@@ -218,6 +225,7 @@ def validate_release(value: str) -> str:
 
 
 def sha256_file(path: Path, *, max_bytes: int = MAX_INPUT_BYTES) -> str:
+    """Sha256 file for *path*, *max_bytes* and return str."""
     size = path.stat().st_size
     if size > max_bytes:
         raise CliError(f"input is {size} bytes; hash limit is {max_bytes}")
@@ -236,6 +244,7 @@ def relative_id(path: Path, root: Path) -> str:
 
 
 def write_new_text(path: Path, text: str) -> None:
+    """Write new text for *path*, *text*."""
     try:
         with path.open("x", encoding="utf-8", newline="\n") as handle:
             handle.write(text)
@@ -251,6 +260,7 @@ def emit_json(value: Any) -> None:
 
 
 def fail_json(tool: str, exc: Exception) -> int:
+    """Fail json for *tool*, *exc* and return int."""
     emit_json(
         {
             "error": str(exc),

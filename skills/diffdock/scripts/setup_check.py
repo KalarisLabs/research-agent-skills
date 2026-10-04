@@ -236,6 +236,7 @@ Recommendation: Use GPU for practical applications
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(
         description='Check DiffDock environment setup',
         formatter_class=argparse.RawDescriptionHelpFormatter

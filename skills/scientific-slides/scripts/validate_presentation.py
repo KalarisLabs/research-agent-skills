@@ -348,6 +348,7 @@ def print_results(results: Dict):
 
 
 def main():
+    """Main."""
     parser = argparse.ArgumentParser(
         description='Validate scientific presentations',
         formatter_class=argparse.RawDescriptionHelpFormatter,

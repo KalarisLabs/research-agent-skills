@@ -80,6 +80,7 @@ def cie_lstar(rgb: tuple[int, int, int]) -> float:
 
 
 def _load_palette_asset() -> ModuleType:
+    """Load palette asset and return ModuleType."""
     asset = Path(__file__).resolve().parents[1] / "assets" / "color_palettes.py"
     spec = importlib.util.spec_from_file_location(
         "_scientific_visualization_color_palettes", asset
@@ -216,6 +217,7 @@ def audit_palette(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit sRGB palette contrast against a background and screen "
@@ -272,6 +274,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     try:
         args = parser.parse_args(argv)

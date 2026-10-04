@@ -70,6 +70,7 @@ def render_structure(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Convert one bounded local periodic structure. The original and any "
@@ -125,6 +126,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         if args.structure_index < 0:

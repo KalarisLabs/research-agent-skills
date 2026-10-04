@@ -56,6 +56,7 @@ def _finding(code: str, line_number: int) -> dict[str, Any]:
 
 
 def lint(markdown: str) -> dict[str, Any]:
+    """Lint for *markdown* and return dict[str, Any]."""
     errors: list[dict[str, Any]] = []
     warnings: list[dict[str, Any]] = []
     claim_counts: Counter[str] = Counter()
@@ -161,6 +162,7 @@ def lint(markdown: str) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Lint bounded local Markdown for causal/associational claim annotations "
@@ -176,6 +178,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report = lint(read_markdown(args.document))

@@ -30,6 +30,7 @@ GTARS_PYTHON_VERSION = "0.9.2"
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate local inputs and emit a fixed Gtars 0.9 execution plan. "
@@ -123,6 +124,7 @@ def _output(raw: str | None) -> Path:
 
 
 def build_plan(args: argparse.Namespace) -> tuple[dict, int]:
+    """Build plan for *args* and return tuple[dict, int]."""
     assembly = args.assembly.strip()
     if not assembly or len(assembly) > 200:
         raise SafetyError("assembly must contain 1-200 characters")
@@ -153,6 +155,7 @@ def build_plan(args: argparse.Namespace) -> tuple[dict, int]:
     next_index = 2
 
     def add_bed(raw: str, role: str, *, sorted_required: bool = False) -> Path:
+        """Add bed and return Path."""
         nonlocal next_index
         path = local_path(raw, kind="file")
         summary = inspect_bed(
@@ -352,6 +355,7 @@ def build_plan(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report, status = build_plan(args)

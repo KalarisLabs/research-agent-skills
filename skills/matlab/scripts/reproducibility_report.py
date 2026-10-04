@@ -61,6 +61,7 @@ def _runtime_version(runtime: str, version: str) -> str:
 
 
 def _named_fact(value: str | None, name: str, *, maximum: int = 500) -> str | None:
+    """Named fact and return str | None."""
     if value is None:
         return None
     if not value or len(value) > maximum or any(
@@ -71,6 +72,7 @@ def _named_fact(value: str | None, name: str, *, maximum: int = 500) -> str | No
 
 
 def build(args: argparse.Namespace) -> dict[str, Any]:
+    """Build for *args* and return dict[str, Any]."""
     root = checked_root(args.root)
     if len(args.file) > 200:
         raise CliError("at most 200 named files are accepted")
@@ -180,6 +182,7 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def parser() -> argparse.ArgumentParser:
+    """Parser and return argparse.ArgumentParser."""
     result = argparse.ArgumentParser(
         description=(
             "Hash only named local artifacts and emit a deterministic MATLAB/"
@@ -208,6 +211,7 @@ def parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Main and return int."""
     try:
         args = parser().parse_args()
         if args.max_file_bytes < 1 or args.max_file_bytes > 512 * 1024 * 1024:

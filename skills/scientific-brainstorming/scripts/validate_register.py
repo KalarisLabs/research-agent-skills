@@ -78,6 +78,7 @@ def _list_field(
     *,
     required: bool = True,
 ) -> list[Any]:
+    """List field and return list[Any]."""
     value = record.get(field)
     if value is None and not required:
         return []
@@ -103,6 +104,7 @@ def _check_text(
     maximum: int = 10_000,
     allow_empty: bool = False,
 ) -> str | None:
+    """Check text and return str | None."""
     try:
         return require_text(
             value,
@@ -120,6 +122,7 @@ def _check_id(
     path: str,
     errors: list[dict[str, str]],
 ) -> str | None:
+    """Check id and return str | None."""
     try:
         return require_identifier(value, path)
     except CliError as exc:
@@ -134,6 +137,7 @@ def _check_string_list(
     *,
     identifiers: bool = False,
 ) -> list[str]:
+    """Check string list and return list[str]."""
     result: list[str] = []
     for index, value in enumerate(values):
         item_path = f"{path}[{index}]"

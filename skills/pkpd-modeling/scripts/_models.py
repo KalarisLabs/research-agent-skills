@@ -429,6 +429,7 @@ def simulate_michaelis_menten(
     size = 1 + n_periph + depot
 
     def rhs(_t: float, y: np.ndarray) -> np.ndarray:
+        """Rhs for *_t*, *y* and return np.ndarray."""
         dy = np.zeros(size)
         central = y[depot]
         conc = central / v1
@@ -487,6 +488,7 @@ def simulate_tmdd(
         size = 4 if has_periph else 3
 
         def rhs(_t: float, y: np.ndarray) -> np.ndarray:
+            """Rhs for *_t*, *y* and return np.ndarray."""
             drug = max(y[0], 0.0) / v1
             target, complex_ = max(y[1], 0.0), max(y[2], 0.0)
             binding = kon * drug * target - koff * complex_
@@ -512,6 +514,7 @@ def simulate_tmdd(
     size = 3 if has_periph else 2
 
     def rhs_qss(_t: float, y: np.ndarray) -> np.ndarray:
+        """Rhs qss for *_t*, *y* and return np.ndarray."""
         total_drug = max(y[0], 0.0) / v1
         total_target = max(y[1], 0.0)
         b = total_drug - total_target - kd_qss
@@ -632,6 +635,7 @@ def indirect_response(
         return max_effect * powered / (c50**hill + powered)
 
     def rhs(t: float, y: np.ndarray) -> np.ndarray:
+        """Rhs for *t*, *y* and return np.ndarray."""
         fraction = drive(t)
         if idr_type == 1:
             return np.array([kin * (1.0 - fraction) - kout * y[0]])

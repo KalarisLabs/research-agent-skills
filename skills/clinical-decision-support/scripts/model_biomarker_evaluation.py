@@ -27,6 +27,7 @@ MAX_GROUP_N = 10_000_000
 
 
 def _wilson(successes: int, total: int) -> dict[str, Any]:
+    """Wilson for *successes*, *total* and return dict[str, Any]."""
     if total <= 0:
         return {"estimate": None, "ci95": [None, None]}
     z = 1.959963984540054
@@ -58,6 +59,7 @@ def _metric(successes: int, total: int) -> dict[str, Any]:
 def _calibration_summary(
     bins: list[Any], group_name: str, minimum: int, expected_events: int
 ) -> tuple[dict[str, Any], bool]:
+    """Calibration summary and return tuple[dict[str, Any], bool]."""
     total = 0
     events = 0
     weighted_predicted = 0.0
@@ -125,6 +127,7 @@ def _calibration_summary(
 def evaluate(
     document: dict[str, Any], minimum: int
 ) -> tuple[IssueLog, dict[str, Any]]:
+    """Evaluate for *document*, *minimum* and return tuple[IssueLog, dict[str, Any]]."""
     log = IssueLog()
     report: dict[str, Any] = {
         "report_type": "aggregate_model_biomarker_evaluation",
@@ -309,6 +312,7 @@ def evaluate(
 
 
 def main() -> int:
+    """Main and return int."""
     parser = argparse.ArgumentParser(
         description=(
             "Report bounded descriptive performance from local aggregate counts. "

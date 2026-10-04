@@ -22,6 +22,7 @@ TEMPLATE = Path(__file__).resolve().parents[1] / "assets" / "report_template.md"
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Create a local Markdown EDA scaffold that records design, missingness, "
@@ -108,6 +109,7 @@ def render_scaffold(
 
 
 def _main() -> None:
+    """Main."""
     args = build_parser().parse_args()
     max_bytes = bounded_file_limit(args.max_bytes)
     manifest = None

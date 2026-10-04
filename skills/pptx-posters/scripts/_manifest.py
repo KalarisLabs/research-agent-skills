@@ -82,6 +82,7 @@ _TEXT_ROLES = {
 
 
 def _identifier(value: Any, *, context: str) -> str:
+    """Identifier for *value*, *context* and return str."""
     text = require_string(value, context=context, maximum=64)
     if not _ID.fullmatch(text):
         raise CliError(
@@ -104,6 +105,7 @@ def _string_list(
     minimum: int,
     maximum: int,
 ) -> list[str]:
+    """String list and return list[str]."""
     if not isinstance(value, list):
         raise CliError(f"{context} must be an array")
     if not minimum <= len(value) <= maximum:
@@ -135,6 +137,7 @@ def manifest_content_hash(document: dict[str, Any]) -> str:
 
 
 def _validate_document(value: Any) -> dict[str, Any]:
+    """Validate document for *value* and return dict[str, Any]."""
     document = reject_unknown_keys(
         value,
         context="document",
@@ -160,6 +163,7 @@ def _validate_document(value: Any) -> dict[str, Any]:
 
 
 def _validate_canvas(value: Any) -> tuple[dict[str, Any], float, float]:
+    """Validate canvas for *value* and return tuple[dict[str, Any], float, float]."""
     canvas = reject_unknown_keys(
         value,
         context="canvas",
@@ -185,6 +189,7 @@ def _validate_canvas(value: Any) -> tuple[dict[str, Any], float, float]:
 def _validate_physical_output(
     value: Any,
 ) -> tuple[dict[str, Any], float, float, float, float, float, float]:
+    """Validate physical output for *value* and return tuple[dict[str, Any], float, float, float, float, float, float]."""
     physical = reject_unknown_keys(
         value,
         context="physical_output",
@@ -258,6 +263,7 @@ def _validate_physical_output(
 
 
 def _validate_sources(value: Any) -> dict[str, dict[str, Any]]:
+    """Validate sources for *value* and return dict[str, dict[str, Any]]."""
     if not isinstance(value, list) or not 1 <= len(value) <= MAX_SOURCES:
         raise CliError(f"sources must contain between 1 and {MAX_SOURCES} objects")
     result: dict[str, dict[str, Any]] = {}
@@ -298,6 +304,7 @@ def _validate_requirements(
     safe_margin: float,
     print_scale: float,
 ) -> tuple[dict[str, Any], set[str]]:
+    """Validate requirements and return tuple[dict[str, Any], set[str]]."""
     requirements = reject_unknown_keys(
         value,
         context="requirements",
@@ -476,6 +483,7 @@ def _validate_requirements(
 
 
 def _validate_quality(value: Any) -> tuple[dict[str, Any], set[str]]:
+    """Validate quality for *value* and return tuple[dict[str, Any], set[str]]."""
     quality = reject_unknown_keys(
         value,
         context="quality",
@@ -542,6 +550,7 @@ def _validate_palette(
     *,
     enforce_thresholds: bool = True,
 ) -> tuple[dict[str, Any], dict[str, str], dict[str, dict[str, Any]]]:
+    """Validate palette for *value*, *enforce_thresholds* and return tuple[dict[str, Any], dict[str, str], dict[str, dict[str, Any]]]."""
     palette = reject_unknown_keys(
         value,
         context="palette",
@@ -615,6 +624,7 @@ def _validate_palette(
 
 
 def _validate_asset_path_syntax(value: Any, *, context: str) -> str:
+    """Validate asset path syntax for *value*, *context* and return str."""
     path = require_string(value, context=context, maximum=512)
     if not _RELATIVE_PATH.fullmatch(path) or path.startswith(("/", "\\")):
         raise CliError(f"{context} must be a relative local path")
@@ -633,6 +643,7 @@ def _validate_assets(
     manifest_path: Path,
     verify_assets: bool,
 ) -> tuple[dict[str, dict[str, Any]], dict[str, Path], set[str]]:
+    """Validate assets and return tuple[dict[str, dict[str, Any]], dict[str, Path], set[str]]."""
     if not isinstance(value, list) or len(value) > MAX_ASSETS:
         raise CliError(f"assets must be an array with at most {MAX_ASSETS} objects")
     assets: dict[str, dict[str, Any]] = {}
@@ -747,6 +758,7 @@ def _validate_box(
     canvas_width: float,
     canvas_height: float,
 ) -> tuple[float, float, float, float]:
+    """Validate box and return tuple[float, float, float, float]."""
     x = finite_number(item["x_in"], context=f"{context}.x_in", minimum=0.0)
     y = finite_number(item["y_in"], context=f"{context}.y_in", minimum=0.0)
     width = finite_number(
@@ -774,6 +786,7 @@ def _validate_elements(
     contrast_pairs: dict[str, dict[str, Any]],
     assets: dict[str, dict[str, Any]],
 ) -> tuple[dict[str, dict[str, Any]], set[str], set[str]]:
+    """Validate elements and return tuple[dict[str, dict[str, Any]], set[str], set[str]]."""
     if not isinstance(value, list) or not 1 <= len(value) <= MAX_ELEMENTS:
         raise CliError(f"elements must contain between 1 and {MAX_ELEMENTS} objects")
     elements: dict[str, dict[str, Any]] = {}
@@ -1076,6 +1089,7 @@ def _validate_approval(
     content_hash: str,
     require_approval: bool,
 ) -> dict[str, Any]:
+    """Validate approval and return dict[str, Any]."""
     approval = reject_unknown_keys(
         value,
         context="approval",

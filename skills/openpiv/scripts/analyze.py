@@ -19,6 +19,7 @@ class PIVAnalyzer:
     """
 
     def __init__(self, params_file: str):
+        """Initialize with params_file."""
         self.params_file = Path(params_file)
 
         data = np.load(self.params_file)

@@ -28,6 +28,7 @@ MAX_SCENARIOS = 20
 
 
 def _identifiers(value: Any, context: str, *, minimum: int = 0) -> list[str]:
+    """Identifiers and return list[str]."""
     items = require_list(value, context, minimum=minimum, maximum=100)
     parsed = [
         require_identifier(item, f"{context}[{index}]")
@@ -46,6 +47,7 @@ def _integer(value: Any, context: str, minimum: int, maximum: int) -> int:
 
 
 def _metadata(payload: dict[str, Any]) -> dict[str, Any]:
+    """Metadata for *payload* and return dict[str, Any]."""
     raw = require_object(payload.get("metadata"), "metadata")
     required = (
         "series_id",
@@ -104,6 +106,7 @@ def _metadata(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def _rate_path(value: Any, context: str, horizon: int) -> list[float]:
+    """Rate path and return list[float]."""
     items = require_list(value, context, minimum=horizon, maximum=horizon)
     return [
         parse_number(
@@ -119,6 +122,7 @@ def _rate_path(value: Any, context: str, horizon: int) -> list[float]:
 def _project(
     start_year: int, start_value: float, rates: list[float]
 ) -> list[dict[str, float | int]]:
+    """Project and return list[dict[str, float | int]]."""
     observations: list[dict[str, float | int]] = [
         {"year": start_year, "value": start_value}
     ]
@@ -140,6 +144,7 @@ def _cagr(start: float, end: float, periods: int) -> float | None:
 
 
 def forecast(payload: dict[str, Any]) -> dict[str, Any]:
+    """Forecast for *payload* and return dict[str, Any]."""
     schema_version = require_text(
         payload.get("schema_version"), "schema_version", maximum=10
     )
@@ -298,6 +303,7 @@ def forecast(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Generate bounded local scenario forecasts and one-way growth-rate "
@@ -313,6 +319,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         payload = require_object(read_json(args.input), "root")

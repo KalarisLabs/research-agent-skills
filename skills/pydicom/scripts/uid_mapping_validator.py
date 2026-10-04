@@ -37,6 +37,7 @@ STANDARD_ROOT = "1.2.840.10008"
 
 
 def _load_key(path: Path) -> bytes:
+    """Load key for *path* and return bytes."""
     info = path.stat()
     if os.name != "nt":
         if stat.S_IMODE(info.st_mode) & 0o077:
@@ -62,6 +63,7 @@ def validate_mapping(
     key: bytes | None = None,
     scope: str | None = None,
 ) -> dict[str, Any]:
+    """Validate mapping and return dict[str, Any]."""
     if not isinstance(document, Mapping):
         raise ToolError("mapping document must be a JSON object")
     allowed = {"entries", "schema_version", "scope_sha256", "sensitive", "tool"}
@@ -144,6 +146,7 @@ def validate_mapping(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate UID syntax, one-to-one mapping, collisions, standard-UID "
@@ -183,6 +186,7 @@ Examples:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         max_entries = bounded_int(

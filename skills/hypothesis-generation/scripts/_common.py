@@ -197,6 +197,7 @@ def require_exact_keys(
     optional: Iterable[str] = (),
     context: str,
 ) -> None:
+    """Require exact keys."""
     required_set = set(required)
     allowed = required_set | set(optional)
     missing = sorted(required_set - set(value))
@@ -214,6 +215,7 @@ def require_list(
     minimum: int = 0,
     maximum: int = MAX_LIST_ITEMS,
 ) -> list[Any]:
+    """Require list and return list[Any]."""
     if not isinstance(value, list):
         raise ValidationError(f"{context} must be a JSON array")
     if not minimum <= len(value) <= maximum:
@@ -231,6 +233,7 @@ def require_text(
     minimum: int = 1,
     maximum: int = MAX_TEXT_CHARS,
 ) -> str:
+    """Require text and return str."""
     if not isinstance(value, str):
         raise ValidationError(f"{context} must be a string")
     text = value.strip()
@@ -252,6 +255,7 @@ def require_bool(value: Any, context: str) -> bool:
 
 
 def require_enum(value: Any, choices: Iterable[str], context: str) -> str:
+    """Require enum and return str."""
     text = require_text(value, context, maximum=96)
     allowed = set(choices)
     if text not in allowed:
@@ -269,6 +273,7 @@ def require_identifier(value: Any, context: str) -> str:
 
 
 def require_unique(values: Iterable[str], context: str) -> None:
+    """Require unique for *values*, *context*."""
     seen: set[str] = set()
     duplicates: set[str] = set()
     for value in values:
@@ -289,6 +294,7 @@ def require_text_list(
     maximum: int = 100,
     item_maximum: int = 1_000,
 ) -> list[str]:
+    """Require text list and return list[str]."""
     items = require_list(value, context, minimum=minimum, maximum=maximum)
     return [
         require_text(item, f"{context}[{index}]", maximum=item_maximum)
@@ -303,6 +309,7 @@ def require_identifier_list(
     minimum: int = 0,
     maximum: int = 100,
 ) -> list[str]:
+    """Require identifier list and return list[str]."""
     items = require_list(value, context, minimum=minimum, maximum=maximum)
     parsed = [
         require_identifier(item, f"{context}[{index}]")
@@ -315,6 +322,7 @@ def require_identifier_list(
 def split_identifiers(
     value: Any, context: str, *, allow_empty: bool = False
 ) -> list[str]:
+    """Split identifiers and return list[str]."""
     text = require_text(value, context, allow_empty=allow_empty, maximum=MAX_CELL_CHARS)
     if not text:
         return []
@@ -336,6 +344,7 @@ def require_iso_date(value: Any, context: str) -> str:
 
 
 def require_partial_date(value: Any, context: str) -> str:
+    """Require partial date for *value*, *context* and return str."""
     text = require_text(value, context, maximum=10)
     if not PARTIAL_DATE_RE.fullmatch(text):
         raise ValidationError(f"{context} must be YYYY, YYYY-MM, or YYYY-MM-DD")

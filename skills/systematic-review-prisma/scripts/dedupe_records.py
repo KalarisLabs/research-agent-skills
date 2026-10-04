@@ -46,6 +46,7 @@ def surname(authors: str) -> str:
 
 
 def read_ris(path: Path) -> list[dict]:
+    """Read ris for *path* and return list[dict]."""
     recs, cur = [], {}
     for line in path.read_text(encoding="utf-8-sig", errors="replace").splitlines():
         m = re.match(r"^([A-Z][A-Z0-9])  - ?(.*)$", line)
@@ -69,6 +70,7 @@ def read_ris(path: Path) -> list[dict]:
 
 
 def read_csv(path: Path) -> list[dict]:
+    """Read csv for *path* and return list[dict]."""
     with path.open(encoding="utf-8-sig", errors="replace", newline="") as fh:
         rows = list(csv.DictReader(fh))
     out = []
@@ -84,6 +86,7 @@ def read_csv(path: Path) -> list[dict]:
 
 
 def _bib_value(text: str, i: int) -> tuple[str, int]:
+    """Bib value for *text*, *i* and return tuple[str, int]."""
     parts = []
     while True:
         while text[i].isspace():
@@ -114,6 +117,7 @@ def _bib_value(text: str, i: int) -> tuple[str, int]:
 
 
 def read_bib(path: Path) -> list[dict]:
+    """Read bib for *path* and return list[dict]."""
     text = path.read_text(encoding="utf-8", errors="replace")
     out = []
     for m in re.finditer(r"@(\w+)\s*[{(]\s*([^,\s]+)\s*,", text):
@@ -140,6 +144,7 @@ READERS = {".ris": read_ris, ".txt": read_ris, ".csv": read_csv, ".bib": read_bi
 
 
 def main() -> int:
+    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("inputs", nargs="+", type=Path)
     ap.add_argument("-o", "--output", type=Path, default=Path("deduplicated.csv"))

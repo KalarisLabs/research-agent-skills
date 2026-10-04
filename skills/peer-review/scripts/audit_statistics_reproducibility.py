@@ -81,6 +81,7 @@ SPECIALIST_TRIGGER_IDS = {
 
 
 def load_checklist(payload: Any) -> dict[str, Any]:
+    """Load checklist for *payload* and return dict[str, Any]."""
     root = require_object(payload, "checklist")
     require_exact_keys(
         root,
@@ -184,6 +185,7 @@ def load_checklist(payload: Any) -> dict[str, Any]:
 
 
 def audit(checklist: dict[str, Any]) -> dict[str, Any]:
+    """Audit for *checklist* and return dict[str, Any]."""
     errors: list[dict[str, str]] = []
     warnings: list[dict[str, str]] = []
     items_by_id = {item["id"]: item for item in checklist["items"]}
@@ -277,6 +279,7 @@ def audit(checklist: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit a local statistics/reproducibility checklist and emit only "
@@ -292,6 +295,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report = audit(load_checklist(read_json(args.checklist)))

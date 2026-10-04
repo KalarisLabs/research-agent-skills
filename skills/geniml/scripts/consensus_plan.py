@@ -31,6 +31,7 @@ _SAFE_PREFIX = re.compile(r"^[A-Za-z0-9_.-]{1,100}$")
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate local consensus inputs and emit argv arrays for Geniml "
@@ -111,6 +112,7 @@ def _render(path: Path, label: str, mode: str) -> str:
 
 
 def plan(args: argparse.Namespace) -> tuple[dict, int]:
+    """Plan for *args* and return tuple[dict, int]."""
     if not args.assembly.strip() or len(args.assembly) > 200:
         raise SafetyError("assembly must be a nonempty value of at most 200 characters")
     if not _SAFE_PREFIX.fullmatch(args.coverage_prefix):
@@ -403,6 +405,7 @@ def plan(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         report, exit_code = plan(args)

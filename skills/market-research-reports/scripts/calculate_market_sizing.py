@@ -32,6 +32,7 @@ MAX_VALUE = 1e18
 def _identifier_array(
     value: Any, context: str, *, minimum: int = 0
 ) -> list[str]:
+    """Identifier array and return list[str]."""
     items = require_list(value, context, minimum=minimum, maximum=100)
     parsed = [
         require_identifier(item, f"{context}[{index}]")
@@ -42,6 +43,7 @@ def _identifier_array(
 
 
 def _metadata(payload: dict[str, Any]) -> dict[str, Any]:
+    """Metadata for *payload* and return dict[str, Any]."""
     raw = require_object(payload.get("metadata"), "metadata")
     required = (
         "market_id",
@@ -86,6 +88,7 @@ def _metadata(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def _top_down(payload: dict[str, Any], denominator_id: str) -> tuple[float, list[str]]:
+    """Top down for *payload*, *denominator_id* and return tuple[float, list[str]]."""
     section = require_object(payload.get("top_down"), "top_down")
     components = require_list(
         section.get("components"),
@@ -146,6 +149,7 @@ def _top_down(payload: dict[str, Any], denominator_id: str) -> tuple[float, list
 def _bottom_up(
     payload: dict[str, Any], denominator_id: str
 ) -> tuple[float, list[str]]:
+    """Bottom up for *payload*, *denominator_id* and return tuple[float, list[str]]."""
     section = require_object(payload.get("bottom_up"), "bottom_up")
     components = require_list(
         section.get("components"),
@@ -225,6 +229,7 @@ def _bottom_up(
 
 
 def _scenarios(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    """Scenarios for *payload* and return list[dict[str, Any]]."""
     raw_scenarios = require_list(
         payload.get("scenarios"),
         "scenarios",
@@ -283,6 +288,7 @@ def _scenarios(payload: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def calculate(payload: dict[str, Any]) -> dict[str, Any]:
+    """Calculate for *payload* and return dict[str, Any]."""
     schema_version = require_text(
         payload.get("schema_version"), "schema_version", maximum=10
     )
@@ -361,6 +367,7 @@ def calculate(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Calculate local top-down and bottom-up TAM/SAM/SOM scenarios, "
@@ -376,6 +383,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Main and return int."""
     args = build_parser().parse_args()
     try:
         payload = require_object(read_json(args.input), "root")

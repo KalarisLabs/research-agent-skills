@@ -61,6 +61,7 @@ PIXEL_KEYWORDS = {"DoubleFloatPixelData", "FloatPixelData", "PixelData"}
 
 
 def _load_key(path: Path) -> bytes:
+    """Load key for *path* and return bytes."""
     info = path.stat()
     if os.name != "nt":
         if stat.S_IMODE(info.st_mode) & 0o077:
@@ -81,6 +82,7 @@ def _load_key(path: Path) -> bytes:
 def _map_scalar_uid(
     value: Any, *, key: bytes, scope: str, mapping: dict[str, str]
 ) -> str:
+    """Map scalar uid and return str."""
     original = str(value)
     replacement = mapping.get(original)
     if replacement is None:
@@ -92,6 +94,7 @@ def _map_scalar_uid(
 def _map_uid_value(
     value: Any, *, key: bytes, scope: str, mapping: dict[str, str]
 ) -> Any:
+    """Map uid value and return Any."""
     if isinstance(value, SequenceValue) and not isinstance(value, (str, bytes)):
         return [
             _map_scalar_uid(item, key=key, scope=scope, mapping=mapping)
@@ -108,6 +111,7 @@ def _pseudonym_value(value: Any, *, keyword: str, key: bytes, scope: str) -> str
 
 
 def _shift_date_text(value: Any, days: int) -> tuple[str, bool]:
+    """Shift date text for *value*, *days* and return tuple[str, bool]."""
     text = str(value)
     if len(text) != 8 or not text.isdigit():
         return "", False
@@ -136,6 +140,7 @@ def _date_action(
     retain_times: bool,
     counters: Counter[str],
 ) -> None:
+    """Date action."""
     vr = str(element.VR)
     if date_policy == "keep":
         counters["dates_kept"] += 1
@@ -344,6 +349,7 @@ def transform_dataset(
 
 
 def _rebuild_file_meta(dataset: Any, *, original_transfer_syntax: Any) -> None:
+    """Rebuild file meta for *dataset*, *original_transfer_syntax*."""
     require_pydicom()
     from pydicom.dataset import FileMetaDataset
     from pydicom.uid import PYDICOM_IMPLEMENTATION_UID
@@ -361,6 +367,7 @@ def _rebuild_file_meta(dataset: Any, *, original_transfer_syntax: Any) -> None:
 
 
 def process_file(args: argparse.Namespace) -> dict[str, Any]:
+    """Process file for *args* and return dict[str, Any]."""
     max_input_bytes = parse_size(
         args.max_input_bytes,
         name="max_input_bytes",
@@ -480,6 +487,7 @@ def process_file(args: argparse.Namespace) -> dict[str, Any]:
         )
 
     def validator(path: Path) -> None:
+        """Validator for *path*."""
         check = safe_dcmread(path, stop_before_pixels=True, force=False)
         if str(check.get("PatientIdentityRemoved", "")) != "NO":
             raise ToolError("output verification failed")
@@ -553,6 +561,7 @@ def process_file(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Create a bounded pseudonymized DICOM derivative. This is not a "
@@ -672,6 +681,7 @@ Examples:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

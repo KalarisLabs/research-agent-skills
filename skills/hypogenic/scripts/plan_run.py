@@ -40,6 +40,7 @@ else:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Generate a plan-only HypoGeniC token/cost upper bound. No package, "
@@ -72,6 +73,7 @@ def make_plan(
     check_env: bool,
     inputs_checked: bool,
 ) -> dict:
+    """Make plan and return dict."""
     limits = config["limits"]
     pricing = config["pricing"]
     max_requests = limits["max_requests"]
@@ -203,6 +205,7 @@ def make_plan(
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     args = build_parser().parse_args(argv)
     try:
         config_path = checked_input_file(

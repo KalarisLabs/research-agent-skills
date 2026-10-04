@@ -41,6 +41,7 @@ def total(d: dict | int) -> int:
 
 
 def compute(c: dict) -> dict:
+    """Compute for *c* and return dict."""
     ident = c["identification"]
     db_n, reg_n = total(ident.get("databases", {})), total(ident.get("registers", {}))
     other_n = total(ident.get("other_sources", {}))
@@ -58,6 +59,7 @@ def compute(c: dict) -> dict:
 
 
 def check(c: dict, n: dict) -> list[str]:
+    """Check for *c*, *n* and return list[str]."""
     problems = []
     for k in ("screened", "sought", "assessed", "other_assessed"):
         if n[k] < 0:
@@ -74,6 +76,7 @@ def breakdown(d: dict) -> str:
 
 
 def mermaid(c: dict, n: dict) -> str:
+    """Mermaid for *c*, *n* and return str."""
     ident = c["identification"]
     L = ["flowchart TD", "  classDef box fill:#fff,stroke:#333,stroke-width:1px,color:#000;"]
     L.append(f'  A["Records identified from:<br/>Databases (n = {n["db"]}){breakdown(ident.get("databases", {}))}'
@@ -100,6 +103,7 @@ def mermaid(c: dict, n: dict) -> str:
 
 
 def dot(c: dict, n: dict) -> str:
+    """Dot for *c*, *n* and return str."""
     def lab(s: str) -> str:
         return s.replace("<br/>", "\\n").replace('"', '\\"')
     m = mermaid(c, n)
@@ -116,6 +120,7 @@ def dot(c: dict, n: dict) -> str:
 
 
 def main() -> int:
+    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("counts", nargs="?")
     ap.add_argument("--format", choices=["mermaid", "dot"], default="mermaid")

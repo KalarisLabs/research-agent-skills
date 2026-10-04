@@ -35,6 +35,7 @@ OBJECT_TYPES = (
 
 
 def positive_argument(value: str) -> int:
+    """Positive argument for *value* and return int."""
     try:
         parsed = int(value, 10)
     except ValueError as exc:
@@ -45,6 +46,7 @@ def positive_argument(value: str) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan or execute a bounded read-only OMERO object inventory. "
@@ -210,6 +212,7 @@ def dry_run_payload(
     args: argparse.Namespace,
     config: Any,
 ) -> dict[str, Any]:
+    """Dry run payload for *args*, *config* and return dict[str, Any]."""
     return {
         "mode": "dry-run",
         "server_contacted": False,
@@ -227,6 +230,7 @@ def dry_run_payload(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Main for *argv* and return int."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

@@ -50,6 +50,7 @@ Reply with JSON only: {{"score_A": n, "score_B": n, "winner": "A" | "B" | "tie",
 
 
 def claude(prompt: str, model: str | None, system_file: Path | None, budget: float | None) -> str:
+    """Claude and return str."""
     exe = shutil.which("claude")
     if not exe:
         sys.exit("claude CLI not found on PATH (install Claude Code and log in, or set ANTHROPIC_API_KEY)")
@@ -68,6 +69,7 @@ def claude(prompt: str, model: str | None, system_file: Path | None, budget: flo
 
 
 def main() -> int:
+    """Main and return int."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--skills", nargs="*", default=[])
     ap.add_argument("--all-original", action="store_true", help="every skill that has evals/<skill>/evals.json")

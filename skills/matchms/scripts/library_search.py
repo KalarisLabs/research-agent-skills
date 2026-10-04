@@ -99,6 +99,7 @@ DEFAULT_METADATA_FILTERS = (
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser and return argparse.ArgumentParser."""
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -219,6 +220,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def validate_args(args: argparse.Namespace) -> None:
+    """Validate args for *args*."""
     for path, label in ((args.queries, "query"), (args.references, "reference")):
         if not path.is_file():
             raise ValueError(f"{label} file does not exist: {path}")
@@ -272,6 +274,7 @@ def installed_matchms_version() -> str:
 
 
 def create_processor(args: argparse.Namespace) -> SpectrumProcessor:
+    """Create processor for *args* and return SpectrumProcessor."""
     filters: list[Any] = []
     if not args.no_default_filters:
         # Expand default_filters so SpectrumProcessor can preserve the registered
@@ -324,6 +327,7 @@ def load_and_process(
     *,
     show_progress: bool,
 ) -> tuple[list[Any], int]:
+    """Load and process and return tuple[list[Any], int]."""
     raw = list(load_spectra(str(path)))
     cleaned, _ = processor.process_spectra(
         raw,
@@ -334,6 +338,7 @@ def load_and_process(
 
 
 def create_metric(args: argparse.Namespace) -> Any:
+    """Create metric for *args* and return Any."""
     common = {"tolerance": args.tolerance}
     if args.metric == "cosine":
         return CosineGreedy(**common)
@@ -377,6 +382,7 @@ def create_metric(args: argparse.Namespace) -> Any:
 
 
 def choose_score_fields(score_names: tuple[str, ...]) -> tuple[str, str | None]:
+    """Choose score fields for *score_names* and return tuple[str, str | None]."""
     score_name = next(
         (name for name in score_names if name.endswith("_score")),
         score_names[0],
@@ -397,6 +403,7 @@ def numeric_field(value: Any, name: str) -> float:
 
 
 def matched_peaks(value: Any, name: str | None) -> int | None:
+    """Matched peaks for *value*, *name* and return int | None."""
     if name is None:
         return None
     dtype = getattr(value, "dtype", None)
@@ -413,6 +420,7 @@ def spectrum_id(
     index: int,
     prefix: str,
 ) -> str:
+    """Spectrum id and return str."""
     keys = [
         preferred,
         "spectrum_id",
@@ -443,6 +451,7 @@ def write_hits(
     references: list[Any],
     args: argparse.Namespace,
 ) -> int:
+    """Write hits and return int."""
     score_name, matches_name = choose_score_fields(scores.score_names)
     reference_indices = {id(spectrum): index for index, spectrum in enumerate(references)}
     fieldnames = [
@@ -523,6 +532,7 @@ def write_hits(
 
 
 def run(args: argparse.Namespace) -> int:
+    """Run for *args* and return int."""
     validate_args(args)
     matchms_version = installed_matchms_version()
     if matchms_version != TARGET_VERSION:
@@ -585,6 +595,7 @@ def run(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
+    """Main and return int."""
     parser = build_parser()
     args = parser.parse_args()
     try:

@@ -160,6 +160,7 @@ def require_list(
     minimum: int = 0,
     maximum: int = MAX_ROWS,
 ) -> list[Any]:
+    """Require list and return list[Any]."""
     if not isinstance(value, list):
         raise ValidationError(f"{context} must be a JSON array")
     if not minimum <= len(value) <= maximum:
@@ -176,6 +177,7 @@ def require_text(
     allow_empty: bool = False,
     maximum: int = MAX_CELL_CHARS,
 ) -> str:
+    """Require text and return str."""
     if not isinstance(value, str):
         raise ValidationError(f"{context} must be a string")
     text = value.strip()
@@ -189,6 +191,7 @@ def require_text(
 
 
 def require_identifier(value: Any, context: str) -> str:
+    """Require identifier for *value*, *context* and return str."""
     identifier = require_text(
         value, context, maximum=MAX_IDENTIFIER_CHARS, allow_empty=False
     )
@@ -200,6 +203,7 @@ def require_identifier(value: Any, context: str) -> str:
 
 
 def require_unique_identifiers(values: Iterable[str], context: str) -> None:
+    """Require unique identifiers for *values*, *context*."""
     seen: set[str] = set()
     duplicates: set[str] = set()
     for value in values:
@@ -222,6 +226,7 @@ def parse_iso_date(value: Any, context: str) -> str:
 
 
 def parse_year(value: Any, context: str) -> int:
+    """Parse year for *value*, *context* and return int."""
     if isinstance(value, bool):
         raise ValidationError(f"{context} must be an integer year")
     try:
@@ -240,6 +245,7 @@ def parse_number(
     minimum: float,
     maximum: float,
 ) -> float:
+    """Parse number and return float."""
     if isinstance(value, bool):
         raise ValidationError(f"{context} must be numeric")
     try:
@@ -269,6 +275,7 @@ def parse_currency(value: Any, context: str, *, allow_empty: bool = False) -> st
 
 
 def split_ids(value: Any, context: str, *, allow_empty: bool = False) -> list[str]:
+    """Split ids and return list[str]."""
     text = require_text(value, context, allow_empty=allow_empty)
     if not text:
         return []
