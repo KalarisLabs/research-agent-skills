@@ -20,11 +20,11 @@ Audit date: 2026-10-19. Repository created 2026-07-07; 28 stars at audit time.
 
 | List | Stars | Section | Rules | Status |
 |---|---|---|---|---|
-| [InternScience/Awesome-Scientific-Skills](https://github.com/InternScience/Awesome-Scientific-Skills) | 569 | Skill Sources → Science-Specific → Specialized Domain Tools | Table row; PR note on why it helps science | To open |
-| [BehiSecc/awesome-claude-skills](https://github.com/BehiSecc/awesome-claude-skills) | 10K | Scientific & Research Tools | Fork, edit, PR | To open |
-| [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) | 15K | Community Skills → Collections & Libraries | Fork, edit, PR | To open |
-| [heilcheng/awesome-agent-skills](https://github.com/heilcheng/awesome-agent-skills) | 6K | Community Skills → Skill Collections | ≥20 stars, >14 days old, README.md only, one additive line, title `Add owner/repo to <Category>`, agents must disclose | To open |
-| [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | 36K | Community Skills → AI and Data | One skill per entry, author prefix, ≤10-word description, needs real adoption | To open (`citation-verification` only) |
+| [InternScience/Awesome-Scientific-Skills](https://github.com/InternScience/Awesome-Scientific-Skills) | 569 | Skill Sources → Science-Specific → Specialized Domain Tools | Table row; PR note on why it helps science | [PR #20](https://github.com/InternScience/Awesome-Scientific-Skills/pull/20) open (2026-10-19) |
+| [BehiSecc/awesome-claude-skills](https://github.com/BehiSecc/awesome-claude-skills) | 10K | Scientific & Research Tools | Fork, edit, PR | [PR #986](https://github.com/BehiSecc/awesome-claude-skills/pull/986) open (2026-10-19) |
+| [heilcheng/awesome-agent-skills](https://github.com/heilcheng/awesome-agent-skills) | 6K | Community Skills → Skill Collections | ≥20 stars, >14 days old, README.md only, one additive line, title `Add owner/repo to <Category>`, agents must disclose | [PR #603](https://github.com/heilcheng/awesome-agent-skills/pull/603) open (2026-10-19); merged in weekly batches |
+| [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | 36K | Community Skills → AI and Data | One skill per entry, author prefix, ≤10-word description, needs "community-adopted, proven" skills | Deferred until `citation-verification` has clear adoption |
+| [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) | 15K | Community Skills → Collections & Libraries | ≥10 stars; **PRs must not be AI-generated or AI-submitted** | Human-only: write and submit the PR yourself |
 
 Entry text:
 
