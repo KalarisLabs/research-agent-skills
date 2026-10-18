@@ -58,7 +58,8 @@ Choose a starting skill for your field with a command that works today:
 | Medicine and clinical research | `npx skills add KalarisLabs/research-agent-skills --skill clinical-reports` |
 | Physics and astronomy | `npx skills add KalarisLabs/research-agent-skills --skill astropy` |
 
-The planned npm installer will add curated bundles for these fields after its first release.
+For curated field bundles, use the npm installer: `npx research-agent-skills install --bundle biology-research`
+(also `ml-research`, `ai-research`, `chemistry-research`, `medicine-research`, `physics-research`).
 [Browse all categories](catalog/skills.json) when you need a specialist skill.
 
 **The complete collection:** [`research-agent-skills`](skills/research-agent-skills/SKILL.md) is the
@@ -69,8 +70,6 @@ Replace `codex` with your agent.
 
 <details>
 <summary><b>Other installation methods</b></summary>
-
-The `research-agent-skills` npm CLI and standalone installers require the first tagged release.
 
 | Method | Command |
 |---|---|

@@ -19,8 +19,8 @@ Agent Skills consumers. Tool permissions and advanced metadata can differ by har
 
 ## Curated research bundles
 
-The Kalaris Labs npm installer provides field bundles after its first release. Until then, use
-the skills.sh command above to select individual skills.
+The Kalaris Labs npm installer ([`research-agent-skills`](https://www.npmjs.com/package/research-agent-skills))
+installs curated field bundles, whole categories or individual skills, and verifies each download.
 
 ```bash
 npx research-agent-skills list --categories
