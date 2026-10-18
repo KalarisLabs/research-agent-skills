@@ -8,7 +8,8 @@ and can get the repository delisted. Usefulness, visibility in academic channels
 - **Description:** `AI agent skills for academic writing & scientific research: papers, theses, systematic reviews (PRISMA), journal formatting, citation verification, no AI slop. Claude Code, Codex, Cursor, Gemini CLI.`
 - **Website:** https://docs.kalarislabs.com/research-agent-skills (live Mintlify project page).
 - **Topics (max 20):** `agent-skills` `claude-code` `codex` `ai-agents` `academic-writing` `scientific-writing` `research-paper` `thesis` `literature-review` `systematic-review` `prisma` `citation` `latex` `zotero` `peer-review` `bioinformatics` `open-science` `research-tools` `llm` `claude-skills`
-- Social preview image (1280×640): project name, "AI skills for academic writing & research", agent logos.
+- Social preview image (1280×640): upload `PUBLIC/social-preview.png` in **Settings → General → Social preview**.
+- Listings, pending submissions and ready-to-paste text: [listings.md](listings.md).
 - Keep Discussions, private vulnerability reporting, secret scanning and push protection enabled. Protect `main`
   with a pull request, an independent approval, required CI checks and linear history.
 - Mintlify: connect the GitHub repository with `docs/` as the documentation root. `docs.yml` validates generated pages and links; Mintlify deploys from the connected repository.
@@ -44,8 +45,9 @@ and can get the repository delisted. Usefulness, visibility in academic channels
 
 ## Launch week
 
-- [ ] skills.sh listing (first `npx skills add` installs register it).
-- [ ] PRs to awesome lists: agent skills, Claude Code, research tools, academic writing, LaTeX, open science.
+- [x] skills.sh listing (first `npx skills add` installs register it).
+- [ ] PRs to awesome lists: agent skills, Claude Code, research tools, academic writing, LaTeX, open science
+  (targets and status in [listings.md](listings.md)).
 - [ ] Show HN: problem (slop + fake citations) → demo → benchmarks → security.
 - [ ] Reddit: r/PhD, r/AskAcademia, r/GradSchool, r/LaTeX, r/bioinformatics, r/MachineLearning ([P] thread), r/ClaudeAI. Follow each sub's self-promotion rules.
 - [ ] Academic social: Bluesky and Mastodon science communities, LinkedIn, and X threads with short clips (citation check, unslop before/after, PRISMA diagram).
