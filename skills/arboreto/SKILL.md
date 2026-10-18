@@ -6,6 +6,7 @@ metadata:
   version: '1.1'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: gene regulatory networks, GRNBoost2, transcriptomics, single-cell, bioinformatics
 ---
 
 # Arboreto

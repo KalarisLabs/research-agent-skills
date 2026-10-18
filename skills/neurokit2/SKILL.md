@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: physiological signals, ECG, EEG, HRV, biosignal processing, neuroscience
 ---
 
 # NeuroKit2

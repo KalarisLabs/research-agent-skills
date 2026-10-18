@@ -17,6 +17,7 @@ metadata:
     - name: DATABASE_URL
       required: false
       description: Optional database URL for examples.
+  tags: serverless GPU, cloud computing, model deployment, ML inference
 ---
 
 # Modal

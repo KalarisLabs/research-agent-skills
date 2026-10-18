@@ -8,6 +8,7 @@ metadata:
   version: '1.5'
   category: chemistry-and-drug-discovery
   maintainer: Kalaris Labs
+  tags: molecular machine learning, ADMET, property prediction, drug discovery, cheminformatics
 ---
 
 # DeepChem

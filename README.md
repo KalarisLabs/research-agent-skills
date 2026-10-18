@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="PUBLIC/Research%20agent%20skills%20KALARISLABS%20GRPHIC.png" alt="Research Agent Skills for academia and scientific research by Kalaris Labs" width="100%" />
+<img src="PUBLIC/research-agent-skills-banner.webp" alt="Research Agent Skills for academia and scientific research by Kalaris Labs" width="100%" />
 
 # Research Agent Skills
 
@@ -13,6 +13,8 @@
 [![Benchmarks](https://github.com/KalarisLabs/research-agent-skills/actions/workflows/benchmarks.yml/badge.svg)](benchmarks/README.md)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/KalarisLabs/research-agent-skills/badge)](https://securityscorecards.dev/viewer/?uri=github.com/KalarisLabs/research-agent-skills)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/research-agent-skills?label=npm)](https://www.npmjs.com/package/research-agent-skills)
+[![skills.sh](https://img.shields.io/badge/skills.sh-listed-black)](https://skills.sh/kalarislabs/research-agent-skills)
 [![GitHub stars](https://img.shields.io/github/stars/KalarisLabs/research-agent-skills?style=social)](https://github.com/KalarisLabs/research-agent-skills)
 
 [Install](#install-in-30-seconds) · [Who it's for](#built-for-researchers) · [Benchmarks](#measured-not-claimed) · [Skills](#skill-catalog) · [skills.sh](https://skills.sh/kalarislabs/research-agent-skills) · [Docs](https://docs.kalarislabs.com/research-agent-skills) · [FAQ](#faq)
@@ -21,7 +23,8 @@
 
 ---
 
-**Research Agent Skills**, maintained by **[Kalaris Labs](https://github.com/KalarisLabs)**, is a free, open-source library of [Agent Skills](https://agentskills.io) for students, researchers and research teams.
+**Research Agent Skills**, maintained by **[Kalaris Labs](https://github.com/KalarisLabs)**, is a free, open-source library of AI [agent skills](https://agentskills.io) for academic research and scientific
+writing, built for students, researchers and research teams.
 Each skill is a folder with a `SKILL.md` playbook, references and tested scripts. Your AI agent loads a skill
 only when a task needs it: drafting a manuscript, formatting for *Nature* or IEEE, verifying references,
 running a PRISMA systematic review, analyzing single-cell data, or answering reviewers.
@@ -606,7 +609,17 @@ Grouped by category and generated from [`catalog/skills.json`](catalog/skills.js
 - **Getting started:** [Installation](docs/getting-started/installation.md) · [Quickstart](docs/getting-started/quickstart.md)
 - **Guides:** [Write a research paper with AI](docs/guides/write-a-research-paper.md) · [Thesis and dissertation](docs/guides/thesis-and-dissertation.md) · [No-slop academic writing](docs/guides/no-slop-academic-writing.md) · [Systematic reviews](docs/guides/systematic-review.md) · [Skills by field](docs/guides/by-field.md)
 - **Reference:** [CLI](cli/README.md) · [Architecture](docs/reference/architecture.md) · [Benchmarks](benchmarks/README.md) · [Security](SECURITY.md) · [Contributing](CONTRIBUTING.md)
-- **For AI search and agents:** [`llms.txt`](llms.txt)
+- **For AI search and agents:** [`llms.txt`](llms.txt) · [`llms-full.txt`](llms-full.txt) (every skill with tags) · [`catalog/skills.json`](catalog/skills.json)
+
+### Find us on
+
+| Where | What you get |
+|---|---|
+| [Documentation](https://docs.kalarislabs.com/research-agent-skills) | Guides by research task and field, plus one page per skill |
+| [skills.sh](https://skills.sh/kalarislabs/research-agent-skills) | Browse and install individual skills with `npx skills add` |
+| [npm](https://www.npmjs.com/package/research-agent-skills) | `npx research-agent-skills` installer with curated field bundles |
+| [Skills Directory](https://www.skillsdirectory.com/authors/kalarislabs) | Independent security grades for each skill |
+| Claude Code plugin marketplace | `/plugin marketplace add KalarisLabs/research-agent-skills` |
 
 ## Security
 

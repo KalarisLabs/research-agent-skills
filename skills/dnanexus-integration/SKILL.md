@@ -7,6 +7,7 @@ metadata:
   version: '2.1'
   category: lab-automation
   maintainer: Kalaris Labs
+  tags: genomics, cloud computing, bioinformatics pipelines, workflows, DNAnexus
 ---
 
 # DNAnexus Integration

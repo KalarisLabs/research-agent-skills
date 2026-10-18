@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: literature-review
   maintainer: Kalaris Labs
+  tags: PDF parsing, OCR, document extraction, RAG, papers
 ---
 
 # LiteParse — Local Document Parsing

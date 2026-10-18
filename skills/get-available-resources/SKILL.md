@@ -7,6 +7,7 @@ metadata:
   version: '1.3'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: compute resources, GPU detection, resource planning, HPC
 ---
 
 # Get Available Resources

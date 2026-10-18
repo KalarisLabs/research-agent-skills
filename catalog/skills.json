@@ -223,7 +223,13 @@
       "version": "1.0",
       "license": "MIT",
       "compatibility": "Python 3.11 with uv and Git for installation. Tested with mfapy 0.6.3 at a10433af16682386548b360297e2476152d46ede, NumPy 2.4.6, SciPy 1.17.1, and NLopt 2.11.0. Network access is needed only to install public dependencies. Inference runs locally without credentials; inputs are JSON.",
-      "tags": [],
+      "tags": [
+        "13C-MFA",
+        "metabolic flux analysis",
+        "isotope tracing",
+        "metabolomics",
+        "systems biology"
+      ],
       "path": "skills/13c-metabolic-flux",
       "has_scripts": true,
       "origin": "adapted"
@@ -301,7 +307,13 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Requires Python 3.10+, an Adaptyv Foundry account, and an API key from foundry.adaptyvbio.com. Install adaptyv-sdk from GitHub with uv pip install.",
-      "tags": [],
+      "tags": [
+        "protein engineering",
+        "binding assays",
+        "protein screening",
+        "lab automation",
+        "drug discovery"
+      ],
       "path": "skills/adaptyv",
       "has_scripts": false,
       "origin": "adapted"
@@ -313,7 +325,13 @@
       "version": "1.1",
       "license": "BSD-3-Clause license",
       "compatibility": "Requires Python 3.10+ and the aeon package (uv pip install). Optional aeon[all_extras] for deep learning and extended dependencies.",
-      "tags": [],
+      "tags": [
+        "time series",
+        "classification",
+        "forecasting",
+        "anomaly detection",
+        "machine learning"
+      ],
       "path": "skills/aeon",
       "has_scripts": false,
       "origin": "adapted"
@@ -325,7 +343,13 @@
       "version": "1.0",
       "license": "MIT",
       "compatibility": "Python 3.10+ with the alphagenome package (0.9.0 or later for the Atlas client; brings numpy, pandas, anndata, grpcio). Network access to gdmscience.googleapis.com:443 and a free non-commercial AlphaGenome API key in ALPHAGENOME_API_KEY (ALPHA_GENOME_API_KEY also read). Human data is GRCh38 only; mouse is mm10 (model only).",
-      "tags": [],
+      "tags": [
+        "variant effect prediction",
+        "genomics",
+        "regulatory genomics",
+        "GRCh38",
+        "functional annotation"
+      ],
       "path": "skills/alphagenome",
       "has_scripts": true,
       "origin": "adapted"
@@ -337,7 +361,13 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "Requires Python 3.11+. Scripts use only the standard library - no numpy, scipy, or network access. Statistical distributions are computed from first principles so results are reproducible in any conforming interpreter.",
-      "tags": [],
+      "tags": [
+        "method validation",
+        "ICH Q2",
+        "bioanalysis",
+        "analytical chemistry",
+        "quality control"
+      ],
       "path": "skills/analytical-method-validation",
       "has_scripts": true,
       "origin": "adapted"
@@ -349,7 +379,13 @@
       "version": "1.2",
       "license": "BSD-3-Clause license",
       "compatibility": "Requires Python 3.11+ and uv. Examples target AnnData 0.12.16, with experimental APIs clearly marked where used.",
-      "tags": [],
+      "tags": [
+        "single-cell",
+        "h5ad",
+        "scverse",
+        "bioinformatics",
+        "data formats"
+      ],
       "path": "skills/anndata",
       "has_scripts": false,
       "origin": "adapted"
@@ -443,7 +479,13 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "autonomous optimization",
+        "hypothesis tree",
+        "research automation",
+        "AI agents",
+        "experiments"
+      ],
       "path": "skills/arbor",
       "has_scripts": true,
       "origin": "adapted"
@@ -455,7 +497,13 @@
       "version": "1.1",
       "license": "BSD-3-Clause license",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "gene regulatory networks",
+        "GRNBoost2",
+        "transcriptomics",
+        "single-cell",
+        "bioinformatics"
+      ],
       "path": "skills/arboreto",
       "has_scripts": true,
       "origin": "adapted"
@@ -485,7 +533,14 @@
       "version": "1.3",
       "license": "BSD-3-Clause license",
       "compatibility": "Requires Python 3.11+ with astropy installed (uv for package installation). Some features (object name resolution, site lookups, remote FITS reads, IERS updates) need network access.",
-      "tags": [],
+      "tags": [
+        "astronomy",
+        "astrophysics",
+        "FITS",
+        "coordinates",
+        "cosmology",
+        "physics"
+      ],
       "path": "skills/astropy",
       "has_scripts": false,
       "origin": "adapted"
@@ -552,7 +607,12 @@
       "version": "1.4",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "skill authoring",
+        "workflow automation",
+        "research automation",
+        "AI agents"
+      ],
       "path": "skills/autoskill",
       "has_scripts": true,
       "origin": "adapted"
@@ -612,7 +672,13 @@
       "version": "1.5",
       "license": "MIT",
       "compatibility": "Requires a Benchling account, tenant URL, and API key or OAuth app credentials. Install benchling-sdk with uv pip install.",
-      "tags": [],
+      "tags": [
+        "Benchling",
+        "electronic lab notebook",
+        "LIMS",
+        "lab automation",
+        "biotech"
+      ],
       "path": "skills/benchling-integration",
       "has_scripts": false,
       "origin": "adapted"
@@ -624,7 +690,13 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "Requires the BGPT MCP server configured in the agent host (npx mcp-remote or npx bgpt-mcp), internet access to bgpt.pro, and an optional BGPT API key for paid usage.",
-      "tags": [],
+      "tags": [
+        "paper search",
+        "literature review",
+        "evidence synthesis",
+        "structured data extraction",
+        "MCP"
+      ],
       "path": "skills/bgpt-paper-search",
       "has_scripts": false,
       "origin": "adapted"
@@ -655,7 +727,14 @@
       "version": "1.1",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "neuroimaging",
+        "BIDS",
+        "MRI",
+        "EEG",
+        "data standards",
+        "neuroscience"
+      ],
       "path": "skills/bids",
       "has_scripts": true,
       "origin": "adapted"
@@ -667,7 +746,14 @@
       "version": "1.3",
       "license": "Biopython License Agreement",
       "compatibility": "Requires Python 3.10+, NumPy, and Biopython. Entrez and web BLAST examples require network access; local BLAST/MUSCLE examples require those command-line tools installed separately.",
-      "tags": [],
+      "tags": [
+        "sequence analysis",
+        "bioinformatics",
+        "BLAST",
+        "NCBI",
+        "phylogenetics",
+        "Python"
+      ],
       "path": "skills/biopython",
       "has_scripts": false,
       "origin": "adapted"
@@ -679,7 +765,13 @@
       "version": "1.4",
       "license": "GPLv3 license",
       "compatibility": "Requires Python 3.9–3.12 and internet access to 40+ bioinformatics web APIs. NCBI BLAST requires a contact email (`NCBI_EMAIL` env var or explicit parameter).",
-      "tags": [],
+      "tags": [
+        "bioinformatics databases",
+        "UniProt",
+        "KEGG",
+        "ID mapping",
+        "life sciences"
+      ],
       "path": "skills/bioservices",
       "has_scripts": true,
       "origin": "adapted"
@@ -727,7 +819,13 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "RNA-seq",
+        "transcriptomics",
+        "differential expression",
+        "alignment",
+        "bioinformatics"
+      ],
       "path": "skills/bulk-rnaseq",
       "has_scripts": true,
       "origin": "adapted"
@@ -760,7 +858,13 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Requires Python >=3.10,<3.13. Examples target cellxgene-census 1.17.x and the 2025-11-08 stable LTS Census; spatial workflows need the spatial extra and TileDB-SOMA >=1.15.5. No authentication is required for public Census data.",
-      "tags": [],
+      "tags": [
+        "single-cell",
+        "transcriptomics",
+        "public datasets",
+        "spatial transcriptomics",
+        "bioinformatics"
+      ],
       "path": "skills/cellxgene-census",
       "has_scripts": false,
       "origin": "adapted"
@@ -794,7 +898,12 @@
       "version": "1.1",
       "license": "Apache-2.0 license",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "quantum computing",
+        "quantum circuits",
+        "noise modeling",
+        "physics"
+      ],
       "path": "skills/cirq",
       "has_scripts": false,
       "origin": "adapted"
@@ -806,7 +915,14 @@
       "version": "2.1",
       "license": "MIT",
       "compatibility": "Requires Python 3.9+ with requests. Google Scholar search additionally needs scholarly. Needs network access to api.openalex.org, api.crossref.org, eutils.ncbi.nlm.nih.gov, export.arxiv.org, and api.datacite.org.",
-      "tags": [],
+      "tags": [
+        "citations",
+        "BibTeX",
+        "references",
+        "DOI",
+        "PubMed",
+        "reference management"
+      ],
       "path": "skills/citation-management",
       "has_scripts": true,
       "origin": "adapted"
@@ -839,7 +955,13 @@
       "version": "2.2",
       "license": "MIT",
       "compatibility": "Python 3.11+; local files only; bundled scripts use the standard library and require no network, credentials, API keys, LLMs, or image services.",
-      "tags": [],
+      "tags": [
+        "clinical research",
+        "decision support",
+        "evidence profiles",
+        "survival analysis",
+        "medicine"
+      ],
       "path": "skills/clinical-decision-support",
       "has_scripts": true,
       "origin": "adapted"
@@ -851,7 +973,13 @@
       "version": "2.1",
       "license": "MIT",
       "compatibility": "Requires Python 3.11+ only for optional dependency-free local scripts; no network access, credentials, external models, or image services.",
-      "tags": [],
+      "tags": [
+        "clinical reports",
+        "CONSORT",
+        "case reports",
+        "clinical trials",
+        "medical writing"
+      ],
       "path": "skills/clinical-reports",
       "has_scripts": true,
       "origin": "adapted"
@@ -885,7 +1013,12 @@
       "version": "1.3",
       "license": "GPL-2.0 license",
       "compatibility": "Requires Python 3.9+ (cobra 0.30+ dropped 3.8). Install with uv pip install. GLPK (swiglpk) is the default solver; CPLEX/Gurobi optional. load_model fetches from bundled data, BiGG, or BioModels (network required for remote models).",
-      "tags": [],
+      "tags": [
+        "metabolic modeling",
+        "flux balance analysis",
+        "systems biology",
+        "genome-scale models"
+      ],
       "path": "skills/cobrapy",
       "has_scripts": false,
       "origin": "adapted"
@@ -897,7 +1030,12 @@
       "version": "1.0",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "brainstorming",
+        "decision making",
+        "multi-perspective analysis",
+        "ideation"
+      ],
       "path": "skills/consciousness-council",
       "has_scripts": false,
       "origin": "adapted"
@@ -991,7 +1129,13 @@
       "version": "1.2",
       "license": "BSD-3-Clause license",
       "compatibility": "Requires Python 3.10+ and dask 2025.1+. DataFrame workflows need pandas 2+ and PyArrow 16+. Cloud paths (s3://, gcs://) need s3fs or gcsfs. Cluster deployment uses dask.distributed (included with dask[complete]).",
-      "tags": [],
+      "tags": [
+        "parallel computing",
+        "big data",
+        "pandas",
+        "distributed computing",
+        "data science"
+      ],
       "path": "skills/dask",
       "has_scripts": false,
       "origin": "adapted"
@@ -1003,7 +1147,13 @@
       "version": "1.6",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "scientific databases",
+        "APIs",
+        "data retrieval",
+        "reproducibility",
+        "provenance"
+      ],
       "path": "skills/database-lookup",
       "has_scripts": false,
       "origin": "adapted"
@@ -1015,7 +1165,13 @@
       "version": "1.0",
       "license": "MIT",
       "compatibility": "Needs datalad 1.6.x on Python 3.10+, plus git and git-annex 10.x. git-annex is not written in Python but installs as a prebuilt wheel from PyPI (`uv pip install git-annex`), from a system package manager, or from conda-forge. Container-based provenance also needs datalad-container (1.2.x) and Singularity/Apptainer or Docker. clone, get, and push need network access; credentialed remotes read secrets from the system keyring or from DATALAD_CREDENTIAL_<NAME>_<COMPONENT> environment variables.",
-      "tags": [],
+      "tags": [
+        "research data management",
+        "data versioning",
+        "provenance",
+        "reproducibility",
+        "open science"
+      ],
       "path": "skills/datalad",
       "has_scripts": false,
       "origin": "adapted"
@@ -1027,7 +1183,13 @@
       "version": "1.2",
       "license": "Apache-2.0 license",
       "compatibility": "Requires Python 3.8+ and datamol (uv pip install). RDKit is installed automatically as a datamol dependency (since 0.12.2). Optional s3fs/gcsfs for cloud I/O via fsspec.",
-      "tags": [],
+      "tags": [
+        "cheminformatics",
+        "RDKit",
+        "molecules",
+        "SMILES",
+        "drug discovery"
+      ],
       "path": "skills/datamol",
       "has_scripts": false,
       "origin": "adapted"
@@ -1039,7 +1201,13 @@
       "version": "1.5",
       "license": "MIT",
       "compatibility": "Requires Python 3.7–3.11 (PyPI 2.8.0 caps at <3.12). Install PyTorch, TensorFlow, or JAX before the matching deepchem extra. RDKit is a core dependency.",
-      "tags": [],
+      "tags": [
+        "molecular machine learning",
+        "ADMET",
+        "property prediction",
+        "drug discovery",
+        "cheminformatics"
+      ],
       "path": "skills/deepchem",
       "has_scripts": true,
       "origin": "adapted"
@@ -1074,7 +1242,14 @@
       "version": "1.3",
       "license": "BSD license",
       "compatibility": "Requires Python >3.8 and deepTools 3.5.6-compatible dependencies. The upstream project recommends conda/bioconda for full dependency resolution; repo examples use uv with pinned PyPI installs for reproducible command-line workflows.",
-      "tags": [],
+      "tags": [
+        "NGS",
+        "ChIP-seq",
+        "coverage",
+        "bigWig",
+        "genomics",
+        "bioinformatics"
+      ],
       "path": "skills/deeptools",
       "has_scripts": true,
       "origin": "adapted"
@@ -1086,7 +1261,13 @@
       "version": "1.0",
       "license": "CC-BY-4.0",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "cancer research",
+        "gene dependency",
+        "CRISPR screens",
+        "drug sensitivity",
+        "oncology"
+      ],
       "path": "skills/depmap",
       "has_scripts": false,
       "origin": "adapted"
@@ -1098,7 +1279,12 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "text analysis",
+        "cognitive style",
+        "writing analysis",
+        "profiling"
+      ],
       "path": "skills/dhdna-profiler",
       "has_scripts": false,
       "origin": "adapted"
@@ -1110,7 +1296,12 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Requires the DiffDock repository, Python 3.9 environment from upstream environment.yml or the official Docker image, RDKit, PyTorch/PyG, and optional CUDA GPU acceleration. Current guidance targets DiffDock v1.1.3 / DiffDock-L.",
-      "tags": [],
+      "tags": [
+        "molecular docking",
+        "virtual screening",
+        "structural biology",
+        "drug discovery"
+      ],
       "path": "skills/diffdock",
       "has_scripts": true,
       "origin": "adapted"
@@ -1145,7 +1336,13 @@
       "version": "2.1",
       "license": "MIT",
       "compatibility": "Requires a DNAnexus account, network access, Python 3.11+, and dx-toolkit/dxpy; some workflow and infrastructure features require organization licenses or policies.",
-      "tags": [],
+      "tags": [
+        "genomics",
+        "cloud computing",
+        "bioinformatics pipelines",
+        "workflows",
+        "DNAnexus"
+      ],
       "path": "skills/dnanexus-integration",
       "has_scripts": true,
       "origin": "adapted"
@@ -1200,7 +1397,12 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "protein language models",
+        "protein design",
+        "structure prediction",
+        "protein embeddings"
+      ],
       "path": "skills/esm",
       "has_scripts": false,
       "origin": "adapted"
@@ -1212,7 +1414,13 @@
       "version": "2.1",
       "license": "GPL-3.0-or-later",
       "compatibility": "Bundled scripts require Python 3.10+ and ete4 4.4.0 (upstream ete4 supports Python >=3.7). Taxonomy setup and SmartView exploration need network access; static SmartView PNG rendering needs ete4[render-sm], and Qt PDF/SVG rendering needs ete4[treeview].",
-      "tags": [],
+      "tags": [
+        "phylogenetics",
+        "phylogenetic trees",
+        "Newick",
+        "evolutionary biology",
+        "bioinformatics"
+      ],
       "path": "skills/etetoolkit",
       "has_scripts": true,
       "origin": "adapted"
@@ -1311,7 +1519,12 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires exa-py Python SDK, an EXA_API_KEY, and internet access.",
-      "tags": [],
+      "tags": [
+        "web search",
+        "research search",
+        "scientific content",
+        "URL extraction"
+      ],
       "path": "skills/exa-search",
       "has_scripts": true,
       "origin": "adapted"
@@ -1346,7 +1559,13 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires Python >=3.10. Scripts use numpy, pandas, and pyDOE3 (DOE matrices). Install with uv as shown below.",
-      "tags": [],
+      "tags": [
+        "experimental design",
+        "randomization",
+        "blocking",
+        "study design",
+        "statistics"
+      ],
       "path": "skills/experimental-design",
       "has_scripts": true,
       "origin": "adapted"
@@ -1358,7 +1577,12 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Bundled core CLIs require Python 3.11+ and are local/network-free; the complete pinned optional snapshot requires Python 3.12+, uv, and format-specific libraries listed below.",
-      "tags": [],
+      "tags": [
+        "exploratory data analysis",
+        "data profiling",
+        "data quality",
+        "scientific data"
+      ],
       "path": "skills/exploratory-data-analysis",
       "has_scripts": true,
       "origin": "adapted"
@@ -1394,7 +1618,12 @@
       "version": "1.0",
       "license": "MIT",
       "compatibility": "Needs a browser-automation tool with JavaScript execution (e.g. Claude in Chrome) and the user's logged-in Fictiv account at app.fictiv.com; there is no public API. The CAD pre-flight script needs Python 3.10+ (standard library only). UI mapped live in September 2026.",
-      "tags": [],
+      "tags": [
+        "manufacturing",
+        "CAD",
+        "prototyping",
+        "lab hardware"
+      ],
       "path": "skills/fictiv",
       "has_scripts": true,
       "origin": "adapted"
@@ -1501,7 +1730,13 @@
       "version": "2.1",
       "license": "BSD-3-Clause license",
       "compatibility": "Requires Python 3.9-3.13, uv, and FlowIO 1.4.0. NumPy is installed with FlowIO; pandas is optional for DataFrame workflows. Runtime parsing is local and needs no credentials or network access.",
-      "tags": [],
+      "tags": [
+        "flow cytometry",
+        "FCS files",
+        "cytometry",
+        "immunology",
+        "bioinformatics"
+      ],
       "path": "skills/flowio",
       "has_scripts": true,
       "origin": "adapted"
@@ -1513,7 +1748,13 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Bundled CLIs require Python 3.11+ and use the standard library; HDF5/netCDF4 metadata tools lazily use h5py when available. Simulation examples target fluidsim 0.9.0, fluidfft 0.4.5, and pyFFTW 0.15.1. MPI/native FFT use requires a site-compatible MPI implementation, development headers, FFTW/PFFT/P3DFFT libraries, compilers, and an approved scheduler workflow. No GPU backend is assumed.",
-      "tags": [],
+      "tags": [
+        "computational fluid dynamics",
+        "CFD",
+        "simulation",
+        "HPC",
+        "physics"
+      ],
       "path": "skills/fluidsim",
       "has_scripts": true,
       "origin": "adapted"
@@ -1525,7 +1766,13 @@
       "version": "1.0",
       "license": "MIT",
       "compatibility": "Requires network access to api.helena.bio (stateless Streamable HTTP MCP, no credentials); works from any MCP-capable host or via JSON-RPC POST with curl.",
-      "tags": [],
+      "tags": [
+        "clinical genomics",
+        "variant interpretation",
+        "ClinGen",
+        "germline variants",
+        "genetics"
+      ],
       "path": "skills/folklore-variant-evidence",
       "has_scripts": false,
       "origin": "adapted"
@@ -1537,7 +1784,13 @@
       "version": "3.1",
       "license": "MIT",
       "compatibility": "Requires Python 3.9+ and network access to openrouter.ai. The bundled script uses only the standard library. Image generation requires the OPENROUTER_API_KEY credential and bills per request; listing models, inspecting a model, and --dry-run do not. Targets the OpenRouter Image API (POST /api/v1/images) as verified on 2026-07-31.",
-      "tags": [],
+      "tags": [
+        "image generation",
+        "illustrations",
+        "figures",
+        "visual assets",
+        "AI images"
+      ],
       "path": "skills/generate-image",
       "has_scripts": true,
       "origin": "adapted"
@@ -1549,7 +1802,13 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires Python 3.10+ and uv. Guidance targets geniml 0.8.4 with gtars 0.9.2; ML workflows need the pinned ml extra and compatible native wheels. Bundled planners and inspectors are dependency-free, local-only, and make no network requests.",
-      "tags": [],
+      "tags": [
+        "genomic intervals",
+        "BED files",
+        "machine learning",
+        "embeddings",
+        "genomics"
+      ],
       "path": "skills/geniml",
       "has_scripts": true,
       "origin": "adapted"
@@ -1561,7 +1820,13 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "Requires Python 3.11+. Scripts use only the standard library - no third-party packages and no network access. Variant normalisation needs a reference FASTA, and uses its .fai index when one is present.",
-      "tags": [],
+      "tags": [
+        "genomic coordinates",
+        "liftover",
+        "variant normalization",
+        "genome assemblies",
+        "bioinformatics"
+      ],
       "path": "skills/genomic-coordinates",
       "has_scripts": true,
       "origin": "adapted"
@@ -1573,7 +1838,12 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Python 3.10+ with the `requests` library for the REST path (no dedicated SDK). Network access required. The REST `/v1` API needs a `GI_API_KEY` (a `gi_` bearer); the hosted MCP server at mcp.genomicintelligence.ai/mcp works keyless against a rate- and concurrency-limited public demo tier, key optional.",
-      "tags": [],
+      "tags": [
+        "DNA language models",
+        "regulatory genomics",
+        "gene structure",
+        "sequence analysis"
+      ],
       "path": "skills/genomic-intelligence",
       "has_scripts": false,
       "origin": "adapted"
@@ -1585,7 +1855,13 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "geospatial",
+        "remote sensing",
+        "Earth observation",
+        "satellite imagery",
+        "GIS"
+      ],
       "path": "skills/geomaster",
       "has_scripts": false,
       "origin": "adapted"
@@ -1597,7 +1873,13 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires Python 3.10+ and uv. Bundled CLIs are local-only; runtime analysis requires the pinned GeoPandas stack below.",
-      "tags": [],
+      "tags": [
+        "geospatial",
+        "GIS",
+        "vector data",
+        "spatial analysis",
+        "Python"
+      ],
       "path": "skills/geopandas",
       "has_scripts": true,
       "origin": "adapted"
@@ -1609,7 +1891,12 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Python 3.11+ on Linux, macOS, or Windows; standard library by default, optional psutil 7.2.2; accelerator and scheduler CLIs are optional read-only probes.",
-      "tags": [],
+      "tags": [
+        "compute resources",
+        "GPU detection",
+        "resource planning",
+        "HPC"
+      ],
       "path": "skills/get-available-resources",
       "has_scripts": true,
       "origin": "adapted"
@@ -1621,7 +1908,13 @@
       "version": "1.5",
       "license": "BSD-2-Clause license",
       "compatibility": "Requires Python >=3.8 and gget 0.30.5-compatible APIs. Optional setup modules may install scientific dependencies that lag the newest Python releases; use Python 3.9 or 3.10 if `gget setup cellxgene` or `gget setup alphafold` fails.",
-      "tags": [],
+      "tags": [
+        "bioinformatics databases",
+        "Ensembl",
+        "BLAST",
+        "AlphaFold",
+        "gene lookup"
+      ],
       "path": "skills/gget",
       "has_scripts": true,
       "origin": "adapted"
@@ -1653,7 +1946,12 @@
       "version": "2.1",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "cloud lab",
+        "lab automation",
+        "protein expression",
+        "synthetic biology"
+      ],
       "path": "skills/ginkgo-cloud-lab",
       "has_scripts": false,
       "origin": "adapted"
@@ -1711,7 +2009,13 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Python bindings require Python 3.10+ and gtars 0.9.2. The Rust meta-crate and gtars-cli are 0.9.0 and require a Rust toolchain supporting Edition 2024; upstream declares no rust-version. Bundled audit CLIs use only Python 3.10+ standard library and are local/network-free. Remote constructors, pretrained tokenizers, refget, and BEDbase caching require explicit network and storage approval.",
-      "tags": [],
+      "tags": [
+        "genomic intervals",
+        "BED files",
+        "peak sets",
+        "genomics",
+        "bioinformatics"
+      ],
       "path": "skills/gtars",
       "has_scripts": true,
       "origin": "adapted"
@@ -1745,7 +2049,13 @@
       "version": "1.3",
       "license": "Apache-2.0 license",
       "compatibility": "Requires Python 3.8–3.11 (histolab 0.7.0), OpenSlide system libraries, and Linux or macOS. Sample data via histolab.data requires pooch.",
-      "tags": [],
+      "tags": [
+        "digital pathology",
+        "whole slide images",
+        "H&E",
+        "tile extraction",
+        "medical imaging"
+      ],
       "path": "skills/histolab",
       "has_scripts": false,
       "origin": "adapted"
@@ -1776,7 +2086,13 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "AI for science",
+        "scientific datasets",
+        "foundation models",
+        "Hugging Face",
+        "machine learning"
+      ],
       "path": "skills/hugging-science",
       "has_scripts": true,
       "origin": "adapted"
@@ -1834,7 +2150,12 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires Python 3.10+ and uv for the pinned upstream package. Bundled local audit tools use only the Python standard library for JSON; YAML input requires exactly PyYAML 6.0.2. Actual HypoGeniC runs may require a separately approved LLM provider, credentials, Redis, local model resources, and network access.",
-      "tags": [],
+      "tags": [
+        "hypothesis generation",
+        "LLM",
+        "text datasets",
+        "research automation"
+      ],
       "path": "skills/hypogenic",
       "has_scripts": true,
       "origin": "adapted"
@@ -1846,7 +2167,13 @@
       "version": "2.2",
       "license": "MIT",
       "compatibility": "Python 3.11+ standard library. Bundled CLIs are deterministic and local-only; they accept bounded JSON, CSV, or Markdown and require no network, credentials, models, image services, or external packages.",
-      "tags": [],
+      "tags": [
+        "hypothesis generation",
+        "research questions",
+        "preregistration",
+        "study design",
+        "scientific method"
+      ],
       "path": "skills/hypothesis-generation",
       "has_scripts": true,
       "origin": "adapted"
@@ -1878,7 +2205,14 @@
       "version": "1.5",
       "license": "This skill is provided under the MIT License. IDC data itself has individual licensing (mostly CC-BY, some CC-NC) that must be respected when using the data.",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "cancer imaging",
+        "DICOM",
+        "radiology",
+        "pathology",
+        "public datasets",
+        "medical imaging"
+      ],
       "path": "skills/imaging-data-commons",
       "has_scripts": true,
       "origin": "adapted"
@@ -1915,7 +2249,12 @@
       "version": "1.7",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "infographics",
+        "data visualization",
+        "science communication",
+        "figures"
+      ],
       "path": "skills/infographics",
       "has_scripts": true,
       "origin": "adapted"
@@ -1951,7 +2290,13 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "Python 3.11+; bundled CLIs use only the standard library and bounded local JSON/Markdown files, with no network access or credentials.",
-      "tags": [],
+      "tags": [
+        "ISO standards",
+        "quality management",
+        "ISO 13485",
+        "ISO 17025",
+        "laboratory accreditation"
+      ],
       "path": "skills/iso-standards-readiness",
       "has_scripts": true,
       "origin": "adapted"
@@ -1986,7 +2331,13 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Python 3.10-3.14 with build123d 0.11.1 and matplotlib for snapshots. Geometry commands require build123d; the standards lookup and the interface check run on the standard library alone. No network access needed.",
-      "tags": [],
+      "tags": [
+        "lab hardware",
+        "CAD",
+        "3D printing",
+        "microfluidics",
+        "open hardware"
+      ],
       "path": "skills/lab-hardware-cad",
       "has_scripts": true,
       "origin": "adapted"
@@ -1998,7 +2349,12 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires Python 3.11+ and uv for bundled local tools, plus network access for official documentation or remote API calls. LabArchives issues an Access Key ID and Access Password; user-scoped calls also need a UID, and Inventory calls require Inventory API permission and a Lab ID. Bundled scripts read only named LABARCHIVES_* environment variables and never load .env files.",
-      "tags": [],
+      "tags": [
+        "electronic lab notebook",
+        "LabArchives",
+        "lab data",
+        "lab automation"
+      ],
       "path": "skills/labarchive-integration",
       "has_scripts": true,
       "origin": "adapted"
@@ -2028,7 +2384,13 @@
       "version": "1.2",
       "license": "Apache-2.0 license",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "data lineage",
+        "biological data",
+        "data management",
+        "ontologies",
+        "MLOps"
+      ],
       "path": "skills/lamindb",
       "has_scripts": false,
       "origin": "adapted"
@@ -2085,7 +2447,13 @@
       "version": "2.1",
       "license": "MIT",
       "compatibility": "Requires network access and a Latch account. The current stable SDK requires Python 3.9+; Python 3.12 is recommended. Uses uv for installation. Docker is needed for local image builds, while remote registration is the CLI default.",
-      "tags": [],
+      "tags": [
+        "bioinformatics workflows",
+        "cloud computing",
+        "Nextflow",
+        "Snakemake",
+        "Latch"
+      ],
       "path": "skills/latchbio-integration",
       "has_scripts": true,
       "origin": "adapted"
@@ -2097,7 +2465,13 @@
       "version": "1.7",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "research posters",
+        "LaTeX",
+        "conference posters",
+        "beamerposter",
+        "academic presentations"
+      ],
       "path": "skills/latex-posters",
       "has_scripts": true,
       "origin": "adapted"
@@ -2109,7 +2483,13 @@
       "version": "1.2",
       "license": "Apache-2.0",
       "compatibility": "Python 3.10+. Optional LibreOffice (Office formats) and ImageMagick (images). Bundled Tesseract for OCR. All processing is local — no cloud API required.",
-      "tags": [],
+      "tags": [
+        "PDF parsing",
+        "OCR",
+        "document extraction",
+        "RAG",
+        "papers"
+      ],
       "path": "skills/liteparse",
       "has_scripts": true,
       "origin": "adapted"
@@ -2121,7 +2501,14 @@
       "version": "1.8",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "literature review",
+        "systematic review",
+        "PubMed",
+        "arXiv",
+        "evidence synthesis",
+        "citations"
+      ],
       "path": "skills/literature-review",
       "has_scripts": true,
       "origin": "adapted"
@@ -2297,7 +2684,13 @@
       "version": "1.1",
       "license": "Apache-2.0",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "Markdown",
+        "Mermaid diagrams",
+        "technical writing",
+        "documentation",
+        "diagrams"
+      ],
       "path": "skills/markdown-mermaid-writing",
       "has_scripts": false,
       "origin": "adapted"
@@ -2309,7 +2702,13 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Python 3.11+ standard library for optional offline CLIs. The optional LaTeX template uses XeLaTeX or LuaLaTeX. Online research requires user-approved network access and source-specific terms; bundled scripts make no network, LLM, or image calls.",
-      "tags": [],
+      "tags": [
+        "market research",
+        "market sizing",
+        "TAM SAM SOM",
+        "competitive analysis",
+        "reports"
+      ],
       "path": "skills/market-research-reports",
       "has_scripts": true,
       "origin": "adapted"
@@ -2321,7 +2720,13 @@
       "version": "2.2",
       "license": "MIT",
       "compatibility": "Python 3.10+ and uv. Examples target MarkItDown 0.1.6. Core local conversion can run offline; URL, YouTube, audio transcription, LLM, Azure, and MCP workflows may use network or external services.",
-      "tags": [],
+      "tags": [
+        "document conversion",
+        "PDF to Markdown",
+        "Word",
+        "PowerPoint",
+        "text extraction"
+      ],
       "path": "skills/markitdown",
       "has_scripts": true,
       "origin": "adapted"
@@ -2333,7 +2738,13 @@
       "version": "2.1",
       "license": "Apache-2.0",
       "compatibility": "Requires Python >=3.10,<3.15, uv, and matchms 0.33.1. Local file workflows need no credentials; metabolomics-USI loading requires network access.",
-      "tags": [],
+      "tags": [
+        "mass spectrometry",
+        "MS/MS",
+        "spectral matching",
+        "metabolomics",
+        "cheminformatics"
+      ],
       "path": "skills/matchms",
       "has_scripts": true,
       "origin": "adapted"
@@ -2345,7 +2756,12 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Documentation is pinned where noted to proprietary MATLAB R2026a and free GNU Octave 11.3.0. Bundled Python CLIs require Python 3.11+ and run locally without MATLAB or Octave; optional MAT inventory uses scipy and/or h5py.",
-      "tags": [],
+      "tags": [
+        "MATLAB",
+        "GNU Octave",
+        "numerical computing",
+        "scientific computing"
+      ],
       "path": "skills/matlab",
       "has_scripts": true,
       "origin": "adapted"
@@ -2357,7 +2773,13 @@
       "version": "1.2",
       "license": "https://github.com/matplotlib/matplotlib/tree/main/LICENSE",
       "compatibility": "Requires Python 3.10+ and Matplotlib 3.10.x. Use `uv add matplotlib` in projects; interactive Jupyter widgets require `ipympl`.",
-      "tags": [],
+      "tags": [
+        "plotting",
+        "data visualization",
+        "scientific figures",
+        "publication figures",
+        "Python"
+      ],
       "path": "skills/matplotlib",
       "has_scripts": true,
       "origin": "adapted"
@@ -2369,7 +2791,13 @@
       "version": "1.2",
       "license": "Apache-2.0 license",
       "compatibility": "Requires Python 3.9+ and datamol (installed with medchem). Optional Lilly demerit filter requires separate `lilly-medchem-rules` conda package.",
-      "tags": [],
+      "tags": [
+        "medicinal chemistry",
+        "drug-likeness",
+        "PAINS",
+        "structural alerts",
+        "compound filtering"
+      ],
       "path": "skills/medchem",
       "has_scripts": true,
       "origin": "adapted"
@@ -2472,7 +2900,12 @@
       "version": "1.3",
       "license": "Apache-2.0",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "serverless GPU",
+        "cloud computing",
+        "model deployment",
+        "ML inference"
+      ],
       "path": "skills/modal",
       "has_scripts": false,
       "origin": "adapted"
@@ -2575,7 +3008,13 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "molecular dynamics",
+        "OpenMM",
+        "MDAnalysis",
+        "simulation",
+        "computational chemistry"
+      ],
       "path": "skills/molecular-dynamics",
       "has_scripts": false,
       "origin": "adapted"
@@ -2587,7 +3026,13 @@
       "version": "1.2",
       "license": "Apache-2.0 license",
       "compatibility": "Requires Python 3.9–3.10 (molfeat 0.11.0 does not support 3.11+). Requires datamol, PyTorch, and optional extras for GNN/transformer models.",
-      "tags": [],
+      "tags": [
+        "molecular featurization",
+        "fingerprints",
+        "descriptors",
+        "cheminformatics",
+        "machine learning"
+      ],
       "path": "skills/molfeat",
       "has_scripts": false,
       "origin": "adapted"
@@ -2639,7 +3084,12 @@
       "version": "1.0",
       "license": "MIT",
       "compatibility": "Requires Python 3.10+ and outbound HTTPS access to arax.transltr.io. The client uses only the Python standard library and needs no API key. Queries and caller metadata may be publicly visible; never submit sensitive or patient-specific content.",
-      "tags": [],
+      "tags": [
+        "biomedical knowledge graph",
+        "NCATS Translator",
+        "drug repurposing",
+        "biomedical research"
+      ],
       "path": "skills/ncats-arax",
       "has_scripts": true,
       "origin": "adapted"
@@ -2722,7 +3172,13 @@
       "version": "1.2",
       "license": "3-clause BSD license",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "network analysis",
+        "graph theory",
+        "graphs",
+        "community detection",
+        "Python"
+      ],
       "path": "skills/networkx",
       "has_scripts": false,
       "origin": "adapted"
@@ -2734,7 +3190,14 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Python 3.10+ and uv; pinned workflows use NeuroKit2 0.2.13. Core processing needs NumPy, SciPy, pandas, scikit-learn, matplotlib, PyWavelets, requests, and setuptools; selected EEG, cvxEDA, plotting, file-format, and RQA features need separately locked optional packages.",
-      "tags": [],
+      "tags": [
+        "physiological signals",
+        "ECG",
+        "EEG",
+        "HRV",
+        "biosignal processing",
+        "neuroscience"
+      ],
       "path": "skills/neurokit2",
       "has_scripts": true,
       "origin": "adapted"
@@ -2746,7 +3209,13 @@
       "version": "2.4",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "Neuropixels",
+        "spike sorting",
+        "electrophysiology",
+        "SpikeInterface",
+        "neuroscience"
+      ],
       "path": "skills/neuropixels-analysis",
       "has_scripts": true,
       "origin": "adapted"
@@ -2758,7 +3227,13 @@
       "version": "1.2",
       "license": "Apache-2.0",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "Nextflow",
+        "nf-core",
+        "bioinformatics pipelines",
+        "workflow management",
+        "genomics"
+      ],
       "path": "skills/nextflow",
       "has_scripts": false,
       "origin": "adapted"
@@ -2788,7 +3263,12 @@
       "version": "1.4",
       "license": "MIT",
       "compatibility": "Requires network access to a user-selected OMERO.server for remote operations. The 2026-07-23 snapshot uses OMERO.py 5.22.1 with ZeroC IcePy 3.6.5; OMERO supports Python 3.10-3.12 (3.12 recommended) while 3.13-3.14 remain upcoming in its support matrix. Bundled local planners require Python 3.10+ and read only named OMERO_* variables; they never load .env files.",
-      "tags": [],
+      "tags": [
+        "microscopy",
+        "image data management",
+        "OMERO",
+        "bioimaging"
+      ],
       "path": "skills/omero-integration",
       "has_scripts": true,
       "origin": "adapted"
@@ -2800,7 +3280,12 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires Python >=3.11. Variant and sample queries require outbound network access to the public 1000 Genomes query endpoint over TLS; the sample/population metadata commands run fully offline over a data file bundled in the skill. No credentials, API keys, or environment variables are used.",
-      "tags": [],
+      "tags": [
+        "1000 Genomes",
+        "population genetics",
+        "genomic variants",
+        "human genomics"
+      ],
       "path": "skills/onekgpd",
       "has_scripts": true,
       "origin": "adapted"
@@ -2812,7 +3297,13 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires Python 3.11+. Scripts use only the standard library - no third-party packages. Needs network access to https://www.ebi.ac.uk/ols4, https://bioregistry.io, https://resolver.api.identifiers.org, and https://www.ebi.ac.uk/spot/zooma (all public, no API key).",
-      "tags": [],
+      "tags": [
+        "ontologies",
+        "CURIEs",
+        "OLS",
+        "metadata annotation",
+        "FAIR data"
+      ],
       "path": "skills/ontology-term-resolution",
       "has_scripts": true,
       "origin": "adapted"
@@ -2824,7 +3315,12 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "research notebooks",
+        "document analysis",
+        "NotebookLM alternative",
+        "knowledge management"
+      ],
       "path": "skills/open-notebook",
       "has_scripts": true,
       "origin": "adapted"
@@ -2836,7 +3332,13 @@
       "version": "1.1",
       "license": "BSD-3-Clause",
       "compatibility": "Requires Python 3.10+ with openpiv installed (uv pip install openpiv). numpy, scipy, scikit-image, and matplotlib arrive as dependencies. No network access needed after install.",
-      "tags": [],
+      "tags": [
+        "particle image velocimetry",
+        "PIV",
+        "fluid dynamics",
+        "flow visualization",
+        "physics"
+      ],
       "path": "skills/openpiv",
       "has_scripts": true,
       "origin": "adapted"
@@ -2873,7 +3375,13 @@
       "version": "2.1",
       "license": "MIT",
       "compatibility": "Requires Python 3.10+ and uv for local simulation. Flex examples target opentrons 9.1.1 and API 2.29; the separate OT-2 line targets API 2.28 and uses opentrons 9.0.0 as its local compatibility simulator. Physical execution requires compatible hardware, current robot software, and the appropriate Opentrons App.",
-      "tags": [],
+      "tags": [
+        "Opentrons",
+        "liquid handling",
+        "lab robotics",
+        "lab automation",
+        "protocols"
+      ],
       "path": "skills/opentrons-integration",
       "has_scripts": true,
       "origin": "adapted"
@@ -2885,7 +3393,12 @@
       "version": "1.4",
       "license": "MIT",
       "compatibility": "Requires an NVIDIA CUDA-capable GPU for GPU execution. RAPIDS 26.06 requires Python 3.11+ on Linux or WSL2 and matching CUDA 12 or 13 wheels. Package installation needs network access.",
-      "tags": [],
+      "tags": [
+        "GPU acceleration",
+        "CUDA",
+        "performance optimization",
+        "scientific Python"
+      ],
       "path": "skills/optimize-for-gpu",
       "has_scripts": false,
       "origin": "adapted"
@@ -2944,7 +3457,13 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "tumor-normal",
+        "somatic variants",
+        "nf-core",
+        "long-read sequencing",
+        "cancer genomics"
+      ],
       "path": "skills/pacsomatic",
       "has_scripts": true,
       "origin": "adapted"
@@ -2979,7 +3498,15 @@
       "version": "2.2",
       "license": "MIT",
       "compatibility": "Needs network access and curl. The bundled scripts require Python 3.11+ and use only the standard library. No credentials are required; NCBI_API_KEY, S2_API_KEY, CORE_API_KEY, and OPENALEX_API_KEY raise rate limits or unlock full text where noted.",
-      "tags": [],
+      "tags": [
+        "paper search",
+        "PubMed",
+        "arXiv",
+        "OpenAlex",
+        "Crossref",
+        "open access",
+        "citations"
+      ],
       "path": "skills/paper-lookup",
       "has_scripts": true,
       "origin": "adapted"
@@ -2991,7 +3518,12 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Requires macOS or Linux with a POSIX shell and network access; the native installer does not support Windows (use the hosted MCP server there). Installs a self-contained CLI under ~/.paperclip — no Python environment of your own is needed. Authenticate with a PAPERCLIP_API_KEY exported from a .env file or the environment; browser OAuth is an interactive fallback the user must run. Verified against paperclip 0.7.14 and 0.7.15.",
-      "tags": [],
+      "tags": [
+        "full-text papers",
+        "regulatory documents",
+        "clinical trials",
+        "biomedical literature"
+      ],
       "path": "skills/paperclip",
       "has_scripts": false,
       "origin": "adapted"
@@ -3003,7 +3535,11 @@
       "version": "1.0",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "paper recommendations",
+        "research feeds",
+        "literature monitoring"
+      ],
       "path": "skills/paperzilla",
       "has_scripts": false,
       "origin": "adapted"
@@ -3015,7 +3551,12 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Requires parallel-cli and internet access.",
-      "tags": [],
+      "tags": [
+        "web research",
+        "deep research",
+        "data enrichment",
+        "web extraction"
+      ],
       "path": "skills/parallel-web",
       "has_scripts": false,
       "origin": "adapted"
@@ -3027,7 +3568,12 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "PathML 3.0.5 is the latest PyPI release and targets Python 3.10-3.12; installation needs uv plus platform libraries for OpenSlide, BLAS/LAPACK, and Java/Bio-Formats. Bundled Python 3.10+ CLIs are local, bounded, dependency-free, and network-free.",
-      "tags": [],
+      "tags": [
+        "computational pathology",
+        "whole slide images",
+        "digital pathology",
+        "medical imaging"
+      ],
       "path": "skills/pathml",
       "has_scripts": true,
       "origin": "adapted"
@@ -3039,7 +3585,12 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "Requires Python 3.11+. Scripts use only the standard library - no third-party packages. Needs network access to the public GenSpectrum LAPIS instances (lapis.cov-spectrum.org, lapis.genspectrum.org, lapis.pathoplexus.org) and to raw.githubusercontent.com for pango-designation. No API key.",
-      "tags": [],
+      "tags": [
+        "pathogen genomics",
+        "genomic surveillance",
+        "viral lineages",
+        "epidemiology"
+      ],
       "path": "skills/pathogen-variant-surveillance",
       "has_scripts": true,
       "origin": "adapted"
@@ -3051,7 +3602,13 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "pathway enrichment",
+        "gene set enrichment",
+        "GSEA",
+        "functional analysis",
+        "bioinformatics"
+      ],
       "path": "skills/pathway-enrichment",
       "has_scripts": true,
       "origin": "adapted"
@@ -3063,7 +3620,12 @@
       "version": "2.2",
       "license": "MIT",
       "compatibility": "Python 3.11+ standard library. Bundled CLIs are deterministic and local-only; they accept bounded JSON, CSV, or Markdown and make no network, model, image, or external-service calls.",
-      "tags": [],
+      "tags": [
+        "peer review",
+        "manuscript review",
+        "reporting guidelines",
+        "academic publishing"
+      ],
       "path": "skills/peer-review",
       "has_scripts": true,
       "origin": "adapted"
@@ -3097,7 +3659,12 @@
       "version": "1.2",
       "license": "Apache-2.0 license",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "quantum machine learning",
+        "quantum computing",
+        "variational algorithms",
+        "physics"
+      ],
       "path": "skills/pennylane",
       "has_scripts": false,
       "origin": "adapted"
@@ -3130,7 +3697,12 @@
       "version": "1.4",
       "license": "MIT",
       "compatibility": "Requires Node.js >= 22.19 and npm for Pi CLI and SDK usage. Pi package name is @earendil-works/pi-coding-agent.",
-      "tags": [],
+      "tags": [
+        "coding agents",
+        "terminal agents",
+        "AI agents",
+        "developer tools"
+      ],
       "path": "skills/pi-agent",
       "has_scripts": false,
       "origin": "adapted"
@@ -3165,7 +3737,13 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires Python 3.11+ with numpy and scipy. No network access and no proprietary software. The estimation tools this skill orients you towards (NONMEM, Monolix, Phoenix, Simcyp, GastroPlus) are licensed separately and are never invoked by these scripts.",
-      "tags": [],
+      "tags": [
+        "pharmacokinetics",
+        "pharmacodynamics",
+        "PK/PD",
+        "drug development",
+        "pharmacology"
+      ],
       "path": "skills/pkpd-modeling",
       "has_scripts": true,
       "origin": "adapted"
@@ -3196,7 +3774,13 @@
       "version": "1.2",
       "license": "https://github.com/pola-rs/polars/blob/main/LICENSE",
       "compatibility": "Requires Python 3.10+ for polars 1.41.x. Install with uv pip install; optional extras enable Excel, database, cloud, pandas/NumPy, and GPU integrations.",
-      "tags": [],
+      "tags": [
+        "DataFrames",
+        "data engineering",
+        "ETL",
+        "data analysis",
+        "Python"
+      ],
       "path": "skills/polars",
       "has_scripts": false,
       "origin": "adapted"
@@ -3208,7 +3792,12 @@
       "version": "1.1",
       "license": "Apache-2.0",
       "compatibility": "Requires Python 3.11–3.14 and polars-bio (uv pip install). Cloud I/O uses standard AWS/GCS/Azure SDK env vars when paths use s3://, gs://, or az:// URIs.",
-      "tags": [],
+      "tags": [
+        "genomic intervals",
+        "bioinformatics",
+        "Polars",
+        "genomics file formats"
+      ],
       "path": "skills/polars-bio",
       "has_scripts": false,
       "origin": "adapted"
@@ -3220,7 +3809,12 @@
       "version": "2.2",
       "license": "MIT",
       "compatibility": "Requires Python 3.10+, uv, and exact generation pins python-pptx 1.0.2, Pillow 12.3.0, and lxml 6.1.1. Validation and PPTX ZIP/XML inspection are local and network-free; final PowerPoint, accessibility, PDF, printer, and author review are manual.",
-      "tags": [],
+      "tags": [
+        "research posters",
+        "PowerPoint",
+        "conference posters",
+        "academic presentations"
+      ],
       "path": "skills/pptx-posters",
       "has_scripts": true,
       "origin": "adapted"
@@ -3276,7 +3870,12 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Bundled CLIs require Python 3.11+ and use only the standard library. Offline validation and planning need no credentials or network. REST reads require HTTPS access to official protocols.io hosts and usually a named bearer token; network access is disabled unless --execute is supplied. The scripts never load .env files or execute mutations.",
-      "tags": [],
+      "tags": [
+        "protocols.io",
+        "lab protocols",
+        "reproducibility",
+        "methods"
+      ],
       "path": "skills/protocolsio-integration",
       "has_scripts": true,
       "origin": "adapted"
@@ -3288,7 +3887,12 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Bundled CLIs require Python 3.10+ and use only the standard library. Published pufferlib 3.0.0 supports Python >=3.9 but ships as a native-code source archive; current 4.0 source requires Python >=3.10, Torch >=2.9, and an audited CPU/CUDA toolchain. Network, GPU, native builds, environment plug-ins, assets, checkpoints, and external logging are never required by the bundled CLIs.",
-      "tags": [],
+      "tags": [
+        "reinforcement learning",
+        "RL environments",
+        "training",
+        "machine learning"
+      ],
       "path": "skills/pufferlib",
       "has_scripts": true,
       "origin": "adapted"
@@ -3300,7 +3904,13 @@
       "version": "1.4",
       "license": "MIT",
       "compatibility": "Requires Python >=3.11 and PyDESeq2 0.5.4-compatible dependencies. Examples target PyDESeq2 0.5.x, formulaic design strings, explicit contrasts, and uv-based installs.",
-      "tags": [],
+      "tags": [
+        "differential expression",
+        "RNA-seq",
+        "DESeq2",
+        "transcriptomics",
+        "bioinformatics"
+      ],
       "path": "skills/pydeseq2",
       "has_scripts": true,
       "origin": "adapted"
@@ -3312,7 +3922,13 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Python 3.10+ with pydicom 3.0.2; optional pinned NumPy, Pillow, and pixel plugins. Helper CLIs are local-only and require authorized data.",
-      "tags": [],
+      "tags": [
+        "DICOM",
+        "medical imaging",
+        "radiology",
+        "de-identification",
+        "Python"
+      ],
       "path": "skills/pydicom",
       "has_scripts": true,
       "origin": "adapted"
@@ -3324,7 +3940,13 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "clinical machine learning",
+        "EHR",
+        "MIMIC",
+        "healthcare AI",
+        "deep learning"
+      ],
       "path": "skills/pyhealth",
       "has_scripts": false,
       "origin": "adapted"
@@ -3336,7 +3958,12 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Verified against PyLabRobot 0.2.1 on Python 3.9+. Bundled planning CLIs require only Python 3.11+ and make no serial, USB, or network connections. Physical devices need model-specific extras, configuration, calibration, and trained operator approval.",
-      "tags": [],
+      "tags": [
+        "lab automation",
+        "liquid handling",
+        "lab robotics",
+        "protocols"
+      ],
       "path": "skills/pylabrobot",
       "has_scripts": true,
       "origin": "adapted"
@@ -3348,7 +3975,13 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Python 3.11+ with uv. The verified snapshot uses pymatgen 2026.5.4, pymatgen-core 2026.7.16, and mp-api 0.46.4. Bundled help and planning CLIs use only the standard library; local scientific execution lazily requires the pinned pymatgen packages. Materials Project access additionally requires explicit network approval and the single named secret MP_API_KEY.",
-      "tags": [],
+      "tags": [
+        "materials science",
+        "crystal structures",
+        "computational materials",
+        "VASP",
+        "physics"
+      ],
       "path": "skills/pymatgen",
       "has_scripts": true,
       "origin": "adapted"
@@ -3360,7 +3993,13 @@
       "version": "1.4",
       "license": "Apache License, Version 2.0",
       "compatibility": "Requires Python 3.12+ and PyMC 6.0.1-compatible dependencies. Install reproducible environments with `uv pip install \"pymc[nutpie]==6.0.1\"`; optional NumPyro or BlackJAX samplers require separately pinned JAX-compatible dependencies.",
-      "tags": [],
+      "tags": [
+        "Bayesian statistics",
+        "MCMC",
+        "probabilistic programming",
+        "hierarchical models",
+        "statistics"
+      ],
       "path": "skills/pymc",
       "has_scripts": true,
       "origin": "adapted"
@@ -3372,7 +4011,12 @@
       "version": "1.4",
       "license": "Apache-2.0 license",
       "compatibility": "Requires Python 3.10+ and pymoo (uv pip install). Optional matplotlib for visualization plots; optional autograd for gradient-based features; optional joblib for JoblibParallelization.",
-      "tags": [],
+      "tags": [
+        "multi-objective optimization",
+        "evolutionary algorithms",
+        "NSGA-II",
+        "optimization"
+      ],
       "path": "skills/pymoo",
       "has_scripts": true,
       "origin": "adapted"
@@ -3384,7 +4028,13 @@
       "version": "2.1",
       "license": "3 clause BSD license",
       "compatibility": "Requires Python 3.9+ and uv. Examples and scripts target pyOpenMS 3.5.0.",
-      "tags": [],
+      "tags": [
+        "mass spectrometry",
+        "proteomics",
+        "metabolomics",
+        "LC-MS",
+        "bioinformatics"
+      ],
       "path": "skills/pyopenms",
       "has_scripts": true,
       "origin": "adapted"
@@ -3396,7 +4046,13 @@
       "version": "2.1",
       "license": "MIT",
       "compatibility": "Requires Python 3.8–3.14 and pysam 0.24.0. Bundled scripts use local files. CRAM decoding may require the matching reference FASTA or an explicitly configured REF_PATH/REF_CACHE.",
-      "tags": [],
+      "tags": [
+        "SAM/BAM",
+        "VCF",
+        "genomics",
+        "sequencing data",
+        "bioinformatics"
+      ],
       "path": "skills/pysam",
       "has_scripts": true,
       "origin": "adapted"
@@ -3408,7 +4064,13 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires uv, CPython 3.11, PyTDC 1.1.15, and setuptools 80.9.0 for its legacy pkg_resources runtime import. Dataset, benchmark, checkpoint, and remote-oracle operations require network/storage review and explicit user approval.",
-      "tags": [],
+      "tags": [
+        "therapeutics",
+        "drug discovery datasets",
+        "benchmarks",
+        "machine learning",
+        "ADMET"
+      ],
       "path": "skills/pytdc",
       "has_scripts": true,
       "origin": "adapted"
@@ -3443,7 +4105,13 @@
       "version": "1.2",
       "license": "Apache-2.0 license",
       "compatibility": "Requires Python 3.10+ and lightning 2.6+ (or pytorch-lightning 2.6+). GPU training needs CUDA-capable PyTorch. Optional loggers (wandb, mlflow, comet-ml) and DeepSpeed require separate installs.",
-      "tags": [],
+      "tags": [
+        "PyTorch Lightning",
+        "deep learning",
+        "model training",
+        "multi-GPU",
+        "machine learning"
+      ],
       "path": "skills/pytorch-lightning",
       "has_scripts": true,
       "origin": "adapted"
@@ -3496,7 +4164,13 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires Python 3.10+ and pyzotero 1.13+. Web API access needs a Zotero API key. Optional CLI and MCP extras require Zotero 7 with local API access enabled.",
-      "tags": [],
+      "tags": [
+        "Zotero",
+        "reference management",
+        "citations",
+        "BibTeX",
+        "literature"
+      ],
       "path": "skills/pyzotero",
       "has_scripts": false,
       "origin": "adapted"
@@ -3530,7 +4204,12 @@
       "version": "2.1",
       "license": "Apache-2.0",
       "compatibility": "Python 3.10+ on a supported 64-bit platform. Local SDK workflows need qiskit; noisy simulation needs qiskit-aer; IBM QPU access needs qiskit-ibm-runtime, network access, an IBM Quantum Platform account, and an API key.",
-      "tags": [],
+      "tags": [
+        "quantum computing",
+        "quantum circuits",
+        "IBM Quantum",
+        "physics"
+      ],
       "path": "skills/qiskit",
       "has_scripts": true,
       "origin": "adapted"
@@ -3566,7 +4245,12 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires Python 3.11+, uv, and qutip==5.3.0 for executable simulations. Bundled planners and all script help run with the Python standard library; plotting requires the pinned graphics extra. No network service or credentials are used.",
-      "tags": [],
+      "tags": [
+        "quantum dynamics",
+        "open quantum systems",
+        "quantum simulation",
+        "physics"
+      ],
       "path": "skills/qutip",
       "has_scripts": true,
       "origin": "adapted"
@@ -3624,7 +4308,14 @@
       "version": "1.3",
       "license": "BSD-3-Clause license",
       "compatibility": "Examples target RDKit 2026.03.x. Use conda-forge for the broadest binary support or PyPI package `rdkit` for supported platform wheels; `rdkit-pypi` is the legacy PyPI name.",
-      "tags": [],
+      "tags": [
+        "cheminformatics",
+        "RDKit",
+        "SMILES",
+        "molecular descriptors",
+        "fingerprints",
+        "drug discovery"
+      ],
       "path": "skills/rdkit",
       "has_scripts": true,
       "origin": "adapted"
@@ -3679,7 +4370,12 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "Requires Python >=3.10 with numpy, pandas, and scipy; statsmodels >=0.14 for forecasting and matplotlib for figures. Tested with numpy 2.5, pandas 3.0, scipy 1.18, statsmodels 0.14.6. No network access needed.",
-      "tags": [],
+      "tags": [
+        "animal welfare",
+        "laboratory animals",
+        "humane endpoints",
+        "severity assessment"
+      ],
       "path": "skills/relsa-severity-assessment",
       "has_scripts": true,
       "origin": "adapted"
@@ -3737,7 +4433,13 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Works in Agent Skills-compatible hosts. Grant-writing guidance needs no network; optional figures via the scientific-schematics skill require OPENROUTER_API_KEY and outbound API access.",
-      "tags": [],
+      "tags": [
+        "grant writing",
+        "NIH",
+        "NSF",
+        "research proposals",
+        "funding"
+      ],
       "path": "skills/research-grants",
       "has_scripts": false,
       "origin": "adapted"
@@ -3772,7 +4474,12 @@
       "version": "1.5",
       "license": "MIT",
       "compatibility": "Requires network access to api.parallel.ai through parallel-cli 0.7.1+ for Search, Extract, and Research; explicit Chat uses api.parallel.ai with PARALLEL_API_KEY; optional Perplexity requests use openrouter.ai and require OPENROUTER_API_KEY.",
-      "tags": [],
+      "tags": [
+        "literature search",
+        "scholarly evidence",
+        "research briefs",
+        "references"
+      ],
       "path": "skills/research-lookup",
       "has_scripts": true,
       "origin": "adapted"
@@ -3802,7 +4509,13 @@
       "version": "1.5",
       "license": "Proprietary (API key required)",
       "compatibility": "Python 3.12+, API key required",
-      "tags": [],
+      "tags": [
+        "molecular modeling",
+        "pKa prediction",
+        "docking",
+        "computational chemistry",
+        "drug discovery"
+      ],
       "path": "skills/rowan",
       "has_scripts": false,
       "origin": "adapted"
@@ -3836,7 +4549,13 @@
       "version": "1.6",
       "license": "BSD-3-Clause",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "single-cell RNA-seq",
+        "scRNA-seq",
+        "clustering",
+        "UMAP",
+        "bioinformatics"
+      ],
       "path": "skills/scanpy",
       "has_scripts": true,
       "origin": "adapted"
@@ -3848,7 +4567,12 @@
       "version": "2.2",
       "license": "MIT",
       "compatibility": "Requires Python 3.11+ for optional bundled standard-library CLIs. All tooling is local JSON/CSV processing with no network, credentials, external models, or subprocesses.",
-      "tags": [],
+      "tags": [
+        "scholarly review",
+        "research assessment",
+        "developmental feedback",
+        "academic evaluation"
+      ],
       "path": "skills/scholar-evaluation",
       "has_scripts": true,
       "origin": "adapted"
@@ -3878,7 +4602,12 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Core guidance works in any Agent Skills-compatible host. Optional bundled CLIs require Python 3.11+ and use only the standard library; they make no network or LLM calls and require no credentials.",
-      "tags": [],
+      "tags": [
+        "brainstorming",
+        "research ideation",
+        "research directions",
+        "scientific method"
+      ],
       "path": "skills/scientific-brainstorming",
       "has_scripts": true,
       "origin": "adapted"
@@ -3890,7 +4619,13 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Analytical guidance needs no network. Optional figures via the scientific-schematics skill require OPENROUTER_API_KEY and outbound API access to OpenRouter.",
-      "tags": [],
+      "tags": [
+        "critical thinking",
+        "evidence quality",
+        "bias",
+        "GRADE",
+        "research methods"
+      ],
       "path": "skills/scientific-critical-thinking",
       "has_scripts": false,
       "origin": "adapted"
@@ -3902,7 +4637,12 @@
       "version": "1.7",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "scientific diagrams",
+        "schematics",
+        "figures",
+        "illustrations"
+      ],
       "path": "skills/scientific-schematics",
       "has_scripts": true,
       "origin": "adapted"
@@ -3914,7 +4654,13 @@
       "version": "1.8",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "presentations",
+        "slides",
+        "conference talks",
+        "thesis defense",
+        "academic presentations"
+      ],
       "path": "skills/scientific-slides",
       "has_scripts": true,
       "origin": "adapted"
@@ -3926,7 +4672,13 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires Python 3.11+ and uv for pinned examples. Bundled CLIs are network-free and load Matplotlib, Pillow, or pypdf only when needed. Plotly static export with Kaleido v1 requires a compatible Chrome/Chromium installation.",
-      "tags": [],
+      "tags": [
+        "scientific figures",
+        "data visualization",
+        "publication figures",
+        "accessibility",
+        "plotting"
+      ],
       "path": "skills/scientific-visualization",
       "has_scripts": true,
       "origin": "adapted"
@@ -3938,7 +4690,13 @@
       "version": "2.1",
       "license": "MIT",
       "compatibility": "Requires Python 3.11+ only for optional dependency-free local CLIs; core guidance is platform-neutral. Bundled tools are offline and require no API keys.",
-      "tags": [],
+      "tags": [
+        "scientific writing",
+        "manuscripts",
+        "academic writing",
+        "research papers",
+        "reporting guidelines"
+      ],
       "path": "skills/scientific-writing",
       "has_scripts": true,
       "origin": "adapted"
@@ -3950,7 +4708,13 @@
       "version": "1.2",
       "license": "BSD-3-Clause license",
       "compatibility": "Requires Python 3.10+ and scikit-bio 0.7+ (uv pip install scikit-bio). NumPy 2.0+ is required. Optional matplotlib/seaborn/plotly for plotting; biom-format for BIOM tables; polars/anndata for table interoperability.",
-      "tags": [],
+      "tags": [
+        "bioinformatics",
+        "microbial ecology",
+        "diversity analysis",
+        "phylogenetics",
+        "sequences"
+      ],
       "path": "skills/scikit-bio",
       "has_scripts": false,
       "origin": "adapted"
@@ -3962,7 +4726,13 @@
       "version": "1.3",
       "license": "BSD-3-Clause license",
       "compatibility": "Requires Python 3.11+ and scikit-learn 1.7+. NumPy and SciPy are required dependencies. Optional matplotlib/seaborn for bundled example scripts that save plots.",
-      "tags": [],
+      "tags": [
+        "machine learning",
+        "scikit-learn",
+        "classification",
+        "regression",
+        "cross-validation"
+      ],
       "path": "skills/scikit-learn",
       "has_scripts": true,
       "origin": "adapted"
@@ -3974,7 +4744,13 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires Python 3.11+, uv, and the pinned scikit-survival 0.28.0 stack for executable examples. Bundled CLIs are local and network-free by default.",
-      "tags": [],
+      "tags": [
+        "survival analysis",
+        "Cox regression",
+        "time-to-event",
+        "biostatistics",
+        "machine learning"
+      ],
       "path": "skills/scikit-survival",
       "has_scripts": true,
       "origin": "adapted"
@@ -3986,7 +4762,12 @@
       "version": "1.2",
       "license": "BSD-3-Clause",
       "compatibility": "Requires Python 3.10+ with scvelo, scanpy, and anndata. Verified against scvelo 0.3.4, whose dynamical model and pl.scatter need pandas<3 and whose stochastic estimator needs numpy<2; the deterministic estimator works on current releases.",
-      "tags": [],
+      "tags": [
+        "RNA velocity",
+        "single-cell",
+        "cell trajectories",
+        "transcriptomics"
+      ],
       "path": "skills/scvelo",
       "has_scripts": true,
       "origin": "adapted"
@@ -3998,7 +4779,12 @@
       "version": "1.2",
       "license": "BSD-3-Clause license",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "single-cell",
+        "deep generative models",
+        "batch correction",
+        "cell type annotation"
+      ],
       "path": "skills/scvi-tools",
       "has_scripts": false,
       "origin": "adapted"
@@ -4010,7 +4796,12 @@
       "version": "1.3",
       "license": "BSD-3-Clause license",
       "compatibility": "Requires Python 3.8+ and seaborn 0.13.2-compatible dependencies. Install with uv pip install seaborn==0.13.2; use seaborn[stats]==0.13.2 when advanced regression or clustering examples need scipy/statsmodels.",
-      "tags": [],
+      "tags": [
+        "statistical visualization",
+        "plotting",
+        "data visualization",
+        "Python"
+      ],
       "path": "skills/seaborn",
       "has_scripts": false,
       "origin": "adapted"
@@ -4131,7 +4922,13 @@
       "version": "2.1",
       "license": "MIT",
       "compatibility": "Requires Python 3.12+ and uv for SHAP 0.52.0; model-specific libraries are optional.",
-      "tags": [],
+      "tags": [
+        "explainable AI",
+        "SHAP",
+        "feature attribution",
+        "model interpretability",
+        "machine learning"
+      ],
       "path": "skills/shap",
       "has_scripts": true,
       "origin": "adapted"
@@ -4164,7 +4961,12 @@
       "version": "1.4",
       "license": "MIT",
       "compatibility": "Upstream SimPy 4.1.2 supports Python 3.8+; bundled CLIs require Python 3.10+, uv, and SimPy 4.1.2. They use only SimPy and the standard library, operate on local bounded inputs, and make no network calls.",
-      "tags": [],
+      "tags": [
+        "discrete-event simulation",
+        "simulation",
+        "queueing",
+        "operations research"
+      ],
       "path": "skills/simpy",
       "has_scripts": true,
       "origin": "adapted"
@@ -4275,7 +5077,13 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Requires Python 3.10+, PyTorch >= 2.3, and stable-baselines3 2.8+. Gymnasium environments; optional extras for TensorBoard and Atari (ale-py).",
-      "tags": [],
+      "tags": [
+        "reinforcement learning",
+        "PPO",
+        "SAC",
+        "DQN",
+        "Gymnasium"
+      ],
       "path": "skills/stable-baselines3",
       "has_scripts": true,
       "origin": "adapted"
@@ -4306,7 +5114,13 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "statistics",
+        "hypothesis testing",
+        "effect sizes",
+        "power analysis",
+        "APA reporting"
+      ],
       "path": "skills/statistical-analysis",
       "has_scripts": true,
       "origin": "adapted"
@@ -4318,7 +5132,12 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "Requires Python >=3.10. Examples target statsmodels >=0.14.6, scipy >=1.11, pingouin >=0.6, numpy >=1.26, and matplotlib. Optional extras are statsmodels mixed models and lifelines for simulation-based power.",
-      "tags": [],
+      "tags": [
+        "power analysis",
+        "sample size",
+        "study design",
+        "statistics"
+      ],
       "path": "skills/statistical-power",
       "has_scripts": true,
       "origin": "adapted"
@@ -4330,7 +5149,13 @@
       "version": "1.3",
       "license": "BSD-3-Clause license",
       "compatibility": "Requires Python 3.9+ and statsmodels 0.14.6-compatible dependencies. Use `uv pip install statsmodels==0.14.6`; optional predictive-metric examples also need scikit-learn.",
-      "tags": [],
+      "tags": [
+        "statistical models",
+        "regression",
+        "time series",
+        "econometrics",
+        "statistics"
+      ],
       "path": "skills/statsmodels",
       "has_scripts": false,
       "origin": "adapted"
@@ -4342,7 +5167,13 @@
       "version": "1.3",
       "license": "https://github.com/sympy/sympy/blob/master/LICENSE",
       "compatibility": "Requires Python 3.9+ and SymPy 1.14+. Optional NumPy/SciPy/Matplotlib for lambdify examples; C/Fortran compiler for autowrap/codegen.",
-      "tags": [],
+      "tags": [
+        "symbolic math",
+        "computer algebra",
+        "calculus",
+        "mathematics",
+        "Python"
+      ],
       "path": "skills/sympy",
       "has_scripts": false,
       "origin": "adapted"
@@ -4396,7 +5227,12 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "Requires Python 3.10+, a Tamarind Bio account, and an API key from app.tamarind.bio. Uses the `requests` library against the public REST API (no dedicated Python SDK exists). Network access required. Optional MCP server at mcp.tamarind.bio/mcp for agent hosts.",
-      "tags": [],
+      "tags": [
+        "protein structure prediction",
+        "molecular design",
+        "structural biology",
+        "drug discovery"
+      ],
       "path": "skills/tamarind",
       "has_scripts": false,
       "origin": "adapted"
@@ -4454,7 +5290,12 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "genomic variants",
+        "VCF",
+        "variant storage",
+        "population genomics"
+      ],
       "path": "skills/tiledbvcf",
       "has_scripts": false,
       "origin": "adapted"
@@ -4466,7 +5307,11 @@
       "version": "1.2",
       "license": "Apache-2.0 license",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "time series forecasting",
+        "foundation models",
+        "zero-shot forecasting"
+      ],
       "path": "skills/timesfm-forecasting",
       "has_scripts": true,
       "origin": "adapted"
@@ -4478,7 +5323,12 @@
       "version": "1.2",
       "license": "MIT",
       "compatibility": "Requires Python 3.10+, PyTorch 2.6+, and torch-geometric 2.7.x. Optional extension wheels (pyg-lib, torch-scatter, torch-sparse, torch-cluster) must match your PyTorch/CUDA build from https://data.pyg.org/whl.",
-      "tags": [],
+      "tags": [
+        "graph neural networks",
+        "PyTorch Geometric",
+        "GNN",
+        "deep learning"
+      ],
       "path": "skills/torch-geometric",
       "has_scripts": false,
       "origin": "adapted"
@@ -4490,7 +5340,13 @@
       "version": "1.2",
       "license": "Apache-2.0 license",
       "compatibility": "TorchDrug 0.2.1 requires Python 3.7-3.10 and supports PyTorch 1.8-2.0. Apple Silicon is CPU-only; MPS is unsupported.",
-      "tags": [],
+      "tags": [
+        "drug discovery",
+        "molecular graphs",
+        "molecule generation",
+        "retrosynthesis",
+        "deep learning"
+      ],
       "path": "skills/torchdrug",
       "has_scripts": false,
       "origin": "adapted"
@@ -4561,7 +5417,13 @@
       "version": "1.3",
       "license": "Apache-2.0 license",
       "compatibility": "Requires Python 3.10+, PyTorch 2.4+, and transformers 5.x. Gated or private Hub models need an HF token (`hf auth login` or `HF_TOKEN`).",
-      "tags": [],
+      "tags": [
+        "Hugging Face Transformers",
+        "LLMs",
+        "NLP",
+        "fine-tuning",
+        "deep learning"
+      ],
       "path": "skills/transformers",
       "has_scripts": false,
       "origin": "adapted"
@@ -4573,7 +5435,12 @@
       "version": "2.2",
       "license": "MIT",
       "compatibility": "Python 3.11+ standard library; local JSON files only. Bundled CLIs require no network, external services, models, images, credentials, environment variables, or third-party packages.",
-      "tags": [],
+      "tags": [
+        "treatment plans",
+        "clinical documentation",
+        "medicine",
+        "healthcare"
+      ],
       "path": "skills/treatment-plans",
       "has_scripts": true,
       "origin": "adapted"
@@ -4585,7 +5452,12 @@
       "version": "1.3",
       "license": "BSD-3-Clause license",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "UMAP",
+        "dimensionality reduction",
+        "embeddings",
+        "data visualization"
+      ],
       "path": "skills/umap-learn",
       "has_scripts": false,
       "origin": "adapted"
@@ -4597,7 +5469,13 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "Requires Python 3.12+. The numeric CLIs need pint, uncertainties, NumPy, and SciPy; the static auditor is standard-library only. All bundled tooling runs locally with no network access.",
-      "tags": [],
+      "tags": [
+        "measurement uncertainty",
+        "units",
+        "GUM",
+        "metrology",
+        "physics"
+      ],
       "path": "skills/uncertainty-and-units",
       "has_scripts": true,
       "origin": "adapted"
@@ -4654,7 +5532,13 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "",
-      "tags": [],
+      "tags": [
+        "US Treasury",
+        "fiscal data",
+        "economics",
+        "public finance",
+        "open data"
+      ],
       "path": "skills/usfiscaldata",
       "has_scripts": false,
       "origin": "adapted"
@@ -4666,7 +5550,13 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "Requires Python 3.10+ (3.12+ recommended with vaex 4.19.0). Install with uv pip install vaex. Optional s3fs/gcsfs/adlfs for cloud I/O.",
-      "tags": [],
+      "tags": [
+        "big data",
+        "out-of-core DataFrames",
+        "HDF5",
+        "data analysis",
+        "Python"
+      ],
       "path": "skills/vaex",
       "has_scripts": false,
       "origin": "adapted"
@@ -4678,7 +5568,13 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Requires Python 3.11+ for helper scripts; LaTeX and Poppler command-line tools are optional for compilation and PDF inspection.",
-      "tags": [],
+      "tags": [
+        "journal templates",
+        "LaTeX templates",
+        "conference papers",
+        "academic formatting",
+        "posters"
+      ],
       "path": "skills/venue-templates",
       "has_scripts": true,
       "origin": "adapted"
@@ -4709,7 +5605,12 @@
       "version": "1.1",
       "license": "MIT",
       "compatibility": "Requires Python 3.10+ with `waypoint-bio` (pulls torch, transformers, datasets, peft, scikit-learn). Needs network access and a Hugging Face token with access granted to the gated outpost-bio repos. A GPU is strongly recommended for pretraining and benchmarking.",
-      "tags": [],
+      "tags": [
+        "microbiome",
+        "foundation models",
+        "metagenomics",
+        "benchmarks"
+      ],
       "path": "skills/waypoint-bio",
       "has_scripts": true,
       "origin": "adapted"
@@ -4768,7 +5669,13 @@
       "version": "1.3",
       "license": "MIT",
       "compatibility": "Requires Python 3.12+ and zarr 3.x. Cloud I/O needs zarr[remote] plus pinned s3fs or gcsfs. Legacy Zarr v2 workflows need exact 2.x pins on older Python.",
-      "tags": [],
+      "tags": [
+        "Zarr",
+        "chunked arrays",
+        "cloud storage",
+        "N-dimensional data",
+        "scientific data"
+      ],
       "path": "skills/zarr-python",
       "has_scripts": false,
       "origin": "adapted"

@@ -9,6 +9,7 @@ metadata:
   category: chemistry-and-drug-discovery
   maintainer: Kalaris Labs
   last-reviewed: '2026-07-27'
+  tags: pharmacokinetics, pharmacodynamics, PK/PD, drug development, pharmacology
 ---
 
 # Pharmacokinetic and Pharmacodynamic Modelling

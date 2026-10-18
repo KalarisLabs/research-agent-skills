@@ -13,6 +13,7 @@ metadata:
     - name: OPENROUTER_API_KEY
       required: false
       description: OpenRouter API key for the skill's LLM-powered steps.
+  tags: literature review, systematic review, PubMed, arXiv, evidence synthesis, citations
 ---
 
 # Literature Review

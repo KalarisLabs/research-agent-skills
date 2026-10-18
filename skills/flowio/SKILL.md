@@ -8,6 +8,7 @@ metadata:
   version: '2.1'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: flow cytometry, FCS files, cytometry, immunology, bioinformatics
 ---
 
 # FlowIO

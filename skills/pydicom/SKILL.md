@@ -8,6 +8,7 @@ metadata:
   category: clinical-and-health
   maintainer: Kalaris Labs
   last-reviewed: '2026-07-23'
+  tags: DICOM, medical imaging, radiology, de-identification, Python
 ---
 
 # pydicom

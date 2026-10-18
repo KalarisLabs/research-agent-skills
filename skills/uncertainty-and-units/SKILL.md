@@ -8,6 +8,7 @@ metadata:
   version: '1.1'
   category: ideation-and-design
   maintainer: Kalaris Labs
+  tags: measurement uncertainty, units, GUM, metrology, physics
 ---
 
 # Uncertainty and units

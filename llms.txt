@@ -7,6 +7,7 @@
 - [README](https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/README.md): overview, installation for Claude Code, Codex, Cursor, Gemini CLI, Copilot
 - [Documentation guides](https://docs.kalarislabs.com/research-agent-skills): papers, theses, systematic reviews and installation
 - [Machine-readable catalog](https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/catalog/skills.json): every skill with category and description
+- [Full skill index](https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/llms-full.txt): every skill with full description, tags and install command
 - [Benchmarks](https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/benchmarks/README.md): how skills are evaluated
 
 ## research-writing

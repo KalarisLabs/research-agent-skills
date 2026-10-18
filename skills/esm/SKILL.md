@@ -6,6 +6,7 @@ metadata:
   version: '1.2'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: protein language models, protein design, structure prediction, protein embeddings
 ---
 
 # ESM: Evolutionary Scale Modeling

@@ -8,6 +8,7 @@ metadata:
   category: ideation-and-design
   maintainer: Kalaris Labs
   contributor: AHK Strategies (ashrafkahoush-ux)
+  tags: brainstorming, decision making, multi-perspective analysis, ideation
 ---
 
 # Consciousness Council

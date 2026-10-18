@@ -8,6 +8,7 @@ metadata:
   version: '2.1'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: phylogenetics, phylogenetic trees, Newick, evolutionary biology, bioinformatics
 ---
 
 # ETE Toolkit 4

@@ -13,6 +13,7 @@ metadata:
     - name: OPENROUTER_API_KEY
       required: false
       description: OpenRouter API key for the skill's LLM-powered steps.
+  tags: presentations, slides, conference talks, thesis defense, academic presentations
 ---
 
 # Scientific Slides

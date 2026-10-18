@@ -7,6 +7,7 @@ metadata:
   version: '2.1'
   category: research-writing
   maintainer: Kalaris Labs
+  tags: scientific writing, manuscripts, academic writing, research papers, reporting guidelines
 ---
 
 # Scientific Writing

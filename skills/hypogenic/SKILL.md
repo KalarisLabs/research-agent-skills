@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: ideation-and-design
   maintainer: Kalaris Labs
+  tags: hypothesis generation, LLM, text datasets, research automation
 ---
 
 # HypoGeniC

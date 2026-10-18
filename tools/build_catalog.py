@@ -170,18 +170,36 @@ def build_index(skills: list[Skill], cats: dict, manifest: dict) -> dict:
     }
 
 
+def _top_tags(names: list[str], index: dict, limit: int = 8) -> list[str]:
+    """Most frequent skill tags across a plugin's skills (case-insensitive, most common spelling wins)."""
+    wanted = set(names)
+    variants: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
+    for e in index["skills"]:
+        if e["name"] in wanted:
+            for tag in e["tags"]:
+                variants[tag.lower()][tag] += 1
+    counts = {key: sum(v.values()) for key, v in variants.items()}
+    ranked = sorted(counts, key=lambda t: (-counts[t], t))
+    return [min(variants[t], key=lambda s: (-variants[t][s], s.istitle(), s)) for t in ranked[:limit]]
+
+
+def _plugin_entry(name: str, description: str, skill_names: list[str], index: dict) -> dict:
+    return {"name": name, "description": description, "version": VERSION,
+            "author": {"name": BRAND, "url": REPO_URL}, "homepage": DOCS_URL, "repository": REPO_URL,
+            "license": "MIT", "category": "research", "keywords": _top_tags(skill_names, index),
+            "source": "./", "strict": False, "skills": [f"./skills/{n}" for n in skill_names]}
+
+
 def build_marketplace(index: dict) -> dict:
     by_cat: dict[str, list[str]] = defaultdict(list)
     for e in index["skills"]:
-        by_cat[e["category"]].append(f"./{e['path']}")
+        by_cat[e["category"]].append(e["path"].removeprefix("skills/"))
     plugins = []
     for bundle, definition in index["bundles"].items():
-        plugins.append({"name": bundle, "description": definition["description"], "source": "./", "strict": False,
-                        "skills": [f"./skills/{name}" for name in bundle_skill_names(definition, index)]})
+        plugins.append(_plugin_entry(bundle, definition["description"], bundle_skill_names(definition, index), index))
     for cat in index["categories"]:
         if by_cat.get(cat["id"]):
-            plugins.append({"name": cat["id"], "description": f"{cat['description']}.", "source": "./",
-                            "strict": False, "skills": sorted(by_cat[cat["id"]])})
+            plugins.append(_plugin_entry(cat["id"], f"{cat['description']}.", sorted(by_cat[cat["id"]]), index))
     return {
         "name": MARKETPLACE_NAME,
         "owner": {"name": BRAND, "url": REPO_URL},
@@ -200,7 +218,7 @@ def build_plugin_manifest(index: dict) -> dict:
         "description": (f"{len(index['skills'])} Agent Skills for researchers: scientific and research paper writing, "
                         "journal formats, literature review, citations, data science, ML research and domain science."),
         "author": {"name": BRAND, "url": REPO_URL},
-        "homepage": REPO_URL,
+        "homepage": DOCS_URL,
         "repository": REPO_URL,
         "license": "MIT",
         "keywords": KEYWORDS,
@@ -347,6 +365,7 @@ def build_llms_txt(index: dict) -> str:
            f"- [README]({raw}/README.md): overview, installation for Claude Code, Codex, Cursor, Gemini CLI, Copilot",
            f"- [Documentation guides]({DOCS_URL}): papers, theses, systematic reviews and installation",
            f"- [Machine-readable catalog]({raw}/catalog/skills.json): every skill with category and description",
+           f"- [Full skill index]({raw}/llms-full.txt): every skill with full description, tags and install command",
            f"- [Benchmarks]({raw}/benchmarks/README.md): how skills are evaluated", ""]
     for cat in index["categories"]:
         items = by_cat.get(cat["id"])
@@ -355,6 +374,28 @@ def build_llms_txt(index: dict) -> str:
         out += [f"## {cat['id']}", ""]
         out += [f"- [{e['name']}]({raw}/{e['path']}/SKILL.md): {_first_sentence(e['description'], 200)}" for e in items]
         out.append("")
+    return "\n".join(out)
+
+
+def build_llms_full_txt(index: dict) -> str:
+    """llms-full.txt: every skill's full description, tags and install command in one Markdown file."""
+    by_cat: dict[str, list[dict]] = defaultdict(list)
+    for e in index["skills"]:
+        by_cat[e["category"]].append(e)
+    out = [f"# {PROJECT_NAME}: full skill index", "",
+           f"> {len(index['skills'])} open-source Agent Skills for academic and scientific research by {BRAND}. "
+           f"Repository: {REPO_URL}. Documentation: {DOCS_URL}. Install all: `npx skills add {REPO_SLUG}`.", ""]
+    for cat in index["categories"]:
+        items = by_cat.get(cat["id"])
+        if not items:
+            continue
+        out += [f"## {cat['id']}", "", f"{cat['description']}.", ""]
+        for e in items:
+            out += [f"### {e['name']}", "", e["description"], ""]
+            if e["tags"]:
+                out += [f"Tags: {', '.join(e['tags'])}", ""]
+            out += [f"Install: `npx skills add {REPO_SLUG} --skill {e['name']}` · "
+                    f"Docs: {DOCS_URL}/skills/{e['name']} · Source: {REPO_URL}/tree/main/{e['path']}", ""]
     return "\n".join(out)
 
 
@@ -367,31 +408,115 @@ def update_readme(readme: str, index: dict) -> str:
     return COUNT_RE.sub(f"<!-- count -->{count}+<!-- /count -->", readme)
 
 
-def build_docs(skills: list[Skill], index: dict) -> dict[Path, str]:
+FIELD_PAGES = {
+    "Academic writing": ("Write a research paper with AI", "/guides/write-a-research-paper"),
+    "Machine learning": ("Skills for machine learning research", "/fields/machine-learning"),
+    "Artificial intelligence": ("Skills for AI research", "/fields/artificial-intelligence"),
+    "Biology": ("Skills for biology and bioinformatics", "/fields/biology"),
+    "Chemistry": ("Skills for chemistry and drug discovery", "/fields/chemistry"),
+    "Medicine": ("Skills for medicine and clinical research", "/fields/medicine"),
+    "Physics": ("Skills for physics and astronomy", "/fields/physics"),
+}
+
+
+def _meta_description(text: str, limit: int = 160) -> str:
+    """Whole sentences up to `limit` characters; otherwise cut at a word boundary."""
+    text = " ".join(text.split())
+    out = ""
+    for sentence in re.findall(r".+?[.!?](?:\s|$)|.+$", text):
+        if len(out) + len(sentence) > limit:
+            break
+        out += sentence
+    out = out.strip()
+    if out:
+        return out
+    return text[: limit - 1].rsplit(" ", 1)[0].rstrip(",;:") + "…"
+
+
+def _mdx_safe(text: str) -> str:
+    """Escape characters that MDX would parse as JSX or expressions; renders identically in Markdown."""
+    return " ".join(text.split()).replace("<", "&lt;").replace("{", "\\{").replace("}", "\\}")
+
+
+def _example_prompts(name: str, limit: int = 3) -> list[str]:
+    path = ROOT / "evals" / name / "evals.json"
+    if not path.exists():
+        return []
+    evals = json.loads(path.read_text(encoding="utf-8")).get("evals", [])
+    return [ev["prompt"] for ev in evals if ev.get("should_trigger", True) and ev.get("prompt")][:limit]
+
+
+def _related(name: str, graph: dict, limit: int = 8) -> list[str]:
+    me = f"skill:{name}"
+    out: list[str] = []
+    for edge in graph["edges"]:
+        if edge["type"] != "references":
+            continue
+        other = edge["target"] if edge["source"] == me else edge["source"] if edge["target"] == me else None
+        if other and other.removeprefix("skill:") not in out:
+            out.append(other.removeprefix("skill:"))
+    return out[:limit]
+
+
+def build_skill_page(e: dict, graph: dict) -> str:
+    name, category = e["name"], e["category"]
+    group = next((title for title, _, cats in DIRECTORY_GROUPS if category in cats), None)
+    lines = [
+        "---",
+        f"title: \"{name} — AI agent skill for {category.replace('-', ' ')}\"",
+        f"description: {json.dumps(_meta_description(e['description']), ensure_ascii=False)}",
+    ]
+    if e["tags"]:
+        lines.append(f"keywords: {json.dumps(e['tags'], ensure_ascii=False)}")
+    lines += [
+        "---", "",
+        f"# `{name}`", "",
+        f"**Category:** [{category}](/skills#{category}) · **License:** {e['license'] or 'MIT'} · "
+        f"**Version:** {e['version']}" + (" · **Includes scripts**" if e["has_scripts"] else ""), "",
+    ]
+    if e["tags"]:
+        lines += ["**Tags:** " + ", ".join(_mdx_safe(t) for t in e["tags"]), ""]
+    lines += ["## When to use it", "", _mdx_safe(e["description"]), ""]
+    prompts = _example_prompts(name)
+    if prompts:
+        lines += ["## Example requests", "", "Ask your agent in plain language, for example:", ""]
+        lines += [f"- *\"{_mdx_safe(p)}\"*" for p in prompts]
+        lines.append("")
+    lines += [
+        "## Install", "",
+        "```bash",
+        "# skills.sh (Claude Code, Codex, Cursor, Gemini CLI, Copilot and more)",
+        f"npx skills add {REPO_SLUG} --skill {name}",
+        "",
+        "# Kalaris Labs installer with checksum verification",
+        f"npx research-agent-skills install {name}",
+        "```", "",
+        f"In Claude Code you can also add the marketplace with `/plugin marketplace add {REPO_SLUG}` and install "
+        f"the whole `{category}` category with `/plugin install {category}@{MARKETPLACE_NAME}`.", "",
+    ]
+    related = _related(name, graph)
+    if related or group in FIELD_PAGES:
+        lines += ["## Related", ""]
+        lines += [f"- [`{r}`](/skills/{r})" for r in related]
+        if group in FIELD_PAGES:
+            label, href = FIELD_PAGES[group]
+            lines.append(f"- [{label}]({href})")
+        lines.append("")
+    lines += [
+        "## Full playbook", "",
+        f"Read [SKILL.md]({REPO_URL}/blob/main/{e['path']}/SKILL.md) for the complete workflow, "
+        "references and any scripts. The agent installer copies the full skill folder.",
+        "",
+    ]
+    return "\n".join(lines)
+
+
+def build_docs(skills: list[Skill], index: dict, graph: dict) -> dict[Path, str]:
     pages: dict[Path, str] = {}
     by_cat: dict[str, list[dict]] = defaultdict(list)
     for s, e in zip(skills, index["skills"], strict=True):
         by_cat[e["category"]].append(e)
-        pages[ROOT / "docs" / "skills" / f"{s.name}.md"] = "\n".join([
-            "---",
-            f"title: \"{s.name} — AI agent skill for {e['category'].replace('-', ' ')}\"",
-            f"description: {json.dumps(_first_sentence(e['description'], 155), ensure_ascii=False)}",
-            "---", "",
-            f"# `{s.name}`", "",
-            f"> {e['description']}", "",
-            f"**Category:** [{e['category']}](/skills#{e['category']}) · **License:** {e['license'] or 'MIT'} · "
-            f"**Version:** {e['version']}", "",
-            "## Install", "",
-            "```bash",
-            f"npx skills add {REPO_SLUG} --skill {s.name}",
-            "```", "",
-            "## When to use it", "",
-            e["description"], "",
-            "## Full playbook", "",
-            f"Read [SKILL.md]({REPO_URL}/blob/main/{e['path']}/SKILL.md) for the complete workflow, "
-            "references and any scripts. The agent installer copies the full skill folder.",
-            "",
-        ])
+        pages[ROOT / "docs" / "skills" / f"{s.name}.md"] = build_skill_page(e, graph)
     idx = ["---", "title: Research Agent Skills for Academia | Kalaris Labs",
            (f"description: Browse {len(skills)} AI agent skills for academic writing and scientific research "
             "across AI, machine learning, biology, chemistry, medicine and physics."),
@@ -433,6 +558,7 @@ def main(argv: list[str] | None = None) -> int:
         ROOT / "THIRD_PARTY_NOTICES.md": build_notices(manifest),
         ROOT / "llms.txt": build_llms_txt(index),
         ROOT / "docs" / "llms.txt": build_llms_txt(index),
+        ROOT / "llms-full.txt": build_llms_full_txt(index),
     }
     # Plain-text skill lists for the shell installers' no-Node fallback.
     for cat in index["categories"]:
@@ -455,7 +581,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.docs:
-        outputs.update(build_docs(skills, index))
+        outputs.update(build_docs(skills, index, graph))
     changed = [p.relative_to(ROOT).as_posix() for p, text in outputs.items() if write_text(p, text)]
     detail = (":\n  " + "\n  ".join(changed[:20])) if changed else ""
     print(f"{len(skills)} skills; {len(changed)} files updated{detail}")

@@ -8,6 +8,7 @@ metadata:
   category: physical-sciences
   maintainer: Kalaris Labs
   last-reviewed: '2026-07-23'
+  tags: quantum dynamics, open quantum systems, quantum simulation, physics
 ---
 
 # QuTiP 5

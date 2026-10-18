@@ -10,6 +10,7 @@ metadata:
   website: https://folklore.helena.bio
   github: https://github.com/helena-bioinformatics/folklore-mcp
   contributor: Helena Bioinformatics
+  tags: clinical genomics, variant interpretation, ClinGen, germline variants, genetics
 ---
 
 # Folklore Variant Evidence

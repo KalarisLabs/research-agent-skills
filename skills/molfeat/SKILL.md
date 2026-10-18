@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: chemistry-and-drug-discovery
   maintainer: Kalaris Labs
+  tags: molecular featurization, fingerprints, descriptors, cheminformatics, machine learning
 ---
 
 # Molfeat - Molecular Featurization Hub

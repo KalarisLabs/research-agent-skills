@@ -7,6 +7,7 @@ metadata:
   version: '1.3'
   category: chemistry-and-drug-discovery
   maintainer: Kalaris Labs
+  tags: protein engineering, binding assays, protein screening, lab automation, drug discovery
 ---
 
 # Adaptyv Bio Foundry API

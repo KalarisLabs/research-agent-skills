@@ -119,6 +119,9 @@ def check_frontmatter(skill_dir: Path, meta: dict, rep: Report, categories: set[
     for required in ("version", "maintainer"):
         if not md.get(required):
             rep.err(sid, f"metadata.{required} is required")
+    if not str(md.get("tags", "")).strip():
+        rep.warn(sid, "metadata.tags is empty (comma-separated search tags; "
+                      "adapted skills: third_party/tag-overrides.yaml)")
 
 
 def check_files(skill_dir: Path, rep: Report) -> None:
