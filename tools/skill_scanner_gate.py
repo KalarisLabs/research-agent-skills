@@ -5,6 +5,10 @@ and writes a JSON report; this script fails on HIGH/CRITICAL findings that are
 not in the reviewed baseline (security/skill-scanner-baseline.json). Baseline
 keys are `skill|rule|file`, so accepted findings survive unrelated line edits.
 
+If a SARIF report sits next to the JSON report (same name, `.sarif`), baselined
+findings are removed from it in place, so GitHub code scanning shows the same
+unreviewed findings this gate fails on instead of every accepted false positive.
+
 Usage:
     uvx --from cisco-ai-skill-scanner skill-scanner scan-all skills --recursive --format json --output r.json
     uv run tools/skill_scanner_gate.py r.json
@@ -34,6 +38,38 @@ def finding_key(skill: str, finding: dict) -> str:
     return f"{skill}|{finding.get('rule_id')}|{path}"
 
 
+def sarif_key(result: dict) -> tuple[str, str] | None:
+    """(`skill|rule|file`, `skill|rule|`) for a SARIF result located under skills/<skill>/."""
+    try:
+        uri = result["locations"][0]["physicalLocation"]["artifactLocation"]["uri"]
+    except (KeyError, IndexError, TypeError):
+        return None
+    path = "/" + str(uri).replace("\\", "/").lstrip("/")
+    if "/skills/" not in path:  # whole path segment, so "research-agent-skills/" does not match
+        return None
+    skill, _, rel = path.rsplit("/skills/", 1)[1].partition("/")
+    rule = result.get("ruleId", "")
+    return f"{skill}|{rule}|{rel.lower()}", f"{skill}|{rule}|"
+
+
+def filter_sarif(path: Path, accepted: set[str]) -> tuple[int, int]:
+    """Drop baselined results from a SARIF file in place; return (kept, removed)."""
+    sarif = json.loads(path.read_text(encoding="utf-8"))
+    kept = removed = 0
+    for run in sarif.get("runs", []):
+        results = []
+        for res in run.get("results", []):
+            keys = sarif_key(res)
+            if keys and (keys[0] in accepted or keys[1] in accepted):
+                removed += 1
+            else:
+                results.append(res)
+        run["results"] = results
+        kept += len(results)
+    path.write_text(json.dumps(sarif, indent=1) + "\n", encoding="utf-8", newline="\n")
+    return kept, removed
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("report", type=Path)
@@ -58,6 +94,10 @@ def main(argv: list[str] | None = None) -> int:
 
     accepted = set(json.loads(BASELINE.read_text(encoding="utf-8"))["accepted"]) if BASELINE.exists() else set()
     new = [(s, f) for s, f in blocking if finding_key(s, f) not in accepted]
+    sarif_path = args.report.with_suffix(".sarif")
+    if sarif_path.exists():
+        kept, removed = filter_sarif(sarif_path, accepted)
+        print(f"{sarif_path.name}: removed {removed} baselined results, kept {kept} for code scanning")
     for skill, f in new:
         where = f"{f.get('file_path')}:{f.get('line_number') or ''}"
         desc = str(f.get("description", ""))[:200]
