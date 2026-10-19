@@ -52,11 +52,11 @@ bench-tasks: ## With-vs-without-skill task outcomes, blind LLM judge (paid)
 
 docs: ## Validate Mintlify documentation pages and links
 	uv run tools/build_catalog.py --docs
-	cd docs && npx -y mint@4.2.963 broken-links
+	cd docs && npx -y mint@4.2.1067 broken-links
 
 docs-serve: ## Live-preview the Mintlify documentation site
 	uv run tools/build_catalog.py --docs
-	cd docs && npx -y mint@4.2.963 dev
+	cd docs && npx -y mint@4.2.1067 dev
 
 import: ## Re-import adapted skills from pinned upstream revisions
 	uv run tools/import_upstream.py
