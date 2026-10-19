@@ -25,7 +25,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from common import REPO_SLUG, ROOT  # noqa: E402
+from common import REPO_SLUG, ROOT, write_text  # noqa: E402
 
 for _stream in (sys.stdout, sys.stderr):
     if hasattr(_stream, "reconfigure"):
@@ -112,10 +112,10 @@ def main(argv: list[str] | None = None) -> int:
     if old.get("skills") == data["skills"] and old.get("total") == total:
         print(f"unchanged: {len(counts)} skills, {total} installs")
         return 0
-    out.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+    write_text(out, json.dumps(data, indent=2) + "\n")
     readme_path = ROOT / "README.md"
     readme = readme_path.read_text(encoding="utf-8")
-    readme_path.write_text(update_readme(readme, render_table(counts, total, args.top, date)), encoding="utf-8")
+    write_text(readme_path, update_readme(readme, render_table(counts, total, args.top, date)))
     print(f"updated: {len(counts)} skills, {total} installs")
     return 0
 
