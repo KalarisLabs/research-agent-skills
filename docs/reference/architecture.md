@@ -68,7 +68,7 @@ flowchart LR
 | `supply-chain.yml` | PR, main, daily | TruffleHog, dependency review, pip-audit, npm audit, OSV-Scanner |
 | `test.yml` | PR, main | pytest (3 OS × 3 Python), CLI (3 OS × 4 Node), installer end-to-end |
 | `benchmarks.yml` | PR, weekly, manual | Quality rubric and trigger gates; citation benchmark; paid model benchmarks on demand |
-| `release.yml` | tag `v*` | Verify, build tarball + SHA256SUMS, attest, sign, GitHub release; npm publish only when `NPM_PUBLISH_ENABLED` is set (off: not on npm) |
+| `release.yml` | tag `v*` | Verify, build tarball + SHA256SUMS, attest, sign, GitHub release, npm publish with provenance (no package exists yet: the CLI is not on npm) |
 | `docs.yml`, `links.yml`, `scorecard.yml` | main / weekly | Docs site, dead links, OpenSSF Scorecard |
 
 ## Adapted vs original skills

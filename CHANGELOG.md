@@ -9,12 +9,11 @@ All notable changes to this project are documented here. The format follows
 ### Changed
 - Distribution is skills.sh, the Claude Code plugin marketplace, GitHub CLI and the checksum-verified
   `install.sh`/`install.ps1` installers. The `research-agent-skills` CLI is not published to npm; README,
-  docs, generated skill pages and metadata no longer point to npm, and the release workflow publishes to npm
-  only when the `NPM_PUBLISH_ENABLED` repository variable is `true`.
+  docs, generated skill pages and metadata no longer point to npm.
 
 ### Added
-- README "Most installed" leaderboard and `catalog/installs.json`, refreshed weekly from skills.sh by
-  `tools/update_install_stats.py` and `.github/workflows/install-stats.yml`.
+- README "Most installed" leaderboard and `catalog/installs.json`, refreshed from skills.sh by
+  `tools/update_install_stats.py`.
 - Eval suites for all 281 skills (`evals/<skill>/evals.json`): realistic prompts plus near misses naming the
   better skill. Suites for adapted skills were generated from each `SKILL.md` and are marked `pending review`.
 - Import-time enrichment of adapted skills (`tools/enrich.py`): oversized skills split into `references/`,

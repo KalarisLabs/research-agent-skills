@@ -140,7 +140,7 @@ The skills follow the [Agent Skills specification](https://agentskills.io/specif
 
 ### Most installed
 
-What researchers install first, refreshed weekly from skills.sh by
+What researchers install first, pulled from skills.sh by
 [`tools/update_install_stats.py`](tools/update_install_stats.py) (full counts in [`catalog/installs.json`](catalog/installs.json)).
 
 <!-- installs:start -->
