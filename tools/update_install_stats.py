@@ -45,7 +45,7 @@ CARD_RE = re.compile(
 
 
 def fetch(url: str) -> str:
-    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    req = urllib.request.Request(url, headers={"User-Agent": UA})  # noqa: S310 (fixed https URL)
     with urllib.request.urlopen(req, timeout=30) as r:  # noqa: S310 (fixed https URL)
         return r.read().decode("utf-8")
 

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import pytest
-
 import update_install_stats as stats
 
 CARD = ('<a class="group grid" href="/kalarislabs/research-agent-skills/{name}"><div class="min-w-0">'
