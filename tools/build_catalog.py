@@ -129,6 +129,7 @@ def bundle_skill_names(bundle: dict, index: dict) -> list[str]:
     return sorted(set(bundle["skills"]) | {e["name"] for e in index["skills"] if e["category"] in cats})
 CATALOG_START, CATALOG_END = "<!-- catalog:start -->", "<!-- catalog:end -->"
 COUNT_RE = re.compile(r"<!-- count -->\d+\+?<!-- /count -->")
+SKILLS_BADGE_RE = re.compile(r"(img\.shields\.io/badge/skills-)\d+(-)")
 
 
 def _json(data: object) -> str:
@@ -405,6 +406,7 @@ def update_readme(readme: str, index: dict) -> str:
         _, post = rest.split(CATALOG_END, 1)
         readme = pre + build_readme_catalog(index) + post
     count = len(index["skills"]) // 10 * 10
+    readme = SKILLS_BADGE_RE.sub(rf"\g<1>{len(index['skills'])}\g<2>", readme)
     return COUNT_RE.sub(f"<!-- count -->{count}+<!-- /count -->", readme)
 
 
