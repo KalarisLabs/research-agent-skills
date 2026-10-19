@@ -28,8 +28,8 @@ Ask your agent in plain language, for example:
 # skills.sh (Claude Code, Codex, Cursor, Gemini CLI, Copilot and more)
 npx skills add KalarisLabs/research-agent-skills --skill nemo-guardrails
 
-# Kalaris Labs installer with checksum verification
-npx research-agent-skills install nemo-guardrails
+# GitHub CLI
+gh skill install KalarisLabs/research-agent-skills nemo-guardrails
 ```
 
 In Claude Code you can also add the marketplace with `/plugin marketplace add KalarisLabs/research-agent-skills` and install the whole `ml-evaluation-and-safety` category with `/plugin install ml-evaluation-and-safety@research-agent-skills`.

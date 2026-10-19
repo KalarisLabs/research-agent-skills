@@ -26,8 +26,8 @@ Ask your agent in plain language, for example:
 # skills.sh (Claude Code, Codex, Cursor, Gemini CLI, Copilot and more)
 npx skills add KalarisLabs/research-agent-skills --skill systematic-review-prisma
 
-# Kalaris Labs installer with checksum verification
-npx research-agent-skills install systematic-review-prisma
+# GitHub CLI
+gh skill install KalarisLabs/research-agent-skills systematic-review-prisma
 ```
 
 In Claude Code you can also add the marketplace with `/plugin marketplace add KalarisLabs/research-agent-skills` and install the whole `literature-review` category with `/plugin install literature-review@research-agent-skills`.

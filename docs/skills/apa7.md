@@ -26,8 +26,8 @@ Ask your agent in plain language, for example:
 # skills.sh (Claude Code, Codex, Cursor, Gemini CLI, Copilot and more)
 npx skills add KalarisLabs/research-agent-skills --skill apa7
 
-# Kalaris Labs installer with checksum verification
-npx research-agent-skills install apa7
+# GitHub CLI
+gh skill install KalarisLabs/research-agent-skills apa7
 ```
 
 In Claude Code you can also add the marketplace with `/plugin marketplace add KalarisLabs/research-agent-skills` and install the whole `journal-formats` category with `/plugin install journal-formats@research-agent-skills`.

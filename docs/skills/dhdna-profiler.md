@@ -28,8 +28,8 @@ Ask your agent in plain language, for example:
 # skills.sh (Claude Code, Codex, Cursor, Gemini CLI, Copilot and more)
 npx skills add KalarisLabs/research-agent-skills --skill dhdna-profiler
 
-# Kalaris Labs installer with checksum verification
-npx research-agent-skills install dhdna-profiler
+# GitHub CLI
+gh skill install KalarisLabs/research-agent-skills dhdna-profiler
 ```
 
 In Claude Code you can also add the marketplace with `/plugin marketplace add KalarisLabs/research-agent-skills` and install the whole `research-writing` category with `/plugin install research-writing@research-agent-skills`.

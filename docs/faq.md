@@ -43,6 +43,13 @@ handling is governed by its provider.
 Start with `npx skills add KalarisLabs/research-agent-skills` and choose the skills for your research task.
 Installing everything works but places every skill description in your agent's context.
 
+### Is there an npm package?
+
+No. `npx skills` is the open skills.sh CLI, which installs straight from the GitHub repository. There is no
+`research-agent-skills` package on the npm registry, and any package using that name is not ours. Other ways to
+install are the Claude Code plugin marketplace, `gh skill install` and the checksum-verified `install.sh` and
+`install.ps1` scripts ([installation guide](/getting-started/installation)).
+
 ### How do you know the skills are any good?
 
 Every skill is scored by a static rubric, a trigger-routing benchmark and with-vs-without-skill task evaluations,

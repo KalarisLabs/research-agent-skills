@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/KalarisLabs/research-agent-skills",
   "url": "https://docs.kalarislabs.com/research-agent-skills",
   "issueTracker": "https://github.com/KalarisLabs/research-agent-skills/issues",
-  "downloadUrl": "https://www.npmjs.com/package/research-agent-skills",
+  "downloadUrl": "https://skills.sh/kalarislabs/research-agent-skills",
   "programmingLanguage": ["Python", "TypeScript", "Markdown"],
   "applicationCategory": "Research software",
   "developmentStatus": "active",

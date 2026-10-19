@@ -28,8 +28,8 @@ Ask your agent in plain language, for example:
 # skills.sh (Claude Code, Codex, Cursor, Gemini CLI, Copilot and more)
 npx skills add KalarisLabs/research-agent-skills --skill peft-fine-tuning
 
-# Kalaris Labs installer with checksum verification
-npx research-agent-skills install peft-fine-tuning
+# GitHub CLI
+gh skill install KalarisLabs/research-agent-skills peft-fine-tuning
 ```
 
 In Claude Code you can also add the marketplace with `/plugin marketplace add KalarisLabs/research-agent-skills` and install the whole `ml-training` category with `/plugin install ml-training@research-agent-skills`.

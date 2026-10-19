@@ -28,8 +28,8 @@ Ask your agent in plain language, for example:
 # skills.sh (Claude Code, Codex, Cursor, Gemini CLI, Copilot and more)
 npx skills add KalarisLabs/research-agent-skills --skill skypilot-multi-cloud-orchestration
 
-# Kalaris Labs installer with checksum verification
-npx research-agent-skills install skypilot-multi-cloud-orchestration
+# GitHub CLI
+gh skill install KalarisLabs/research-agent-skills skypilot-multi-cloud-orchestration
 ```
 
 In Claude Code you can also add the marketplace with `/plugin marketplace add KalarisLabs/research-agent-skills` and install the whole `ml-inference-and-ops` category with `/plugin install ml-inference-and-ops@research-agent-skills`.

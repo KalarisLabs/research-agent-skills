@@ -59,8 +59,8 @@
         "href": "https://github.com/KalarisLabs/research-agent-skills"
       },
       {
-        "label": "npm",
-        "href": "https://www.npmjs.com/package/research-agent-skills"
+        "label": "Skills Directory",
+        "href": "https://www.skillsdirectory.com/authors/kalarislabs"
       },
       {
         "label": "skills.sh",
@@ -83,7 +83,6 @@
         "header": "Find us on",
         "items": [
           { "label": "GitHub", "href": "https://github.com/KalarisLabs/research-agent-skills" },
-          { "label": "npm", "href": "https://www.npmjs.com/package/research-agent-skills" },
           { "label": "skills.sh", "href": "https://skills.sh/kalarislabs/research-agent-skills" },
           { "label": "Skills Directory", "href": "https://www.skillsdirectory.com/authors/kalarislabs" }
         ]

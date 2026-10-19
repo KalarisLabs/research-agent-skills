@@ -27,8 +27,8 @@ Ask your agent in plain language, for example:
 # skills.sh (Claude Code, Codex, Cursor, Gemini CLI, Copilot and more)
 npx skills add KalarisLabs/research-agent-skills --skill firecrawl-research-index
 
-# Kalaris Labs installer with checksum verification
-npx research-agent-skills install firecrawl-research-index
+# GitHub CLI
+gh skill install KalarisLabs/research-agent-skills firecrawl-research-index
 ```
 
 In Claude Code you can also add the marketplace with `/plugin marketplace add KalarisLabs/research-agent-skills` and install the whole `literature-review` category with `/plugin install literature-review@research-agent-skills`.

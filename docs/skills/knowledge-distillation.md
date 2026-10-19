@@ -28,8 +28,8 @@ Ask your agent in plain language, for example:
 # skills.sh (Claude Code, Codex, Cursor, Gemini CLI, Copilot and more)
 npx skills add KalarisLabs/research-agent-skills --skill knowledge-distillation
 
-# Kalaris Labs installer with checksum verification
-npx research-agent-skills install knowledge-distillation
+# GitHub CLI
+gh skill install KalarisLabs/research-agent-skills knowledge-distillation
 ```
 
 In Claude Code you can also add the marketplace with `/plugin marketplace add KalarisLabs/research-agent-skills` and install the whole `multimodal-and-emerging` category with `/plugin install multimodal-and-emerging@research-agent-skills`.

@@ -28,8 +28,8 @@ Ask your agent in plain language, for example:
 # skills.sh (Claude Code, Codex, Cursor, Gemini CLI, Copilot and more)
 npx skills add KalarisLabs/research-agent-skills --skill genomic-coordinates
 
-# Kalaris Labs installer with checksum verification
-npx research-agent-skills install genomic-coordinates
+# GitHub CLI
+gh skill install KalarisLabs/research-agent-skills genomic-coordinates
 ```
 
 In Claude Code you can also add the marketplace with `/plugin marketplace add KalarisLabs/research-agent-skills` and install the whole `scientific-databases` category with `/plugin install scientific-databases@research-agent-skills`.

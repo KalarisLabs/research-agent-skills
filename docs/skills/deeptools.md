@@ -28,8 +28,8 @@ Ask your agent in plain language, for example:
 # skills.sh (Claude Code, Codex, Cursor, Gemini CLI, Copilot and more)
 npx skills add KalarisLabs/research-agent-skills --skill deeptools
 
-# Kalaris Labs installer with checksum verification
-npx research-agent-skills install deeptools
+# GitHub CLI
+gh skill install KalarisLabs/research-agent-skills deeptools
 ```
 
 In Claude Code you can also add the marketplace with `/plugin marketplace add KalarisLabs/research-agent-skills` and install the whole `life-sciences` category with `/plugin install life-sciences@research-agent-skills`.

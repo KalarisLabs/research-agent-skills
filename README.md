@@ -4,7 +4,7 @@
 
 # Research Agent Skills
 
-### Research skills for academia: AI, machine learning, biology, chemistry, medicine and physics
+### Claude Code, Codex and Cursor skills for academic research: paper writing, citation checking, literature reviews and science in AI, ML, biology, chemistry, medicine and physics
 
 **<!-- count -->280+<!-- /count --> open-source skills that turn Claude Code, Codex, Cursor, Gemini CLI and GitHub Copilot into careful research assistants.**
 
@@ -29,6 +29,12 @@
 [![GitHub Copilot](https://img.shields.io/badge/GitHub_Copilot-24292f?logo=githubcopilot&logoColor=white)](#install)
 [![Windsurf](https://img.shields.io/badge/Windsurf-0b100f?logo=windsurf&logoColor=white)](#install)
 [![OpenCode](https://img.shields.io/badge/OpenCode-333333)](#install)
+
+```bash
+npx skills add KalarisLabs/research-agent-skills
+```
+
+<sub>One command via <a href="https://skills.sh/kalarislabs/research-agent-skills">skills.sh</a> · no account · pick all skills or only the ones you need · not on npm</sub>
 
 [Install](#install) · [Who it's for](#built-for-researchers) · [Benchmarks](#measured-not-claimed) · [Skills](#skill-catalog) · [skills.sh](https://skills.sh/kalarislabs/research-agent-skills) · [Docs](https://docs.kalarislabs.com/research-agent-skills) · [FAQ](#faq)
 
@@ -119,11 +125,13 @@ Bundles: `research-essentials`, `ml-research`, `ai-research`, `biology-research`
 | GitHub CLI | `gh skill install KalarisLabs/research-agent-skills` |
 | macOS / Linux, checksum-verified release | `curl -fsSL https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/install.sh \| sh` |
 | Windows, checksum-verified release | `irm https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/install.ps1 \| iex` |
-| Kalaris Labs npm installer (being published) | `npx research-agent-skills install --bundle biology-research` |
+| A field bundle without Node.js | `curl -fsSL https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/install.sh \| RAS_BUNDLE=biology-research sh` |
 
-The standalone installers verify pinned release downloads with SHA-256. The `research-agent-skills` npm
-installer adds bundles, `doctor` and `uninstall`; until [its npm page](https://www.npmjs.com/package/research-agent-skills)
-shows a version, use skills.sh. Full guide: [Installation](docs/getting-started/installation.md).
+The standalone installers verify pinned release downloads with SHA-256. Full guide: [Installation](docs/getting-started/installation.md).
+
+**Not on npm.** There is no `research-agent-skills` package on the npm registry. `npx skills` is the
+open [skills.sh](https://skills.sh) CLI, which reads this GitHub repository directly. Any npm package
+claiming to be this project is not ours.
 
 </details>
 
@@ -676,8 +684,9 @@ Grouped by category and generated from [`catalog/skills.json`](catalog/skills.js
 |---|---|
 | [Documentation](https://docs.kalarislabs.com/research-agent-skills) | Guides by research task and field, plus one page per skill |
 | [skills.sh](https://skills.sh/kalarislabs/research-agent-skills) | Browse and install individual skills with `npx skills add` |
-| [npm](https://www.npmjs.com/package/research-agent-skills) | `npx research-agent-skills` installer with curated field bundles |
 | [Skills Directory](https://www.skillsdirectory.com/authors/kalarislabs) | Independent security grades for each skill |
+| [SkillsMP](https://skillsmp.com) | Indexes every public `SKILL.md`, searchable by task |
+| [Awesome Scientific Skills](https://github.com/InternScience/Awesome-Scientific-Skills) · [Agent Skill Index](https://github.com/heilcheng/awesome-agent-skills) · [Awesome Claude Skills](https://github.com/BehiSecc/awesome-claude-skills) | Curated lists (submissions pending) |
 | Claude Code plugin marketplace | `/plugin marketplace add KalarisLabs/research-agent-skills` |
 
 ## Security
@@ -711,6 +720,32 @@ It improves clarity. It is not a way to hide AI use.
 
 Yes. MIT license. Some skills document third-party software or bundle publisher templates with their own licenses
 (see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).
+</details>
+
+<details><summary><b>How do I install Claude Code skills for academic research?</b></summary>
+
+Run `npx skills add KalarisLabs/research-agent-skills` and pick skills, or add `--all` for everything. The same command
+installs into Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode, Windsurf and about 70 other agents. In Claude Code
+you can also use `/plugin marketplace add KalarisLabs/research-agent-skills`. See [Install](#install).
+</details>
+
+<details><summary><b>Is there an npm package?</b></summary>
+
+No. `npx skills` is the open skills.sh CLI, which installs straight from this GitHub repository. There is no
+`research-agent-skills` package on the npm registry, and any package using that name is not ours.
+</details>
+
+<details><summary><b>Which AI tools does it work with?</b></summary>
+
+Any agent that supports the open [Agent Skills](https://agentskills.io) format: Claude Code, OpenAI Codex, Cursor,
+Gemini CLI, GitHub Copilot, OpenCode, Windsurf, Cline, Goose, Amp and more. Skills are plain folders with a `SKILL.md`,
+so nothing is locked to one vendor.
+</details>
+
+<details><summary><b>Can it help with a systematic review or meta-analysis?</b></summary>
+
+Yes. `systematic-review-prisma` covers protocol, search strings, deduplication, screening and the PRISMA 2020 flow
+diagram; `statistical-analysis` and `citation-verification` cover pooling and reference checks.
 </details>
 
 More in the [FAQ](docs/faq.md).

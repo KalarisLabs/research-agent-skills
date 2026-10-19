@@ -1,6 +1,6 @@
 # Research Agent Skills
 
-> 281 open-source Agent Skills (SKILL.md) for academic research by Kalaris Labs: research paper and thesis writing without AI slop, journal formatting (Nature, Science, Cell, IEEE, ACM, Elsevier, Springer LNCS, PLOS, APA 7, arXiv), literature and systematic reviews (PRISMA 2020), citation verification, and 100+ scientific databases and analysis packages. Install: `npx skills add KalarisLabs/research-agent-skills`.
+> 281 open-source Agent Skills (SKILL.md) for academic research by Kalaris Labs: research paper and thesis writing without AI slop, journal formatting (Nature, Science, Cell, IEEE, ACM, Elsevier, Springer LNCS, PLOS, APA 7, arXiv), literature and systematic reviews (PRISMA 2020), citation verification, and 100+ scientific databases and analysis packages. Install: `npx skills add KalarisLabs/research-agent-skills` (skills.sh CLI; add `--all` for every skill or `--skill <name>` for specific ones). Not published as an npm package.
 
 ## Docs
 

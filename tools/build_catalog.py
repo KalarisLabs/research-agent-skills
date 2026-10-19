@@ -361,7 +361,8 @@ def build_llms_txt(index: dict) -> str:
            "research paper and thesis writing without AI slop, journal formatting (Nature, Science, Cell, IEEE, "
            "ACM, Elsevier, Springer LNCS, PLOS, APA 7, arXiv), literature and systematic reviews (PRISMA 2020), "
            "citation verification, and 100+ scientific databases and analysis packages. "
-           f"Install: `npx skills add {REPO_SLUG}`.",
+           f"Install: `npx skills add {REPO_SLUG}` (skills.sh CLI; add `--all` for every skill or "
+           "`--skill <name>` for specific ones). Not published as an npm package.",
            "", "## Docs", "",
            f"- [README]({raw}/README.md): overview, installation for Claude Code, Codex, Cursor, Gemini CLI, Copilot",
            f"- [Documentation guides]({DOCS_URL}): papers, theses, systematic reviews and installation",
@@ -490,8 +491,8 @@ def build_skill_page(e: dict, graph: dict) -> str:
         "# skills.sh (Claude Code, Codex, Cursor, Gemini CLI, Copilot and more)",
         f"npx skills add {REPO_SLUG} --skill {name}",
         "",
-        "# Kalaris Labs installer with checksum verification",
-        f"npx research-agent-skills install {name}",
+        "# GitHub CLI",
+        f"gh skill install {REPO_SLUG} {name}",
         "```", "",
         f"In Claude Code you can also add the marketplace with `/plugin marketplace add {REPO_SLUG}` and install "
         f"the whole `{category}` category with `/plugin install {category}@{MARKETPLACE_NAME}`.", "",
