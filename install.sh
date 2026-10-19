@@ -7,12 +7,12 @@
 #   RAS_VERSION   release to install, e.g. 1.0.0 (default: latest)
 #   RAS_BUNDLE    bundle or category to install (default: research-essentials; "all" for everything)
 #   RAS_HARNESS   auto | all | comma list: claude-code,codex,cursor,gemini-cli,copilot,opencode,windsurf,agents
-#   RAS_NO_NODE   set to 1 to force the standalone (no Node.js) installer
+#   RAS_USE_NPM   set to 1 to delegate to the research-agent-skills npm CLI (not published yet)
+#   RAS_NO_NODE   accepted for compatibility; the standalone installer is already the default
 #   RAS_BASE_URL  release download base URL (testing/mirrors); default GitHub Releases
 #
-# With Node.js >= 18 this delegates to the npm CLI (published with provenance).
-# Without Node it downloads the release tarball, verifies it against the
-# release SHA256SUMS, and copies the selected skills into place.
+# Downloads the release tarball, verifies it against the release SHA256SUMS,
+# and copies the selected skills into place. Node.js is not required.
 set -eu
 
 REPO="KalarisLabs/research-agent-skills"
@@ -26,7 +26,7 @@ die() { printf 'error: %s\n' "$*" >&2; exit 1; }
 case "$VERSION" in latest|[0-9]*) ;; *) die "invalid RAS_VERSION '$VERSION'" ;; esac
 case "$BUNDLE" in *[!a-z0-9-]*) die "invalid RAS_BUNDLE '$BUNDLE'" ;; esac
 
-if [ "${RAS_NO_NODE:-0}" != "1" ] && command -v node >/dev/null 2>&1 && command -v npx >/dev/null 2>&1 &&
+if [ "${RAS_USE_NPM:-0}" = "1" ] && [ "${RAS_NO_NODE:-0}" != "1" ] && command -v node >/dev/null 2>&1 && command -v npx >/dev/null 2>&1 &&
   node -e 'process.exit(Number(process.versions.node.split(".")[0]) >= 18 ? 0 : 1)' 2>/dev/null; then
   case "$BUNDLE" in
     all) SEL="--all" ;;
@@ -38,7 +38,7 @@ if [ "${RAS_NO_NODE:-0}" != "1" ] && command -v node >/dev/null 2>&1 && command 
   exec npx -y "research-agent-skills@${VERSION}" install $SEL --harness "$HARNESS" --yes
 fi
 
-say "Node.js 18+ not found; using the standalone installer."
+say "Installing from the checksum-verified release..."
 command -v curl >/dev/null 2>&1 || die "curl is required"
 command -v tar >/dev/null 2>&1 || die "tar is required"
 if command -v sha256sum >/dev/null 2>&1; then SHA="sha256sum"; elif command -v shasum >/dev/null 2>&1; then SHA="shasum -a 256"; else die "sha256sum or shasum is required"; fi

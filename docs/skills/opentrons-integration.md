@@ -19,7 +19,7 @@ Author, review, migrate, simulate, and troubleshoot official Opentrons Python Pr
 Ask your agent in plain language, for example:
 
 - *"Can you write me an Opentrons Flex protocol to transfer 50 µL from a 96-well plate to another plate with a p1000 single channel?"*
-- *"My OT-2 protocol fails in the Opentrons App with 'apiLevel 2.29 not supported' after I added `requirements = \{"robotType": "OT-2", "apiLevel": "2.29"\}`. It's in ot2_pcr_prep.py and also calls protocol.load_trash_bin('A3'). How do I fix it?"*
+- *"My OT-2 protocol fails in the Opentrons App with 'apiLevel 2.29 not supported' after I added `requirements = {"robotType": "OT-2", "apiLevel": "2.29"}`. It's in ot2_pcr_prep.py and also calls protocol.load_trash_bin('A3'). How do I fix it?"*
 - *"I have a robot that will do a 1:2 serial dilution across a full 96-well plate with 8 channels, and I want the lab tech to be able to choose the number of dilution columns and the starting volume when they upload the protocol. Can you set that up?"*
 
 ## Install

@@ -437,8 +437,14 @@ def _meta_description(text: str, limit: int = 160) -> str:
 
 
 def _mdx_safe(text: str) -> str:
-    """Escape characters that MDX would parse as JSX or expressions; renders identically in Markdown."""
-    return " ".join(text.split()).replace("<", "&lt;").replace("{", "\\{").replace("}", "\\}")
+    """Escape characters that MDX would parse as JSX or expressions; renders identically in Markdown.
+
+    Inline code spans are left alone: MDX treats them literally, and escaping there would show
+    backslashes in copied code (``{...}`` would become ``\\{...\\}``).
+    """
+    parts = re.split(r"(`[^`]*`)", " ".join(text.split()))
+    return "".join(p if p.startswith("`") and p.endswith("`") and len(p) > 1
+                   else p.replace("<", "&lt;").replace("{", "\\{").replace("}", "\\}") for p in parts)
 
 
 def _example_prompts(name: str, limit: int = 3) -> list[str]:
