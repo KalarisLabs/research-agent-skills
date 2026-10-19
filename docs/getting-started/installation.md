@@ -1,6 +1,6 @@
 ---
 title: Install Research Agent Skills
-description: Install research agent skills for Claude Code, Codex, Cursor, Gemini CLI, Copilot, OpenCode and Windsurf with one command, skills.sh, GitHub CLI, the Claude Code marketplace or a checksum-verified shell installer.
+description: Install all 280+ research agent skills, or only the ones you need, in Claude Code, Codex, Cursor, Gemini CLI, Copilot, OpenCode and Windsurf with one skills.sh command, GitHub CLI, the Claude Code marketplace or a checksum-verified shell installer.
 ---
 
 # Installation
@@ -17,27 +17,38 @@ The skills.sh CLI installs into the current project by default. Add `--global` f
 It supports Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode, Windsurf and other
 Agent Skills consumers. Tool permissions and advanced metadata can differ by harness.
 
+## Install everything, or only what you need
+
+| Goal | Command |
+|---|---|
+| Every skill, every detected agent | `npx skills add KalarisLabs/research-agent-skills --all` |
+| Specific skills | `npx skills add KalarisLabs/research-agent-skills --skill citation-verification apa7` |
+| Every skill for one agent | `npx skills add KalarisLabs/research-agent-skills --skill '*' --agent codex` |
+| User-wide instead of this project | add `--global` |
+| No prompts (CI, scripts) | add `--yes` |
+| Update later | `npx skills update` |
+
 ## Curated research bundles
 
-The Kalaris Labs npm installer provides field bundles after its first release. Until then, use
-the skills.sh command above to select individual skills.
+Field bundles install as Claude Code plugins:
 
-```bash
-npx research-agent-skills list --categories
-npx research-agent-skills search "systematic review"
-npx research-agent-skills install citation-verification apa7
-npx research-agent-skills install --bundle biology-research --project
-npx research-agent-skills install --bundle ml-research --harness codex --project
-npx research-agent-skills install --category life-sciences --harness claude-code,codex
-npx research-agent-skills install --project          # into ./.claude/skills, ./.agents/skills, ...
+```text
+/plugin marketplace add KalarisLabs/research-agent-skills
+/plugin install biology-research@research-agent-skills
 ```
 
-Manage installs with `installed`, `update`, `uninstall <skills|--all>` and `doctor`.
-The CLI only ever removes skills it installed itself.
+Without Claude Code, the checksum-verified standalone installer takes the same bundle names:
 
-The curated `--bundle` choices are `research-essentials`, `ml-research`, `ai-research`,
-`biology-research`, `chemistry-research`, `medicine-research` and `physics-research`.
-Use individual skill names or `--category` when the bundle is too broad or too narrow.
+```bash
+curl -fsSL https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/install.sh | RAS_BUNDLE=biology-research sh
+```
+
+The curated bundles are `research-essentials`, `ml-research`, `ai-research`, `biology-research`,
+`chemistry-research`, `medicine-research` and `physics-research`. Every category is also a bundle
+(for example `literature-review`). Use individual skill names when a bundle is too broad.
+
+> **Not on npm.** There is no `research-agent-skills` package on the npm registry. `npx skills` runs the
+> open skills.sh CLI, which installs straight from this GitHub repository.
 
 ## Alternatives
 
@@ -75,4 +86,4 @@ The directory's rankings use the CLI's anonymous install telemetry.
 ## Python for skill scripts
 
 Skills with a `scripts/` folder run Python 3.9+ (many are standard-library only). For skills with
-dependencies, install [uv](https://docs.astral.sh/uv/). `npx research-agent-skills doctor` checks your setup.
+dependencies, install [uv](https://docs.astral.sh/uv/). `npx skills list` shows what is installed where.

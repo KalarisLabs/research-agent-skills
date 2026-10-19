@@ -20,6 +20,7 @@ def write_skill(root: Path, name: str, frontmatter: str | None = None, body: str
               version: "1.0"
               category: research-writing
               maintainer: Kalaris Labs
+              tags: testing, validation
             """)
     (d / "SKILL.md").write_bytes(f"---\n{frontmatter}---\n{body}".encode())  # no newline translation
     for rel, content in (files or {}).items():

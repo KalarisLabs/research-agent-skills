@@ -6,6 +6,7 @@ metadata:
   version: '1.2'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: Nextflow, nf-core, bioinformatics pipelines, workflow management, genomics
 ---
 
 # Nextflow

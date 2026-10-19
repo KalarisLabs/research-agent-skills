@@ -8,6 +8,7 @@ metadata:
   version: '1.5'
   category: scientific-databases
   maintainer: Kalaris Labs
+  tags: bioinformatics databases, Ensembl, BLAST, AlphaFold, gene lookup
 ---
 
 # gget

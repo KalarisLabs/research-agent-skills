@@ -8,6 +8,7 @@ metadata:
   version: '1.3'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: genomic intervals, BED files, peak sets, genomics, bioinformatics
 ---
 
 # Gtars

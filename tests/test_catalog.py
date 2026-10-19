@@ -24,6 +24,18 @@ def test_marketplace_covers_every_skill_once_per_category():
         assert all(s.startswith("./skills/") and ".." not in s for s in p["skills"])
 
 
+def test_release_metadata_versions_match():
+    version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+    assert json.loads((ROOT / "cli" / "package.json").read_text(encoding="utf-8"))["version"] == version
+    assert json.loads((ROOT / "codemeta.json").read_text(encoding="utf-8"))["version"] == version
+    assert str(load_yaml(ROOT / "CITATION.cff")["version"]) == version
+
+
+def test_every_skill_has_search_tags():
+    index = json.loads((ROOT / "catalog" / "skills.json").read_text(encoding="utf-8"))
+    assert [s["name"] for s in index["skills"] if not s["tags"]] == []
+
+
 def test_index_and_graph_consistency():
     index = json.loads((ROOT / "catalog" / "skills.json").read_text(encoding="utf-8"))
     graph = json.loads((ROOT / "catalog" / "graph.json").read_text(encoding="utf-8"))

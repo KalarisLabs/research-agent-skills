@@ -16,6 +16,7 @@ metadata:
     - name: ALPHAGENOME_API_KEY
       required: true
       description: AlphaGenome API key, free for non-commercial use from deepmind.google.com/science/alphagenome. ALPHA_GENOME_API_KEY is accepted as an alternative spelling.
+  tags: variant effect prediction, genomics, regulatory genomics, GRCh38, functional annotation
 ---
 
 # AlphaGenome and the AlphaGenome Atlas

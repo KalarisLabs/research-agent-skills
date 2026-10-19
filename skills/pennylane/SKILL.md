@@ -7,6 +7,7 @@ metadata:
   version: '1.2'
   category: physical-sciences
   maintainer: Kalaris Labs
+  tags: quantum machine learning, quantum computing, variational algorithms, physics
 ---
 
 # PennyLane

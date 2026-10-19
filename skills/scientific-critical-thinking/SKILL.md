@@ -8,6 +8,7 @@ metadata:
   version: '1.3'
   category: research-writing
   maintainer: Kalaris Labs
+  tags: critical thinking, evidence quality, bias, GRADE, research methods
 ---
 
 # Scientific Critical Thinking

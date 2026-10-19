@@ -8,6 +8,7 @@ metadata:
   version: '2.1'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: explainable AI, SHAP, feature attribution, model interpretability, machine learning
 ---
 
 # SHAP

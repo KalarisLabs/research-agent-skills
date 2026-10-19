@@ -8,6 +8,7 @@ metadata:
   version: '1.3'
   category: chemistry-and-drug-discovery
   maintainer: Kalaris Labs
+  tags: molecular docking, virtual screening, structural biology, drug discovery
 ---
 
 # DiffDock: Molecular Docking with Diffusion Models

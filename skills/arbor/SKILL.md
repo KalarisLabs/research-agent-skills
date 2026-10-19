@@ -7,6 +7,7 @@ metadata:
   version: '1.2'
   category: research-automation
   maintainer: Kalaris Labs
+  tags: autonomous optimization, hypothesis tree, research automation, AI agents, experiments
 ---
 
 # Arbor — Autonomous Optimization via Hypothesis Tree Refinement

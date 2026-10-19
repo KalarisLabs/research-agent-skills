@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: chemistry-and-drug-discovery
   maintainer: Kalaris Labs
+  tags: cheminformatics, RDKit, molecules, SMILES, drug discovery
 ---
 
 # Datamol Cheminformatics Skill

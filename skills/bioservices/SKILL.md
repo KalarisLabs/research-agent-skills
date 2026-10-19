@@ -13,6 +13,7 @@ metadata:
     - name: NCBI_EMAIL
       required: false
       description: Email for NCBI service identification.
+  tags: bioinformatics databases, UniProt, KEGG, ID mapping, life sciences
 ---
 
 # BioServices

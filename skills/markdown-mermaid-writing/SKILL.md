@@ -11,6 +11,7 @@ metadata:
   skill-version: 1.0.0
   skill-contributors: Clayton Young (Superior Byte Works, LLC / @borealBytes; Author and originator)
   contributor: Clayton Young / Superior Byte Works, LLC (@borealBytes)
+  tags: Markdown, Mermaid diagrams, technical writing, documentation, diagrams
 ---
 
 # Markdown and Mermaid Writing

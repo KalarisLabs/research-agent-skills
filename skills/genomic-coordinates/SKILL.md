@@ -8,6 +8,7 @@ metadata:
   version: '1.1'
   category: scientific-databases
   maintainer: Kalaris Labs
+  tags: genomic coordinates, liftover, variant normalization, genome assemblies, bioinformatics
 ---
 
 # Genomic Coordinates

@@ -10,6 +10,7 @@ metadata:
   website: https://bgpt.pro/mcp
   github: https://github.com/connerlambden/bgpt-mcp
   contributor: BGPT
+  tags: paper search, literature review, evidence synthesis, structured data extraction, MCP
 ---
 
 # BGPT Paper Search

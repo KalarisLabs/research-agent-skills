@@ -8,6 +8,7 @@ metadata:
   version: '2.1'
   category: lab-automation
   maintainer: Kalaris Labs
+  tags: bioinformatics workflows, cloud computing, Nextflow, Snakemake, Latch
 ---
 
 # LatchBio Integration

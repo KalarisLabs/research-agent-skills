@@ -11,6 +11,7 @@ metadata:
   category: scientific-databases
   maintainer: Kalaris Labs
   contributor: Dnaerys
+  tags: 1000 Genomes, population genetics, genomic variants, human genomics
 ---
 
 # OneKGPd: Individual-Level Queries over the 1000 Genomes Project

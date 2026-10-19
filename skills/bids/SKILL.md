@@ -7,6 +7,7 @@ metadata:
   category: life-sciences
   maintainer: Kalaris Labs
   contributor: Yaroslav Halchenko
+  tags: neuroimaging, BIDS, MRI, EEG, data standards, neuroscience
 ---
 
 # Brain Imaging Data Structure (BIDS)

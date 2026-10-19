@@ -8,6 +8,7 @@ metadata:
   version: '1.4'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: multi-objective optimization, evolutionary algorithms, NSGA-II, optimization
 ---
 
 # Pymoo - Multi-Objective Optimization in Python

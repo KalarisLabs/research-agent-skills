@@ -7,6 +7,7 @@ metadata:
   category: scientific-databases
   maintainer: Kalaris Labs
   contributor: Kuan-lin Huang
+  tags: cancer research, gene dependency, CRISPR screens, drug sensitivity, oncology
 ---
 
 # DepMap — Cancer Dependency Map

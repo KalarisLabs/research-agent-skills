@@ -6,6 +6,7 @@ metadata:
   version: '1.1'
   category: clinical-and-health
   maintainer: Kalaris Labs
+  tags: clinical machine learning, EHR, MIMIC, healthcare AI, deep learning
 ---
 
 # PyHealth

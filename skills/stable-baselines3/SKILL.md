@@ -8,6 +8,7 @@ metadata:
   version: '1.3'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: reinforcement learning, PPO, SAC, DQN, Gymnasium
 ---
 
 # Stable Baselines3

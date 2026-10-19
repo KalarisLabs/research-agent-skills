@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: clinical-and-health
   maintainer: Kalaris Labs
+  tags: computational pathology, whole slide images, digital pathology, medical imaging
 ---
 
 # PathML

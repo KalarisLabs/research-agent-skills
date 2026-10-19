@@ -20,7 +20,7 @@ KalarisLabs/research-agent-skills/
 ├── .claude-plugin/marketplace.json# GENERATED: Claude Code marketplace (bundles + categories)
 ├── plugin.json                    # GENERATED: Agent Plugins manifest (Codex, Cursor, Copilot, gh skill)
 ├── llms.txt                       # GENERATED: machine-readable index for AI search and agents
-├── cli/                           # npm package `research-agent-skills` (TypeScript, zero runtime deps)
+├── cli/                           # installer CLI (TypeScript, zero runtime deps; not published to npm)
 ├── install.sh / install.ps1       # checksum-verified installers without Node.js
 ├── tools/                         # Python tooling (validate, lint, catalog, quality, trigger bench, import)
 ├── third_party/                   # categories, adapted-skill provenance, patches, import configuration
@@ -43,7 +43,7 @@ flowchart LR
   C --> M[marketplace.json / plugin.json]
   C --> G[catalog/*.json, lists]
   C --> R[README catalog, llms.txt, docs pages]
-  G --> CLI[npx research-agent-skills]
+  G --> CLI[install.sh / install.ps1]
   M --> CC[Claude Code marketplace]
   S --> SK[npx skills / gh skill]
 ```
@@ -68,7 +68,7 @@ flowchart LR
 | `supply-chain.yml` | PR, main, daily | TruffleHog, dependency review, pip-audit, npm audit, OSV-Scanner |
 | `test.yml` | PR, main | pytest (3 OS × 3 Python), CLI (3 OS × 4 Node), installer end-to-end |
 | `benchmarks.yml` | PR, weekly, manual | Quality rubric and trigger gates; citation benchmark; paid model benchmarks on demand |
-| `release.yml` | tag `v*` | Verify, build tarball + SHA256SUMS, attest, sign, GitHub release, npm publish with provenance |
+| `release.yml` | tag `v*` | Verify, build tarball + SHA256SUMS, attest, sign, GitHub release, npm publish with provenance (no package exists yet: the CLI is not on npm) |
 | `docs.yml`, `links.yml`, `scorecard.yml` | main / weekly | Docs site, dead links, OpenSSF Scorecard |
 
 ## Adapted vs original skills

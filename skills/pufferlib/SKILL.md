@@ -9,6 +9,7 @@ metadata:
   category: data-science-and-ml
   maintainer: Kalaris Labs
   last-reviewed: '2026-07-23'
+  tags: reinforcement learning, RL environments, training, machine learning
 ---
 
 # PufferLib

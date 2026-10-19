@@ -8,6 +8,7 @@ metadata:
   version: '1.3'
   category: visualization-and-presentation
   maintainer: Kalaris Labs
+  tags: statistical visualization, plotting, data visualization, Python
 ---
 
 # Seaborn Statistical Visualization

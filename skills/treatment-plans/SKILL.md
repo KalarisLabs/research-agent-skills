@@ -7,6 +7,7 @@ metadata:
   version: '2.2'
   category: clinical-and-health
   maintainer: Kalaris Labs
+  tags: treatment plans, clinical documentation, medicine, healthcare
 ---
 
 # Treatment-Plan Documentation

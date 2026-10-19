@@ -8,6 +8,7 @@ metadata:
   version: '1.1'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: big data, out-of-core DataFrames, HDF5, data analysis, Python
 ---
 
 # Vaex
