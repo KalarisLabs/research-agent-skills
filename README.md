@@ -4,9 +4,9 @@
 
 # Research Agent Skills
 
-### Claude Code, Codex and Cursor skills for academic research: paper writing, citation checking, literature reviews and science in AI, ML, biology, chemistry, medicine and physics
+### Turn any AI agent into a research co-scientist
 
-**<!-- count -->280+<!-- /count --> open-source skills that turn Claude Code, Codex, Cursor, Gemini CLI and GitHub Copilot into careful research assistants.**
+**<!-- count -->280+<!-- /count --> open-source agent skills that take Claude Code, Codex, Cursor, Gemini CLI, Copilot or any Agent Skills harness from the research question to the accepted paper: literature, hypotheses, experimental design, analysis in AI, ML, biology, chemistry, medicine and physics, writing, citation checks and peer review.**
 
 [![skills.sh installs](https://img.shields.io/endpoint?url=https%3A%2F%2Fskills.sh%2Fapi%2Fbadge%2Fkalarislabs%2Fresearch-agent-skills&label=skills.sh%20installs&color=165d74)](https://skills.sh/kalarislabs/research-agent-skills)
 [![Skills](https://img.shields.io/badge/skills-281-165d74)](#skill-catalog)
@@ -29,6 +29,7 @@
 [![GitHub Copilot](https://img.shields.io/badge/GitHub_Copilot-24292f?logo=githubcopilot&logoColor=white)](#install)
 [![Windsurf](https://img.shields.io/badge/Windsurf-0b100f?logo=windsurf&logoColor=white)](#install)
 [![OpenCode](https://img.shields.io/badge/OpenCode-333333)](#install)
+[![Any Agent Skills harness](https://img.shields.io/badge/%2B_any_Agent_Skills_harness-165d74)](#works-in-any-harness)
 
 ```bash
 npx skills add KalarisLabs/research-agent-skills
@@ -42,13 +43,29 @@ npx skills add KalarisLabs/research-agent-skills
 
 ---
 
-**Research Agent Skills**, maintained by **[Kalaris Labs](https://github.com/KalarisLabs)**, is a free, open-source library of AI [agent skills](https://agentskills.io) for academic research and scientific
-writing, built for students, researchers and research teams.
-Each skill is a folder with a `SKILL.md` playbook, references and tested scripts. Your AI agent loads a skill
-only when a task needs it: drafting a manuscript, formatting for *Nature* or IEEE, verifying references,
-running a PRISMA systematic review, analyzing single-cell data, or answering reviewers.
+**Research Agent Skills**, maintained by **[Kalaris Labs](https://github.com/KalarisLabs)**, is a free, open-source library of
+[agent skills](https://agentskills.io) that gives your AI agent the methods of a careful scientist. Each skill is a folder
+with a `SKILL.md` playbook, reference material and tested scripts. Your agent loads one only when the task needs it, so
+the same agent can search the literature in the morning, design an experiment at noon and answer reviewers at night.
 
-It is built around the three ways AI research assistance goes wrong:
+### From assistant to co-scientist
+
+An assistant drafts what you ask for. A co-scientist works through the research itself and checks its own output.
+The skills cover every stage:
+
+| Stage | Your agent can | Skills |
+|---|---|---|
+| **Question** | Generate and stress-test hypotheses, find gaps | [`hypothesis-generation`](skills/hypothesis-generation/SKILL.md), [`scientific-brainstorming`](skills/scientific-brainstorming/SKILL.md), [`scientific-critical-thinking`](skills/scientific-critical-thinking/SKILL.md) |
+| **Literature** | Search papers and databases, run PRISMA reviews | [`literature-review`](skills/literature-review/SKILL.md), [`paper-lookup`](skills/paper-lookup/SKILL.md), [`systematic-review-prisma`](skills/systematic-review-prisma/SKILL.md), [`database-lookup`](skills/database-lookup/SKILL.md) |
+| **Design** | Plan experiments, size samples, pre-register | [`experimental-design`](skills/experimental-design/SKILL.md), [`statistical-power`](skills/statistical-power/SKILL.md) |
+| **Analysis** | Analyze data with field-standard tools | [`statistical-analysis`](skills/statistical-analysis/SKILL.md), [`scanpy`](skills/scanpy/SKILL.md), [`rdkit`](skills/rdkit/SKILL.md), [`astropy`](skills/astropy/SKILL.md), [`pydicom`](skills/pydicom/SKILL.md), [`pytorch-lightning`](skills/pytorch-lightning/SKILL.md) and 150+ more |
+| **Writing** | Draft, visualize and remove AI slop | [`scientific-writing`](skills/scientific-writing/SKILL.md), [`scientific-visualization`](skills/scientific-visualization/SKILL.md), [`unslop-academic-writing`](skills/unslop-academic-writing/SKILL.md) |
+| **Verification** | Check every reference and reproducibility claim | [`citation-verification`](skills/citation-verification/SKILL.md), [`reproducibility-statement`](skills/reproducibility-statement/SKILL.md) |
+| **Submission** | Format for the venue, prepare arXiv, write grants | [`venue-templates`](skills/venue-templates/SKILL.md), [`arxiv-submission`](skills/arxiv-submission/SKILL.md), [`research-grants`](skills/research-grants/SKILL.md) |
+| **Review** | Review papers and answer reviewers | [`peer-review`](skills/peer-review/SKILL.md), [`rebuttal-and-response-to-reviewers`](skills/rebuttal-and-response-to-reviewers/SKILL.md) |
+| **Autonomy** | Run supervised, multi-step research loops | [`autoresearch`](skills/autoresearch/SKILL.md) |
+
+It is built against the three ways AI research help goes wrong:
 
 1. **AI slop.** `unslop-academic-writing` finds stock phrasing ("delves into", "pivotal role"), empty emphasis, stacked hedges and
    monotone rhythm, then rewrites toward specific, evidence-backed prose in the author's own voice.
@@ -135,30 +152,19 @@ claiming to be this project is not ours.
 
 </details>
 
-**Installer targets:** Claude Code · OpenAI Codex · Cursor · Gemini CLI · GitHub Copilot · OpenCode · Windsurf · generic `.agents/skills` (including compatible Cline, Amp and Goose setups).
-The skills follow the [Agent Skills specification](https://agentskills.io/specification); other harnesses can use the folders if they support that specification. Tool permissions and advanced features may vary by harness. Every skill passes the specification's reference validator.
+### Works in any harness
 
-### Most installed
+The skills follow the open [Agent Skills specification](https://agentskills.io/specification): plain folders with a
+`SKILL.md` file, no SDK, no server, no lock-in. Every skill passes the specification's reference validator.
 
-What researchers install first, pulled from skills.sh by
-[`tools/update_install_stats.py`](tools/update_install_stats.py) (full counts in [`catalog/installs.json`](catalog/installs.json)).
+| Harness | How |
+|---|---|
+| Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode, Windsurf, Cline, Goose, Amp, Roo, Zed, Warp and about 60 more | `npx skills add KalarisLabs/research-agent-skills --agent <name>` |
+| Claude Code plugin marketplace | `/plugin marketplace add KalarisLabs/research-agent-skills` |
+| Any other harness that reads skills | Copy `skills/<name>/` into its skills directory (often `.agents/skills/`) |
+| Agents without skill support | Point the agent at `skills/<name>/SKILL.md`; it is plain Markdown with scripts beside it |
 
-<!-- installs:start -->
-Live from [skills.sh](https://www.skills.sh/kalarislabs/research-agent-skills) · **3.5K** installs across the collection · updated 2026-10-19
-
-| # | Skill | Installs | Install just this skill |
-|---|---|---|---|
-| 1 | [`citation-verification`](skills/citation-verification/SKILL.md) | 30 | `npx skills add KalarisLabs/research-agent-skills --skill citation-verification` |
-| 2 | [`scientific-writing`](skills/scientific-writing/SKILL.md) | 21 | `npx skills add KalarisLabs/research-agent-skills --skill scientific-writing` |
-| 3 | [`literature-review`](skills/literature-review/SKILL.md) | 20 | `npx skills add KalarisLabs/research-agent-skills --skill literature-review` |
-| 4 | [`ml-paper-writing`](skills/ml-paper-writing/SKILL.md) | 19 | `npx skills add KalarisLabs/research-agent-skills --skill ml-paper-writing` |
-| 5 | [`unslop-academic-writing`](skills/unslop-academic-writing/SKILL.md) | 19 | `npx skills add KalarisLabs/research-agent-skills --skill unslop-academic-writing` |
-| 6 | [`research-lookup`](skills/research-lookup/SKILL.md) | 17 | `npx skills add KalarisLabs/research-agent-skills --skill research-lookup` |
-| 7 | [`apa7`](skills/apa7/SKILL.md) | 16 | `npx skills add KalarisLabs/research-agent-skills --skill apa7` |
-| 8 | [`citation-management`](skills/citation-management/SKILL.md) | 16 | `npx skills add KalarisLabs/research-agent-skills --skill citation-management` |
-| 9 | [`systematic-review-prisma`](skills/systematic-review-prisma/SKILL.md) | 16 | `npx skills add KalarisLabs/research-agent-skills --skill systematic-review-prisma` |
-| 10 | [`abstract-and-title`](skills/abstract-and-title/SKILL.md) | 15 | `npx skills add KalarisLabs/research-agent-skills --skill abstract-and-title` |
-<!-- installs:end -->
+Tool permissions and advanced metadata may vary by harness.
 
 ## Built for researchers
 

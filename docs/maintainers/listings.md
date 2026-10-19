@@ -11,7 +11,7 @@ Audit date: 2026-10-19. Repository created 2026-07-07; 28 stars at audit time.
 |---|---|---|
 | GitHub | https://github.com/KalarisLabs/research-agent-skills | 20 topics set (GitHub's maximum) |
 | Documentation (Mintlify) | https://docs.kalarislabs.com/research-agent-skills | Sitemap at `https://docs.kalarislabs.com/sitemap.xml`; per-page OG images are automatic |
-| skills.sh | https://skills.sh/kalarislabs/research-agent-skills | 281 skills, 3.5K installs (2026-10-19). Per-skill counts: `catalog/installs.json`. Groupings come from `skills.sh.json` |
+| skills.sh | https://skills.sh/kalarislabs/research-agent-skills | 281 skills, 3.5K installs (2026-10-19) Groupings come from `skills.sh.json` |
 | Skills Directory | https://www.skillsdirectory.com/authors/kalarislabs | 283 skill pages, security grade A (96/100), each links back to its `SKILL.md` |
 | SkillsMP | https://skillsmp.com | Crawls public GitHub `SKILL.md` files automatically; no submission |
 | Claude Code plugin marketplace | `/plugin marketplace add KalarisLabs/research-agent-skills` | Aggregators such as claudemarketplaces.com crawl `.claude-plugin/marketplace.json` |
