@@ -10,6 +10,7 @@ metadata:
   maintainer: Kalaris Labs
   tested-against: openpiv 0.25.4
   contributor: OpenPIV Team
+  tags: particle image velocimetry, PIV, fluid dynamics, flow visualization, physics
 ---
 
 # OpenPIV

@@ -8,6 +8,7 @@ metadata:
   version: '1.3'
   category: scientific-databases
   maintainer: Kalaris Labs
+  tags: single-cell, transcriptomics, public datasets, spatial transcriptomics, bioinformatics
 ---
 
 # CZ CELLxGENE Census

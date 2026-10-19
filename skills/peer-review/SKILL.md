@@ -7,6 +7,7 @@ metadata:
   version: '2.2'
   category: research-writing
   maintainer: Kalaris Labs
+  tags: peer review, manuscript review, reporting guidelines, academic publishing
 ---
 
 # Peer Review

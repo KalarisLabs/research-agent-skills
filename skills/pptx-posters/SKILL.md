@@ -8,6 +8,7 @@ metadata:
   version: '2.2'
   category: visualization-and-presentation
   maintainer: Kalaris Labs
+  tags: research posters, PowerPoint, conference posters, academic presentations
 ---
 
 # PPTX posters

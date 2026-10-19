@@ -8,6 +8,7 @@ metadata:
   category: life-sciences
   maintainer: Kalaris Labs
   last-reviewed: '2026-09-29'
+  tags: 13C-MFA, metabolic flux analysis, isotope tracing, metabolomics, systems biology
 ---
 
 # Carbon-13 metabolic flux inference

@@ -8,6 +8,7 @@ metadata:
   version: '1.1'
   category: ideation-and-design
   maintainer: Kalaris Labs
+  tags: animal welfare, laboratory animals, humane endpoints, severity assessment
 ---
 
 # RELSA severity assessment and humane endpoint forecasting

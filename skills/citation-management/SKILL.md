@@ -19,6 +19,7 @@ metadata:
     - name: OPENALEX_EMAIL
       required: false
       description: Contact email for the faster OpenAlex polite pool.
+  tags: citations, BibTeX, references, DOI, PubMed, reference management
 ---
 
 # Citation Management

@@ -9,6 +9,7 @@ metadata:
   category: data-science-and-ml
   maintainer: Kalaris Labs
   contributor: Dylan Pulver
+  tags: research data management, data versioning, provenance, reproducibility, open science
 ---
 
 # DataLad

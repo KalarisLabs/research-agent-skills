@@ -1,7 +1,5 @@
 # research-agent-skills
 
-[![npm](https://img.shields.io/npm/v/research-agent-skills)](https://www.npmjs.com/package/research-agent-skills)
-[![npm downloads](https://img.shields.io/npm/dm/research-agent-skills)](https://www.npmjs.com/package/research-agent-skills)
 [![GitHub stars](https://img.shields.io/github/stars/KalarisLabs/research-agent-skills?style=social)](https://github.com/KalarisLabs/research-agent-skills)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/KalarisLabs/research-agent-skills/blob/main/LICENSE)
 
@@ -11,6 +9,12 @@ literature reviews, citation verification, systematic reviews and scientific dat
 medicine, physics and machine learning.
 
 Works with Claude Code, OpenAI Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode and Windsurf.
+
+> **Not published to npm.** Install the skills with skills.sh instead:
+> `npx skills add KalarisLabs/research-agent-skills` (see the
+> [main README](https://github.com/KalarisLabs/research-agent-skills#install)).
+> To use this installer, build it from source: `cd cli && npm ci && npm run build && node dist/bin.js --help`.
+> The commands below assume a future npm release.
 
 ```bash
 npx research-agent-skills                       # interactive

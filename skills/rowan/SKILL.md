@@ -15,6 +15,7 @@ metadata:
       required: true
       description: Rowan computational chemistry API key.
   contributor: Rowan Science
+  tags: molecular modeling, pKa prediction, docking, computational chemistry, drug discovery
 ---
 
 # Rowan: Cloud-Native Molecular-Modeling and Drug-Design Workflows

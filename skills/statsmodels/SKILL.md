@@ -8,6 +8,7 @@ metadata:
   version: '1.3'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: statistical models, regression, time series, econometrics, statistics
 ---
 
 # Statsmodels: Statistical Modeling and Econometrics

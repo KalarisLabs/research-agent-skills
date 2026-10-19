@@ -7,6 +7,7 @@ metadata:
   version: '2.2'
   category: clinical-and-health
   maintainer: Kalaris Labs
+  tags: clinical research, decision support, evidence profiles, survival analysis, medicine
 ---
 
 # Clinical Decision-Support Research and Evaluation

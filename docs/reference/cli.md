@@ -1,12 +1,14 @@
 ---
 title: Installer CLI reference | Research Agent Skills
-description: Command reference for npx research-agent-skills, covering install, list, search, update, uninstall and doctor.
+description: Reference for the research-agent-skills installer CLI (built from source; not on npm), covering install, list, search, update, uninstall and doctor.
 ---
 
+> **Not on npm.** To install skills, use skills.sh: `npx skills add KalarisLabs/research-agent-skills`
+> ([installation guide](/getting-started/installation)). This page documents the optional installer in `cli/`,
+> which you can build from source with `cd cli && npm ci && npm run build`, then run as `node dist/bin.js`.
+
 The `research-agent-skills` CLI installs skills from a verified release into supported agent directories.
-The npm CLI commands below become available after the first package release. Until then,
-[install skills with skills.sh](/getting-started/installation). After release, run
-`npx research-agent-skills` for interactive selection, or use these commands directly:
+The examples use `npx research-agent-skills`; when running from source, substitute `node cli/dist/bin.js`.
 
 | Command | Purpose |
 |---|---|

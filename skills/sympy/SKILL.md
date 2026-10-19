@@ -8,6 +8,7 @@ metadata:
   version: '1.3'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: symbolic math, computer algebra, calculus, mathematics, Python
 ---
 
 # SymPy - Symbolic Mathematics in Python

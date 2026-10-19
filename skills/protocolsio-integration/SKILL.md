@@ -14,6 +14,7 @@ metadata:
     - name: PROTOCOLS_IO_ACCESS_TOKEN
       required: false
       description: Bearer token for authenticated protocols.io REST reads.
+  tags: protocols.io, lab protocols, reproducibility, methods
 ---
 
 # protocols.io Integration

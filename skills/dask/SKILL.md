@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: parallel computing, big data, pandas, distributed computing, data science
 ---
 
 # Dask

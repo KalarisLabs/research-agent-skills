@@ -7,6 +7,7 @@ metadata:
   version: '1.4'
   category: research-automation
   maintainer: Kalaris Labs
+  tags: coding agents, terminal agents, AI agents, developer tools
 ---
 
 # Pi Agent

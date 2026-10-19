@@ -7,6 +7,7 @@ metadata:
   version: '2.1'
   category: clinical-and-health
   maintainer: Kalaris Labs
+  tags: clinical reports, CONSORT, case reports, clinical trials, medical writing
 ---
 
 # Clinical Reports

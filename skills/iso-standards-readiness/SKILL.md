@@ -10,6 +10,7 @@ metadata:
   maintainer: Kalaris Labs
   supersedes: iso-13485-certification
   last-reviewed: '2026-07-26'
+  tags: ISO standards, quality management, ISO 13485, ISO 17025, laboratory accreditation
 ---
 
 # ISO Standards Readiness Evidence Preparation

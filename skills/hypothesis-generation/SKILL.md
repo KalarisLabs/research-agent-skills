@@ -8,6 +8,7 @@ metadata:
   category: ideation-and-design
   maintainer: Kalaris Labs
   last-reviewed: '2026-07-23'
+  tags: hypothesis generation, research questions, preregistration, study design, scientific method
 ---
 
 # Scientific Hypothesis Generation

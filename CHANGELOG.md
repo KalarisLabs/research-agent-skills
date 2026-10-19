@@ -6,6 +6,13 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed
+- README repositioned around turning any agent into a research co-scientist: a research-stage map of skills
+  and a "Works in any harness" section covering skills.sh, the plugin marketplace and manual installs.
+- Distribution is skills.sh, the Claude Code plugin marketplace, GitHub CLI and the checksum-verified
+  `install.sh`/`install.ps1` installers. The `research-agent-skills` CLI is not published to npm; README,
+  docs, generated skill pages and metadata no longer point to npm.
+
 ### Added
 - Eval suites for all 281 skills (`evals/<skill>/evals.json`): realistic prompts plus near misses naming the
   better skill. Suites for adapted skills were generated from each `SKILL.md` and are marked `pending review`.
@@ -17,6 +24,15 @@ All notable changes to this project are documented here. The format follows
 - Offline smoke tests for every skill script: all 497 compile; 327 standard-library CLIs run `--help` on
   every CI OS (`tests/test_skill_scripts_smoke.py`).
 - `tools/trigger_bench.py --sample N --seed S` for reproducible subsamples with the paid Claude router.
+- Search tags for all 281 skills. Tags for adapted skills live in `third_party/tag-overrides.yaml` and are
+  applied at import; `tools/validate.py` warns when a skill has none.
+- `llms-full.txt`: every skill with its full description, tags and install command.
+- Generated skill pages now carry tags, example requests from the eval suites, related skills, field-guide
+  links, every install route and a sentence-complete meta description.
+- Marketplace plugins declare `version`, `author`, `homepage`, `repository`, `license`, `category` and
+  `keywords` (the most common tags of their skills).
+- `.zenodo.json` and `codemeta.json` for DOI minting and research-software indexing.
+- 1280×640 GitHub social preview image (`PUBLIC/social-preview.png`) and a 59 KB WebP README banner.
 
 ### Changed
 - Marketing residue (GitHub star counts, user numbers) is stripped from imported skills.
@@ -26,6 +42,14 @@ All notable changes to this project are documented here. The format follows
 
 ### Fixed
 - `openpiv/run_example.py` explains a missing dependency instead of raising a traceback.
+- The release workflow's npm job no longer skips when the optional vendor security gate is skipped.
+- The npm installer is no longer described as unreleased.
+- `plugin.json`, the npm package, `CITATION.cff` and `SUPPORT.md` point at one documentation URL.
+
+### Removed
+- Unused MkDocs configuration (`mkdocs.yml`, `docs/overrides/`) and the `docs` dependency group. The site is
+  built by Mintlify, which never loaded the MkDocs Open Graph and JSON-LD templates.
+- MkDocs-only `???` admonitions in the FAQ, now plain headings that Mintlify renders.
 
 ## [1.1.0] - 2026-10-01
 

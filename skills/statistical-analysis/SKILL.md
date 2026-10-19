@@ -6,6 +6,7 @@ metadata:
   version: '1.2'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: statistics, hypothesis testing, effect sizes, power analysis, APA reporting
 ---
 
 # Statistical Analysis

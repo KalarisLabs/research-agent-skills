@@ -7,6 +7,7 @@ metadata:
   version: '1.3'
   category: scientific-databases
   maintainer: Kalaris Labs
+  tags: US Treasury, fiscal data, economics, public finance, open data
 ---
 
 # U.S. Treasury Fiscal Data API

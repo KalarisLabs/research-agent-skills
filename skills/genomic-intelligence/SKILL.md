@@ -15,6 +15,7 @@ metadata:
       required: false
       description: Optional gi_ bearer key for the REST /v1 API and higher MCP rate and concurrency limits. The hosted MCP demo runs keyless; request a key at contact@genomicintelligence.ai.
   contributor: Genomic Intelligence
+  tags: DNA language models, regulatory genomics, gene structure, sequence analysis
 ---
 
 # Genomic Intelligence — DNA Sequence Models

@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: bioinformatics, microbial ecology, diversity analysis, phylogenetics, sequences
 ---
 
 # scikit-bio

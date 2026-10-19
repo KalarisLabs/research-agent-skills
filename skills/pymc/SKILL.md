@@ -8,6 +8,7 @@ metadata:
   version: '1.4'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: Bayesian statistics, MCMC, probabilistic programming, hierarchical models, statistics
 ---
 
 # PyMC Bayesian Modeling

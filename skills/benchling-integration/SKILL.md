@@ -35,6 +35,7 @@ metadata:
     - name: BENCHLING_STAGING_API_KEY
       required: false
       description: Staging API key (multi-env setups).
+  tags: Benchling, electronic lab notebook, LIMS, lab automation, biotech
 ---
 
 # Benchling Integration

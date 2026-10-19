@@ -8,6 +8,7 @@ metadata:
   category: research-writing
   maintainer: Kalaris Labs
   contributor: AHK Strategies (ashrafkahoush-ux)
+  tags: text analysis, cognitive style, writing analysis, profiling
 ---
 
 # DHDNA Profiler — Cognitive Pattern Extraction

@@ -9,6 +9,7 @@ metadata:
   category: life-sciences
   maintainer: Kalaris Labs
   last-reviewed: '2026-07-27'
+  tags: pathogen genomics, genomic surveillance, viral lineages, epidemiology
 ---
 
 # Pathogen Variant Surveillance

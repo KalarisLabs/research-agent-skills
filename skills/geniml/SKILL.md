@@ -10,6 +10,7 @@ metadata:
   maintainer: Kalaris Labs
   upstream-version: 0.8.4
   last-reviewed: '2026-07-23'
+  tags: genomic intervals, BED files, machine learning, embeddings, genomics
 ---
 
 # Geniml
