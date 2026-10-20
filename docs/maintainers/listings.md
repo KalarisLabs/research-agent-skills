@@ -3,7 +3,11 @@
 Where Research Agent Skills is listed, where it is pending, and ready-to-paste submission text.
 Follow each list's rules exactly and submit one entry per list. Re-check this table monthly.
 
-Audit date: 2026-10-19. Repository created 2026-07-07; 28 stars at audit time.
+Audit date: 2026-10-20. Repository created 2026-07-07; 50 stars at audit time.
+
+Every listing submits the **whole collection** as the full academic research lifecycle (literature and PRISMA
+reviews, hypotheses, experimental design, data analysis, paper writing, citation verification, journal submission
+and peer review), never a single skill. PR descriptions and commits carry no AI attribution lines.
 
 ## Live
 
@@ -20,32 +24,44 @@ Audit date: 2026-10-19. Repository created 2026-07-07; 28 stars at audit time.
 
 | List | Stars | Section | Rules | Status |
 |---|---|---|---|---|
-| [InternScience/Awesome-Scientific-Skills](https://github.com/InternScience/Awesome-Scientific-Skills) | 569 | Skill Sources → Science-Specific → Specialized Domain Tools | Table row; PR note on why it helps science | [PR #20](https://github.com/InternScience/Awesome-Scientific-Skills/pull/20) open (2026-10-19) |
-| [BehiSecc/awesome-claude-skills](https://github.com/BehiSecc/awesome-claude-skills) | 10K | Scientific & Research Tools | Fork, edit, PR | [PR #986](https://github.com/BehiSecc/awesome-claude-skills/pull/986) open (2026-10-19) |
-| [heilcheng/awesome-agent-skills](https://github.com/heilcheng/awesome-agent-skills) | 6K | Community Skills → Skill Collections | ≥20 stars, >14 days old, README.md only, one additive line, title `Add owner/repo to <Category>`, agents must disclose | [PR #603](https://github.com/heilcheng/awesome-agent-skills/pull/603) open (2026-10-19); merged in weekly batches |
-| [gmh5225/awesome-skills](https://github.com/gmh5225/awesome-skills) | 94 | Community Skills → Scientific & Research | Table row; merges several PRs a week | [PR #104](https://github.com/gmh5225/awesome-skills/pull/104) open (2026-10-20) |
-| [junminhong/awesome-agent-skills](https://github.com/junminhong/awesome-agent-skills) | 18 | Skill Collections | Links only; edit `README.md` and `README_ZH.md` together; no counts in descriptions; every commit Verified; disclose affiliation | [PR #86](https://github.com/junminhong/awesome-agent-skills/pull/86) open (2026-10-20), one GitHub-signed commit |
-| [karanb192/awesome-claude-skills](https://github.com/karanb192/awesome-claude-skills) | 553 | Writing & Research | One skill per PR, alphabetical, under 150 characters, PR template, title `Add [skill] to [category]` | [PR #482](https://github.com/karanb192/awesome-claude-skills/pull/482) open (2026-10-20) |
-| [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) | 77K | Data & Analysis | Alphabetical, `*By [@owner]*` suffix; large review backlog | [PR #2307](https://github.com/ComposioHQ/awesome-claude-skills/pull/2307) open (2026-10-20) |
-| [JackyST0/awesome-agent-skills](https://github.com/JackyST0/awesome-agent-skills) | 650 | Skills Collections | Community entries need 64+ stars | Wait for 64 stars |
-| [BioTender-max/awesome-bio-agent-skills](https://github.com/BioTender-max/awesome-bio-agent-skills) | 200 | Sources | Aggregated index, no pushes since 2026-07 | Skip unless it becomes active again |
-| [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | 36K | Community Skills → AI and Data | One skill per entry, author prefix, ≤10-word description, needs "community-adopted, proven" skills | Deferred until `citation-verification` has clear adoption |
-| [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) | 15K | Community Skills → Collections & Libraries | ≥10 stars; **PRs must not be AI-generated or AI-submitted** | Human-only: write and submit the PR yourself |
+| [InternScience/Awesome-Scientific-Skills](https://github.com/InternScience/Awesome-Scientific-Skills) | 569 | Skill Sources → Specialized Domain Tools | Table row with a stars column | [PR #20](https://github.com/InternScience/Awesome-Scientific-Skills/pull/20) open |
+| [BehiSecc/awesome-claude-skills](https://github.com/BehiSecc/awesome-claude-skills) | 10K | Scientific & Research Tools | Fork, edit, PR | [PR #986](https://github.com/BehiSecc/awesome-claude-skills/pull/986) open |
+| [heilcheng/awesome-agent-skills](https://github.com/heilcheng/awesome-agent-skills) | 6K | Community Skills → Skill Collections | ≥20 stars, README.md only, one additive line, agents must disclose | [PR #603](https://github.com/heilcheng/awesome-agent-skills/pull/603) open; merged in weekly batches |
+| [gmh5225/awesome-skills](https://github.com/gmh5225/awesome-skills) | 94 | Community Skills → Scientific & Research | Table row | [PR #104](https://github.com/gmh5225/awesome-skills/pull/104) open |
+| [junminhong/awesome-agent-skills](https://github.com/junminhong/awesome-agent-skills) | 18 | Skill Collections | `README.md` and `README_ZH.md` together; no counts; every commit Verified | [PR #86](https://github.com/junminhong/awesome-agent-skills/pull/86) open |
+| [karanb192/awesome-claude-skills](https://github.com/karanb192/awesome-claude-skills) | 553 | Skill Collections | Alphabetical table, PR template | [PR #482](https://github.com/karanb192/awesome-claude-skills/pull/482) open |
+| [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) | 77K | Data & Analysis | Alphabetical, `*By [@owner]*` suffix; large backlog | [PR #2307](https://github.com/ComposioHQ/awesome-claude-skills/pull/2307) open |
+| [hashgraph-online/awesome-ai-plugins](https://github.com/hashgraph-online/awesome-ai-plugins) | 789 | Community Plugins → Agent Skills | Alphabetical; HOL source scan must score ≥80 | [PR #884](https://github.com/hashgraph-online/awesome-ai-plugins/pull/884) open; scan passed |
+| [hashgraph-online/awesome-codex-plugins](https://github.com/hashgraph-online/awesome-codex-plugins) | 1.4K | Community Plugins → Development & Workflow | Alphabetical; HOL source scan must score ≥80 | [PR #549](https://github.com/hashgraph-online/awesome-codex-plugins/pull/549) open |
+| [ai4s-research/awesome-ai-for-science](https://github.com/ai4s-research/awesome-ai-for-science) | 2K | Research Workbench & Plugins → Interactive Research Environments | Description ≤20 words | [PR #117](https://github.com/ai4s-research/awesome-ai-for-science/pull/117) open |
+| [AI4Scientist/awesome-autoresearch](https://github.com/AI4Scientist/awesome-autoresearch) | 171 | Skill Libraries & Extensions | Alphabetical, stars badge after the link | [PR #51](https://github.com/AI4Scientist/awesome-autoresearch/pull/51) open |
+| [composio-community/awesome-codex-skills](https://github.com/composio-community/awesome-codex-skills) | 17K | Data & Analysis | External entries prefixed `External repo:` | [PR #362](https://github.com/composio-community/awesome-codex-skills/pull/362) open |
 
-Entry text:
+### Not eligible yet
 
-- InternScience: `| [KalarisLabs/research-agent-skills](https://github.com/KalarisLabs/research-agent-skills) | 28 | 280+ research skills: paper and thesis writing, journal formats, PRISMA reviews, citation verification, and ML, biology, chemistry, medicine and physics analysis |`
-- BehiSecc: `- [research-agent-skills](https://github.com/KalarisLabs/research-agent-skills) - 280+ skills for academic writing, journal formatting, systematic reviews, citation verification and scientific data analysis.`
-- travisvn: `- **[KalarisLabs/research-agent-skills](https://github.com/KalarisLabs/research-agent-skills)** - 280+ skills for academic research: paper writing, journal formats, PRISMA reviews, citation verification and field-specific analysis.`
-- heilcheng: `- [KalarisLabs/research-agent-skills](https://github.com/KalarisLabs/research-agent-skills) - 280+ skills for academic writing, systematic reviews and scientific analysis`
-- gmh5225: `| [research-agent-skills](https://github.com/KalarisLabs/research-agent-skills) | 280+ research skills: paper writing, journal formats, PRISMA reviews, citation checks against Crossref/OpenAlex/arXiv, and biology, chemistry, physics and ML analysis |`
-- junminhong (EN): `` - [Research Agent Skills](https://github.com/KalarisLabs/research-agent-skills) — Guides agents through academic writing, journal formatting, systematic reviews, reference checks against Crossref, OpenAlex and arXiv, and field-specific scientific data analysis. `Type: Collection` · `Platforms: Cross-platform` ``
-- junminhong (ZH, `README_ZH.md`): `` - [Research Agent Skills](https://github.com/KalarisLabs/research-agent-skills) — 引導 Agent 執行學術寫作、期刊格式排版、系統性文獻回顧、以 Crossref、OpenAlex 與 arXiv 核對參考文獻，以及各領域的科學資料分析。 `Type: Collection` · `Platforms: Cross-platform` ``
-- karanb192: `| [citation-verification](https://github.com/KalarisLabs/research-agent-skills/tree/main/skills/citation-verification) | Check every reference in a .bib file against Crossref, OpenAlex and arXiv and flag fabricated or mismatched citations. |`
-- ComposioHQ: `- [citation-verification](https://github.com/KalarisLabs/research-agent-skills/tree/main/skills/citation-verification) - Checks every reference in a manuscript or .bib file against Crossref, OpenAlex and arXiv, flagging fabricated citations, DOIs that point to the wrong paper, and wrong years or authors. *By [@KalarisLabs](https://github.com/KalarisLabs)*`
-- VoltAgent: `- **[kalarislabs/citation-verification](https://github.com/KalarisLabs/research-agent-skills/tree/main/skills/citation-verification)** - Checks references against Crossref, OpenAlex and arXiv`
+| List | Stars | Why not now |
+|---|---|---|
+| [handsome-rich/Awesome-Auto-Research-Tools](https://github.com/handsome-rich/Awesome-Auto-Research-Tools) | 1.2K | Requires 500+ stars |
+| [JackyST0/awesome-agent-skills](https://github.com/JackyST0/awesome-agent-skills) | 650 | Requires 64+ stars |
+| [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | 36K | One skill per entry; needs proven adoption |
+| [libukai/awesome-agent-skills](https://github.com/libukai/awesome-agent-skills), [jqueryscript/awesome-claude-code](https://github.com/jqueryscript/awesome-claude-code), [RoggeOhta/awesome-codex-cli](https://github.com/RoggeOhta/awesome-codex-cli) | 0.5–5K | No external PRs merged recently |
+| [quemsah/awesome-claude-plugins](https://github.com/quemsah/awesome-claude-plugins) | 1.4K | Auto-generated ranking, no submissions |
+| [sickn33/agentic-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) | 48K | Requires copying `SKILL.md` files into their repo |
+| [BioTender-max/awesome-bio-agent-skills](https://github.com/BioTender-max/awesome-bio-agent-skills) | 200 | No pushes since 2026-07 |
+
+Entry text (whole collection):
+
+- Long form: `- [Research Agent Skills](https://github.com/KalarisLabs/research-agent-skills) - 280+ Agent Skills that turn Claude Code, Codex, Cursor and other agents into a research co-scientist across the academic research lifecycle: literature and PRISMA reviews, hypotheses, experimental design, data analysis in biology, chemistry, medicine, physics and ML, paper writing, citation verification and peer review.`
+- Short form (≤20 words): `- [Research Agent Skills](https://github.com/KalarisLabs/research-agent-skills) - 280+ agent skills covering the research lifecycle: literature reviews, experimental design, analysis, writing, citation verification, peer review`
+- No counts (junminhong): `` - [Research Agent Skills](https://github.com/KalarisLabs/research-agent-skills) — Guides agents through the full academic research lifecycle: literature and systematic reviews, hypothesis generation, experimental design, field-specific data analysis, paper writing, citation verification, journal submission and peer review. `Type: Collection` · `Platforms: Cross-platform` ``
 
 ## Human-only submissions (maintainer, in a browser)
+
+These lists reject AI-written or AI-submitted contributions, so submit them yourself:
+[travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) (15K, PR),
+[hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) (56K, issue form, below) and
+[writing-resources/awesome-scientific-writing](https://github.com/writing-resources/awesome-scientific-writing) (1K, PR).
+Use the long-form entry text above, adapted to each list's format.
 
 ### hesreallyhim/awesome-claude-code (56K stars)
 
