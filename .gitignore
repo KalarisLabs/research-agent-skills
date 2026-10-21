@@ -43,3 +43,4 @@ htmlcov/
 .agents/skills/graphify/
 .claude/skills/graphify/
 .claude/CLAUDE.md
+.cursor/rules/graphify.mdc
