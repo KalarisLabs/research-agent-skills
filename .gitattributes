@@ -12,9 +12,6 @@ plugin.json linguist-generated=true
 catalog/*.json linguist-generated=true
 third_party/upstream-manifest.json linguist-generated=true
 THIRD_PARTY_NOTICES.md linguist-generated=true
-# Excluded from release tarballs (installers only need skills/, catalog/ and licenses)
-/.github export-ignore
-/tests export-ignore
-/docs export-ignore
-/cli export-ignore
-/evals export-ignore
+# Release tarballs exclude dev-only paths via git archive pathspecs in
+# .github/workflows/release.yml (not export-ignore, which would also hide
+# .github/ and cli/ from GitHub's source tarball and from OpenSSF Scorecard).

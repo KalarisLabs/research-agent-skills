@@ -88,7 +88,7 @@ jobs:
         shell: bash
         run: |
           v=$(cat VERSION); out="$RUNNER_TEMP/rel"; mkdir -p "$out"
-          git archive --format=tar.gz --prefix="research-agent-skills-$v/" -o "$out/research-agent-skills-$v.tar.gz" HEAD
+          git archive --format=tar.gz --prefix="research-agent-skills-$v/" -o "$out/research-agent-skills-$v.tar.gz" HEAD -- . ':(exclude).github' ':(exclude)tests' ':(exclude)docs' ':(exclude)cli' ':(exclude)evals'
           (cd "$out" && (sha256sum "research-agent-skills-$v.tar.gz" 2>/dev/null || shasum -a 256 "research-agent-skills-$v.tar.gz") > SHA256SUMS)
       - name: install.sh (no-Node path, checksum verified)
         if: runner.os != 'Windows'
