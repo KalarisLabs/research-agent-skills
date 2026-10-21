@@ -33,3 +33,6 @@ Thumbs.db
 
 # Benchmark data (fetched/generated at run time)
 benchmarks/slop/data/
+
+# graphify knowledge graph (rebuilt locally with `graphify update .`; ~90 MB, not committed)
+graphify-out/
