@@ -49,13 +49,16 @@ test("fuzz readTar: arbitrary bytes either parse or throw an Error", () => {
   const input = fc.oneof(bytes, bytes.map((b) => gzipSync(b)));
   fc.assert(
     fc.property(input, (b) => {
+      let entries;
       try {
-        const entries = readTar(Buffer.from(b), limits);
-        assert.ok(entries.length <= limits.maxEntries + 1);
-        for (const e of entries) assert.ok(e.data.length <= limits.maxFileBytes);
+        entries = readTar(Buffer.from(b), limits);
       } catch (e) {
-        assert.ok(e instanceof Error);
+        assert.ok(e instanceof Error); // rejected input: only the parser's own errors are acceptable
+        return;
       }
+      // Assertions run outside the try block so a violated limit fails the property.
+      assert.ok(entries.length <= limits.maxEntries + 1);
+      for (const e of entries) assert.ok(e.data.length <= limits.maxFileBytes);
     }),
     { numRuns: RUNS },
   );

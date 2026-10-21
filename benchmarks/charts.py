@@ -123,9 +123,10 @@ def slop(t: dict):
 def routing_metrics(cases: list[dict]) -> dict[str, float]:
     pos = [c for c in cases if c["should_trigger"]]
     neg = [c for c in cases if not c["should_trigger"]]
-    return {"hit@1": sum(c["rank"] == 1 for c in pos) / len(pos),
-            "hit@3": sum(c["rank"] is not None and c["rank"] <= 3 for c in pos) / len(pos),
-            "False trigger": sum(c["rank"] == 1 for c in neg) / len(neg)}
+    n_pos, n_neg = max(len(pos), 1), max(len(neg), 1)  # a suite with only positives or negatives must not divide by 0
+    return {"hit@1": sum(c["rank"] == 1 for c in pos) / n_pos,
+            "hit@3": sum(c["rank"] is not None and c["rank"] <= 3 for c in pos) / n_pos,
+            "False trigger": sum(c["rank"] == 1 for c in neg) / n_neg}
 
 
 def routing(t: dict):

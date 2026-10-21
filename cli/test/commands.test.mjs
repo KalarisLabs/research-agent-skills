@@ -2,7 +2,7 @@
 // server. Nothing leaves the machine: HOME, the cache and the release URL are all redirected to temp dirs.
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { after, before, test } from "node:test";
@@ -172,7 +172,10 @@ before(async () => {
   await new Promise((r) => server.listen(0, "127.0.0.1", r));
   baseUrl = `http://127.0.0.1:${server.address().port}`;
 });
-after(() => server.close());
+after(() => {
+  server.close();
+  rmSync(base, { recursive: true, force: true }); // fixture checkout, fake homes and caches
+});
 
 test("cacheRoot honours its overrides", () => {
   assert.equal(cacheRoot({ RESEARCH_AGENT_SKILLS_CACHE: "/c" }), "/c");
