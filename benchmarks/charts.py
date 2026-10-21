@@ -18,12 +18,15 @@ from __future__ import annotations
 import argparse
 import io
 import json
+import os
 import re
 import sys
 from collections import Counter
 from pathlib import Path
 
-import matplotlib
+os.environ.setdefault("MPL_IGNORE_SYSTEM_FONTS", "1")  # use only the bundled DejaVu Sans, never a system copy
+
+import matplotlib  # noqa: E402
 
 matplotlib.use("svg")
 import matplotlib.pyplot as plt  # noqa: E402

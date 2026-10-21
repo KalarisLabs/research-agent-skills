@@ -57,7 +57,7 @@ test("fuzz readTar: arbitrary bytes either parse or throw an Error", () => {
         return;
       }
       // Assertions run outside the try block so a violated limit fails the property.
-      assert.ok(entries.length <= limits.maxEntries + 1);
+      assert.ok(entries.length <= limits.maxEntries);
       for (const e of entries) assert.ok(e.data.length <= limits.maxFileBytes);
     }),
     { numRuns: RUNS },

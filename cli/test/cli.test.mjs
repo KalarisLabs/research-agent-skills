@@ -51,6 +51,13 @@ test("tar: rejects path traversal and absolute paths", () => {
   assert.throws(() => safeJoin(dir, "a/../../b"), /unsafe path/);
 });
 
+test("tar: the entry limit also applies to directory entries", () => {
+  const dirs = tar([{ name: "repo/a/", type: "5" }, { name: "repo/b/", type: "5" }, { name: "repo/c/", type: "5" }]);
+  const limits = { maxEntries: 2, maxFileBytes: 1024, maxTotalBytes: 1 << 20 };
+  assert.throws(() => readTar(dirs, limits), /too many entries/);
+  assert.equal(readTar(dirs, { ...limits, maxEntries: 3 }).length, 3);
+});
+
 test("tar: rejects symlink and hardlink entries", () => {
   assert.throws(() => readTar(tar([{ name: "repo/link", type: "2" }])), /only regular files/);
   assert.throws(() => readTar(tar([{ name: "repo/hard", type: "1" }])), /only regular files/);
