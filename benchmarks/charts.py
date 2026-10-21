@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import io
 import json
+import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -41,7 +42,9 @@ THEMES = {
     "dark": {"surface": "#1a1a19", "text": "#f0efec", "text2": "#c3c2b7", "muted": "#8a8986", "grid": "#33332f",
              "skill": "#1593b3", "base": "#d95926", "human": "#9085e9"},
 }
-FONT = ["Inter", "Helvetica Neue", "Helvetica", "Arial", "DejaVu Sans", "sans-serif"]
+# DejaVu Sans ships inside matplotlib, and text is written as outlines (svg.fonttype "path"), so the SVGs are
+# identical on every machine and render the same in every browser, with no dependency on installed fonts.
+FONT = ["DejaVu Sans"]
 
 
 def load(name: str) -> dict:
@@ -204,8 +207,13 @@ CHARTS = {"task-outcomes": task_outcomes, "slop": slop, "routing": routing, "cit
           "quality": quality}
 
 
+def normalize(svg: bytes) -> str:
+    """Round floats to 2 decimals so harmless platform float noise cannot fail --check."""
+    return re.sub(r"-?\d+\.\d{3,}", lambda m: f"{float(m.group()):.2f}", svg.decode("utf-8"))
+
+
 def render(fn, theme: str) -> bytes:
-    plt.rcParams.update({"font.family": "sans-serif", "font.sans-serif": FONT, "svg.fonttype": "none",
+    plt.rcParams.update({"font.family": "sans-serif", "font.sans-serif": FONT, "svg.fonttype": "path",
                          "svg.hashsalt": "research-agent-skills", "axes.unicode_minus": False})
     fig = fn(THEMES[theme])
     buf = io.StringIO()
@@ -225,7 +233,7 @@ def main() -> int:
             path = OUT / f"{name}-{theme}.svg"
             svg = render(fn, theme)
             if args.check:
-                if not path.exists() or path.read_bytes() != svg:
+                if not path.exists() or normalize(path.read_bytes()) != normalize(svg):
                     stale.append(path.relative_to(ROOT).as_posix())
             else:
                 path.write_bytes(svg)
