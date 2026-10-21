@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import subprocess
+from pathlib import Path
 from types import SimpleNamespace
 
 import generate_skill_data as gen
@@ -185,7 +186,7 @@ def test_apply_patches_runs_only_the_matching_phase(monkeypatch, tmp_path, capsy
     monkeypatch.setattr(imp.subprocess, "run", lambda cmd, **kw: calls.append(cmd[-1]))
     imp.apply_patches()
     imp.apply_patches(after_enrichment=True)
-    assert [c.rsplit("/", 1)[-1] for c in calls] == ["01-before.patch", "post-02-after.patch"]
+    assert [Path(c).name for c in calls] == ["01-before.patch", "post-02-after.patch"]
     assert "applied 01-before.patch" in capsys.readouterr().out
 
 
