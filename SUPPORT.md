@@ -8,3 +8,11 @@
 
 Maintained by Sayan Chowdhury ([@saynchowdhury](https://github.com/saynchowdhury)) at Kalaris Labs.
 We aim to triage new issues within two business days.
+
+## How we handle issues
+
+- Every bug report and enhancement request gets a response from a maintainer: a fix, a question, a label, or a
+  short reason when we decline. We answer within the triage window above.
+- Issues and Discussions are public and stay searchable, so reports and answers remain available to everyone.
+- Security reports are the exception: they go through private vulnerability reporting and become a public
+  advisory once fixed (see [SECURITY.md](SECURITY.md)).

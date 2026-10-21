@@ -19,6 +19,7 @@
 [![Skill security](https://github.com/KalarisLabs/research-agent-skills/actions/workflows/skill-security.yml/badge.svg)](https://github.com/KalarisLabs/research-agent-skills/actions/workflows/skill-security.yml)
 [![Benchmarks](https://github.com/KalarisLabs/research-agent-skills/actions/workflows/benchmarks.yml/badge.svg)](benchmarks/README.md)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/KalarisLabs/research-agent-skills/badge)](https://securityscorecards.dev/viewer/?uri=github.com/KalarisLabs/research-agent-skills)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/15771/badge)](https://www.bestpractices.dev/projects/15771)
 
 **Works with**
 

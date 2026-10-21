@@ -19,6 +19,23 @@ In scope:
 - Supply-chain issues in the CLI, installers, release artifacts or CI workflows
 - Checksum/signature bypasses in `install.sh`, `install.ps1` or the npm CLI
 
+## Secure design and common errors
+
+The design follows Saltzer and Schroeder's principles, and the code and CI address the common error classes
+in the OWASP Top 10 that apply to an installer and a body of agent instructions.
+
+| Principle or error class | How the project applies it |
+|---|---|
+| Least privilege | Workflows declare `permissions: {}` and grant each job only what it needs |
+| Fail-safe defaults | The installers verify SHA-256 before extracting and stop on a mismatch; unknown paths in an archive are skipped, not installed |
+| Complete mediation | Script network access is limited to `security/allowed-domains.txt`, enforced in CI |
+| Economy of mechanism | Scripts are standard-library first; the installer has no runtime dependencies |
+| Path traversal and archive attacks (zip slip) | `cli/src/tar.ts` rejects absolute paths, `..`, links and oversized entries; covered by unit tests and property-based fuzz tests |
+| Injection (shell, prompt) | No `eval`/`exec` of fetched data; prompt-injection and hidden-Unicode lint over every file |
+| Vulnerable and outdated components | Dependabot, dependency review and lockfiles |
+| Software and data integrity failures | Actions pinned by SHA, SLSA build provenance, Sigstore signatures on checksums |
+| Security logging | CI findings are recorded as code-scanning alerts; pinned baselines require review to change |
+
 ## Supported versions
 
 Security fixes land on `main` and in the latest release. Pin versions (`--version` / `RAS_VERSION`)

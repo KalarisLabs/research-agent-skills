@@ -41,13 +41,10 @@ a second maintainer's approval. The score rises as reviewed PRs replace the last
 
 ## Admin step 2: OpenSSF Best Practices badge
 
-1. Sign in at https://www.bestpractices.dev with GitHub and add `KalarisLabs/research-agent-skills`.
-2. Answer the passing-level criteria. Most are already met: `SECURITY.md` (vulnerability reporting), `CONTRIBUTING.md`,
-   `LICENSE`, CI tests on every PR, signed releases, a static-analysis tool (CodeQL), and a dependency-update tool (Dependabot).
-3. Add the badge to the README badge row next to the Scorecard badge:
-   `[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/<id>/badge)](https://www.bestpractices.dev/projects/<id>)`.
-
-A passing badge scores 5 on that check, silver 7, gold 10.
+The project is registered at https://www.bestpractices.dev/projects/15771 and the badge is in the README. Enter the
+answers from [`best-practices-answers.md`](/maintainers/best-practices-answers) level by level: Passing first (Scorecard
+scores the check 5), then Silver (7). Gold (10) needs more than code: a second unassociated contributor, a bus factor
+of 2, two-person review on every change, enforced 2FA and a third-party security review.
 
 ## Verify
 
