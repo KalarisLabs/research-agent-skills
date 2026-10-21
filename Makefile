@@ -24,10 +24,10 @@ security: ## Prompt-injection lint and provenance guard
 	uv run tools/brand_guard.py
 
 test: lint ## Python tests (tooling + skill scripts)
-	uv run python -m pytest -q
+	uv run python -m pytest -q --cov
 
-cli: ## Build and test the npm installer
-	cd cli && npm test
+cli: ## Build and test the npm installer (with the coverage gate)
+	cd cli && npm test && npm run test:coverage
 
 catalog: ## Regenerate marketplace, plugin manifest, catalog, notices and README tables
 	uv run tools/build_catalog.py
