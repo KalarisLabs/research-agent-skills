@@ -37,10 +37,11 @@ with realistic prompts and at least one near miss.
 ## Knowledge graph (graphify)
 
 A [graphify](https://github.com/Graphify-Labs/graphify) knowledge graph maps skills, tools, tests and docs.
-Build it once per clone: `uv tool install graphifyy && graphify update .` (writes the git-ignored `graphify-out/`).
-Then prefer `graphify query "<question>"`, `graphify path "<A>" "<B>"` and `graphify explain "<X>"` over broad
-grep, and run `graphify update .` after code changes. The project skill is in `.agents/skills/graphify/`
-(`.claude/skills/graphify/` for Claude Code).
+Set it up once per clone: `uv tool install graphifyy && graphify install --project && graphify update .`
+(writes the git-ignored `graphify-out/`, plus a git-ignored project skill in `.claude/skills/graphify/`; add
+`--platform agents` for `.agents/skills/graphify/`). Then prefer `graphify query "<question>"`,
+`graphify path "<A>" "<B>"` and `graphify explain "<X>"` over broad grep, and run `graphify update .` after code
+changes. The graphify skill is never committed: `skills/` is the only place skills live, and CI checks the count.
 
 ## Rules
 

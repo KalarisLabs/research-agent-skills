@@ -38,3 +38,8 @@ benchmarks/slop/data/
 graphify-out/
 .coverage
 htmlcov/
+
+# graphify project skill: installed per clone with `graphify install --project`, never shipped as a repository skill
+.agents/skills/graphify/
+.claude/skills/graphify/
+.claude/CLAUDE.md
