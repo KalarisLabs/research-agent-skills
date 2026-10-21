@@ -31,7 +31,7 @@ in the OWASP Top 10 that apply to an installer and a body of agent instructions.
 | Complete mediation | Script network access is limited to `security/allowed-domains.txt`, enforced in CI |
 | Economy of mechanism | Scripts are standard-library first; the installer has no runtime dependencies |
 | Path traversal and archive attacks (zip slip) | `cli/src/tar.ts` rejects absolute paths, `..`, links and oversized entries; covered by unit tests and property-based fuzz tests |
-| Injection (shell, prompt) | No `eval`/`exec` of fetched data; prompt-injection and hidden-Unicode lint over every file |
+| Injection (shell, prompt) | No `eval`/`exec` of fetched data; prompt-injection and hidden-Unicode lint over every file under `skills/` |
 | Vulnerable and outdated components | Dependabot, dependency review and lockfiles |
 | Software and data integrity failures | Actions pinned by SHA, SLSA build provenance, Sigstore signatures on checksums |
 | Security logging | CI findings are recorded as code-scanning alerts; pinned baselines require review to change |
@@ -54,6 +54,9 @@ and update when advisories are published.
 | Installers | Verify SHA-256 before extracting; tar extraction rejects links, absolute paths and `..`; the CLI records per-file hashes and `doctor` detects tampering |
 
 ## Verifying a release
+
+The installers check the archive against the SHA-256 checksums published in the same release. That detects corrupted or
+altered downloads but does not authenticate the release. To authenticate it, run the commands below.
 
 ```bash
 gh attestation verify research-agent-skills-1.0.0.tar.gz --repo KalarisLabs/research-agent-skills

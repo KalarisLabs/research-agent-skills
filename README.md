@@ -247,9 +247,10 @@ For more workflows and installation choices, see [skills by field](docs/guides/b
 
 ## Measured, not claimed
 
-Every skill goes through a three-tier evaluation, and every chart below is rendered from the committed results in
-[`benchmarks/results/`](benchmarks/results/) by [`benchmarks/charts.py`](benchmarks/charts.py). CI fails if a chart drifts
-from its data. Methodology and caveats: [benchmarks/README.md](benchmarks/README.md).
+Every skill is scored on a static quality rubric and a trigger-routing suite, and task outcomes are measured for the
+original skills. Every chart below is rendered from the committed results in
+[`benchmarks/results/`](benchmarks/results/) by [`benchmarks/charts.py`](benchmarks/charts.py), and CI fails if a chart
+drifts from its data. Methodology and caveats: [benchmarks/README.md](benchmarks/README.md).
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="PUBLIC/benchmarks/task-outcomes-dark.svg" /><img src="PUBLIC/benchmarks/task-outcomes-light.svg" alt="Dumbbell chart: judge score per task with and without the skill. The skill wins 21 of 23 tasks, mean 7.4 versus 4.3." width="100%" /></picture>
 
