@@ -43,11 +43,13 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test test/cli.test.mjs",
-    "prepublishOnly": "npm test"
+    "test": "npm run build && node --test test/cli.test.mjs test/commands.test.mjs test/fuzz.test.mjs",
+    "prepublishOnly": "npm test",
+    "test:coverage": "npm run build && node --test --experimental-test-coverage --test-coverage-include='dist/**/*.js' --test-coverage-lines=80 --test-coverage-branches=80 test/cli.test.mjs test/commands.test.mjs test/fuzz.test.mjs"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",
+    "fast-check": "4.10.2",
     "typescript": "^7.0.2"
   }
 }

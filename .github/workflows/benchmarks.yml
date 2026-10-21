@@ -47,6 +47,8 @@ jobs:
         run: |
           uv run tools/skill_quality.py --json reports/skill-quality.json --markdown reports/skill-quality.md
           uv run tools/skill_quality.py --origin original --min-score 80
+      - name: Benchmark charts match committed results
+        run: uv run benchmarks/charts.py --check
       - name: Trigger routing (BM25 router)
         run: uv run tools/trigger_bench.py --min-hit3 0.9 --max-false 0.15 --json reports/trigger-bm25.json
       - name: Job summary

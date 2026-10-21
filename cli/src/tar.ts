@@ -79,7 +79,11 @@ export function readTar(input: Buffer, limits: ExtractLimits = DEFAULT_LIMITS): 
     longName = undefined;
     paxPath = undefined;
 
-    if (typeflag === "5") { entries.push({ path, type: "dir", data: Buffer.alloc(0) }); continue; }
+    if (typeflag === "5") {
+      entries.push({ path, type: "dir", data: Buffer.alloc(0) });
+      if (entries.length > limits.maxEntries) throw new Error("tarball has too many entries");
+      continue;
+    }
     if (typeflag !== "0" && typeflag !== "\0" && typeflag !== "7") {
       throw new Error(`refusing tar entry of type '${typeflag}' (${path}): only regular files are allowed`);
     }

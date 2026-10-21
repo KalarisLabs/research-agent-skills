@@ -252,7 +252,7 @@ class MetadataExtractor:
         Returns:
             Metadata dictionary or None
         """
-        url = 'http://export.arxiv.org/api/query'
+        url = 'https://export.arxiv.org/api/query'
         params = {
             'id_list': arxiv_id,
             'max_results': 1

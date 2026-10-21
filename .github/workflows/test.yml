@@ -33,7 +33,8 @@ jobs:
           python-version: ${{ matrix.python }}
           enable-cache: true
       - run: uv sync --locked
-      - run: uv run python -m pytest -q
+      - name: Tests with the statement-coverage gate (tools/ >= 80%)
+        run: uv run python -m pytest -q --cov
 
   cli:
     name: CLI (${{ matrix.os }}, node ${{ matrix.node }})
@@ -58,6 +59,9 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm ci --ignore-scripts
       - run: npm test
+      - name: Coverage gate (lines and branches >= 80%)
+        if: matrix.os == 'ubuntu-latest' && matrix.node == 22
+        run: npm run test:coverage
       - name: End-to-end install into a throwaway home (every harness)
         shell: bash
         run: |
@@ -88,7 +92,7 @@ jobs:
         shell: bash
         run: |
           v=$(cat VERSION); out="$RUNNER_TEMP/rel"; mkdir -p "$out"
-          git archive --format=tar.gz --prefix="research-agent-skills-$v/" -o "$out/research-agent-skills-$v.tar.gz" HEAD
+          git archive --format=tar.gz --prefix="research-agent-skills-$v/" -o "$out/research-agent-skills-$v.tar.gz" HEAD -- . ':(exclude).github' ':(exclude)tests' ':(exclude)docs' ':(exclude)cli' ':(exclude)evals'
           (cd "$out" && (sha256sum "research-agent-skills-$v.tar.gz" 2>/dev/null || shasum -a 256 "research-agent-skills-$v.tar.gz") > SHA256SUMS)
       - name: install.sh (no-Node path, checksum verified)
         if: runner.os != 'Windows'

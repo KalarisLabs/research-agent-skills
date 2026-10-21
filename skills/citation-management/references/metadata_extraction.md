@@ -279,7 +279,7 @@ Key fields:
 
 **Preprints in physics, math, CS, q-bio** - Free, open access.
 
-**Base URL**: `http://export.arxiv.org/api/query`
+**Base URL**: `https://export.arxiv.org/api/query`
 
 **No API key required**
 
@@ -287,7 +287,7 @@ Key fields:
 
 **Request**:
 ```
-GET http://export.arxiv.org/api/query?id_list=2103.14030
+GET https://export.arxiv.org/api/query?id_list=2103.14030
 ```
 
 **Response**: Atom XML

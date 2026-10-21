@@ -34,6 +34,17 @@ make check                                # everything CI runs on a pull request
 Benchmarks and their methodology: `benchmarks/README.md`. Every new skill needs `evals/<name>/evals.json`
 with realistic prompts and at least one near miss.
 
+## Knowledge graph (graphify)
+
+A [graphify](https://github.com/Graphify-Labs/graphify) knowledge graph maps skills, tools, tests and docs.
+Set it up once per clone: `uv tool install graphifyy==0.9.93`, then `uv tool update-shell` and open a new shell if
+`graphify` is not found, then `graphify install --project && graphify update .`. The version is pinned so an update is a
+deliberate change. Setup writes the git-ignored `graphify-out/` and a git-ignored project skill in
+`.claude/skills/graphify/`; add `--platform agents` for `.agents/skills/graphify/`, or `--platform cursor` for
+`.cursor/rules/graphify.mdc` (also git-ignored). Then prefer `graphify query "<question>"`,
+`graphify path "<A>" "<B>"` and `graphify explain "<X>"` over broad grep, and run `graphify update .` after code
+changes. The graphify skill is never committed: `skills/` is the only place skills live, and CI checks the count.
+
 ## Rules
 
 - Keep SKILL.md under 500 lines. Put detail in `references/`.

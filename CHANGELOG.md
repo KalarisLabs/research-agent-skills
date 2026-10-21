@@ -4,6 +4,10 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
+Fixed vulnerabilities are listed under **Security** in the release that contains the fix, with the advisory or
+CVE identifier. Security advisories are also published at
+https://github.com/KalarisLabs/research-agent-skills/security/advisories.
+
 ## [Unreleased]
 
 ### Changed
