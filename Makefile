@@ -2,7 +2,7 @@
 # so the same commands work without make (see CONTRIBUTING.md).
 .DEFAULT_GOAL := help
 .PHONY: help setup check validate lint security test cli catalog quality bench-triggers bench-citations \
-        bench-slop bench-tasks docs docs-serve import clean
+        bench-slop bench-tasks charts charts-check docs docs-serve import clean
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "} {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
@@ -11,7 +11,7 @@ setup: ## Install Python tooling and CLI dependencies
 	uv sync --group docs
 	cd cli && npm ci
 
-check: validate security catalog quality test ## Everything CI runs on a pull request (fast, offline)
+check: validate security catalog quality charts-check test ## Everything CI runs on a pull request (fast, offline)
 
 validate: ## Agent Skills spec + repository policy
 	uv run tools/validate.py --quiet
@@ -49,6 +49,12 @@ bench-slop: ## Slop benchmark: fetch human abstracts, generate with/without skil
 
 bench-tasks: ## With-vs-without-skill task outcomes, blind LLM judge (paid)
 	uv run benchmarks/task_evals/run.py --all-original --json benchmarks/results/task-evals.json
+
+charts: ## Render benchmark charts (PUBLIC/benchmarks/*.svg) from benchmarks/results/
+	uv run benchmarks/charts.py
+
+charts-check: ## Fail if the committed benchmark charts are out of date
+	uv run benchmarks/charts.py --check
 
 docs: ## Validate Mintlify documentation pages and links
 	uv run tools/build_catalog.py --docs

@@ -37,7 +37,7 @@ npx skills add KalarisLabs/research-agent-skills
 
 <sub>One command via <a href="https://skills.sh/kalarislabs/research-agent-skills">skills.sh</a> · no account · pick all skills or only the ones you need · not on npm</sub>
 
-[Install](#install) · [Who it's for](#built-for-researchers) · [Benchmarks](#measured-not-claimed) · [Skills](#skill-catalog) · [skills.sh](https://skills.sh/kalarislabs/research-agent-skills) · [Docs](https://docs.kalarislabs.com/research-agent-skills) · [FAQ](#faq)
+[Install](#install) · [Proof](#proof-a-whole-brain-study-run-end-to-end-with-these-skills) · [Who it's for](#built-for-researchers) · [Benchmarks](#measured-not-claimed) · [Skills](#skill-catalog) · [skills.sh](https://skills.sh/kalarislabs/research-agent-skills) · [Docs](https://docs.kalarislabs.com/research-agent-skills) · [FAQ](#faq)
 
 </div>
 
@@ -86,6 +86,35 @@ flowchart LR
 
 Installed skills cost almost nothing until used: the agent sees one short description per skill and opens the
 full playbook only for the task at hand.
+
+## Proof: a whole-brain study, run end to end with these skills
+
+<a href="https://github.com/KalarisLabs/fly-brain-resuscitation"><img src="https://raw.githubusercontent.com/KalarisLabs/fly-brain-resuscitation/main/assets/banner.png" alt="Simulated adult fly brain (FlyWire FAFB v783) during the reperfusion runaway, from the fly-brain-resuscitation study" width="100%" /></a>
+
+**[Reviving a model fly brain](https://github.com/KalarisLabs/fly-brain-resuscitation)** is a Kalaris Labs preprint on anoxia, brain death and resuscitation in a
+connectome-constrained simulation of the whole adult *Drosophila* brain (139,255 neurons). Claude worked through
+Research Agent Skills and Kalaris Labs Myriad from the first hypothesis to the finished paper, under the author's
+direction (disclosed in the paper; Claude is not an author).
+
+| Stage | What the agent produced | How the skills shaped it |
+|---|---|---|
+| **Question** | 6 preregistered hypotheses, each with rival explanations, discriminating predictions and falsification thresholds, frozen before any simulation ran | [`hypothesis-generation`](skills/hypothesis-generation/SKILL.md) v2.2 workflow, cited in the [preregistration](https://github.com/KalarisLabs/fly-brain-resuscitation/blob/main/docs/HYPOTHESES.md) |
+| **Literature** | 82 Crossref-verified sources and an 81-row parameter table, with 6 values flagged `UNVERIFIED` instead of guessed | [`citation-verification`](skills/citation-verification/SKILL.md) rule: 2 DOIs that resolved to the wrong papers were caught and discarded ([bibliography](https://github.com/KalarisLabs/fly-brain-resuscitation/blob/main/docs/lit/bibliography.md)) |
+| **Experiments** | 3,487 analysed condition-seed simulation runs: network structure in 4 connectomes (FAFB, BANC, MANC, MCNS), dynamics in 2 (FAFB, MCNS) | Preregistered analysis plan; graded reperfusion (H3) was **falsified**, direction reversed, and reported as such |
+| **Output** | 30-page paper, supplement, 19 figures, narrated explainer videos, unit-tested code | Every headline claim tied to its source results file, number and confidence level in [`KEY_CLAIMS.json`](https://github.com/KalarisLabs/fly-brain-resuscitation/blob/main/paper/KEY_CLAIMS.json) |
+
+<table>
+<tr>
+<td width="50%" align="center"><a href="https://github.com/KalarisLabs/fly-brain-resuscitation"><img src="https://raw.githubusercontent.com/KalarisLabs/fly-brain-resuscitation/main/assets/C3_runaway.gif" width="100%" alt="Simulation: abrupt reperfusion after anoxia drives the model brain into a potassium-coupled runaway" /></a><br/><sub><b>Abrupt reoxygenation:</b> after 180 s of anoxia the model is trapped in a self-sustained K⁺-coupled high-activity state (48/48 FAFB parameter sets, 5/5 MCNS runs; confidence high)</sub></td>
+<td width="50%" align="center"><a href="https://github.com/KalarisLabs/fly-brain-resuscitation"><img src="https://raw.githubusercontent.com/KalarisLabs/fly-brain-resuscitation/main/assets/C4_reset.gif" width="100%" alt="Simulation: a 20-second total activity block at reperfusion resets the network and its responses return" /></a><br/><sub><b>20-second total activity block at reperfusion:</b> the stimulus-response map returns (FAFB FII<sub>norm</sub> 1.001 / 0.953 at 30 / 180 s anoxia; confidence high)</sub></td>
+</tr>
+</table>
+
+<sub><b>Scope:</b> all results are predictions of a simplified simulation (connectome-constrained LIF neurons and
+phenomenological metabolism, constants not fitted to <i>Drosophila</i>). They are not evidence about living tissue,
+clinical brain death or human resuscitation, and resuscitation of a brain-dead organism has not been demonstrated.
+Claims and numbers follow the study's <a href="https://github.com/KalarisLabs/fly-brain-resuscitation/blob/main/paper/KEY_CLAIMS.json">KEY_CLAIMS.json</a>;
+see also its <a href="https://github.com/KalarisLabs/fly-brain-resuscitation/blob/main/docs/LIMITATIONS.md">limitations</a>.</sub>
 
 ## Install
 
@@ -217,7 +246,25 @@ For more workflows and installation choices, see [skills by field](docs/guides/b
 
 ## Measured, not claimed
 
-Every skill goes through a three-tier evaluation ([methodology and full results](benchmarks/README.md)):
+Every skill goes through a three-tier evaluation, and every chart below is rendered from the committed results in
+[`benchmarks/results/`](benchmarks/results/) by [`benchmarks/charts.py`](benchmarks/charts.py). CI fails if a chart drifts
+from its data. Methodology and caveats: [benchmarks/README.md](benchmarks/README.md).
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="PUBLIC/benchmarks/task-outcomes-dark.svg" /><img src="PUBLIC/benchmarks/task-outcomes-light.svg" alt="Dumbbell chart: judge score per task with and without the skill. The skill wins 21 of 23 tasks, mean 7.4 versus 4.3." width="100%" /></picture>
+
+<table>
+<tr>
+<td width="50%"><picture><source media="(prefers-color-scheme: dark)" srcset="PUBLIC/benchmarks/slop-dark.svg" /><img src="PUBLIC/benchmarks/slop-light.svg" alt="Bar chart: mean slop index 0.8 with the unslop skill, 5.0 without it, 2.9 for human abstracts. 83 percent lower with the skill." width="100%" /></picture></td>
+<td width="50%"><picture><source media="(prefers-color-scheme: dark)" srcset="PUBLIC/benchmarks/citations-dark.svg" /><img src="PUBLIC/benchmarks/citations-light.svg" alt="Bar chart: citation-verification passed 10 of 10 real references and flagged 4 of 4 corrupted and 4 of 4 fabricated ones." width="100%" /></picture></td>
+</tr>
+<tr>
+<td width="50%"><picture><source media="(prefers-color-scheme: dark)" srcset="PUBLIC/benchmarks/routing-dark.svg" /><img src="PUBLIC/benchmarks/routing-light.svg" alt="Grouped bars: on 100 held-out prompts an LLM router picks the right skill hit@3 0.96 with 0.00 false triggers, versus 0.77 and 0.04 for keyword routing." width="100%" /></picture></td>
+<td width="50%"><picture><source media="(prefers-color-scheme: dark)" srcset="PUBLIC/benchmarks/quality-dark.svg" /><img src="PUBLIC/benchmarks/quality-light.svg" alt="Histogram of static quality scores: all 281 skills score 80 or more, mean 95.2." width="100%" /></picture></td>
+</tr>
+</table>
+
+<details>
+<summary><b>The same numbers as a table</b></summary>
 
 | Check | Result |
 |---|---|
@@ -227,7 +274,10 @@ Every skill goes through a three-tier evaluation ([methodology and full results]
 | No-slop writing: model abstracts with vs without `unslop-academic-writing` (pilot) | slop index **83% lower**, clean share 68% → 89% |
 | Task outcomes with vs without skill, blind LLM judge (pilot, 23 tasks) | skill wins **21/23**, mean score 7.4 vs 4.3 |
 
-Quality and routing gates run on every pull request, so a weak or overlapping skill can't be merged silently.
+</details>
+
+Model-based results are pilots (small samples, one small model as answerer and judge). Quality and routing gates run
+on every pull request, so a weak or overlapping skill can't be merged silently.
 
 ## Featured skills
 
