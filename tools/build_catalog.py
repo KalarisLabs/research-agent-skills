@@ -3,6 +3,7 @@
 Outputs (all committed except docs pages):
     .claude-plugin/marketplace.json   Claude Code plugin marketplace (one plugin per category + bundles)
     plugin.json                       Agent Plugins 1.0 manifest (Codex, Cursor, Copilot, gh skill)
+    .codex-plugin/plugin.json         Codex plugin manifest (read by the awesome-codex-plugins catalog and Codex)
     catalog/skills.json               machine-readable index used by the CLI and docs
     catalog/graph.json                skills/categories knowledge graph (nodes + edges)
     catalog/graph.graphml             same graph as GraphML (Gephi, yEd, NetworkX, graph tools)
@@ -224,6 +225,27 @@ def build_plugin_manifest(index: dict) -> dict:
         "license": "MIT",
         "keywords": KEYWORDS,
     }
+
+
+def build_codex_manifest(index: dict) -> dict:
+    manifest = build_plugin_manifest(index)
+    manifest.pop("$schema")
+    manifest["skills"] = "./skills/"
+    manifest["interface"] = {
+        "displayName": "Research Agent Skills",
+        "shortDescription": "Skills for the full academic research lifecycle",
+        "longDescription": (f"{len(index['skills'])} independently installable skills for literature and PRISMA "
+                            "reviews, hypotheses, experimental design, data analysis, paper and thesis writing, "
+                            "journal formatting, citation verification and peer review."),
+        "developerName": BRAND,
+        "category": "Research",
+        "capabilities": ["Read", "Write"],
+        "websiteURL": DOCS_URL,
+        "composerIcon": "./assets/icon.svg",
+        "logo": "./assets/icon.svg",
+        "brandColor": "#165D74",
+    }
+    return manifest
 
 
 def build_skills_sh_config(index: dict) -> dict:
@@ -559,6 +581,7 @@ def main(argv: list[str] | None = None) -> int:
     outputs: dict[Path, str] = {
         ROOT / ".claude-plugin" / "marketplace.json": _json(build_marketplace(index)),
         ROOT / "plugin.json": _json(build_plugin_manifest(index)),
+        ROOT / ".codex-plugin" / "plugin.json": _json(build_codex_manifest(index)),
         ROOT / "catalog" / "skills.json": _json(index),
         ROOT / "catalog" / "graph.json": _json(graph),
         ROOT / "catalog" / "graph.graphml": graph_to_graphml(graph),

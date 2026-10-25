@@ -31,6 +31,20 @@ def test_release_metadata_versions_match():
     assert str(load_yaml(ROOT / "CITATION.cff")["version"]) == version
 
 
+def test_codex_manifest_meets_the_awesome_codex_plugins_requirements():
+    """The catalog validator needs these fields and an icon file; its absence failed our listing."""
+    manifest = json.loads((ROOT / ".codex-plugin" / "plugin.json").read_text(encoding="utf-8"))
+    for field in ("name", "version", "description", "repository", "license"):
+        assert manifest[field]
+    assert manifest["version"] == (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+    assert manifest["skills"] == "./skills/" and (ROOT / "skills").is_dir()
+    icon = manifest["interface"]["composerIcon"]
+    assert icon.startswith("./") and (ROOT / icon).is_file()
+    assert (ROOT / icon).stat().st_size < 50_000
+    for name in ("SECURITY.md", "LICENSE", "README.md"):
+        assert (ROOT / name).is_file()
+
+
 def test_every_skill_has_search_tags():
     index = json.loads((ROOT / "catalog" / "skills.json").read_text(encoding="utf-8"))
     assert [s["name"] for s in index["skills"] if not s["tags"]] == []
