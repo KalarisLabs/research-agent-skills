@@ -69,7 +69,7 @@ jobs:
           node-version: 22
       - name: pip-audit (tooling lockfile)
         run: |
-          uv export --locked --no-hashes --format requirements-txt > /tmp/requirements.txt
+          uv export --locked --no-hashes --format requirements-txt --no-emit-project > /tmp/requirements.txt
           uvx pip-audit==2.10.1 -r /tmp/requirements.txt --strict
       - name: npm audit (CLI, production + dev)
         working-directory: cli

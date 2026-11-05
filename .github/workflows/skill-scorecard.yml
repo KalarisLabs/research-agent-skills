@@ -47,19 +47,22 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BASE_REF: ${{ github.base_ref }}
         run: |
           mkdir -p reports
-          echo "${{ github.event.pull_request.number }}" > reports/pr_number.txt
+          echo "${PR_NUMBER}" > reports/pr_number.txt
 
           # Run scorecard evaluation on changed skills
           # Gate at min-score 80.0 as required by repository standards
+          BASE="origin/${BASE_REF:-main}"
           uv run tools/skill_scorecard.py --changed \
-            --base "origin/${{ github.base_ref || 'main' }}" \
+            --base "$BASE" \
             --min-score 80.0 \
             --fail-under 80.0 \
             --output reports/scorecard.md \
             --json reports/scorecard.json \
-            --pr-number "${{ github.event.pull_request.number }}" \
+            --pr-number "$PR_NUMBER" \
             --post-comment || {
               echo "SCORECARD_FAILED=1" >> "$GITHUB_ENV"
             }

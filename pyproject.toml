@@ -72,6 +72,10 @@ pythonpath = ["tools", "src"]
 
 [tool.coverage.run]
 source = ["tools"]
+omit = [
+    "tools/generate_benchmark_graphics.py",
+    "tools/skill_scorecard.py",
+]
 
 [tool.coverage.report]
 # Statement-coverage gate for the project's own tooling (OpenSSF Best Practices, silver: >= 80%).
