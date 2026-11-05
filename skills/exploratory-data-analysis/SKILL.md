@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: exploratory data analysis, data profiling, data quality, scientific data
 ---
 
 # Exploratory Data Analysis

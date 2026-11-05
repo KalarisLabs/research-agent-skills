@@ -7,6 +7,7 @@ metadata:
   version: '1.6'
   category: scientific-databases
   maintainer: Kalaris Labs
+  tags: scientific databases, APIs, data retrieval, reproducibility, provenance
 ---
 
 # Database Lookup

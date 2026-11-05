@@ -22,6 +22,7 @@ metadata:
     - name: FOUNDRY_API_KEY
       required: false
       description: Optional Foundry access for drafting.
+  tags: skill authoring, workflow automation, research automation, AI agents
 ---
 
 # autoskill

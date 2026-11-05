@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: PyTorch Lightning, deep learning, model training, multi-GPU, machine learning
 ---
 
 # PyTorch Lightning

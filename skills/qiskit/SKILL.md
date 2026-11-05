@@ -7,6 +7,7 @@ metadata:
   version: '2.1'
   category: physical-sciences
   maintainer: Kalaris Labs
+  tags: quantum computing, quantum circuits, IBM Quantum, physics
 ---
 
 # Qiskit

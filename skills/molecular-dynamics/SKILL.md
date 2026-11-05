@@ -7,6 +7,7 @@ metadata:
   category: chemistry-and-drug-discovery
   maintainer: Kalaris Labs
   contributor: Kuan-lin Huang
+  tags: molecular dynamics, OpenMM, MDAnalysis, simulation, computational chemistry
 ---
 
 # Molecular Dynamics

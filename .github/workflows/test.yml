@@ -28,12 +28,13 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
         with:
           python-version: ${{ matrix.python }}
           enable-cache: true
       - run: uv sync --locked
-      - run: uv run python -m pytest -q
+      - name: Tests with the statement-coverage gate (tools/ >= 80%)
+        run: uv run python -m pytest -q --cov
 
   cli:
     name: CLI (${{ matrix.os }}, node ${{ matrix.node }})
@@ -53,11 +54,14 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ matrix.node }}
       - run: npm ci --ignore-scripts
       - run: npm test
+      - name: Coverage gate (lines and branches >= 80%)
+        if: matrix.os == 'ubuntu-latest' && matrix.node == 22
+        run: npm run test:coverage
       - name: End-to-end install into a throwaway home (every harness)
         shell: bash
         run: |
@@ -88,7 +92,7 @@ jobs:
         shell: bash
         run: |
           v=$(cat VERSION); out="$RUNNER_TEMP/rel"; mkdir -p "$out"
-          git archive --format=tar.gz --prefix="research-agent-skills-$v/" -o "$out/research-agent-skills-$v.tar.gz" HEAD
+          git archive --format=tar.gz --prefix="research-agent-skills-$v/" -o "$out/research-agent-skills-$v.tar.gz" HEAD -- . ':(exclude).github' ':(exclude)tests' ':(exclude)docs' ':(exclude)cli' ':(exclude)evals'
           (cd "$out" && (sha256sum "research-agent-skills-$v.tar.gz" 2>/dev/null || shasum -a 256 "research-agent-skills-$v.tar.gz") > SHA256SUMS)
       - name: install.sh (no-Node path, checksum verified)
         if: runner.os != 'Windows'

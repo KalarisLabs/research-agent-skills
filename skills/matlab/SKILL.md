@@ -9,6 +9,7 @@ metadata:
   category: data-science-and-ml
   maintainer: Kalaris Labs
   last-reviewed: '2026-07-23'
+  tags: MATLAB, GNU Octave, numerical computing, scientific computing
 ---
 
 # MATLAB and GNU Octave

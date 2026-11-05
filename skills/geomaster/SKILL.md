@@ -6,6 +6,7 @@ metadata:
   version: '1.3'
   category: physical-sciences
   maintainer: Kalaris Labs
+  tags: geospatial, remote sensing, Earth observation, satellite imagery, GIS
 ---
 
 # GeoMaster

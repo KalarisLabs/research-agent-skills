@@ -13,6 +13,7 @@ metadata:
     - name: PARALLEL_API_KEY
       required: true
       description: Parallel API key.
+  tags: web research, deep research, data enrichment, web extraction
 ---
 
 # Parallel Web Toolkit

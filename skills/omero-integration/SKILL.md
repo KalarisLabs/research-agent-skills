@@ -27,6 +27,7 @@ metadata:
     - name: OMERO_SECURE
       required: false
       description: Secure transport toggle; default true.
+  tags: microscopy, image data management, OMERO, bioimaging
 ---
 
 # OMERO Integration

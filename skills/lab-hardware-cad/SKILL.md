@@ -10,6 +10,7 @@ metadata:
   maintainer: Kalaris Labs
   last-reviewed: '2026-08-15'
   build123d-version: 0.11.1
+  tags: lab hardware, CAD, 3D printing, microfluidics, open hardware
 ---
 
 # Lab Hardware CAD

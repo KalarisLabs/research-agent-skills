@@ -27,4 +27,4 @@ body:
     id: env
     attributes:
       label: Environment
-      description: OS, Python/Node versions, output of `npx research-agent-skills doctor`
+      description: OS, Python/Node versions, install method (skills.sh, plugin marketplace, install.sh/install.ps1) and output of `npx skills list`

@@ -8,6 +8,7 @@ metadata:
   version: '1.1'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: genomic intervals, bioinformatics, Polars, genomics file formats
 ---
 
 # polars-bio

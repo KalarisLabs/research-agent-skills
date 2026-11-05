@@ -7,6 +7,7 @@ metadata:
   category: literature-review
   maintainer: Kalaris Labs
   contributor: Paperzilla Inc
+  tags: paper recommendations, research feeds, literature monitoring
 ---
 
 # Paperzilla

@@ -7,6 +7,7 @@ metadata:
   version: '1.3'
   category: physical-sciences
   maintainer: Kalaris Labs
+  tags: astronomy, astrophysics, FITS, coordinates, cosmology, physics
 ---
 
 # Astropy

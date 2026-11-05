@@ -8,6 +8,7 @@ metadata:
   version: '1.4'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: differential expression, RNA-seq, DESeq2, transcriptomics, bioinformatics
 ---
 
 # PyDESeq2

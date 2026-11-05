@@ -7,6 +7,7 @@ metadata:
   version: '1.3'
   category: clinical-and-health
   maintainer: Kalaris Labs
+  tags: digital pathology, whole slide images, H&E, tile extraction, medical imaging
 ---
 
 # Histolab

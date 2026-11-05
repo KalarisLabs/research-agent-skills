@@ -8,6 +8,7 @@ metadata:
   version: '2.2'
   category: research-writing
   maintainer: Kalaris Labs
+  tags: scholarly review, research assessment, developmental feedback, academic evaluation
 ---
 
 # Scholar Evaluation

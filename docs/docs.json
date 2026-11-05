@@ -12,20 +12,32 @@
     "groups": [
       {
         "group": "Get started",
-        "pages": ["index", "getting-started/installation", "getting-started/quickstart"]
+        "pages": ["index", "getting-started/quickstart", "getting-started/installation"]
       },
       {
-        "group": "Research guides",
+        "group": "Research workflows",
         "pages": [
-          "guides/by-field",
           "guides/write-a-research-paper",
           "guides/thesis-and-dissertation",
           "guides/no-slop-academic-writing",
-          "guides/systematic-review"
+          "guides/systematic-review",
+          "guides/case-study-fly-brain"
         ]
       },
       {
-        "group": "Explore skills",
+        "group": "Skills by discipline",
+        "pages": [
+          "guides/by-field",
+          "fields/machine-learning",
+          "fields/artificial-intelligence",
+          "fields/biology",
+          "fields/chemistry",
+          "fields/medicine",
+          "fields/physics"
+        ]
+      },
+      {
+        "group": "All skills",
         "pages": ["skills/index"]
       },
       {
@@ -35,6 +47,7 @@
           "reference/architecture",
           "reference/benchmarks",
           "reference/security",
+          "reference/assurance-case",
           "reference/contributing",
           "faq"
         ]
@@ -46,6 +59,14 @@
       {
         "label": "GitHub",
         "href": "https://github.com/KalarisLabs/research-agent-skills"
+      },
+      {
+        "label": "Skills Directory",
+        "href": "https://www.skillsdirectory.com/authors/kalarislabs"
+      },
+      {
+        "label": "skills.sh",
+        "href": "https://skills.sh/kalarislabs/research-agent-skills"
       }
     ],
     "primary": {
@@ -56,10 +77,32 @@
   },
   "footer": {
     "socials": {
-      "github": "https://github.com/KalarisLabs/research-agent-skills"
-    }
+      "github": "https://github.com/KalarisLabs/research-agent-skills",
+      "website": "https://kalarislabs.com"
+    },
+    "links": [
+      {
+        "header": "Find us on",
+        "items": [
+          { "label": "GitHub", "href": "https://github.com/KalarisLabs/research-agent-skills" },
+          { "label": "skills.sh", "href": "https://skills.sh/kalarislabs/research-agent-skills" },
+          { "label": "Skills Directory", "href": "https://www.skillsdirectory.com/authors/kalarislabs" }
+        ]
+      },
+      {
+        "header": "For agents",
+        "items": [
+          { "label": "llms.txt", "href": "https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/llms.txt" },
+          { "label": "llms-full.txt", "href": "https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/llms-full.txt" },
+          { "label": "Skill catalog (JSON)", "href": "https://raw.githubusercontent.com/KalarisLabs/research-agent-skills/main/catalog/skills.json" }
+        ]
+      }
+    ]
   },
   "seo": {
-    "indexing": "all"
+    "indexing": "all",
+    "metatags": {
+      "og:site_name": "Research Agent Skills by Kalaris Labs"
+    }
   }
 }

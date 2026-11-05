@@ -7,6 +7,7 @@ metadata:
   version: '1.2'
   category: ideation-and-design
   maintainer: Kalaris Labs
+  tags: brainstorming, research ideation, research directions, scientific method
 ---
 
 # Scientific Brainstorming

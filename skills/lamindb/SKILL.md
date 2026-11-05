@@ -6,6 +6,7 @@ metadata:
   version: '1.2'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: data lineage, biological data, data management, ontologies, MLOps
 ---
 
 # LaminDB

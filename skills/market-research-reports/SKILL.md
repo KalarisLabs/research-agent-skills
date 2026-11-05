@@ -7,6 +7,7 @@ metadata:
   version: '1.3'
   category: research-writing
   maintainer: Kalaris Labs
+  tags: market research, market sizing, TAM SAM SOM, competitive analysis, reports
 ---
 
 # Market Research Reports

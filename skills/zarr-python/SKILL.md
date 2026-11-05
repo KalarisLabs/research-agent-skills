@@ -8,6 +8,7 @@ metadata:
   version: '1.3'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: Zarr, chunked arrays, cloud storage, N-dimensional data, scientific data
 ---
 
 # Zarr Python

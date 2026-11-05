@@ -8,6 +8,7 @@ metadata:
   version: '1.4'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: discrete-event simulation, simulation, queueing, operations research
 ---
 
 # SimPy

@@ -6,6 +6,7 @@ metadata:
   version: '1.3'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: AI for science, scientific datasets, foundation models, Hugging Face, machine learning
 ---
 
 # Hugging Science

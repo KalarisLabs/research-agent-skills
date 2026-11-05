@@ -56,6 +56,8 @@ STRIP = [re.compile(p) for p in _RULES.get("strip_regexes", [])]
 _OVR_PATH = THIRD_PARTY / "description-overrides.yaml"
 DESCRIPTION_OVERRIDES: dict[str, str] = (
     (load_yaml(_OVR_PATH) or {}).get("descriptions", {}) if _OVR_PATH.exists() else {})
+_TAG_PATH = THIRD_PARTY / "tag-overrides.yaml"
+TAG_OVERRIDES: dict[str, str] = (load_yaml(_TAG_PATH) or {}).get("tags", {}) if _TAG_PATH.exists() else {}
 REPLACEMENTS: list[tuple[str, str]] = [(old, _expand(new)) for old, new in _RULES["replacements"]]
 # Vendor-level authorship (upstream orgs, or already rewritten to BRAND) becomes `maintainer`;
 # individual community contributors are preserved as `contributor`.
@@ -143,6 +145,8 @@ def normalize_frontmatter(meta: dict[str, Any], name: str, category: str) -> dic
     md["version"] = str(md.get("version") or "1.0")
     md["maintainer"] = BRAND
     md["category"] = category
+    if name in TAG_OVERRIDES and not md.get("tags"):
+        md["tags"] = TAG_OVERRIDES[name]
     md = {k: _stringify(v) for k, v in md.items()}
     ordered = {k: md.pop(k) for k in ("version", "category", "maintainer") if k in md}
     ordered.update(md)

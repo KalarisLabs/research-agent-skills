@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: survival analysis, Cox regression, time-to-event, biostatistics, machine learning
 ---
 
 # scikit-survival

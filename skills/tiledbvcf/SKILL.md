@@ -7,6 +7,7 @@ metadata:
   category: life-sciences
   maintainer: Kalaris Labs
   contributor: Jeremy Leipzig
+  tags: genomic variants, VCF, variant storage, population genomics
 ---
 
 # TileDB-VCF

@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: scientific-databases
   maintainer: Kalaris Labs
+  tags: ontologies, CURIEs, OLS, metadata annotation, FAIR data
 ---
 
 # Ontology Term Resolution

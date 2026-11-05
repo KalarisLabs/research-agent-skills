@@ -28,6 +28,35 @@ adding a skill, improving one, and the checks your pull request must pass.
    Anthropic's official `skill-creator` (`/plugin marketplace add anthropics/skills`) runs the eval loop.
 4. Categories are defined in `third_party/categories.yaml`. Propose a new one in your PR if none fits.
 
+## What we accept
+
+A contribution is accepted when it meets all of these:
+
+- **Scope:** one skill or one focused change per pull request, with a clear reason in the description.
+- **Coding standard:** Python follows the ruff rules in `pyproject.toml` (line length 120, rule sets E, F, W, I, B, UP, S),
+  TypeScript compiles under `cli/tsconfig.json`, and `.editorconfig` sets whitespace and line endings. CI runs ruff and the
+  compiler on every pull request, so a failing check is the whole standard; `make lint` runs it locally.
+- **Checks:** every CI check passes, including the skill requirements below and the security scans described in
+  [SECURITY.md](SECURITY.md).
+- **Tests:** see [Tests](#tests).
+- **Licence and origin:** your own work, licensed under MIT (see the ground rules).
+- **Review:** one maintainer approves. Changes under `.github/`, `security/`, the installers and the CLI need the
+  lead maintainer (see [`.github/CODEOWNERS`](.github/CODEOWNERS)).
+
+## Tests
+
+New functionality ships with automated tests, and bug fixes ship with a regression test that fails without the fix.
+
+- Python tooling in `tools/` and skill scripts: add tests in `tests/` and run `uv run python -m pytest -q --cov`.
+  Statement coverage of `tools/` must stay at or above 80% (`[tool.coverage.report]` in `pyproject.toml`).
+- The installer CLI in `cli/`: add tests in `cli/test/` and run `cd cli && npm test && npm run test:coverage`.
+  Line and branch coverage must stay at or above 80%. Parsers that read untrusted input also get a property-based
+  test in `cli/test/fuzz.test.mjs`.
+- New skills need `evals/<name>/evals.json` (see the table below). Skill scripts need an offline smoke test.
+
+Pull requests that add code without tests are asked to add them before merge. The pull request template has a
+checkbox for this.
+
 ## Skill requirements (enforced by CI)
 
 | Requirement | Tool |

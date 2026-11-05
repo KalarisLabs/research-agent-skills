@@ -1,0 +1,161 @@
+_comment: Search tags for adapted skills whose upstream SKILL.md has none. Applied by tools/rebrand.py at import (metadata.tags, comma-separated) and surfaced in catalog/skills.json, llms-full.txt and docs pages. Upstream tags win when present.
+tags:
+  13c-metabolic-flux: 13C-MFA, metabolic flux analysis, isotope tracing, metabolomics, systems biology
+  adaptyv: protein engineering, binding assays, protein screening, lab automation, drug discovery
+  aeon: time series, classification, forecasting, anomaly detection, machine learning
+  alphagenome: variant effect prediction, genomics, regulatory genomics, GRCh38, functional annotation
+  analytical-method-validation: method validation, ICH Q2, bioanalysis, analytical chemistry, quality control
+  anndata: single-cell, h5ad, scverse, bioinformatics, data formats
+  arbor: autonomous optimization, hypothesis tree, research automation, AI agents, experiments
+  arboreto: gene regulatory networks, GRNBoost2, transcriptomics, single-cell, bioinformatics
+  astropy: astronomy, astrophysics, FITS, coordinates, cosmology, physics
+  autoskill: skill authoring, workflow automation, research automation, AI agents
+  benchling-integration: Benchling, electronic lab notebook, LIMS, lab automation, biotech
+  bgpt-paper-search: paper search, literature review, evidence synthesis, structured data extraction, MCP
+  bids: neuroimaging, BIDS, MRI, EEG, data standards, neuroscience
+  biopython: sequence analysis, bioinformatics, BLAST, NCBI, phylogenetics, Python
+  bioservices: bioinformatics databases, UniProt, KEGG, ID mapping, life sciences
+  bulk-rnaseq: RNA-seq, transcriptomics, differential expression, alignment, bioinformatics
+  cellxgene-census: single-cell, transcriptomics, public datasets, spatial transcriptomics, bioinformatics
+  cirq: quantum computing, quantum circuits, noise modeling, physics
+  citation-management: citations, BibTeX, references, DOI, PubMed, reference management
+  clinical-decision-support: clinical research, decision support, evidence profiles, survival analysis, medicine
+  clinical-reports: clinical reports, CONSORT, case reports, clinical trials, medical writing
+  cobrapy: metabolic modeling, flux balance analysis, systems biology, genome-scale models
+  consciousness-council: brainstorming, decision making, multi-perspective analysis, ideation
+  dask: parallel computing, big data, pandas, distributed computing, data science
+  database-lookup: scientific databases, APIs, data retrieval, reproducibility, provenance
+  datalad: research data management, data versioning, provenance, reproducibility, open science
+  datamol: cheminformatics, RDKit, molecules, SMILES, drug discovery
+  deepchem: molecular machine learning, ADMET, property prediction, drug discovery, cheminformatics
+  deeptools: NGS, ChIP-seq, coverage, bigWig, genomics, bioinformatics
+  depmap: cancer research, gene dependency, CRISPR screens, drug sensitivity, oncology
+  dhdna-profiler: text analysis, cognitive style, writing analysis, profiling
+  diffdock: molecular docking, virtual screening, structural biology, drug discovery
+  dnanexus-integration: genomics, cloud computing, bioinformatics pipelines, workflows, DNAnexus
+  esm: protein language models, protein design, structure prediction, protein embeddings
+  etetoolkit: phylogenetics, phylogenetic trees, Newick, evolutionary biology, bioinformatics
+  exa-search: web search, research search, scientific content, URL extraction
+  experimental-design: experimental design, randomization, blocking, study design, statistics
+  exploratory-data-analysis: exploratory data analysis, data profiling, data quality, scientific data
+  fictiv: manufacturing, CAD, prototyping, lab hardware
+  flowio: flow cytometry, FCS files, cytometry, immunology, bioinformatics
+  fluidsim: computational fluid dynamics, CFD, simulation, HPC, physics
+  folklore-variant-evidence: clinical genomics, variant interpretation, ClinGen, germline variants, genetics
+  generate-image: image generation, illustrations, figures, visual assets, AI images
+  geniml: genomic intervals, BED files, machine learning, embeddings, genomics
+  genomic-coordinates: genomic coordinates, liftover, variant normalization, genome assemblies, bioinformatics
+  genomic-intelligence: DNA language models, regulatory genomics, gene structure, sequence analysis
+  geomaster: geospatial, remote sensing, Earth observation, satellite imagery, GIS
+  geopandas: geospatial, GIS, vector data, spatial analysis, Python
+  get-available-resources: compute resources, GPU detection, resource planning, HPC
+  gget: bioinformatics databases, Ensembl, BLAST, AlphaFold, gene lookup
+  ginkgo-cloud-lab: cloud lab, lab automation, protein expression, synthetic biology
+  gtars: genomic intervals, BED files, peak sets, genomics, bioinformatics
+  histolab: digital pathology, whole slide images, H&E, tile extraction, medical imaging
+  hugging-science: AI for science, scientific datasets, foundation models, Hugging Face, machine learning
+  hypogenic: hypothesis generation, LLM, text datasets, research automation
+  hypothesis-generation: hypothesis generation, research questions, preregistration, study design, scientific method
+  imaging-data-commons: cancer imaging, DICOM, radiology, pathology, public datasets, medical imaging
+  infographics: infographics, data visualization, science communication, figures
+  iso-standards-readiness: ISO standards, quality management, ISO 13485, ISO 17025, laboratory accreditation
+  lab-hardware-cad: lab hardware, CAD, 3D printing, microfluidics, open hardware
+  labarchive-integration: electronic lab notebook, LabArchives, lab data, lab automation
+  lamindb: data lineage, biological data, data management, ontologies, MLOps
+  latchbio-integration: bioinformatics workflows, cloud computing, Nextflow, Snakemake, Latch
+  latex-posters: research posters, LaTeX, conference posters, beamerposter, academic presentations
+  liteparse: PDF parsing, OCR, document extraction, RAG, papers
+  literature-review: literature review, systematic review, PubMed, arXiv, evidence synthesis, citations
+  markdown-mermaid-writing: Markdown, Mermaid diagrams, technical writing, documentation, diagrams
+  market-research-reports: market research, market sizing, TAM SAM SOM, competitive analysis, reports
+  markitdown: document conversion, PDF to Markdown, Word, PowerPoint, text extraction
+  matchms: mass spectrometry, MS/MS, spectral matching, metabolomics, cheminformatics
+  matlab: MATLAB, GNU Octave, numerical computing, scientific computing
+  matplotlib: plotting, data visualization, scientific figures, publication figures, Python
+  medchem: medicinal chemistry, drug-likeness, PAINS, structural alerts, compound filtering
+  modal: serverless GPU, cloud computing, model deployment, ML inference
+  molecular-dynamics: molecular dynamics, OpenMM, MDAnalysis, simulation, computational chemistry
+  molfeat: molecular featurization, fingerprints, descriptors, cheminformatics, machine learning
+  ncats-arax: biomedical knowledge graph, NCATS Translator, drug repurposing, biomedical research
+  networkx: network analysis, graph theory, graphs, community detection, Python
+  neurokit2: physiological signals, ECG, EEG, HRV, biosignal processing, neuroscience
+  neuropixels-analysis: Neuropixels, spike sorting, electrophysiology, SpikeInterface, neuroscience
+  nextflow: Nextflow, nf-core, bioinformatics pipelines, workflow management, genomics
+  omero-integration: microscopy, image data management, OMERO, bioimaging
+  onekgpd: 1000 Genomes, population genetics, genomic variants, human genomics
+  ontology-term-resolution: ontologies, CURIEs, OLS, metadata annotation, FAIR data
+  open-notebook: research notebooks, document analysis, NotebookLM alternative, knowledge management
+  openpiv: particle image velocimetry, PIV, fluid dynamics, flow visualization, physics
+  opentrons-integration: Opentrons, liquid handling, lab robotics, lab automation, protocols
+  optimize-for-gpu: GPU acceleration, CUDA, performance optimization, scientific Python
+  pacsomatic: tumor-normal, somatic variants, nf-core, long-read sequencing, cancer genomics
+  paper-lookup: paper search, PubMed, arXiv, OpenAlex, Crossref, open access, citations
+  paperclip: full-text papers, regulatory documents, clinical trials, biomedical literature
+  paperzilla: paper recommendations, research feeds, literature monitoring
+  parallel-web: web research, deep research, data enrichment, web extraction
+  pathml: computational pathology, whole slide images, digital pathology, medical imaging
+  pathogen-variant-surveillance: pathogen genomics, genomic surveillance, viral lineages, epidemiology
+  pathway-enrichment: pathway enrichment, gene set enrichment, GSEA, functional analysis, bioinformatics
+  peer-review: peer review, manuscript review, reporting guidelines, academic publishing
+  pennylane: quantum machine learning, quantum computing, variational algorithms, physics
+  pi-agent: coding agents, terminal agents, AI agents, developer tools
+  pkpd-modeling: pharmacokinetics, pharmacodynamics, PK/PD, drug development, pharmacology
+  polars: DataFrames, data engineering, ETL, data analysis, Python
+  polars-bio: genomic intervals, bioinformatics, Polars, genomics file formats
+  pptx-posters: research posters, PowerPoint, conference posters, academic presentations
+  protocolsio-integration: protocols.io, lab protocols, reproducibility, methods
+  pufferlib: reinforcement learning, RL environments, training, machine learning
+  pydeseq2: differential expression, RNA-seq, DESeq2, transcriptomics, bioinformatics
+  pydicom: DICOM, medical imaging, radiology, de-identification, Python
+  pyhealth: clinical machine learning, EHR, MIMIC, healthcare AI, deep learning
+  pylabrobot: lab automation, liquid handling, lab robotics, protocols
+  pymatgen: materials science, crystal structures, computational materials, VASP, physics
+  pymc: Bayesian statistics, MCMC, probabilistic programming, hierarchical models, statistics
+  pymoo: multi-objective optimization, evolutionary algorithms, NSGA-II, optimization
+  pyopenms: mass spectrometry, proteomics, metabolomics, LC-MS, bioinformatics
+  pysam: SAM/BAM, VCF, genomics, sequencing data, bioinformatics
+  pytdc: therapeutics, drug discovery datasets, benchmarks, machine learning, ADMET
+  pytorch-lightning: PyTorch Lightning, deep learning, model training, multi-GPU, machine learning
+  pyzotero: Zotero, reference management, citations, BibTeX, literature
+  qiskit: quantum computing, quantum circuits, IBM Quantum, physics
+  qutip: quantum dynamics, open quantum systems, quantum simulation, physics
+  rdkit: cheminformatics, RDKit, SMILES, molecular descriptors, fingerprints, drug discovery
+  relsa-severity-assessment: animal welfare, laboratory animals, humane endpoints, severity assessment
+  research-grants: grant writing, NIH, NSF, research proposals, funding
+  research-lookup: literature search, scholarly evidence, research briefs, references
+  rowan: molecular modeling, pKa prediction, docking, computational chemistry, drug discovery
+  scanpy: single-cell RNA-seq, scRNA-seq, clustering, UMAP, bioinformatics
+  scholar-evaluation: scholarly review, research assessment, developmental feedback, academic evaluation
+  scientific-brainstorming: brainstorming, research ideation, research directions, scientific method
+  scientific-critical-thinking: critical thinking, evidence quality, bias, GRADE, research methods
+  scientific-schematics: scientific diagrams, schematics, figures, illustrations
+  scientific-slides: presentations, slides, conference talks, thesis defense, academic presentations
+  scientific-visualization: scientific figures, data visualization, publication figures, accessibility, plotting
+  scientific-writing: scientific writing, manuscripts, academic writing, research papers, reporting guidelines
+  scikit-bio: bioinformatics, microbial ecology, diversity analysis, phylogenetics, sequences
+  scikit-learn: machine learning, scikit-learn, classification, regression, cross-validation
+  scikit-survival: survival analysis, Cox regression, time-to-event, biostatistics, machine learning
+  scvelo: RNA velocity, single-cell, cell trajectories, transcriptomics
+  scvi-tools: single-cell, deep generative models, batch correction, cell type annotation
+  seaborn: statistical visualization, plotting, data visualization, Python
+  shap: explainable AI, SHAP, feature attribution, model interpretability, machine learning
+  simpy: discrete-event simulation, simulation, queueing, operations research
+  stable-baselines3: reinforcement learning, PPO, SAC, DQN, Gymnasium
+  statistical-analysis: statistics, hypothesis testing, effect sizes, power analysis, APA reporting
+  statistical-power: power analysis, sample size, study design, statistics
+  statsmodels: statistical models, regression, time series, econometrics, statistics
+  sympy: symbolic math, computer algebra, calculus, mathematics, Python
+  tamarind: protein structure prediction, molecular design, structural biology, drug discovery
+  tiledbvcf: genomic variants, VCF, variant storage, population genomics
+  timesfm-forecasting: time series forecasting, foundation models, zero-shot forecasting
+  torch-geometric: graph neural networks, PyTorch Geometric, GNN, deep learning
+  torchdrug: drug discovery, molecular graphs, molecule generation, retrosynthesis, deep learning
+  transformers: Hugging Face Transformers, LLMs, NLP, fine-tuning, deep learning
+  treatment-plans: treatment plans, clinical documentation, medicine, healthcare
+  umap-learn: UMAP, dimensionality reduction, embeddings, data visualization
+  uncertainty-and-units: measurement uncertainty, units, GUM, metrology, physics
+  usfiscaldata: US Treasury, fiscal data, economics, public finance, open data
+  vaex: big data, out-of-core DataFrames, HDF5, data analysis, Python
+  venue-templates: journal templates, LaTeX templates, conference papers, academic formatting, posters
+  waypoint-bio: microbiome, foundation models, metagenomics, benchmarks
+  zarr-python: Zarr, chunked arrays, cloud storage, N-dimensional data, scientific data

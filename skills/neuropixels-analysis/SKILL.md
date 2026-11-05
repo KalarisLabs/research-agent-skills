@@ -12,6 +12,7 @@ metadata:
     - name: ANTHROPIC_API_KEY
       required: false
       description: For optional Claude API calls.
+  tags: Neuropixels, spike sorting, electrophysiology, SpikeInterface, neuroscience
 ---
 
 # Neuropixels Data Analysis

@@ -10,6 +10,7 @@ metadata:
   maintainer: Kalaris Labs
   pylabrobot-version: 0.2.1
   researched: '2026-07-23'
+  tags: lab automation, liquid handling, lab robotics, protocols
 ---
 
 # PyLabRobot

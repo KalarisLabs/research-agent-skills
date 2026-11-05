@@ -8,6 +8,7 @@ metadata:
   version: '1.3'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: NGS, ChIP-seq, coverage, bigWig, genomics, bioinformatics
 ---
 
 # deepTools: NGS Data Analysis Toolkit

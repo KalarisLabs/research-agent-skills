@@ -6,12 +6,12 @@
 #   RAS_VERSION   release to install, e.g. 1.0.0 (default: latest)
 #   RAS_BUNDLE    bundle or category (default: research-essentials; "all" for everything)
 #   RAS_HARNESS   auto | all | comma list: claude-code,codex,cursor,gemini-cli,copilot,opencode,windsurf,agents
-#   RAS_NO_NODE   set to 1 to force the standalone (no Node.js) installer
+#   RAS_USE_NPM   set to 1 to delegate to the research-agent-skills npm CLI (not published yet)
+#   RAS_NO_NODE   accepted for compatibility; the standalone installer is already the default
 #   RAS_BASE_URL  release download base URL (testing/mirrors); default GitHub Releases
 #
-# With Node.js >= 18 this delegates to the npm CLI. Without Node it downloads the
-# release tarball, verifies its SHA-256 against the release SHA256SUMS,
-# and copies the selected skills into place.
+# Downloads the release tarball, verifies its SHA-256 against the release SHA256SUMS,
+# and copies the selected skills into place. Node.js is not required.
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version 3
 
@@ -25,7 +25,7 @@ if ($Bundle -notmatch '^[a-z0-9-]+$') { throw "invalid RAS_BUNDLE '$Bundle'" }
 
 $node = Get-Command node -ErrorAction SilentlyContinue
 $npx = Get-Command npx -ErrorAction SilentlyContinue
-if ($node -and $npx -and $env:RAS_NO_NODE -ne '1') {
+if ($env:RAS_USE_NPM -eq '1' -and $node -and $npx -and $env:RAS_NO_NODE -ne '1') {
   $major = [int]((& node -p 'process.versions.node').Split('.')[0])
   if ($major -ge 18) {
     $sel = if ($Bundle -eq 'all') { @('--all') } elseif ($Bundle -in @('research-essentials', 'ml-research', 'ai-research', 'biology-research', 'chemistry-research', 'medicine-research', 'physics-research')) { @('--bundle', $Bundle) } else { @('--category', $Bundle) }
@@ -35,7 +35,7 @@ if ($node -and $npx -and $env:RAS_NO_NODE -ne '1') {
   }
 }
 
-Write-Host 'Node.js 18+ not found; using the standalone installer.'
+Write-Host 'Installing from the checksum-verified release...'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 if ($Version -eq 'latest' -and -not $env:RAS_BASE_URL) {
   $rel = Invoke-RestMethod -UseBasicParsing -Headers @{ 'User-Agent' = 'research-agent-skills-installer' } "https://api.github.com/repos/$Repo/releases/latest"

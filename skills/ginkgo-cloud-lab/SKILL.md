@@ -7,6 +7,7 @@ metadata:
   version: '2.1'
   category: lab-automation
   maintainer: Kalaris Labs
+  tags: cloud lab, lab automation, protein expression, synthetic biology
 ---
 
 # Ginkgo Cloud Lab

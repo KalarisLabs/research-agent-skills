@@ -8,6 +8,7 @@ metadata:
   version: '1.3'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: metabolic modeling, flux balance analysis, systems biology, genome-scale models
 ---
 
 # COBRApy - Constraint-Based Reconstruction and Analysis

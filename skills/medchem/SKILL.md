@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: chemistry-and-drug-discovery
   maintainer: Kalaris Labs
+  tags: medicinal chemistry, drug-likeness, PAINS, structural alerts, compound filtering
 ---
 
 # Medchem

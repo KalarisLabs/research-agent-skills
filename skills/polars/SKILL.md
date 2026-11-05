@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: DataFrames, data engineering, ETL, data analysis, Python
 ---
 
 # Polars

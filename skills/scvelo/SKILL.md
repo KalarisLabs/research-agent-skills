@@ -8,6 +8,7 @@ metadata:
   category: life-sciences
   maintainer: Kalaris Labs
   contributor: Kuan-lin Huang
+  tags: RNA velocity, single-cell, cell trajectories, transcriptomics
 ---
 
 # scVelo — RNA Velocity Analysis

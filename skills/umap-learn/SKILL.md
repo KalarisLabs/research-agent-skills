@@ -6,6 +6,7 @@ metadata:
   version: '1.3'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: UMAP, dimensionality reduction, embeddings, data visualization
 ---
 
 # UMAP-Learn

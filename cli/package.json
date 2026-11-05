@@ -1,6 +1,6 @@
 {
   "name": "research-agent-skills",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Install 280+ Kalaris Labs AI agent skills for academic writing, literature reviews, citation checking and scientific research across biology, chemistry, medicine, physics and ML.",
   "keywords": [
     "agent-skills",
@@ -21,7 +21,7 @@
     "latex",
     "ai-agents"
   ],
-  "homepage": "https://github.com/KalarisLabs/research-agent-skills#readme",
+  "homepage": "https://docs.kalarislabs.com/research-agent-skills",
   "bugs": "https://github.com/KalarisLabs/research-agent-skills/issues",
   "repository": {
     "type": "git",
@@ -43,11 +43,13 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test test/cli.test.mjs",
-    "prepublishOnly": "npm test"
+    "test": "npm run build && node --test test/cli.test.mjs test/commands.test.mjs test/fuzz.test.mjs",
+    "prepublishOnly": "npm test",
+    "test:coverage": "npm run build && node --test --experimental-test-coverage --test-coverage-include='dist/**/*.js' --test-coverage-lines=80 --test-coverage-branches=80 test/cli.test.mjs test/commands.test.mjs test/fuzz.test.mjs"
   },
   "devDependencies": {
-    "@types/node": "^22.10.0",
-    "typescript": "^5.7.0"
+    "@types/node": "^26.6.5",
+    "fast-check": "4.10.2",
+    "typescript": "^7.0.2"
   }
 }

@@ -8,6 +8,7 @@ metadata:
   version: '2.1'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: mass spectrometry, proteomics, metabolomics, LC-MS, bioinformatics
 ---
 
 # PyOpenMS

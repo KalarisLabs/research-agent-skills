@@ -7,6 +7,7 @@ metadata:
   version: '1.1'
   category: physical-sciences
   maintainer: Kalaris Labs
+  tags: quantum computing, quantum circuits, noise modeling, physics
 ---
 
 # Cirq - Quantum Computing with Python

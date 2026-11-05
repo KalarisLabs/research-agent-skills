@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: scientific-databases
   maintainer: Kalaris Labs
+  tags: therapeutics, drug discovery datasets, benchmarks, machine learning, ADMET
 ---
 
 # PyTDC (Therapeutics Data Commons)

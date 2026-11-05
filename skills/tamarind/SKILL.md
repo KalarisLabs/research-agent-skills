@@ -15,6 +15,7 @@ metadata:
       required: true
       description: Tamarind Bio API key sent as the x-api-key header.
   contributor: Tamarind Bio
+  tags: protein structure prediction, molecular design, structural biology, drug discovery
 ---
 
 # Tamarind Bio

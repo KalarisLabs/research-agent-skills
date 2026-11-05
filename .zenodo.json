@@ -1,0 +1,41 @@
+{
+  "title": "Research Agent Skills: agent skills for scientific research, paper writing and literature review",
+  "description": "<p>Research Agent Skills is an open-source library of 280+ Agent Skills (SKILL.md) for academic and scientific research. Skills cover research paper and thesis writing, journal and venue formatting, literature and PRISMA systematic reviews, citation verification against Crossref, OpenAlex and arXiv, and data analysis in machine learning, AI, biology, chemistry, medicine and physics. They work with Claude Code, OpenAI Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode and Windsurf.</p>",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Chowdhury, Sayan",
+      "affiliation": "Kalaris Labs"
+    }
+  ],
+  "license": "MIT",
+  "access_right": "open",
+  "keywords": [
+    "agent skills",
+    "AI agents",
+    "scientific writing",
+    "research paper writing",
+    "academic writing",
+    "literature review",
+    "systematic review",
+    "citation verification",
+    "Claude Code",
+    "Codex",
+    "bioinformatics",
+    "cheminformatics",
+    "machine learning",
+    "research software"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/KalarisLabs/research-agent-skills",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "https://docs.kalarislabs.com/research-agent-skills",
+      "relation": "isDocumentedBy",
+      "resource_type": "publication-softwaredocumentation"
+    }
+  ]
+}

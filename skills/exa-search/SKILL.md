@@ -16,6 +16,7 @@ metadata:
       required: true
       description: Exa search API key.
   contributor: Exa
+  tags: web search, research search, scientific content, URL extraction
 ---
 
 # Exa Web Toolkit

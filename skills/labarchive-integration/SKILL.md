@@ -7,6 +7,7 @@ metadata:
   version: '1.2'
   category: lab-automation
   maintainer: Kalaris Labs
+  tags: electronic lab notebook, LabArchives, lab data, lab automation
 ---
 
 # LabArchives Integration

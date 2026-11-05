@@ -14,6 +14,7 @@ metadata:
     - name: PAPERCLIP_API_KEY
       required: false
       description: Paperclip API key from https://paperclip.gxl.ai/keys. Preferred over browser OAuth. Not required — the skill also covers installing the CLI and signing in interactively.
+  tags: full-text papers, regulatory documents, clinical trials, biomedical literature
 ---
 
 # Paperclip CLI

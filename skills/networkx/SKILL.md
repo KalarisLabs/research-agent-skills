@@ -6,6 +6,7 @@ metadata:
   version: '1.2'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: network analysis, graph theory, graphs, community detection, Python
 ---
 
 # NetworkX

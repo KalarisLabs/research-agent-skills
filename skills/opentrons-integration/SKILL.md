@@ -8,6 +8,7 @@ metadata:
   version: '2.1'
   category: lab-automation
   maintainer: Kalaris Labs
+  tags: Opentrons, liquid handling, lab robotics, lab automation, protocols
 ---
 
 # Opentrons Integration

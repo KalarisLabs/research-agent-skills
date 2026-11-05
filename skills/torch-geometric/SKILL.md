@@ -7,6 +7,7 @@ metadata:
   version: '1.2'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: graph neural networks, PyTorch Geometric, GNN, deep learning
 ---
 
 # PyTorch Geometric (PyG)

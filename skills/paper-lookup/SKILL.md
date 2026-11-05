@@ -8,6 +8,7 @@ metadata:
   version: '2.2'
   category: literature-review
   maintainer: Kalaris Labs
+  tags: paper search, PubMed, arXiv, OpenAlex, Crossref, open access, citations
 ---
 
 # Paper Lookup

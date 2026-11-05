@@ -11,6 +11,7 @@ metadata:
   idc-data-version: v24
   repository: https://github.com/ImagingDataCommons/imaging-data-commons-skill
   contributor: Andrey Fedorov, @fedorov
+  tags: cancer imaging, DICOM, radiology, pathology, public datasets, medical imaging
 ---
 
 # Imaging Data Commons

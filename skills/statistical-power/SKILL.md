@@ -8,6 +8,7 @@ metadata:
   version: '1.1'
   category: ideation-and-design
   maintainer: Kalaris Labs
+  tags: power analysis, sample size, study design, statistics
 ---
 
 # Statistical Power & Sample Size

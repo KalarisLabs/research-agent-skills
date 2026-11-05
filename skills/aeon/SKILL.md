@@ -8,6 +8,7 @@ metadata:
   version: '1.1'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: time series, classification, forecasting, anomaly detection, machine learning
 ---
 
 # Aeon Time Series Machine Learning

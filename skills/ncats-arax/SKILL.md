@@ -9,6 +9,7 @@ metadata:
   category: scientific-databases
   maintainer: Kalaris Labs
   contributor: neuroepithelial
+  tags: biomedical knowledge graph, NCATS Translator, drug repurposing, biomedical research
 ---
 
 # NCATS ARAX

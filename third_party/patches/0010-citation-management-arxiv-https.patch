@@ -1,0 +1,35 @@
+diff --git a/skills/citation-management/references/metadata_extraction.md b/skills/citation-management/references/metadata_extraction.md
+index 8247334..5248676 100644
+--- a/skills/citation-management/references/metadata_extraction.md
++++ b/skills/citation-management/references/metadata_extraction.md
+@@ -279,7 +279,7 @@ Key fields:
+ 
+ **Preprints in physics, math, CS, q-bio** - Free, open access.
+ 
+-**Base URL**: `http://export.arxiv.org/api/query`
++**Base URL**: `https://export.arxiv.org/api/query`
+ 
+ **No API key required**
+ 
+@@ -287,7 +287,7 @@ Key fields:
+ 
+ **Request**:
+ ```
+-GET http://export.arxiv.org/api/query?id_list=2103.14030
++GET https://export.arxiv.org/api/query?id_list=2103.14030
+ ```
+ 
+ **Response**: Atom XML
+diff --git a/skills/citation-management/scripts/extract_metadata.py b/skills/citation-management/scripts/extract_metadata.py
+index af19dec..1ff7233 100755
+--- a/skills/citation-management/scripts/extract_metadata.py
++++ b/skills/citation-management/scripts/extract_metadata.py
+@@ -252,7 +252,7 @@ class MetadataExtractor:
+         Returns:
+             Metadata dictionary or None
+         """
+-        url = 'http://export.arxiv.org/api/query'
++        url = 'https://export.arxiv.org/api/query'
+         params = {
+             'id_list': arxiv_id,
+             'max_results': 1

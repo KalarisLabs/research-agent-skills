@@ -8,6 +8,7 @@ metadata:
   version: '1.3'
   category: data-science-and-ml
   maintainer: Kalaris Labs
+  tags: machine learning, scikit-learn, classification, regression, cross-validation
 ---
 
 # Scikit-learn

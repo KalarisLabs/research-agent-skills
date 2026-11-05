@@ -17,6 +17,7 @@ metadata:
     - name: OPEN_NOTEBOOK_ENCRYPTION_KEY
       required: false
       description: Encryption key for stored content, if configured.
+  tags: research notebooks, document analysis, NotebookLM alternative, knowledge management
 ---
 
 # Open Notebook

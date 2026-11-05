@@ -9,7 +9,7 @@ description = "Install 280+ AI agent skills for academic writing, literature rev
 readme = "README.md"
 license = "MIT"
 authors = [{ name = "Sayan Chowdhury" }, { name = "Kalaris Labs" }]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "pyyaml>=6.0.2",
 ]
@@ -49,7 +49,12 @@ research-agent-skills = "research_agent_skills.cli:main"
 research-skills = "research_agent_skills.cli:main"
 
 [dependency-groups]
-dev = ["pytest>=8.3", "ruff>=0.6"]
+dev = [
+    "matplotlib>=3.11.2",
+    "pytest>=9.1",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.17",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/research_agent_skills"]
@@ -64,6 +69,16 @@ include = [
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["tools", "src"]
+
+[tool.coverage.run]
+source = ["tools"]
+
+[tool.coverage.report]
+# Statement-coverage gate for the project's own tooling (OpenSSF Best Practices, silver: >= 80%).
+# Imported skill scripts under skills/ are upstream code and are measured by their smoke tests instead.
+fail_under = 80
+show_missing = true
+skip_covered = true
 
 [tool.ruff]
 line-length = 120

@@ -6,6 +6,7 @@ metadata:
   version: '1.1'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: pathway enrichment, gene set enrichment, GSEA, functional analysis, bioinformatics
 ---
 
 # Pathway Enrichment

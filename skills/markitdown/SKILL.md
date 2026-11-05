@@ -7,6 +7,7 @@ metadata:
   version: '2.2'
   category: literature-review
   maintainer: Kalaris Labs
+  tags: document conversion, PDF to Markdown, Word, PowerPoint, text extraction
 ---
 
 # MarkItDown

@@ -5,6 +5,8 @@ description: Open-source AI agent skills for academic writing, literature review
 
 # Research Agent Skills
 
+![Research Agent Skills by Kalaris Labs](/assets/banner.webp)
+
 **Open-source AI agent skills for researchers, students and labs.** Use them for manuscripts, theses,
 grant proposals, systematic reviews, reviewer responses and scientific data analysis. Skills help you
 revise prose in your own voice and verify references against scholarly records.

@@ -7,6 +7,7 @@ metadata:
   version: '1.3'
   category: journal-formats
   maintainer: Kalaris Labs
+  tags: journal templates, LaTeX templates, conference papers, academic formatting, posters
 ---
 
 # Venue Templates

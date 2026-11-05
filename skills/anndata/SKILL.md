@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: single-cell, h5ad, scverse, bioinformatics, data formats
 ---
 
 # AnnData

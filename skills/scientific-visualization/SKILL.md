@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: visualization-and-presentation
   maintainer: Kalaris Labs
+  tags: scientific figures, data visualization, publication figures, accessibility, plotting
 ---
 
 # Scientific Visualization

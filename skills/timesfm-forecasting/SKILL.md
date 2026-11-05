@@ -9,6 +9,7 @@ metadata:
   maintainer: Kalaris Labs
   skill-version: 1.0.0
   contributor: Clayton Young / Superior Byte Works, LLC (@borealBytes)
+  tags: time series forecasting, foundation models, zero-shot forecasting
 ---
 
 # TimesFM Forecasting

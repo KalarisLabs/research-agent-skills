@@ -8,6 +8,7 @@ metadata:
   version: '1.2'
   category: visualization-and-presentation
   maintainer: Kalaris Labs
+  tags: plotting, data visualization, scientific figures, publication figures, Python
 ---
 
 # Matplotlib

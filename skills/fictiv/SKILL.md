@@ -7,6 +7,7 @@ metadata:
   version: '1.0'
   category: lab-automation
   maintainer: Kalaris Labs
+  tags: manufacturing, CAD, prototyping, lab hardware
 ---
 
 # Fictiv: quote, order and troubleshoot custom parts

@@ -6,6 +6,7 @@ metadata:
   version: '1.2'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: single-cell, deep generative models, batch correction, cell type annotation
 ---
 
 # scvi-tools

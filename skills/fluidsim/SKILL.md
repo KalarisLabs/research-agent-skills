@@ -9,6 +9,7 @@ metadata:
   category: physical-sciences
   maintainer: Kalaris Labs
   last-reviewed: '2026-07-23'
+  tags: computational fluid dynamics, CFD, simulation, HPC, physics
 ---
 
 # FluidSim

@@ -6,6 +6,7 @@ metadata:
   version: '1.6'
   category: life-sciences
   maintainer: Kalaris Labs
+  tags: single-cell RNA-seq, scRNA-seq, clustering, UMAP, bioinformatics
 ---
 
 # Scanpy: Single-Cell Analysis

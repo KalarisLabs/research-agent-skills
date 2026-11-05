@@ -8,6 +8,7 @@ metadata:
   version: '1.3'
   category: research-writing
   maintainer: Kalaris Labs
+  tags: grant writing, NIH, NSF, research proposals, funding
 ---
 
 # Research Grant Writing

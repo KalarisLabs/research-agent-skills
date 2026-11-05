@@ -9,6 +9,7 @@ metadata:
   contributors: Haidong, Wenchao
   upstream-pipeline: https://github.com/nf-core/pacsomatic
   contributor: Beifang Niu
+  tags: tumor-normal, somatic variants, nf-core, long-read sequencing, cancer genomics
 ---
 
 # pacsomatic
