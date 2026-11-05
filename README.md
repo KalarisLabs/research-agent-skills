@@ -15,7 +15,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/KalarisLabs/research-agent-skills?style=social)](https://github.com/KalarisLabs/research-agent-skills)
 
-[Install](#install-in-30-seconds) · [Who it's for](#built-for-researchers) · [Benchmarks](#measured-not-claimed) · [Skills](#skill-catalog) · [skills.sh](https://skills.sh/kalarislabs/research-agent-skills) · [Docs](docs/) · [FAQ](#faq)
+[Interactive Catalog](https://skills.kalarislabs.com) · [Install](#install-in-30-seconds) · [Who it's for](#built-for-researchers) · [Benchmarks](#measured-not-claimed) · [Skills](#skill-catalog) · [skills.sh](https://skills.sh/kalarislabs/research-agent-skills) · [Docs](docs/) · [FAQ](#faq)
 
 </div>
 
@@ -25,6 +25,8 @@
 Each skill is a folder with a `SKILL.md` playbook, references and tested scripts. Your AI agent loads a skill
 only when a task needs it: drafting a manuscript, formatting for *Nature* or IEEE, verifying references,
 running a PRISMA systematic review, analyzing single-cell data, or answering reviewers.
+
+Browse and search the entire collection visually at **[skills.kalarislabs.com](https://skills.kalarislabs.com)**.
 
 It is built around the three ways AI research assistance goes wrong:
 
@@ -36,12 +38,23 @@ It is built around the three ways AI research assistance goes wrong:
 
 ## Install in 30 seconds
 
+**Via skills.sh (Node.js):**
 ```bash
 npx skills add KalarisLabs/research-agent-skills
 ```
 
+**Via Python (uv / pip):**
+```bash
+# Instant one-liner via uv (no install required)
+uvx research-agent-skills install citation-verification
+
+# Or install globally into your Python environment
+pip install research-agent-skills
+research-agent-skills install --bundle research-essentials
+```
+
 The skills.sh CLI lets you select individual skills and agent harnesses. It installs into the current project;
-add `--global` for a user-level installation. To inspect all available skills first, run
+add `--global` for a user-level installation. To inspect all available skills first, search the **[Interactive Catalog](https://skills.kalarislabs.com)** or run
 `npx skills add KalarisLabs/research-agent-skills --list`.
 Then ask your agent, for example *"Verify every reference in refs.bib"* or
 *"Unslop this introduction without changing any claims"*.

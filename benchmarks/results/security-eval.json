@@ -1,0 +1,125 @@
+{
+  "skills": 281,
+  "adapted_skills": 257,
+  "scanners": {
+    "lint": {
+      "findings": 87,
+      "high_findings": 85,
+      "skills_flagged_any": 14,
+      "skills_flagged_high": 14
+    },
+    "bandit": {
+      "findings": 120,
+      "high_findings": 0,
+      "skills_flagged_any": 40,
+      "skills_flagged_high": 0
+    },
+    "scanner": {
+      "findings": 378,
+      "high_findings": 106,
+      "skills_flagged_any": 75,
+      "skills_flagged_high": 36
+    }
+  },
+  "agreement": {
+    "bandit~lint|high": {
+      "both": 0,
+      "only_bandit": 0,
+      "only_lint": 14,
+      "jaccard": 0.0,
+      "kappa": 0.0
+    },
+    "bandit~lint|any": {
+      "both": 1,
+      "only_bandit": 39,
+      "only_lint": 13,
+      "jaccard": 0.019,
+      "kappa": -0.04
+    },
+    "bandit~scanner|high": {
+      "both": 0,
+      "only_bandit": 0,
+      "only_scanner": 36,
+      "jaccard": 0.0,
+      "kappa": 0.0
+    },
+    "bandit~scanner|any": {
+      "both": 22,
+      "only_bandit": 18,
+      "only_scanner": 53,
+      "jaccard": 0.237,
+      "kappa": 0.242
+    },
+    "lint~scanner|high": {
+      "both": 8,
+      "only_lint": 6,
+      "only_scanner": 28,
+      "jaccard": 0.19,
+      "kappa": 0.267
+    },
+    "lint~scanner|any": {
+      "both": 10,
+      "only_lint": 4,
+      "only_scanner": 65,
+      "jaccard": 0.127,
+      "kappa": 0.154
+    }
+  },
+  "skills_flagged_high_by_any": 42,
+  "skills_flagged_high_by_all_three": 0,
+  "scanner_high_review": {
+    "scanner_high_keys": 78,
+    "accepted_after_review": 78,
+    "unreviewed": 0,
+    "review_note": "security/skill-scanner-review-2026-10-01.md: 8 eval() examples fixed by post-0008 patch; the remaining keys were reviewed and judged not exploitable"
+  },
+  "patches": {
+    "files": 12,
+    "adapted_skills_patched": 18,
+    "share_of_adapted": 0.07,
+    "by_patch": {
+      "0001-experimental-design-reject-fractional-ratio.patch": [
+        "experimental-design"
+      ],
+      "0002-analytical-method-validation-input-parsing.patch": [
+        "analytical-method-validation"
+      ],
+      "0003-arbor-status-validation-and-id-ordering.patch": [
+        "arbor"
+      ],
+      "0004-deeptools-bam-index-suffix.patch": [
+        "deeptools"
+      ],
+      "0005-ml-paper-writing-split-into-references.patch": [
+        "ml-paper-writing"
+      ],
+      "0006-gtars-md5-not-for-security.patch": [
+        "gtars"
+      ],
+      "0007-openpiv-friendly-missing-dependency.patch": [
+        "openpiv"
+      ],
+      "post-0008-safe-arithmetic-examples.patch": [
+        "crewai-multi-agent",
+        "dspy",
+        "guidance",
+        "langchain"
+      ],
+      "post-0009-autoskill-endpoint-transport.patch": [
+        "autoskill"
+      ],
+      "post-0010-grpo-isolated-test-runner.patch": [
+        "grpo-rl-training"
+      ],
+      "post-0011-script-timeouts-and-bare-excepts.patch": [
+        "bioservices",
+        "open-notebook",
+        "scanpy"
+      ],
+      "post-0012-remove-vendor-names-and-remote-images.patch": [
+        "literature-review",
+        "unsloth"
+      ]
+    }
+  }
+}

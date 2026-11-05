@@ -1,0 +1,27 @@
+title: "[Q&A] "
+labels: [question]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for asking. Search existing discussions and the [docs](https://docs.kalarislabs.com/research-agent-skills) first.
+        Report bugs as [issues](https://github.com/KalarisLabs/research-agent-skills/issues/new/choose) and security problems [privately](https://github.com/KalarisLabs/research-agent-skills/security/advisories/new).
+  - type: input
+    id: skill
+    attributes:
+      label: Skill(s) involved
+      placeholder: citation-verification, scientific-writing
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Agent
+      options: [Claude Code, OpenAI Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode, Windsurf, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: What are you trying to do, what did you try, and what happened?
+    validations:
+      required: true

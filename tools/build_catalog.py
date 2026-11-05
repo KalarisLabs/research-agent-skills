@@ -425,6 +425,8 @@ def main(argv: list[str] | None = None) -> int:
         ROOT / ".claude-plugin" / "marketplace.json": _json(build_marketplace(index)),
         ROOT / "plugin.json": _json(build_plugin_manifest(index)),
         ROOT / "catalog" / "skills.json": _json(index),
+        ROOT / "web" / "skills.json": _json(index),
+        ROOT / "src" / "research_agent_skills" / "data" / "skills.json": _json(index),
         ROOT / "catalog" / "graph.json": _json(graph),
         ROOT / "catalog" / "graph.graphml": graph_to_graphml(graph),
         ROOT / "skills.sh.json": _json(build_skills_sh_config(index)),

@@ -1,0 +1,1505 @@
+{
+ "_comment": "Held-out task suite for the original skills. Written without reading the skill bodies (only their one-line descriptions) and never used while developing the skills. Deterministic checks mostly enforce constraints stated in the prompt itself. Check semantics: benchmarks/task_evals/checks.py.",
+ "provenance": "held-out; written by claude-opus-5-5 on 2026-10-02; pending human review",
+ "tasks": [
+  {
+   "skill": "abstract-and-title",
+   "id": "at-1",
+   "prompt": "Write an unstructured abstract of at most 200 words for this study. Reply with only the abstract.\n\nNotes: We trained gradient-boosted trees on 14,212 ICU admissions from two hospitals (2015-2021) to predict acute kidney injury 48 h ahead. External validation on 3,904 admissions from a third hospital. AUROC 0.81 (95% CI 0.79-0.83) internal, 0.76 (0.73-0.79) external. Calibration slope 0.88 external. Top features: creatinine trend, vasopressor use, urine output. Model underperformed in patients with chronic kidney disease (AUROC 0.68). No prospective evaluation yet.",
+   "rubric": "Background, objective, design and data source, the two AUROCs with CIs, the calibration result and the CKD limitation; no claims of clinical benefit or deployment; numbers exactly as given; within 200 words.",
+   "checks": {
+    "max_words": 200,
+    "must_match": [
+     "0\\.81",
+     "0\\.76",
+     "chronic kidney|CKD"
+    ],
+    "must_not_match": [
+     "improves? patient outcomes"
+    ],
+    "max_slop_index": 5
+   }
+  },
+  {
+   "skill": "abstract-and-title",
+   "id": "at-2",
+   "prompt": "Give me five candidate titles for this paper, each at most 15 words, then say which one you would pick and why in two sentences.\n\nPaper: field experiment in 120 Kenyan primary schools; SMS reminders to parents about homework raised math test scores by 0.09 SD after one year; no effect on reading; effect concentrated in households where parents had completed primary school.",
+   "rubric": "Five distinct titles of at most 15 words, each specific (country, intervention, outcome), no hype words, at least one declarative and one descriptive option; a justified pick that mentions the heterogeneity or null reading result honestly.",
+   "checks": {
+    "must_match": [
+     "SMS|text messag",
+     "Kenya"
+    ],
+    "must_not_match": [
+     "revolution",
+     "game[- ]chang",
+     "unlock"
+    ]
+   }
+  },
+  {
+   "skill": "abstract-and-title",
+   "id": "at-3",
+   "prompt": "Rewrite this abstract as a structured abstract with the headings Background, Methods, Results and Conclusions, at most 250 words in total. Do not add any facts. Reply with only the abstract.\n\nAbstract: Loneliness is common in older adults. We did a cluster-randomized trial in 36 senior centers in Ohio. Centers were randomized to a 12-week peer-led walking group or usual activities. 612 adults aged 65+ took part. The primary outcome was the UCLA Loneliness Scale at 12 weeks. Loneliness scores fell more in the walking group (mean difference -2.1, 95% CI -3.4 to -0.8). Secondary outcomes of depression and step count did not differ. Walking groups led by peers may reduce loneliness, but effects on mood were not seen.",
+   "rubric": "Four headings exactly as requested, all numbers preserved, nulls reported, cluster design stated, no new facts, within 250 words.",
+   "checks": {
+    "max_words": 250,
+    "must_match": [
+     "Background",
+     "Methods",
+     "Results",
+     "Conclusions?",
+     "-2\\.1|−2\\.1",
+     "612",
+     "36"
+    ]
+   }
+  },
+  {
+   "skill": "abstract-and-title",
+   "id": "at-4",
+   "prompt": "Write a lay summary of at most 120 words for patients, at roughly an 8th-grade reading level, for this result: in a phase 3 trial of 1,240 adults with moderate asthma, a once-daily inhaler (drug X) reduced severe asthma attacks by 31% over one year compared with the standard twice-daily inhaler; side effects were similar; the trial was funded by the manufacturer. Reply with only the summary.",
+   "rubric": "Plain language, no jargon like 'exacerbation' without explanation, states the 31% relative reduction honestly (not as 31 percentage points), mentions similar side effects and industry funding, within 120 words.",
+   "checks": {
+    "max_words": 120,
+    "must_match": [
+     "31",
+     "fund|paid"
+    ],
+    "must_not_match": [
+     "cure",
+     "miracle",
+     "breakthrough"
+    ]
+   }
+  },
+  {
+   "skill": "abstract-and-title",
+   "id": "at-5",
+   "prompt": "Write three highlights for an Elsevier journal for this paper, each at most 85 characters including spaces. Reply with only the three bullet lines.\n\nPaper: a low-cost paper-based sensor detects lead in drinking water down to 5 ppb in 10 minutes; validated against ICP-MS on 214 household samples from Flint, Michigan (r = 0.94); costs USD 0.40 per test.",
+   "rubric": "Exactly three bullets, each at most 85 characters, each a distinct finding, concrete numbers, no hype.",
+   "checks": {
+    "max_line_chars": 85,
+    "line_count": 3
+   }
+  },
+  {
+   "skill": "acm-sigconf",
+   "id": "acm-1",
+   "prompt": "Give me the minimal LaTeX preamble and front matter for a double-blind ACM CHI submission using acmart: document class options, title, two authors (that will be hidden in review), CCS concepts block, keywords and the place where the abstract goes. Output a single LaTeX code block.",
+   "rubric": "Uses \\documentclass[manuscript,review,anonymous]{acmart} or equivalent sigconf/review/anonymous options, \\begin{abstract} before \\maketitle, \\begin{CCSXML} with \\ccsdesc, \\keywords, authors with \\affiliation; no invented ACM-specific commands.",
+   "checks": {
+    "must_match": [
+     "acmart",
+     "anonymous",
+     "review",
+     "ccsdesc",
+     "\\\\keywords",
+     "\\\\maketitle"
+    ]
+   }
+  },
+  {
+   "skill": "acm-sigconf",
+   "id": "acm-2",
+   "prompt": "My ACM camera-ready compiles but the PDF shows 'Unpublished working draft. Not for distribution.' at the bottom of every page and the ACM Reference Format block shows 'Conference acronym 'XX''. What do I need to change? Be concrete.",
+   "rubric": "Explains that the rights/conference metadata commands (\\setcopyright, \\acmConference, \\acmYear, \\acmDOI, \\acmISBN or the rights-form snippet) must be filled from the ACM rights form email, and that the draft footer comes from missing rights info or review/manuscript options; removing 'review'/'manuscript'; does not suggest hacking the class file.",
+   "checks": {
+    "must_match": [
+     "acmConference|rights",
+     "setcopyright|rights form|eRights"
+    ],
+    "must_not_match": [
+     "edit (the )?acmart\\.cls"
+    ]
+   }
+  },
+  {
+   "skill": "acm-sigconf",
+   "id": "acm-3",
+   "prompt": "Convert this reference to the ACM Reference Format as it would appear in a bibliography produced by ACM-Reference-Format.bst, and give the BibTeX entry that produces it.\n\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin. Attention is all you need. Advances in Neural Information Processing Systems 30 (NIPS 2017), pages 5998-6008.",
+   "rubric": "Valid @inproceedings BibTeX with booktitle, year 2017, pages; formatted output shows authors, year after authors, title, venue in italics-style, pages; does not invent a DOI.",
+   "checks": {
+    "must_match": [
+     "@inproceedings",
+     "2017",
+     "5998"
+    ],
+    "dois_resolve": true
+   }
+  },
+  {
+   "skill": "acm-sigconf",
+   "id": "acm-4",
+   "prompt": "We are submitting to an ACM SIGPLAN conference that requires the acmsmall-style 'sigplan' format with 'review' line numbers for the submission. What document class line should we use, and what should we remove before camera-ready? Answer in at most 120 words.",
+   "rubric": "\\documentclass[sigplan,review,anonymous]{acmart} (or with screen), and removing review/anonymous for camera-ready while adding rights info; within 120 words.",
+   "checks": {
+    "max_words": 120,
+    "must_match": [
+     "sigplan",
+     "review"
+    ]
+   }
+  },
+  {
+   "skill": "acm-sigconf",
+   "id": "acm-5",
+   "prompt": "I need to choose CCS concepts for a paper on federated learning for mobile keyboard next-word prediction with differential privacy. Suggest the CCS concept paths with significance levels, and tell me how to get the exact XML instead of typing it by hand.",
+   "rubric": "Suggests plausible 2012 ACM CCS paths (e.g. Computing methodologies → Machine learning; Security and privacy → ...), with 500/300/100 significance, and points to the ACM CCS generation tool (dl.acm.org/ccs) to produce \\begin{CCSXML} and \\ccsdesc; flags that the user should verify paths in the tool.",
+   "checks": {
+    "must_match": [
+     "Computing methodologies|Security and privacy",
+     "ccs"
+    ]
+   }
+  },
+  {
+   "skill": "apa7",
+   "id": "apa-1",
+   "prompt": "Format these as APA 7th edition reference list entries. Reply with only the entries in correct order.\n\n1) Journal article: authors Maria L. Gonzalez and Peter Chen; year 2021; title: social media use and sleep quality in adolescents; journal: Journal of Adolescent Health; volume 68; issue 3; pages 455-462; DOI 10.1016/j.jadohealth.2020.08.012\n2) Book: author Daniel Kahneman; 2011; Thinking, fast and slow; publisher Farrar, Straus and Giroux.",
+   "rubric": "Alphabetical order (Gonzalez before Kahneman); sentence case article title; journal name and volume italic-marked or noted; DOI as https://doi.org/ URL; book title sentence case; publisher without location.",
+   "checks": {
+    "must_match": [
+     "Gonzalez, M\\. L\\.",
+     "Chen, P\\.",
+     "\\(2021\\)",
+     "https://doi\\.org/10\\.1016/j\\.jadohealth\\.2020\\.08\\.012",
+     "Kahneman, D\\. \\(2011\\)"
+    ],
+    "must_not_match": [
+     "New York"
+    ],
+    "order": [
+     "Gonzalez",
+     "Kahneman"
+    ]
+   }
+  },
+  {
+   "skill": "apa7",
+   "id": "apa-2",
+   "prompt": "In APA 7, how do I cite a work with three authors in text the first time and afterwards, both parenthetically and narratively? Use Smith, Jones and Lee (2019) as the example. Answer briefly.",
+   "rubric": "APA 7 uses et al. from the first citation for three or more authors: (Smith et al., 2019) and Smith et al. (2019); notes that the reference list includes all authors up to 20.",
+   "checks": {
+    "must_match": [
+     "Smith et al\\., 2019",
+     "Smith et al\\. \\(2019\\)"
+    ]
+   }
+  },
+  {
+   "skill": "apa7",
+   "id": "apa-3",
+   "prompt": "I'm writing an APA 7 student paper for an undergraduate psychology class. List exactly what goes on the title page, in order. Answer as a numbered list.",
+   "rubric": "Student paper title page: page number, title (bold, centered), author name(s), affiliation (department and university), course number and name, instructor name, due date; no running head required for student papers.",
+   "checks": {
+    "must_match": [
+     "course",
+     "instructor",
+     "due date|date"
+    ],
+    "must_not_match": [
+     "running head is required"
+    ]
+   }
+  },
+  {
+   "skill": "apa7",
+   "id": "apa-4",
+   "prompt": "Report this result in APA 7 style in one sentence: independent-samples t-test, treatment group mean 24.3 (SD 5.1, n = 40), control mean 21.0 (SD 5.6, n = 38), t = 2.72, p = .008, Cohen's d = 0.62.",
+   "rubric": "Correct df (76), italicized-symbol conventions noted or plain t(76) = 2.72, p = .008, d = 0.62, means and SDs reported; no leading zero on p.",
+   "checks": {
+    "must_match": [
+     "t\\s*\\(\\s*76\\s*\\)\\s*=\\s*2\\.72",
+     "p\\s*=\\s*\\.008",
+     "0?\\.62"
+    ],
+    "must_not_match": [
+     "p\\s*=\\s*0\\.008"
+    ]
+   }
+  },
+  {
+   "skill": "apa7",
+   "id": "apa-5",
+   "prompt": "What are the APA 7 heading levels 1 to 3? Give the formatting of each in a short list.",
+   "rubric": "Level 1 centered bold title case; Level 2 flush left bold title case; Level 3 flush left bold italic title case; text begins as new paragraph for 1-3.",
+   "checks": {
+    "must_match": [
+     "[Cc]enter",
+     "[Ff]lush left",
+     "[Ii]talic"
+    ]
+   }
+  },
+  {
+   "skill": "arxiv-submission",
+   "id": "arx-1",
+   "prompt": "arXiv rejected my upload with 'file not found: figures/Fig1.PNG' even though it compiles on my Mac in Overleaf. What is going on and how do I fix it? Be concise.",
+   "rubric": "Case-sensitive filesystem on arXiv vs case-insensitive macOS; filename case mismatch (Fig1.PNG vs fig1.png); rename consistently; recompile locally in a case-sensitive way or check the arXiv processing log.",
+   "checks": {
+    "must_match": [
+     "case[- ]sensitive"
+    ]
+   }
+  },
+  {
+   "skill": "arxiv-submission",
+   "id": "arx-2",
+   "prompt": "Before I post my LaTeX source to arXiv, what should I remove or check so I don't leak private things? Give a checklist of at most 8 items.",
+   "rubric": "Strip % comments (e.g. with arxiv_latex_cleaner), remove unused files and figures, check \\todo / commented-out text, hidden reviewer responses, author notes, metadata in PDFs/images, .bbl inclusion; at most 8 items.",
+   "checks": {
+    "must_match": [
+     "comment",
+     "\\.bbl|bbl"
+    ],
+    "max_list_items": 8
+   }
+  },
+  {
+   "skill": "arxiv-submission",
+   "id": "arx-3",
+   "prompt": "My paper uses biblatex with biber. arXiv says it can't find the bibliography. What should I upload?",
+   "rubric": "arXiv does not run biber reliably; upload the generated .bbl with matching biblatex version (or switch to bibtex); file must be named like the main .tex; mention version mismatch errors.",
+   "checks": {
+    "must_match": [
+     "\\.bbl"
+    ]
+   }
+  },
+  {
+   "skill": "arxiv-submission",
+   "id": "arx-4",
+   "prompt": "I found an error in Table 2 of my arXiv paper v1 posted last month. How do I update it and what happens to v1? Answer in at most 100 words.",
+   "rubric": "Submit a replacement (new version v2) via the same arXiv ID; v1 stays publicly available; add a comment describing the change; within 100 words.",
+   "checks": {
+    "max_words": 100,
+    "must_match": [
+     "replace",
+     "v2|new version"
+    ]
+   }
+  },
+  {
+   "skill": "arxiv-submission",
+   "id": "arx-5",
+   "prompt": "This is my first arXiv submission, in cs.LG, and I'm an independent researcher with no institutional email. What do I need to know about endorsement?",
+   "rubric": "Endorsement may be required for new submitters in a category; institutional email can grant automatic endorsement; otherwise request an endorser who has authored papers in that category via the endorsement code; do not spam; process described accurately without inventing numbers.",
+   "checks": {
+    "must_match": [
+     "endors"
+    ]
+   }
+  },
+  {
+   "skill": "bibtex-hygiene",
+   "id": "bib-1",
+   "prompt": "Clean this BibTeX so titles keep their acronyms and page ranges use the right dash. Reply with only the corrected BibTeX.\n\n@article{devlin2019,\n  title={Bert: Pre-training of deep bidirectional transformers for language understanding},\n  author={Devlin, Jacob and Chang, Ming-Wei and Lee, Kenton and Toutanova, Kristina},\n  booktitle={Proceedings of NAACL-HLT},\n  pages={4171-4186},\n  year={2019}\n}",
+   "rubric": "Entry type fixed to @inproceedings (booktitle), {BERT} protected with braces, pages 4171--4186, other fields kept, no invented DOI.",
+   "checks": {
+    "must_match": [
+     "@inproceedings",
+     "\\{BERT\\}",
+     "4171--4186"
+    ],
+    "dois_resolve": true
+   }
+  },
+  {
+   "skill": "bibtex-hygiene",
+   "id": "bib-2",
+   "prompt": "These two entries are in my .bib. Are they duplicates, and which one should I keep? Explain in at most 80 words.\n\n@misc{he2015deep, title={Deep Residual Learning for Image Recognition}, author={He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian}, year={2015}, eprint={1512.03385}, archivePrefix={arXiv}}\n@inproceedings{he2016resnet, title={Deep residual learning for image recognition}, author={He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian}, booktitle={CVPR}, pages={770--778}, year={2016}}",
+   "rubric": "Same work: arXiv preprint vs published CVPR 2016 version; keep the published inproceedings entry and update citation keys; within 80 words.",
+   "checks": {
+    "max_words": 80,
+    "must_match": [
+     "CVPR|published|he2016resnet"
+    ]
+   }
+  },
+  {
+   "skill": "bibtex-hygiene",
+   "id": "bib-3",
+   "prompt": "Write a short Python script (standard library only) that reads refs.bib and reports duplicate citation keys and entries missing a year field. Output only the code.",
+   "rubric": "Parses entries reasonably (regex over @type{key,), counts duplicate keys, flags missing year; standard library only; runs as a script.",
+   "checks": {
+    "must_match": [
+     "def |import re",
+     "year"
+    ],
+    "must_not_match": [
+     "import bibtexparser",
+     "import pybtex"
+    ]
+   }
+  },
+  {
+   "skill": "bibtex-hygiene",
+   "id": "bib-4",
+   "prompt": "Which BibTeX fields should a journal article entry have for a clean submission, and which are optional? Keep it short.",
+   "rubric": "Required: author, title, journal, year (and volume, pages or article number in practice); recommended: doi, number; optional: month, note, url; mentions consistent journal naming.",
+   "checks": {
+    "must_match": [
+     "author",
+     "journal",
+     "year",
+     "doi"
+    ]
+   }
+  },
+  {
+   "skill": "bibtex-hygiene",
+   "id": "bib-5",
+   "prompt": "My bibliography shows 'Schrödinger' as 'Schrdinger' in the PDF with BibTeX and pdflatex. How do I fix it robustly?",
+   "rubric": "Use {\\\"o} LaTeX escape in the .bib, or switch to biblatex+biber with UTF-8 and fontenc/inputenc; explains classic BibTeX's poor UTF-8 handling.",
+   "checks": {
+    "must_match": [
+     "\\\\\"\\{?o|\\{\\\\\"o\\}|biber|biblatex|inputenc|fontenc"
+    ]
+   }
+  },
+  {
+   "skill": "cell-press",
+   "id": "cell-1",
+   "prompt": "Write the Highlights for a Cell Press paper: 3 to 4 bullet points, each at most 85 characters including spaces. Reply with only the bullets.\n\nFindings: the gut bacterium Akkermansia muciniphila produces a lipid that activates TLR2 on intestinal stem cells; this accelerates epithelial repair after radiation injury in mice; germ-free mice colonized with the bacterium survive radiation longer; the lipid alone recapitulates the effect.",
+   "rubric": "3-4 bullets, each at most 85 characters, concrete, no hype, mouse model stated where relevant.",
+   "checks": {
+    "max_line_chars": 85,
+    "line_count_range": [
+     3,
+     4
+    ]
+   }
+  },
+  {
+   "skill": "cell-press",
+   "id": "cell-2",
+   "prompt": "Write the eTOC blurb (In Brief) for this Cell Reports paper in at most 50 words, third person, starting with the authors' surnames as Cell Press does. Reply with only the blurb.\n\nAuthors: Okafor, Lindqvist et al. Finding: astrocytes in the mouse hypothalamus sense dietary fat via CD36 and release ATP that suppresses feeding; deleting CD36 in astrocytes causes overeating and weight gain on a high-fat diet.",
+   "rubric": "Starts with 'Okafor, Lindqvist et al.' or 'Okafor et al.', third person, within 50 words, states the mechanism and phenotype in mice.",
+   "checks": {
+    "max_words": 50,
+    "must_match": [
+     "^\\W*Okafor"
+    ]
+   }
+  },
+  {
+   "skill": "cell-press",
+   "id": "cell-3",
+   "prompt": "What is the Key Resources Table in STAR Methods, and how should I list an antibody and a deposited dataset in it? Show two example rows.",
+   "rubric": "KRT lists reagents/resources with source and identifier (RRID for antibodies; accession for datasets); rows with REAGENT or RESOURCE, SOURCE, IDENTIFIER columns; mentions RRID format.",
+   "checks": {
+    "must_match": [
+     "RRID",
+     "IDENTIFIER|[Ii]dentifier",
+     "SOURCE|[Ss]ource"
+    ]
+   }
+  },
+  {
+   "skill": "cell-press",
+   "id": "cell-4",
+   "prompt": "List the subsections required under Resource availability in a Cell Press STAR Methods section, and write the data and code availability text for a paper whose RNA-seq is in GEO (accession not yet assigned) and code is on GitHub.",
+   "rubric": "Lead contact, Materials availability, Data and code availability; uses placeholder for GEO accession rather than inventing one; code archived with DOI (e.g. Zenodo) not only GitHub.",
+   "checks": {
+    "must_match": [
+     "Lead contact",
+     "Materials availability",
+     "Data and code availability|Data availability"
+    ],
+    "must_not_match": [
+     "GSE\\d{5,}"
+    ]
+   }
+  },
+  {
+   "skill": "cell-press",
+   "id": "cell-5",
+   "prompt": "I'm submitting to Cell. What is the Summary and how does it differ from a normal abstract? Give the length limit and say whether I should trust it without checking. One short paragraph.",
+   "rubric": "Summary is Cell's abstract, single paragraph, about 150 words; advises verifying the current limit in the author guidelines.",
+   "checks": {
+    "must_match": [
+     "150",
+     "author guidelines|guide for authors|check|verify"
+    ]
+   }
+  },
+  {
+   "skill": "citation-verification",
+   "id": "cv-1",
+   "prompt": "Check these references and tell me which ones look fabricated or corrupted. You cannot browse; explain what you can and cannot conclude and how I should verify them.\n\n1. LeCun, Y., Bengio, Y., & Hinton, G. (2015). Deep learning. Nature, 521(7553), 436-444. doi:10.1038/nature14539\n2. Smith, J. A., & Patel, R. (2019). Neural correlates of algorithmic empathy in transformer models. Nature Neuroscience, 22(4), 512-520. doi:10.1038/s41593-019-9999-x\n3. Vaswani, A. et al. (2018). Attention is all you need. NeurIPS.",
+   "rubric": "1 is real; 2 is very likely fabricated (implausible title, invalid DOI pattern) but must be checked; 3 has the wrong year (2017); explains that verification requires querying Crossref/DOI resolution/OpenAlex, not memory; does not assert certainty it cannot have.",
+   "checks": {
+    "must_match": [
+     "2017",
+     "Crossref|DOI resolution|doi\\.org|OpenAlex"
+    ]
+   }
+  },
+  {
+   "skill": "citation-verification",
+   "id": "cv-2",
+   "prompt": "Give me 5 peer-reviewed references with DOIs on the effect of microplastics on freshwater fish physiology.",
+   "rubric": "Either gives only references it is confident exist with correct DOIs, or clearly warns that references from memory must be verified and recommends searching databases; never invents DOIs.",
+   "checks": {
+    "dois_resolve": true
+   }
+  },
+  {
+   "skill": "citation-verification",
+   "id": "cv-3",
+   "prompt": "An AI assistant wrote my related-work section and its .bib file. What is a reliable step-by-step process to verify every reference before I submit? Keep it to at most 8 steps.",
+   "rubric": "Resolve DOIs, match title/authors/year/venue against Crossref or OpenAlex, check arXiv IDs, flag DOI-less entries for manual search, check that each citation supports the claim it is attached to, replace or remove unverifiable ones; at most 8 steps.",
+   "checks": {
+    "must_match": [
+     "DOI",
+     "Crossref|OpenAlex|Semantic Scholar",
+     "claim|support"
+    ],
+    "max_list_items": 8
+   }
+  },
+  {
+   "skill": "citation-verification",
+   "id": "cv-4",
+   "prompt": "The DOI 10.1126/science.1225829 in my bibliography is labeled as 'Jinek et al. 2012, A programmable dual-RNA-guided DNA endonuclease in adaptive bacterial immunity, Science'. Is it consistent? What would you check?",
+   "rubric": "This DOI does correspond to Jinek et al. 2012 Science; says how to confirm via doi.org/Crossref metadata (title, first author, year, journal) rather than asserting from memory alone.",
+   "checks": {
+    "must_match": [
+     "Jinek",
+     "Crossref|doi\\.org|metadata"
+    ],
+    "dois_resolve": true
+   }
+  },
+  {
+   "skill": "citation-verification",
+   "id": "cv-5",
+   "prompt": "Write a short Python function using only the standard library that takes a DOI and returns the title and first author's family name from the Crossref REST API, with a timeout and a polite User-Agent. Output only the code.",
+   "rubric": "Uses urllib.request to https://api.crossref.org/works/{doi} with URL-quoting, timeout, User-Agent with mailto, parses message.title[0] and author[0].family, handles 404.",
+   "checks": {
+    "must_match": [
+     "api\\.crossref\\.org/works",
+     "timeout",
+     "User-Agent"
+    ],
+    "must_not_match": [
+     "import requests"
+    ]
+   }
+  },
+  {
+   "skill": "cover-letter-to-editor",
+   "id": "cl-1",
+   "prompt": "Write a cover letter of at most 300 words to the editor of PLOS Biology for our paper. Reply with only the letter.\n\nPaper: 'A conserved stress granule protein controls heat tolerance in Drosophila and zebrafish'. Key result: knocking out gene sgp1 lowers critical thermal maximum by 2.3 °C in both species; overexpression raises it by 1.1 °C in flies. Not under consideration elsewhere. Corresponding author: Dr. Ana Ruiz, University of Valencia. Suggested reviewers: none yet.",
+   "rubric": "Addressed to the editor, states the question and main finding with numbers, why it fits PLOS Biology's broad readership, confirms not under consideration elsewhere, competing interests statement or placeholder, no invented reviewers, within 300 words, no flattery.",
+   "checks": {
+    "max_words": 300,
+    "must_match": [
+     "2\\.3",
+     "not under consideration|not been published|not submitted elsewhere"
+    ],
+    "max_slop_index": 6
+   }
+  },
+  {
+   "skill": "cover-letter-to-editor",
+   "id": "cl-2",
+   "prompt": "Write a presubmission inquiry of at most 200 words to Nature for a study showing that a new perovskite-silicon tandem solar cell reached 34.1% certified efficiency on 1 cm², with 1,000-hour damp-heat stability retaining 95% of initial efficiency. Reply with only the inquiry.",
+   "rubric": "Concise pitch: the advance, why it matters beyond the subfield, certification, stability data, request for advice on suitability; within 200 words; no hype.",
+   "checks": {
+    "max_words": 200,
+    "must_match": [
+     "34\\.1",
+     "certif"
+    ],
+    "must_not_match": [
+     "revolution",
+     "game[- ]chang",
+     "unprecedented"
+    ]
+   }
+  },
+  {
+   "skill": "cover-letter-to-editor",
+   "id": "cl-3",
+   "prompt": "Our manuscript was rejected from Nature Medicine without review and they offered transfer to Nature Communications. Write the short transfer cover letter (at most 150 words). Reply with only the letter.",
+   "rubric": "Acknowledges the transfer offer, states the manuscript and why it suits Nature Communications, notes any changes made (or none), confirms authorship and no other consideration; within 150 words.",
+   "checks": {
+    "max_words": 150,
+    "must_match": [
+     "Nature Communications",
+     "transfer"
+    ]
+   }
+  },
+  {
+   "skill": "cover-letter-to-editor",
+   "id": "cl-4",
+   "prompt": "The journal asks me to suggest 4 reviewers and allows me to request exclusions. What criteria should I use, and how should I phrase an exclusion request professionally? Do not name real people.",
+   "rubric": "Criteria: expertise, no conflicts (co-authors in last 3-5 years, same institution, funding), geographic and career-stage diversity, institutional emails; exclusion phrased briefly with a professional reason; no real names invented.",
+   "checks": {
+    "must_match": [
+     "conflict",
+     "co-?author|collaborat"
+    ]
+   }
+  },
+  {
+   "skill": "cover-letter-to-editor",
+   "id": "cl-5",
+   "prompt": "Rewrite this cover-letter paragraph to be specific and free of hype, keeping all facts. Reply with only the paragraph.\n\n'We are thrilled to submit our groundbreaking manuscript, which represents a paradigm shift in the field and will undoubtedly be of immense interest to your esteemed readership. Our novel approach delves into the intricate tapestry of soil microbiomes in 48 maize fields across three continents.'",
+   "rubric": "Removes hype words, keeps 48 maize fields and three continents, states what was done specifically; no new facts.",
+   "checks": {
+    "must_match": [
+     "48",
+     "maize",
+     "three continents|3 continents"
+    ],
+    "must_not_match": [
+     "groundbreaking",
+     "paradigm",
+     "delve",
+     "tapestry",
+     "esteemed",
+     "thrilled"
+    ]
+   }
+  },
+  {
+   "skill": "elsevier-cas",
+   "id": "els-1",
+   "prompt": "Give me a minimal compilable LaTeX skeleton for an Elsevier journal using the CAS double-column template: document class, title, two authors with affiliations and ORCID, abstract, highlights, keywords, one section, CRediT statement and bibliography style. Output a single LaTeX code block.",
+   "rubric": "\\documentclass[a4paper,fleqn]{cas-dc}, \\author with \\affiliation, \\begin{abstract}, \\begin{highlights}, \\begin{keywords} with \\sep, \\maketitle after front matter, CRediT authorship section, \\bibliographystyle{cas-model2-names} or similar.",
+   "checks": {
+    "must_match": [
+     "cas-dc",
+     "highlights",
+     "\\\\sep",
+     "CRediT|credit"
+    ]
+   }
+  },
+  {
+   "skill": "elsevier-cas",
+   "id": "els-2",
+   "prompt": "Write 4 highlights for an Elsevier journal (each at most 85 characters including spaces) for: a deep-learning model segments coronary arteries from CT angiography with Dice 0.91 on 1,200 scans from 5 centers; it runs in 4 seconds per scan; performance dropped to Dice 0.84 on scans with heavy calcification. Reply with only the bullets.",
+   "rubric": "4 bullets each at most 85 characters, include the calcification limitation honestly, concrete numbers.",
+   "checks": {
+    "max_line_chars": 85,
+    "line_count": 4
+   }
+  },
+  {
+   "skill": "elsevier-cas",
+   "id": "els-3",
+   "prompt": "Write the CRediT author contribution statement for: Li Wei designed the study and wrote the first draft; Omar Haddad ran the experiments and analyzed data; Sara Novak supervised, got the funding and edited the paper. Reply with only the statement.",
+   "rubric": "Uses official CRediT role names (Conceptualization, Methodology, Investigation, Formal analysis, Writing - original draft, Writing - review & editing, Supervision, Funding acquisition) mapped correctly to each author.",
+   "checks": {
+    "must_match": [
+     "Conceptualization",
+     "Investigation",
+     "Formal analysis",
+     "Funding acquisition",
+     "Supervision",
+     "Writing"
+    ]
+   }
+  },
+  {
+   "skill": "elsevier-cas",
+   "id": "els-4",
+   "prompt": "Should I use elsarticle or the CAS templates for my Elsevier submission, and does it matter at first submission? Answer in at most 100 words.",
+   "rubric": "Most Elsevier journals accept any reasonable format at first submission (Your Paper Your Way) but check the specific journal guide; CAS for journals that use it, elsarticle otherwise; within 100 words.",
+   "checks": {
+    "max_words": 100,
+    "must_match": [
+     "Your Paper Your Way|guide for authors|journal'?s? guide|check"
+    ]
+   }
+  },
+  {
+   "skill": "elsevier-cas",
+   "id": "els-5",
+   "prompt": "Write a declaration of generative AI use for an Elsevier paper where ChatGPT was used only to improve the English of the introduction. Reply with only the declaration.",
+   "rubric": "Follows Elsevier's declaration pattern: tool name, purpose (improve readability/language), authors reviewed and edited and take full responsibility; placed before references; not a disclaimer of authorship.",
+   "checks": {
+    "must_match": [
+     "ChatGPT",
+     "responsib"
+    ]
+   }
+  },
+  {
+   "skill": "ieee-transactions",
+   "id": "ieee-1",
+   "prompt": "Write an abstract of 150 to 250 words, as a single paragraph with no citations or equations, for an IEEE Transactions on Power Systems paper. Reply with only the abstract.\n\nNotes: we propose a distributionally robust unit commitment model with Wasserstein ambiguity sets for wind uncertainty; tested on IEEE 118-bus system; cost 2.8% lower than robust UC and reserve violations 61% fewer than stochastic UC; solved via column-and-constraint generation in under 10 minutes.",
+   "rubric": "Single paragraph, 150-250 words, no citations/equations/abbreviations undefined, method, test system, quantitative results; no hype.",
+   "checks": {
+    "min_words": 150,
+    "max_words": 250,
+    "max_paragraphs": 1,
+    "must_match": [
+     "118",
+     "2\\.8"
+    ],
+    "must_not_match": [
+     "\\[\\d+\\]",
+     "\\$"
+    ]
+   }
+  },
+  {
+   "skill": "ieee-transactions",
+   "id": "ieee-2",
+   "prompt": "Give me the IEEEtran LaTeX document class line and the minimal front matter for an IEEE Transactions journal paper (not conference), including the abstract and Index Terms environments. Output a single LaTeX code block.",
+   "rubric": "\\documentclass[journal]{IEEEtran}, \\title, \\author with \\thanks, \\begin{abstract}, \\begin{IEEEkeywords}, \\maketitle; uses IEEEtran conventions.",
+   "checks": {
+    "must_match": [
+     "\\[journal\\]\\{IEEEtran\\}",
+     "IEEEkeywords",
+     "\\\\maketitle"
+    ]
+   }
+  },
+  {
+   "skill": "ieee-transactions",
+   "id": "ieee-3",
+   "prompt": "Format this book as an IEEE-style reference: Jiawei Han, Micheline Kamber and Jian Pei, Data Mining: Concepts and Techniques, 3rd edition, Morgan Kaufmann, Waltham, MA, 2011. Reply with only the reference line as it appears in an IEEE reference list (with [1]).",
+   "rubric": "[1] J. Han, M. Kamber, and J. Pei, Data Mining: Concepts and Techniques, 3rd ed. Waltham, MA, USA: Morgan Kaufmann, 2011.",
+   "checks": {
+    "must_match": [
+     "\\[1\\]",
+     "J\\. Han, M\\. Kamber, and J\\. Pei",
+     "3rd ed\\.",
+     "Morgan Kaufmann",
+     "2011"
+    ]
+   }
+  },
+  {
+   "skill": "ieee-transactions",
+   "id": "ieee-4",
+   "prompt": "My IEEE conference paper must be anonymized for double-blind review. What exactly do I hide, and what do I do about citing my own previous work?",
+   "rubric": "Remove author names/affiliations/acknowledgments/funding, cite own work in third person, avoid revealing links, scrub PDF metadata; check the specific conference's policy since not all IEEE conferences are double-blind.",
+   "checks": {
+    "must_match": [
+     "third person",
+     "metadata|PDF propert"
+    ]
+   }
+  },
+  {
+   "skill": "ieee-transactions",
+   "id": "ieee-5",
+   "prompt": "Write the author biography for an IEEE Transactions paper for: Priya Raman received the B.Tech degree from IIT Madras in 2014 and the Ph.D. degree from ETH Zurich in 2020; she is an assistant professor at the University of Toronto; her research covers power electronics for EV charging. Use the IEEEbiography LaTeX environment. Output only LaTeX.",
+   "rubric": "\\begin{IEEEbiography} or IEEEbiographynophoto with name, degrees in IEEE style ('received the B.Tech. degree in ... from ...'), current position, research interests; no invented membership grade or awards.",
+   "checks": {
+    "must_match": [
+     "IEEEbiography",
+     "IIT Madras",
+     "ETH Zurich",
+     "Toronto"
+    ],
+    "must_not_match": [
+     "Senior Member|Fellow|award"
+    ]
+   }
+  },
+  {
+   "skill": "nature-portfolio",
+   "id": "nat-1",
+   "prompt": "Write the summary paragraph (the referenced abstract that opens a Nature Article) in at most 200 words for this study. Reply with only the paragraph.\n\nStudy: analysis of 2,048 ancient genomes from Eurasia (10,000-2,000 years ago) shows that selection for lactase persistence intensified only after 3,000 years ago, coinciding with famine and pathogen exposure proxies, rather than with the onset of dairying 9,000 years ago.",
+   "rubric": "Nature summary-paragraph structure: basic introduction, background, 'Here we show', main result, general context; within 200 words; no references; accurate numbers.",
+   "checks": {
+    "max_words": 200,
+    "must_match": [
+     "Here,? we show|Here,? we",
+     "2,048|2048"
+    ]
+   }
+  },
+  {
+   "skill": "nature-portfolio",
+   "id": "nat-2",
+   "prompt": "Nature Communications requires a data availability statement. Write one for a paper with: proteomics data deposited in PRIDE (accession pending), source data provided with the paper, and patient-level clinical data available on request because of consent restrictions. Reply with only the statement.",
+   "rubric": "PRIDE with placeholder accession (not invented), source data with the paper, clinical data restricted with reason and access route/contact and timeframe; no invented accession like PXD with digits.",
+   "checks": {
+    "must_match": [
+     "PRIDE",
+     "[Ss]ource data",
+     "consent|restrict"
+    ],
+    "must_not_match": [
+     "PXD\\d{6}"
+    ]
+   }
+  },
+  {
+   "skill": "nature-portfolio",
+   "id": "nat-3",
+   "prompt": "I'm preparing a Nature Methods Article. What goes in Methods versus Extended Data versus Supplementary Information? Keep it short.",
+   "rubric": "Methods: online methods with full detail and references; Extended Data: up to ~10 display items peer reviewed, figure/table format; Supplementary Information: additional material not suited to Extended Data; advises checking current limits.",
+   "checks": {
+    "must_match": [
+     "Extended Data",
+     "Supplementary"
+    ]
+   }
+  },
+  {
+   "skill": "nature-portfolio",
+   "id": "nat-4",
+   "prompt": "Write the 'Competing interests' and 'Author contributions' statements for a Nature Portfolio paper where author A.B. consults for Pfizer, and contributions are: A.B. conceived the study; C.D. and E.F. did the experiments; G.H. analyzed data; A.B. and G.H. wrote the paper. Reply with only the two statements.",
+   "rubric": "Competing interests declares A.B.'s consultancy and states the others declare no competing interests; Author contributions in initials format correctly.",
+   "checks": {
+    "must_match": [
+     "Competing interests",
+     "Pfizer",
+     "Author contributions",
+     "declare no competing"
+    ]
+   }
+  },
+  {
+   "skill": "nature-portfolio",
+   "id": "nat-5",
+   "prompt": "We are submitting to Scientific Reports. Is it OK to call our result 'novel' and 'first-ever' in the title, and what title style does the journal prefer? Answer in at most 100 words.",
+   "rubric": "Advises against 'novel'/'first' claims (Nature Portfolio style discourages them), concise descriptive title without abbreviations; check guidelines; within 100 words.",
+   "checks": {
+    "max_words": 100,
+    "must_match": [
+     "avoid|discourag|not recommend"
+    ]
+   }
+  },
+  {
+   "skill": "paper-corpus-rag",
+   "id": "rag-1",
+   "prompt": "I have 600 PDFs of ecology papers in a folder. Design a local pipeline so I can ask questions and get answers that cite the exact paper and page. Keep it to a numbered plan with tools named.",
+   "rubric": "PDF parsing with page numbers, chunking with metadata (paper, page, section), embeddings and a local vector store, retrieval with reranking, answer generation constrained to retrieved passages with citations including page, evaluation of citation faithfulness; handles scanned PDFs with OCR.",
+   "checks": {
+    "must_match": [
+     "chunk",
+     "page",
+     "embed",
+     "cit"
+    ]
+   }
+  },
+  {
+   "skill": "paper-corpus-rag",
+   "id": "rag-2",
+   "prompt": "My RAG system over papers sometimes cites a paper that doesn't contain the claim. How do I measure and reduce this?",
+   "rubric": "Measure citation precision/attribution with a labeled set or NLI/LLM-judge checks; reduce by stricter prompting to answer only from passages, quoting spans, reranking, refusing when evidence is weak, smaller chunks with metadata; verify quotes exist in source text.",
+   "checks": {
+    "must_match": [
+     "precision|faithful|attribut|groundedness",
+     "quot|span|passage"
+    ]
+   }
+  },
+  {
+   "skill": "paper-corpus-rag",
+   "id": "rag-3",
+   "prompt": "Write a Python function that splits extracted paper text into chunks of about 800 tokens with 100-token overlap, keeping the page number and section heading as metadata. Assume input is a list of (page_number, text) tuples. Use only the standard library and approximate tokens by words. Output only code.",
+   "rubric": "Correct sliding window with overlap, carries page numbers (possibly a range), detects headings heuristically, returns list of dicts with text and metadata; standard library only.",
+   "checks": {
+    "must_match": [
+     "def ",
+     "overlap",
+     "page"
+    ],
+    "must_not_match": [
+     "import langchain",
+     "import llama_index"
+    ]
+   }
+  },
+  {
+   "skill": "paper-corpus-rag",
+   "id": "rag-4",
+   "prompt": "Should I use BM25, dense embeddings, or both for retrieval over scientific papers with lots of gene names and chemical identifiers? Answer in at most 150 words.",
+   "rubric": "Hybrid retrieval recommended: BM25 handles exact identifiers, dense handles paraphrase; fuse with reciprocal rank fusion and rerank; within 150 words.",
+   "checks": {
+    "max_words": 150,
+    "must_match": [
+     "hybrid|both",
+     "BM25"
+    ]
+   }
+  },
+  {
+   "skill": "paper-corpus-rag",
+   "id": "rag-5",
+   "prompt": "A user asks my paper-QA system 'What is the effect size of drug X on survival?' and none of the retrieved passages mention drug X. What should the system answer?",
+   "rubric": "Say it cannot find evidence in the corpus, show what was searched, suggest rephrasing or adding papers; must not fall back to the model's general knowledge without clearly labeling it; no fabricated effect size.",
+   "checks": {
+    "must_not_match": [
+     "hazard ratio (of|was) 0\\.\\d",
+     "HR\\s*=\\s*0\\.\\d"
+    ],
+    "must_match": [
+     "not find|no evidence|cannot find|could not find|isn't in|not in the"
+    ]
+   }
+  },
+  {
+   "skill": "plos",
+   "id": "plos-1",
+   "prompt": "Write the Author Summary (150-200 words, non-technical, first person plural) for a PLOS Computational Biology paper: we built an agent-based model of dengue transmission in Bangkok using mobile-phone mobility data; it predicted 2019 outbreak timing 3 weeks earlier than case surveillance; school-term mobility drove early spread. Reply with only the summary.",
+   "rubric": "150-200 words, non-technical, 'we', explains why it matters, accurate, no overclaiming about policy.",
+   "checks": {
+    "min_words": 150,
+    "max_words": 200,
+    "must_match": [
+     "\\bwe\\b|\\bWe\\b",
+     "Bangkok"
+    ]
+   }
+  },
+  {
+   "skill": "plos",
+   "id": "plos-2",
+   "prompt": "PLOS ONE says my data availability statement is non-compliant because I wrote 'data available upon request'. What do they require and what should I write instead for de-identified survey data from 800 participants that the ethics board lets me share publicly?",
+   "rubric": "PLOS requires data underlying findings to be publicly available at publication without restriction (repository like OSF/Dryad/Zenodo with DOI), 'upon request' only allowed with legal/ethical restriction and a non-author contact; provides a compliant statement with repository placeholder.",
+   "checks": {
+    "must_match": [
+     "repositor",
+     "Dryad|OSF|Zenodo|Figshare|figshare"
+    ]
+   }
+  },
+  {
+   "skill": "plos",
+   "id": "plos-3",
+   "prompt": "Format these two references in PLOS (Vancouver-style) format. Reply with only the numbered references.\n\n1) Benjamini Y, Hochberg Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing. Journal of the Royal Statistical Society Series B, 1995, volume 57, issue 1, pages 289-300.\n2) Love MI, Huber W, Anders S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biology 2014;15(12):550. doi:10.1186/s13059-014-0550-8",
+   "rubric": "1. Benjamini Y, Hochberg Y. Controlling ... J R Stat Soc Series B Stat Methodol. 1995;57(1):289-300. 2. Love MI, Huber W, Anders S. ... Genome Biol. 2014;15(12):550. doi: 10.1186/s13059-014-0550-8; abbreviated journal names, numbered.",
+   "checks": {
+    "must_match": [
+     "Benjamini Y, Hochberg Y",
+     "1995;57\\(1\\):289",
+     "Love MI, Huber W, Anders S",
+     "2014;15\\(12\\):550"
+    ],
+    "dois_resolve": true
+   }
+  },
+  {
+   "skill": "plos",
+   "id": "plos-4",
+   "prompt": "What ethics statement content does PLOS expect for a study using human participants' interviews? List the elements briefly.",
+   "rubric": "Name of approving ethics committee/IRB, approval number, type of consent (written/verbal) and how documented, whether minors and guardian consent, waiver justification if applicable; placed in Methods.",
+   "checks": {
+    "must_match": [
+     "IRB|ethics committee|review board",
+     "consent",
+     "approval"
+    ]
+   }
+  },
+  {
+   "skill": "plos",
+   "id": "plos-5",
+   "prompt": "Can I submit to PLOS ONE if my result is a negative finding (the intervention had no effect)? Answer in at most 80 words.",
+   "rubric": "Yes: PLOS ONE evaluates technical soundness and rigor, not perceived impact, and publishes negative/null results; within 80 words.",
+   "checks": {
+    "max_words": 80,
+    "must_match": [
+     "[Yy]es",
+     "sound|rigor|rigour"
+    ]
+   }
+  },
+  {
+   "skill": "rebuttal-and-response-to-reviewers",
+   "id": "reb-1",
+   "prompt": "Write my response to this reviewer comment for a journal revise-and-resubmit. We did run the requested analysis: excluding the 14 patients with missing baseline HbA1c changed the hazard ratio from 0.72 (0.58-0.89) to 0.74 (0.59-0.93). Reply with only the response.\n\nReviewer 2, Comment 3: 'The authors should address the potential bias from missing baseline HbA1c data.'",
+   "rubric": "Thanks briefly, states what was done, reports both HRs exactly, says where it appears in the revised manuscript (with placeholder line/page), interprets conservatively; no groveling, no invented numbers.",
+   "checks": {
+    "must_match": [
+     "0\\.72",
+     "0\\.74",
+     "14"
+    ],
+    "max_slop_index": 6
+   }
+  },
+  {
+   "skill": "rebuttal-and-response-to-reviewers",
+   "id": "reb-2",
+   "prompt": "ICLR rebuttal. Reviewer says: 'The method is just a combination of existing techniques (LoRA + knowledge distillation); novelty is limited.' We disagree: our contribution is a rank-allocation rule derived from teacher layer sensitivity, which neither LoRA nor KD papers propose, and it gives +3.1 average accuracy over LoRA-KD baselines on 8 GLUE tasks. Write a response of at most 1,200 characters. Reply with only the response.",
+   "rubric": "Respectful, specific about the contribution, points to evidence (+3.1 on 8 GLUE tasks), offers clarification in the revision, within 1,200 characters, not defensive.",
+   "checks": {
+    "max_chars": 1200,
+    "must_match": [
+     "3\\.1",
+     "rank"
+    ]
+   }
+  },
+  {
+   "skill": "rebuttal-and-response-to-reviewers",
+   "id": "reb-3",
+   "prompt": "I received three reviews: R1 accept with minor changes, R2 major revision with 12 comments, R3 reject saying the sample size is too small (n = 46). How should I plan the response letter and the revision? Give a short structured plan.",
+   "rubric": "Triage all comments into a table, address every point, prioritize R3's sample size concern with power/precision analysis or added data or honest limitation, keep response letter structured with quotes and changes with locations, respond to the editor's synthesis, timeline.",
+   "checks": {
+    "must_match": [
+     "power|precision|confidence interval|sample size",
+     "every|each|all comments"
+    ]
+   }
+  },
+  {
+   "skill": "rebuttal-and-response-to-reviewers",
+   "id": "reb-4",
+   "prompt": "A reviewer asked us to cite three of their own papers that are only loosely related. How should we handle this in the response letter?",
+   "rubric": "Cite only if genuinely relevant, politely decline otherwise with a reason, can inform the editor confidentially of possible coercive citation (COPE guidance); not hostile.",
+   "checks": {
+    "must_match": [
+     "relevan",
+     "editor"
+    ]
+   }
+  },
+  {
+   "skill": "rebuttal-and-response-to-reviewers",
+   "id": "reb-5",
+   "prompt": "Write the opening paragraph of a response-to-reviewers letter to the editor (at most 120 words) for a revised manuscript 'Urban heat islands and emergency admissions in Lisbon' (manuscript ID ENV-2026-0412). Reply with only the paragraph.",
+   "rubric": "Thanks editor and reviewers briefly, states manuscript ID and title, summarizes main changes at high level (placeholder if unknown), explains how responses are formatted; within 120 words; no flattery.",
+   "checks": {
+    "max_words": 120,
+    "must_match": [
+     "ENV-2026-0412"
+    ],
+    "max_slop_index": 6
+   }
+  },
+  {
+   "skill": "reference-manager-interop",
+   "id": "ref-1",
+   "prompt": "I want my Zotero library to auto-export a .bib file that stays in sync with my Overleaf project. What is the standard setup? Be concise.",
+   "rubric": "Better BibTeX for Zotero with 'Keep updated' auto-export to a file; sync to Overleaf via Git/Dropbox/GitHub integration or Overleaf's Zotero integration (premium); stable citation keys via BBT; notes limitations.",
+   "checks": {
+    "must_match": [
+     "Better BibTeX|BBT",
+     "Keep updated|auto-?export"
+    ]
+   }
+  },
+  {
+   "skill": "reference-manager-interop",
+   "id": "ref-2",
+   "prompt": "I'm moving 3,000 references from Mendeley to Zotero and want to keep PDFs, notes and tags. What is the safest route?",
+   "rubric": "Zotero's built-in Mendeley import (from Mendeley online account) which brings PDFs/annotations where possible; back up first; verify counts; known limitations (annotations, folders); RIS/BibTeX export as fallback loses PDFs.",
+   "checks": {
+    "must_match": [
+     "import",
+     "back ?up|backup"
+    ]
+   }
+  },
+  {
+   "skill": "reference-manager-interop",
+   "id": "ref-3",
+   "prompt": "Convert this RIS record to BibTeX. Reply with only the BibTeX entry.\n\nTY  - JOUR\nAU  - Doudna, Jennifer A.\nAU  - Charpentier, Emmanuelle\nTI  - The new frontier of genome engineering with CRISPR-Cas9\nT2  - Science\nPY  - 2014\nVL  - 346\nIS  - 6213\nSP  - 1258096\nDO  - 10.1126/science.1258096\nER  -",
+   "rubric": "@article with author 'Doudna, Jennifer A. and Charpentier, Emmanuelle', title with {CRISPR-Cas9} protected, journal Science, year 2014, volume 346, number 6213, pages 1258096, doi exactly as given.",
+   "checks": {
+    "must_match": [
+     "@article",
+     "Doudna, Jennifer A\\. and Charpentier, Emmanuelle",
+     "346",
+     "6213",
+     "10\\.1126/science\\.1258096"
+    ],
+    "dois_resolve": true
+   }
+  },
+  {
+   "skill": "reference-manager-interop",
+   "id": "ref-4",
+   "prompt": "I write in Markdown and render with Pandoc. How do I cite from a CSL-JSON export and get APA formatting? Show the command.",
+   "rubric": "Use [@key] citations, --citeproc with --bibliography refs.json and --csl apa.csl (from the CSL styles repo); example command.",
+   "checks": {
+    "must_match": [
+     "--citeproc",
+     "--bibliography",
+     "--csl"
+    ]
+   }
+  },
+  {
+   "skill": "reference-manager-interop",
+   "id": "ref-5",
+   "prompt": "My co-author uses EndNote and I use Zotero. We are writing in Word. How can we both insert citations into the same document without breaking it?",
+   "rubric": "Field codes are not interchangeable; pick one manager for the document, share a group library (Zotero groups) or convert; alternatively use plain-text citation keys and convert at the end; warn against mixing plugins.",
+   "checks": {
+    "must_match": [
+     "field code|not compatible|can't mix|cannot mix|one (reference )?manager|single (reference )?manager"
+    ]
+   }
+  },
+  {
+   "skill": "reproducibility-statement",
+   "id": "repro-1",
+   "prompt": "Write a code availability statement for a paper whose analysis code is on GitHub and will be archived on Zenodo at acceptance. Reply with only the statement.",
+   "rubric": "Names repository, archived DOI placeholder (not invented), license, version/commit; notes the Zenodo DOI will be added; no invented DOI.",
+   "checks": {
+    "must_match": [
+     "Zenodo",
+     "licen[cs]e"
+    ],
+    "must_not_match": [
+     "10\\.5281/zenodo\\.\\d+"
+    ]
+   }
+  },
+  {
+   "skill": "reproducibility-statement",
+   "id": "repro-2",
+   "prompt": "We are filling the NeurIPS paper checklist. For 'Experiment statistical significance', our results are averages over 3 seeds with no error bars. What answer is honest and what should we add?",
+   "rubric": "Honest answer is No or partially, with justification; better to add error bars/std or CIs over seeds and state how they were computed; explains the checklist does not penalize honest No with justification.",
+   "checks": {
+    "must_match": [
+     "error bar|standard deviation|confidence interval|std",
+     "seed"
+    ]
+   }
+  },
+  {
+   "skill": "reproducibility-statement",
+   "id": "repro-3",
+   "prompt": "Write a CITATION.cff for our software 'tidyspectra' version 1.2.0, released 2026-09-15, MIT license, authors Hana Sato (ORCID 0000-0002-1825-0097) and Luis Ortega, repository https://github.com/example/tidyspectra. Output only the YAML.",
+   "rubric": "Valid CFF 1.2.0: cff-version, message, title, version, date-released, license, authors with family-names/given-names/orcid as URL, repository-code; no invented DOI.",
+   "checks": {
+    "must_match": [
+     "cff-version:\\s*1\\.2\\.0",
+     "family-names:\\s*\"?Sato",
+     "orcid:\\s*\"?https://orcid\\.org/0000-0002-1825-0097",
+     "date-released:\\s*\"?'?2026-09-15",
+     "license:\\s*\"?MIT"
+    ]
+   }
+  },
+  {
+   "skill": "reproducibility-statement",
+   "id": "repro-4",
+   "prompt": "How should I pin the computational environment for a Python analysis so reviewers can rerun it in two years? Give a short ranked list.",
+   "rubric": "Lockfile with exact versions and hashes (uv.lock / pip-tools / conda-lock), container image with digest, record Python version and OS, archive with DOI, provide a single entry-point script, random seeds; mentions data versioning.",
+   "checks": {
+    "must_match": [
+     "lock",
+     "container|Docker|Apptainer|Singularity",
+     "seed"
+    ]
+   }
+  },
+  {
+   "skill": "reproducibility-statement",
+   "id": "repro-5",
+   "prompt": "Our clinical dataset cannot be shared. Draft a data availability statement that is honest and still useful to readers. Reply with only the statement.",
+   "rubric": "States the data cannot be shared and why (consent/regulation), who controls access and how to apply (data access committee, contact that is not only an author), what is shared (code, summary statistics, synthetic data, data dictionary).",
+   "checks": {
+    "must_match": [
+     "access",
+     "consent|privacy|regulat|GDPR|HIPAA"
+    ]
+   }
+  },
+  {
+   "skill": "research-knowledge-graph",
+   "id": "kg-1",
+   "prompt": "I have a BibTeX file with 900 references. How do I build a citation graph from it and find the papers that bridge two research communities? Give a concrete pipeline with tools.",
+   "rubric": "Resolve DOIs via OpenAlex/Crossref to get references, build directed graph in NetworkX, community detection (Louvain/Leiden), bridging via betweenness centrality or participation coefficient, validate manually; handle unresolved entries.",
+   "checks": {
+    "must_match": [
+     "OpenAlex|Crossref|Semantic Scholar",
+     "betweenness|bridg",
+     "Louvain|Leiden|communit"
+    ]
+   }
+  },
+  {
+   "skill": "research-knowledge-graph",
+   "id": "kg-2",
+   "prompt": "Write Python using networkx that, given a dict mapping paper IDs to lists of cited paper IDs, builds a directed citation graph and returns the top 10 papers by PageRank. Output only code.",
+   "rubric": "nx.DiGraph, edges from citing to cited, nx.pagerank, sorted top 10; correct direction.",
+   "checks": {
+    "must_match": [
+     "DiGraph",
+     "pagerank"
+    ]
+   }
+  },
+  {
+   "skill": "research-knowledge-graph",
+   "id": "kg-3",
+   "prompt": "What node and edge types would you use to model papers, authors, venues and topics in Neo4j for a literature graph? Show a Cypher example that finds authors who co-authored with someone who cites paper P.",
+   "rubric": "Nodes Paper, Author, Venue, Topic; edges AUTHORED, CITES, PUBLISHED_IN, HAS_TOPIC; valid Cypher MATCH pattern for co-authors of citers.",
+   "checks": {
+    "must_match": [
+     "MATCH",
+     "CITES",
+     "AUTHORED|WROTE"
+    ]
+   }
+  },
+  {
+   "skill": "research-knowledge-graph",
+   "id": "kg-4",
+   "prompt": "How can a citation graph help find research gaps, and what are the pitfalls of reading gaps off a graph? Keep it short.",
+   "rubric": "Structural holes, sparse links between clusters, topic co-occurrence absences; pitfalls: coverage bias of databases, citation lag, terminology differences, absence of links not equal absence of work, need for qualitative check.",
+   "checks": {
+    "must_match": [
+     "bias|coverage|lag"
+    ]
+   }
+  },
+  {
+   "skill": "research-knowledge-graph",
+   "id": "kg-5",
+   "prompt": "I want to view my literature graph in Obsidian. What format should I export, and what does one note look like? Show one example note.",
+   "rubric": "One Markdown note per paper with YAML front matter (title, year, doi, authors) and [[wikilinks]] to cited papers/authors/topics; example note.",
+   "checks": {
+    "must_match": [
+     "\\[\\[",
+     "---"
+    ]
+   }
+  },
+  {
+   "skill": "research-skill-creator",
+   "id": "rsc-1",
+   "prompt": "Our lab repeats the same qPCR analysis (delta-delta Ct with two reference genes) every week. Draft the SKILL.md frontmatter (name and description) for an agent skill that does this. Reply with only the YAML frontmatter block.",
+   "rubric": "Valid YAML frontmatter with kebab-case name and a description stating what it does and explicit 'Use when' triggers, mentions delta-delta Ct and reference genes, a 'not for' near miss; under 1024 characters.",
+   "checks": {
+    "must_match": [
+     "^---",
+     "name:\\s*[a-z0-9]+(-[a-z0-9]+)*\\s*$",
+     "description:",
+     "[Uu]se when"
+    ],
+    "max_chars": 1400
+   }
+  },
+  {
+   "skill": "research-skill-creator",
+   "id": "rsc-2",
+   "prompt": "What makes an agent skill's description trigger reliably? Give 5 concrete rules.",
+   "rubric": "States what and when (Use when ...), names concrete tools/formats/keywords users say, includes near-miss exclusions, stays within length, avoids marketing words; tests with realistic prompts and near misses.",
+   "checks": {
+    "must_match": [
+     "[Uu]se when|when to use|trigger",
+     "near[- ]miss|not for|exclu"
+    ]
+   }
+  },
+  {
+   "skill": "research-skill-creator",
+   "id": "rsc-3",
+   "prompt": "My skill's script calls an external API. What security practices should the skill follow before I publish it?",
+   "rubric": "No secrets in files, read keys from env, allowlisted domains, timeouts, input validation, no shell injection, pinned dependencies, no auto-execution of downloaded code, document network access; scanned before release.",
+   "checks": {
+    "must_match": [
+     "timeout",
+     "environment variable|env",
+     "secret|key"
+    ]
+   }
+  },
+  {
+   "skill": "research-skill-creator",
+   "id": "rsc-4",
+   "prompt": "How should I test that a research skill actually helps? Describe an evaluation plan in at most 8 bullets.",
+   "rubric": "Realistic prompts plus near misses, trigger routing tests, with-vs-without-skill comparisons, deterministic checks where possible, blind judging, multiple models, held-out prompts; at most 8 bullets.",
+   "checks": {
+    "must_match": [
+     "near[- ]miss|should not trigger|negative",
+     "without"
+    ],
+    "max_list_items": 8
+   }
+  },
+  {
+   "skill": "research-skill-creator",
+   "id": "rsc-5",
+   "prompt": "My SKILL.md is 1,400 lines long. How should I restructure it?",
+   "rubric": "Keep SKILL.md short (under ~500 lines) with workflow and decision points; move detail to references/ files loaded on demand; scripts for deterministic steps; link references explicitly.",
+   "checks": {
+    "must_match": [
+     "references/|reference files|separate files"
+    ]
+   }
+  },
+  {
+   "skill": "science-aaas",
+   "id": "sci-1",
+   "prompt": "What is the difference between a Science Research Article and a Report, and how should I decide which to submit? Answer in at most 120 words and advise how to confirm current limits.",
+   "rubric": "Research Articles are longer with structured abstract and more figures; Reports are shorter; choose by scope and length; confirm limits in current Science instructions for authors; within 120 words.",
+   "checks": {
+    "max_words": 120,
+    "must_match": [
+     "Report",
+     "Research Article",
+     "instructions|guidelines|check|confirm"
+    ]
+   }
+  },
+  {
+   "skill": "science-aaas",
+   "id": "sci-2",
+   "prompt": "Write a one-sentence summary (at most 125 characters including spaces) for a Science Translational Medicine paper: an engineered IL-2 variant expanded regulatory T cells and reduced lupus nephritis in mice and non-human primates. Reply with only the sentence.",
+   "rubric": "One sentence, at most 125 characters, accurate species, no hype.",
+   "checks": {
+    "max_chars": 125,
+    "max_sentences": 1
+   }
+  },
+  {
+   "skill": "science-aaas",
+   "id": "sci-3",
+   "prompt": "How does Science handle references and notes, and does it count references toward limits? Keep it short and tell me what to verify.",
+   "rubric": "Numbered references in order of citation, notes combined in the reference list in Science style, reference limits for articles/reports; supplementary references; verify the current instructions.",
+   "checks": {
+    "must_match": [
+     "number",
+     "verify|check|confirm|current"
+    ]
+   }
+  },
+  {
+   "skill": "science-aaas",
+   "id": "sci-4",
+   "prompt": "Rewrite this Science Advances abstract sentence to be accessible to a broad scientific audience, keeping the facts: 'Leveraging cryo-EM-resolved conformational ensembles, we elucidate allosteric modulation of TRPV1 by PIP2-dependent S4-S5 linker rearrangements.' Reply with only the sentence.",
+   "rubric": "Plain but accurate, explains TRPV1 (heat/capsaicin receptor ion channel) and the lipid PIP2 role, no 'leveraging'/'elucidate', keeps cryo-EM.",
+   "checks": {
+    "must_match": [
+     "TRPV1",
+     "cryo-EM|cryo-electron"
+    ],
+    "must_not_match": [
+     "[Ll]everag",
+     "[Ee]lucidat"
+    ]
+   }
+  },
+  {
+   "skill": "science-aaas",
+   "id": "sci-5",
+   "prompt": "Science requires a data and materials availability statement. Write one for a paper with code on Zenodo (DOI pending), a new plasmid deposited at Addgene (ID pending) and all other data in the paper or supplementary materials. Reply with only the statement.",
+   "rubric": "All data in main text or supplementary materials; code archived at Zenodo with placeholder DOI; plasmid at Addgene with placeholder ID; no invented identifiers; any MTA conditions.",
+   "checks": {
+    "must_match": [
+     "Zenodo",
+     "Addgene",
+     "[Ss]upplementary"
+    ],
+    "must_not_match": [
+     "10\\.5281/zenodo\\.\\d+",
+     "Addgene #?\\d{5,}"
+    ]
+   }
+  },
+  {
+   "skill": "springer-lncs",
+   "id": "lncs-1",
+   "prompt": "Give me a minimal llncs LaTeX skeleton for a Springer LNCS conference paper: document class, title, two authors with institutes and ORCIDs, abstract, keywords, one section and the bibliography style. Output a single LaTeX code block.",
+   "rubric": "\\documentclass[runningheads]{llncs}, \\author with \\inst and \\orcidID, \\institute with \\and, \\maketitle before abstract, \\keywords with \\and, \\bibliographystyle{splncs04}.",
+   "checks": {
+    "must_match": [
+     "\\{llncs\\}",
+     "\\\\inst\\{",
+     "\\\\orcidID",
+     "splncs04",
+     "\\\\keywords"
+    ]
+   }
+  },
+  {
+   "skill": "springer-lncs",
+   "id": "lncs-2",
+   "prompt": "Write an abstract of 150 to 250 words for an LNCS paper. Reply with only the abstract.\n\nNotes: we present a SAT-based approach for verifying neural network controllers of autonomous drones against geofencing properties; encodes ReLU networks with 3 hidden layers; verified 47 of 50 properties within 1 hour; found counterexamples for 2 properties that simulation missed.",
+   "rubric": "150-250 words, problem, approach, evaluation numbers, contribution; no citations.",
+   "checks": {
+    "min_words": 150,
+    "max_words": 250,
+    "must_match": [
+     "47",
+     "50"
+    ]
+   }
+  },
+  {
+   "skill": "springer-lncs",
+   "id": "lncs-3",
+   "prompt": "My LNCS paper is 1.5 pages over the 16-page limit (references included). Suggest legitimate ways to cut it without breaking the template. Do not suggest changing margins or fonts.",
+   "rubric": "Tighten text, move proofs to appendix/arXiv version if allowed, merge figures, shrink figure size, remove redundant related work, use \\vspace sparingly? (warn), check whether references count; must not suggest changing margins, font size or line spacing.",
+   "checks": {}
+  },
+  {
+   "skill": "springer-lncs",
+   "id": "lncs-4",
+   "prompt": "Format this reference in splncs04 style as it would appear in the bibliography: Diederik P. Kingma and Jimmy Ba, 'Adam: A Method for Stochastic Optimization', ICLR 2015. Give the BibTeX entry and the rendered line.",
+   "rubric": "@inproceedings with booktitle and year 2015; rendered: 'Kingma, D.P., Ba, J.: Adam: A method for stochastic optimization. In: ... (2015)'; no invented DOI or pages.",
+   "checks": {
+    "must_match": [
+     "Kingma, D\\.\\s?P\\., Ba, J\\.",
+     "\\(2015\\)",
+     "@inproceedings"
+    ],
+    "dois_resolve": true
+   }
+  },
+  {
+   "skill": "springer-lncs",
+   "id": "lncs-5",
+   "prompt": "What do I need to submit to Springer for the camera-ready version of an LNCS paper besides the PDF? Keep it short.",
+   "rubric": "LaTeX source files, signed Licence to Publish / consent to publish form (often handled by the volume editors), corresponding author info, ORCIDs, final PDF; follow volume editors' instructions.",
+   "checks": {
+    "must_match": [
+     "source",
+     "[Ll]icen[cs]e to Publish|[Cc]onsent to [Pp]ublish|copyright form|license form|licence form"
+    ]
+   }
+  },
+  {
+   "skill": "systematic-review-prisma",
+   "id": "pr-1",
+   "prompt": "Build a PubMed search string for a systematic review on 'exercise interventions for depression in adults over 60', combining MeSH terms and free-text with Boolean operators, limited to randomized controlled trials. Output only the search string.",
+   "rubric": "Uses MeSH terms like \"Exercise\"[Mesh], \"Depression\"[Mesh], \"Aged\"[Mesh], free-text with [tiab] and truncation, OR within concepts, AND between, RCT filter (Cochrane highly sensitive search strategy or randomized controlled trial[pt]).",
+   "checks": {
+    "must_match": [
+     "\\[Mesh\\]|\\[MeSH\\]|\\[mh\\]",
+     "\\[tiab\\]",
+     "(?-i:\\bAND\\b)",
+     "(?-i:\\bOR\\b)",
+     "random"
+    ]
+   }
+  },
+  {
+   "skill": "systematic-review-prisma",
+   "id": "pr-2",
+   "prompt": "Fill in the numbers for the PRISMA 2020 flow diagram: database records 4,512; register records 230; duplicates removed 1,104; records excluded at title/abstract 3,301; reports sought for retrieval 337; reports not retrieved 12; reports excluded at full text: wrong population 141, wrong intervention 88, wrong design 61. How many studies are included? Show the arithmetic for each box.",
+   "rubric": "Records screened = 4,742 - 1,104 = 3,638; excluded 3,301 -> 337 sought; 337 - 12 = 325 assessed; 325 - 290 = 35 included; arithmetic shown.",
+   "checks": {
+    "must_match": [
+     "3,?638",
+     "325",
+     "\\b35\\b"
+    ]
+   }
+  },
+  {
+   "skill": "systematic-review-prisma",
+   "id": "pr-3",
+   "prompt": "What should a PROSPERO protocol registration include, and when should I register? Keep it to a short list.",
+   "rubric": "Register before screening/data extraction starts; review question, searches, eligibility (PICO), outcomes, risk-of-bias tool, synthesis plan, subgroup/sensitivity analyses, timeline, funding/conflicts.",
+   "checks": {
+    "must_match": [
+     "before",
+     "eligib|PICO|inclusion",
+     "risk of bias"
+    ]
+   }
+  },
+  {
+   "skill": "systematic-review-prisma",
+   "id": "pr-4",
+   "prompt": "Two reviewers screened 2,000 abstracts independently. How do I report agreement, and what kappa value would worry you? Answer in at most 120 words.",
+   "rubric": "Report Cohen's kappa (or percent agreement plus kappa) and how disagreements were resolved (discussion/third reviewer); kappa below ~0.6 suggests unclear criteria, calibrate on a pilot; within 120 words.",
+   "checks": {
+    "max_words": 120,
+    "must_match": [
+     "[Kk]appa",
+     "disagree|third reviewer|consensus"
+    ]
+   }
+  },
+  {
+   "skill": "systematic-review-prisma",
+   "id": "pr-5",
+   "prompt": "Which risk-of-bias tools should I use for (a) randomized trials, (b) non-randomized intervention studies, and (c) how do I rate the certainty of evidence for each outcome?",
+   "rubric": "RoB 2 for RCTs, ROBINS-I (or ROBINS-I v2) for non-randomized intervention studies, GRADE for certainty of evidence.",
+   "checks": {
+    "must_match": [
+     "RoB ?2",
+     "ROBINS-I",
+     "GRADE"
+    ]
+   }
+  },
+  {
+   "skill": "unslop-academic-writing",
+   "id": "us-1",
+   "prompt": "Edit this paragraph so it reads like a careful human expert wrote it. Keep every factual claim and number; do not add claims. Reply with only the paragraph.\n\n'In today's rapidly evolving landscape, single-cell RNA sequencing has emerged as a pivotal tool that delves into the intricate tapestry of cellular heterogeneity. Notably, our study, which leverages 48,000 cells from 12 donors, underscores the crucial role of macrophages. Furthermore, it is worth noting that these findings could potentially pave the way for novel therapeutic avenues.'",
+   "rubric": "Removes stock vocabulary and filler, keeps 48,000 cells and 12 donors and the macrophage finding stated as observed, hedges calibrated, no added claims.",
+   "checks": {
+    "must_match": [
+     "48,000|48 000|48000",
+     "12 donors",
+     "macrophage"
+    ],
+    "must_not_match": [
+     "delv",
+     "tapestry",
+     "pivotal",
+     "landscape",
+     "underscore",
+     "pave the way",
+     "[Ll]everag"
+    ],
+    "max_slop_index": 3
+   }
+  },
+  {
+   "skill": "unslop-academic-writing",
+   "id": "us-2",
+   "prompt": "Write the opening paragraph (at most 150 words) of a discussion section for a study that found no association between daily coffee intake and atrial fibrillation in 21,000 UK Biobank participants over 9 years (HR 0.98, 95% CI 0.90-1.07). Reply with only the paragraph.",
+   "rubric": "States the main finding plainly first, with the estimate, interprets the null correctly (consistent with no large effect, CI excludes >7% increase), no stock phrases, within 150 words.",
+   "checks": {
+    "max_words": 150,
+    "must_match": [
+     "0\\.98",
+     "0\\.90",
+     "1\\.07"
+    ],
+    "max_slop_index": 3
+   }
+  },
+  {
+   "skill": "unslop-academic-writing",
+   "id": "us-3",
+   "prompt": "List the patterns that make academic prose read as machine-generated, with one short before/after example for each. At most 6 patterns.",
+   "rubric": "Stock vocabulary, empty emphasis/intensifiers, stacked hedges, formulaic signposting, 'not only X but also Y', em-dash overuse or monotone rhythm, with concrete before/after; at most 6.",
+   "checks": {}
+  },
+  {
+   "skill": "unslop-academic-writing",
+   "id": "us-4",
+   "prompt": "Write a 120-word maximum grant 'significance' paragraph for a project measuring microplastic uptake in Baltic Sea mussels using Raman spectroscopy at 30 sites over 2 years. Reply with only the paragraph.",
+   "rubric": "Specific gap and consequence, what will be measured and how, concrete design (30 sites, 2 years), no inflated claims or stock phrases, within 120 words.",
+   "checks": {
+    "max_words": 120,
+    "must_match": [
+     "30",
+     "Raman",
+     "mussel"
+    ],
+    "max_slop_index": 3
+   }
+  },
+  {
+   "skill": "unslop-academic-writing",
+   "id": "us-5",
+   "prompt": "My supervisor says my writing 'sounds like ChatGPT' even though I wrote it myself. Here is a sample sentence: 'This study not only sheds light on the mechanisms of drought tolerance but also highlights the importance of root architecture in shaping plant resilience.' What exactly triggers that impression, and how would you rewrite it? Keep the facts.",
+   "rubric": "Identifies 'not only... but also', 'sheds light', 'highlights the importance', vague 'shaping resilience'; rewrite states the specific finding (placeholder if unknown), without inventing results.",
+   "checks": {
+    "must_match": [
+     "not only",
+     "sheds? light"
+    ]
+   }
+  }
+ ]
+}

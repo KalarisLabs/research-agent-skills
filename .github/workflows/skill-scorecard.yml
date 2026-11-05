@@ -1,0 +1,83 @@
+name: Skill Scorecard
+
+# Evaluates incoming PRs on static rubric score (>= 80), line counts (<= 500),
+# trigger routing tests, and security/policy checks. Generates and posts a
+# visual, gamified scorecard comment on the PR.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+    paths:
+      - "skills/**"
+      - "evals/**"
+      - "tools/**"
+      - ".github/workflows/skill-scorecard*"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scorecard:
+    name: Skill quality scorecard
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          enable-cache: true
+      - name: Install dependencies
+        run: uv sync --locked
+      - name: Evaluate skills and generate scorecard
+        id: eval
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          mkdir -p reports
+          echo "${{ github.event.pull_request.number }}" > reports/pr_number.txt
+
+          # Run scorecard evaluation on changed skills
+          # Gate at min-score 80.0 as required by repository standards
+          uv run tools/skill_scorecard.py --changed \
+            --base "origin/${{ github.base_ref || 'main' }}" \
+            --min-score 80.0 \
+            --fail-under 80.0 \
+            --output reports/scorecard.md \
+            --json reports/scorecard.json \
+            --pr-number "${{ github.event.pull_request.number }}" \
+            --post-comment || {
+              echo "SCORECARD_FAILED=1" >> "$GITHUB_ENV"
+            }
+      - name: Add to Job Summary
+        if: always()
+        run: |
+          if [ -f reports/scorecard.md ]; then
+            cat reports/scorecard.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload scorecard artifacts
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: skill-scorecard-report
+          path: reports/
+          retention-days: 7
+      - name: Enforce quality bar
+        if: env.SCORECARD_FAILED == '1'
+        run: |
+          echo "::error::One or more skills in this pull request failed to meet repository quality standards (Score >= 80, Lines <= 500, Clean Security)."
+          exit 1

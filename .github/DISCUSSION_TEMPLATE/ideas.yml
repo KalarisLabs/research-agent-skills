@@ -1,0 +1,23 @@
+title: "[Idea] "
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: Ideas for new skills, venue formats, workflows or tooling. Concrete, well-scoped requests can also go straight to a [skill request issue](https://github.com/KalarisLabs/research-agent-skills/issues/new?template=skill_request.yml).
+  - type: input
+    id: field
+    attributes:
+      label: Field or role
+      placeholder: e.g. structural biology PhD student, ML conference reviewer
+  - type: textarea
+    id: idea
+    attributes:
+      label: The idea
+      description: What should an agent be able to do, and what goes wrong today without it?
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Authoritative sources
+      description: Official guidelines, documentation or standards a skill should follow.

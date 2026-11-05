@@ -1,0 +1,5242 @@
+{
+  "suite": "benchmarks/task_evals/heldout.json",
+  "provenance": "held-out; written by claude-opus-5-5 on 2026-10-02; pending human review",
+  "answer_models": [
+    "claude-haiku-4-5-20251001",
+    "claude-sonnet-5-5",
+    "claude-opus-5-5"
+  ],
+  "judge": "claude-opus-5-5",
+  "alt_judge": "claude-sonnet-5-5",
+  "judging": "blind, both answer orders; a winner counts only if both orders agree",
+  "by_model": {
+    "claude-haiku-4-5-20251001": {
+      "tasks": 110,
+      "graded": 68,
+      "errors": 42,
+      "skill_wins": 39,
+      "baseline_wins": 17,
+      "ties": 12,
+      "win_rate": 0.5735294117647058,
+      "win_rate_ci95": [
+        0.455165693769645,
+        0.6840294243791712
+      ],
+      "sign_test_p": 0.00456153274640822,
+      "mean_score_delta": 1.1911764705882353,
+      "checks_pass_skill": 0.8767123287671232,
+      "checks_pass_baseline": 0.7123287671232876,
+      "tasks_with_checks": 73
+    },
+    "claude-sonnet-5-5": {
+      "tasks": 110,
+      "graded": 0,
+      "errors": 110,
+      "skill_wins": 0,
+      "baseline_wins": 0,
+      "ties": 0,
+      "win_rate": 0.0,
+      "win_rate_ci95": [
+        NaN,
+        NaN
+      ],
+      "sign_test_p": 1.0,
+      "mean_score_delta": 0.0,
+      "checks_pass_skill": 0.0,
+      "checks_pass_baseline": 0.0,
+      "tasks_with_checks": 0
+    },
+    "claude-opus-5-5": {
+      "tasks": 110,
+      "graded": 0,
+      "errors": 110,
+      "skill_wins": 0,
+      "baseline_wins": 0,
+      "ties": 0,
+      "win_rate": 0.0,
+      "win_rate_ci95": [
+        NaN,
+        NaN
+      ],
+      "sign_test_p": 1.0,
+      "mean_score_delta": 0.0,
+      "checks_pass_skill": 0.0,
+      "checks_pass_baseline": 0.0,
+      "tasks_with_checks": 0
+    }
+  },
+  "by_skill": {
+    "abstract-and-title": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 1,
+        "baseline_wins": 4,
+        "ties": 0,
+        "mean_score_delta": -1.3,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 1.0
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "acm-sigconf": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 2,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 4.25,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 0.6666666666666666
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "apa7": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 2,
+        "baseline_wins": 1,
+        "ties": 1,
+        "mean_score_delta": 1.625,
+        "checks_pass_skill": 0.75,
+        "checks_pass_baseline": 0.25
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "arxiv-submission": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 2,
+        "baseline_wins": 1,
+        "ties": 0,
+        "mean_score_delta": -0.16666666666666666,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 1.0
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "bibtex-hygiene": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 3,
+        "baseline_wins": 1,
+        "ties": 1,
+        "mean_score_delta": 1.3,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 0.8
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "cell-press": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 2,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 2.0,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 1.0
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "citation-verification": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 2,
+        "baseline_wins": 1,
+        "ties": 0,
+        "mean_score_delta": 0.6666666666666666,
+        "checks_pass_skill": 0.6666666666666666,
+        "checks_pass_baseline": 0.6666666666666666
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "cover-letter-to-editor": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 1,
+        "baseline_wins": 1,
+        "ties": 0,
+        "mean_score_delta": 1.0,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 0.5
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "elsevier-cas": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 1,
+        "baseline_wins": 1,
+        "ties": 1,
+        "mean_score_delta": 1.3333333333333333,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 0.6666666666666666
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "ieee-transactions": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 2,
+        "baseline_wins": 0,
+        "ties": 1,
+        "mean_score_delta": 1.6666666666666667,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 0.6666666666666666
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "nature-portfolio": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 3,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 2.8333333333333335,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 0.6666666666666666
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "paper-corpus-rag": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 1,
+        "baseline_wins": 2,
+        "ties": 0,
+        "mean_score_delta": -0.8333333333333334,
+        "checks_pass_skill": 0.5,
+        "checks_pass_baseline": 0.75
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "plos": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 1,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 1.0
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "rebuttal-and-response-to-reviewers": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 0,
+        "baseline_wins": 1,
+        "ties": 1,
+        "mean_score_delta": -0.5,
+        "checks_pass_skill": 0.6666666666666666,
+        "checks_pass_baseline": 0.6666666666666666
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "reference-manager-interop": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 0,
+        "baseline_wins": 1,
+        "ties": 1,
+        "mean_score_delta": -1.25,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 1.0
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "reproducibility-statement": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 2,
+        "baseline_wins": 0,
+        "ties": 1,
+        "mean_score_delta": 1.5,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 0.6666666666666666
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "research-knowledge-graph": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 2,
+        "baseline_wins": 1,
+        "ties": 1,
+        "mean_score_delta": 0.75,
+        "checks_pass_skill": 0.75,
+        "checks_pass_baseline": 0.75
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "research-skill-creator": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 5,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 3.8,
+        "checks_pass_skill": 0.6,
+        "checks_pass_baseline": 0.2
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "science-aaas": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 2,
+        "baseline_wins": 1,
+        "ties": 0,
+        "mean_score_delta": 1.6666666666666667,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 0.6666666666666666
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "springer-lncs": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 2,
+        "baseline_wins": 0,
+        "ties": 1,
+        "mean_score_delta": 3.0,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 0.75
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "systematic-review-prisma": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 2,
+        "baseline_wins": 1,
+        "ties": 1,
+        "mean_score_delta": 0.75,
+        "checks_pass_skill": 0.75,
+        "checks_pass_baseline": 1.0
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    },
+    "unslop-academic-writing": {
+      "claude-haiku-4-5-20251001": {
+        "skill_wins": 2,
+        "baseline_wins": 0,
+        "ties": 1,
+        "mean_score_delta": 1.1666666666666667,
+        "checks_pass_skill": 1.0,
+        "checks_pass_baseline": 0.6666666666666666
+      },
+      "claude-sonnet-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      },
+      "claude-opus-5-5": {
+        "skill_wins": 0,
+        "baseline_wins": 0,
+        "ties": 0,
+        "mean_score_delta": 0.0,
+        "checks_pass_skill": 0.0,
+        "checks_pass_baseline": 0.0
+      }
+    }
+  },
+  "judge_agreement": {
+    "pairs": 66,
+    "same_winner": 43
+  },
+  "order_consistency": 0.8676470588235294,
+  "answer_cost_usd": 1.56,
+  "results": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "acm-sigconf",
+      "id": "acm-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "acm-sigconf",
+      "id": "acm-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_baseline": {
+        "must_match": false,
+        "must_not_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.016437399999999998,
+      "winner": "skill",
+      "skill_score": 7.5,
+      "baseline_score": 3.0,
+      "order_agree": true,
+      "reason": "A correctly tells the user to remove the review/anonymous options and to fill \\acmConference, \\setcopyright, \\acmYear, \\acmDOI and \\acmISBN from the rights form, though it blames the footer only on review mode and never mentions manuscript mode or missing rights info; B wrongly blames the acmart 'draft' option, never mentions the rights form, and suggests made-up conference values.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "acm-sigconf",
+      "id": "acm-3",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "dois_resolve": true
+      },
+      "checks_baseline": {
+        "must_match": true,
+        "dois_resolve": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0241904,
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "error"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "acm-sigconf",
+      "id": "acm-4",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_baseline": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0394531,
+      "winner": "skill",
+      "skill_score": 7.0,
+      "baseline_score": 3.0,
+      "order_agree": true,
+      "reason": "A correctly uses the acmart class with the sigplan and review options and covers rights-form metadata for camera-ready, but it leaves out the anonymous option and wrongly says review adds a draft watermark; B makes the serious error of using acmsmall as the document class, which isn't a valid class, and only mentions anonymization vaguely.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "acm-sigconf",
+      "id": "acm-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "apa7",
+      "id": "apa-1",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "must_not_match": true,
+        "order": true
+      },
+      "checks_baseline": {
+        "must_match": true,
+        "must_not_match": true,
+        "order": false
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.0269646,
+      "winner": "skill",
+      "skill_score": 8.0,
+      "baseline_score": 5.0,
+      "order_agree": true,
+      "reason": "A uses the correct alphabetical order (Gonzalez before Kahneman), a correct DOI URL, sentence case, and no publisher location, but it does not italicize the volume number 68; B italicizes the volume correctly but lists Kahneman first, which breaks the request's explicit 'correct order' rule and the rubric's first criterion.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "apa7",
+      "id": "apa-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0122891,
+      "winner": "tie",
+      "skill_score": 2.0,
+      "baseline_score": 2.0,
+      "order_agree": true,
+      "reason": "Both answers give the same wrong rule: they list all three authors on first citation, but that is APA 6 practice, and APA 7 uses (Smith et al., 2019) and Smith et al. (2019) from the very first citation; neither answer notes that the reference list includes up to 20 authors, so both fail the rubric's main point equally.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "apa7",
+      "id": "apa-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "apa7",
+      "id": "apa-4",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": false,
+        "must_not_match": true
+      },
+      "checks_baseline": {
+        "must_match": false,
+        "must_not_match": true
+      },
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.0337095,
+      "winner": "baseline",
+      "skill_score": 8.0,
+      "baseline_score": 9.0,
+      "order_agree": true,
+      "reason": "Both report the correct df (76), italicize M, SD, n, t, p and d, omit the leading zero on p, and include every given statistic without making anything up. B is more complete because it names the independent-samples t-test and labels the effect size as Cohen's d. Its only flaw is a minor one: the t in \"t-test\" is neither italicized nor written as the APA-preferred unhyphenated \"t test\".",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "apa7",
+      "id": "apa-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": false
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.010725100000000001,
+      "winner": "skill",
+      "skill_score": 8.0,
+      "baseline_score": 3.5,
+      "order_agree": true,
+      "reason": "A formats all three levels correctly but leaves out that body text starts as a new paragraph; B gets Level 3 wrong by describing it like Level 4 (indented, not italic, text on the same line), which would mislead a researcher.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "arxiv-submission",
+      "id": "arx-1",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.013351,
+      "winner": "baseline",
+      "skill_score": 4.0,
+      "baseline_score": 7.5,
+      "order_agree": true,
+      "reason": "Both answers correctly identify the case mismatch, but A invents a preflight script (`scripts/arxiv_preflight.py`), wrongly says Overleaf is case-insensitive when it compiles on Linux, and adds steps that don't apply, while B is accurate and concise; B misses the rubric's advice to test in a case-sensitive environment or check arXiv's processing log.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "baseline"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "arxiv-submission",
+      "id": "arx-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "max_list_items": true
+      },
+      "checks_baseline": {
+        "must_match": true,
+        "max_list_items": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.024102600000000002,
+      "winner": "skill",
+      "skill_score": 6.0,
+      "baseline_score": 4.0,
+      "order_agree": true,
+      "reason": "A covers more of the rubric (it names arxiv_latex_cleaner, \\todo notes, reviewer and rebuttal files, unused files, PDF metadata and including the .bbl) but has real errors: it invents a 'scripts/arxiv_preflight.py' script, says TeX has '/* */' block comments when it doesn't, wrongly suggests latexdiff for removing \\todo notes, and spends item 6 on filename rules rather than privacy. B has more serious problems: it tells you not to upload the .bbl, which goes against arXiv guidance and the rubric; it suggests removing your own name from \\author, which makes little sense for an arXiv preprint; it never mentions arxiv_latex_cleaner, reviewer responses or unused files; and item 8 is about anonymous review, not a public preprint.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "arxiv-submission",
+      "id": "arx-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "arxiv-submission",
+      "id": "arx-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "arxiv-submission",
+      "id": "arx-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.014529,
+      "winner": "skill",
+      "skill_score": 5.0,
+      "baseline_score": 4.0,
+      "order_agree": true,
+      "reason": "A wins narrowly because it correctly says the endorser must have authored papers in cs.LG or a related category and that endorsement covers that category, while B only asks for a vaguely 'established' arXiv user and wrongly says future endorsement depends on an algorithm. A still loses points for saying endorsement is always required, inventing a timeline and metadata requirement, wrongly saying arXiv emails the endorser instead of giving the submitter a code to forward, and suggesting cold emails to authors without warning against spamming; both answers also omit automatic endorsement through an institutional email.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "baseline"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "abstract-and-title",
+      "id": "at-1",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_words": true,
+        "must_match": true,
+        "must_not_match": true,
+        "max_slop_index": true
+      },
+      "checks_baseline": {
+        "max_words": true,
+        "must_match": true,
+        "must_not_match": true,
+        "max_slop_index": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.046184600000000006,
+      "winner": "baseline",
+      "skill_score": 5.5,
+      "baseline_score": 7.0,
+      "order_agree": true,
+      "reason": "Answer A wrongly describes the task as predicting AKI 'within 48 hours of ICU admission' when the notes say 48 h ahead, and it adds an unsupported claim that the data are 'readily available in EHR'; Answer B keeps every number and fact as given and states the CKD and prospective-evaluation limitations clearly, but it loses points for the '**Abstract**' heading (the user asked for only the abstract) and, like A, for calling a calibration slope of 0.88 'good'.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "abstract-and-title",
+      "id": "at-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_baseline": {
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.026555099999999998,
+      "winner": "baseline",
+      "skill_score": 4.5,
+      "baseline_score": 7.5,
+      "order_agree": true,
+      "reason": "B wins because all five of its titles name Kenya, stay under 15 words and include both declarative and descriptive options, and its two-sentence pick honestly addresses the parental-education heterogeneity and the modest effect size, though its 'Improve Learning' title glosses over the null reading result. A leaves Kenya out of four titles, uses the hype word 'Boost', turns 'parents completed primary school' into the overclaimed 'Work Only When Parents Can Read', and picks a title with no country.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "abstract-and-title",
+      "id": "at-3",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_baseline": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0159691,
+      "winner": "baseline",
+      "skill_score": 8.0,
+      "baseline_score": 9.0,
+      "order_agree": true,
+      "reason": "Both answers use the four headings, keep every number, report the null secondary outcomes, state the cluster design and stay under 250 words; A adds 'significantly', which claims statistical testing the original never mentions, while B's only flaw is starting a sentence with the numeral '612'.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "error"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "abstract-and-title",
+      "id": "at-4",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_words": true,
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_baseline": {
+        "max_words": true,
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.045947699999999994,
+      "winner": "skill",
+      "skill_score": 7.5,
+      "baseline_score": 6.5,
+      "order_agree": true,
+      "reason": "Both answers stay under 120 words, use plain language, and mention the 31% reduction, the similar side effects and the manufacturer funding, but B's added line 'about 3 out of 10 fewer serious asthma attacks' could be misread as an absolute difference, and its claim that one dose a day helps people remember their medicine and stay healthier was not measured in the trial, while A keeps the 31% as a plain comparison with only a mild 'easier to use' inference and a useful 'talk to your doctor' close.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "abstract-and-title",
+      "id": "at-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_line_chars": true,
+        "line_count": true
+      },
+      "checks_baseline": {
+        "max_line_chars": true,
+        "line_count": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0284301,
+      "winner": "baseline",
+      "skill_score": 6.0,
+      "baseline_score": 8.0,
+      "order_agree": true,
+      "reason": "Both answers have three distinct bullets of at most 85 characters (A: 72/72/78, B: 77/71/77), but A leaves out the 10-minute detection time and adds hype and an unsupported claim ('Ultra-low', 'accessible to all communities'), while B keeps every number (5 ppb, 10 min, 214 samples, r = 0.94, USD 0.40) and has only mild hype ('Extremely') and a small inference ('point-of-use').",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "baseline"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "bibtex-hygiene",
+      "id": "bib-1",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "dois_resolve": true
+      },
+      "checks_baseline": {
+        "must_match": false,
+        "dois_resolve": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.0198478,
+      "winner": "skill",
+      "skill_score": 9.0,
+      "baseline_score": 5.0,
+      "order_agree": true,
+      "reason": "A meets every rubric point: it changes the entry type to @inproceedings to match booktitle, protects {BERT}, uses 4171--4186, keeps the other fields and adds no DOI, while B fixes the acronym and dash but leaves @article with a booktitle field, which many BibTeX styles render wrongly or warn about.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "bibtex-hygiene",
+      "id": "bib-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_baseline": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0143128,
+      "winner": "skill",
+      "skill_score": 9.0,
+      "baseline_score": 6.5,
+      "order_agree": true,
+      "reason": "Both answers correctly identify the arXiv preprint and the CVPR 2016 paper as the same work, recommend keeping the published entry, invent nothing, and stay under 80 words, but only A covers the rubric's requirement to update citation keys (\\cite{he2015deep} → \\cite{he2016resnet}) and also suggests keeping the eprint ID on the CVPR entry, which B does not.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "bibtex-hygiene",
+      "id": "bib-3",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_baseline": {
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0209878,
+      "winner": "skill",
+      "skill_score": 7.0,
+      "baseline_score": 6.0,
+      "order_agree": true,
+      "reason": "A is more robust: it splits entries only at the next `@type{`, while B cuts each entry at the next bare `@`, so an `@` in an email or URL field truncates the entry and can falsely report a missing year. A also reads the file as UTF-8, while B uses the platform default encoding. B has the clearer output (sorted, deduplicated and summarized), but A's flaws are smaller: an unused `sys` import, and a key that appears three or more times gets reported more than once.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "baseline"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "bibtex-hygiene",
+      "id": "bib-4",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0288227,
+      "winner": "tie",
+      "skill_score": 6.5,
+      "baseline_score": 6.5,
+      "order_agree": false,
+      "reason": "Answer B is shorter and accurate, but it never mentions using the same journal name in every entry. Answer A has useful details: braced acronyms, `--` page ranges, and consistent journal names. It loses points for marking doi as required, treating `issue` as the same as `number`, banning `eprint` and `note` outright, and citing a `bib_lint.py` tool the user never mentioned and that may not exist.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "bibtex-hygiene",
+      "id": "bib-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0247159,
+      "winner": "baseline",
+      "skill_score": 6.0,
+      "baseline_score": 7.0,
+      "order_agree": true,
+      "reason": "B covers all three rubric items (the {\\\"o} escape, inputenc/fontenc with UTF-8, and biblatex+biber), though it overstates how much T1 is needed and doesn't warn that classic BibTeX still mis-sorts and mis-abbreviates UTF-8 names; A wrongly claims XeLaTeX/LuaLaTeX make classic BibTeX handle UTF-8 natively and never mentions fontenc/inputenc.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "baseline"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "cell-press",
+      "id": "cell-1",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_line_chars": true,
+        "line_count_range": true
+      },
+      "checks_baseline": {
+        "max_line_chars": true,
+        "line_count_range": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0434602,
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "baseline"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "cell-press",
+      "id": "cell-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "cell-press",
+      "id": "cell-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "cell-press",
+      "id": "cell-4",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_baseline": {
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0147092,
+      "winner": "skill",
+      "skill_score": 6.0,
+      "baseline_score": 4.0,
+      "order_agree": true,
+      "reason": "A lists the three required subsections in the standard Cell Press order (Lead contact, Materials availability, Data and code availability) and gives a usable statement with a GEO placeholder, though its 'GEOXXXXX' should follow the GSE format and it never says the code must be archived with a DOI such as Zenodo; B has the same archiving gap and also lists the subsections in reverse order, includes no accession placeholder in its main template, and adds 'all data available from the Lead Contact upon request', which undercuts the public deposit.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "cell-press",
+      "id": "cell-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0225056,
+      "winner": "skill",
+      "skill_score": 6.0,
+      "baseline_score": 4.0,
+      "order_agree": true,
+      "reason": "A gives the correct guidelines URL (cell.com/cell/authors) but breaks the one-paragraph limit and awkwardly refers to a 150-word limit it 'mentioned' earlier, while B follows the format and states the 150-word limit but sends the researcher to celljournal.org, a different journal's site, and wrongly calls the Summary 'non-technical'.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-1",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_words": true,
+        "must_match": true,
+        "max_slop_index": true
+      },
+      "checks_baseline": {
+        "max_words": true,
+        "must_match": true,
+        "max_slop_index": false
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.0160828,
+      "winner": "baseline",
+      "skill_score": 4.5,
+      "baseline_score": 5.5,
+      "order_agree": true,
+      "reason": "A misstates the key result by calling the knockout a 'knockdown', invents a department, attaches an unverified email to Dr. Ruiz and wrongly defers the data availability statement until after acceptance; B reports the numbers correctly but adds unsupported claims (targeted mutagenesis, 'significantly', a comparison to natural variation, relevance to mammals and therapy), leaves out the competing interests statement and lands close to the 300-word limit.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-3",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_baseline": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0219296,
+      "winner": "skill",
+      "skill_score": 7.0,
+      "baseline_score": 4.0,
+      "order_agree": true,
+      "reason": "A is concise and covers most rubric items: it names the manuscript, says nothing changed, confirms all authors approved and that the paper is not under consideration elsewhere, and gives a reason it suits the journal, but it invents an editor's comment about a 'broader audience' and never explicitly thanks the editor for the transfer offer; B thanks them for the offer but never states the manuscript title, does not say whether anything changed, leaves out authorship approval, and fills the space with vague text like 'addressed all preparatory requirements.'",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "citation-verification",
+      "id": "cv-1",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.032513600000000004,
+      "winner": "baseline",
+      "skill_score": 6.0,
+      "baseline_score": 7.0,
+      "order_agree": true,
+      "reason": "Both answers correctly find that #1 is real, #2 is likely fabricated and #3 should be dated 2017, but B wins narrowly because it gives a concrete check for each reference (resolve #2's DOI via Crossref and expect it to fail), while A overclaims that the DOI is 'malformed' and 'disqualifying' (the s41593-019-XXXX-x pattern is valid and only the 9999 is suspicious) and that a Google Scholar miss proves fabrication; B still loses points for the baseless 'generic author names' heuristic, for not mentioning OpenAlex, and for calling #1 'safe to cite' from memory alone.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "citation-verification",
+      "id": "cv-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "dois_resolve": true
+      },
+      "checks_baseline": {
+        "dois_resolve": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0137556,
+      "winner": "skill",
+      "skill_score": 6.0,
+      "baseline_score": 5.0,
+      "order_agree": true,
+      "reason": "Neither answer makes up a citation or DOI, but A is more useful: it gives a concrete search query and offers to check the DOIs the user finds against Crossref/OpenAlex/PubMed, whereas B gives only generic database pointers with a garbled sentence about its knowledge cutoff; A still loses points for calling any reference from memory a research-integrity violation, mentioning an internal 'skill' the user can't see, and providing no references at all with a caveat attached.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "citation-verification",
+      "id": "cv-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "citation-verification",
+      "id": "cv-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "citation-verification",
+      "id": "cv-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": false,
+        "must_not_match": true
+      },
+      "checks_baseline": {
+        "must_match": false,
+        "must_not_match": true
+      },
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.0187436,
+      "winner": "skill",
+      "skill_score": 6.5,
+      "baseline_score": 4.5,
+      "order_agree": true,
+      "reason": "Both answers use urllib with a timeout, parse title[0] and author[0].family, and turn a 404 into (None, None), but neither URL-quotes the DOI and both return None silently instead of telling a 404 apart from other errors; A wins because its User-Agent includes the mailto Crossref asks for and it catches specific exceptions, while B's User-Agent has no contact address and it catches every Exception.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "elsevier-cas",
+      "id": "els-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "elsevier-cas",
+      "id": "els-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_line_chars": true,
+        "line_count": true
+      },
+      "checks_baseline": {
+        "max_line_chars": true,
+        "line_count": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0551356,
+      "winner": "tie",
+      "skill_score": 6.5,
+      "baseline_score": 6.5,
+      "order_agree": false,
+      "reason": "Both answers keep every bullet within 85 characters (A runs 80–82, B 74–80) and state the Dice 0.84 calcification limit honestly. B loses because it invents a fact by calling the 5 centers 'international'; A overclaims with 'real-time' and 'excellent generalization' and repeats the multicenter point, but it makes up no facts.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "elsevier-cas",
+      "id": "els-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "elsevier-cas",
+      "id": "els-4",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_baseline": {
+        "max_words": true,
+        "must_match": false
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.011964599999999999,
+      "winner": "skill",
+      "skill_score": 8.5,
+      "baseline_score": 3.0,
+      "order_agree": true,
+      "reason": "A covers every rubric point in under 100 words: check the journal's guide, Your Paper Your Way at first submission, and CAS only for journals that ask for it, otherwise elsarticle; B makes unsupported claims that CAS is Elsevier's standard and increasingly required, never mentions Your Paper Your Way, and wrongly makes CAS the default.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "elsevier-cas",
+      "id": "els-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0220406,
+      "winner": "baseline",
+      "skill_score": 5.5,
+      "baseline_score": 7.0,
+      "order_agree": true,
+      "reason": "B is closer to Elsevier's required wording: it opens with 'During the preparation of this work the author(s) used ChatGPT (OpenAI) to…' and states that the authors take full responsibility, while A uses passive voice, leaves out the vendor and the 'authors take full responsibility for the content of the publication' wording, and adds unrequested exclusions; both, however, miss the required 'reviewed and edited the content as needed' sentence, and B also misses the official heading.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "baseline"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "ieee-transactions",
+      "id": "ieee-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "ieee-transactions",
+      "id": "ieee-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0138917,
+      "winner": "skill",
+      "skill_score": 8.0,
+      "baseline_score": 5.0,
+      "order_agree": true,
+      "reason": "A covers every rubric item, including the journal-style \\thanks affiliation footnotes, and adds accurate, useful IEEE guidance (though it writes 'Member, IEEE' as plain text instead of \\IEEEmembership), whereas B leaves out \\thanks completely and pads its notes with an odd 'no backslash prefix' remark.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "ieee-transactions",
+      "id": "ieee-3",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.023175599999999998,
+      "winner": "skill",
+      "skill_score": 6.5,
+      "baseline_score": 4.5,
+      "order_agree": true,
+      "reason": "A correctly leaves the book title unquoted and ends the edition with '3rd ed.' as IEEE requires, but it puts the publisher before the location ('Morgan Kaufmann, Waltham, MA') where IEEE uses 'Waltham, MA, USA: Morgan Kaufmann', and it drops 'USA'; B has the same publisher and location errors and also puts the book title in quotation marks, which IEEE uses only for articles and chapters, so it departs further from the rubric.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "ieee-transactions",
+      "id": "ieee-4",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": false
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.0145807,
+      "winner": "tie",
+      "skill_score": 6.0,
+      "baseline_score": 6.0,
+      "order_agree": false,
+      "reason": "A covers more of the rubric (links, ORCIDs, PDF metadata), but its advice on the core self-citation question is muddled and partly wrong: it says to relabel published references as 'Anonymous' while keeping enough detail to find them, and it overstates that most conferences require self-citation; B gives the standard correct advice (keep the reference intact and describe your own work in the third person) but misses revealing links and PDF-metadata scrubbing, and neither answer says that not all IEEE conferences are double-blind.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "ieee-transactions",
+      "id": "ieee-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "research-knowledge-graph",
+      "id": "kg-1",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.022736899999999997,
+      "winner": "skill",
+      "skill_score": 6.0,
+      "baseline_score": 4.0,
+      "order_agree": true,
+      "reason": "A has the more coherent pipeline: it builds a citation graph within the library via OpenAlex, runs Louvain and betweenness, and adds manual validation and snowballing, but it depends on an unexplained `scripts/build_graph.py` the user likely doesn't have and doesn't handle unresolved entries; B covers missing DOIs and a cross-community neighbor check, but its code doesn't work (an invalid OpenAlex `referenced_by` filter, a Crossref stub that returns an empty list, and raw JSON treated as a DOI list), it pulls in the paper's outside citing works instead of the library's own citation graph, and it makes inaccurate claims about OpenAlex rate limits and batch sizes.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "research-knowledge-graph",
+      "id": "kg-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.027919599999999996,
+      "winner": "tie",
+      "skill_score": 8.0,
+      "baseline_score": 8.0,
+      "order_agree": true,
+      "reason": "Both answers build an nx.DiGraph with edges from citing to cited paper, run nx.pagerank and return the top 10 sorted by score, and both miss papers with empty citation lists that no other paper cites, since they never call add_node; A's optional top_n parameter is a small convenience, not a real difference in quality.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "research-knowledge-graph",
+      "id": "kg-3",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0176939,
+      "winner": "baseline",
+      "skill_score": 4.0,
+      "baseline_score": 6.0,
+      "order_agree": true,
+      "reason": "B's main query is correct and explained step by step (P<-CITES-citing<-WROTE-author1-WROTE->paper<-WROTE-author2), though its extras have bugs: invalid RETURN syntax, a node comparison `a1 < a2`, a MERGE on `{papers: 1}` that breaks counting, and AUTHORED_BY wrongly called 'same direction'. A's main query never links co_author to citing_author and so returns a cross product, only its 'concise' version is correct, and it cites a `build_graph.py` 'research-knowledge-graph skill' that appears to be made up, while also claiming the LOAD CSV files work with `database import full`.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "baseline"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "research-knowledge-graph",
+      "id": "kg-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "research-knowledge-graph",
+      "id": "kg-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": false
+      },
+      "checks_baseline": {
+        "must_match": false
+      },
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.0153639,
+      "winner": "skill",
+      "skill_score": 5.0,
+      "baseline_score": 2.0,
+      "order_agree": true,
+      "reason": "A gives a usable example note: one Markdown note per paper, with wikilinks to authors, topics, references and cited-by papers, but it has real errors: it puts metadata in bold inline fields instead of YAML front matter, misspells an author's name ('Parmar, Anirudk' should be Niki Parmar), uses a suspicious OpenAlex ID and an invented citation count, and switches between 'vault/' and 'kg/vault'; B is still worse because it gives no export format or example note, even though Markdown with YAML front matter and wikilinks would work no matter which source tool the user has.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "springer-lncs",
+      "id": "lncs-1",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": false
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.022965600000000003,
+      "winner": "skill",
+      "skill_score": 9.5,
+      "baseline_score": 2.5,
+      "order_agree": true,
+      "reason": "Answer A meets every rubric item: it uses [runningheads], \\inst with \\orcidID, \\institute separated by \\and, \\maketitle before the abstract environment, \\keywords with \\and inside the abstract, and \\bibliographystyle{splncs04}. Answer B drops runningheads, swaps llncs's built-in \\orcidID for the orcidlink package, uses a non-standard \\abstract{} macro, puts \\keywords outside the abstract with commas, places \\maketitle after the abstract, and uses a hand-written thebibliography with no splncs04 style.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "springer-lncs",
+      "id": "lncs-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "min_words": true,
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_baseline": {
+        "min_words": true,
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0132643,
+      "winner": "tie",
+      "skill_score": 5.5,
+      "baseline_score": 5.5,
+      "order_agree": false,
+      "reason": "Both are about 200–215 words, avoid citations, and cover the problem, approach, numbers and contribution, but both add claims the notes don't support. A's are softer ('realistic drone controller', 'passing extensive simulations', 'scales to practically-sized networks'), while B's are more concrete and riskier: benchmarks 'derived from real-world drone flight scenarios', 'state-of-the-art' simulation testing, encoding of 'drone trajectories', and an overclaimed 'formal guarantees of safe operation' for the 47 properties.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "springer-lncs",
+      "id": "lncs-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "springer-lncs",
+      "id": "lncs-4",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "dois_resolve": true
+      },
+      "checks_baseline": {
+        "must_match": true,
+        "dois_resolve": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0151903,
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "error"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "springer-lncs",
+      "id": "lncs-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0122293,
+      "winner": "skill",
+      "skill_score": 6.5,
+      "baseline_score": 4.5,
+      "order_agree": true,
+      "reason": "A is shorter and more specific to LNCS: it names the unmodified llncs class and correctly says one Consent to Publish form is signed by the corresponding author for all authors, though it leaves out ORCIDs, the corresponding author designation and the volume editors' role, and the 'anonymous paper IDs' remark is odd for a camera-ready; B is longer and more generic, calls the licence a 'copyright form' that Springer provides (usually the volume editors handle it), and also leaves out ORCIDs and corresponding author info.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "nature-portfolio",
+      "id": "nat-1",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_baseline": {
+        "max_words": true,
+        "must_match": false
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.0147958,
+      "winner": "skill",
+      "skill_score": 8.0,
+      "baseline_score": 5.0,
+      "order_agree": true,
+      "reason": "A has the Nature summary-paragraph structure (introduction, background on the assumed coupling with dairying, a 'Here we analyse' statement, main result, broader context), stays under 200 words and keeps the numbers right with only slight embellishment ('markers of pastoral expansion'), whereas B has no clear 'Here we show' statement and overclaims: it treats a correlation as proof that the trait 'conferred substantial nutritional and immunological advantages', and the immunological mechanism is not in the study description.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "nature-portfolio",
+      "id": "nat-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "nature-portfolio",
+      "id": "nat-3",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.013213800000000001,
+      "winner": "skill",
+      "skill_score": 7.0,
+      "baseline_score": 3.5,
+      "order_agree": true,
+      "reason": "A correctly says Methods must hold full reproducible detail and Extended Data is a limited, peer-reviewed set of figures and tables, and it tells the author to check the current limit; it misses only the ~10-item figure, the fact that Methods appear online with their own references, and a muddled closing remark. B has several errors: it calls Methods concise main text, puts raw data tables in Extended Data, puts code availability statements in Supplementary Information, and says to 'be generous' with Extended Data without mentioning any limit.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "nature-portfolio",
+      "id": "nat-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "nature-portfolio",
+      "id": "nat-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_baseline": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0291647,
+      "winner": "skill",
+      "skill_score": 7.0,
+      "baseline_score": 5.0,
+      "order_agree": true,
+      "reason": "Both answers advise against 'novel' and 'first-ever' and stay under 100 words, and neither mentions avoiding abbreviations. A ties its advice to Nature Portfolio style and tells the authors to check the current guidelines, though 'declarative' slightly overstates the actual policy. B states preferences the journal does not set out, namely active voice and a 'typically 10-15 words' length that conflicts with the real 20-word limit, and never tells the authors to check the guidelines.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "plos",
+      "id": "plos-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "plos",
+      "id": "plos-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "plos",
+      "id": "plos-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "plos",
+      "id": "plos-4",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0229546,
+      "winner": "tie",
+      "skill_score": 5.5,
+      "baseline_score": 5.5,
+      "order_agree": false,
+      "reason": "Both answers name the ethics committee/IRB and give the approval number. B also covers how consent was documented, a justification if consent was waived, and minors among vulnerable groups. However, B never asks whether consent was written or verbal, leaves out guardian consent, and says the statement may go in a separate section rather than Methods. A gets the written/verbal consent type right and places the statement in Methods. But A leaves out waivers and minors or guardian consent entirely, adds a made-up 100–200 word length rule, and fills space with retention and destruction details PLOS does not require.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "plos",
+      "id": "plos-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "systematic-review-prisma",
+      "id": "pr-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "systematic-review-prisma",
+      "id": "pr-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0175123,
+      "winner": "tie",
+      "skill_score": 8.5,
+      "baseline_score": 8.0,
+      "order_agree": false,
+      "reason": "Both answers get every number right (4,742 → 3,638 → 337 → 325 → 290 excluded → 35) and show the arithmetic for each box. Both also share the same small flaws: phase labels that don't match PRISMA 2020, B putting duplicate removal under Screening rather than Identification, A adding 'in synthesis' to the included-studies box, and both treating 35 reports as 35 studies without noting that one study can have several reports.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "systematic-review-prisma",
+      "id": "pr-3",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": false
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.012229299999999999,
+      "winner": "baseline",
+      "skill_score": 5.0,
+      "baseline_score": 6.5,
+      "order_agree": true,
+      "reason": "A covers the core items (question, eligibility, outcomes, searches, risk-of-bias tool and synthesis) and adds a useful scope note about OSF, but it cites PRISMA 2020 'item 2' for registration when that item is the abstract and registration is item 24a, and it overstates journal requirements; B makes no such errors and also covers search strategy, risk of bias, synthesis, funding and updating the record, though both answers leave out subgroup/sensitivity analyses, timeline and conflicts of interest.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "systematic-review-prisma",
+      "id": "pr-4",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_baseline": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0310147,
+      "winner": "skill",
+      "skill_score": 8.0,
+      "baseline_score": 6.5,
+      "order_agree": true,
+      "reason": "A fits in about 114 words and gives a reportable sentence with kappa, its 95% CI, observed agreement and how disagreements were resolved, and it ties kappa below 0.60 to unclear eligibility criteria; it loses points for recommending a p-value, which adds little here, and for an unsourced 0.75 full-text benchmark, while B is vaguer, wrongly links the 2,000-abstract sample size to kappa's chance correction, and attributes low kappa to ambiguous abstracts rather than unclear criteria, though neither answer suggests calibrating on a pilot.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "systematic-review-prisma",
+      "id": "pr-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.015342300000000001,
+      "winner": "skill",
+      "skill_score": 7.5,
+      "baseline_score": 5.0,
+      "order_agree": true,
+      "reason": "Both answers name the rubric tools (RoB 2, ROBINS-I, GRADE), but B has factual errors: it calls ACROBAT-NRS a newer companion tool when it is the earlier name of ROBINS-I, it misstates the residual-confounding upgrade criterion, it treats GRADEpro GDT and GRADEpro as two separate tools, and it suggests the outdated Jadad scale, while A has only minor issues (it wrongly credits PRISMA 2020 with choosing the tools, gives I² >50% as a fixed downgrade rule, and leaves out GRADE's upgrade criteria).",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "error"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "paper-corpus-rag",
+      "id": "rag-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "paper-corpus-rag",
+      "id": "rag-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": false
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0167187,
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "error"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "paper-corpus-rag",
+      "id": "rag-3",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_baseline": {
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.03564869999999999,
+      "winner": "skill",
+      "skill_score": 5.5,
+      "baseline_score": 3.5,
+      "order_agree": true,
+      "reason": "A has a real heading heuristic and a working sliding window with overlap, but it resets the section to 'Introduction' on every page, never lets a chunk span pages and can emit tail chunks that only repeat overlap; B just treats each page's first line as the section heading, also chunks only within a page and also emits overlap-only tail chunks, so it misses the rubric's heading detection and metadata requirements.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "paper-corpus-rag",
+      "id": "rag-4",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_baseline": {
+        "max_words": true,
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.023461600000000003,
+      "winner": "baseline",
+      "skill_score": 4.5,
+      "baseline_score": 7.0,
+      "order_agree": true,
+      "reason": "B recommends hybrid retrieval as the rubric expects, explains why BM25 suits exact identifiers and dense embeddings suit paraphrase, and names RRF and reranking, though its reranking step is vague and the 'aspirin' example is not an identifier. A defaults to BM25 alone, lands right at the 150-word limit, omits reranking, uses arbitrary recall cutoffs with an unexplained 75–85% gap, and makes an odd claim about using dense-only for small cross-modal search, although its RRF formula with k=60 is correct.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "baseline"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "paper-corpus-rag",
+      "id": "rag-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_not_match": true,
+        "must_match": false
+      },
+      "checks_baseline": {
+        "must_not_match": true,
+        "must_match": false
+      },
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.0146667,
+      "winner": "baseline",
+      "skill_score": 5.0,
+      "baseline_score": 7.0,
+      "order_agree": true,
+      "reason": "B scopes the claim correctly ('the retrieved passages do not contain…'), shows the user the retrieved passages and suggests rephrasing, which covers most of the rubric; A claims the whole corpus lacks the answer when only retrieval missed, quotes a 'paper-corpus-rag skill' protocol nobody can check, never shows what was searched or suggests rephrasing, and neither answer covers clearly labeling any fallback to general knowledge.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "baseline"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_chars": true,
+        "must_match": true
+      },
+      "checks_baseline": {
+        "max_chars": true,
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0178851,
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "error"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-3",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": false
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0157461,
+      "winner": "tie",
+      "skill_score": 5.5,
+      "baseline_score": 5.5,
+      "order_agree": false,
+      "reason": "A is narrowly better: it gives a triage table and handles R3 with a power analysis and an option to collect more data, though it frames the sample-size problem too starkly (more data or take the reject), underplays the honest-limitation route, and has no editor synthesis, timeline or quoted-comment format; B's letter structure and line-numbered tracking table are useful, but it gives weak advice (subgroup analysis for a small n, grouping R2's comments by theme instead of answering each one) and also has no editor synthesis or timeline.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "baseline"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_words": true,
+        "must_match": true,
+        "max_slop_index": true
+      },
+      "checks_baseline": {
+        "max_words": true,
+        "must_match": true,
+        "max_slop_index": false
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.0205786,
+      "winner": "baseline",
+      "skill_score": 4.0,
+      "baseline_score": 5.0,
+      "order_agree": true,
+      "reason": "B gives the exact title and manuscript ID and makes vaguer, less fabricated claims about the changes; A paraphrases the title and invents specific revisions (\"additional statistical analyses\") where it needed a placeholder, though A explains the response format better (point-by-point replies, changes marked); both add an unrequested salutation, use flattering boilerplate (\"substantially strengthened\") and never use a placeholder for the unknown changes.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "reference-manager-interop",
+      "id": "ref-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "reference-manager-interop",
+      "id": "ref-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "reference-manager-interop",
+      "id": "ref-3",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "dois_resolve": true
+      },
+      "checks_baseline": {
+        "must_match": true,
+        "dois_resolve": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0138116,
+      "winner": "tie",
+      "skill_score": 8.0,
+      "baseline_score": 8.0,
+      "order_agree": true,
+      "reason": "The two answers are identical: both get every field right and match the DOI exactly, but neither puts braces around CRISPR-Cas9 in the title as the rubric requires, so BibTeX styles may lowercase it.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "reference-manager-interop",
+      "id": "ref-4",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0319357,
+      "winner": "baseline",
+      "skill_score": 6.0,
+      "baseline_score": 8.5,
+      "order_agree": true,
+      "reason": "Both answers give the right `--citeproc --bibliography --csl apa.csl` command with `[@key]` syntax, but A wrongly says `--citeproc` needs a separate citeproc binary (it has been built into Pandoc since 2.11) and vaguely claims Pandoc will fetch the style for you, while B has no errors and adds a working curl command for apa.csl, a valid CSL-JSON example and the correct `pandoc-citeproc` note for older versions.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "baseline"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "reference-manager-interop",
+      "id": "ref-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "reproducibility-statement",
+      "id": "repro-1",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_baseline": {
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0208216,
+      "winner": "tie",
+      "skill_score": 5.5,
+      "baseline_score": 5.5,
+      "order_agree": false,
+      "reason": "Neither answer gives a DOI placeholder or a version/commit tag, but B sticks to what the request states, while A invents repository contents (a README with reproduction commands and a pinned requirements.txt) and adds an unrequested reviewer link.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "reproducibility-statement",
+      "id": "repro-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.015338599999999999,
+      "winner": "skill",
+      "skill_score": 6.0,
+      "baseline_score": 4.0,
+      "order_agree": true,
+      "reason": "A gives the honest 'No' with a justification template and suggests adding std/SE over seeds, but it misquotes the checklist question, wrongly calls the checklist 'scored', confusingly keeps 'No' after adding std, and never says to explain how the error bars were computed; B never gives a Yes/No answer, proposes an 'honest' answer that wrongly claims std is already reported, and also omits that an honest No with justification is not penalized.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "reproducibility-statement",
+      "id": "repro-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "reproducibility-statement",
+      "id": "repro-4",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": false
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.015175600000000001,
+      "winner": "skill",
+      "skill_score": 6.0,
+      "baseline_score": 3.5,
+      "order_agree": true,
+      "reason": "A names the right lockfile tools (uv.lock, pip-tools with full transitive pins), pins the Docker base image by digest, and records the Python version and random seeds, but it ranks Docker 4th despite calling it the most robust option and omits hashes, a DOI archive and data versioning; B never mentions digests, seeds, a DOI or data, offers a caret range (^3.11) as 'pinning', and gives dubious conda commands ('conda export', 'conda create --file environment.yml').",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "reproducibility-statement",
+      "id": "repro-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "research-skill-creator",
+      "id": "rsc-1",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "max_chars": true
+      },
+      "checks_baseline": {
+        "must_match": false,
+        "max_chars": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.013815899999999999,
+      "winner": "skill",
+      "skill_score": 7.0,
+      "baseline_score": 3.0,
+      "order_agree": true,
+      "reason": "A is valid YAML with a kebab-case name, covers delta-delta Ct and two reference genes, gives explicit 'Use when' triggers and stays under 1024 characters, but it has no 'not for' near miss and includes some vague, unrequested claims ('statistical calculations', extra metadata); B is only a one-line summary with no 'Use when' triggers and no 'not for' near miss, so an agent has little to go on when deciding to use it.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "research-skill-creator",
+      "id": "rsc-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": false
+      },
+      "checks_baseline": {
+        "must_match": false
+      },
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.016760900000000002,
+      "winner": "skill",
+      "skill_score": 7.0,
+      "baseline_score": 2.0,
+      "order_agree": true,
+      "reason": "A meets most of the rubric: it says what the skill does and when to use it ('Use when...'), names concrete keywords and artifacts, excludes near-miss sibling skills, gives the 1024-character limit, and rules out marketing language, but it never mentions testing with realistic prompts and near misses, it invents a '10:1' figure, and it wrongly says selection works by embedding similarity; B gives no rules at all and only asks for clarification on a request that could be answered.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "research-skill-creator",
+      "id": "rsc-3",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": false
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0154729,
+      "winner": "skill",
+      "skill_score": 6.0,
+      "baseline_score": 5.0,
+      "order_agree": true,
+      "reason": "A covers more of the rubric's skill-specific items (secrets read from env, an allowlist of domains, no eval or piping downloaded code into a shell, and a scan before release), though it misses timeouts and pinned dependencies and adds an off-topic data-integrity section, while B gives generic API-security advice that skips the allowlist, the ban on auto-executing downloaded code, documenting network access, scanning and pinning.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "baseline"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "research-skill-creator",
+      "id": "rsc-4",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "max_list_items": true
+      },
+      "checks_baseline": {
+        "must_match": false,
+        "max_list_items": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.014609899999999999,
+      "winner": "skill",
+      "skill_score": 6.5,
+      "baseline_score": 3.0,
+      "order_agree": true,
+      "reason": "A treats this as testing an agent skill and covers with-vs-without comparison, realistic prompts, near-miss triggering and quantified violation counts, though it misses blind judging, multiple models and held-out prompts and assumes an `evals.json` file exists; B misreads the request as teaching a skill to people and meets almost none of the rubric's points.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "research-skill-creator",
+      "id": "rsc-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": false
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.0268158,
+      "winner": "skill",
+      "skill_score": 7.5,
+      "baseline_score": 2.0,
+      "order_agree": true,
+      "reason": "A covers most of the rubric: it keeps SKILL.md under about 500 lines with the workflow and decision points, moves detail into references/ files loaded on demand, and links them with 'read when' cues. It loses points for leaving out scripts for deterministic steps and for assuming venue-specific content. B brings up the pen.dev app, which has nothing to do with the request, gives no SKILL.md-specific guidance, and offers only generic doc-splitting advice.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "science-aaas",
+      "id": "sci-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "science-aaas",
+      "id": "sci-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_chars": true,
+        "max_sentences": true
+      },
+      "checks_baseline": {
+        "max_chars": true,
+        "max_sentences": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.022577,
+      "winner": "baseline",
+      "skill_score": 7.5,
+      "baseline_score": 8.5,
+      "order_agree": true,
+      "reason": "Both are single accurate sentences well under 125 characters with correct species. B keeps the request's two separate findings (expands Tregs and reduces nephritis), while A's 'to reduce' implies a causal mechanism the request didn't state. B's unexplained 'NHPs' abbreviation and missing article are minor drawbacks.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "science-aaas",
+      "id": "sci-3",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": false
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.012254000000000001,
+      "winner": "skill",
+      "skill_score": 7.0,
+      "baseline_score": 2.0,
+      "order_agree": true,
+      "reason": "A answers the question: it correctly says Science uses numbered citation-order references with notes merged into the same list, flags supplementary-only references and article-type limits, and points to the current author instructions, though it hedges on the limits instead of giving even approximate numbers; B asks what 'Science' means when the research context makes clear it is the journal, so it gives the researcher nothing to use.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "skill"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "science-aaas",
+      "id": "sci-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "science-aaas",
+      "id": "sci-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_baseline": {
+        "must_match": true,
+        "must_not_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0204266,
+      "winner": "skill",
+      "skill_score": 7.0,
+      "baseline_score": 6.0,
+      "order_agree": true,
+      "reason": "Both statements avoid invented identifiers, but neither mentions MTA conditions. A wins because it uses Science's standard wording and bracketed placeholders that are easy to fill in, although its 'upon request' line adds a claim the user didn't ask for; B reads like Nature's phrasing ('this published article') and adds vague filler ('available to the research community').",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "unslop-academic-writing",
+      "id": "us-1",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true,
+        "must_not_match": true,
+        "max_slop_index": true
+      },
+      "checks_baseline": {
+        "must_match": true,
+        "must_not_match": true,
+        "max_slop_index": false
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 0,
+      "answer_cost_usd": 0.0217251,
+      "winner": "tie",
+      "skill_score": 6.0,
+      "baseline_score": 6.0,
+      "order_agree": false,
+      "reason": "B wins narrowly: both keep 48,000 cells and 12 donors and use reasonable hedges, but A drops the general claim about scRNA-seq as a tool and wrongly ties macrophages to 'cellular heterogeneity', while B keeps every original claim and only adds two smaller unsupported details ('at high resolution' and 'in the observed phenotypes').",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "baseline"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "unslop-academic-writing",
+      "id": "us-2",
+      "checks_total": 1,
+      "checks_skill": {
+        "max_words": true,
+        "must_match": true,
+        "max_slop_index": true
+      },
+      "checks_baseline": {
+        "max_words": true,
+        "must_match": true,
+        "max_slop_index": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.013365100000000001,
+      "winner": "skill",
+      "skill_score": 6.0,
+      "baseline_score": 3.5,
+      "order_agree": true,
+      "reason": "A gives the finding and estimate first and at least interprets the confidence interval, but it overclaims ('robust evidence', 'excludes clinically meaningful' effects, when the interval only rules out more than a 7% increase or 10% decrease) and invents 'objective follow-up' and 'adjustment for key confounders'; B never interprets the interval, invents 'median' follow-up and 'detailed exposure ascertainment', leans on stock phrases ('adds to an expanding body of evidence', 'provide reassurance'), runs to about the 150-word limit, and extends its conclusion to people who already have atrial fibrillation, which an incidence study cannot support.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "unslop-academic-writing",
+      "id": "us-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "unslop-academic-writing",
+      "id": "us-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "skill": "unslop-academic-writing",
+      "id": "us-5",
+      "checks_total": 1,
+      "checks_skill": {
+        "must_match": true
+      },
+      "checks_baseline": {
+        "must_match": true
+      },
+      "checks_pass_skill": 1,
+      "checks_pass_baseline": 1,
+      "answer_cost_usd": 0.0279376,
+      "winner": "skill",
+      "skill_score": 5.5,
+      "baseline_score": 4.5,
+      "order_agree": true,
+      "reason": "Neither answer uses placeholders: both make up results in their rewrites (A invents '60%', a '40-day drought' and 'three test species'; B claims root depth and branching 'account for most variation'), but A labels its numbers as conditional examples and asks for the real finding, while B gives its invented claims as the rewrite with no caveat, even though B does more to flag the vague 'shaping resilience'.",
+      "judge": "claude-opus-5-5",
+      "agreement_judge": "claude-sonnet-5-5",
+      "agreement_winner": "tie"
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "acm-sigconf",
+      "id": "acm-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "acm-sigconf",
+      "id": "acm-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "acm-sigconf",
+      "id": "acm-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "acm-sigconf",
+      "id": "acm-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "acm-sigconf",
+      "id": "acm-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "apa7",
+      "id": "apa-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "apa7",
+      "id": "apa-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "apa7",
+      "id": "apa-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "apa7",
+      "id": "apa-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "apa7",
+      "id": "apa-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "arxiv-submission",
+      "id": "arx-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "arxiv-submission",
+      "id": "arx-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "arxiv-submission",
+      "id": "arx-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "arxiv-submission",
+      "id": "arx-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "arxiv-submission",
+      "id": "arx-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "abstract-and-title",
+      "id": "at-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "abstract-and-title",
+      "id": "at-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "abstract-and-title",
+      "id": "at-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "abstract-and-title",
+      "id": "at-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "abstract-and-title",
+      "id": "at-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "bibtex-hygiene",
+      "id": "bib-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "bibtex-hygiene",
+      "id": "bib-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "bibtex-hygiene",
+      "id": "bib-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "bibtex-hygiene",
+      "id": "bib-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "bibtex-hygiene",
+      "id": "bib-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "cell-press",
+      "id": "cell-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "cell-press",
+      "id": "cell-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "cell-press",
+      "id": "cell-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "cell-press",
+      "id": "cell-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "cell-press",
+      "id": "cell-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "citation-verification",
+      "id": "cv-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "citation-verification",
+      "id": "cv-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "citation-verification",
+      "id": "cv-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "citation-verification",
+      "id": "cv-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "citation-verification",
+      "id": "cv-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "elsevier-cas",
+      "id": "els-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "elsevier-cas",
+      "id": "els-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "elsevier-cas",
+      "id": "els-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "elsevier-cas",
+      "id": "els-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "elsevier-cas",
+      "id": "els-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "ieee-transactions",
+      "id": "ieee-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "ieee-transactions",
+      "id": "ieee-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "ieee-transactions",
+      "id": "ieee-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "ieee-transactions",
+      "id": "ieee-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "ieee-transactions",
+      "id": "ieee-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "research-knowledge-graph",
+      "id": "kg-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "research-knowledge-graph",
+      "id": "kg-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "research-knowledge-graph",
+      "id": "kg-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "research-knowledge-graph",
+      "id": "kg-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "research-knowledge-graph",
+      "id": "kg-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "springer-lncs",
+      "id": "lncs-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "springer-lncs",
+      "id": "lncs-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "springer-lncs",
+      "id": "lncs-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "springer-lncs",
+      "id": "lncs-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "springer-lncs",
+      "id": "lncs-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "nature-portfolio",
+      "id": "nat-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "nature-portfolio",
+      "id": "nat-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "nature-portfolio",
+      "id": "nat-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "nature-portfolio",
+      "id": "nat-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "nature-portfolio",
+      "id": "nat-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "plos",
+      "id": "plos-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "plos",
+      "id": "plos-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "plos",
+      "id": "plos-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "plos",
+      "id": "plos-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "plos",
+      "id": "plos-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "systematic-review-prisma",
+      "id": "pr-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "systematic-review-prisma",
+      "id": "pr-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "systematic-review-prisma",
+      "id": "pr-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "systematic-review-prisma",
+      "id": "pr-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "systematic-review-prisma",
+      "id": "pr-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "paper-corpus-rag",
+      "id": "rag-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "paper-corpus-rag",
+      "id": "rag-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "paper-corpus-rag",
+      "id": "rag-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "paper-corpus-rag",
+      "id": "rag-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "paper-corpus-rag",
+      "id": "rag-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "reference-manager-interop",
+      "id": "ref-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "reference-manager-interop",
+      "id": "ref-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "reference-manager-interop",
+      "id": "ref-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "reference-manager-interop",
+      "id": "ref-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "reference-manager-interop",
+      "id": "ref-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "reproducibility-statement",
+      "id": "repro-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "reproducibility-statement",
+      "id": "repro-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "reproducibility-statement",
+      "id": "repro-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "reproducibility-statement",
+      "id": "repro-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "reproducibility-statement",
+      "id": "repro-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "research-skill-creator",
+      "id": "rsc-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "research-skill-creator",
+      "id": "rsc-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "research-skill-creator",
+      "id": "rsc-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "research-skill-creator",
+      "id": "rsc-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "research-skill-creator",
+      "id": "rsc-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "science-aaas",
+      "id": "sci-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "science-aaas",
+      "id": "sci-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "science-aaas",
+      "id": "sci-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "science-aaas",
+      "id": "sci-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "science-aaas",
+      "id": "sci-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "unslop-academic-writing",
+      "id": "us-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "unslop-academic-writing",
+      "id": "us-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "unslop-academic-writing",
+      "id": "us-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "unslop-academic-writing",
+      "id": "us-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "skill": "unslop-academic-writing",
+      "id": "us-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "acm-sigconf",
+      "id": "acm-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "acm-sigconf",
+      "id": "acm-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "acm-sigconf",
+      "id": "acm-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "acm-sigconf",
+      "id": "acm-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "acm-sigconf",
+      "id": "acm-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "apa7",
+      "id": "apa-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "apa7",
+      "id": "apa-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "apa7",
+      "id": "apa-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "apa7",
+      "id": "apa-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "apa7",
+      "id": "apa-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "arxiv-submission",
+      "id": "arx-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "arxiv-submission",
+      "id": "arx-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "arxiv-submission",
+      "id": "arx-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "arxiv-submission",
+      "id": "arx-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "arxiv-submission",
+      "id": "arx-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "abstract-and-title",
+      "id": "at-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "abstract-and-title",
+      "id": "at-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "abstract-and-title",
+      "id": "at-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "abstract-and-title",
+      "id": "at-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "abstract-and-title",
+      "id": "at-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "bibtex-hygiene",
+      "id": "bib-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "bibtex-hygiene",
+      "id": "bib-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "bibtex-hygiene",
+      "id": "bib-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "bibtex-hygiene",
+      "id": "bib-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "bibtex-hygiene",
+      "id": "bib-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "cell-press",
+      "id": "cell-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "cell-press",
+      "id": "cell-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "cell-press",
+      "id": "cell-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "cell-press",
+      "id": "cell-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "cell-press",
+      "id": "cell-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "cover-letter-to-editor",
+      "id": "cl-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "citation-verification",
+      "id": "cv-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "citation-verification",
+      "id": "cv-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "citation-verification",
+      "id": "cv-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "citation-verification",
+      "id": "cv-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "citation-verification",
+      "id": "cv-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "elsevier-cas",
+      "id": "els-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "elsevier-cas",
+      "id": "els-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "elsevier-cas",
+      "id": "els-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "elsevier-cas",
+      "id": "els-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "elsevier-cas",
+      "id": "els-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "ieee-transactions",
+      "id": "ieee-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "ieee-transactions",
+      "id": "ieee-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "ieee-transactions",
+      "id": "ieee-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "ieee-transactions",
+      "id": "ieee-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "ieee-transactions",
+      "id": "ieee-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "research-knowledge-graph",
+      "id": "kg-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "research-knowledge-graph",
+      "id": "kg-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "research-knowledge-graph",
+      "id": "kg-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "research-knowledge-graph",
+      "id": "kg-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "research-knowledge-graph",
+      "id": "kg-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "springer-lncs",
+      "id": "lncs-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "springer-lncs",
+      "id": "lncs-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "springer-lncs",
+      "id": "lncs-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "springer-lncs",
+      "id": "lncs-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "springer-lncs",
+      "id": "lncs-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "nature-portfolio",
+      "id": "nat-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "nature-portfolio",
+      "id": "nat-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "nature-portfolio",
+      "id": "nat-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "nature-portfolio",
+      "id": "nat-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "nature-portfolio",
+      "id": "nat-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "plos",
+      "id": "plos-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "plos",
+      "id": "plos-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "plos",
+      "id": "plos-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "plos",
+      "id": "plos-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "plos",
+      "id": "plos-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "systematic-review-prisma",
+      "id": "pr-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "systematic-review-prisma",
+      "id": "pr-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "systematic-review-prisma",
+      "id": "pr-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "systematic-review-prisma",
+      "id": "pr-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "systematic-review-prisma",
+      "id": "pr-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "paper-corpus-rag",
+      "id": "rag-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "paper-corpus-rag",
+      "id": "rag-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "paper-corpus-rag",
+      "id": "rag-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "paper-corpus-rag",
+      "id": "rag-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "paper-corpus-rag",
+      "id": "rag-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "rebuttal-and-response-to-reviewers",
+      "id": "reb-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "reference-manager-interop",
+      "id": "ref-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "reference-manager-interop",
+      "id": "ref-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "reference-manager-interop",
+      "id": "ref-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "reference-manager-interop",
+      "id": "ref-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "reference-manager-interop",
+      "id": "ref-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "reproducibility-statement",
+      "id": "repro-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "reproducibility-statement",
+      "id": "repro-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "reproducibility-statement",
+      "id": "repro-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "reproducibility-statement",
+      "id": "repro-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "reproducibility-statement",
+      "id": "repro-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "research-skill-creator",
+      "id": "rsc-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "research-skill-creator",
+      "id": "rsc-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "research-skill-creator",
+      "id": "rsc-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "research-skill-creator",
+      "id": "rsc-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "research-skill-creator",
+      "id": "rsc-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "science-aaas",
+      "id": "sci-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "science-aaas",
+      "id": "sci-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "science-aaas",
+      "id": "sci-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "science-aaas",
+      "id": "sci-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "science-aaas",
+      "id": "sci-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "unslop-academic-writing",
+      "id": "us-1",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "unslop-academic-writing",
+      "id": "us-2",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "unslop-academic-writing",
+      "id": "us-3",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "unslop-academic-writing",
+      "id": "us-4",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "skill": "unslop-academic-writing",
+      "id": "us-5",
+      "winner": "error",
+      "skill_score": null,
+      "baseline_score": null,
+      "checks_total": 0,
+      "checks_pass_skill": 0,
+      "checks_pass_baseline": 0
+    }
+  ]
+}

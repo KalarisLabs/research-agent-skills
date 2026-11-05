@@ -2,13 +2,15 @@
 
 One-command installer for **[Research Agent Skills](https://github.com/KalarisLabs/research-agent-skills)**:
 280+ agent skills for academia, scientific research, research paper writing, journal formatting and literature review,
-for Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode and Windsurf.
+with auto-detection and zero-configuration support for Claude Science, Open Science, T3 Code, Google Antigravity, Claude Code, Cursor, Codex, OpenHands, Aider, Goose, Windsurf and 10+ more harnesses.
 
 ```bash
-npx research-agent-skills                       # interactive
-npx research-agent-skills install               # research-essentials bundle for detected agents
+npx research-agent-skills                        # interactive
+npx research-agent-skills install                # research-essentials bundle for detected agents
+npx research-agent-skills install --configure    # install and auto-configure instruction anchors
+npx research-agent-skills configure              # auto-configure anchors (AGENTS.md, CLAUDE.md, etc.)
 npx research-agent-skills install citation-verification nature-portfolio
-npx research-agent-skills install --category literature-review --harness claude-code,codex --project
+npx research-agent-skills install --category literature-review --harness claude-science,t3-code --project
 npx research-agent-skills install --bundle medicine-research --project
 npx research-agent-skills list --categories
 npx research-agent-skills search "systematic review"

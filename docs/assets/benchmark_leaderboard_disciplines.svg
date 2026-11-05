@@ -1,0 +1,210 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 370" width="100%" height="auto" style="background: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<defs>
+  <!-- Checkered green pattern for #1 top rank -->
+  <pattern id="checkered-green" width="6" height="6" patternUnits="userSpaceOnUse">
+    <rect width="6" height="6" fill="#22C55E"/>
+    <rect width="3" height="3" fill="#15803D"/>
+    <rect x="3" y="3" width="3" height="3" fill="#15803D"/>
+  </pattern>
+  <!-- Checkered blue pattern for Meta special variant -->
+  <pattern id="checkered-blue" width="6" height="6" patternUnits="userSpaceOnUse">
+    <rect width="6" height="6" fill="#0081FB"/>
+    <rect width="3" height="3" fill="#0058B6"/>
+    <rect x="3" y="3" width="3" height="3" fill="#0058B6"/>
+  </pattern>
+</defs>
+<!-- Background -->
+<rect width="1100" height="370" fill="#FFFFFF"/>
+<line x1="60.0" y1="154.1" x2="1052.0" y2="154.1" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<line x1="60.0" y1="128.2" x2="1052.0" y2="128.2" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<line x1="60.0" y1="102.3" x2="1052.0" y2="102.3" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<line x1="60.0" y1="76.4" x2="1052.0" y2="76.4" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<line x1="60.0" y1="50.5" x2="1052.0" y2="50.5" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<path d="M 75.00 180.00 V 57.16 Q 75.00 52.16 80.00 52.16 H 100.00 Q 105.00 52.16 105.00 57.16 V 180.00 Z" fill="url(#checkered-green)"/>
+<text x="90.00" y="126.31" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">99</text>
+<g transform="translate(80.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#D97706"/>
+      <path d="M10 5h4v4l4 8a1 1 0 0 1-.9 1.5H6.9A1 1 0 0 1 6 17l4-8V5z" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+      <path d="M8 14h8" stroke="#FFFFFF" stroke-width="1.5"/>
+    </g>
+    </g>
+<text transform="translate(90.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">chemistry-drug-discovery (12)</text>
+<path d="M 126.00 180.00 V 59.62 Q 126.00 54.62 131.00 54.62 H 151.00 Q 156.00 54.62 156.00 59.62 V 180.00 Z" fill="#EA580C"/>
+<text x="141.00" y="127.34" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">97</text>
+<g transform="translate(131.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#8B5CF6"/>
+      <circle cx="9" cy="10" r="3.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+      <circle cx="15" cy="10" r="3.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+      <path d="M8 13.5c1 2 2 3.5 4 3.5s3-1.5 4-3.5" stroke="#FFFFFF" stroke-width="1.6" fill="none"/>
+    </g>
+    </g>
+<text transform="translate(141.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">ml-training (32 skills)</text>
+<path d="M 177.00 180.00 V 59.88 Q 177.00 54.88 182.00 54.88 H 202.00 Q 207.00 54.88 207.00 59.88 V 180.00 Z" fill="#059669"/>
+<text x="192.00" y="127.45" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">97</text>
+<g transform="translate(182.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#059669"/>
+      <path d="M7 6c5 3 5 9 10 12M17 6c-5 3-5 9-10 12M8 9h8M8 15h8M9 12h6" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+    </g>
+    </g>
+<text transform="translate(192.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">life-sciences (33 skills)</text>
+<path d="M 228.00 180.00 V 60.53 Q 228.00 55.53 233.00 55.53 H 253.00 Q 258.00 55.53 258.00 60.53 V 180.00 Z" fill="#1E3A8A"/>
+<text x="243.00" y="127.72" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">96</text>
+<g transform="translate(233.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#8B5CF6"/>
+      <circle cx="9" cy="10" r="3.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+      <circle cx="15" cy="10" r="3.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+      <path d="M8 13.5c1 2 2 3.5 4 3.5s3-1.5 4-3.5" stroke="#FFFFFF" stroke-width="1.6" fill="none"/>
+    </g>
+    </g>
+<text transform="translate(243.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">ml-inference-and-ops (13)</text>
+<path d="M 279.00 180.00 V 60.79 Q 279.00 55.79 284.00 55.79 H 304.00 Q 309.00 55.79 309.00 60.79 V 180.00 Z" fill="#0284C7"/>
+<text x="294.00" y="127.83" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">96</text>
+<g transform="translate(284.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#2563EB"/>
+      <path d="M6 7a2 2 0 0 1 2-2h4v13H8a2 2 0 0 0-2 2V7zm12 0a2 2 0 0 0-2-2h-4v13h4a2 2 0 0 1 2 2V7z" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+    </g>
+    </g>
+<text transform="translate(294.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">knowledge-and-rag (7 skills)</text>
+<path d="M 330.00 180.00 V 60.92 Q 330.00 55.92 335.00 55.92 H 355.00 Q 360.00 55.92 360.00 60.92 V 180.00 Z" fill="#D32F2F"/>
+<text x="345.00" y="127.88" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">96</text>
+<g transform="translate(335.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#D32F2F"/>
+      <text x="12" y="17.5" font-family="Georgia, serif" font-weight="900" font-size="16" fill="#FFFFFF" text-anchor="middle">N</text>
+    </g>
+    </g>
+<text transform="translate(345.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">journal-formats (11 skills)</text>
+<path d="M 381.00 180.00 V 61.18 Q 381.00 56.18 386.00 56.18 H 406.00 Q 411.00 56.18 411.00 61.18 V 180.00 Z" fill="#0D9488"/>
+<text x="396.00" y="127.99" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">96</text>
+<g transform="translate(386.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#D97706"/>
+      <path d="M10 5h4v4l4 8a1 1 0 0 1-.9 1.5H6.9A1 1 0 0 1 6 17l4-8V5z" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+      <path d="M8 14h8" stroke="#FFFFFF" stroke-width="1.5"/>
+    </g>
+    </g>
+<text transform="translate(396.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">lab-automation (11 skills)</text>
+<path d="M 432.00 180.00 V 61.18 Q 432.00 56.18 437.00 56.18 H 457.00 Q 462.00 56.18 462.00 61.18 V 180.00 Z" fill="#9333EA"/>
+<text x="447.00" y="127.99" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">96</text>
+<g transform="translate(437.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#4F46E5"/>
+      <ellipse cx="12" cy="12" rx="8" ry="3" fill="none" stroke="#FFFFFF" stroke-width="1.4" transform="rotate(30 12 12)"/>
+      <ellipse cx="12" cy="12" rx="8" ry="3" fill="none" stroke="#FFFFFF" stroke-width="1.4" transform="rotate(-30 12 12)"/>
+      <circle cx="12" cy="12" r="2" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(447.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">multimodal-and-emerging (18)</text>
+<path d="M 483.00 180.00 V 61.56 Q 483.00 56.56 488.00 56.56 H 508.00 Q 513.00 56.56 513.00 61.56 V 180.00 Z" fill="#4F46E5"/>
+<text x="498.00" y="128.16" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">95</text>
+<g transform="translate(488.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#8B5CF6"/>
+      <circle cx="9" cy="10" r="3.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+      <circle cx="15" cy="10" r="3.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+      <path d="M8 13.5c1 2 2 3.5 4 3.5s3-1.5 4-3.5" stroke="#FFFFFF" stroke-width="1.6" fill="none"/>
+    </g>
+    </g>
+<text transform="translate(498.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">data-science-and-ml (30)</text>
+<path d="M 534.00 180.00 V 62.21 Q 534.00 57.21 539.00 57.21 H 559.00 Q 564.00 57.21 564.00 62.21 V 180.00 Z" fill="#2563EB"/>
+<text x="549.00" y="128.43" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">95</text>
+<g transform="translate(539.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#2563EB"/>
+      <path d="M6 7a2 2 0 0 1 2-2h4v13H8a2 2 0 0 0-2 2V7zm12 0a2 2 0 0 0-2-2h-4v13h4a2 2 0 0 1 2 2V7z" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+    </g>
+    </g>
+<text transform="translate(549.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">literature-review (18 skills)</text>
+<path d="M 585.00 180.00 V 62.47 Q 585.00 57.47 590.00 57.47 H 610.00 Q 615.00 57.47 615.00 62.47 V 180.00 Z" fill="#7C3AED"/>
+<text x="600.00" y="128.54" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">95</text>
+<g transform="translate(590.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#4F46E5"/>
+      <ellipse cx="12" cy="12" rx="8" ry="3" fill="none" stroke="#FFFFFF" stroke-width="1.4" transform="rotate(30 12 12)"/>
+      <ellipse cx="12" cy="12" rx="8" ry="3" fill="none" stroke="#FFFFFF" stroke-width="1.4" transform="rotate(-30 12 12)"/>
+      <circle cx="12" cy="12" r="2" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(600.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">physical-sciences (10 skills)</text>
+<path d="M 636.00 180.00 V 62.73 Q 636.00 57.73 641.00 57.73 H 661.00 Q 666.00 57.73 666.00 62.73 V 180.00 Z" fill="#E11D48"/>
+<text x="651.00" y="128.65" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">94</text>
+<g transform="translate(641.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#D32F2F"/>
+      <text x="12" y="17.5" font-family="Georgia, serif" font-weight="900" font-size="16" fill="#FFFFFF" text-anchor="middle">N</text>
+    </g>
+    </g>
+<text transform="translate(651.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">visualization-presentation (11)</text>
+<path d="M 687.00 180.00 V 62.86 Q 687.00 57.86 692.00 57.86 H 712.00 Q 717.00 57.86 717.00 62.86 V 180.00 Z" fill="#10B981"/>
+<text x="702.00" y="128.70" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">94</text>
+<g transform="translate(692.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#10B981"/>
+      <path d="M7 6h3v4l4-4h4l-5 5 5.5 7H14.5l-4-5.2V18H7V6z" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(702.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">research-automation (9 skills)</text>
+<path d="M 738.00 180.00 V 62.86 Q 738.00 57.86 743.00 57.86 H 763.00 Q 768.00 57.86 768.00 62.86 V 180.00 Z" fill="#DB2777"/>
+<text x="753.00" y="128.70" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">94</text>
+<g transform="translate(743.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#0EA5E9"/>
+      <path d="M12 5l6 2.5v5c0 4-2.8 7-6 8-3.2-1-6-4-6-8v-5L12 5z" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+      <path d="M9.5 12.5l2 2 4-4" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+    </g>
+<text transform="translate(753.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">ml-evaluation-safety (11)</text>
+<path d="M 789.00 180.00 V 63.12 Q 789.00 58.12 794.00 58.12 H 814.00 Q 819.00 58.12 819.00 63.12 V 180.00 Z" fill="#475569"/>
+<text x="804.00" y="128.81" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">94</text>
+<g transform="translate(794.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#3F51B5"/>
+      <path d="M6 12l5-5m-5 5l5 5M18 12l-5-5m5 5l-5 5" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+    </g>
+<text transform="translate(804.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">scientific-databases (12)</text>
+<path d="M 840.00 180.00 V 63.51 Q 840.00 58.51 845.00 58.51 H 865.00 Q 870.00 58.51 870.00 63.51 V 180.00 Z" fill="#DC2626"/>
+<text x="855.00" y="128.97" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">94</text>
+<g transform="translate(845.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#0EA5E9"/>
+      <path d="M12 5l6 2.5v5c0 4-2.8 7-6 8-3.2-1-6-4-6-8v-5L12 5z" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+      <path d="M9.5 12.5l2 2 4-4" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+    </g>
+<text transform="translate(855.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">clinical-and-health (7 skills)</text>
+<path d="M 891.00 180.00 V 64.02 Q 891.00 59.02 896.00 59.02 H 916.00 Q 921.00 59.02 921.00 64.02 V 180.00 Z" fill="#CC785C"/>
+<text x="906.00" y="129.19" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">93</text>
+<g transform="translate(896.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#10B981"/>
+      <path d="M7 6h3v4l4-4h4l-5 5 5.5 7H14.5l-4-5.2V18H7V6z" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(906.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">research-writing (15 skills)</text>
+<path d="M 942.00 180.00 V 66.49 Q 942.00 61.49 947.00 61.49 H 967.00 Q 972.00 61.49 972.00 66.49 V 180.00 Z" fill="#2563EB"/>
+<text x="957.00" y="130.22" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">92</text>
+<g transform="translate(947.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#8B5CF6"/>
+      <circle cx="9" cy="10" r="3.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+      <circle cx="15" cy="10" r="3.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+      <path d="M8 13.5c1 2 2 3.5 4 3.5s3-1.5 4-3.5" stroke="#FFFFFF" stroke-width="1.6" fill="none"/>
+    </g>
+    </g>
+<text transform="translate(957.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">llm-applications (9 skills)</text>
+<path d="M 993.00 180.00 V 66.87 Q 993.00 61.87 998.00 61.87 H 1018.00 Q 1023.00 61.87 1023.00 66.87 V 180.00 Z" fill="#F59E0B"/>
+<text x="1008.00" y="130.39" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">91</text>
+<g transform="translate(998.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#2563EB"/>
+      <path d="M6 7a2 2 0 0 1 2-2h4v13H8a2 2 0 0 0-2 2V7zm12 0a2 2 0 0 0-2-2h-4v13h4a2 2 0 0 1 2 2V7z" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+    </g>
+    </g>
+<text transform="translate(1008.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">ideation-and-design (12)</text>
+</svg>

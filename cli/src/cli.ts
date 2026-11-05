@@ -3,8 +3,10 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { createInterface } from "node:readline/promises";
 import { fileURLToPath } from "node:url";
+import { autoConfigureAll } from "./configure.js";
 import { detectHarnesses, harnesses, resolveHarnesses, targetDirs, type Harness } from "./harness.js";
 import { readLock, selectSkills, installSkills, uninstallSkills, verifyInstall, type Selection } from "./install.js";
+import { runMcpServer } from "./mcp.js";
 import { resolveSource, REPO_SLUG, type Catalog, type Source } from "./source.js";
 
 const PKG = JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "..", "package.json"), "utf8")) as {
@@ -18,12 +20,14 @@ By Kalaris Labs - https://github.com/${REPO_SLUG}
 Usage:
   npx research-agent-skills                        interactive install
   npx research-agent-skills install [skills...]    install skills (default: research-essentials bundle)
+  npx research-agent-skills configure              auto-configure instruction anchors and manifests for harnesses
   npx research-agent-skills list [--category c]    list available skills
   npx research-agent-skills search <query>         search skills by name, description, tags
   npx research-agent-skills installed              show what is installed where
   npx research-agent-skills update                 reinstall installed skills at the selected version
   npx research-agent-skills uninstall [skills...]  remove skills installed by this tool (--all for every one)
   npx research-agent-skills doctor                 check harnesses, Python/uv, and installed-file integrity
+  npx research-agent-skills mcp                    launch Model Context Protocol (MCP) stdio server
 
 Selection:
   --bundle <b>        research-essentials, ml-research, ai-research, biology-research,
@@ -32,9 +36,14 @@ Selection:
   --all               every skill (not recommended: loads many skill descriptions into context)
 
 Targets:
-  --harness <h>       auto (default), all, or comma list: ${harnesses().map((h) => h.id).join(", ")}
+  --harness <h>       auto (default), all, or comma list:
+                      Scientific: claude-science, openscience
+                      Control:    t3-code, antigravity, hermes
+                      Coding:     claude-code, codex, cursor, gemini-cli, copilot, openhands,
+                                  goose, aider, opencode, windsurf, roo-code, zed, trae, continue, agents
   --project           install into the current project (default: global, in your home directory)
   --symlink           link instead of copy (copy is default and safest)
+  --configure         auto-configure instruction anchors (AGENTS.md, CLAUDE.md, etc.) on install
 
 Source:
   --version <v>       release to install (default: ${PKG.version}; "latest" queries GitHub)
@@ -52,8 +61,20 @@ interface Args {
   flags: Record<string, string | boolean>;
 }
 
-const BOOL_FLAGS = new Set(["all", "project", "global", "symlink", "copy", "force", "dry-run", "yes", "help", "categories",
-  "json"]);
+const BOOL_FLAGS = new Set([
+  "all",
+  "project",
+  "global",
+  "symlink",
+  "copy",
+  "configure",
+  "force",
+  "dry-run",
+  "yes",
+  "help",
+  "categories",
+  "json",
+]);
 
 export function parseArgs(argv: string[]): Args {
   const flags: Record<string, string | boolean> = {};
@@ -145,9 +166,27 @@ async function cmdInstall(a: Args): Promise<number> {
     const r = installSkills(src, skills, dir, { mode, force: Boolean(a.flags.force), dryRun: Boolean(a.flags["dry-run"]), log });
     log(`  ${dir}: ${r.installed.length} installed, ${r.updated.length} updated, ${r.skipped.length} skipped`);
   }
+
+  if (a.flags.configure && !a.flags["dry-run"]) {
+    log(`\nAuto-configuring instruction anchors for ${chosen.length} harness(es)...`);
+    const cfg = autoConfigureAll(chosen, process.cwd(), skills);
+    cfg.forEach((c) => log(`  ${c.action === "created" ? "+ created" : c.action === "updated" ? "~ updated" : "= unchanged"} ${c.file} (${c.harness})`));
+  }
+
   const needsPython = skills.filter((s) => s.has_scripts).length;
   if (needsPython) log(`\n${needsPython} of these skills include Python scripts; run \`research-agent-skills doctor\` to check Python/uv.`);
   log(a.flags["dry-run"] ? "\nDry run: nothing was written." : "\nDone. Restart your agent to load new skills.");
+  return 0;
+}
+
+async function cmdConfigure(a: Args): Promise<number> {
+  const chosen = resolveHarnesses(typeof a.flags.harness === "string" ? a.flags.harness : undefined);
+  log(`\nAuto-configuring instruction anchors and manifests for ${chosen.map((h) => h.label).join(", ")}`);
+  const r = autoConfigureAll(chosen, process.cwd());
+  for (const item of r) {
+    log(`  ${item.action === "created" ? "+ created" : item.action === "updated" ? "~ updated" : "= unchanged"} ${item.file} (${item.harness})`);
+  }
+  log(`\nDone. Harnesses are configured with research skill anchors.`);
   return 0;
 }
 
@@ -230,7 +269,7 @@ async function cmdDoctor(a: Args): Promise<number> {
   let problems = 0;
   log(`research-agent-skills ${PKG.version} on Node ${process.version} (${process.platform})`);
   const detected = detectHarnesses();
-  log(`Agents detected: ${detected.length ? detected.map((h) => h.label).join(", ") : "none (use --harness to choose)"}`);
+  log(`Agents detected (${detected.length}): ${detected.length ? detected.map((h) => `${h.label} [${h.category ?? "agent"}]`).join(", ") : "none (use --harness to choose)"}`);
   const py = version("python3", ["--version"]) ?? version("python", ["--version"]);
   const uv = version("uv", ["--version"]);
   log(`Python: ${py ?? "not found"}   uv: ${uv ?? "not found"}`);
@@ -254,6 +293,7 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
     case "":
     case "install":
     case "add": return cmdInstall(a);
+    case "configure": return cmdConfigure(a);
     case "list":
     case "ls": return cmdList(a);
     case "search": return cmdSearch(a);
@@ -263,6 +303,12 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
     case "uninstall":
     case "remove": return cmdUninstall(a);
     case "doctor": return cmdDoctor(a);
+    case "mcp":
+    case "serve-mcp":
+      return runMcpServer({
+        source: typeof a.flags.source === "string" ? a.flags.source : undefined,
+        version: typeof a.flags.version === "string" ? a.flags.version : undefined,
+      }).then(() => 0);
     default:
       log(`unknown command '${a.cmd}'\n`);
       log(HELP);
