@@ -48,7 +48,7 @@
     "test:coverage": "npm run build && node --test --experimental-test-coverage --test-coverage-include=\"dist/**/*.js\" --test-coverage-lines=80 --test-coverage-branches=80 test/cli.test.mjs test/commands.test.mjs test/fuzz.test.mjs test/mcp.test.mjs test/configure.test.mjs"
   },
   "devDependencies": {
-    "@types/node": "^26.6.5",
+    "@types/node": "^26.6.6",
     "fast-check": "4.10.2",
     "typescript": "^7.0.2"
   }
