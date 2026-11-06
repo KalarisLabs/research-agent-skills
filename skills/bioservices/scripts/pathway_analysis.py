@@ -71,7 +71,7 @@ def analyze_pathway(kegg, pathway_id):
                 if line.startswith("NAME"):
                     pathway_name = line.replace("NAME", "").strip()
                     break
-        except:
+        except Exception:
             pathway_name = "Unknown"
 
         result = {

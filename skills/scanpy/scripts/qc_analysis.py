@@ -16,7 +16,7 @@ Examples:
 
 import argparse
 
-from _common import add_io_args, configure_scanpy, info, load_anndata, save_anndata
+from _common import add_io_args, configure_scanpy, die, info, load_anndata, save_anndata
 
 
 def annotate_gene_classes(adata):

@@ -346,7 +346,8 @@ export async function runMcpServer(sourceOpts: { source?: string; version?: stri
           timeout: timeoutSec * 1000,
           encoding: "utf8",
           maxBuffer: 10 * 1024 * 1024,
-          shell: process.platform === "win32",
+          // Never use a shell: args come from the model and cmd.exe would interpret metacharacters.
+          shell: false,
           env: { ...process.env, PYTHONUNBUFFERED: "1" },
         });
 

@@ -71,7 +71,7 @@ def search_protein(query):
                 uniprot_id = query
                 print(f"✓ Found UniProt entry: {uniprot_id}")
                 return u, uniprot_id
-        except:
+        except Exception:
             pass
 
     # Otherwise search

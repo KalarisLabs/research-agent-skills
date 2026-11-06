@@ -238,7 +238,7 @@
       cardsHtml += `
         <div class="skill-card" data-skill-name="${escapeHtml(skill.name)}">
           <div class="card-header">
-            <button class="skill-title-btn" onclick="openSkillModal('${escapeHtml(skill.name)}')">
+            <button class="skill-title-btn" data-open-skill="${escapeHtml(skill.name)}">
               ${escapeHtml(skill.name)}
             </button>
             <span class="skill-category-badge">${escapeHtml(skill.category)}</span>
@@ -251,12 +251,12 @@
           <div class="card-actions">
             <div class="command-box" title="${escapeHtml(skillsShCmd)}">
               <span class="command-text">${escapeHtml(skillsShCmd)}</span>
-              <button class="copy-btn" onclick="copySkillCommand('${escapeHtml(skillsShCmd)}', this)">Copy</button>
+              <button class="copy-btn" data-copy="${escapeHtml(skillsShCmd)}">Copy</button>
             </div>
 
             <div class="card-footer-buttons">
-              <button class="inspect-btn" onclick="openSkillModal('${escapeHtml(skill.name)}')">Inspect Playbook &rarr;</button>
-              <a href="${REPO_BASE}/tree/main/skills/${escapeHtml(skill.name)}" target="_blank" rel="noopener" class="github-link">
+              <button class="inspect-btn" data-open-skill="${escapeHtml(skill.name)}">Inspect Playbook &rarr;</button>
+              <a href="${REPO_BASE}/tree/main/skills/${encodeURIComponent(skill.name)}" target="_blank" rel="noopener" class="github-link">
                 GitHub
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -273,12 +273,20 @@
     skillsGrid.innerHTML = cardsHtml;
   }
 
-  // Global helper functions exposed for onclick attributes
-  window.copySkillCommand = function(cmd, btn) {
-    copyToClipboard(cmd, btn);
-  };
+  // Event delegation: values travel in data-* attributes, never inside inline JavaScript.
+  skillsGrid.addEventListener("click", (e) => {
+    const target = e.target instanceof Element ? e.target : null;
+    if (!target) return;
+    const copyBtn = target.closest("[data-copy]");
+    if (copyBtn) {
+      copyToClipboard(copyBtn.getAttribute("data-copy"), copyBtn);
+      return;
+    }
+    const openBtn = target.closest("[data-open-skill]");
+    if (openBtn) openSkillModal(openBtn.getAttribute("data-open-skill"));
+  });
 
-  window.openSkillModal = function(skillName) {
+  function openSkillModal(skillName) {
     const skill = catalogData.skills.find(s => s.name === skillName);
     if (!skill) return;
 
@@ -288,7 +296,7 @@
     modalSkillVersion.textContent = `v${skill.version || '1.0'}`;
     modalSkillCompat.textContent = skill.compatibility || "Standard Agent Skills compatible";
     modalSkillTags.textContent = (skill.tags && skill.tags.length > 0) ? skill.tags.join(", ") : "None";
-    modalGitHubLink.href = `${REPO_BASE}/blob/main/skills/${skill.name}/SKILL.md`;
+    modalGitHubLink.href = `${REPO_BASE}/blob/main/skills/${encodeURIComponent(skill.name)}/SKILL.md`;
 
     // Install command variations
     const skillsSh = `npx skills add KalarisLabs/research-agent-skills --skill ${skill.name}`;
@@ -305,8 +313,8 @@
 
     detailModal.classList.add("active");
     detailModal.setAttribute("aria-hidden", "false");
-    window.location.hash = skill.name;
-  };
+    window.location.hash = encodeURIComponent(skill.name);
+  }
 
   function closeModal() {
     detailModal.classList.remove("active");
@@ -354,11 +362,12 @@
 
   // Deep Link Navigation via Hash
   function handleHashNavigation() {
-    const hash = window.location.hash.replace("#", "").trim();
+    let hash = window.location.hash.replace("#", "").trim();
+    try { hash = decodeURIComponent(hash); } catch (_) { return; }
     if (hash && catalogData.skills) {
       const match = catalogData.skills.find(s => s.name === hash);
       if (match) {
-        window.openSkillModal(match.name);
+        openSkillModal(match.name);
       }
     }
   }

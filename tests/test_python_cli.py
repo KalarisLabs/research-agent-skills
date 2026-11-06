@@ -77,3 +77,29 @@ def test_cli_configure_invocation(tmp_path, monkeypatch, capsys) -> None:
     assert (tmp_path / ".t3" / "config.json").exists()
     assert (tmp_path / "CONVENTIONS.md").exists()
 
+
+
+def test_package_version_matches_repository_version() -> None:
+    """The wheel, npm package and plugin manifests must all ship the VERSION file's version."""
+    import json
+    import tomllib
+    from pathlib import Path
+
+    import research_agent_skills
+
+    root = Path(__file__).resolve().parents[1]
+    version = (root / "VERSION").read_text(encoding="utf-8").strip()
+    assert research_agent_skills.__version__ == version
+    assert tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))["project"]["version"] == version
+    assert json.loads((root / "cli" / "package.json").read_text(encoding="utf-8"))["version"] == version
+    assert json.loads((root / "plugin.json").read_text(encoding="utf-8"))["version"] == version
+
+
+def test_web_catalog_and_packaged_catalog_are_in_sync() -> None:
+    """The website and the wheel serve copies of catalog/skills.json; stale copies mean a stale site or package."""
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    source = (root / "catalog" / "skills.json").read_bytes()
+    assert (root / "web" / "skills.json").read_bytes() == source
+    assert (root / "src" / "research_agent_skills" / "data" / "skills.json").read_bytes() == source

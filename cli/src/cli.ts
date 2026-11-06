@@ -261,7 +261,7 @@ async function cmdUninstall(a: Args): Promise<number> {
 }
 
 function version(cmd: string, args: string[]): string | undefined {
-  const r = spawnSync(cmd, args, { encoding: "utf8", shell: process.platform === "win32" });
+  const r = spawnSync(cmd, args, { encoding: "utf8" });
   return r.status === 0 ? (r.stdout || r.stderr).trim().split("\n")[0] : undefined;
 }
 
