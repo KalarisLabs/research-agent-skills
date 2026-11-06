@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import type { Harness } from "./harness.js";
 import type { SkillEntry } from "./source.js";
@@ -10,6 +10,17 @@ export interface ConfigureResult {
   file: string;
   action: "created" | "updated" | "unchanged";
   harness: string;
+}
+
+function readFileSafe(filePath: string): string | null {
+  try {
+    return readFileSync(filePath, "utf8");
+  } catch (err: unknown) {
+    if (err && typeof err === "object" && "code" in err && (err as { code: string }).code === "ENOENT") {
+      return null;
+    }
+    throw err;
+  }
 }
 
 /**
@@ -32,14 +43,22 @@ export function updateTaggedSection(
 
 function writeOrUpdate(filePath: string, newContent: string): "created" | "updated" | "unchanged" {
   mkdirSync(dirname(filePath), { recursive: true });
-  if (!existsSync(filePath)) {
+  const existing = readFileSafe(filePath);
+  if (existing === null) {
     writeFileSync(filePath, newContent, "utf8");
     return "created";
   }
-  const existing = readFileSync(filePath, "utf8");
   if (existing === newContent) return "unchanged";
   writeFileSync(filePath, newContent, "utf8");
   return "updated";
+}
+
+function writeIfMissing(filePath: string, content: string): "created" | "unchanged" {
+  mkdirSync(dirname(filePath), { recursive: true });
+  const existing = readFileSafe(filePath);
+  if (existing !== null) return "unchanged";
+  writeFileSync(filePath, content, "utf8");
+  return "created";
 }
 
 function updateMarkdownAnchor(
@@ -49,7 +68,8 @@ function updateMarkdownAnchor(
   skills?: SkillEntry[],
 ): "created" | "updated" | "unchanged" {
   mkdirSync(dirname(filePath), { recursive: true });
-  const existing = existsSync(filePath) ? readFileSync(filePath, "utf8") : "";
+  const existing = readFileSafe(filePath);
+  const content = existing ?? "";
   const skillList = skills && skills.length
     ? `\nKey installed skills (${skills.length} total):\n` +
       skills.slice(0, 15).map((s) => `- \`${s.name}\`: ${s.description.slice(0, 80)}`).join("\n") +
@@ -60,10 +80,10 @@ function updateMarkdownAnchor(
 Domain scientific research skills are available in \`${targetDir}\`.
 Consult the corresponding \`SKILL.md\` before generating code, running simulations, or querying scientific APIs.${skillList}`;
 
-  const updated = updateTaggedSection(existing, section);
-  if (existing === updated) return "unchanged";
+  const updated = updateTaggedSection(content, section);
+  if (existing !== null && content === updated) return "unchanged";
   writeFileSync(filePath, updated, "utf8");
-  return existing ? "updated" : "created";
+  return existing !== null ? "updated" : "created";
 }
 
 /**
@@ -86,17 +106,17 @@ export function configureHarness(harness: Harness, cwd: string = process.cwd(), 
       results.push({ file: "CLAUDE.md", action: a1, harness: harness.id });
 
       const specFile = join(cwd, ".claude-science", "specialists.json");
-      if (!existsSync(specFile)) {
-        const specConfig = {
-          $schema: "https://claude.ai/schemas/science-specialists.json",
-          version: "1.0",
-          specialists: {
-            genomics: { skillsRoot: harness.project, categories: ["genetics", "biology-research"] },
-            cheminformatics: { skillsRoot: harness.project, categories: ["chemistry-research"] },
-            literature: { skillsRoot: harness.project, categories: ["literature-review", "research-writing"] },
-          },
-        };
-        const action = writeOrUpdate(specFile, JSON.stringify(specConfig, null, 2) + "\n");
+      const specConfig = {
+        $schema: "https://claude.ai/schemas/science-specialists.json",
+        version: "1.0",
+        specialists: {
+          genomics: { skillsRoot: harness.project, categories: ["genetics", "biology-research"] },
+          cheminformatics: { skillsRoot: harness.project, categories: ["chemistry-research"] },
+          literature: { skillsRoot: harness.project, categories: ["literature-review", "research-writing"] },
+        },
+      };
+      const action = writeIfMissing(specFile, JSON.stringify(specConfig, null, 2) + "\n");
+      if (action === "created") {
         results.push({ file: ".claude-science/specialists.json", action, harness: harness.id });
       }
       break;
@@ -117,15 +137,15 @@ export function configureHarness(harness: Harness, cwd: string = process.cwd(), 
 
     case "t3-code": {
       const file = join(cwd, ".t3", "config.json");
-      if (!existsSync(file)) {
-        const config = {
-          $schema: "https://t3.chat/schema/harness.json",
-          name: "Scientific Research Workspace",
-          skillsRoot: harness.project,
-          worktreeSync: true,
-          reverseMcp: { enabled: true, skillsDir: harness.project },
-        };
-        const action = writeOrUpdate(file, JSON.stringify(config, null, 2) + "\n");
+      const config = {
+        $schema: "https://t3.chat/schema/harness.json",
+        name: "Scientific Research Workspace",
+        skillsRoot: harness.project,
+        worktreeSync: true,
+        reverseMcp: { enabled: true, skillsDir: harness.project },
+      };
+      const action = writeIfMissing(file, JSON.stringify(config, null, 2) + "\n");
+      if (action === "created") {
         results.push({ file: ".t3/config.json", action, harness: harness.id });
       }
       break;
@@ -161,19 +181,19 @@ export function configureHarness(harness: Harness, cwd: string = process.cwd(), 
 
     case "roo-code": {
       const file = join(cwd, ".roomodes");
-      if (!existsSync(file)) {
-        const config = {
-          customModes: [
-            {
-              slug: "scientist",
-              name: "Research Scientist",
-              roleDefinition: "You are a scientific research agent with access to domain-specific research skills.",
-              groups: ["read", "edit", "command"],
-              customInstructions: `Consult skills under ${harness.project} before writing code or running experiments.`,
-            },
-          ],
-        };
-        const action = writeOrUpdate(file, JSON.stringify(config, null, 2) + "\n");
+      const config = {
+        customModes: [
+          {
+            slug: "scientist",
+            name: "Research Scientist",
+            roleDefinition: "You are a scientific research agent with access to domain-specific research skills.",
+            groups: ["read", "edit", "command"],
+            customInstructions: `Consult skills under ${harness.project} before writing code or running experiments.`,
+          },
+        ],
+      };
+      const action = writeIfMissing(file, JSON.stringify(config, null, 2) + "\n");
+      if (action === "created") {
         results.push({ file: ".roomodes", action, harness: harness.id });
       }
       break;

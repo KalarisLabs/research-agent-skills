@@ -170,7 +170,9 @@ def evaluate_security(skill_dir: Path) -> dict[str, Any]:
     if lint_injection.BASELINE.exists():
         try:
             base_data = json.loads(lint_injection.BASELINE.read_text(encoding="utf-8"))
-            baseline = {f["fingerprint"] for f in base_data.get("findings", [])}
+            baseline = set(base_data.get("accepted", [])) | {
+                f["fingerprint"] for f in base_data.get("findings", []) if isinstance(f, dict) and "fingerprint" in f
+            }
         except (json.JSONDecodeError, OSError) as err:
             print(f"Warning: could not read security baseline: {err}", file=sys.stderr)
 

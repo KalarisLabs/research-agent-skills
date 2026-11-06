@@ -66,7 +66,11 @@ export function loadCatalog(root: string): Catalog {
 }
 
 async function fetchBuffer(url: string): Promise<Buffer> {
-  const res = await fetch(url, { headers: { "User-Agent": UA }, redirect: "follow" });
+  const parsed = new URL(url);
+  if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
+    throw new Error(`unsupported protocol: ${parsed.protocol}`);
+  }
+  const res = await fetch(parsed.toString(), { headers: { "User-Agent": UA }, redirect: "follow" });
   if (!res.ok) throw new Error(`download failed (${res.status} ${res.statusText}): ${url}`);
   return Buffer.from(await res.arrayBuffer());
 }
@@ -86,7 +90,9 @@ export async function resolveSource(opts: { source?: string; version: string; lo
     const catalog = loadCatalog(root);
     return { root, version: catalog.version, catalog, origin: `local:${root}` };
   }
-  const version = opts.version === "latest" ? await latestVersion() : opts.version.replace(/^v/, "");
+  const rawVersion = opts.version === "latest" ? await latestVersion() : opts.version.replace(/^v/, "");
+  const version = rawVersion.replace(/[^0-9a-zA-Z._-]/g, "");
+  if (!version) throw new Error(`invalid version: ${rawVersion}`);
   const dir = join(cacheRoot(), version);
   if (existsSync(join(dir, ".verified"))) {
     return { root: dir, version, catalog: loadCatalog(dir), origin: `cache:${dir}` };

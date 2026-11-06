@@ -9,8 +9,11 @@ import { readLock, selectSkills, installSkills, uninstallSkills, verifyInstall, 
 import { runMcpServer } from "./mcp.js";
 import { resolveSource, REPO_SLUG, type Catalog, type Source } from "./source.js";
 
-const PKG = JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "..", "package.json"), "utf8")) as {
-  version: string;
+const PKG_RAW = JSON.parse(
+  readFileSync(join(dirname(fileURLToPath(import.meta.url)), "..", "package.json"), "utf8"),
+) as { version: string };
+const PKG = {
+  version: String(PKG_RAW.version || "").replace(/[^0-9a-zA-Z._-]/g, ""),
 };
 
 const HELP = `research-agent-skills v${PKG.version}
