@@ -21,6 +21,7 @@ KINDS = ("alignment", "variant", "fasta", "fastx", "tabix")
 
 
 def positive_int(value: str) -> int:
+    """Handle positive int."""
     parsed = int(value)
     if parsed <= 0:
         raise argparse.ArgumentTypeError("must be greater than zero")
@@ -28,6 +29,7 @@ def positive_int(value: str) -> int:
 
 
 def nonnegative_int(value: str) -> int:
+    """Handle nonnegative int."""
     parsed = int(value)
     if parsed < 0:
         raise argparse.ArgumentTypeError("must be zero or greater")
@@ -35,6 +37,7 @@ def nonnegative_int(value: str) -> int:
 
 
 def detect_kind(path: Path) -> str:
+    """Detect kind."""
     name = path.name.lower()
 
     if name.endswith((".bam", ".sam", ".cram")):
@@ -85,6 +88,7 @@ def detect_kind(path: Path) -> str:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -132,6 +136,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def require_local_file(path: Path, label: str) -> Path:
+    """Handle require local file."""
     resolved = path.expanduser()
     if not resolved.exists():
         raise FileNotFoundError(f"{label} does not exist: {resolved}")
@@ -151,6 +156,7 @@ def contig_records(
     lengths: tuple[int, ...] | list[int],
     maximum: int,
 ) -> tuple[list[dict[str, Any]], bool]:
+    """Handle contig records."""
     records = [
         {"name": name, "length": int(length)}
         for name, length in zip(names, lengths)
@@ -159,6 +165,7 @@ def contig_records(
 
 
 def alignment_mode(path: Path) -> str:
+    """Handle alignment mode."""
     name = path.name.lower()
     if name.endswith(".sam"):
         return "r"
@@ -264,6 +271,7 @@ def inspect_variant(
     max_items: int,
     include_identifiers: bool,
 ) -> dict[str, Any]:
+    """Handle inspect variant."""
     kwargs: dict[str, Any] = {"threads": threads}
     if index is not None:
         kwargs["index_filename"] = str(index)
@@ -317,6 +325,7 @@ def inspect_fasta(
     index: Optional[Path],
     max_items: int,
 ) -> dict[str, Any]:
+    """Handle inspect fasta."""
     kwargs: dict[str, Any] = {}
     if index is not None:
         kwargs["filepath_index"] = str(index)
@@ -357,6 +366,7 @@ def inspect_tabix(
     threads: int,
     max_items: int,
 ) -> dict[str, Any]:
+    """Handle inspect tabix."""
     kwargs: dict[str, Any] = {"threads": threads}
     if index is not None:
         kwargs["index"] = str(index)
@@ -377,6 +387,7 @@ def inspect_tabix(
 
 
 def inspect_file(args: argparse.Namespace) -> dict[str, Any]:
+    """Handle inspect file."""
     path = require_local_file(args.input, "input")
     reference = (
         require_local_file(args.reference, "reference")
@@ -438,6 +449,7 @@ def inspect_file(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def write_report(report: dict[str, Any], output: Optional[Path]) -> None:
+    """Write report."""
     text = json.dumps(
         report,
         indent=2,
@@ -454,6 +466,7 @@ def write_report(report: dict[str, Any], output: Optional[Path]) -> None:
 
 
 def main(argv: Optional[list[str]] = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
 
@@ -468,8 +481,6 @@ def main(argv: Optional[list[str]] = None) -> int:
         report = inspect_file(args)
         write_report(report, args.output)
     except (
-        FileExistsError,
-        FileNotFoundError,
         IndexError,
         KeyError,
         OSError,

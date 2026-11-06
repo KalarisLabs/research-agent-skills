@@ -91,6 +91,7 @@ class ValidationError(ValueError):
     """A deterministic input failure that never includes a supplied value."""
 
     def __init__(self, code: str, path: str = "$") -> None:
+        """Initialise the instance."""
         super().__init__(code)
         self.code = code
         self.path = path
@@ -105,10 +106,12 @@ class Issue:
     level: str = "error"
 
     def as_dict(self) -> dict[str, str]:
+        """Handle as dict."""
         return {"code": self.code, "path": self.path, "level": self.level}
 
 
 def _pairs_no_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """Handle pairs no duplicates."""
     result: dict[str, Any] = {}
     for key, value in pairs:
         if key in result:
@@ -131,6 +134,7 @@ def _check_local_file(path: Path, suffix: str) -> None:
 
 
 def _scan_structure(value: Any, path: str = "$") -> None:
+    """Handle scan structure."""
     nodes = 0
     stack: list[tuple[Any, str, int]] = [(value, path, 0)]
     while stack:
@@ -217,6 +221,7 @@ def write_json(
 
 
 def failure_report(error: ValidationError) -> dict[str, Any]:
+    """Handle failure report."""
     return {
         "schema_version": SCHEMA_VERSION,
         "status": "error",
@@ -225,14 +230,17 @@ def failure_report(error: ValidationError) -> dict[str, Any]:
 
 
 def is_number(value: Any) -> bool:
+    """Return whether number."""
     return isinstance(value, (int, float)) and not isinstance(value, bool)
 
 
 def is_identifier(value: Any) -> bool:
+    """Return whether identifier."""
     return isinstance(value, str) and bool(IDENTIFIER_RE.fullmatch(value))
 
 
 def is_nonempty_text(value: Any, maximum: int = MAX_TEXT_CHARS) -> bool:
+    """Return whether nonempty text."""
     return isinstance(value, str) and bool(value.strip()) and len(value) <= maximum
 
 
@@ -327,6 +335,7 @@ def validate_text_list(
 
 
 def _validate_scale(scale: Any, issues: list[Issue]) -> tuple[float, float, float]:
+    """Validate scale."""
     path = "$.scale"
     expected = {"minimum", "maximum", "step", "anchors"}
     if not exact_keys(scale, expected, path, issues):
@@ -369,6 +378,7 @@ def _validate_scale(scale: Any, issues: list[Issue]) -> tuple[float, float, floa
 
 
 def _validate_proxy_absence(value: Any, path: str, issues: list[Issue]) -> None:
+    """Validate proxy absence."""
     strings: list[str] = []
     stack = [value]
     while stack:
@@ -731,6 +741,7 @@ def validate_rubric(rubric: Any) -> list[Issue]:
 
 
 def scale_values(rubric: dict[str, Any]) -> set[float]:
+    """Handle scale values."""
     return {
         float(anchor["score"])
         for anchor in rubric["scale"]["anchors"]
@@ -858,10 +869,12 @@ def validate_evaluation(
 
 
 def error_issues(issues: Iterable[Issue]) -> list[Issue]:
+    """Handle error issues."""
     return [issue for issue in issues if issue.level == "error"]
 
 
 def require_valid(issues: Iterable[Issue]) -> None:
+    """Handle require valid."""
     errors = error_issues(issues)
     if errors:
         raise ValidationError(errors[0].code, errors[0].path)
@@ -874,6 +887,7 @@ def rounded(value: float | None) -> float | None:
 
 
 def weights_by_criterion(rubric: dict[str, Any]) -> dict[str, float]:
+    """Handle weights by criterion."""
     return {
         criterion["criterion_id"]: float(criterion["weight"])
         for criterion in rubric["criteria"]

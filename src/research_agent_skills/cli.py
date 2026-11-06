@@ -14,6 +14,7 @@ from .install import install_skills_to_dir, locate_local_skills_root, read_lock
 
 
 def cmd_list(args: argparse.Namespace) -> int:
+    """Run the list subcommand."""
     catalog = load_catalog()
     if args.categories:
         print(f"Categories in Research Agent Skills ({len(catalog.categories)}):")
@@ -39,6 +40,7 @@ def cmd_list(args: argparse.Namespace) -> int:
 
 
 def cmd_search(args: argparse.Namespace) -> int:
+    """Run the search subcommand."""
     catalog = load_catalog()
     results = catalog.search(args.query)
     if not results:
@@ -55,6 +57,7 @@ def cmd_search(args: argparse.Namespace) -> int:
 
 
 def cmd_install(args: argparse.Namespace) -> int:
+    """Run the install subcommand."""
     catalog = load_catalog()
     bundle_list = [b.strip() for b in args.bundle.split(",")] if args.bundle else None
     cat_list = [c.strip() for c in args.category.split(",")] if args.category else None
@@ -112,6 +115,7 @@ def cmd_install(args: argparse.Namespace) -> int:
 
 
 def cmd_configure(args: argparse.Namespace) -> int:
+    """Run the configure subcommand."""
     harness_list = resolve_harnesses(args.harness)
     print(f"Auto-configuring instruction anchors for {len(harness_list)} harness(es):")
     results = auto_configure_all(harness_list, Path.cwd())
@@ -123,6 +127,7 @@ def cmd_configure(args: argparse.Namespace) -> int:
 
 
 def cmd_installed(args: argparse.Namespace) -> int:
+    """Run the installed subcommand."""
     harnesses = get_harnesses()
     cwd = Path.cwd()
     found_any = False
@@ -143,6 +148,7 @@ def cmd_installed(args: argparse.Namespace) -> int:
 
 
 def cmd_doctor(args: argparse.Namespace) -> int:
+    """Run the doctor subcommand."""
     print(f"research-agent-skills v{__version__} Doctor Diagnostics\n")
     catalog = load_catalog()
     print(f"Catalog loaded: {len(catalog.skills)} skills across {len(catalog.categories)} categories")
@@ -164,6 +170,7 @@ def cmd_doctor(args: argparse.Namespace) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         prog="research-agent-skills",
         description=f"Research Agent Skills v{__version__} (Python package & CLI)",

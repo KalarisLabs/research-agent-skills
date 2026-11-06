@@ -37,6 +37,7 @@ TITLE_OK, TITLE_WEAK = 0.90, 0.75
 
 
 def http_json(url: str, retries: int = 3) -> dict | None:
+    """Handle http json."""
     mailto = os.environ.get("CROSSREF_MAILTO")
     headers = {"User-Agent": UA + (f" mailto:{mailto}" if mailto else ""), "Accept": "application/json"}
     for attempt in range(retries):
@@ -60,6 +61,7 @@ def http_json(url: str, retries: int = 3) -> dict | None:
 
 # --- minimal BibTeX reader (same grammar as bibtex-hygiene/scripts/bib_lint.py) ---
 def _value(text: str, i: int) -> tuple[str, int]:
+    """Handle value."""
     parts = []
     while True:
         while i < len(text) and text[i].isspace():
@@ -93,6 +95,7 @@ def _value(text: str, i: int) -> tuple[str, int]:
 
 
 def parse_bib(text: str) -> list[dict]:
+    """Parse bib."""
     out = []
     for m in re.finditer(r"@(\w+)\s*[{(]\s*([^,\s]+)\s*,", text):
         if m.group(1).lower() in ("comment", "preamble", "string"):
@@ -113,27 +116,32 @@ def parse_bib(text: str) -> list[dict]:
 
 
 def norm(s: str) -> str:
+    """Handle norm."""
     s = re.sub(r"\\[a-zA-Z]+\s*|[{}$\\]", "", s or "")
     s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode().lower()
     return re.sub(r"[^a-z0-9]+", " ", s).strip()
 
 
 def similarity(a: str, b: str) -> float:
+    """Handle similarity."""
     return difflib.SequenceMatcher(None, norm(a), norm(b)).ratio()
 
 
 def first_surname(authors: str) -> str:
+    """Handle first surname."""
     first = (authors or "").split(" and ")[0].strip()
     surname = first.split(",")[0] if "," in first else (first.split()[-1] if first.split() else "")
     return norm(surname)
 
 
 def crossref_record(doi: str) -> dict | None:
+    """Handle crossref record."""
     data = http_json(f"https://api.crossref.org/works/{urllib.parse.quote(doi, safe='/')}")
     return data.get("message") if data else None
 
 
 def crossref_search(title: str, author: str) -> list[dict]:
+    """Handle crossref search."""
     q = urllib.parse.urlencode({"query.bibliographic": f"{title} {author}".strip(), "rows": 3,
                                 "select": "DOI,title,author,issued,container-title,type"})
     data = http_json(f"https://api.crossref.org/works?{q}")
@@ -141,6 +149,7 @@ def crossref_search(title: str, author: str) -> list[dict]:
 
 
 def openalex_search(title: str) -> list[dict]:
+    """Handle openalex search."""
     q = urllib.parse.urlencode({"search": title, "per-page": 3, "select": "id,doi,title,publication_year,authorships"})
     data = http_json(f"https://api.openalex.org/works?{q}")
     return (data or {}).get("results", [])
@@ -168,6 +177,7 @@ def arxiv_search(title: str, author: str) -> list[dict]:
 
 
 def cr_fields(rec: dict) -> dict:
+    """Handle cr fields."""
     authors = rec.get("author") or []
     year = None
     for k in ("published-print", "published-online", "issued", "created"):
@@ -181,6 +191,7 @@ def cr_fields(rec: dict) -> dict:
 
 
 def check_entry(e: dict) -> dict:
+    """Check entry."""
     title, doi = e.get("title", ""), re.sub(r"^(https?://(dx\.)?doi\.org/|doi:)", "", e.get("doi", ""), flags=re.I)
     year = re.sub(r"\D", "", e.get("year", ""))[:4]
     author = first_surname(e.get("author", ""))
@@ -222,11 +233,13 @@ def check_entry(e: dict) -> dict:
                            "year": item.get("publication_year"), "first_author": norm(first.split(" ")[-1]) if first else ""})
 
     def agrees(c: dict) -> tuple[bool, bool]:
+        """Handle agrees."""
         year_ok = not year or not c.get("year") or abs(int(year) - int(c["year"])) <= 1
         author_ok = not author or not c.get("first_author") or author == c["first_author"]
         return year_ok, author_ok
 
     def score(c: dict) -> float:
+        """Handle score."""
         year_ok, author_ok = agrees(c)
         return similarity(title, c["title"]) + 0.2 * year_ok + 0.2 * author_ok
 
@@ -260,6 +273,7 @@ def check_entry(e: dict) -> dict:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("bib", nargs="?")
     ap.add_argument("--doi", nargs="+", default=[])
@@ -274,7 +288,7 @@ def main() -> int:
         try:
             with open(args.bib, encoding="utf-8") as fh:
                 entries += parse_bib(fh.read())
-        except (OSError, UnicodeDecodeError, ValueError, IndexError) as exc:
+        except (OSError, ValueError, IndexError) as exc:
             print(f"error: cannot read {args.bib}: {exc}", file=sys.stderr)
             return 2
     if args.keys:

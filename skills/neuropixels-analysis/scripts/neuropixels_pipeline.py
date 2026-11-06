@@ -41,7 +41,7 @@ def load_recording(data_path: str, stream_name: str = 'imec0.ap') -> si.BaseReco
     else:
         raise ValueError(f"Unknown format in {data_path}")
 
-    print(f"Loaded recording:")
+    print("Loaded recording:")
     print(f"  Channels: {recording.get_num_channels()}")
     print(f"  Duration: {recording.get_total_duration():.2f} s")
     print(f"  Sampling rate: {recording.get_sampling_frequency()} Hz")
@@ -70,7 +70,7 @@ def preprocess(
     print(f"  Applied high-pass filter at {freq_min} Hz")
 
     # Step 2: Detect bad channels
-    bad_channel_ids, channel_labels = si.detect_bad_channels(rec)
+    bad_channel_ids, _ = si.detect_bad_channels(rec)
     if len(bad_channel_ids) > 0:
         print(f"  Detected {len(bad_channel_ids)} bad channels: {bad_channel_ids}")
         rec = rec.remove_channels(bad_channel_ids)
@@ -393,7 +393,7 @@ def run_pipeline(
 
     # 4. Motion correction (if needed)
     if apply_motion_correction and drift_info['drift_estimate'] > 20:
-        print(f"Drift > 20 μm detected, applying motion correction...")
+        print("Drift > 20 μm detected, applying motion correction...")
         rec_final = correct_motion(rec_preprocessed, str(output_path))
     else:
         print("Skipping motion correction (low drift)")

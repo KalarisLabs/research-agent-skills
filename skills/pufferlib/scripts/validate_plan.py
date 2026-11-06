@@ -177,6 +177,7 @@ def _validate_package(
 
 
 def _validate_environment(environment: dict[str, Any], errors: list[str]) -> None:
+    """Validate environment."""
     errors.extend(
         require_keys(
             environment,
@@ -205,6 +206,7 @@ def _validate_environment(environment: dict[str, Any], errors: list[str]) -> Non
 
 
 def _validate_training(training: dict[str, Any], errors: list[str]) -> None:
+    """Validate training."""
     errors.extend(
         require_keys(
             training,
@@ -383,6 +385,7 @@ def _validate_vectorization(
 def _validate_evaluation(
     evaluation: dict[str, Any], training: dict[str, Any], errors: list[str]
 ) -> None:
+    """Validate evaluation."""
     allowed = {"deterministic", "episodes", "seed", "separate"}
     errors.extend(
         require_keys(
@@ -417,6 +420,7 @@ def _validate_evaluation(
 def _validate_logging(
     logging: dict[str, Any], profile: str, errors: list[str]
 ) -> None:
+    """Validate logging."""
     allowed = {
         "backend",
         "disclosure_ack",
@@ -456,6 +460,7 @@ def _validate_logging(
 
 
 def _validate_checkpoint(checkpoint: dict[str, Any], errors: list[str]) -> None:
+    """Validate checkpoint."""
     allowed = {"format", "trusted_only"}
     errors.extend(
         require_keys(
@@ -526,6 +531,7 @@ def validate_plan(plan: Any) -> list[str]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a strict local JSON plan. With no --config, validate the "
@@ -540,6 +546,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

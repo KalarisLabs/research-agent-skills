@@ -38,6 +38,7 @@ def load_mapping(path):
 
 
 def main():
+    """Run the command-line interface."""
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     add_io_args(p, default_output="annotated.h5ad")

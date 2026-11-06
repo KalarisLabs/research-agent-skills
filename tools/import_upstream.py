@@ -44,6 +44,7 @@ CACHE = ROOT / ".cache" / "upstream"
 
 
 def git(*args: str, cwd: Path | None = None) -> str:
+    """Handle git."""
     return subprocess.run(["git", "-c", "core.longpaths=true", "-c", "core.autocrlf=false", *args], cwd=cwd, check=True,
                           capture_output=True, text=True).stdout.strip()
 
@@ -135,6 +136,7 @@ def enrich_imported(names: list[str]) -> None:
 
 
 def _first_sentence(text: str, limit: int = 140) -> str:
+    """Handle first sentence."""
     text = " ".join(text.split())
     m = re.match(r"(.+?[.!?])(\s|$)", text)
     s = m.group(1) if m else text
@@ -142,6 +144,7 @@ def _first_sentence(text: str, limit: int = 140) -> str:
 
 
 def main() -> None:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--source-dir", type=Path, help="directory with pre-cloned checkouts named by source id")
     args = ap.parse_args()

@@ -49,6 +49,7 @@ from _common import (  # noqa: E402
 
 
 def cmd_standards(args) -> int:
+    """Run the standards subcommand."""
     data = load_standards()
     standards = data["standards"]
 
@@ -92,6 +93,7 @@ def cmd_standards(args) -> int:
 
 
 def cmd_facts(args) -> int:
+    """Run the facts subcommand."""
     shape = load_shape(args.target)
     facts = shape_facts(shape)
     box = facts["bounding_box_mm"]
@@ -167,6 +169,7 @@ def _evaluate(
 
 
 def cmd_fit(args) -> int:
+    """Run the fit subcommand."""
     entry = get_standard(args.standard)
     offset = float(args.clearance)
     results = []
@@ -426,6 +429,7 @@ def cmd_probe(args) -> int:
 
 
 def _parse_floats(raw: str, count: int, flag: str) -> list[float]:
+    """Parse floats."""
     parts = [p for p in raw.replace(" ", "").split(",") if p]
     if len(parts) != count:
         raise LabCadError(f"{flag} expects {count} comma-separated numbers, got {raw!r}")
@@ -483,6 +487,7 @@ def _min_distance(shape_a, shape_b) -> float | None:
 
 
 def cmd_clearance(args) -> int:
+    """Run the clearance subcommand."""
     shape_a = load_shape(args.a)
     shape_b = load_shape(args.b)
 
@@ -531,6 +536,7 @@ def cmd_clearance(args) -> int:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )

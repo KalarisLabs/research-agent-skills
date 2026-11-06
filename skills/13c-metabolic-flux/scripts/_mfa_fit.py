@@ -16,6 +16,7 @@ def fixed_range(low, high):
 
 class FluxSpace:
     def __init__(self, network, fixed=None):
+        """Initialise the instance."""
         self.network = network
         self.a = network.equalities.copy()
         self.b = network.rhs.copy()
@@ -48,6 +49,7 @@ class FluxSpace:
         self.dimension = self.basis.shape[1]
 
     def linear(self, objective):
+        """Handle linear."""
         result = linprog(objective, A_eq=self.a, b_eq=self.b / self.scale, bounds=self.bounds,
                          method="highs", options={"time_limit": 10., "primal_feasibility_tolerance": 1e-9,
                                                    "dual_feasibility_tolerance": 1e-9})
@@ -59,12 +61,15 @@ class FluxSpace:
         return result
 
     def coordinates(self, flux):
+        """Handle coordinates."""
         return self.basis.T @ (flux - self.base) / self.scale ** 2
 
     def flux(self, coordinates):
+        """Handle flux."""
         return self.base + self.basis @ coordinates
 
     def feasible(self, flux):
+        """Handle feasible."""
         scale = max(float(np.max(np.abs(flux))), float(np.max(np.abs(self.b))), 1e-300)
         return self.network.feasible(flux) and np.max(np.abs(self.a @ flux - self.b)) < 1e-8 * scale
 
@@ -90,6 +95,7 @@ class FluxSpace:
 
 
 def fit(observations, starts=8, seed=2026, maxiter=1000, fixed=None, warm=None):
+    """Fit."""
     require(type(starts) is int and 1 <= starts <= 100, "starts must be 1..100")
     require(type(maxiter) is int and 1 <= maxiter <= 10000, "maxiter must be 1..10000")
     require(observations.size > 0, "Fitting needs measurements")
@@ -100,6 +106,7 @@ def fit(observations, starts=8, seed=2026, maxiter=1000, fixed=None, warm=None):
     numerical_errors = (InputError, np.linalg.LinAlgError, FloatingPointError, ZeroDivisionError)
 
     def rss(flux):
+        """Handle rss."""
         residual = observations.residuals(flux)
         value = float(residual @ residual)
         require(np.isfinite(value), "Nonfinite objective")
@@ -144,6 +151,7 @@ def fit(observations, starts=8, seed=2026, maxiter=1000, fixed=None, warm=None):
 
 
 def diagnostics(observations, fitted):
+    """Handle diagnostics."""
     network, vector, space = observations.network, fitted["vector"], fitted["space"]
     residual, predictions = observations.residuals(vector, details=True)
     columns = []
@@ -201,6 +209,7 @@ def diagnostics(observations, fitted):
 
 def profile(observations, fitted, reaction, points=21, starts=4, seed=2026,
             maxiter=1000, confidence=.95):
+    """Handle profile."""
     network, space = observations.network, fitted["space"]
     require(reaction in network.ids, f"Unknown profile reaction {reaction}")
     require(type(points) is int and 5 <= points <= 201, "profile points must be 5..201")

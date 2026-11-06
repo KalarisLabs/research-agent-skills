@@ -60,6 +60,7 @@ PROHIBITED_LOGIC = (
 
 
 def _safe_csv(value: Any) -> str:
+    """Handle safe csv."""
     text = str(value).replace("\r", " ").replace("\n", " ")
     if text.startswith(("=", "+", "-", "@")):
         return "'" + text
@@ -67,6 +68,7 @@ def _safe_csv(value: Any) -> str:
 
 
 def _has_cycle(edges: dict[str, list[str]]) -> bool:
+    """Return whether cycle."""
     visiting: set[str] = set()
     visited: set[str] = set()
 
@@ -89,6 +91,7 @@ def _has_cycle(edges: dict[str, list[str]]) -> bool:
 def validate_matrix(
     document: dict[str, Any]
 ) -> tuple[IssueLog, list[dict[str, str]]]:
+    """Validate matrix."""
     log = IssueLog()
     normalized: list[dict[str, str]] = []
     try:
@@ -253,6 +256,7 @@ def validate_matrix(
 
 
 def _csv_text(rows: list[dict[str, str]]) -> str:
+    """Handle csv text."""
     fieldnames = [
         "node_id",
         "type",
@@ -277,6 +281,7 @@ def _csv_text(rows: list[dict[str, str]]) -> str:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate research/governance decision logic and emit a CSV traceability "

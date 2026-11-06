@@ -97,6 +97,7 @@ class ArimaFit:
     results: object = field(repr=False, default=None)
 
     def label(self) -> str:
+        """Handle label."""
         p, d, q = self.order
         return f"ARIMA({p},{d},{q})" + (" with drift" if self.drift else "")
 
@@ -124,6 +125,7 @@ def _select_d(y: np.ndarray, max_d: int) -> int:
 def _fit_one(
     y: np.ndarray, order: tuple[int, int, int], drift: bool
 ) -> ArimaFit | None:
+    """Fit one."""
     from statsmodels.tsa.statespace.sarimax import SARIMAX
 
     k = sum(order[::2]) + (1 if drift else 0) + 1
@@ -266,6 +268,7 @@ class Forecast:
         return forecast_metrics(self.actual, self.predicted, self.lower, self.upper)
 
     def to_frame(self) -> pd.DataFrame:
+        """Handle to frame."""
         data = {
             ID_COL: self.animal,
             TIME_COL: self.times,
@@ -619,6 +622,7 @@ def plot_forecast(
 # CLI
 # --------------------------------------------------------------------------- #
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description="Forecast RELSA trajectories with ARIMA (the foRcast tool).",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -657,6 +661,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     frame = pd.read_csv(args.scores)
     for col in (ID_COL, TIME_COL):

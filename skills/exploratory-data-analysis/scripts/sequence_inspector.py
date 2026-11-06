@@ -29,6 +29,7 @@ NUCLEOTIDE_CODES = frozenset("ACGTUNRYSWKMBDHVX-.")
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect a bounded local FASTA/FASTQ sample. Sequence text and record "
@@ -162,7 +163,7 @@ def inspect_sequence_file(
                         )
     except CliError:
         raise
-    except (OSError, UnicodeError, ValueError) as exc:
+    except (OSError, ValueError) as exc:
         raise CliError("the sequence file could not be parsed safely") from exc
     count = len(lengths)
     nucleotide_fraction = (
@@ -214,6 +215,7 @@ def inspect_sequence_file(
 
 
 def _main() -> None:
+    """Handle main."""
     args = build_parser().parse_args()
     max_bytes = bounded_file_limit(args.max_bytes)
     path = checked_input_file(
@@ -248,6 +250,7 @@ def _main() -> None:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     return run_cli(_main)
 
 

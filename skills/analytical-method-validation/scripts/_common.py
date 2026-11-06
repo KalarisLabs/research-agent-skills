@@ -219,6 +219,7 @@ def mean(values: Sequence[float]) -> float:
 
 
 def sample_sd(values: Sequence[float]) -> float:
+    """Handle sample sd."""
     n = len(values)
     if n < 2:
         return float("nan")
@@ -276,13 +277,16 @@ class LinearFit:
     weights: list[float] = field(default_factory=list)
 
     def predict(self, x: float) -> float:
+        """Predict."""
         return self.intercept + self.slope * x
 
     def slope_ci(self, level: float = 0.95) -> tuple[float, float]:
+        """Handle slope ci."""
         t = t_ppf(0.5 + level / 2.0, self.df)
         return (self.slope - t * self.se_slope, self.slope + t * self.se_slope)
 
     def intercept_ci(self, level: float = 0.95) -> tuple[float, float]:
+        """Handle intercept ci."""
         t = t_ppf(0.5 + level / 2.0, self.df)
         return (self.intercept - t * self.se_intercept, self.intercept + t * self.se_intercept)
 
@@ -581,6 +585,7 @@ def deming(
         raise InputError("lambda_ratio must be > 0")
 
     def _fit(xv: Sequence[float], yv: Sequence[float]) -> tuple[float, float]:
+        """Fit."""
         xb, yb = mean(xv), mean(yv)
         sxx = math.fsum((x - xb) ** 2 for x in xv)
         syy = math.fsum((y - yb) ** 2 for y in yv)
@@ -661,6 +666,7 @@ def passing_bablok(xs: Sequence[float], ys: Sequence[float]) -> dict[str, Any]:
     shift = sum(1 for s in slopes if s < -1.0)
 
     def _shifted_median(offset: int) -> float:
+        """Handle shifted median."""
         idx = n_slopes // 2 + offset
         if n_slopes % 2:
             return slopes[min(max(idx, 0), n_slopes - 1)]
@@ -854,6 +860,7 @@ def parse_rows(text: str, path_hint: str | None = None) -> list[dict[str, str]]:
 
 
 def require_columns(rows: list[dict[str, str]], columns: Iterable[str]) -> None:
+    """Handle require columns."""
     present = set(rows[0].keys())
     missing = [c for c in columns if c not in present]
     if missing:
@@ -936,10 +943,12 @@ def note(message: str) -> None:
 
 
 def finding(message: str) -> None:
+    """Handle finding."""
     print(f"finding: {message}", file=sys.stderr)
 
 
 def add_common_args(parser: argparse.ArgumentParser) -> None:
+    """Add common args."""
     parser.add_argument(
         "--format",
         choices=("table", "tsv", "json"),

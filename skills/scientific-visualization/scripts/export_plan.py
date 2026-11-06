@@ -99,6 +99,7 @@ def _finding(
     expected: Any,
     detail: str,
 ) -> dict[str, Any]:
+    """Handle finding."""
     return {
         "name": name,
         "status": status,
@@ -410,6 +411,7 @@ def validate_against_plan(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan publication export from dated official-source snapshots and "
@@ -440,6 +442,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     try:
         args = parser.parse_args(argv)

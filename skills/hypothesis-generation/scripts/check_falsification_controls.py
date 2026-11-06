@@ -37,6 +37,7 @@ NEGATIVE_TYPES = {"negative_exposure", "negative_outcome", "procedural_negative"
 
 
 def _parse_falsifier(raw: Any, context: str) -> dict[str, Any]:
+    """Parse falsifier."""
     value = require_object(raw, context)
     require_exact_keys(
         value,
@@ -73,6 +74,7 @@ def _parse_falsifier(raw: Any, context: str) -> dict[str, Any]:
 
 
 def _parse_discriminating_tests(raw: Any, context: str) -> list[dict[str, str]]:
+    """Parse discriminating tests."""
     values = require_list(raw, context, minimum=1, maximum=100)
     parsed: list[dict[str, str]] = []
     identifiers: list[str] = []
@@ -118,6 +120,7 @@ def _parse_discriminating_tests(raw: Any, context: str) -> list[dict[str, str]]:
 
 
 def _parse_nulls(raw: Any, context: str) -> list[dict[str, str]]:
+    """Parse nulls."""
     values = require_list(raw, context, minimum=1, maximum=100)
     parsed: list[dict[str, str]] = []
     identifiers: list[str] = []
@@ -149,6 +152,7 @@ def _parse_nulls(raw: Any, context: str) -> list[dict[str, str]]:
 
 
 def _parse_controls(raw: Any, context: str) -> list[dict[str, str]]:
+    """Parse controls."""
     values = require_list(raw, context, minimum=1, maximum=100)
     parsed: list[dict[str, str]] = []
     identifiers: list[str] = []
@@ -195,6 +199,7 @@ def _parse_controls(raw: Any, context: str) -> list[dict[str, str]]:
 
 
 def _parse_outcome_interpretation(raw: Any, context: str) -> dict[str, str]:
+    """Parse outcome interpretation."""
     value = require_object(raw, context)
     fields = {
         "consistent_with_candidate",
@@ -209,6 +214,7 @@ def _parse_outcome_interpretation(raw: Any, context: str) -> dict[str, str]:
 
 
 def load_checklist(payload: Any) -> dict[str, Any]:
+    """Load checklist."""
     root = require_object(payload, "checklist")
     require_exact_keys(
         root,
@@ -296,12 +302,14 @@ def load_checklist(payload: Any) -> dict[str, Any]:
 
 
 def _normalize(value: str) -> str:
+    """Normalize."""
     return re.sub(r"[^a-z0-9]+", " ", value.casefold()).strip()
 
 
 def audit(
     checklist: dict[str, Any], record: dict[str, Any] | None = None
 ) -> dict[str, Any]:
+    """Handle audit."""
     errors: list[dict[str, str]] = []
     warnings: list[dict[str, str]] = []
     review_counts: Counter[str] = Counter()
@@ -421,6 +429,7 @@ def audit(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit a bounded local falsification/control JSON checklist without "
@@ -439,6 +448,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args()
     try:
         record = (

@@ -55,7 +55,7 @@ REQUIRED = {
 }
 PRODUCT_KEYS = {"name", "purpose", "minimum_release", "license_status"}
 ENTRY_KEYS = {"path", "kind"}
-OCTAVE_VERSION = re.compile(r"^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$")
+OCTAVE_VERSION = re.compile(r"^\d{1,3}\.\d{1,3}\.\d{1,3}$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 SAFE_NAME = re.compile(r"^[A-Za-z0-9][A-Za-z0-9 ._+()/-]{0,126}$")
 
@@ -113,6 +113,7 @@ def _validate_path(
     kind: str = "any",
     suffixes: set[str] | None = None,
 ) -> str:
+    """Validate path."""
     text = _string(raw, name)
     if allow_missing:
         candidate = Path(text)
@@ -131,6 +132,7 @@ def _validate_path(
 
 
 def validate(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
+    """Validate."""
     root = checked_root(args.root)
     manifest_path = checked_input(
         args.manifest, root=root, suffixes={".json"}, max_bytes=2 * 1024 * 1024
@@ -154,15 +156,9 @@ def validate(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
         raise CliError("runtime must be matlab, octave, or both")
     matlab_release = data.get("matlab_release")
     octave_version = data.get("octave_version")
-    if runtime in {"matlab", "both"}:
+    if runtime in {"matlab", "both"} or matlab_release is not None:
         validate_release(_string(matlab_release, "matlab_release"))
-    elif matlab_release is not None:
-        validate_release(_string(matlab_release, "matlab_release"))
-    if runtime in {"octave", "both"}:
-        version = _string(octave_version, "octave_version")
-        if not OCTAVE_VERSION.fullmatch(version):
-            raise CliError("octave_version must be a three-part numeric version")
-    elif octave_version is not None:
+    if runtime in {"octave", "both"} or octave_version is not None:
         version = _string(octave_version, "octave_version")
         if not OCTAVE_VERSION.fullmatch(version):
             raise CliError("octave_version must be a three-part numeric version")
@@ -319,6 +315,7 @@ def validate(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
 
 
 def parser() -> argparse.ArgumentParser:
+    """Handle parser."""
     result = argparse.ArgumentParser(
         description=(
             "Validate a strict local MATLAB/Octave project, product, and license-"

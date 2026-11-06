@@ -84,6 +84,7 @@ class ReferenceModel:
     notes: dict[str, str] = field(default_factory=dict)
 
     def to_json(self, path: str | Path) -> None:
+        """Handle to json."""
         payload = {
             "variables": list(self.variables),
             "turned": list(self.turned),
@@ -99,6 +100,7 @@ class ReferenceModel:
 
     @classmethod
     def from_json(cls, path: str | Path) -> "ReferenceModel":
+        """Handle from json."""
         payload = json.loads(Path(path).read_text())
         return cls(
             variables=tuple(payload["variables"]),
@@ -113,6 +115,7 @@ class ReferenceModel:
         )
 
     def describe(self) -> str:
+        """Handle describe."""
         rows = [
             f"reference model: {self.label or '(unlabelled)'}",
             f"  animals={self.n_animals}  rows={self.n_rows}  "
@@ -360,6 +363,7 @@ def _parse_score_scale(spec: str, frame: pd.DataFrame) -> tuple[str, tuple[float
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description="Compute RELSA severity scores for a RELSA-format table.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -422,6 +426,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     digits = None if args.full_precision else 2
 

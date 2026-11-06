@@ -25,6 +25,7 @@ CSV_FIELDS = [
 
 
 def read_rows(path: Path, rubric: dict[str, Any]) -> list[dict[str, Any]]:
+    """Read rows."""
     text = _common.read_csv_text(path)
     reader = csv.DictReader(io.StringIO(text))
     if reader.fieldnames != CSV_FIELDS:
@@ -112,6 +113,7 @@ def _summary(differences: list[float], step: float) -> dict[str, Any]:
 
 
 def summarize(rubric: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """Summarize."""
     rubric_issues = _common.validate_rubric(rubric)
     _common.require_valid(rubric_issues)
     grouped: dict[str, dict[str, dict[str, float]]] = defaultdict(
@@ -201,6 +203,7 @@ def summarize(rubric: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str, A
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Summarize exact agreement, within-step agreement, and mean "
@@ -219,6 +222,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args()
     try:
         rubric = _common.read_json(args.rubric)

@@ -70,6 +70,7 @@ def chunk_text(text: str, size: int = 1200, overlap: int = 200) -> list[tuple[st
 
 
 def cmd_index(args: argparse.Namespace) -> int:
+    """Run the index subcommand."""
     root = Path(args.folder)
     con = sqlite3.connect(args.db)
     con.executescript(SCHEMA)
@@ -114,6 +115,7 @@ def fts_query(q: str) -> str:
 
 
 def cmd_query(args: argparse.Namespace) -> int:
+    """Run the query subcommand."""
     con = sqlite3.connect(args.db)
     rows = con.execute(
         "SELECT path, chunk, section, snippet(chunks, 0, '[', ']', ' ... ', 24), bm25(chunks), text "
@@ -131,6 +133,7 @@ def cmd_query(args: argparse.Namespace) -> int:
 
 
 def cmd_stats(args: argparse.Namespace) -> int:
+    """Run the stats subcommand."""
     con = sqlite3.connect(args.db)
     docs, chunks = con.execute("SELECT COUNT(*), COALESCE(SUM(n_chunks), 0) FROM docs").fetchone()
     print(f"{docs} documents, {chunks} chunks in {args.db}")
@@ -138,6 +141,7 @@ def cmd_stats(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     i = sub.add_parser("index")

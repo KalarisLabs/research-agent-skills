@@ -99,6 +99,7 @@ DEFAULT_METADATA_FILTERS = (
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -272,6 +273,7 @@ def installed_matchms_version() -> str:
 
 
 def create_processor(args: argparse.Namespace) -> SpectrumProcessor:
+    """Create processor."""
     filters: list[Any] = []
     if not args.no_default_filters:
         # Expand default_filters so SpectrumProcessor can preserve the registered
@@ -324,6 +326,7 @@ def load_and_process(
     *,
     show_progress: bool,
 ) -> tuple[list[Any], int]:
+    """Load and process."""
     raw = list(load_spectra(str(path)))
     cleaned, _ = processor.process_spectra(
         raw,
@@ -334,6 +337,7 @@ def load_and_process(
 
 
 def create_metric(args: argparse.Namespace) -> Any:
+    """Create metric."""
     common = {"tolerance": args.tolerance}
     if args.metric == "cosine":
         return CosineGreedy(**common)
@@ -377,6 +381,7 @@ def create_metric(args: argparse.Namespace) -> Any:
 
 
 def choose_score_fields(score_names: tuple[str, ...]) -> tuple[str, str | None]:
+    """Handle choose score fields."""
     score_name = next(
         (name for name in score_names if name.endswith("_score")),
         score_names[0],
@@ -389,6 +394,7 @@ def choose_score_fields(score_names: tuple[str, ...]) -> tuple[str, str | None]:
 
 
 def numeric_field(value: Any, name: str) -> float:
+    """Handle numeric field."""
     dtype = getattr(value, "dtype", None)
     names = getattr(dtype, "names", None)
     if names and name in names:
@@ -413,6 +419,7 @@ def spectrum_id(
     index: int,
     prefix: str,
 ) -> str:
+    """Handle spectrum id."""
     keys = [
         preferred,
         "spectrum_id",
@@ -431,6 +438,7 @@ def spectrum_id(
 
 
 def metadata_value(spectrum: Any, key: str) -> str:
+    """Handle metadata value."""
     value = spectrum.get(key)
     return "" if value is None else str(value)
 
@@ -443,6 +451,7 @@ def write_hits(
     references: list[Any],
     args: argparse.Namespace,
 ) -> int:
+    """Write hits."""
     score_name, matches_name = choose_score_fields(scores.score_names)
     reference_indices = {id(spectrum): index for index, spectrum in enumerate(references)}
     fieldnames = [
@@ -523,6 +532,7 @@ def write_hits(
 
 
 def run(args: argparse.Namespace) -> int:
+    """Run."""
     validate_args(args)
     matchms_version = installed_matchms_version()
     if matchms_version != TARGET_VERSION:
@@ -585,6 +595,7 @@ def run(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args()
     try:

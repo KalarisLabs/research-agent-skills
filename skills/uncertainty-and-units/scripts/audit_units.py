@@ -197,6 +197,7 @@ class Auditor(ast.NodeVisitor):
     """Collect unit and uncertainty findings from one parsed module."""
 
     def __init__(self, source: str, filename: str) -> None:
+        """Initialise the instance."""
         self.filename = filename
         self.findings: list[dict[str, Any]] = []
         self.registry_sites: list[ast.AST] = []
@@ -214,6 +215,7 @@ class Auditor(ast.NodeVisitor):
         message: str,
         remedy: str,
     ) -> None:
+        """Handle report."""
         self.findings.append(
             {
                 "rule": rule,
@@ -314,6 +316,7 @@ class Auditor(ast.NodeVisitor):
     # --- calls -------------------------------------------------------------
 
     def visit_Call(self, node: ast.Call) -> None:
+        """Handle visit call."""
         name = self._call_name(node)
         keywords = {keyword.arg for keyword in node.keywords if keyword.arg}
 
@@ -396,6 +399,7 @@ class Auditor(ast.NodeVisitor):
 
     @staticmethod
     def _is_numpy_call(node: ast.Call) -> bool:
+        """Return whether numpy call."""
         return (
             isinstance(node.func, ast.Attribute)
             and isinstance(node.func.value, ast.Name)
@@ -483,6 +487,7 @@ def render_markdown(document: dict[str, Any]) -> str:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Statically audit Python sources for stripped units, offset-temperature "
@@ -552,6 +557,7 @@ def exit_code(document: dict[str, Any], fail_on: str) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     arguments = build_parser().parse_args(argv)
     try:
         document = run(arguments)

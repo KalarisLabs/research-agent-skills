@@ -122,6 +122,7 @@ def safe_signature(obj: Any) -> str | None:
 
 
 def inspect_symbol(module_name: str, symbol_name: str) -> dict[str, Any]:
+    """Handle inspect symbol."""
     qualified_name = f"{module_name}.{symbol_name}"
     try:
         module = importlib.import_module(module_name)
@@ -212,6 +213,7 @@ def build_report() -> dict[str, Any]:
 
 
 def print_text(report: dict[str, Any]) -> None:
+    """Print text."""
     print(f"Python: {report['python']}")
     print(f"Platform: {report['platform']}")
     print(f"Latch SDK: {report['latch_version'] or 'not installed'}")
@@ -243,6 +245,7 @@ def print_text(report: dict[str, Any]) -> None:
 
 
 def has_required_failures(report: dict[str, Any]) -> bool:
+    """Return whether required failures."""
     required = {
         "latch.workflow",
         "latch.resources.tasks.small_task",
@@ -260,6 +263,7 @@ def has_required_failures(report: dict[str, Any]) -> bool:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--json",

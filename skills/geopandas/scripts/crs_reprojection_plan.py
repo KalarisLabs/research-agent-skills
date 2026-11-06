@@ -23,6 +23,7 @@ METRIC_OPERATIONS = {"area", "buffer", "distance", "nearest", "precision"}
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect CRS axes, units, datum-operation candidates, grid availability, "
@@ -67,12 +68,14 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _dynamic(crs: Any) -> bool:
+    """Handle dynamic."""
     datum = getattr(crs, "datum", None)
     type_name = str(getattr(datum, "type_name", "")).casefold()
     return "dynamic" in type_name
 
 
 def _candidate_summary(transformer: Any) -> dict[str, Any]:
+    """Handle candidate summary."""
     accuracy = float(transformer.accuracy)
     area = transformer.area_of_use
     return {
@@ -197,6 +200,7 @@ def plan(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         report = plan(args)

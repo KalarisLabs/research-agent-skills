@@ -21,11 +21,11 @@ from _common import (
 )
 
 TOOL = "check_consistency"
-FACT_ID_RE = re.compile(r"^N[0-9]{3,8}$")
-METHOD_ID_RE = re.compile(r"^M[0-9]{3,8}$")
-RESULT_ID_RE = re.compile(r"^R[0-9]{3,8}$")
-OUTCOME_ID_RE = re.compile(r"^O[0-9]{3,8}$")
-EVIDENCE_ID_RE = re.compile(r"^E[0-9]{3,8}$")
+FACT_ID_RE = re.compile(r"^N\d{3,8}$")
+METHOD_ID_RE = re.compile(r"^M\d{3,8}$")
+RESULT_ID_RE = re.compile(r"^R\d{3,8}$")
+OUTCOME_ID_RE = re.compile(r"^O\d{3,8}$")
+EVIDENCE_ID_RE = re.compile(r"^E\d{3,8}$")
 ANALYSIS_INTENT = {"confirmatory", "exploratory", "descriptive"}
 PROTOCOL_STATUS = {
     "prespecified",
@@ -65,6 +65,7 @@ RESULT_FIELDS = {
 
 
 def _is_number(value: Any) -> bool:
+    """Return whether number."""
     return (
         isinstance(value, (int, float))
         and not isinstance(value, bool)
@@ -97,6 +98,7 @@ def _validate_ids(
     code: str,
     issues: list[Issue],
 ) -> list[str]:
+    """Validate ids."""
     ids = require_list(values, location)
     valid: list[str] = []
     for raw_value in ids:
@@ -108,6 +110,7 @@ def _validate_ids(
 
 
 def validate_numeric_facts(data: dict[str, Any]) -> tuple[list[Issue], int]:
+    """Validate numeric facts."""
     issues: list[Issue] = []
     facts = require_list(data.get("numeric_facts"), "numeric_facts")
     seen_ids: set[str] = set()
@@ -238,6 +241,7 @@ def validate_numeric_facts(data: dict[str, Any]) -> tuple[list[Issue], int]:
 
 
 def validate_methods_results(data: dict[str, Any]) -> tuple[list[Issue], int, int]:
+    """Validate methods results."""
     issues: list[Issue] = []
     methods: dict[str, dict[str, Any]] = {}
     expected_outcomes: dict[str, set[str]] = {}
@@ -372,6 +376,7 @@ def validate_methods_results(data: dict[str, Any]) -> tuple[list[Issue], int, in
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Check a local JSON registry for repeated numeric values, units, "
@@ -383,6 +388,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def cli() -> int:
+    """Handle cli."""
     args = build_parser().parse_args()
     data = require_object(read_json(args.registry), "consistency_registry")
     root_issues: list[Issue] = []

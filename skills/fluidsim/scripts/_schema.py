@@ -228,10 +228,12 @@ PERIOD_SAVE_KEYS = {
 def _record(
     target: list[dict[str, str]], code: str, message: str
 ) -> None:
+    """Handle record."""
     target.append({"code": code, "message": message})
 
 
 def _validate_parameter_structure(parameters: Mapping[str, Any]) -> None:
+    """Validate parameter structure."""
     validate_keys(
         parameters, allowed=PARAMETER_KEYS, required={"oper", "time_stepping"}, context="parameters"
     )

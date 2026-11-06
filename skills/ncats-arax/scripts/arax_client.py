@@ -102,6 +102,7 @@ class AraxClientError(Exception):
         response_body: bytes | None = None,
         attempts: int = 0,
     ) -> None:
+        """Initialise the instance."""
         super().__init__(message)
         self.exit_code = exit_code
         self.kind = kind
@@ -112,31 +113,37 @@ class AraxClientError(Exception):
 
 class UsageError(AraxClientError):
     def __init__(self, message: str) -> None:
+        """Initialise the instance."""
         super().__init__(message, exit_code=2, kind="invalid_input")
 
 
 class PreflightError(AraxClientError):
     def __init__(self, message: str, **kwargs: Any) -> None:
+        """Initialise the instance."""
         super().__init__(message, exit_code=3, kind="preflight", **kwargs)
 
 
 class NormalizationError(AraxClientError):
     def __init__(self, message: str) -> None:
+        """Initialise the instance."""
         super().__init__(message, exit_code=4, kind="normalization_no_result")
 
 
 class TransportError(AraxClientError):
     def __init__(self, message: str, **kwargs: Any) -> None:
+        """Initialise the instance."""
         super().__init__(message, exit_code=5, kind="transport_or_http", **kwargs)
 
 
 class ResponseError(AraxClientError):
     def __init__(self, message: str, **kwargs: Any) -> None:
+        """Initialise the instance."""
         super().__init__(message, exit_code=6, kind="invalid_response", **kwargs)
 
 
 @dataclass(frozen=True)
 class HttpResult:
+    """Http result."""
     status: int
     body: bytes
     headers: dict[str, str]
@@ -146,6 +153,7 @@ class HttpResult:
 
 @dataclass(frozen=True)
 class ServiceInfo:
+    """Service info."""
     base_url: str
     openapi_url: str
     arax_version: str | None
@@ -153,6 +161,7 @@ class ServiceInfo:
     warnings: tuple[dict[str, Any], ...]
 
     def as_dict(self, *, biolink_version: str | None = None) -> dict[str, Any]:
+        """Handle as dict."""
         return {
             "base_url": self.base_url,
             "openapi_url": self.openapi_url,
@@ -164,6 +173,7 @@ class ServiceInfo:
 
 @dataclass(frozen=True)
 class QueryContract:
+    """Query contract."""
     kind: str
     mode: str
     provider_ids: tuple[str, ...]
@@ -189,6 +199,7 @@ class RejectRepeatedValueAction(argparse.Action):
 
 
 def _sanitize_text(value: Any, limit: int = MAX_DISPLAY_TEXT) -> str:
+    """Handle sanitize text."""
     text = str(value)
     text = "".join(" " if ord(char) < 32 or ord(char) == 127 else char for char in text)
     text = " ".join(text.split())
@@ -223,6 +234,7 @@ def _append_warning(
     message: str,
     context: Mapping[str, Any] | None = None,
 ) -> None:
+    """Handle append warning."""
     warning = make_warning(code, message, context)
     identity = (warning["code"], json.dumps(warning["context"], sort_keys=True), warning["message"])
     existing = {
@@ -234,6 +246,7 @@ def _append_warning(
 
 
 def _has_control(value: str) -> bool:
+    """Return whether control."""
     return any(ord(char) < 32 or ord(char) == 127 for char in value)
 
 
@@ -313,6 +326,7 @@ def validate_result_limit(value: int) -> int:
 
 
 def validate_base_url(value: str, allow_nonproduction: bool) -> tuple[str, list[dict[str, Any]]]:
+    """Validate base url."""
     raw = value.rstrip("/")
     parts = urllib.parse.urlsplit(raw)
     try:
@@ -374,6 +388,7 @@ def build_query_edge(
     predicates: Sequence[str],
     qualifiers: Sequence[tuple[str, str]],
 ) -> dict[str, Any]:
+    """Build query edge."""
     edge: dict[str, Any] = {
         "subject": subject,
         "object": object_,
@@ -403,6 +418,7 @@ def build_operations(
     provider_ids: Sequence[str],
     result_limit: int,
 ) -> dict[str, list[str]]:
+    """Build operations."""
     kp_value = _provider_parameter(mode, provider_ids)
     actions = [
         f"expand(edge_key={edge_key},kp={kp_value},kp_timeout={KP_TIMEOUT_SECONDS},"
@@ -523,6 +539,7 @@ def serialize_request(body: Mapping[str, Any]) -> bytes:
 
 
 def _origin(url: str) -> tuple[str, str | None, int | None]:
+    """Handle origin."""
     parts = urllib.parse.urlsplit(url)
     try:
         port = parts.port
@@ -534,6 +551,7 @@ def _origin(url: str) -> tuple[str, str | None, int | None]:
 
 
 class SameOriginHttpsRedirectHandler(urllib.request.HTTPRedirectHandler):
+    """Same origin https redirect handler."""
     def redirect_request(
         self,
         req: urllib.request.Request,
@@ -561,11 +579,13 @@ class SameOriginHttpsRedirectHandler(urllib.request.HTTPRedirectHandler):
 
 
 def _open_url(request: urllib.request.Request, timeout: int) -> Any:
+    """Open url."""
     opener = urllib.request.build_opener(SameOriginHttpsRedirectHandler())
     return opener.open(request, timeout=timeout)
 
 
 def read_bounded_response(response: Any, byte_limit: int = MAX_RESPONSE_BYTES) -> bytes:
+    """Read bounded response."""
     body = response.read(byte_limit + 1)
     if len(body) > byte_limit:
         raise ResponseError("response exceeded the 25 MiB byte limit")
@@ -573,6 +593,7 @@ def read_bounded_response(response: Any, byte_limit: int = MAX_RESPONSE_BYTES) -
 
 
 def _response_status(response: Any) -> int:
+    """Handle response status."""
     status = getattr(response, "status", None)
     return int(status if status is not None else response.getcode())
 
@@ -587,6 +608,7 @@ def _headers_dict(headers: Any) -> dict[str, str]:
 
 
 def _retry_delay(headers: Mapping[str, str], now: Callable[[], datetime] | None = None) -> float:
+    """Handle retry delay."""
     raw = next((value for key, value in headers.items() if key.lower() == "retry-after"), None)
     if raw is None:
         return 1.0
@@ -617,6 +639,7 @@ def request_get_with_retry(
     timeout: int = GET_TIMEOUT_SECONDS,
     sleep: Callable[[float], None] = time.sleep,
 ) -> HttpResult:
+    """Handle request get with retry."""
     request = urllib.request.Request(
         url,
         method="GET",
@@ -672,6 +695,7 @@ def request_get_with_retry(
 
 
 def post_query(url: str, request_bytes: bytes, *, timeout: int) -> HttpResult:
+    """Handle post query."""
     request = urllib.request.Request(
         url,
         data=request_bytes,
@@ -720,11 +744,12 @@ def post_query(url: str, request_bytes: bytes, *, timeout: int) -> HttpResult:
 
 def _decode_json(body: bytes, label: str) -> Any:
     def reject_constant(value: str) -> None:
+        """Handle reject constant."""
         raise ValueError(f"non-finite JSON number: {value}")
 
     try:
         return json.loads(body.decode("utf-8"), parse_constant=reject_constant)
-    except (UnicodeDecodeError, json.JSONDecodeError, ValueError) as exc:
+    except ValueError as exc:
         raise ResponseError(f"{label} was not valid strict UTF-8 JSON") from exc
 
 
@@ -742,6 +767,7 @@ def _check_trapi_version(
     allow_untested: bool,
     warnings: list[dict[str, Any]],
 ) -> None:
+    """Check trapi version."""
     series = _version_series(trapi_version)
     if series not in SUPPORTED_TRAPI_SERIES and not allow_untested:
         raise PreflightError(
@@ -802,6 +828,7 @@ def fetch_openapi(
     allow_untested_version: bool,
     initial_warnings: Sequence[dict[str, Any]] = (),
 ) -> tuple[ServiceInfo, HttpResult]:
+    """Fetch openapi."""
     openapi_url = base_url + "/openapi.json"
     try:
         result = request_get_with_retry(openapi_url)
@@ -834,6 +861,7 @@ def fetch_openapi(
 
 
 def normalize_entity_request(base_url: str, term: str) -> HttpResult:
+    """Normalize entity request."""
     query = urllib.parse.urlencode({"q": term})
     return request_get_with_retry(base_url + "/entity?" + query)
 
@@ -846,6 +874,7 @@ def parse_normalization_response(
     max_synonyms: int,
     service: ServiceInfo,
 ) -> tuple[dict[str, Any], bool]:
+    """Parse normalization response."""
     warnings = [make_warning("PUBLIC_QUERY", "The normalization request was sent to a public service.")]
     requires_confirmation = not _looks_like_curie(term)
     if requires_confirmation:
@@ -913,6 +942,7 @@ def parse_normalization_response(
 
 
 def _require_exact_keys(value: Mapping[str, Any], allowed: set[str], label: str) -> None:
+    """Handle require exact keys."""
     extras = set(value) - allowed
     missing = allowed - set(value)
     if extras or missing:
@@ -1104,6 +1134,7 @@ def _normalize_node_bindings(value: Any) -> tuple[dict[str, list[dict[str, Any]]
 
 
 def _resource_ids_for_role(sources: Sequence[dict[str, Any]], role: str) -> list[str]:
+    """Handle resource ids for role."""
     found: list[str] = []
     for source in sources:
         resource_role = source.get("resource_role")
@@ -1115,6 +1146,7 @@ def _resource_ids_for_role(sources: Sequence[dict[str, Any]], role: str) -> list
 
 
 def extract_publications(edge: Mapping[str, Any]) -> list[str]:
+    """Extract publications."""
     publications: list[str] = []
     attributes = edge.get("attributes", [])
     if not isinstance(attributes, list):
@@ -1135,6 +1167,7 @@ def _classify_logs(
     contract: QueryContract,
     warnings: list[dict[str, Any]],
 ) -> bool:
+    """Handle classify logs."""
     partial = False
     logs = payload.get("logs", [])
     if not isinstance(logs, list):
@@ -1434,6 +1467,7 @@ def render_text_summary(
     response_path: str = "response.json",
 ) -> str:
     def rendered(value: Any, limit: int = 200) -> str:
+        """Handle rendered."""
         return _sanitize_text(value, limit)
 
     def rendered_list(values: Any, *, limit: int = 200) -> str:
@@ -1534,10 +1568,12 @@ def render_text_summary(
 
 
 def sha256_bytes(value: bytes) -> str:
+    """Handle sha256 bytes."""
     return hashlib.sha256(value).hexdigest()
 
 
 def prepare_output_directory(value: str | Path) -> Path:
+    """Handle prepare output directory."""
     path = Path(value)
     try:
         if path.exists():
@@ -1611,6 +1647,7 @@ def atomic_write_json(path: Path, value: Mapping[str, Any]) -> bytes:
 
 
 def _utc_now() -> str:
+    """Handle utc now."""
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
@@ -1622,6 +1659,7 @@ def new_manifest(
     http_timeout: int,
     result_limit: int | None = None,
 ) -> dict[str, Any]:
+    """Handle new manifest."""
     return {
         "manifest_version": "1.0",
         "run_id": str(uuid.uuid4()),
@@ -1667,11 +1705,13 @@ def new_manifest(
 
 
 def _apply_service_to_manifest(manifest: dict[str, Any], service: ServiceInfo) -> None:
+    """Apply service to manifest."""
     manifest["service"].update(service.as_dict())
     manifest["warnings"] = [dict(item) for item in service.warnings]
 
 
 def _record_response(manifest: dict[str, Any], result: HttpResult, filename: str = "response.json") -> None:
+    """Handle record response."""
     manifest["response"].update(
         {
             "http_status": result.status,
@@ -1685,6 +1725,7 @@ def _record_response(manifest: dict[str, Any], result: HttpResult, filename: str
 
 
 def _write_manifest(output_dir: Path, manifest: dict[str, Any]) -> None:
+    """Write manifest."""
     manifest["finished_at"] = _utc_now()
     atomic_write_json(output_dir / "manifest.json", manifest)
 
@@ -1730,10 +1771,12 @@ def _retain_failure(
 
 
 def _json_from_http(result: HttpResult, label: str) -> Any:
+    """Handle json from http."""
     return _decode_json(result.body, label)
 
 
 def _preflight_summary(service: ServiceInfo) -> dict[str, Any]:
+    """Handle preflight summary."""
     return {
         "schema_version": "1.0",
         "kind": "preflight",
@@ -1748,6 +1791,7 @@ def _preflight_summary(service: ServiceInfo) -> dict[str, Any]:
 
 
 def handle_preflight(args: argparse.Namespace) -> int:
+    """Handle preflight."""
     base_url, endpoint_warnings = validate_base_url(args.base_url, args.allow_nonproduction_endpoint)
     output_dir = prepare_output_directory(args.output_dir) if args.output_dir else None
     manifest = new_manifest(
@@ -1850,6 +1894,7 @@ def handle_normalize(args: argparse.Namespace) -> int:
 
 
 def _build_from_args(args: argparse.Namespace) -> tuple[dict[str, Any], QueryContract, int]:
+    """Build from args."""
     providers, limit = resolve_mode(args.mode, args.kp or [], args.result_limit)
     if args.command == "one-hop":
         body = build_one_hop_query(
@@ -1900,6 +1945,7 @@ def _validate_query_response_version(
 
 
 def handle_graph_query(args: argparse.Namespace) -> int:
+    """Handle graph query."""
     body, contract, timeout = _build_from_args(args)
     request_bytes = serialize_request(body)
     base_url, endpoint_warnings = validate_base_url(args.base_url, args.allow_nonproduction_endpoint)
@@ -1972,6 +2018,7 @@ def handle_graph_query(args: argparse.Namespace) -> int:
 
 
 def handle_summarize(args: argparse.Namespace) -> int:
+    """Handle summarize."""
     request_path = Path(args.request)
     response_path = Path(args.response)
     try:
@@ -2007,12 +2054,14 @@ def handle_summarize(args: argparse.Namespace) -> int:
 
 
 def _add_network_policy_options(parser: argparse.ArgumentParser) -> None:
+    """Add network policy options."""
     parser.add_argument("--base-url", default=PRODUCTION_BASE_URL)
     parser.add_argument("--allow-nonproduction-endpoint", action="store_true")
     parser.add_argument("--allow-untested-version", action="store_true")
 
 
 def _add_query_common(parser: argparse.ArgumentParser) -> None:
+    """Add query common."""
     parser.add_argument("--mode", choices=("lookup", "federated"), default="lookup")
     parser.add_argument("--kp", action="append", default=[])
     parser.add_argument("--result-limit", type=int)
@@ -2022,6 +2071,7 @@ def _add_query_common(parser: argparse.ArgumentParser) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description="Bounded NCATS Translator ARAX lookup and provenance inspection"
     )
@@ -2071,6 +2121,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

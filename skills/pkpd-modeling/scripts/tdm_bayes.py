@@ -41,6 +41,7 @@ except ImportError as exc:  # pragma: no cover
 
 @dataclass
 class PopulationModel:
+    """Population model."""
     name: str
     description: str
     cl_pop: float          # L/h at the reference covariates
@@ -53,6 +54,7 @@ class PopulationModel:
     reference: str
 
     def individualise(self, weight: float | None, crcl: float | None) -> tuple[float, float]:
+        """Handle individualise."""
         return self.cl_pop, self.v_pop
 
 
@@ -102,6 +104,7 @@ def map_estimate(
     last_dose_time = (n_doses - 1) * interval
 
     def predict(eta: np.ndarray, times: np.ndarray) -> np.ndarray:
+        """Predict."""
         cl = cl_prior * math.exp(eta[0])
         v = v_prior * math.exp(eta[1])
         disp = disposition(cl, v)
@@ -112,6 +115,7 @@ def map_estimate(
     observed = np.asarray([c for c, _ in levels], dtype=float)
 
     def objective(eta: np.ndarray) -> float:
+        """Handle objective."""
         predicted = predict(eta, times)
         variance = (model.prop_error * predicted) ** 2 + model.add_error**2
         residual = float(np.sum((observed - predicted) ** 2 / variance + np.log(variance)))
@@ -140,6 +144,7 @@ def map_estimate(
 
 
 def exposure_metrics(cl: float, v: float, dose: float, interval: float, infusion: float) -> dict:
+    """Handle exposure metrics."""
     disp = disposition(cl, v)
     regimen = build_regimen(dose, interval=interval, n_doses=60, duration=infusion)
     grid = np.linspace(59 * interval, 60 * interval, 2001)
@@ -177,6 +182,7 @@ def _level(text: str) -> tuple[float, float]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description="MAP Bayesian individualisation of a population PK model from measured levels.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -203,6 +209,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def run(argv: Sequence[str] | None = None) -> int:
+    """Run."""
     args = build_parser().parse_args(argv)
     if bool(args.model) == bool(args.custom):
         raise InputError("choose either --model NAME or --custom")

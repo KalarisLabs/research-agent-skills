@@ -172,6 +172,7 @@ def read_json(raw_path: str, *, label: str = "JSON input") -> tuple[Path, Any]:
     )
 
     def reject_constant(value: str) -> None:
+        """Handle reject constant."""
         raise CliError(f"non-standard JSON constant is not allowed: {value}")
 
     try:

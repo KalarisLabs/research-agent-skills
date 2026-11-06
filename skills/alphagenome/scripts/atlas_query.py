@@ -209,6 +209,7 @@ def max_abs_track(adata) -> dict[str, Any] | None:
 
 
 def scorer_rows(metadata: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Handle scorer rows."""
     rows = []
     for name, meta in metadata.items():
         frame = getattr(meta, "track_metadata", None)
@@ -226,6 +227,7 @@ def scorer_rows(metadata: Mapping[str, Any]) -> list[dict[str, Any]]:
 
 
 def track_rows(metadata: Mapping[str, Any], scorer: str | None, query: str | None) -> list[dict[str, Any]]:
+    """Handle track rows."""
     rows: list[dict[str, Any]] = []
     needle = query.lower() if query else None
     for name, meta in metadata.items():
@@ -252,6 +254,7 @@ def track_rows(metadata: Mapping[str, Any], scorer: str | None, query: str | Non
 
 
 def make_client(args: argparse.Namespace):
+    """Make client."""
     api_key = common.load_api_key(args.api_key_env)
     common.require_alphagenome()
     import grpc  # noqa: PLC0415
@@ -267,6 +270,7 @@ def make_client(args: argparse.Namespace):
 
 
 def to_genome_variant(spec: common.VariantSpec):
+    """Handle to genome variant."""
     from alphagenome.data import genome  # noqa: PLC0415
 
     return genome.Variant(
@@ -279,6 +283,7 @@ def to_genome_variant(spec: common.VariantSpec):
 
 
 def to_genome_interval(text: str, max_window: int):
+    """Handle to genome interval."""
     from alphagenome.data import genome  # noqa: PLC0415
 
     chromosome, start0, end = common.parse_interval_string(text)
@@ -319,6 +324,7 @@ def _query_each(
 
 
 def cmd_avi(args: argparse.Namespace) -> int:
+    """Run the avi subcommand."""
     client = make_client(args)
     rows: list[dict[str, Any]] = []
 
@@ -398,6 +404,7 @@ def cmd_avi(args: argparse.Namespace) -> int:
 
 
 def cmd_scores(args: argparse.Namespace) -> int:
+    """Run the scores subcommand."""
     client = make_client(args)
     requested = list(args.scorers)
     filters = {
@@ -436,6 +443,7 @@ def cmd_scores(args: argparse.Namespace) -> int:
 
 
 def cmd_scorers(args: argparse.Namespace) -> int:
+    """Run the scorers subcommand."""
     client = make_client(args)
     rows = scorer_rows(client.scorer_metadata())
     common.write_rows(rows, args.output, common.format_from_output(args.output, args.format))
@@ -443,6 +451,7 @@ def cmd_scorers(args: argparse.Namespace) -> int:
 
 
 def cmd_tracks(args: argparse.Namespace) -> int:
+    """Run the tracks subcommand."""
     client = make_client(args)
     rows = track_rows(client.scorer_metadata(), args.scorer, args.query)
     if not args.output and len(rows) > 200 and not args.force_stdout:
@@ -459,6 +468,7 @@ def cmd_tracks(args: argparse.Namespace) -> int:
 
 
 def _add_common(parser: argparse.ArgumentParser) -> None:
+    """Add common."""
     parser.add_argument("-o", "--output", help="write here instead of stdout (extension picks the format)")
     parser.add_argument("--format", choices=("tsv", "csv", "json", "parquet"), help="override the output format")
     parser.add_argument("--api-key-env", metavar="NAME", help="environment variable holding the key (default: ALPHAGENOME_API_KEY, then ALPHA_GENOME_API_KEY)")
@@ -467,6 +477,7 @@ def _add_common(parser: argparse.ArgumentParser) -> None:
 
 
 def _add_variant_inputs(parser: argparse.ArgumentParser) -> None:
+    """Add variant inputs."""
     parser.add_argument("--variant", nargs="+", metavar="CHR:POS:REF>ALT", help="one or more variants (1-based; gnomAD/GTEx spellings accepted)")
     parser.add_argument("--input", metavar="FILE", help="VCF, or TSV/CSV with CHROM/POS/REF/ALT or a 'variant' column")
     parser.add_argument("--interval", metavar="CHR:START-END", help="1-based closed window: every SNV in it (3 per base)")
@@ -475,6 +486,7 @@ def _add_variant_inputs(parser: argparse.ArgumentParser) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         prog="atlas_query.py",
         description="Query the AlphaGenome Atlas (precomputed variant effects, hg38).",
@@ -514,6 +526,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     return args.func(args)
 

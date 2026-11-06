@@ -16,7 +16,7 @@ from pathlib import Path
 
 try:
     from rdkit import Chem
-    from rdkit.Chem import AllChem, MACCSkeys, rdFingerprintGenerator
+    from rdkit.Chem import MACCSkeys, rdFingerprintGenerator
     from rdkit import DataStructs
 except ImportError:
     print("Error: RDKit not installed. Install with: uv pip install rdkit")
@@ -196,6 +196,7 @@ def print_results(hits, max_display=20):
 
 
 def main():
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         description='Molecular similarity search using fingerprints',
         formatter_class=argparse.RawDescriptionHelpFormatter,

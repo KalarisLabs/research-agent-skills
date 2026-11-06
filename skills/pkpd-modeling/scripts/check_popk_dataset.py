@@ -45,6 +45,7 @@ MISSING = {"", ".", "na", "n/a", "nan", "null", "none"}
 
 
 def _num(value: str) -> float | None:
+    """Handle num."""
     text = (value or "").strip()
     if text.lower() in MISSING:
         return None
@@ -55,14 +56,17 @@ def _num(value: str) -> float | None:
 
 
 def _is_missing(value: str) -> bool:
+    """Return whether missing."""
     return (value or "").strip().lower() in MISSING
 
 
 class Findings:
     def __init__(self) -> None:
+        """Initialise the instance."""
         self.items: list[dict[str, object]] = []
 
     def add(self, severity: str, check: str, detail: str, rows: Sequence[int] = ()) -> None:
+        """Add."""
         listed = list(rows)[:8]
         self.items.append(
             {
@@ -75,6 +79,7 @@ class Findings:
         )
 
     def max_severity(self) -> int:
+        """Handle max severity."""
         return max((SEVERITY_ORDER[i["severity"]] for i in self.items), default=-1)
 
 
@@ -82,11 +87,13 @@ class Findings:
 
 
 def check_dataset(rows: list[dict[str, str]], args: argparse.Namespace) -> tuple[Findings, dict]:
+    """Check dataset."""
     found = Findings()
     columns = list(rows[0].keys())
     upper = {c.lower(): c for c in columns}
 
     def col(name: str) -> str | None:
+        """Handle col."""
         return upper.get(name.lower())
 
     id_col = col(args.id_column)
@@ -342,6 +349,7 @@ def check_dataset(rows: list[dict[str, str]], args: argparse.Namespace) -> tuple
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description="Validate a population PK dataset against NONMEM/nlmixr2 data conventions.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -367,6 +375,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def run(argv: Sequence[str] | None = None) -> int:
+    """Run."""
     args = build_parser().parse_args(argv)
     args.covariates = [c.strip() for c in args.covariates.split(",") if c.strip()]
     args.time_varying = [c.strip() for c in args.time_varying.split(",") if c.strip()]

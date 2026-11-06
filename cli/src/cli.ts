@@ -82,7 +82,7 @@ const BOOL_FLAGS = new Set([
 export function parseArgs(argv: string[]): Args {
   const flags: Record<string, string | boolean> = {};
   const positional: string[] = [];
-  for (let i = 0; i < argv.length; i++) {
+  for (let i = 0; i < argv.length; i += 1) {
     const a = argv[i];
     if (a === "-y") flags.yes = true;
     else if (a === "-h") flags.help = true;
@@ -90,15 +90,17 @@ export function parseArgs(argv: string[]): Args {
       const [k, v] = a.slice(2).split("=", 2);
       if (v !== undefined) flags[k] = v;
       else if (BOOL_FLAGS.has(k)) flags[k] = true;
-      else if (i + 1 < argv.length && !argv[i + 1].startsWith("-")) flags[k] = argv[++i];
-      else throw new Error(`--${k} needs a value`);
+      else if (i + 1 < argv.length && !argv[i + 1].startsWith("-")) {
+        i += 1;
+        flags[k] = argv[i];
+      } else throw new Error(`--${k} needs a value`);
     } else positional.push(a);
   }
   const cmd = positional.shift() ?? "";
   return { cmd, positional, flags };
 }
 
-const log = (m: string) => process.stdout.write(m + "\n");
+const log = (m: string) => process.stdout.write(`${m}\n`);
 const list = (v: string | boolean | undefined) => (typeof v === "string" ? v.split(",").map((s) => s.trim()).filter(Boolean) : []);
 
 async function getSource(a: Args): Promise<Source> {
@@ -272,7 +274,10 @@ async function cmdDoctor(a: Args): Promise<number> {
   let problems = 0;
   log(`research-agent-skills ${PKG.version} on Node ${process.version} (${process.platform})`);
   const detected = detectHarnesses();
-  log(`Agents detected (${detected.length}): ${detected.length ? detected.map((h) => `${h.label} [${h.category ?? "agent"}]`).join(", ") : "none (use --harness to choose)"}`);
+  const detectedLabels = detected.length
+    ? detected.map((h) => `${h.label} [${h.category ?? "agent"}]`).join(", ")
+    : "none (use --harness to choose)";
+  log(`Agents detected (${detected.length}): ${detectedLabels}`);
   const py = version("python3", ["--version"]) ?? version("python", ["--version"]);
   const uv = version("uv", ["--version"]);
   log(`Python: ${py ?? "not found"}   uv: ${uv ?? "not found"}`);
@@ -281,7 +286,8 @@ async function cmdDoctor(a: Args): Promise<number> {
     const lock = readLock(dir);
     if (!lock) continue;
     const issues = verifyInstall(dir);
-    log(`${dir}: ${Object.keys(lock.skills).length} skills, ${issues.length ? `${issues.length} integrity issue(s)` : "integrity OK"}`);
+    const integrity = issues.length ? `${issues.length} integrity issue(s)` : "integrity OK";
+    log(`${dir}: ${Object.keys(lock.skills).length} skills, ${integrity}`);
     issues.slice(0, 20).forEach((i) => log(`  ! ${i.skill}: ${i.problem}`));
     problems += issues.length;
   }

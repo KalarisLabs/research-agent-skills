@@ -424,6 +424,7 @@ def validate_intake(payload: Any) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a local peer-review intake JSON without reading or echoing "
@@ -439,6 +440,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args()
     try:
         report = validate_intake(read_json(args.intake))

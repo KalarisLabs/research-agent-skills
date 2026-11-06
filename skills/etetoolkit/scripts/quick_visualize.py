@@ -100,6 +100,7 @@ def create_smartview_layout(args: argparse.Namespace):
         ) from exc
 
     def draw_tree(_tree):
+        """Handle draw tree."""
         tree_style = {
             "shape": args.mode,
             "node-height-min": args.collapse_pixels,
@@ -123,6 +124,7 @@ def create_smartview_layout(args: argparse.Namespace):
             )
 
     def draw_node(node):
+        """Handle draw node."""
         fill = (
             support_color(node, args)
             if args.color_by_support and not node.is_leaf
@@ -238,7 +240,7 @@ def render_smartview(
             w=args.width,
             h=args.height,
         )
-    except (ImportError, ModuleNotFoundError) as exc:
+    except ImportError as exc:
         raise UserInputError(
             "SmartView static rendering needs the render-sm extra: "
             'uv pip install "ete4[render-sm]==4.4.0"'
@@ -327,6 +329,7 @@ def choose_engine(args: argparse.Namespace) -> str:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Explore a tree with ETE 4 SmartView or render it with "
@@ -428,6 +431,7 @@ def validate_args(args: argparse.Namespace) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         validate_args(args)

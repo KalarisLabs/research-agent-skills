@@ -166,7 +166,7 @@ class MetadataExtractor:
         Returns:
             Metadata dictionary or None
         """
-        url = f'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi'
+        url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi'
         params = {
             'db': 'pubmed',
             'id': pmid,

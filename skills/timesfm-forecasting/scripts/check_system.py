@@ -78,6 +78,7 @@ MODEL_PROFILES: dict[str, dict[str, Any]] = {
 
 @dataclass
 class CheckResult:
+    """Check result."""
     name: str
     status: str  # "pass", "warn", "fail"
     detail: str
@@ -85,14 +86,17 @@ class CheckResult:
 
     @property
     def icon(self) -> str:
+        """Handle icon."""
         return {"pass": "✅", "warn": "⚠️", "fail": "🛑"}.get(self.status, "❓")
 
     def __str__(self) -> str:
+        """Return a readable string form."""
         return f"[{self.name:<10}] {self.value:<40} {self.icon} {self.status.upper()}"
 
 
 @dataclass
 class SystemReport:
+    """System report."""
     model: str
     checks: list[CheckResult] = field(default_factory=list)
     verdict: str = ""
@@ -102,9 +106,11 @@ class SystemReport:
 
     @property
     def passed(self) -> bool:
+        """Handle passed."""
         return all(c.status != "fail" for c in self.checks)
 
     def to_dict(self) -> dict[str, Any]:
+        """Handle to dict."""
         return {
             "model": self.model,
             "passed": self.passed,
@@ -153,6 +159,7 @@ def _get_total_ram_gb() -> float:
             kernel32 = ctypes.windll.kernel32  # type: ignore[attr-defined]
 
             class MEMORYSTATUSEX(ctypes.Structure):
+                """Memorystatusex."""
                 _fields_ = [
                     ("dwLength", ctypes.c_ulong),
                     ("dwMemoryLoad", ctypes.c_ulong),
@@ -204,6 +211,7 @@ def _get_available_ram_gb() -> float:
             kernel32 = ctypes.windll.kernel32  # type: ignore[attr-defined]
 
             class MEMORYSTATUSEX(ctypes.Structure):
+                """Memorystatusex."""
                 _fields_ = [
                     ("dwLength", ctypes.c_ulong),
                     ("dwMemoryLoad", ctypes.c_ulong),
@@ -480,7 +488,7 @@ def run_checks(model_version: str = "v2.5") -> SystemReport:
 def print_report(report: SystemReport) -> None:
     """Print a human-readable report to stdout."""
     print(f"\n{'=' * 50}")
-    print(f"  TimesFM System Requirements Check")
+    print("  TimesFM System Requirements Check")
     print(f"  Model: {report.model}")
     print(f"{'=' * 50}\n")
 
@@ -495,6 +503,7 @@ def print_report(report: SystemReport) -> None:
 
 
 def main() -> None:
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         description="Check system requirements for TimesFM."
     )

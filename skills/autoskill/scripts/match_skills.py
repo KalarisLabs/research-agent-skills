@@ -1,3 +1,5 @@
+"""Match skills helpers."""
+
 import math
 from pathlib import Path
 
@@ -17,6 +19,7 @@ def _parse_frontmatter(content: str) -> dict:
 
 
 def load_skill_descriptions(skills_dir):
+    """Load skill descriptions."""
     skills_dir = Path(skills_dir)
     skills = []
     for skill_md in sorted(skills_dir.glob("*/SKILL.md")):
@@ -27,6 +30,7 @@ def load_skill_descriptions(skills_dir):
 
 
 def _cosine(a, b):
+    """Handle cosine."""
     dot = sum(x * y for x, y in zip(a, b))
     na = math.sqrt(sum(x * x for x in a))
     nb = math.sqrt(sum(y * y for y in b))
@@ -36,6 +40,7 @@ def _cosine(a, b):
 
 
 def top_k_matches(query, skills, embedder, k):
+    """Handle top k matches."""
     q = embedder(query)
     scored = [
         {"name": s["name"], "description": s["description"],

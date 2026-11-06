@@ -70,6 +70,7 @@ def link_for(entry: ET.Element, *, rel: str, mime: str | None = None) -> str | N
 
 
 def parse_entry(entry: ET.Element) -> dict[str, Any]:
+    """Parse entry."""
     raw_id = collapse_ws(entry.findtext("atom:id", namespaces=NS))
     versioned = id_from_url(raw_id) if raw_id else ""
     arxiv_id, version = split_version(versioned)
@@ -110,6 +111,7 @@ def parse_entry(entry: ET.Element) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Parse an arXiv Atom feed into JSON records. Exits 3 when the feed is an "
@@ -129,6 +131,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
 
     try:

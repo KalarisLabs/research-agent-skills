@@ -20,6 +20,7 @@ import pysam
 
 
 def positive_int(value: str) -> int:
+    """Handle positive int."""
     parsed = int(value)
     if parsed <= 0:
         raise argparse.ArgumentTypeError("must be greater than zero")
@@ -27,6 +28,7 @@ def positive_int(value: str) -> int:
 
 
 def nonnegative_int(value: str) -> int:
+    """Handle nonnegative int."""
     parsed = int(value)
     if parsed < 0:
         raise argparse.ArgumentTypeError("must be zero or greater")
@@ -34,6 +36,7 @@ def nonnegative_int(value: str) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -110,6 +113,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def require_local_file(path: Path, label: str) -> Path:
+    """Handle require local file."""
     resolved = path.expanduser()
     if not resolved.exists():
         raise FileNotFoundError(f"{label} does not exist: {resolved}")
@@ -119,6 +123,7 @@ def require_local_file(path: Path, label: str) -> Path:
 
 
 def alignment_mode(path: Path, *, writing: bool) -> str:
+    """Handle alignment mode."""
     name = path.name.lower()
     if name.endswith(".sam"):
         return "w" if writing else "r"
@@ -142,6 +147,7 @@ def exclusion_reasons(
     read: pysam.AlignedSegment,
     args: argparse.Namespace,
 ) -> list[str]:
+    """Handle exclusion reasons."""
     reasons = []
     if args.exclude_unmapped and read.is_unmapped:
         reasons.append("unmapped")
@@ -191,6 +197,7 @@ def validate_destinations(
 
 
 def filter_file(args: argparse.Namespace) -> dict[str, Any]:
+    """Filter file."""
     input_path = require_local_file(args.input, "input")
     output_path = args.output.expanduser()
     summary_path = (
@@ -320,6 +327,7 @@ def write_summary(
     report: dict[str, Any],
     output: Optional[Path],
 ) -> None:
+    """Write summary."""
     text = json.dumps(
         report,
         indent=2,
@@ -334,6 +342,7 @@ def write_summary(
 
 
 def main(argv: Optional[list[str]] = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
 
@@ -341,8 +350,6 @@ def main(argv: Optional[list[str]] = None) -> int:
         report = filter_file(args)
         write_summary(report, args.summary)
     except (
-        FileExistsError,
-        FileNotFoundError,
         IndexError,
         KeyError,
         OSError,

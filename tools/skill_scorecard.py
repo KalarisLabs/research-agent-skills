@@ -296,6 +296,7 @@ def compute_levelup_tips(
 
 @dataclass
 class SkillScorecard:
+    """Skill scorecard."""
     name: str
     category: str
     score: float
@@ -563,11 +564,7 @@ def find_changed_skills(base_ref: str = "origin/main") -> list[str]:
             files = res.stdout.splitlines()
             for f in files:
                 p = Path(f).as_posix()
-                if p.startswith("skills/"):
-                    parts = p.split("/")
-                    if len(parts) >= 2 and parts[1]:
-                        skills.add(parts[1])
-                elif p.startswith("evals/"):
+                if p.startswith(("skills/", "evals/")):
                     parts = p.split("/")
                     if len(parts) >= 2 and parts[1]:
                         skills.add(parts[1])
@@ -646,7 +643,7 @@ def post_or_update_comment(
             return False
         print(f"Failed to fetch PR comments for {repo} PR #{pr}: {err}", file=sys.stderr)
         return False
-    except (urllib.error.URLError, TimeoutError, OSError) as err:
+    except OSError as err:
         print(f"Network error querying PR comments: {err}", file=sys.stderr)
         return False
 
@@ -675,7 +672,7 @@ def post_or_update_comment(
             return False
         print(f"Failed to post/update scorecard comment on PR #{pr}: {err}", file=sys.stderr)
         return False
-    except (urllib.error.URLError, TimeoutError, OSError) as err:
+    except OSError as err:
         print(f"Error posting scorecard comment to PR #{pr}: {err}", file=sys.stderr)
         return False
 
@@ -683,6 +680,7 @@ def post_or_update_comment(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("skills", nargs="*", help="skill names or paths to evaluate")
     ap.add_argument("--changed", action="store_true", help="evaluate skills modified relative to base branch")

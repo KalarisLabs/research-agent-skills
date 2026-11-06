@@ -192,10 +192,12 @@ def parameter_grid(model_name: str) -> dict[str, list[Any]]:
 
 
 def _event_field(y: Any) -> str:
+    """Handle event field."""
     return str(y.dtype.names[0])
 
 
 def _time_field(y: Any) -> str:
+    """Handle time field."""
     return str(y.dtype.names[1])
 
 
@@ -491,6 +493,7 @@ def train_and_report(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Train a leakage-safe Cox or ensemble example. Local CSV use requires "
@@ -529,6 +532,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

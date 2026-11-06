@@ -70,6 +70,7 @@ def _source_ids(path: str | Path) -> set[str]:
 def validate(
     rows: list[dict[str, str]], known_source_ids: set[str] | None = None
 ) -> dict[str, Any]:
+    """Validate."""
     errors: list[str] = []
     warnings: list[str] = []
     competitors: dict[str, str] = {}
@@ -189,6 +190,7 @@ def validate(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a strict local competitor-feature matrix for complete coverage, "
@@ -208,6 +210,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args()
     try:
         rows = read_csv_records(args.matrix, required_fields=REQUIRED_FIELDS)

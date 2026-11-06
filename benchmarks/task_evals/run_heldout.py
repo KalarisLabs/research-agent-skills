@@ -67,6 +67,7 @@ class Cache:
     """Append-only JSONL cache of model calls keyed by a hash of (model, system file, prompt)."""
 
     def __init__(self, path: Path):
+        """Initialise the instance."""
         self.path, self.lock, self.data = path, threading.Lock(), {}
         if path.exists():
             for line in path.read_text(encoding="utf-8").splitlines():
@@ -76,9 +77,11 @@ class Cache:
         path.parent.mkdir(parents=True, exist_ok=True)
 
     def get(self, key: str) -> dict | None:
+        """Get."""
         return self.data.get(key)
 
     def put(self, key: str, rec: dict) -> None:
+        """Handle put."""
         rec = {"key": key, **rec}
         with self.lock:
             self.data[key] = rec
@@ -113,6 +116,7 @@ def call(cache: Cache, model: str, prompt: str, system_file: Path | None, workdi
 
 
 def parse_verdict(text: str) -> dict | None:
+    """Parse verdict."""
     m = re.search(r"\{.*\}", text, re.S)
     try:
         v = json.loads(m.group(0)) if m else None
@@ -162,6 +166,7 @@ def sign_test_p(wins: int, losses: int) -> float:
 
 
 def summarize(rows: list[dict]) -> dict:
+    """Summarize."""
     valid = [r for r in rows if r["winner"] != "error"]
     wins = sum(r["winner"] == "skill" for r in valid)
     losses = sum(r["winner"] == "baseline" for r in valid)
@@ -201,6 +206,7 @@ def main() -> int:
     workdir = tempfile.mkdtemp(prefix="heldout-")
 
     def judges_for(model: str) -> list[tuple[str, str]]:
+        """Handle judges for."""
         primary = args.alt_judge if model == args.judge else args.judge
         if not primary or primary == model:
             sys.exit(f"no judge distinct from answer model {model}; pass --alt-judge")
@@ -210,6 +216,7 @@ def main() -> int:
         return js
 
     def one(model: str, t: dict) -> dict:
+        """Handle one."""
         skill_md = ROOT / "skills" / t["skill"] / "SKILL.md"
         base = call(cache, model, t["prompt"], None, workdir)
         with_skill = call(cache, model, t["prompt"], skill_md, workdir)

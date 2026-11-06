@@ -249,6 +249,7 @@ def load_json(value: str | os.PathLike[str]) -> Any:
     path = checked_input_file(value, suffixes={".json"})
 
     def reject_constant(constant: str) -> None:
+        """Handle reject constant."""
         raise CliError(f"non-standard JSON constant is not allowed: {constant}")
 
     try:

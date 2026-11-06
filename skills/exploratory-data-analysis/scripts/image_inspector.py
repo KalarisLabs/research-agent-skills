@@ -26,6 +26,7 @@ MAX_TIFF_SERIES = 128
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect bounded local PNG/JPEG/TIFF structural metadata without "
@@ -54,6 +55,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _bounded_element_count(shape: Any) -> int:
+    """Handle bounded element count."""
     total = 1
     for value in shape:
         dimension = int(value)
@@ -169,6 +171,7 @@ def inspect_image_file(path: Path, *, suffix: str) -> dict[str, Any]:
 
 
 def _main() -> None:
+    """Handle main."""
     args = build_parser().parse_args()
     max_bytes = bounded_file_limit(args.max_bytes)
     suffixes = {
@@ -207,6 +210,7 @@ def _main() -> None:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     return run_cli(_main)
 
 

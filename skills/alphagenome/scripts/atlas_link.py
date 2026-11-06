@@ -108,6 +108,7 @@ def build_filter(
 
 
 def build_layout(include_avi: bool = True, modalities: Sequence[str] = ()) -> str:
+    """Build layout."""
     items = ["avi"] if include_avi else []
     items.extend(f"section:{modality.upper()}" for modality in modalities)
     return ",".join(items) if items else "avi"
@@ -157,6 +158,7 @@ def build_url(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         prog="atlas_link.py",
         description="Build AlphaGenome Atlas website deep links (no network, no key).",
@@ -176,6 +178,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         url = build_url(

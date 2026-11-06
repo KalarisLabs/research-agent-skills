@@ -61,7 +61,7 @@ def train_chemberta(train_dataset, valid_dataset, test_dataset, task_type='class
     print("It uses SMILES strings as input and has learned rich molecular")
     print("representations that transfer well to downstream tasks.")
 
-    print(f"\nLoading pretrained ChemBERTa model...")
+    print("\nLoading pretrained ChemBERTa model...")
     model = dc.models.HuggingFaceModel(
         model=PRETRAINED_MODELS['chemberta']['model_id'],
         task=task_type,
@@ -123,7 +123,7 @@ def train_grover(train_dataset, test_dataset, task_type='classification', n_task
     print("self-supervised learning. It learns both node and graph-level")
     print("representations through masked atom/bond prediction tasks.")
 
-    print(f"\nCreating GROVER model...")
+    print("\nCreating GROVER model...")
     model = dc.models.GroverModel(
         task=task_type,
         n_tasks=n_tasks,
@@ -182,7 +182,7 @@ def train_molformer(train_dataset, valid_dataset, test_dataset, task_type='class
     print("\nMolFormer is a transformer pretrained on molecular structures.")
     print("It uses SMILES strings as input via HuggingFaceModel.")
 
-    print(f"\nLoading pretrained MolFormer model...")
+    print("\nLoading pretrained MolFormer model...")
     model = dc.models.HuggingFaceModel(
         model=PRETRAINED_MODELS['molformer']['model_id'],
         task=task_type,
@@ -316,6 +316,7 @@ def load_custom_dataset(data_path, target_cols, smiles_col, model_type):
 
 
 def main():
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         description='Transfer learning for molecular property prediction'
     )

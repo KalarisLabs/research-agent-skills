@@ -58,6 +58,7 @@ class NotFoundError(IdError):
     """The remote service answered 404 with a JSON ``detail`` body."""
 
     def __init__(self, detail: str, url: str):
+        """Initialise the instance."""
         super().__init__(detail)
         self.detail = detail
         self.url = url

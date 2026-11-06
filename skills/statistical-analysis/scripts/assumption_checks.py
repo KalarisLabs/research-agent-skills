@@ -18,7 +18,6 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 import matplotlib.pyplot as plt
-import seaborn as sns
 from typing import Dict, List, Tuple, Optional, Union
 
 
@@ -267,7 +266,7 @@ def check_linearity(
     y = np.asarray(y)
 
     # Fit linear regression
-    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    slope, intercept, r_value, p_value, _ = stats.linregress(x, y)
     y_pred = intercept + slope * x
 
     # Calculate residuals
@@ -585,7 +584,7 @@ def comprehensive_assumption_check(
             print("   → Consider non-parametric alternative (Mann-Whitney, Kruskal-Wallis)")
 
         # Homogeneity of variance
-        print(f"\n3. HOMOGENEITY OF VARIANCE")
+        print("\n3. HOMOGENEITY OF VARIANCE")
         print("-" * 70)
         homogeneity_results = check_homogeneity_of_variance(
             data, value_col, group_col, alpha=alpha, plot=True
@@ -596,7 +595,7 @@ def comprehensive_assumption_check(
 
     else:
         # Overall normality
-        print(f"\n2. NORMALITY CHECK")
+        print("\n2. NORMALITY CHECK")
         print("-" * 70)
         normality_results = check_normality(
             data[value_col].dropna(),

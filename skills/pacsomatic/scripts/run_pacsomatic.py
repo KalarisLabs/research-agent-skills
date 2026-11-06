@@ -37,23 +37,28 @@ MIN_JAVA_MAJOR = 17
 
 
 def fail(message):
+    """Handle fail."""
     print(f"[ERROR] {message}", file=sys.stderr)
     raise SystemExit(1)
 
 
 def info(message):
+    """Handle info."""
     print(f"[INFO] {message}")
 
 
 def warn(message):
+    """Handle warn."""
     print(f"[WARN] {message}")
 
 
 def script_dir():
+    """Handle script dir."""
     return Path(__file__).resolve().parent
 
 
 def is_remote_path(path):
+    """Return whether remote path."""
     parsed = urlparse(path)
     return parsed.scheme in {"http", "https", "s3", "gs", "ftp"}
 
@@ -67,6 +72,7 @@ def normalize_walltime_hhmmss(value, label):
 
 
 def has_any_command(names):
+    """Return whether any command."""
     return next((name for name in names if shutil.which(name) is not None), "")
 
 
@@ -75,7 +81,7 @@ def detect_java_major_version():
         return None
     completed = subprocess.run(["java", "-version"], capture_output=True, text=True)
     raw = f"{completed.stdout}\n{completed.stderr}"
-    match = re.search(r'version\s+"([0-9]+)(?:\.[0-9._]+)?"', raw)
+    match = re.search(r'version\s+"(\d+)(?:\.[0-9._]+)?"', raw)
     if match:
         return int(match.group(1))
     return None
@@ -87,6 +93,7 @@ def ensure_no_spaces(label, value):
 
 
 def validate_repo(repo_path):
+    """Validate repo."""
     repo_path = repo_path.expanduser().resolve()
     if not repo_path.exists() or not repo_path.is_dir():
         fail(f"Repository path does not exist or is not a directory: {repo_path}")
@@ -142,6 +149,7 @@ def parse_env_list_output(raw_output, env_name):
 
 
 def find_conda_env_prefix(env_name):
+    """Find conda env prefix."""
     commands = []
     if shutil.which("mamba"):
         commands.append(["mamba", "env", "list"])
@@ -159,10 +167,12 @@ def find_conda_env_prefix(env_name):
 
 
 def default_conda_env_file():
+    """Handle default conda env file."""
     return script_dir().parent / "environment" / "nextflow-env.yml"
 
 
 def create_conda_env(env_name, env_file):
+    """Create conda env."""
     env_file = Path(env_file).expanduser().resolve()
     if not env_file.exists():
         fail(f"Conda environment file does not exist: {env_file}")
@@ -216,6 +226,7 @@ def resolve_runtime(args):
 
 
 def build_generated_params_content(args, samplesheet_path):
+    """Build generated params content."""
     lines = [
         f"input: {samplesheet_path}",
         f"outdir: {args.outdir}",
@@ -228,6 +239,7 @@ def build_generated_params_content(args, samplesheet_path):
 
 
 def write_generated_params_file(args, samplesheet_path):
+    """Write generated params file."""
     config_path = os.path.join(args.outdir, args.config_name)
     os.makedirs(os.path.dirname(config_path) or ".", exist_ok=True)
     with open(config_path, "w", encoding="utf-8") as handle:
@@ -236,6 +248,7 @@ def write_generated_params_file(args, samplesheet_path):
 
 
 def build_samplesheet(args, samplesheet_path):
+    """Build samplesheet."""
     rows = [
         {
             "patient": args.patient_id,
@@ -268,6 +281,7 @@ def resolve_reference_args(args):
 
 
 def build_nextflow_command(args, samplesheet_path):
+    """Build nextflow command."""
     cmd = [
         args.nextflow_bin,
         "run",
@@ -306,6 +320,7 @@ def build_nextflow_command(args, samplesheet_path):
 
 
 def scheduler_header_lines(args):
+    """Handle scheduler header lines."""
     mem_mb = int(args.memory_gb * 1024)
     stdout_path = os.path.join(args.logdir, args.stdout_file) if args.logdir else args.stdout_file
     stderr_path = os.path.join(args.logdir, args.stderr_file) if args.logdir else args.stderr_file
@@ -374,11 +389,13 @@ def scheduler_header_lines(args):
 
 
 def default_script_path(args):
+    """Handle default script path."""
     suffix = args.executor if args.executor in SCHEDULER_CMDS else "local"
     return os.path.join(args.outdir, f"run_pacsomatic.{suffix}.sh")
 
 
 def write_launch_script(args, script_path, nextflow_cmd):
+    """Write launch script."""
     quoted_cmd = " ".join(shlex.quote(token) for token in nextflow_cmd)
     mkdir_targets = [args.outdir, args.workdir]
     if args.logdir:
@@ -479,6 +496,7 @@ def normalize_module_load(raw):
 
 
 def validate_inputs(args):
+    """Validate inputs."""
     args.module_load = normalize_module_load(args.module_load)
     ensure_no_spaces("patient-id", args.patient_id)
     ensure_no_spaces("tumor-sample-id", args.tumor_sample_id)
@@ -500,6 +518,7 @@ def validate_inputs(args):
 
 
 def ensure_runtime_tools(args):
+    """Ensure runtime tools."""
     nextflow_missing = shutil.which(args.nextflow_bin) is None
     if args.run and nextflow_missing:
         fail(f"Could not find Nextflow executable: {args.nextflow_bin}")
@@ -516,6 +535,7 @@ def ensure_runtime_tools(args):
 
 
 def ensure_dependency_tools(args):
+    """Ensure dependency tools."""
     profile_items = [item.strip().lower() for item in args.profile.split(",") if item.strip()]
     missing_run = []
     missing_warn = []
@@ -614,6 +634,7 @@ def format_submit_command(argv, stdin_path):
 
 
 def extract_job_id(executor, output):
+    """Extract job id."""
     patterns = {
         "lsf": r"<([0-9]+)>",
         "slurm": r"Submitted batch job\s+([0-9]+)",
@@ -632,6 +653,7 @@ def extract_job_id(executor, output):
 
 
 def execute_launch(args, script_path):
+    """Handle execute launch."""
     argv, stdin_path = submit_command_for_executor(args.executor, script_path)
     if stdin_path:
         with open(stdin_path, "rb") as handle:
@@ -656,6 +678,7 @@ def execute_launch(args, script_path):
 
 
 def parse_args():
+    """Parse args."""
     parser = argparse.ArgumentParser(
         description="Prepare and optionally launch nf-core/pacsomatic from matched tumor/normal BAMs"
     )
@@ -737,6 +760,7 @@ def parse_args():
 
 
 def main():
+    """Run the command-line interface."""
     args = parse_args()
 
     if args.submit:

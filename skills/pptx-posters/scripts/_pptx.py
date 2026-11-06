@@ -166,6 +166,7 @@ ALLOWED_PART_PATTERNS = tuple(
 
 
 def _finding(code: str, message: str, *, location: str | None = None) -> dict[str, Any]:
+    """Handle finding."""
     record: dict[str, Any] = {"code": code, "message": message}
     if location is not None:
         record["location"] = location
@@ -264,6 +265,7 @@ def _preflight_zip_directory(path: Path) -> list[dict[str, Any]]:
 
 
 def _unsafe_xml(text: str) -> bool:
+    """Handle unsafe xml."""
     upper = text.upper()
     return "<!DOCTYPE" in upper or "<!ENTITY" in upper
 
@@ -319,6 +321,7 @@ def _resolve_internal_target(rels_name: str, target: str) -> str:
 def _preflight_members(
     archive: zipfile.ZipFile,
 ) -> tuple[list[zipfile.ZipInfo], list[dict[str, Any]], set[str], int]:
+    """Handle preflight members."""
     findings: list[dict[str, Any]] = []
     members = archive.infolist()
     if len(members) > MAX_MEMBERS:
@@ -479,6 +482,7 @@ def _inspect_content_types(
     archive: zipfile.ZipFile,
     names: set[str],
 ) -> list[dict[str, Any]]:
+    """Handle inspect content types."""
     findings: list[dict[str, Any]] = []
     if "[Content_Types].xml" not in names:
         return findings
@@ -588,6 +592,7 @@ def _inspect_relationships(
     archive: zipfile.ZipFile,
     names: set[str],
 ) -> tuple[list[dict[str, Any]], int]:
+    """Handle inspect relationships."""
     findings: list[dict[str, Any]] = []
     relationship_count = 0
     for rels_name in sorted(name for name in names if name.endswith(".rels")):
@@ -827,6 +832,7 @@ def _inspect_slide_accessibility(
     archive: zipfile.ZipFile,
     names: set[str],
 ) -> dict[str, Any]:
+    """Handle inspect slide accessibility."""
     picture_count = 0
     pictures_with_alt_text = 0
     missing_alt: list[dict[str, str]] = []
@@ -903,6 +909,7 @@ def _inspect_forbidden_markup(
     archive: zipfile.ZipFile,
     names: set[str],
 ) -> list[dict[str, Any]]:
+    """Handle inspect forbidden markup."""
     findings: list[dict[str, Any]] = []
     for part_name in sorted(
         name
@@ -1035,6 +1042,7 @@ def inspect_pptx(value: str | Path) -> dict[str, Any]:
 
 
 def require_safe_pptx(value: str | Path) -> dict[str, Any]:
+    """Handle require safe pptx."""
     report = inspect_pptx(value)
     if not report["safe"]:
         codes = ", ".join(item["code"] for item in report["findings"])
@@ -1043,10 +1051,12 @@ def require_safe_pptx(value: str | Path) -> dict[str, Any]:
 
 
 def _local_name(tag: str) -> str:
+    """Handle local name."""
     return tag.rsplit("}", 1)[-1]
 
 
 def _shape_transform(shape: ET.Element) -> tuple[int, int, int, int] | None:
+    """Handle shape transform."""
     kind = _local_name(shape.tag)
     if kind == "graphicFrame":
         transform = shape.find(f"./{{{P_NS}}}xfrm")
@@ -1070,17 +1080,20 @@ def _shape_transform(shape: ET.Element) -> tuple[int, int, int, int] | None:
 
 
 def _shape_name(shape: ET.Element) -> str:
+    """Handle shape name."""
     properties = shape.find(f".//{{{P_NS}}}cNvPr")
     return "" if properties is None else properties.attrib.get("name", "")
 
 
 def _shape_text(shape: ET.Element) -> str:
+    """Handle shape text."""
     return "".join(
         node.text or "" for node in shape.findall(f".//{{{A_NS}}}t")
     ).strip()
 
 
 def _font_sizes_pt(shape: ET.Element) -> list[float]:
+    """Handle font sizes pt."""
     sizes: list[float] = []
     for tag in ("rPr", "defRPr", "endParaRPr"):
         for node in shape.findall(f".//{{{A_NS}}}{tag}"):
@@ -1098,6 +1111,7 @@ def _intersection(
     first: tuple[int, int, int, int],
     second: tuple[int, int, int, int],
 ) -> tuple[int, int]:
+    """Handle intersection."""
     first_x, first_y, first_w, first_h = first
     second_x, second_y, second_w, second_h = second
     overlap_w = min(first_x + first_w, second_x + second_w) - max(

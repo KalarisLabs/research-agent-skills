@@ -27,11 +27,12 @@ from _common import (
 
 
 TOOL = "bed-validator"
-_DECIMAL = re.compile(r"^-?[0-9]+$")
+_DECIMAL = re.compile(r"^-?\d+$")
 _VALID_STRANDS = {"+", "-", "."}
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a local BED file as 0-based half-open intervals and emit "
@@ -82,6 +83,7 @@ def _record_issue(
     line_number: int,
     maximum: int,
 ) -> None:
+    """Handle record issue."""
     counter[code] += 1
     if len(examples) < maximum:
         examples.append({"code": code, "line": line_number})
@@ -349,6 +351,7 @@ def validate(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args()
     try:

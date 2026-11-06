@@ -34,9 +34,9 @@ _SCHEMES = (
     "hf:",
     "ssh:",
 )
-_INTEGER = re.compile(r"^-?(?:0|[1-9][0-9]*)$")
+_INTEGER = re.compile(r"^-?(?:0|[1-9]\d*)$")
 _FLOAT = re.compile(
-    r"^-?(?:(?:0|[1-9][0-9]*)\.[0-9]+|(?:0|[1-9][0-9]*)(?:[eE][+-]?[0-9]+))$"
+    r"^-?(?:(?:0|[1-9]\d*)\.\d+|(?:0|[1-9]\d*)(?:[eE][+-]?\d+))$"
 )
 _YAML_KEY = re.compile(r"^[A-Za-z_][A-Za-z0-9_.-]*$")
 
@@ -92,6 +92,7 @@ def _reject_unsafe_text_path(raw: str) -> None:
 
 
 def _reject_symlink_components(path: Path) -> None:
+    """Handle reject symlink components."""
     current = Path(path.anchor)
     for part in path.parts[1:]:
         current = current / part
@@ -143,6 +144,7 @@ def local_path(
 
 
 def _open_binary_nofollow(path: Path):
+    """Open binary nofollow."""
     flags = os.O_RDONLY
     if hasattr(os, "O_NOFOLLOW"):
         flags |= os.O_NOFOLLOW
@@ -230,6 +232,7 @@ def display_path(path: Path, index: int, mode: str) -> str:
 
 
 def add_path_mode_argument(parser) -> None:
+    """Add path mode argument."""
     parser.add_argument(
         "--path-mode",
         choices=("redacted", "basename", "full"),

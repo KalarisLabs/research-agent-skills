@@ -61,6 +61,7 @@ _ORG_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$")
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan or execute bounded read-only protocols.io requests. Network "
@@ -183,6 +184,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _add_protocol_arguments(parser: argparse.ArgumentParser) -> None:
+    """Add protocol arguments."""
     parser.add_argument("--id", required=True, help="Protocol ID, URI, or DOI.")
     parser.add_argument(
         "--content-format",
@@ -198,6 +200,7 @@ def _add_protocol_arguments(parser: argparse.ArgumentParser) -> None:
 
 
 def _require_token(environ: Mapping[str, str]) -> str:
+    """Handle require token."""
     token = environ.get(ACCESS_TOKEN_ENV)
     if not token:
         raise SafetyError(
@@ -209,6 +212,7 @@ def _require_token(environ: Mapping[str, str]) -> str:
 
 
 def _get_items(payload: Mapping[str, Any]) -> list[Any]:
+    """Get items."""
     items = payload.get("items")
     if items is None and isinstance(payload.get("payload"), Mapping):
         items = payload["payload"].get("items")
@@ -235,6 +239,7 @@ def _request_json(
     opener: Any | None,
     sleep: Any,
 ) -> tuple[Mapping[str, Any], int]:
+    """Handle request json."""
     result = request_bytes(
         url,
         token=token,
@@ -252,6 +257,7 @@ def _request_json(
 
 
 def _plan(args: argparse.Namespace) -> dict[str, Any]:
+    """Handle plan."""
     origin = validate_origin(args.origin)
     params: dict[str, Any] = {}
     authentication = "bearer"
@@ -335,6 +341,7 @@ def _execute_list(
     opener: Any | None,
     sleep: Any,
 ) -> dict[str, Any]:
+    """Handle execute list."""
     current_url = str(plan["url"])
     collected: list[Any] = []
     pages = 0
@@ -393,6 +400,7 @@ def _execute_pdf(
     opener: Any | None,
     sleep: Any,
 ) -> dict[str, Any]:
+    """Handle execute pdf."""
     token = None if args.anonymous else _require_token(environ)
     result = request_bytes(
         str(plan["url"]),
@@ -475,6 +483,7 @@ def execute(
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         if not 1 <= args.max_response_bytes <= MAX_JSON_RESPONSE_BYTES:

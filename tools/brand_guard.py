@@ -35,6 +35,7 @@ def candidate_files(paths: list[str]) -> list[Path]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     rules = load_yaml(THIRD_PARTY / "rebrand-rules.yaml")
     pattern = re.compile("|".join(f"(?:{p})" for p in rules["guard_patterns"]), re.I)
     allowed = tuple(rules["guard_allowed_paths"])

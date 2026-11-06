@@ -18,6 +18,7 @@ import pysam
 
 
 def positive_int(value: str) -> int:
+    """Handle positive int."""
     parsed = int(value)
     if parsed <= 0:
         raise argparse.ArgumentTypeError("must be greater than zero")
@@ -25,6 +26,7 @@ def positive_int(value: str) -> int:
 
 
 def nonnegative_int(value: str) -> int:
+    """Handle nonnegative int."""
     parsed = int(value)
     if parsed < 0:
         raise argparse.ArgumentTypeError("must be zero or greater")
@@ -32,6 +34,7 @@ def nonnegative_int(value: str) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -72,6 +75,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def require_local_file(path: Path, label: str) -> Path:
+    """Handle require local file."""
     resolved = path.expanduser()
     if not resolved.exists():
         raise FileNotFoundError(f"{label} does not exist: {resolved}")
@@ -81,6 +85,7 @@ def require_local_file(path: Path, label: str) -> Path:
 
 
 def alignment_mode(path: Path) -> str:
+    """Handle alignment mode."""
     name = path.name.lower()
     if name.endswith(".sam"):
         return "r"
@@ -92,10 +97,12 @@ def alignment_mode(path: Path) -> str:
 
 
 def ratio(numerator: int, denominator: int) -> Optional[float]:
+    """Handle ratio."""
     return numerator / denominator if denominator else None
 
 
 def average(total: int, count: int) -> Optional[float]:
+    """Handle average."""
     return total / count if count else None
 
 
@@ -109,6 +116,7 @@ def selected_reads(
 
 
 def empty_counts() -> dict[str, int]:
+    """Handle empty counts."""
     return {
         "total_records": 0,
         "primary_records": 0,
@@ -131,6 +139,7 @@ def empty_counts() -> dict[str, int]:
 
 
 def inspect_alignments(args: argparse.Namespace) -> dict[str, Any]:
+    """Handle inspect alignments."""
     path = require_local_file(args.input, "input")
     reference = (
         require_local_file(args.reference, "reference")
@@ -279,6 +288,7 @@ def inspect_alignments(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def write_report(report: dict[str, Any], output: Optional[Path]) -> None:
+    """Write report."""
     text = json.dumps(
         report,
         indent=2,
@@ -295,6 +305,7 @@ def write_report(report: dict[str, Any], output: Optional[Path]) -> None:
 
 
 def main(argv: Optional[list[str]] = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
 
@@ -309,8 +320,6 @@ def main(argv: Optional[list[str]] = None) -> int:
         report = inspect_alignments(args)
         write_report(report, args.output)
     except (
-        FileExistsError,
-        FileNotFoundError,
         IndexError,
         KeyError,
         OSError,

@@ -49,14 +49,17 @@ VALID_STATUS = {"pending", "running", "executed", "merged", "pruned", "root"}
 
 
 def _dir(run_dir):
+    """Handle dir."""
     return Path(run_dir) / ".arbor"
 
 
 def _tree_path(run_dir):
+    """Handle tree path."""
     return _dir(run_dir) / "tree.json"
 
 
 def _run_path(run_dir):
+    """Run path."""
     return _dir(run_dir) / "run.json"
 
 
@@ -71,6 +74,7 @@ def _load(path, what):
 
 
 def _save(path, data):
+    """Save."""
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(".tmp")
     with open(tmp, "w") as f:
@@ -79,20 +83,24 @@ def _save(path, data):
 
 
 def _load_tree(run_dir):
+    """Load tree."""
     return _load(_tree_path(run_dir), "hypothesis tree")
 
 
 def _load_run(run_dir):
+    """Load run."""
     return _load(_run_path(run_dir), "run config")
 
 
 def _next_id(tree):
+    """Handle next id."""
     n = tree.get("_counter", 0) + 1
     tree["_counter"] = n
     return f"n{n}"
 
 
 def _node(tree, node_id):
+    """Handle node."""
     node = tree["nodes"].get(node_id)
     if node is None:
         sys.exit(f"error: no node with id '{node_id}'. Run `tree.py status` to list nodes.")
@@ -100,6 +108,7 @@ def _node(tree, node_id):
 
 
 def _children(tree, node_id):
+    """Handle children."""
     return [nid for nid, n in tree["nodes"].items() if n.get("parent") == node_id]
 
 
@@ -120,10 +129,12 @@ def _ancestors(tree, node_id):
 
 
 def _depth(tree, node_id):
+    """Handle depth."""
     return len(_ancestors(tree, node_id))
 
 
 def _stamp(node):
+    """Handle stamp."""
     node["updated_at"] = int(time.time())
 
 
@@ -133,6 +144,7 @@ def _stamp(node):
 
 
 def cmd_init(args):
+    """Run the init subcommand."""
     d = _dir(args.run_dir)
     if _tree_path(args.run_dir).exists() and not args.force:
         sys.exit(
@@ -178,6 +190,7 @@ def cmd_init(args):
 
 
 def cmd_add_node(args):
+    """Run the add node subcommand."""
     tree = _load_tree(args.run_dir)
     parent = _node(tree, args.parent)
     run = _load_run(args.run_dir)
@@ -207,6 +220,7 @@ def cmd_add_node(args):
 
 
 def cmd_set_status(args):
+    """Run the set status subcommand."""
     tree = _load_tree(args.run_dir)
     node = _node(tree, args.node)
     if args.status not in VALID_STATUS:
@@ -354,6 +368,7 @@ def cmd_cycle(args):
 
 
 def _fmt_score(node, run):
+    """Handle fmt score."""
     s = node["metadata"].get("dev_score")
     t = node["metadata"].get("test_score")
     bits = []
@@ -385,7 +400,7 @@ def cmd_observe(args):
         f"branching {run['branching']}, max depth {run['max_depth']}"
     )
     print(
-        f"Current best    : "
+        "Current best    : "
         + (
             f"{run['best_node']} (test={run['best_test_score']}, ref={run['best_branch_ref']})"
             if run["best_node"]
@@ -456,6 +471,7 @@ def cmd_status(args):
     }
 
     def render(nid, prefix=""):
+        """Render."""
         n = nodes[nid]
         sym = symbol.get(n["status"], "?")
         best = " <== M_best" if nid == run["best_node"] else ""
@@ -502,6 +518,7 @@ def cmd_validate(args):
 
 
 def build_parser():
+    """Build parser."""
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--run-dir", default=".", help="Run directory holding .arbor/ (default: current dir)")
     sub = p.add_subparsers(dest="command", required=True)
@@ -570,6 +587,7 @@ def build_parser():
 
 
 def main():
+    """Run the command-line interface."""
     args = build_parser().parse_args()
     args.func(args)
 

@@ -117,13 +117,16 @@ class VariantSpec:
     name: str = field(default="", compare=False)
 
     def __str__(self) -> str:
+        """Return a readable string form."""
         return f"{self.chromosome}:{self.position}:{self.ref}>{self.alt}"
 
     @property
     def is_snv(self) -> bool:
+        """Return whether snv."""
         return len(self.ref) == 1 and len(self.alt) == 1
 
     def to_row(self) -> dict[str, object]:
+        """Handle to row."""
         return {
             "variant": str(self),
             "chromosome": self.chromosome,
@@ -206,10 +209,12 @@ def parse_interval_string(text: str) -> tuple[str, int, int]:
 
 
 def interval_width(start0: int, end: int) -> int:
+    """Handle interval width."""
     return end - start0
 
 
 def _split_delimited(path: Path) -> tuple[list[str], list[list[str]]]:
+    """Split delimited."""
     text = path.read_text(encoding="utf-8")
     sample = text[:4096]
     if path.suffix.lower() == ".csv":
@@ -412,6 +417,7 @@ def phred_to_top_percent(phred: float) -> float:
 
 
 def feature_display_name(key: str) -> str:
+    """Handle feature display name."""
     entry = AVI_FEATURES.get(key)
     return entry[0] if entry else key
 
@@ -490,6 +496,7 @@ def write_rows(
 
 
 def warn(message: str) -> None:
+    """Handle warn."""
     print(f"warning: {message}", file=sys.stderr)
 
 

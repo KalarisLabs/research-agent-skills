@@ -189,6 +189,7 @@ def create_template_csv(output_path, num_examples=3):
 
 
 def main():
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         description='Prepare and validate DiffDock batch CSV files',
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -225,10 +226,10 @@ Examples:
         output_path = args.output or 'diffdock_batch_template.csv'
         df = create_template_csv(output_path, args.num_examples)
         print(f"✓ Created template CSV: {output_path}")
-        print(f"\nTemplate contents:")
+        print("\nTemplate contents:")
         print(df.to_string(index=False))
-        print(f"\nEdit this file with your protein-ligand pairs and run with:")
-        print(f"  python -m inference --config default_inference_args.yaml \\")
+        print("\nEdit this file with your protein-ligand pairs and run with:")
+        print("  python -m inference --config default_inference_args.yaml \\")
         print(f"    --protein_ligand_csv {output_path} --out_dir results/")
         return 0
 

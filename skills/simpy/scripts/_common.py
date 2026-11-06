@@ -51,10 +51,12 @@ def load_simpy(*, required: bool = True) -> Any | None:
 
 
 def _reject_constant(value: str) -> None:
+    """Handle reject constant."""
     raise CliError(f"non-standard JSON constant is not allowed: {value}")
 
 
 def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """Handle unique object."""
     result: dict[str, Any] = {}
     for key, value in pairs:
         if key in result:

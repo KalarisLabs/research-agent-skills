@@ -38,6 +38,7 @@ MAX_FORMATS = 8
 
 
 def _normalize_formats(formats: Iterable[str]) -> list[str]:
+    """Normalize formats."""
     normalized: list[str] = []
     for item in formats:
         for value in item.split(","):
@@ -60,6 +61,7 @@ def _normalize_formats(formats: Iterable[str]) -> list[str]:
 
 
 def _base_output_path(value: str | os.PathLike[str]) -> Path:
+    """Handle base output path."""
     path = Path(value).expanduser()
     if path.suffix.lower().lstrip(".") in SUPPORTED_FORMATS | set(FORMAT_ALIASES):
         path = path.with_suffix("")
@@ -102,6 +104,7 @@ def _atomic_savefig(
     save_kwargs: dict[str, Any],
     overwrite: bool,
 ) -> None:
+    """Handle atomic savefig."""
     destination = checked_output_file(destination, force=overwrite)
     descriptor, temporary_name = tempfile.mkstemp(
         prefix=f".{destination.stem}.",
@@ -360,6 +363,7 @@ def save_publication_figure(
 
 
 def _load_profiles() -> dict[str, Any]:
+    """Load profiles."""
     profile_path = Path(__file__).resolve().parents[1] / "assets" / "publisher_profiles.json"
     try:
         document = json.loads(profile_path.read_text(encoding="utf-8"))
@@ -560,6 +564,7 @@ def _demo_figure() -> Any:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Render a deterministic Matplotlib export smoke-test. Programmatic "
@@ -600,6 +605,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     try:
         args = parser.parse_args(argv)

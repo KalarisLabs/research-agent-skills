@@ -60,6 +60,7 @@ ASSUMPTION_STATUSES = {
 
 
 def _issue(path: str, message: str) -> dict[str, str]:
+    """Handle issue."""
     return {"path": path, "message": message}
 
 
@@ -78,6 +79,7 @@ def _list_field(
     *,
     required: bool = True,
 ) -> list[Any]:
+    """List field."""
     value = record.get(field)
     if value is None and not required:
         return []
@@ -134,6 +136,7 @@ def _check_string_list(
     *,
     identifiers: bool = False,
 ) -> list[str]:
+    """Check string list."""
     result: list[str] = []
     for index, value in enumerate(values):
         item_path = f"{path}[{index}]"

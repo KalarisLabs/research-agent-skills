@@ -80,6 +80,7 @@ def works_from(payload: Any) -> list[dict[str, Any]]:
 
 
 def summarize(work: dict[str, Any]) -> dict[str, Any]:
+    """Summarize."""
     record: dict[str, Any] = {
         "id": work.get("id"),
         "doi": work.get("doi"),
@@ -107,6 +108,7 @@ def summarize(work: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Reconstruct readable abstracts from OpenAlex abstract_inverted_index payloads."
@@ -124,6 +126,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
 
     try:

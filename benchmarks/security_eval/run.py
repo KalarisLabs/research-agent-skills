@@ -35,6 +35,7 @@ HIGH = {"HIGH", "CRITICAL"}
 
 
 def run_scanners() -> None:
+    """Run scanners."""
     CACHE.mkdir(parents=True, exist_ok=True)
     cmds = [
         ["uv", "run", "tools/lint_injection.py", "--no-baseline", "--json", str(CACHE / "lint.json")],
@@ -47,6 +48,7 @@ def run_scanners() -> None:
 
 
 def skill_of(path: str) -> str | None:
+    """Handle skill of."""
     m = re.search(r"(?:^|[/\\])skills[/\\]([^/\\]+)[/\\]", path.replace("\\", "/") + "/")
     return m.group(1) if m else None
 
@@ -69,6 +71,7 @@ def load_findings() -> dict[str, list[tuple[str, str, str]]]:
 
 
 def kappa(a: set[str], b: set[str], universe: set[str]) -> float:
+    """Handle kappa."""
     n = len(universe)
     both = len(a & b)
     neither = len(universe - a - b)

@@ -63,6 +63,7 @@ class Page:
 
 @dataclass
 class Api:
+    """Api."""
     name: str
     #: Seconds to wait between requests. Serialized: never parallelize one host.
     delay: float
@@ -73,6 +74,7 @@ class Api:
 
 
 def fetch(url: str, *, headers: dict[str, str] | None = None) -> Any:
+    """Fetch."""
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, **(headers or {})})
     try:
         with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT) as response:
@@ -97,6 +99,7 @@ def fetch(url: str, *, headers: dict[str, str] | None = None) -> Any:
 
 def _rxiv_url(server: str) -> Callable[[str, Any, int], str]:
     def build(query: str, state: Any, _limit: int) -> str:
+        """Build."""
         endpoint = "pubs" if query.startswith("pubs:") else "details"
         interval = query[5:] if query.startswith("pubs:") else query
         return f"https://api.biorxiv.org/{endpoint}/{server}/{interval}/{int(state)}/json"
@@ -154,6 +157,7 @@ def _rxiv_parse(payload: Any, state: Any) -> Page:
 
 
 def _europepmc_url(query: str, state: Any, limit: int) -> str:
+    """Handle europepmc url."""
     params = {
         "query": query,
         "format": "json",
@@ -196,6 +200,7 @@ def _europepmc_parse(payload: Any, state: Any) -> Page:
 
 
 def _openalex_url(query: str, state: Any, limit: int) -> str:
+    """Handle openalex url."""
     # `query` is a raw parameter string, e.g. `search=crispr` or
     # `filter=publication_year:2024`, so both forms work without a second flag.
     base = "https://api.openalex.org/works?"
@@ -232,6 +237,7 @@ def _openalex_parse(payload: Any, _state: Any) -> Page:
 
 
 def _crossref_url(query: str, state: Any, limit: int) -> str:
+    """Handle crossref url."""
     params = {"rows": str(min(limit, 1000)), "cursor": str(state)}
     mail = os.environ.get("CROSSREF_MAILTO")
     if mail:
@@ -313,6 +319,7 @@ def walk(
     max_calls: int,
     verbose: bool,
 ) -> tuple[list[Any], Reconciliation, list[str]]:
+    """Handle walk."""
     records: list[Any] = []
     reconciliation = Reconciliation()
     urls: list[str] = []
@@ -374,6 +381,7 @@ def walk(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Paginate one of this skill's APIs with the correct step, the correct stop "
@@ -410,6 +418,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
 
     if args.list_apis:

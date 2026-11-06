@@ -48,6 +48,7 @@ _OFFICIAL_VECTOR = {
 
 
 def _require_text(value: str, label: str) -> str:
+    """Handle require text."""
     normalized = value.strip()
     if not normalized:
         raise ConfigError(f"{label} must not be empty")
@@ -61,6 +62,7 @@ def _require_secret(value: str, label: str) -> str:
 
 
 def _expires_ms(value: int | None = None) -> int:
+    """Handle expires ms."""
     selected = time.time_ns() // 1_000_000 if value is None else value
     if selected < 0:
         raise ConfigError("expires must be a non-negative epoch-millisecond value")
@@ -178,6 +180,7 @@ def validate_inventory_path(value: str) -> str:
 
 
 def _secret_fingerprint(value: str) -> str:
+    """Handle secret fingerprint."""
     return hashlib.sha256(value.encode("utf-8")).hexdigest()[:16]
 
 
@@ -192,6 +195,7 @@ def _dump(payload: Mapping[str, Any], *, compact: bool, stream: Any) -> None:
 def _load_credentials(
     args: argparse.Namespace, env: Mapping[str, str]
 ) -> tuple[str, str]:
+    """Load credentials."""
     access_key_id = env.get(ENV_ACCESS_KEY_ID, "").strip()
     if not access_key_id:
         raise ConfigError(
@@ -209,6 +213,7 @@ def _load_credentials(
 
 
 def command_self_test(args: argparse.Namespace) -> int:
+    """Handle command self test."""
     actual = create_signature(
         _OFFICIAL_VECTOR["access_key_id"],
         _OFFICIAL_VECTOR["api_method_input"],
@@ -230,6 +235,7 @@ def command_self_test(args: argparse.Namespace) -> int:
 def command_eln_plan(
     args: argparse.Namespace, env: Mapping[str, str] | None = None
 ) -> int:
+    """Handle command eln plan."""
     selected_env = os.environ if env is None else env
     access_key_id, access_password = _load_credentials(args, selected_env)
     api_class = validate_eln_component(args.api_class, "ELN API class")
@@ -264,6 +270,7 @@ def command_eln_plan(
 def command_inventory_plan(
     args: argparse.Namespace, env: Mapping[str, str] | None = None
 ) -> int:
+    """Handle command inventory plan."""
     selected_env = os.environ if env is None else env
     access_key_id, access_password = _load_credentials(args, selected_env)
     user_id = selected_env.get(ENV_USER_ID, "")
@@ -299,6 +306,7 @@ def command_inventory_plan(
 
 
 def _add_plan_options(parser: argparse.ArgumentParser) -> None:
+    """Add plan options."""
     parser.add_argument(
         "--expires-ms",
         type=int,
@@ -316,6 +324,7 @@ def _add_plan_options(parser: argparse.ArgumentParser) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Generate redacted, offline LabArchives signing plans. "
@@ -357,6 +366,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

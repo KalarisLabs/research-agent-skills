@@ -67,6 +67,7 @@ def calibrator_tolerance(label: str, crit: dict) -> float:
 
 
 def check_run(path: str, crit: dict) -> tuple[list[dict], list[str]]:
+    """Check run."""
     rows = parse_rows(read_input(path), path)
     require_columns(rows, ["type", "nominal", "measured"])
     findings: list[str] = []
@@ -159,6 +160,7 @@ def check_run(path: str, crit: dict) -> tuple[list[dict], list[str]]:
 
 
 def check_isr(path: str, crit: dict) -> tuple[list[dict], list[str]]:
+    """Check isr."""
     rows = parse_rows(read_input(path), path)
     require_columns(rows, ["original", "repeat"])
     tol = crit["isr_tolerance_pct"]
@@ -217,6 +219,7 @@ def check_total_error(path: str, crit: dict) -> tuple[list[dict], list[str]]:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         description="Apply ICH M10 acceptance criteria to bioanalytical data."
     )

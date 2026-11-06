@@ -121,6 +121,7 @@ def _stringify(value: Any) -> Any:
 
 
 def normalize_frontmatter(meta: dict[str, Any], name: str, category: str) -> dict[str, Any]:
+    """Normalize frontmatter."""
     meta = dict(meta)
     md: dict[str, Any] = dict(meta.get("metadata") or {})
 

@@ -32,10 +32,12 @@ class CliError(ValueError):
 
 
 def _reject_constant(value: str) -> None:
+    """Handle reject constant."""
     raise CliError(f"non-standard JSON constant is not allowed: {value}")
 
 
 def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """Handle unique object."""
     result: dict[str, Any] = {}
     for key, value in pairs:
         if key in result:
@@ -45,6 +47,7 @@ def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def _reject_url(value: str) -> None:
+    """Handle reject url."""
     lowered = value.strip().lower()
     if "://" in lowered or lowered.startswith(
         ("http:", "https:", "ftp:", "s3:", "gs:", "file:")
@@ -55,10 +58,12 @@ def _reject_url(value: str) -> None:
 
 
 def _absolute_lexical(path: Path) -> Path:
+    """Handle absolute lexical."""
     return Path(os.path.abspath(os.fspath(path)))
 
 
 def _reject_symlink_components(path: Path) -> None:
+    """Handle reject symlink components."""
     absolute = _absolute_lexical(path)
     current = Path(absolute.anchor)
     for part in absolute.parts[1:]:
@@ -99,6 +104,7 @@ def _within_root(candidate: Path, root: Path) -> None:
 
 
 def _suffix_matches(path: Path, suffixes: Iterable[str]) -> bool:
+    """Handle suffix matches."""
     lowered = path.name.lower()
     return any(lowered.endswith(suffix.lower()) for suffix in suffixes)
 
@@ -298,6 +304,7 @@ def validate_keys(
     required: Iterable[str] = (),
     context: str,
 ) -> None:
+    """Validate keys."""
     allowed_set = set(allowed)
     required_set = set(required)
     unknown = sorted(set(value) - allowed_set)
@@ -504,6 +511,7 @@ def write_csv(
     root: str | os.PathLike[str] = ".",
     force: bool = False,
 ) -> bytes:
+    """Write csv."""
     payload = csv_bytes(columns, rows)
     atomic_write_bytes(
         destination,
@@ -516,6 +524,7 @@ def write_csv(
 
 
 def sha256_bytes(payload: bytes) -> str:
+    """Handle sha256 bytes."""
     return hashlib.sha256(payload).hexdigest()
 
 

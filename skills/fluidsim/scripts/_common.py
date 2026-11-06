@@ -177,6 +177,7 @@ def safe_relative_path(
 
 
 def _reject_unsafe_path_text(value: str) -> None:
+    """Handle reject unsafe path text."""
     stripped = value.strip()
     lowered = stripped.casefold()
     if not stripped or "\x00" in value:
@@ -192,10 +193,12 @@ def _reject_unsafe_path_text(value: str) -> None:
 
 
 def _absolute_lexical(path: Path) -> Path:
+    """Handle absolute lexical."""
     return Path(os.path.abspath(os.fspath(path)))
 
 
 def _reject_symlink_components(path: Path) -> None:
+    """Handle reject symlink components."""
     absolute = _absolute_lexical(path)
     current = Path(absolute.anchor)
     for part in absolute.parts[1:]:
@@ -337,10 +340,12 @@ def atomic_write(
 
 
 def _reject_json_constant(value: str) -> None:
+    """Handle reject json constant."""
     raise ToolError(f"non-finite JSON number is not accepted: {value}")
 
 
 def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """Handle unique object."""
     result: dict[str, Any] = {}
     for key, value in pairs:
         if key in result:
@@ -400,10 +405,12 @@ def json_bytes(document: Any) -> bytes:
 
 
 def emit_json(document: Any) -> None:
+    """Handle emit json."""
     sys.stdout.buffer.write(json_bytes(document))
 
 
 def fail_json(tool: str, exc: Exception) -> int:
+    """Handle fail json."""
     emit_json(
         {
             "error": type(exc).__name__,

@@ -29,6 +29,7 @@ def _check(
     detail: str,
     severity: str = "error",
 ) -> None:
+    """Check."""
     checks.append(
         {
             "name": name,
@@ -59,6 +60,7 @@ def _audit_simulation(
     *,
     tolerance: float,
 ) -> list[dict[str, Any]]:
+    """Handle audit simulation."""
     checks: list[dict[str, Any]] = []
     required = {
         "qutip_version",
@@ -237,6 +239,7 @@ def _audit_convergence(
     *,
     tolerance: float,
 ) -> list[dict[str, Any]]:
+    """Handle audit convergence."""
     checks: list[dict[str, Any]] = []
     runs = document.get("runs")
     comparisons = document.get("comparisons")
@@ -365,6 +368,7 @@ def audit_document(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit bounded QuTiP skill JSON without importing QuTiP or "
@@ -378,6 +382,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     tolerance = finite_float(
         args.tolerance,

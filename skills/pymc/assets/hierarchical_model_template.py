@@ -293,20 +293,19 @@ y_pred_samples = post_pred.predictions['y_obs']
 y_pred_mean = y_pred_samples.mean(dim=['chain', 'draw']).values
 y_pred_hdi = az.hdi(y_pred_samples, hdi_prob=0.95).values
 
-print(f"Predictions for existing groups:")
+print("Predictions for existing groups:")
 print(f"{'Group':<10} {'X':<10} {'Mean':<15} {'95% HDI Lower':<15} {'95% HDI Upper':<15}")
 print("-"*65)
 for i, g in enumerate(new_groups):
     print(f"{group_names[g]:<10} {new_X[i]:<10.2f} {y_pred_mean[i]:<15.3f} {y_pred_hdi[i, 0]:<15.3f} {y_pred_hdi[i, 1]:<15.3f}")
 
 # Predict for a new group (using population parameters)
-print(f"\nPrediction for a NEW group (using population-level parameters):")
+print("\nPrediction for a NEW group (using population-level parameters):")
 new_X_newgroup = np.array([0.0])
 
 # Manually compute using population parameters
 mu_alpha_samples = idata.posterior['mu_alpha'].values.flatten()
 mu_beta_samples = idata.posterior['mu_beta'].values.flatten()
-sigma_samples = idata.posterior['sigma'].values.flatten()
 
 # Predicted mean for new group
 y_pred_newgroup = mu_alpha_samples + mu_beta_samples * new_X_newgroup[0]

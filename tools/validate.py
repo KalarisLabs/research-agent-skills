@@ -50,21 +50,26 @@ CODE_RE = re.compile(r"```.*?```|~~~.*?~~~|`[^`\n]*`", re.S)
 
 @dataclass
 class Report:
+    """Report."""
     errors: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
 
     def err(self, skill: str, msg: str) -> None:
+        """Handle err."""
         self.errors.append(f"{skill}: {msg}")
 
     def warn(self, skill: str, msg: str) -> None:
+        """Handle warn."""
         self.warnings.append(f"{skill}: {msg}")
 
 
 def load_categories() -> set[str]:
+    """Load categories."""
     return set(load_yaml(THIRD_PARTY / "categories.yaml")["categories"])
 
 
 def load_size_baseline() -> set[str]:
+    """Load size baseline."""
     path = ROOT / "tools" / "size_baseline.txt"
     if not path.exists():
         return set()
@@ -72,6 +77,7 @@ def load_size_baseline() -> set[str]:
 
 
 def check_frontmatter(skill_dir: Path, meta: dict, rep: Report, categories: set[str]) -> None:
+    """Check frontmatter."""
     sid = skill_dir.name
     name = meta.get("name")
     if not isinstance(name, str) or not name:
@@ -125,6 +131,7 @@ def check_frontmatter(skill_dir: Path, meta: dict, rep: Report, categories: set[
 
 
 def check_files(skill_dir: Path, rep: Report) -> None:
+    """Check files."""
     sid, total = skill_dir.name, 0
     for path in sorted(skill_dir.rglob("*")):
         rel = path.relative_to(skill_dir).as_posix()
@@ -173,6 +180,7 @@ def check_files(skill_dir: Path, rep: Report) -> None:
 
 
 def validate_skill(skill_dir: Path, rep: Report, categories: set[str], baseline: set[str]) -> None:
+    """Validate skill."""
     sid = skill_dir.name
     skill_md = skill_dir / "SKILL.md"
     if not skill_md.is_file():
@@ -195,6 +203,7 @@ def validate_skill(skill_dir: Path, rep: Report, categories: set[str], baseline:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("paths", nargs="*", type=Path, help="skill directories (default: all)")
     ap.add_argument("--strict", action="store_true", help="treat warnings as errors")

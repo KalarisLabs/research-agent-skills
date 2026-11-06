@@ -43,6 +43,7 @@ TOP_LEVEL_FIELDS = {
 
 
 def _array(data: dict[str, Any], field: str, errors: list[str]) -> list[Any]:
+    """Handle array."""
     value = data.get(field, [])
     if not isinstance(value, list):
         errors.append(f"{field} must be an array")
@@ -354,6 +355,7 @@ def validate_consistency(data: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Check bounded structured dates, units, n/N percentages, and totals. "
@@ -367,6 +369,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         _, data = load_json_object(args.input_file)

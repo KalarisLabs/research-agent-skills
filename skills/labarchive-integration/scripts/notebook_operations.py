@@ -35,6 +35,7 @@ class InspectionError(ValueError):
 
 
 def _local_name(tag: str) -> str:
+    """Handle local name."""
     return tag.rsplit("}", 1)[-1]
 
 
@@ -52,6 +53,7 @@ def _member_path_error(name: str) -> str | None:
 
 
 def _is_symlink(info: zipfile.ZipInfo) -> bool:
+    """Return whether symlink."""
     mode = info.external_attr >> 16
     return stat.S_ISLNK(mode)
 
@@ -69,6 +71,7 @@ def _manifest_reference(
     archive_names: set[str],
     errors: list[str],
 ) -> str | None:
+    """Handle manifest reference."""
     element = _find_child(entry_info, element_name)
     if element is None:
         errors.append(f"manifest is missing required {element_name} element")
@@ -99,6 +102,7 @@ def _parse_manifest(
     errors: list[str],
     warnings: list[str],
 ) -> dict[str, Any]:
+    """Parse manifest."""
     manifest: dict[str, Any] = {
         "present": True,
         "parsed": False,
@@ -318,6 +322,7 @@ def _write_json_safely(
     force: bool,
     compact: bool,
 ) -> None:
+    """Write json safely."""
     parent = output_path.expanduser().parent.resolve(strict=True)
     if not parent.is_dir():
         raise InspectionError(f"output parent is not a directory: {parent}")
@@ -356,6 +361,7 @@ def _emit_json(payload: Mapping[str, Any], *, compact: bool) -> None:
 
 
 def command_inspect(args: argparse.Namespace) -> int:
+    """Handle command inspect."""
     input_path = Path(args.input)
     report = inspect_container(
         input_path,
@@ -379,6 +385,7 @@ def command_inspect(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect a local LabArchives LA container ZIP without extracting it. "
@@ -422,12 +429,12 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
         return int(args.handler(args))
     except (
-        FileNotFoundError,
         InspectionError,
         OSError,
         zipfile.BadZipFile,

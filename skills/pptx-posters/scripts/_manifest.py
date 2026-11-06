@@ -82,6 +82,7 @@ _TEXT_ROLES = {
 
 
 def _identifier(value: Any, *, context: str) -> str:
+    """Handle identifier."""
     text = require_string(value, context=context, maximum=64)
     if not _ID.fullmatch(text):
         raise CliError(
@@ -120,6 +121,7 @@ def _string_list(
 
 
 def _source_id_list(value: Any, *, context: str) -> list[str]:
+    """Handle source id list."""
     raw = _string_list(value, context=context, minimum=1, maximum=16)
     return [
         _identifier(item, context=f"{context}[{index}]")
@@ -135,6 +137,7 @@ def manifest_content_hash(document: dict[str, Any]) -> str:
 
 
 def _validate_document(value: Any) -> dict[str, Any]:
+    """Validate document."""
     document = reject_unknown_keys(
         value,
         context="document",
@@ -160,6 +163,7 @@ def _validate_document(value: Any) -> dict[str, Any]:
 
 
 def _validate_canvas(value: Any) -> tuple[dict[str, Any], float, float]:
+    """Validate canvas."""
     canvas = reject_unknown_keys(
         value,
         context="canvas",
@@ -185,6 +189,7 @@ def _validate_canvas(value: Any) -> tuple[dict[str, Any], float, float]:
 def _validate_physical_output(
     value: Any,
 ) -> tuple[dict[str, Any], float, float, float, float, float, float]:
+    """Validate physical output."""
     physical = reject_unknown_keys(
         value,
         context="physical_output",
@@ -298,6 +303,7 @@ def _validate_requirements(
     safe_margin: float,
     print_scale: float,
 ) -> tuple[dict[str, Any], set[str]]:
+    """Validate requirements."""
     requirements = reject_unknown_keys(
         value,
         context="requirements",
@@ -476,6 +482,7 @@ def _validate_requirements(
 
 
 def _validate_quality(value: Any) -> tuple[dict[str, Any], set[str]]:
+    """Validate quality."""
     quality = reject_unknown_keys(
         value,
         context="quality",
@@ -542,6 +549,7 @@ def _validate_palette(
     *,
     enforce_thresholds: bool = True,
 ) -> tuple[dict[str, Any], dict[str, str], dict[str, dict[str, Any]]]:
+    """Validate palette."""
     palette = reject_unknown_keys(
         value,
         context="palette",
@@ -615,6 +623,7 @@ def _validate_palette(
 
 
 def _validate_asset_path_syntax(value: Any, *, context: str) -> str:
+    """Validate asset path syntax."""
     path = require_string(value, context=context, maximum=512)
     if not _RELATIVE_PATH.fullmatch(path) or path.startswith(("/", "\\")):
         raise CliError(f"{context} must be a relative local path")
@@ -747,6 +756,7 @@ def _validate_box(
     canvas_width: float,
     canvas_height: float,
 ) -> tuple[float, float, float, float]:
+    """Validate box."""
     x = finite_number(item["x_in"], context=f"{context}.x_in", minimum=0.0)
     y = finite_number(item["y_in"], context=f"{context}.y_in", minimum=0.0)
     width = finite_number(
@@ -1076,6 +1086,7 @@ def _validate_approval(
     content_hash: str,
     require_approval: bool,
 ) -> dict[str, Any]:
+    """Validate approval."""
     approval = reject_unknown_keys(
         value,
         context="approval",

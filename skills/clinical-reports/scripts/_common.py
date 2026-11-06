@@ -91,6 +91,7 @@ def local_output_path(
 
 
 def _object_without_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """Handle object without duplicates."""
     result: dict[str, Any] = {}
     for key, value in pairs:
         if key in result:

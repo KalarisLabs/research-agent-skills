@@ -185,6 +185,7 @@ def _population_stats(records_subset: list[dict]) -> dict[tuple, dict]:
 
 
 def _stats_obj(key: tuple, g: dict) -> dict:
+    """Handle stats obj."""
     return {
         "population_code": key[0],
         "population": key[1],
@@ -204,6 +205,7 @@ def _stats_obj(key: tuple, g: dict) -> dict:
 
 
 def cmd_sample_metadata(args) -> None:
+    """Run the sample metadata subcommand."""
     ids = _split_csv(args.samples)
     if not ids:
         _fail("Error: Parameter 'sampleIds' must not be null or empty")
@@ -246,6 +248,7 @@ def cmd_sample_metadata(args) -> None:
 
 
 def cmd_list_populations(args) -> None:
+    """Run the list populations subcommand."""
     records = _load_records()
     counts: dict[tuple, int] = {}
     for r in records:
@@ -275,6 +278,7 @@ def cmd_list_populations(args) -> None:
 
 
 def cmd_list_superpopulations(args) -> None:
+    """Run the list superpopulations subcommand."""
     records = _load_records()
     groups: dict[str, dict] = {}
     for r in records:
@@ -302,6 +306,7 @@ def cmd_list_superpopulations(args) -> None:
 
 
 def cmd_population_stats(args) -> None:
+    """Run the population stats subcommand."""
     vals = [v.strip() for v in args.populations if v.strip()]
     if not vals:
         _fail("Error: Parameter 'populations' must not be null or empty")
@@ -331,6 +336,7 @@ def cmd_population_stats(args) -> None:
 
 
 def cmd_superpopulation_summary(args) -> None:
+    """Run the superpopulation summary subcommand."""
     vals = [v.strip() for v in args.superpopulations if v.strip()]
     if not vals:
         _fail("Error: Parameter 'superpopulations' must not be null or empty")
@@ -379,6 +385,7 @@ def cmd_superpopulation_summary(args) -> None:
 
 
 def cmd_select_samples_by_population(args) -> None:
+    """Run the select samples by population subcommand."""
     pop = args.population.strip() if args.population and args.population.strip() else None
     sup = args.superpopulation.strip() if args.superpopulation and args.superpopulation.strip() else None
     if pop is None and sup is None:
@@ -434,6 +441,7 @@ def cmd_select_samples_by_population(args) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     conn = argparse.ArgumentParser(add_help=False)
     conn.add_argument(
         "--output",
@@ -479,6 +487,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> None:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         args.func(args)

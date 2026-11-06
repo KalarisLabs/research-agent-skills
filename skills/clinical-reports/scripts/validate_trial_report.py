@@ -503,6 +503,7 @@ def validate_trial_manifest(data: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Check a bounded JSON ICH E3, CONSORT 2025, or SPIRIT 2025 "
@@ -516,6 +517,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         _, data = load_json_object(args.input_file)

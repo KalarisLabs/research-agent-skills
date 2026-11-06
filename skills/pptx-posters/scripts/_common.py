@@ -161,6 +161,7 @@ def emit_json(
 
 
 def _object_without_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """Handle object without duplicates."""
     result: dict[str, Any] = {}
     for key, value in pairs:
         if key in result:
@@ -170,6 +171,7 @@ def _object_without_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def _reject_nonfinite_constant(value: str) -> None:
+    """Handle reject nonfinite constant."""
     raise CliError(f"non-finite JSON number is not allowed: {value}")
 
 
@@ -375,6 +377,7 @@ def parse_hex_color(value: Any, *, context: str) -> str:
 
 
 def _linear_channel(channel: int) -> float:
+    """Handle linear channel."""
     encoded = channel / 255.0
     if encoded <= 0.04045:
         return encoded / 12.92
@@ -382,6 +385,7 @@ def _linear_channel(channel: int) -> float:
 
 
 def relative_luminance(color: str) -> float:
+    """Handle relative luminance."""
     channels = tuple(int(color[index : index + 2], 16) for index in (1, 3, 5))
     red, green, blue = (_linear_channel(channel) for channel in channels)
     return 0.2126 * red + 0.7152 * green + 0.0722 * blue

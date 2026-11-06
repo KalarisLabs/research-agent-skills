@@ -116,6 +116,7 @@ def _read_rnk(path: Path, organism: str) -> pd.Series:
 
 
 def _clean_index(index, organism: str):
+    """Handle clean index."""
     idx = pd.Index([str(g).strip() for g in index])
     if organism == "human":
         idx = idx.str.upper()
@@ -135,6 +136,7 @@ def _dotplot(df: pd.DataFrame, column: str, title: str, outpath: Path):
 
 
 def run_ora(args):
+    """Run ora."""
     genes = _clean_symbols(_read_gene_list(Path(args.genes)), args.organism)
     if len(genes) < 5:
         print(f"WARNING: only {len(genes)} genes after cleanup; ORA is underpowered.")
@@ -183,6 +185,7 @@ def run_gsea(args):
 
 
 def main():
+    """Run the command-line interface."""
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="method", required=True)
 

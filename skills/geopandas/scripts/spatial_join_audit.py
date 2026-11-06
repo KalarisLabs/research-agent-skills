@@ -34,6 +34,7 @@ ABSOLUTE_MAX_PAIRS = 10_000_000
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit a bounded local binary-predicate or nearest spatial join. "
@@ -103,6 +104,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _work_frame(frame: Any, row_column: str, attributes: list[str]) -> Any:
+    """Handle work frame."""
     active = frame.geometry.name
     columns = [active, *attributes]
     work = frame.loc[:, columns].copy()
@@ -113,6 +115,7 @@ def _work_frame(frame: Any, row_column: str, attributes: list[str]) -> Any:
 
 
 def _counter_summary(counter: Counter[int], total_features: int) -> dict[str, int]:
+    """Handle counter summary."""
     matched = len(counter)
     return {
         "matched_features": matched,
@@ -196,6 +199,7 @@ def _run_chunked_join(
 
 
 def audit(args: argparse.Namespace) -> dict[str, Any]:
+    """Handle audit."""
     max_features = bounded_limit(
         args.max_features,
         name="max_features",
@@ -355,6 +359,7 @@ def audit(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         report = audit(args)

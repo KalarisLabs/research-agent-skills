@@ -19,6 +19,7 @@ REPO_SLUG = "KalarisLabs/research-agent-skills"
 
 
 def compute_sha256(path: Path) -> str:
+    """Compute sha256."""
     h = hashlib.sha256()
     with open(path, "rb") as f:
         while chunk := f.read(65536):
@@ -27,6 +28,7 @@ def compute_sha256(path: Path) -> str:
 
 
 def read_lock(skills_dir: Path) -> dict[str, Any] | None:
+    """Read lock."""
     lock_file = skills_dir / LOCK_NAME
     if lock_file.is_file():
         try:
@@ -37,6 +39,7 @@ def read_lock(skills_dir: Path) -> dict[str, Any] | None:
 
 
 def write_lock(skills_dir: Path, lock: dict[str, Any]) -> None:
+    """Write lock."""
     lock["updatedAt"] = datetime.now(UTC).isoformat()
     lock_file = skills_dir / LOCK_NAME
     lock_file.write_text(json.dumps(lock, indent=2) + "\n", encoding="utf-8")

@@ -69,6 +69,7 @@ DESIGN_MINIMA = {
 
 
 def main() -> int:
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         description="Check accuracy and precision from validation data."
     )
@@ -182,6 +183,7 @@ def main() -> int:
         base = reference if reference else abs(comp.grand_mean)
 
         def as_rsd(sd: float) -> float:
+            """Handle as rsd."""
             return 100.0 * sd / base if base else float("nan")
 
         sr_lo, sr_hi = sd_confidence_interval(

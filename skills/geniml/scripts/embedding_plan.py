@@ -30,6 +30,7 @@ TOOL = "embedding-run-planner"
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate local inputs and emit a redacted Region2Vec, scEmbed, or "
@@ -102,6 +103,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _parquet_magic(path: Path) -> bool:
+    """Handle parquet magic."""
     flags = os.O_RDONLY
     if hasattr(os, "O_NOFOLLOW"):
         flags |= os.O_NOFOLLOW
@@ -463,6 +465,7 @@ def plan(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args()
     try:
         report, exit_code = plan(args)

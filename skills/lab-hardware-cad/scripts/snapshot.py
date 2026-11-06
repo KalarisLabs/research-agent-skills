@@ -55,6 +55,7 @@ def _require_matplotlib():
 
 
 def _to_rgb(color: str):
+    """Handle to rgb."""
     from matplotlib.colors import to_rgb  # noqa: PLC0415
 
     return to_rgb(color)
@@ -142,6 +143,7 @@ def _tessellate(shape, deviation: float):
 
 
 def main() -> int:
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )

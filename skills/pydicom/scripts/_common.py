@@ -50,7 +50,7 @@ _URI_PREFIXES = (
     "data:",
 )
 _SIZE_PATTERN = re.compile(r"^\s*(\d+)\s*(B|KIB|MIB|GIB)?\s*$", re.IGNORECASE)
-_UID_PATTERN = re.compile(r"^[0-9]+(?:\.[0-9]+)*$")
+_UID_PATTERN = re.compile(r"^\d+(?:\.\d+)*$")
 _SAFE_PLUGIN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
 
 TEXT_VRS = frozenset(
@@ -352,6 +352,7 @@ def safe_plugin_name(value: str) -> str:
 
 
 def _reject_path_text(value: str) -> None:
+    """Handle reject path text."""
     stripped = value.strip()
     lowered = stripped.casefold()
     if not stripped or "\x00" in value or stripped.startswith("~"):
@@ -363,10 +364,12 @@ def _reject_path_text(value: str) -> None:
 
 
 def _absolute(path: Path) -> Path:
+    """Handle absolute."""
     return Path(os.path.abspath(os.fspath(path)))
 
 
 def _reject_symlink_components(path: Path) -> None:
+    """Handle reject symlink components."""
     absolute = _absolute(path)
     current = Path(absolute.anchor)
     for part in absolute.parts[1:]:
@@ -382,6 +385,7 @@ def _reject_symlink_components(path: Path) -> None:
 
 
 def checked_root(value: str | os.PathLike[str]) -> Path:
+    """Handle checked root."""
     raw = os.fspath(value)
     _reject_path_text(raw)
     candidate = _absolute(Path(raw))
@@ -410,6 +414,7 @@ def checked_input(
     kind: str = "file",
     max_bytes: int = DEFAULT_MAX_INPUT_BYTES,
 ) -> Path:
+    """Handle checked input."""
     raw = os.fspath(value)
     _reject_path_text(raw)
     root_path = checked_root(root)
@@ -444,6 +449,7 @@ def checked_output(
     root: str | os.PathLike[str] = ".",
     force: bool = False,
 ) -> Path:
+    """Handle checked output."""
     raw = os.fspath(value)
     _reject_path_text(raw)
     root_path = checked_root(root)
@@ -472,6 +478,7 @@ def checked_output_directory(
     *,
     root: str | os.PathLike[str] = ".",
 ) -> Path:
+    """Handle checked output directory."""
     raw = os.fspath(value)
     _reject_path_text(raw)
     root_path = checked_root(root)
@@ -499,6 +506,7 @@ def checked_output_directory(
 
 
 def paths_overlap(first: Path, second: Path) -> bool:
+    """Handle paths overlap."""
     first = first.resolve(strict=False)
     second = second.resolve(strict=False)
     return first == second or first in second.parents or second in first.parents
@@ -511,6 +519,7 @@ def collect_local_files(
     max_bytes: int,
     recursive: bool = True,
 ) -> list[Path]:
+    """Collect local files."""
     bounded_int(max_files, name="max_files", minimum=1, maximum=HARD_MAX_FILES)
     if source.is_file():
         return [source]
@@ -551,10 +560,12 @@ def collect_local_files(
 
 
 def _reject_json_constant(value: str) -> None:
+    """Handle reject json constant."""
     raise ToolError(f"non-finite JSON number is not accepted: {value}")
 
 
 def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """Handle unique object."""
     result: dict[str, Any] = {}
     for key, value in pairs:
         if key in result:
@@ -599,10 +610,12 @@ def json_bytes(document: Any) -> bytes:
 
 
 def emit_json(document: Any) -> None:
+    """Handle emit json."""
     sys.stdout.buffer.write(json_bytes(document))
 
 
 def fail_json(tool: str, exc: Exception) -> int:
+    """Handle fail json."""
     message = (
         str(exc)[:500]
         if isinstance(exc, ToolError)
@@ -653,6 +666,7 @@ def atomic_generated_file(
     force: bool = False,
     max_bytes: int = HARD_MAX_OUTPUT_BYTES,
 ) -> None:
+    """Handle atomic generated file."""
     descriptor, temporary_name = tempfile.mkstemp(
         prefix=f".{destination.name}.",
         suffix=destination.suffix or ".tmp",
@@ -697,6 +711,7 @@ def require_pydicom() -> Any:
 
 
 def require_pixel_stack() -> tuple[Any, Any, Any]:
+    """Handle require pixel stack."""
     pydicom = require_pydicom()
     try:
         import numpy
@@ -718,6 +733,7 @@ def safe_dcmread(
     defer_size: str | int | None = None,
     specific_tags: Iterable[str | int] | None = None,
 ) -> Any:
+    """Handle safe dcmread."""
     pydicom = require_pydicom()
     try:
         return pydicom.dcmread(
@@ -732,6 +748,7 @@ def safe_dcmread(
 
 
 def element_tag(element: Any) -> str:
+    """Handle element tag."""
     return f"({int(element.tag.group):04X},{int(element.tag.element):04X})"
 
 
@@ -765,6 +782,7 @@ def derive_uid(original: str, *, key: bytes, scope: str) -> str:
 
 
 def derive_token(value: str, *, key: bytes, scope: str, length: int = 24) -> str:
+    """Handle derive token."""
     digest = hmac.new(
         key,
         b"pydicom-skill-token-v1\0"
@@ -777,10 +795,12 @@ def derive_token(value: str, *, key: bytes, scope: str, length: int = 24) -> str
 
 
 def sha256_text(value: str) -> str:
+    """Handle sha256 text."""
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
 
 def frame_count(dataset: Any) -> tuple[int, list[str]]:
+    """Handle frame count."""
     warnings: list[str] = []
     raw = dataset.get("NumberOfFrames", 1)
     try:
@@ -801,6 +821,7 @@ def pixel_plan(
     max_frames: int = HARD_MAX_FRAMES,
     max_decompressed_bytes: int = HARD_MAX_DECOMPRESSED_BYTES,
 ) -> dict[str, Any]:
+    """Handle pixel plan."""
     rows = bounded_int(dataset.get("Rows"), name="Rows", minimum=1, maximum=1_000_000)
     columns = bounded_int(
         dataset.get("Columns"), name="Columns", minimum=1, maximum=1_000_000
@@ -868,6 +889,7 @@ def pixel_plan(
 
 
 def counter_dict(counter: Counter[str]) -> dict[str, int]:
+    """Handle counter dict."""
     return {key: counter[key] for key in sorted(counter)}
 
 
@@ -907,6 +929,7 @@ def validate_profile(document: Any) -> dict[str, Any]:
 
 
 def starter_profile() -> dict[str, Any]:
+    """Handle starter profile."""
     return {
         "actions": dict(DEFAULT_ACTIONS),
         "date_policy": "empty",

@@ -29,6 +29,7 @@ OK = {"verified", "found-add-doi"}
 
 
 def main() -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--json", type=Path)
     args = ap.parse_args()

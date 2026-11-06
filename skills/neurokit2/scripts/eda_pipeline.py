@@ -31,6 +31,7 @@ PEAK_METHODS = ("neurokit", "gamboa2008", "kim2004", "vanhalem2020", "nabian2018
 
 
 def _finite_values(values: Any) -> list[float]:
+    """Handle finite values."""
     result: list[float] = []
     for value in values:
         number = json_number(value)
@@ -40,6 +41,7 @@ def _finite_values(values: Any) -> list[float]:
 
 
 def _stats(values: Any) -> dict[str, float | int | None]:
+    """Handle stats."""
     finite = _finite_values(values)
     return {
         "count": len(finite),
@@ -51,6 +53,7 @@ def _stats(values: Any) -> dict[str, float | int | None]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Clean, explicitly decompose, and detect SCRs in bounded "
@@ -97,6 +100,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
+    """Run the command-line interface."""
     args = build_parser().parse_args()
     sampling_rate = finite_float(
         args.sampling_rate,

@@ -71,9 +71,11 @@ function updateMarkdownAnchor(
   const existing = readFileSafe(filePath);
   const content = existing ?? "";
   const skillList = skills && skills.length
-    ? `\nKey installed skills (${skills.length} total):\n` +
-      skills.slice(0, 15).map((s) => `- \`${s.name}\`: ${s.description.slice(0, 80)}`).join("\n") +
-      (skills.length > 15 ? `\n... and ${skills.length - 15} more.` : "")
+    ? [
+        `\nKey installed skills (${skills.length} total):\n`,
+        skills.slice(0, 15).map((s) => `- \`${s.name}\`: ${s.description.slice(0, 80)}`).join("\n"),
+        skills.length > 15 ? `\n... and ${skills.length - 15} more.` : "",
+      ].join("")
     : "";
 
   const section = `## ${header}
@@ -115,7 +117,7 @@ export function configureHarness(harness: Harness, cwd: string = process.cwd(), 
           literature: { skillsRoot: harness.project, categories: ["literature-review", "research-writing"] },
         },
       };
-      const action = writeIfMissing(specFile, JSON.stringify(specConfig, null, 2) + "\n");
+      const action = writeIfMissing(specFile, `${JSON.stringify(specConfig, null, 2)}\n`);
       if (action === "created") {
         results.push({ file: ".claude-science/specialists.json", action, harness: harness.id });
       }
@@ -130,7 +132,7 @@ export function configureHarness(harness: Harness, cwd: string = process.cwd(), 
         updatedAt: new Date().toISOString(),
         skills: skills?.map((s) => s.name) ?? [],
       };
-      const action = writeOrUpdate(file, JSON.stringify(config, null, 2) + "\n");
+      const action = writeOrUpdate(file, `${JSON.stringify(config, null, 2)}\n`);
       results.push({ file: ".openscience/skills.json", action, harness: harness.id });
       break;
     }
@@ -144,7 +146,7 @@ export function configureHarness(harness: Harness, cwd: string = process.cwd(), 
         worktreeSync: true,
         reverseMcp: { enabled: true, skillsDir: harness.project },
       };
-      const action = writeIfMissing(file, JSON.stringify(config, null, 2) + "\n");
+      const action = writeIfMissing(file, `${JSON.stringify(config, null, 2)}\n`);
       if (action === "created") {
         results.push({ file: ".t3/config.json", action, harness: harness.id });
       }
@@ -192,7 +194,7 @@ export function configureHarness(harness: Harness, cwd: string = process.cwd(), 
           },
         ],
       };
-      const action = writeIfMissing(file, JSON.stringify(config, null, 2) + "\n");
+      const action = writeIfMissing(file, `${JSON.stringify(config, null, 2)}\n`);
       if (action === "created") {
         results.push({ file: ".roomodes", action, harness: harness.id });
       }

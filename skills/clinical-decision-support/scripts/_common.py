@@ -53,9 +53,11 @@ class IssueLog:
 
     @property
     def ok(self) -> bool:
+        """Handle ok."""
         return not self.errors
 
     def as_dict(self) -> dict[str, Any]:
+        """Handle as dict."""
         return {
             "status": "pass" if self.ok else "fail",
             "errors": self.errors,
@@ -69,6 +71,7 @@ class IssueLog:
 
 
 def _reject_nonlocal_path(raw: str) -> None:
+    """Handle reject nonlocal path."""
     lowered = raw.strip().lower()
     if not lowered:
         raise InputError("Path must not be empty")
@@ -140,12 +143,14 @@ def ensure_no_person_level_keys(value: Any, location: str = "$") -> None:
 
 
 def write_json(raw_path: str, payload: dict[str, Any]) -> None:
+    """Write json."""
     path = local_output_path(raw_path, {".json"})
     text = json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
     path.write_text(text, encoding="utf-8")
 
 
 def write_text(raw_path: str, text: str, suffixes: Iterable[str]) -> None:
+    """Write text."""
     path = local_output_path(raw_path, suffixes)
     path.write_text(text, encoding="utf-8")
 
@@ -185,6 +190,7 @@ def nonnegative_int(value: Any, field_name: str) -> int:
 
 
 def source_ids(document: dict[str, Any]) -> set[str]:
+    """Handle source ids."""
     sources = require_list(document.get("sources"), "sources", maximum=MAX_SOURCES)
     identifiers: set[str] = set()
     for index, source in enumerate(sources):
@@ -205,6 +211,7 @@ def source_ids(document: dict[str, Any]) -> set[str]:
 def validate_references(
     references: Any, known_sources: set[str], field_name: str
 ) -> list[str]:
+    """Validate references."""
     values = require_list(references, field_name, maximum=50)
     normalized: list[str] = []
     for index, value in enumerate(values):
@@ -220,4 +227,5 @@ def validate_references(
 
 
 def print_report(report: dict[str, Any]) -> None:
+    """Print report."""
     print(json.dumps(report, indent=2, sort_keys=True, ensure_ascii=False))

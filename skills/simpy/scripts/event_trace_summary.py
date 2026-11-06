@@ -251,6 +251,7 @@ def summarize(path: Path, *, max_records: int) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Summarize a local event-trace .jsonl or ResourceMonitor .csv file. "
@@ -270,6 +271,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

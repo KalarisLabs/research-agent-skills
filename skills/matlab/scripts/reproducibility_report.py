@@ -26,7 +26,7 @@ from _common import (
 )
 
 TOOL = "reproducibility_report"
-OCTAVE_VERSION = re.compile(r"^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$")
+OCTAVE_VERSION = re.compile(r"^\d{1,3}\.\d{1,3}\.\d{1,3}$")
 ALLOWED_SUFFIXES = {
     ".csv",
     ".fig",
@@ -71,6 +71,7 @@ def _named_fact(value: str | None, name: str, *, maximum: int = 500) -> str | No
 
 
 def build(args: argparse.Namespace) -> dict[str, Any]:
+    """Build."""
     root = checked_root(args.root)
     if len(args.file) > 200:
         raise CliError("at most 200 named files are accepted")
@@ -180,6 +181,7 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def parser() -> argparse.ArgumentParser:
+    """Handle parser."""
     result = argparse.ArgumentParser(
         description=(
             "Hash only named local artifacts and emit a deterministic MATLAB/"

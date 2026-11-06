@@ -80,6 +80,7 @@ def _command_preview(plan: dict[str, Any]) -> list[str]:
 
 
 def make_plan(args: argparse.Namespace) -> dict[str, Any]:
+    """Make plan."""
     plan = default_plan(args.profile)
     environment = validate_slug(args.environment, name="environment")
     plan["environment"]["name"] = environment
@@ -185,6 +186,7 @@ def make_plan(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Create a bounded, local PufferLib dry-run plan. This command never "
@@ -240,6 +242,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

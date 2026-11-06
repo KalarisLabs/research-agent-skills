@@ -61,6 +61,7 @@ PIXEL_KEYWORDS = {"DoubleFloatPixelData", "FloatPixelData", "PixelData"}
 
 
 def _load_key(path: Path) -> bytes:
+    """Load key."""
     info = path.stat()
     if os.name != "nt":
         if stat.S_IMODE(info.st_mode) & 0o077:
@@ -71,7 +72,7 @@ def _load_key(path: Path) -> bytes:
     if len(payload) == 64:
         try:
             payload = bytes.fromhex(payload.decode("ascii"))
-        except (UnicodeError, ValueError):
+        except ValueError:
             pass
     if len(payload) < 32:
         raise ToolError("UID key must contain at least 32 bytes of secret material")
@@ -81,6 +82,7 @@ def _load_key(path: Path) -> bytes:
 def _map_scalar_uid(
     value: Any, *, key: bytes, scope: str, mapping: dict[str, str]
 ) -> str:
+    """Handle map scalar uid."""
     original = str(value)
     replacement = mapping.get(original)
     if replacement is None:
@@ -101,6 +103,7 @@ def _map_uid_value(
 
 
 def _pseudonym_value(value: Any, *, keyword: str, key: bytes, scope: str) -> str:
+    """Handle pseudonym value."""
     token = derive_token(str(value), key=key, scope=scope)
     if keyword == "PatientName":
         return f"PSEUDONYM^{token}"
@@ -108,6 +111,7 @@ def _pseudonym_value(value: Any, *, keyword: str, key: bytes, scope: str) -> str
 
 
 def _shift_date_text(value: Any, days: int) -> tuple[str, bool]:
+    """Handle shift date text."""
     text = str(value)
     if len(text) != 8 or not text.isdigit():
         return "", False
@@ -121,6 +125,7 @@ def _shift_date_text(value: Any, days: int) -> tuple[str, bool]:
 
 
 def _shift_datetime_text(value: Any, days: int) -> tuple[str, bool]:
+    """Handle shift datetime text."""
     text = str(value)
     if len(text) < 8 or not text[:8].isdigit():
         return "", False
@@ -136,6 +141,7 @@ def _date_action(
     retain_times: bool,
     counters: Counter[str],
 ) -> None:
+    """Handle date action."""
     vr = str(element.VR)
     if date_policy == "keep":
         counters["dates_kept"] += 1
@@ -171,6 +177,7 @@ def _date_action(
 
 
 def _looks_instance_uid(keyword: str) -> bool:
+    """Handle looks instance uid."""
     return keyword in UID_REMAP_KEYWORDS or keyword.endswith(
         ("InstanceUID", "FrameOfReferenceUID")
     )
@@ -344,6 +351,7 @@ def transform_dataset(
 
 
 def _rebuild_file_meta(dataset: Any, *, original_transfer_syntax: Any) -> None:
+    """Handle rebuild file meta."""
     require_pydicom()
     from pydicom.dataset import FileMetaDataset
     from pydicom.uid import PYDICOM_IMPLEMENTATION_UID
@@ -361,6 +369,7 @@ def _rebuild_file_meta(dataset: Any, *, original_transfer_syntax: Any) -> None:
 
 
 def process_file(args: argparse.Namespace) -> dict[str, Any]:
+    """Process file."""
     max_input_bytes = parse_size(
         args.max_input_bytes,
         name="max_input_bytes",
@@ -472,6 +481,7 @@ def process_file(args: argparse.Namespace) -> dict[str, Any]:
     _rebuild_file_meta(dataset, original_transfer_syntax=original_transfer_syntax)
 
     def writer(path: Path) -> None:
+        """Handle writer."""
         pydicom.dcmwrite(
             path,
             dataset,
@@ -480,6 +490,7 @@ def process_file(args: argparse.Namespace) -> dict[str, Any]:
         )
 
     def validator(path: Path) -> None:
+        """Handle validator."""
         check = safe_dcmread(path, stop_before_pixels=True, force=False)
         if str(check.get("PatientIdentityRemoved", "")) != "NO":
             raise ToolError("output verification failed")
@@ -553,6 +564,7 @@ def process_file(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Create a bounded pseudonymized DICOM derivative. This is not a "
@@ -672,6 +684,7 @@ Examples:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

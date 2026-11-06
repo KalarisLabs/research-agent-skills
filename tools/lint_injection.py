@@ -38,6 +38,7 @@ SKIP_EXT = {".png", ".jpg", ".jpeg", ".gif", ".pdf", ".webp"}
 
 @dataclass(frozen=True)
 class Rule:
+    """Rule."""
     id: str
     severity: str  # HIGH | MEDIUM | LOW
     description: str
@@ -46,6 +47,7 @@ class Rule:
 
 
 def _r(p: str, flags: int = re.I) -> re.Pattern[str]:
+    """Handle r."""
     return re.compile(p, flags)
 
 
@@ -91,6 +93,7 @@ URL_HOST_RE = re.compile(r"https?://([A-Za-z0-9][A-Za-z0-9.-]*\.[A-Za-z]{2,})(?:
 
 @dataclass
 class Finding:
+    """Finding."""
     rule: str
     severity: str
     path: str
@@ -100,11 +103,13 @@ class Finding:
 
     @property
     def fingerprint(self) -> str:
+        """Handle fingerprint."""
         norm = re.sub(r"\s+", " ", self.snippet.strip())
         return hashlib.sha256(f"{self.rule}|{self.path}|{norm}".encode()).hexdigest()[:20]
 
 
 def iter_files(paths: list[Path]) -> list[Path]:
+    """Handle iter files."""
     out: list[Path] = []
     for p in paths:
         if p.is_file():
@@ -122,6 +127,7 @@ def rel(path: Path) -> str:
 
 
 def scan_file(path: Path) -> tuple[list[Finding], set[str]]:
+    """Handle scan file."""
     findings: list[Finding] = []
     hosts: set[str] = set()
     try:
@@ -162,6 +168,7 @@ def scan_file(path: Path) -> tuple[list[Finding], set[str]]:
 
 
 def host_allowed(host: str, allowed: set[str]) -> bool:
+    """Handle host allowed."""
     parts = host.split(".")
     return any(".".join(parts[i:]) in allowed for i in range(len(parts) - 1))
 
@@ -174,6 +181,7 @@ def load_allowed() -> set[str]:
 
 
 def to_sarif(findings: list[Finding]) -> dict:
+    """Handle to sarif."""
     level = {"HIGH": "error", "MEDIUM": "warning", "LOW": "note"}
     rules = {r.id: r.description for r in RULES}
     rules.update({"RAS011": "Invisible/bidirectional Unicode character", "RAS012": "Script contacts unreviewed domain",
@@ -198,6 +206,7 @@ def to_sarif(findings: list[Finding]) -> dict:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("paths", nargs="*", type=Path)
     ap.add_argument("--sarif", type=Path, help="write SARIF report to this path")

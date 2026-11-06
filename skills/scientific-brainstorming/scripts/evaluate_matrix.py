@@ -260,6 +260,7 @@ def _normalized_weights(
     *,
     override: Mapping[str, float] | None = None,
 ) -> dict[str, float]:
+    """Handle normalized weights."""
     raw = {
         criterion.name: (
             override[criterion.name] if override is not None else criterion.weight
@@ -277,6 +278,7 @@ def _score(
     criteria: Sequence[Criterion],
     weights: Mapping[str, float],
 ) -> float:
+    """Handle score."""
     return 100.0 * sum(
         weights[criterion.name] * criterion.normalize(row.ratings[criterion.name].score)
         for criterion in criteria

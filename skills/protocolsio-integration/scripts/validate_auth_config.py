@@ -30,6 +30,7 @@ except ImportError:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate protocols.io named environment variables without network "
@@ -74,6 +75,7 @@ def validate_config(
     requirement: str,
     environ: Mapping[str, str],
 ) -> tuple[int, dict[str, object]]:
+    """Validate config."""
     normalized_origin = validate_origin(origin)
     normalized_tenant = (
         validate_origin(tenant_origin, allow_tenant=True) if tenant_origin else None
@@ -110,6 +112,7 @@ def validate_config(
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         code, report = validate_config(

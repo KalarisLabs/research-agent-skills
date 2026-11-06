@@ -42,6 +42,7 @@ def _dtype_report(
     *,
     reveal_identifiers: bool,
 ) -> dict[str, Any]:
+    """Handle dtype report."""
     fields = getattr(dtype, "fields", None)
     report: dict[str, Any] = {
         "kind": str(dtype.kind),
@@ -68,6 +69,7 @@ def _dtype_report(
 
 
 def _sample_array(array: Any, np: Any) -> Any:
+    """Handle sample array."""
     size = int(array.size)
     if size <= MAX_ARRAY_SAMPLE:
         return np.asarray(array).reshape(-1)

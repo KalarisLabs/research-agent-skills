@@ -93,6 +93,7 @@ def normalize_eln_api_url(value: str) -> str:
 
 
 def _present(env: Mapping[str, str], name: str) -> bool:
+    """Handle present."""
     return bool(env.get(name, "").strip())
 
 
@@ -119,6 +120,7 @@ def _select_api_url(args: argparse.Namespace, env: Mapping[str, str]) -> str:
 
 
 def command_regions(args: argparse.Namespace) -> int:
+    """Handle command regions."""
     payload = {
         "as_of": "2026-07-23",
         "regions": [
@@ -136,6 +138,7 @@ def command_regions(args: argparse.Namespace) -> int:
 def command_check(
     args: argparse.Namespace, env: Mapping[str, str] | None = None
 ) -> int:
+    """Handle command check."""
     selected_env = os.environ if env is None else env
     api_url = _select_api_url(args, selected_env)
 
@@ -179,6 +182,7 @@ def command_check(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate official LabArchives ELN regional URLs and the presence "
@@ -234,6 +238,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

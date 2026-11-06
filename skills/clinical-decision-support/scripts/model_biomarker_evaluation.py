@@ -48,16 +48,19 @@ def _wilson(successes: int, total: int) -> dict[str, Any]:
 
 
 def _small_nonzero(values: list[int], minimum: int) -> bool:
+    """Handle small nonzero."""
     return any(0 < value < minimum for value in values)
 
 
 def _metric(successes: int, total: int) -> dict[str, Any]:
+    """Handle metric."""
     return _wilson(successes, total)
 
 
 def _calibration_summary(
     bins: list[Any], group_name: str, minimum: int, expected_events: int
 ) -> tuple[dict[str, Any], bool]:
+    """Handle calibration summary."""
     total = 0
     events = 0
     weighted_predicted = 0.0
@@ -125,6 +128,7 @@ def _calibration_summary(
 def evaluate(
     document: dict[str, Any], minimum: int
 ) -> tuple[IssueLog, dict[str, Any]]:
+    """Evaluate."""
     log = IssueLog()
     report: dict[str, Any] = {
         "report_type": "aggregate_model_biomarker_evaluation",
@@ -309,6 +313,7 @@ def evaluate(
 
 
 def main() -> int:
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         description=(
             "Report bounded descriptive performance from local aggregate counts. "

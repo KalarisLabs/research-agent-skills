@@ -72,6 +72,7 @@ def maturation_fraction(pma_weeks: float, tm50: float = DEFAULT_TM50_WEEKS, hill
 
 
 def allometric(value: float, weight_from: float, weight_to: float, exponent: float) -> float:
+    """Handle allometric."""
     return value * (weight_to / weight_from) ** exponent
 
 
@@ -124,6 +125,7 @@ def rule_of_exponents(exponent: float) -> str:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description="Allometric scaling, paediatric maturation, and first-in-human dose estimation.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -159,6 +161,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def run(argv: Sequence[str] | None = None) -> int:
+    """Run."""
     args = build_parser().parse_args(argv)
     chosen = [m for m in ("scale", "exponent", "fih", "mabel") if getattr(args, m)]
     if len(chosen) != 1:

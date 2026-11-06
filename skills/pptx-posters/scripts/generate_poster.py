@@ -36,6 +36,7 @@ EXPECTED_VERSIONS = {
 
 
 def _require_exact_dependencies() -> dict[str, str]:
+    """Handle require exact dependencies."""
     installed: dict[str, str] = {}
     for distribution, expected in EXPECTED_VERSIONS.items():
         try:
@@ -56,6 +57,7 @@ def _require_exact_dependencies() -> dict[str, str]:
 
 
 def _rgb(value: str, rgb_class: Any) -> Any:
+    """Handle rgb."""
     return rgb_class(
         int(value[1:3], 16),
         int(value[3:5], 16),
@@ -144,6 +146,7 @@ def _add_picture(
     metadata: dict[str, Any],
     Inches: Any,
 ) -> tuple[str, str]:
+    """Add picture."""
     width_px = int(metadata["width_px"])
     height_px = int(metadata["height_px"])
     box_width = float(element["width_in"])
@@ -392,6 +395,7 @@ def generate_poster(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Generate one editable, macro-free PPTX poster from strict, approved "
@@ -411,6 +415,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     try:
         args = parser.parse_args(argv)

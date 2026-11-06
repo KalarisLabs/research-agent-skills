@@ -61,18 +61,22 @@ class Disposition:
 
     @property
     def n_compartments(self) -> int:
+        """Handle n compartments."""
         return 1 + len(self.q)
 
     @property
     def half_lives(self) -> np.ndarray:
+        """Handle half lives."""
         return np.log(2.0) / -self.lam
 
     @property
     def terminal_half_life(self) -> float:
+        """Handle terminal half life."""
         return float(np.log(2.0) / -self.lam[-1])
 
     @property
     def vss(self) -> float:
+        """Handle vss."""
         return float(self.v1 + sum(self.vp))
 
     @property
@@ -169,6 +173,7 @@ def _absorption_term(lam: np.ndarray, ka: float, t: np.ndarray) -> np.ndarray:
 
 
 def conc_bolus(t: np.ndarray, dose: float, d: Disposition) -> np.ndarray:
+    """Handle conc bolus."""
     t = np.atleast_1d(np.asarray(t, dtype=float))
     out = dose * np.exp(d.lam[None, :] * t[:, None]) @ d.coef
     return np.where(t < 0, 0.0, out)
@@ -366,6 +371,7 @@ def _integrate_with_doses(
     infusions = [(e.time, e.time + e.duration, e.amount / e.duration) for e in events if e.duration > 0]
 
     def rhs_with_infusions(t: float, y: np.ndarray) -> np.ndarray:
+        """Handle rhs with infusions."""
         dy = np.asarray(rhs(t, y), dtype=float)
         for start, end, rate in infusions:
             if start <= t < end:
@@ -429,6 +435,7 @@ def simulate_michaelis_menten(
     size = 1 + n_periph + depot
 
     def rhs(_t: float, y: np.ndarray) -> np.ndarray:
+        """Handle rhs."""
         dy = np.zeros(size)
         central = y[depot]
         conc = central / v1
@@ -445,7 +452,7 @@ def simulate_michaelis_menten(
         return dy
 
     y0 = np.zeros(size)
-    states = _integrate_with_doses(rhs, y0, times, regimen, dose_compartment=0 if depot else 0)
+    states = _integrate_with_doses(rhs, y0, times, regimen, dose_compartment=0)
     return states[:, depot] / v1
 
 
@@ -487,6 +494,7 @@ def simulate_tmdd(
         size = 4 if has_periph else 3
 
         def rhs(_t: float, y: np.ndarray) -> np.ndarray:
+            """Handle rhs."""
             drug = max(y[0], 0.0) / v1
             target, complex_ = max(y[1], 0.0), max(y[2], 0.0)
             binding = kon * drug * target - koff * complex_
@@ -512,6 +520,7 @@ def simulate_tmdd(
     size = 3 if has_periph else 2
 
     def rhs_qss(_t: float, y: np.ndarray) -> np.ndarray:
+        """Handle rhs qss."""
         total_drug = max(y[0], 0.0) / v1
         total_target = max(y[1], 0.0)
         b = total_drug - total_target - kd_qss
@@ -627,11 +636,13 @@ def indirect_response(
         raise ValueError("kin, kout and C50 must be positive")
 
     def drive(t: float) -> float:
+        """Handle drive."""
         conc = max(float(conc_fn(t)), 0.0)
         powered = conc**hill
         return max_effect * powered / (c50**hill + powered)
 
     def rhs(t: float, y: np.ndarray) -> np.ndarray:
+        """Handle rhs."""
         fraction = drive(t)
         if idr_type == 1:
             return np.array([kin * (1.0 - fraction) - kout * y[0]])

@@ -13,6 +13,7 @@ HarnessCategory = Literal["science", "control-plane", "coding-ide", "cli-agent",
 
 @dataclass
 class Harness:
+    """Harness."""
     id: str
     label: str
     global_dir: Path
@@ -30,6 +31,7 @@ class Harness:
 
 
 def get_harnesses(home: Path | None = None) -> list[Harness]:
+    """Get harnesses."""
     h = home or Path.home()
     local_app_data = Path(os.environ["LOCALAPPDATA"]) if "LOCALAPPDATA" in os.environ else None
     app_data = Path(os.environ["APPDATA"]) if "APPDATA" in os.environ else None
@@ -234,11 +236,13 @@ def get_harnesses(home: Path | None = None) -> list[Harness]:
 
 
 def detect_harnesses(all_harnesses: list[Harness] | None = None) -> list[Harness]:
+    """Detect harnesses."""
     all_h = all_harnesses or get_harnesses()
     return [h for h in all_h if h.id != "agents" and h.is_present()]
 
 
 def resolve_harnesses(spec: str | None, all_harnesses: list[Harness] | None = None) -> list[Harness]:
+    """Resolve harnesses."""
     all_h = all_harnesses or get_harnesses()
     if not spec or spec == "auto":
         found = detect_harnesses(all_h)

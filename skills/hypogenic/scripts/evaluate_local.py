@@ -43,6 +43,7 @@ else:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan split-safe evaluation or compute metrics from saved strict JSON. "
@@ -81,6 +82,7 @@ def make_evaluation_plan(
     config_sha256: str,
     manifest_sha256: str,
 ) -> dict:
+    """Make evaluation plan."""
     split_names = [split["name"] for split in manifest["splits"]]
     return {
         "ok": split_names == list(SPLIT_NAMES),
@@ -150,6 +152,7 @@ def make_evaluation_plan(
 
 
 def make_report(result: dict, *, result_sha256: str) -> dict:
+    """Make report."""
     metrics = classification_metrics(result["records"])
     return {
         "ok": True,
@@ -174,6 +177,7 @@ def make_report(result: dict, *, result_sha256: str) -> dict:
 
 
 def _plan(args: argparse.Namespace) -> int:
+    """Handle plan."""
     config_path = checked_input_file(
         args.config,
         root=args.root,
@@ -211,6 +215,7 @@ def _plan(args: argparse.Namespace) -> int:
 
 
 def _report(args: argparse.Namespace) -> int:
+    """Handle report."""
     result_path = checked_input_file(
         args.results,
         root=args.root,
@@ -239,6 +244,7 @@ def _report(args: argparse.Namespace) -> int:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         return _plan(args) if args.command == "plan" else _report(args)

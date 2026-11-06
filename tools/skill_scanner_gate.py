@@ -31,6 +31,7 @@ BLOCKING = {"CRITICAL", "HIGH"}
 
 
 def finding_key(skill: str, finding: dict) -> str:
+    """Handle finding key."""
     path = str(finding.get("file_path") or "").replace("\\", "/").lower()
     marker = f"/skills/{skill.lower()}/"
     if marker in path:
@@ -71,6 +72,7 @@ def filter_sarif(path: Path, accepted: set[str]) -> tuple[int, int]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("report", type=Path)
     ap.add_argument("--update-baseline", action="store_true")

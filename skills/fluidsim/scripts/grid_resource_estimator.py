@@ -58,6 +58,7 @@ def estimate(
     safety_factor: float,
     compression_ratio: float,
 ) -> dict[str, Any]:
+    """Estimate."""
     solver = config["solver"]
     dimension = CONFIG_SOLVER_DIMENSIONS[solver]
     parameters = config["parameters"]
@@ -197,6 +198,7 @@ def estimate(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Estimate a conservative FluidSim memory/storage envelope from strict "
@@ -234,6 +236,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         bounded_int(

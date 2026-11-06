@@ -34,6 +34,7 @@ def matlab_string(value: str) -> str:
 
 
 def _numeric_row(values: list[Any]) -> str | None:
+    """Handle numeric row."""
     if not values or not all(
         isinstance(item, (bool, int, float)) and not isinstance(item, str)
         for item in values
@@ -91,6 +92,7 @@ def matlab_literal(value: Any, *, depth: int = 0) -> str:
 
 
 def _executable(value: str, engine: str) -> str:
+    """Handle executable."""
     default = "matlab" if engine == "matlab" else "octave"
     command = value or default
     if not SAFE_COMMAND.fullmatch(command):
@@ -102,6 +104,7 @@ def _executable(value: str, engine: str) -> str:
 
 
 def build_plan(args: argparse.Namespace) -> dict[str, Any]:
+    """Build plan."""
     root = checked_root(args.root)
     target = checked_input(
         args.target,
@@ -206,6 +209,7 @@ def build_plan(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def parser() -> argparse.ArgumentParser:
+    """Handle parser."""
     result = argparse.ArgumentParser(
         description=(
             "Plan a MATLAB -batch or GNU Octave command. The tool validates "

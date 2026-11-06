@@ -37,6 +37,7 @@ def synthetic_metric_inputs(seed: int = DEFAULT_SEED) -> dict[str, Any]:
     rng = np.random.default_rng(seed)
 
     def observed(rows: int) -> tuple[Any, Any, Any]:
+        """Handle observed."""
         risk = rng.normal(size=rows)
         event_time = rng.exponential(scale=9.0 * np.exp(-0.65 * risk)) + 0.1
         censor_time = rng.exponential(scale=13.0, size=rows) + 0.1
@@ -257,6 +258,7 @@ def evaluate(arrays: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Evaluate risk scores and optional survival probabilities from a "
@@ -271,6 +273,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

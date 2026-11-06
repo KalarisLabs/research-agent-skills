@@ -29,6 +29,7 @@ MAX_ROWS = 200
 
 
 def _format_count(count: int, denominator: int) -> str:
+    """Format count."""
     percentage = 100.0 * count / denominator if denominator else 0.0
     return f"{count}/{denominator} ({percentage:.1f}%)"
 
@@ -36,6 +37,7 @@ def _format_count(count: int, denominator: int) -> str:
 def _build_table(
     document: dict[str, Any], minimum: int
 ) -> tuple[IssueLog, list[str], list[list[str]], list[str]]:
+    """Build table."""
     log = IssueLog()
     notes: list[str] = []
     headers: list[str] = ["Characteristic"]
@@ -219,6 +221,7 @@ def _build_table(
 def _to_markdown(
     title: str, headers: list[str], rows: list[list[str]], notes: list[str]
 ) -> str:
+    """Handle to markdown."""
     lines = [
         f"# {title}",
         "",
@@ -234,6 +237,7 @@ def _to_markdown(
 
 
 def _to_csv(headers: list[str], rows: list[list[str]], notes: list[str]) -> str:
+    """Handle to csv."""
     stream = io.StringIO()
     writer = csv.writer(stream, lineterminator="\n")
     writer.writerow(headers)
@@ -246,6 +250,7 @@ def _to_csv(headers: list[str], rows: list[list[str]], notes: list[str]) -> str:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         description=(
             "Generate a bounded descriptive cohort table from local aggregate JSON "

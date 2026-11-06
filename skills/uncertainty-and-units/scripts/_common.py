@@ -336,6 +336,7 @@ def load_json(value: str | os.PathLike[str]) -> Any:
     path = checked_input_file(value, suffixes={".json"})
 
     def reject_constant(constant: str) -> None:
+        """Handle reject constant."""
         raise CliError(f"non-standard JSON constant is not allowed: {constant}")
 
     try:
@@ -392,9 +393,8 @@ def parse_expression(text: str) -> ast.Expression:
             )
         if isinstance(node, ast.Constant) and not isinstance(node.value, (int, float)):
             raise CliError("expression constants must be numbers")
-        if isinstance(node, ast.Name):
-            if node.id.startswith("_"):
-                raise CliError("expression names must not start with an underscore")
+        if isinstance(node, ast.Name) and node.id.startswith("_"):
+            raise CliError("expression names must not start with an underscore")
         if isinstance(node, ast.Call):
             if not isinstance(node.func, ast.Name):
                 raise CliError("only direct calls to whitelisted functions are allowed")
@@ -409,13 +409,14 @@ def parse_expression(text: str) -> ast.Expression:
                 raise CliError("functions accept one or two positional arguments")
         if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Pow):
             exponent = node.right
-            if isinstance(exponent, ast.Constant) and isinstance(
-                exponent.value, (int, float)
+            if (
+                isinstance(exponent, ast.Constant)
+                and isinstance(exponent.value, (int, float))
+                and abs(float(exponent.value)) > MAX_LITERAL_EXPONENT
             ):
-                if abs(float(exponent.value)) > MAX_LITERAL_EXPONENT:
-                    raise CliError(
-                        f"literal exponents are limited to +/-{MAX_LITERAL_EXPONENT}"
-                    )
+                raise CliError(
+                    f"literal exponents are limited to +/-{MAX_LITERAL_EXPONENT}"
+                )
 
     _check_depth(tree.body, 1)
     return tree

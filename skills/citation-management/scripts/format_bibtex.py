@@ -31,6 +31,7 @@ class BibTeXFormatter:
     """Format and clean BibTeX entries."""
 
     def __init__(self):
+        """Initialise the instance."""
         # Standard field order for readability
         self.field_order = list(FIELD_ORDER)
 
@@ -182,7 +183,7 @@ class BibTeXFormatter:
                 # Zero-pad so string comparison orders numerically, and push
                 # undated entries to the end.
                 year = entry['fields'].get('year', '')
-                digits = re.sub(r'[^0-9]', '', year)
+                digits = re.sub(r'\D', '', year)
                 return digits.zfill(4) if digits else '9999'
             if sort_by == 'author':
                 author = entry['fields'].get('author', '')

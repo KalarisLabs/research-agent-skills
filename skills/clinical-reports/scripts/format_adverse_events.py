@@ -89,6 +89,7 @@ ANALYSIS_METADATA_FIELDS = {
 
 @dataclass(frozen=True)
 class AggregateRow:
+    """Aggregate row."""
     analysis_set: str
     treatment_group: str
     meddra_version: str
@@ -409,6 +410,7 @@ def render_markdown(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Format aggregate-only AE CSV rows as review-only Markdown. "
@@ -428,6 +430,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         rows = load_aggregate_csv(args.input_file)

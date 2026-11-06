@@ -143,6 +143,7 @@ def _within_root(candidate: Path, root: Path) -> None:
 
 
 def _suffix_matches(path: Path, suffixes: Iterable[str]) -> bool:
+    """Handle suffix matches."""
     name = path.name.casefold()
     return any(name.endswith(suffix.casefold()) for suffix in suffixes)
 
@@ -383,10 +384,12 @@ def display_identifier(
 
 
 def _reject_json_constant(value: str) -> None:
+    """Handle reject json constant."""
     raise CliError("non-finite JSON numbers are not accepted")
 
 
 def _unique_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """Handle unique json object."""
     result: dict[str, Any] = {}
     for key, value in pairs:
         if key in result:

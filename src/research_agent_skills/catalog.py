@@ -10,6 +10,7 @@ from typing import Any
 
 @dataclass
 class SkillEntry:
+    """Skill entry."""
     name: str
     description: str
     category: str
@@ -24,6 +25,7 @@ class SkillEntry:
 
 @dataclass
 class Category:
+    """Category."""
     id: str
     description: str
     count: int
@@ -31,6 +33,7 @@ class Category:
 
 @dataclass
 class Bundle:
+    """Bundle."""
     description: str
     categories: list[str] = field(default_factory=list)
     skills: list[str] = field(default_factory=list)
@@ -38,6 +41,7 @@ class Bundle:
 
 class Catalog:
     def __init__(self, data: dict[str, Any]):
+        """Initialise the instance."""
         self.name: str = data.get("name", "research-agent-skills")
         self.version: str = data.get("version", "1.1.0")
         self.repository: str = data.get("repository", "https://github.com/KalarisLabs/research-agent-skills")
@@ -71,9 +75,11 @@ class Catalog:
         self._by_name: dict[str, SkillEntry] = {s.name: s for s in self.skills}
 
     def get_skill(self, name: str) -> SkillEntry | None:
+        """Get skill."""
         return self._by_name.get(name)
 
     def search(self, query: str) -> list[SkillEntry]:
+        """Search."""
         q = query.lower().strip()
         if not q:
             return self.skills

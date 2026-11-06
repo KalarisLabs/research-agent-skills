@@ -697,7 +697,7 @@ Generate a high-quality {'visual/figure' if visual_only else 'presentation slide
             print(f"\n[Iteration {i}/{iterations}]")
             print("-" * 40)
             
-            print(f"Generating image with Nano Banana Pro...")
+            print("Generating image with Nano Banana Pro...")
             image_data = self.generate_image(current_prompt, attachments=attachments)
             
             if not image_data:
@@ -728,7 +728,7 @@ Generate a high-quality {'visual/figure' if visual_only else 'presentation slide
             if review.score is not None:
                 print(f"✓ Score: {review.score}/10 (threshold: {self.QUALITY_THRESHOLD}/10)")
             else:
-                print(f"⚠ Review unavailable — image kept, quality not verified")
+                print("⚠ Review unavailable — image kept, quality not verified")
                 print(f"  Reason: {review.error}")
 
             results["iterations"].append({
@@ -746,7 +746,7 @@ Generate a high-quality {'visual/figure' if visual_only else 'presentation slide
                     print(f"\n✓ Quality meets threshold ({review.score} >= {self.QUALITY_THRESHOLD})")
                 else:
                     # Regenerating cannot fix a reviewer that did not answer.
-                    print(f"\n⚠ Stopping without a verified score — review the image yourself")
+                    print("\n⚠ Stopping without a verified score — review the image yourself")
                 final_image_data = image_data
                 results["final_score"] = review.score
                 results["final_reviewed"] = review.reviewed and review.score is not None
@@ -755,7 +755,7 @@ Generate a high-quality {'visual/figure' if visual_only else 'presentation slide
                 break
 
             if i == iterations:
-                print(f"\n⚠ Maximum iterations reached")
+                print("\n⚠ Maximum iterations reached")
                 final_image_data = image_data
                 results["final_score"] = review.score
                 results["final_reviewed"] = review.reviewed and review.score is not None
@@ -763,7 +763,7 @@ Generate a high-quality {'visual/figure' if visual_only else 'presentation slide
                 break
 
             print(f"\n⚠ Quality below threshold ({review.score} < {self.QUALITY_THRESHOLD})")
-            print(f"Improving prompt...")
+            print("Improving prompt...")
             current_prompt = self.improve_prompt(user_prompt, review.critique, i + 1, visual_only)
         
         # Clean up temporary files
@@ -782,11 +782,11 @@ Generate a high-quality {'visual/figure' if visual_only else 'presentation slide
             print(f"\n✓ Final image: {output_path}")
         
         print(f"\n{'='*60}")
-        print(f"Generation Complete!")
+        print("Generation Complete!")
         if results["final_score"] is not None:
             print(f"Final Score: {results['final_score']}/10")
         else:
-            print(f"Final Score: unavailable (the review did not produce one)")
+            print("Final Score: unavailable (the review did not produce one)")
         if results["early_stop"]:
             success_count = len([r for r in results['iterations'] if r.get('success')])
             print(f"Iterations Used: {success_count}/{iterations} (early stop)")
@@ -871,7 +871,7 @@ Environment:
             print(f"\n✓ Success! Image saved to: {args.output}")
             sys.exit(0)
         else:
-            print(f"\n✗ Generation failed. Check review log for details.")
+            print("\n✗ Generation failed. Check review log for details.")
             sys.exit(1)
     except Exception as e:
         print(f"\n✗ Error: {str(e)}")

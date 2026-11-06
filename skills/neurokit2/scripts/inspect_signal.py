@@ -28,6 +28,7 @@ from _common import (
 
 class OnlineStats:
     def __init__(self) -> None:
+        """Initialise the instance."""
         self.numeric = 0
         self.missing = 0
         self.nonfinite = 0
@@ -45,6 +46,7 @@ class OnlineStats:
         self.max_gap_run = 0
 
     def add_cell(self, cell: str) -> float | None:
+        """Add cell."""
         normalized = cell.strip()
         if normalized.lower() in MISSING_TOKENS:
             self.missing += 1
@@ -89,6 +91,7 @@ class OnlineStats:
         return value
 
     def report(self, unit: str | None) -> dict[str, Any]:
+        """Handle report."""
         variance = self.m2 / (self.numeric - 1) if self.numeric > 1 else None
         return {
             "flat_transition_fraction": (
@@ -294,6 +297,7 @@ def inspect_csv(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect a bounded local CSV for numeric coverage, gaps, flat runs, "
@@ -328,6 +332,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
+    """Run the command-line interface."""
     args = build_parser().parse_args()
     require_deidentified(args.deidentified)
     declared_rate = (

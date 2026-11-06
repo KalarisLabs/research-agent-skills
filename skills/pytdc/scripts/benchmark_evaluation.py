@@ -35,6 +35,7 @@ MAX_RUNS = 100
 
 
 def benchmark_names(metadata: Any, group: str) -> list[str]:
+    """Handle benchmark names."""
     return [
         name
         for names in metadata.benchmark_names[group].values()
@@ -168,6 +169,7 @@ def build_plan(
     metric: str | None,
     prediction_summary: dict[str, Any] | None,
 ) -> dict[str, Any]:
+    """Build plan."""
     return {
         "action": "plan",
         "acknowledgement_required": "--execute",
@@ -201,6 +203,7 @@ def execute_evaluation(
     data_dir: Path,
     package_version: str,
 ) -> dict[str, Any]:
+    """Handle execute evaluation."""
     module_name, class_name = GROUPS[group]
     group_class = getattr(importlib.import_module(module_name), class_name)
     benchmark_group = group_class(path=str(data_dir))
@@ -228,6 +231,7 @@ def execute_evaluation(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan a non-docking TDC BenchmarkGroup evaluation, or pass --execute "
@@ -280,6 +284,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.execute and not args.predictions:

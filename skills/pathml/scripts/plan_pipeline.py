@@ -51,6 +51,7 @@ def _stable_pathml_count(
 
 
 def _parse_pipeline(value: str | None) -> list[str]:
+    """Parse pipeline."""
     stages = parse_name_list(value, name="--pipeline")
     unknown = sorted(set(stages) - set(TRANSFORM_KINDS))
     if unknown:
@@ -201,6 +202,7 @@ def make_plan(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Estimate PathML 3.0.5 tile counts and payload bounds without "
@@ -230,6 +232,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
+    """Run the command-line interface."""
     args = build_parser().parse_args()
     report = make_plan(args)
     emit_json(report, output=args.output, root=args.root, force=args.force)

@@ -108,6 +108,7 @@ def build_diagnostic_plan(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description="Produce a read-only accelerator diagnostic plan; run nothing"
     )
@@ -132,6 +133,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.force and not args.output:

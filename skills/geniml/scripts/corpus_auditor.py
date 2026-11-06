@@ -28,6 +28,7 @@ TOOL = "interval-corpus-auditor"
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Audit a local CSV/TSV manifest for paths, assemblies, duplicate "
@@ -104,6 +105,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _manifest_local_path(raw: str, manifest: Path) -> Path:
+    """Handle manifest local path."""
     candidate = Path(raw)
     if not candidate.is_absolute():
         candidate = manifest.parent / candidate
@@ -111,6 +113,7 @@ def _manifest_local_path(raw: str, manifest: Path) -> Path:
 
 
 def audit(args: argparse.Namespace) -> tuple[dict, int]:
+    """Handle audit."""
     manifest = local_path(args.manifest, kind="file")
     delimiter = delimiter_from_path(manifest, args.delimiter)
     fields, rows = read_delimited_manifest(
@@ -291,6 +294,7 @@ def audit(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args()
     try:
         report, exit_code = audit(args)

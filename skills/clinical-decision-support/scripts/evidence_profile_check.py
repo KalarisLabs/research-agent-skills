@@ -50,6 +50,7 @@ def _profile_has_recommendation_key(value: Any) -> bool:
 
 
 def _find_placeholders(value: Any, location: str = "$") -> list[str]:
+    """Find placeholders."""
     findings: list[str] = []
     if isinstance(value, dict):
         for key, nested in value.items():
@@ -63,6 +64,7 @@ def _find_placeholders(value: Any, location: str = "$") -> list[str]:
 
 
 def check_profile(document: dict[str, Any]) -> tuple[IssueLog, list[dict[str, str]]]:
+    """Check profile."""
     log = IssueLog()
     summaries: list[dict[str, str]] = []
     try:
@@ -230,6 +232,7 @@ def check_profile(document: dict[str, Any]) -> tuple[IssueLog, list[dict[str, st
 
 
 def main() -> int:
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         description=(
             "Check completeness and citation traceability of a human-authored "

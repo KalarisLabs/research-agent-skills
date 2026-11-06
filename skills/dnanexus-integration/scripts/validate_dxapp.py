@@ -67,6 +67,7 @@ PLACEHOLDER_VALUES = {
 
 @dataclass(frozen=True)
 class Issue:
+    """Issue."""
     severity: str
     code: str
     path: str
@@ -75,6 +76,7 @@ class Issue:
 
 class Validator:
     def __init__(self, manifest: Any, kind: str) -> None:
+        """Initialise the instance."""
         self.manifest = manifest
         self.requested_kind = kind
         self.issues: list[Issue] = []
@@ -86,12 +88,15 @@ class Validator:
         path: str,
         message: str,
     ) -> None:
+        """Add."""
         self.issues.append(Issue(severity, code, path, message))
 
     def error(self, code: str, path: str, message: str) -> None:
+        """Handle error."""
         self.add("error", code, path, message)
 
     def warning(self, code: str, path: str, message: str) -> None:
+        """Handle warning."""
         self.add("warning", code, path, message)
 
     def validate(self) -> tuple[str, list[Issue]]:
@@ -121,6 +126,7 @@ class Validator:
         return "applet"
 
     def validate_metadata(self, kind: str) -> None:
+        """Validate metadata."""
         name = self.manifest.get("name")
         if not isinstance(name, str) or not name:
             self.error("missing-name", "$.name", "name is required")
@@ -192,6 +198,7 @@ class Validator:
         spec_name: str,
         parameters: list[Any],
     ) -> None:
+        """Validate parameter list."""
         seen: set[str] = set()
         is_output = spec_name == "outputSpec"
 
@@ -246,6 +253,7 @@ class Validator:
                         )
 
     def validate_run_spec(self) -> None:
+        """Validate run spec."""
         run_spec = self.manifest.get("runSpec")
         if not isinstance(run_spec, dict):
             self.error(
@@ -455,6 +463,7 @@ class Validator:
                     )
 
     def validate_regional_options(self) -> None:
+        """Validate regional options."""
         regional = self.manifest.get("regionalOptions")
         if regional is None:
             return
@@ -574,6 +583,7 @@ class Validator:
             )
 
     def validate_access(self) -> None:
+        """Validate access."""
         access = self.manifest.get("access")
         if access is None:
             return
@@ -631,6 +641,7 @@ class Validator:
             )
 
     def validate_https_app(self) -> None:
+        """Validate https app."""
         https_app = self.manifest.get("httpsApp")
         if https_app is None:
             return
@@ -683,6 +694,7 @@ class Validator:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -713,6 +725,7 @@ def load_manifest(path: Path) -> Any:
 
 
 def summarize(issues: Iterable[Issue]) -> dict[str, int]:
+    """Summarize."""
     counts = {"error": 0, "warning": 0}
     for issue in issues:
         counts[issue.severity] += 1
@@ -724,6 +737,7 @@ def print_text(
     kind: str,
     issues: list[Issue],
 ) -> None:
+    """Print text."""
     counts = summarize(issues)
     print(f"Manifest: {path}")
     print(f"Kind: {kind}")
@@ -734,6 +748,7 @@ def print_text(
 
 
 def main(argv: Optional[list[str]] = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     path = args.manifest.expanduser()

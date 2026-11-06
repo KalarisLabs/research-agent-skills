@@ -62,11 +62,13 @@ PROCESSES = ["cnc", "3dp", "sheet", "urethane", "im", "compression", "diecast"]
 
 
 def human(n: float) -> str:
+    """Handle human."""
     return f"{n / 1e6:.1f} MB" if n >= 1e6 else f"{n / 1e3:.0f} KB"
 
 
 # ---------------------------------------------------------------- STEP ----
 def inspect_step(path: str) -> dict:
+    """Handle inspect step."""
     info: dict = {}
     with open(path, "r", errors="ignore") as fh:
         data = fh.read()
@@ -112,6 +114,7 @@ def inspect_step(path: str) -> dict:
 
 # ----------------------------------------------------------------- STL ----
 def inspect_stl(path: str, max_tris: int = 3_000_000) -> dict:
+    """Handle inspect stl."""
     info: dict = {}
     size = os.path.getsize(path)
     with open(path, "rb") as fh:
@@ -156,6 +159,7 @@ def inspect_stl(path: str, max_tris: int = 3_000_000) -> dict:
 
 # -------------------------------------------------------------- driver ----
 def check(path: str, process: str) -> dict:
+    """Check."""
     ext = os.path.splitext(path)[1].lower()
     r = {"file": path, "extension": ext, "process": process, "blocking": [], "warnings": [], "info": {}}
     if not os.path.isfile(path):
@@ -234,6 +238,7 @@ def check(path: str, process: str) -> dict:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("files", nargs="+")
     ap.add_argument("--process", choices=PROCESSES, default="cnc")

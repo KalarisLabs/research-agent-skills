@@ -1170,7 +1170,7 @@ Generate an improved version that:
         }
         
         print(f"\n{'='*60}")
-        print(f"Generating Infographic with Nano Banana Pro")
+        print("Generating Infographic with Nano Banana Pro")
         print(f"{'='*60}")
         print(f"Content: {user_prompt}")
         print(f"Type: {type_name}")
@@ -1185,14 +1185,14 @@ Generate an improved version that:
         # ===== RESEARCH PHASE =====
         enhanced_prompt = user_prompt
         if research:
-            print(f"\n[Research Phase]")
+            print("\n[Research Phase]")
             print("-" * 40)
-            print(f"Researching topic for accurate data...")
+            print("Researching topic for accurate data...")
             
             research_result = self.research_topic(user_prompt, infographic_type)
             
             if research_result.get("success"):
-                print(f"✓ Research complete - gathered facts and statistics")
+                print("✓ Research complete - gathered facts and statistics")
                 results["research_data"] = research_result
                 
                 # Enhance the prompt with researched data
@@ -1205,7 +1205,7 @@ Generate an improved version that:
                 print(f"✓ Research saved: {research_path}")
             else:
                 print(f"⚠ Research failed: {research_result.get('error', 'Unknown error')}")
-                print(f"  Proceeding with original prompt...")
+                print("  Proceeding with original prompt...")
         
         # Build initial prompt (using enhanced prompt if research was done)
         current_prompt = self._build_generation_prompt(
@@ -1217,7 +1217,7 @@ Generate an improved version that:
             print("-" * 40)
             
             # Generate image
-            print(f"Generating infographic with Nano Banana Pro...")
+            print("Generating infographic with Nano Banana Pro...")
             image_data = self.generate_image(current_prompt, context_images)
             
             if not image_data:
@@ -1244,7 +1244,7 @@ Generate an improved version that:
             if review.score is not None:
                 print(f"✓ Score: {review.score}/10 (threshold: {threshold}/10)")
             else:
-                print(f"⚠ Review unavailable — image kept, quality not verified")
+                print("⚠ Review unavailable — image kept, quality not verified")
                 print(f"  Reason: {review.error}")
 
             # Save iteration results
@@ -1265,11 +1265,11 @@ Generate an improved version that:
             if not review.needs_improvement:
                 if review.score is not None:
                     print(f"\n✓ Quality meets threshold ({review.score} >= {threshold})")
-                    print(f"  No further iterations needed!")
+                    print("  No further iterations needed!")
                     reason = f"Quality score {review.score} meets threshold {threshold}"
                 else:
                     # Regenerating cannot fix a reviewer that did not answer.
-                    print(f"\n⚠ Stopping without a verified score — review the image yourself")
+                    print("\n⚠ Stopping without a verified score — review the image yourself")
                     reason = f"Review did not produce a score: {review.error}"
                 results["final_image"] = str(iter_path)
                 results["final_score"] = review.score
@@ -1281,7 +1281,7 @@ Generate an improved version that:
 
             # If this is the last iteration, we're done
             if i == iterations:
-                print(f"\n⚠ Maximum iterations reached")
+                print("\n⚠ Maximum iterations reached")
                 results["final_image"] = str(iter_path)
                 results["final_score"] = review.score
                 results["final_reviewed"] = review.reviewed and review.score is not None
@@ -1290,7 +1290,7 @@ Generate an improved version that:
 
             # Quality below threshold - improve prompt
             print(f"\n⚠ Quality below threshold ({review.score} < {threshold})")
-            print(f"Improving prompt based on feedback...")
+            print("Improving prompt based on feedback...")
             current_prompt = self.improve_prompt(
                 user_prompt, review.critique, infographic_type, style, palette, background, i + 1,
                 len(context_images)
@@ -1311,11 +1311,11 @@ Generate an improved version that:
         print(f"✓ Review log: {log_path}")
         
         print(f"\n{'='*60}")
-        print(f"Generation Complete!")
+        print("Generation Complete!")
         if results["final_score"] is not None:
             print(f"Final Score: {results['final_score']}/10")
         else:
-            print(f"Final Score: unavailable (the review did not produce one)")
+            print("Final Score: unavailable (the review did not produce one)")
         if results["early_stop"]:
             iterations_used = len([r for r in results['iterations'] if r.get('success')])
             print(f"Iterations Used: {iterations_used}/{iterations} (early stop)")
@@ -1440,7 +1440,7 @@ Environment:
                 print(f"  (Completed in {iterations_used} iteration(s) - quality threshold met)")
             sys.exit(0)
         else:
-            print(f"\n✗ Generation failed. Check review log for details.")
+            print("\n✗ Generation failed. Check review log for details.")
             sys.exit(1)
     except Exception as e:
         print(f"\n✗ Error: {str(e)}")

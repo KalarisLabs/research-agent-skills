@@ -33,6 +33,7 @@ INITIAL_STATES = {"excited", "ground", "plus"}
 
 @dataclass(frozen=True)
 class SimulationConfig:
+    """Simulation config."""
     solver: str
     initial_state: str
     omega: float
@@ -49,6 +50,7 @@ class SimulationConfig:
 
     @classmethod
     def from_namespace(cls, args: argparse.Namespace) -> "SimulationConfig":
+        """Handle from namespace."""
         solver = str(args.solver)
         if solver not in {"mesolve", "mcsolve"}:
             raise CliError("solver must be mesolve or mcsolve")
@@ -138,6 +140,7 @@ class SimulationConfig:
 
 
 def _initial_state(qutip: Any, label: str) -> Any:
+    """Handle initial state."""
     excited = qutip.basis(2, 0)
     ground = qutip.basis(2, 1)
     if label == "excited":
@@ -351,6 +354,7 @@ def run_simulation(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Run a bounded two-level Lindblad or quantum-jump simulation and "
@@ -379,6 +383,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     config = SimulationConfig.from_namespace(args)
     report = run_simulation(config)

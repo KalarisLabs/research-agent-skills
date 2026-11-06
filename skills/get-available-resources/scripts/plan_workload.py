@@ -26,6 +26,7 @@ MIB = 1024**2
 
 
 def _optional_number(value: Any) -> float | None:
+    """Handle optional number."""
     return bounded_number(value, maximum=float(MAX_BYTES))
 
 
@@ -237,6 +238,7 @@ def build_plan(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description="Plan bounded workers and memory from a resource snapshot"
     )
@@ -287,6 +289,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.force and not args.output:

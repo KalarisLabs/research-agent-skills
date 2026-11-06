@@ -59,6 +59,7 @@ SPLIT_METHODS = ("random", "scaffold", "cold_split", "combination", "time")
 
 
 def normalize_columns(values: list[str] | None) -> list[str]:
+    """Normalize columns."""
     columns: list[str] = []
     for value in values or []:
         columns.extend(part.strip() for part in value.split(",") if part.strip())
@@ -134,6 +135,7 @@ def build_plan(
     data_dir: Path,
     package_version: str,
 ) -> dict[str, Any]:
+    """Build plan."""
     return {
         "action": "plan",
         "acknowledgement_required": "--execute",
@@ -158,6 +160,7 @@ def build_plan(
 
 
 def _summarize_frame(frame: Any, preview: int) -> dict[str, Any]:
+    """Summarize frame."""
     summary: dict[str, Any] = {"rows": len(frame)}
     if hasattr(frame, "columns"):
         summary["columns"] = [str(column) for column in list(frame.columns)[:100]]
@@ -261,6 +264,7 @@ def execute_split(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate and plan a PyTDC dataset split. The default is download-free; "
@@ -320,6 +324,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         fractions = validate_fractions(args.frac)

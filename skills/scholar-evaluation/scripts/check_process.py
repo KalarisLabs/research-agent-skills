@@ -87,6 +87,7 @@ SECTION_FIELDS: dict[str, dict[str, tuple[str, ...]]] = {
 
 
 def validate_process(record: Any) -> list[_common.Issue]:
+    """Validate process."""
     issues: list[_common.Issue] = []
     top_fields = {
         "schema_version",
@@ -137,6 +138,7 @@ def validate_process(record: Any) -> list[_common.Issue]:
 
 
 def check_process(record: dict[str, Any]) -> dict[str, Any]:
+    """Check process."""
     schema_issues = validate_process(record)
     if _common.error_issues(schema_issues):
         return {
@@ -199,6 +201,7 @@ def check_process(record: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Check committee, conflict, appeal, accessibility, data-protection, "
@@ -217,6 +220,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args()
     try:
         report = check_process(_common.read_json(args.process))

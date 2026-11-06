@@ -223,15 +223,18 @@ def relevance_tags(text: str, publication_type: str) -> list[str]:
 
 
 def _host(url: str) -> str:
+    """Handle host."""
     return urlsplit(url).netloc.lower().removeprefix("www.")
 
 
 def is_scholarly_url(url: str) -> bool:
+    """Return whether scholarly url."""
     host = _host(url)
     return any(host == domain or host.endswith(f".{domain}") for domain in SCHOLARLY_DOMAINS)
 
 
 def is_preprint_url(url: str) -> bool:
+    """Return whether preprint url."""
     host = _host(url)
     return any(host == domain or host.endswith(f".{domain}") for domain in PREPRINT_DOMAINS)
 
@@ -414,6 +417,7 @@ def reference_score(reference: dict[str, Any]) -> tuple[int, int, int, int]:
 
 
 def _claim_map(references: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Handle claim map."""
     claims: list[dict[str, Any]] = []
     for reference in references:
         if reference.get("retracted"):
@@ -431,6 +435,7 @@ def _claim_map(references: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def _synthesis(references: list[dict[str, Any]]) -> dict[str, Any]:
+    """Handle synthesis."""
     conflict_terms = (
         "conflict",
         "contradict",
@@ -473,6 +478,7 @@ def _synthesis(references: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def _section_briefs(references: list[dict[str, Any]]) -> dict[str, Any]:
+    """Handle section briefs."""
     briefs: dict[str, Any] = {
         "introduction": {
             "purpose": "Established background, significance, and unresolved gap.",
@@ -512,6 +518,7 @@ def _section_briefs(references: list[dict[str, Any]]) -> dict[str, Any]:
 def _coverage(
     references: list[dict[str, Any]], target_references: int
 ) -> dict[str, Any]:
+    """Handle coverage."""
     verified = [
         reference
         for reference in references

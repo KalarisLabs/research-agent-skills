@@ -81,6 +81,7 @@ Reply with JSON only:
 
 
 def claude(prompt: str, model: str) -> str:
+    """Handle claude."""
     exe = shutil.which("claude")
     if not exe:
         sys.exit("claude CLI not found on PATH")
@@ -91,15 +92,18 @@ def claude(prompt: str, model: str) -> str:
 
 
 def parse_json(text: str) -> dict:
+    """Parse json."""
     return json.loads(re.search(r"\{.*\}", text, re.S).group(0))
 
 
 def excerpt(body: str, limit: int = 14000) -> str:
+    """Handle excerpt."""
     body = re.sub(r"```.*?```", "[code block omitted]", body, flags=re.S)
     return body[:limit]
 
 
 def valid_description(d: str) -> list[str]:
+    """Handle valid description."""
     problems = []
     if not 200 <= len(d) <= 1024:
         problems.append(f"length {len(d)}")
@@ -113,16 +117,19 @@ def valid_description(d: str) -> list[str]:
 
 
 def needs_description(s) -> bool:
+    """Handle needs description."""
     d = " ".join(str(s.meta.get("description", "")).split())
     return bool(valid_description(d))
 
 
 def adapted_names() -> set[str]:
+    """Handle adapted names."""
     m = json.loads((THIRD_PARTY / "upstream-manifest.json").read_text(encoding="utf-8"))
     return {s["name"] for s in m["skills"] if s["rewrite_status"] == "imported"}
 
 
 def cmd_descriptions(args: argparse.Namespace) -> int:
+    """Run the descriptions subcommand."""
     existing = yaml.safe_load(OVERRIDES.read_text(encoding="utf-8")) if OVERRIDES.exists() else {}
     overrides: dict = (existing or {}).get("descriptions", {})
     adapted = adapted_names()
@@ -160,6 +167,7 @@ def cmd_descriptions(args: argparse.Namespace) -> int:
 
 
 def cmd_evals(args: argparse.Namespace) -> int:
+    """Run the evals subcommand."""
     skills = {s.name: s for s in load_skills()}
     pairs = tfidf_overlap(list(skills.values()), 0.12)
     neighbours: dict[str, list[tuple[float, str]]] = {}
@@ -171,6 +179,7 @@ def cmd_evals(args: argparse.Namespace) -> int:
     print(f"{len(todo)} eval suites to generate")
 
     def work(name: str):
+        """Handle work."""
         s = skills[name]
         sib = sorted(neighbours.get(name, []), reverse=True)[:6]
         siblings = "\n".join(f"- {b}: {' '.join(str(skills[b].meta.get('description', '')).split())[:300]}"
@@ -213,6 +222,7 @@ def cmd_evals(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     for name in ("descriptions", "evals"):

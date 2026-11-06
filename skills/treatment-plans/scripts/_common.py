@@ -103,6 +103,7 @@ class ValidationError(ValueError):
     """A deterministic failure that never includes a clinical value."""
 
     def __init__(self, code: str, path: str = "$") -> None:
+        """Initialise the instance."""
         super().__init__(code)
         self.code = code
         self.path = path
@@ -117,6 +118,7 @@ class Issue:
     level: str = "error"
 
     def as_dict(self) -> dict[str, str]:
+        """Handle as dict."""
         return {"code": self.code, "path": self.path, "level": self.level}
 
 
@@ -129,6 +131,7 @@ def _text(
     pattern: str | None = None,
     format_name: str | None = None,
 ) -> dict[str, Any]:
+    """Handle text."""
     return {
         "kind": "string",
         "minimum": minimum,
@@ -141,16 +144,19 @@ def _text(
 
 
 def _boolean() -> dict[str, str]:
+    """Handle boolean."""
     return {"kind": "boolean"}
 
 
 def _nullable(schema: dict[str, Any]) -> dict[str, Any]:
+    """Handle nullable."""
     return {"kind": "nullable", "schema": schema}
 
 
 def _array(
     item: dict[str, Any], *, minimum: int = 0, maximum: int = MAX_LIST_ITEMS
 ) -> dict[str, Any]:
+    """Handle array."""
     return {
         "kind": "array",
         "item": item,
@@ -160,6 +166,7 @@ def _array(
 
 
 def _object(properties: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    """Handle object."""
     return {"kind": "object", "properties": properties}
 
 
@@ -622,6 +629,7 @@ DOCUMENT_SCHEMAS = {
 
 
 def _reject_nonlocal_path(raw_path: str | Path) -> Path:
+    """Handle reject nonlocal path."""
     text = str(raw_path)
     lowered = text.strip().lower()
     if not lowered or "\x00" in text or "://" in lowered:
@@ -701,6 +709,7 @@ def safe_output_file(raw_path: str | Path) -> Path:
 def _duplicate_safe_object(
     pairs: list[tuple[str, Any]],
 ) -> dict[str, Any]:
+    """Handle duplicate safe object."""
     result: dict[str, Any] = {}
     for key, value in pairs:
         if key in result:
@@ -710,6 +719,7 @@ def _duplicate_safe_object(
 
 
 def _reject_constant(_: str) -> None:
+    """Handle reject constant."""
     raise ValidationError("JSON_NONFINITE_NUMBER")
 
 
@@ -731,9 +741,8 @@ def _check_bounds(value: Any, *, depth: int = 0, counter: list[int]) -> None:
             raise ValidationError("JSON_LIST_LIMIT_EXCEEDED")
         for nested in value:
             _check_bounds(nested, depth=depth + 1, counter=counter)
-    elif isinstance(value, str):
-        if len(value) > MAX_TEXT_CHARS:
-            raise ValidationError("JSON_TEXT_LIMIT_EXCEEDED")
+    elif isinstance(value, str) and len(value) > MAX_TEXT_CHARS:
+        raise ValidationError("JSON_TEXT_LIMIT_EXCEEDED")
 
 
 def read_json(raw_path: str | Path) -> dict[str, Any]:
@@ -820,6 +829,7 @@ def _validate_schema(
     path: str,
     issues: list[Issue],
 ) -> None:
+    """Validate schema."""
     kind = schema["kind"]
     if kind == "nullable":
         if value is None:
@@ -1004,6 +1014,7 @@ def validate_package_structure(
 
 
 def has_errors(issues: Iterable[Issue]) -> bool:
+    """Return whether errors."""
     return any(issue.level == "error" for issue in issues)
 
 
@@ -1014,6 +1025,7 @@ def report_payload(
     counts: dict[str, int] | None = None,
     extra: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """Handle report payload."""
     issue_list = list(issues)
     payload: dict[str, Any] = {
         "check": check,
@@ -1039,10 +1051,12 @@ def report_payload(
 
 
 def error_report(check: str, error: ValidationError) -> dict[str, Any]:
+    """Handle error report."""
     return report_payload(check, [Issue(error.code, error.path)])
 
 
 def print_report(report: dict[str, Any]) -> None:
+    """Print report."""
     print(json.dumps(report, indent=2, sort_keys=True, ensure_ascii=False))
 
 
@@ -1090,6 +1104,7 @@ def copy_template_document(
     subject_ref: str,
     classification: str,
 ) -> dict[str, Any]:
+    """Handle copy template document."""
     document = read_json(template_path)
     document["subject_ref"] = subject_ref
     document["data_classification"] = classification
@@ -1155,6 +1170,7 @@ def record_ids(
     list_field: str,
     id_field: str,
 ) -> set[str]:
+    """Handle record ids."""
     records = document.get(list_field)
     if not isinstance(records, list):
         return set()

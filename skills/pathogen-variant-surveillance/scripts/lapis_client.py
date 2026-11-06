@@ -429,6 +429,7 @@ def lineage_field_candidates(schema: dict) -> list[tuple[str, bool]]:
     known = {name: rank for rank, name in enumerate(LINEAGE_FIELDS)}
 
     def sort_key(name: str) -> tuple:
+        """Sort key."""
         return (
             0 if name in indexed else 1,
             known.get(name, len(LINEAGE_FIELDS)),

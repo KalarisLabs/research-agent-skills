@@ -114,6 +114,7 @@ DIRECTORY_GROUPS = [
 
 
 def bundle_definitions(skills: list[Skill]) -> dict[str, dict]:
+    """Handle bundle definitions."""
     known = {s.name for s in skills}
     out = {name: {"description": description, "categories": categories, "skills": []}
            for name, (description, categories) in BUNDLES.items()}
@@ -126,6 +127,7 @@ def bundle_definitions(skills: list[Skill]) -> dict[str, dict]:
 
 
 def bundle_skill_names(bundle: dict, index: dict) -> list[str]:
+    """Handle bundle skill names."""
     cats = set(bundle["categories"])
     return sorted(set(bundle["skills"]) | {e["name"] for e in index["skills"] if e["category"] in cats})
 CATALOG_START, CATALOG_END = "<!-- catalog:start -->", "<!-- catalog:end -->"
@@ -134,10 +136,12 @@ SKILLS_BADGE_RE = re.compile(r"(img\.shields\.io/badge/skills-)\d+(-)")
 
 
 def _json(data: object) -> str:
+    """Handle json."""
     return json.dumps(data, indent=2, ensure_ascii=False) + "\n"
 
 
 def _first_sentence(text: str, limit: int = 160) -> str:
+    """Handle first sentence."""
     text = " ".join(text.split())
     m = re.match(r"(.+?[.!?])(\s|$)", text)
     s = m.group(1) if m else text
@@ -145,6 +149,7 @@ def _first_sentence(text: str, limit: int = 160) -> str:
 
 
 def build_index(skills: list[Skill], cats: dict, manifest: dict) -> dict:
+    """Build index."""
     origin = {s["name"]: s["rewrite_status"] for s in manifest.get("skills", [])}
     entries = []
     for s in skills:
@@ -186,6 +191,7 @@ def _top_tags(names: list[str], index: dict, limit: int = 8) -> list[str]:
 
 
 def _plugin_entry(name: str, description: str, skill_names: list[str], index: dict) -> dict:
+    """Handle plugin entry."""
     return {"name": name, "description": description, "version": VERSION,
             "author": {"name": BRAND, "url": REPO_URL}, "homepage": DOCS_URL, "repository": REPO_URL,
             "license": "MIT", "category": "research", "keywords": _top_tags(skill_names, index),
@@ -193,6 +199,7 @@ def _plugin_entry(name: str, description: str, skill_names: list[str], index: di
 
 
 def build_marketplace(index: dict) -> dict:
+    """Build marketplace."""
     by_cat: dict[str, list[str]] = defaultdict(list)
     for e in index["skills"]:
         by_cat[e["category"]].append(e["path"].removeprefix("skills/"))
@@ -213,6 +220,7 @@ def build_marketplace(index: dict) -> dict:
 
 
 def build_plugin_manifest(index: dict) -> dict:
+    """Build plugin manifest."""
     return {
         "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
         "name": MARKETPLACE_NAME,
@@ -228,6 +236,7 @@ def build_plugin_manifest(index: dict) -> dict:
 
 
 def build_codex_manifest(index: dict) -> dict:
+    """Build codex manifest."""
     manifest = build_plugin_manifest(index)
     manifest.pop("$schema")
     manifest["skills"] = "./skills/"
@@ -249,6 +258,7 @@ def build_codex_manifest(index: dict) -> dict:
 
 
 def build_skills_sh_config(index: dict) -> dict:
+    """Build skills sh config."""
     category_ids = {c["id"] for c in index["categories"]}
     grouped_ids = {category for _, _, categories in DIRECTORY_GROUPS for category in categories}
     if category_ids != grouped_ids:
@@ -272,6 +282,7 @@ def build_skills_sh_config(index: dict) -> dict:
 
 
 def build_collection_reference(index: dict) -> str:
+    """Build collection reference."""
     lines = ["# Research Agent Skills index", "",
              f"{len(index['skills']) - 1} specialist skills in this Kalaris Labs collection.",
              "Select a specialist by the research task; install the full collection only when requested.", ""]
@@ -288,6 +299,7 @@ SKILL_REF_RE = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)+)`")
 
 
 def build_graph(skills: list[Skill], index: dict) -> dict:
+    """Build graph."""
     names = {s.name for s in skills}
     nodes = [{"id": f"category:{c['id']}", "type": "category", "label": c["id"], "description": c["description"]}
              for c in index["categories"]]
@@ -302,6 +314,7 @@ def build_graph(skills: list[Skill], index: dict) -> dict:
 
 
 def graph_to_graphml(graph: dict) -> str:
+    """Handle graph to graphml."""
     keys = [("type", "node"), ("label", "node"), ("description", "node"), ("category", "node"), ("path", "node"),
             ("type", "edge")]
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
@@ -323,6 +336,7 @@ def graph_to_graphml(graph: dict) -> str:
 
 
 def build_notices(manifest: dict) -> str:
+    """Build notices."""
     by_source: dict[str, list[str]] = defaultdict(list)
     for s in manifest.get("skills", []):
         if s["rewrite_status"] == "imported":
@@ -355,6 +369,7 @@ def build_notices(manifest: dict) -> str:
 
 
 def build_readme_catalog(index: dict) -> str:
+    """Build readme catalog."""
     by_cat: dict[str, list[dict]] = defaultdict(list)
     for e in index["skills"]:
         by_cat[e["category"]].append(e)
@@ -470,6 +485,7 @@ def _mdx_safe(text: str) -> str:
 
 
 def _example_prompts(name: str, limit: int = 3) -> list[str]:
+    """Handle example prompts."""
     path = ROOT / "evals" / name / "evals.json"
     if not path.exists():
         return []
@@ -478,6 +494,7 @@ def _example_prompts(name: str, limit: int = 3) -> list[str]:
 
 
 def _related(name: str, graph: dict, limit: int = 8) -> list[str]:
+    """Handle related."""
     me = f"skill:{name}"
     out: list[str] = []
     for edge in graph["edges"]:
@@ -490,6 +507,7 @@ def _related(name: str, graph: dict, limit: int = 8) -> list[str]:
 
 
 def build_skill_page(e: dict, graph: dict) -> str:
+    """Build skill page."""
     name, category = e["name"], e["category"]
     group = next((title for title, _, cats in DIRECTORY_GROUPS if category in cats), None)
     lines = [
@@ -543,6 +561,7 @@ def build_skill_page(e: dict, graph: dict) -> str:
 
 
 def build_docs(skills: list[Skill], index: dict, graph: dict) -> dict[Path, str]:
+    """Build docs."""
     pages: dict[Path, str] = {}
     by_cat: dict[str, list[dict]] = defaultdict(list)
     for s, e in zip(skills, index["skills"], strict=True):
@@ -565,6 +584,7 @@ def build_docs(skills: list[Skill], index: dict, graph: dict) -> dict[Path, str]
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--check", action="store_true", help="fail if committed outputs are out of date")
     ap.add_argument("--docs", action="store_true", help="also generate docs/skills pages")

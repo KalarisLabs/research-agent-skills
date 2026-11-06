@@ -21,6 +21,7 @@ MAX_DIFFS = 512
 
 
 def _is_optional_nonnegative_number(value: Any) -> bool:
+    """Return whether optional nonnegative number."""
     return value is None or bounded_number(value, maximum=float(MAX_BYTES)) is not None
 
 
@@ -30,6 +31,7 @@ def _expect_mapping(
     path: str,
     errors: list[dict[str, str]],
 ) -> Mapping[str, Any]:
+    """Handle expect mapping."""
     value = parent.get(key)
     if not isinstance(value, dict):
         errors.append(
@@ -328,6 +330,7 @@ def validate_snapshot(snapshot: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _strip_volatile(snapshot: Mapping[str, Any]) -> dict[str, Any]:
+    """Handle strip volatile."""
     cleaned = copy.deepcopy(dict(snapshot))
     cleaned.pop("observed_at", None)
     return cleaned
@@ -434,6 +437,7 @@ def diff_snapshots(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description="Validate or structurally diff resource snapshot JSON"
     )
@@ -462,6 +466,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.force and not args.output:

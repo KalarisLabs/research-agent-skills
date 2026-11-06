@@ -68,6 +68,7 @@ def identify_header(path: Path) -> dict[str, Any]:
 
 
 def _redacted_name(name: str, index: int, kind: str) -> dict[str, Any]:
+    """Handle redacted name."""
     return {
         "id": f"{kind}-{index:06d}",
         "name_emitted": False,
@@ -231,6 +232,7 @@ def hdf5_inventory(
 
 
 def inventory(args: argparse.Namespace) -> dict[str, Any]:
+    """Handle inventory."""
     root = checked_root(args.root)
     max_file_bytes = bounded_int(
         args.max_file_bytes,
@@ -318,6 +320,7 @@ def inventory(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def parser() -> argparse.ArgumentParser:
+    """Handle parser."""
     result = argparse.ArgumentParser(
         description=(
             "Inventory local MAT technical metadata without MATLAB, loadmat, "

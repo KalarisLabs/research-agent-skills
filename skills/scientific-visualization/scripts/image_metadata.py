@@ -87,6 +87,7 @@ def _length_to_inches(value: str | None) -> tuple[float | None, str | None]:
 
 
 def _base_metadata(path: Path) -> dict[str, Any]:
+    """Handle base metadata."""
     info = path.stat()
     return {
         "path": str(path),
@@ -438,6 +439,7 @@ def inspect_file(
 
 
 def _normalize_formats(values: Iterable[str]) -> list[str]:
+    """Normalize formats."""
     normalized: list[str] = []
     for value in values:
         for item in value.split(","):
@@ -456,6 +458,7 @@ def _check(
     expected: Any,
     detail: str,
 ) -> dict[str, Any]:
+    """Check."""
     return {
         "name": name,
         "status": status,
@@ -641,6 +644,7 @@ def screen_metadata(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect local raster, SVG, PDF, EPS, or PS metadata and optionally "
@@ -699,6 +703,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     try:
         args = parser.parse_args(argv)

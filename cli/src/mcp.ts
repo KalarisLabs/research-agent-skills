@@ -141,7 +141,7 @@ export async function runMcpServer(sourceOpts: { source?: string; version?: stri
   };
 
   const send = (res: JsonRpcResponse) => {
-    process.stdout.write(JSON.stringify(res) + "\n");
+    process.stdout.write(`${JSON.stringify(res)}\n`);
   };
 
   const handleToolCall = (name: string, args: Record<string, unknown> = {}): { text: string } => {
@@ -242,7 +242,7 @@ export async function runMcpServer(sourceOpts: { source?: string; version?: stri
       case "list_skills": {
         const cat = args.category ? String(args.category) : undefined;
         const b = args.bundle ? String(args.bundle) : undefined;
-        let skills = catalog.skills;
+        let { skills } = catalog;
 
         if (cat) {
           skills = skills.filter((s) => s.category === cat);

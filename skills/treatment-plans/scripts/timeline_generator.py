@@ -38,6 +38,7 @@ def build_schedule(
     from_date: str | None = None,
     through_date: str | None = None,
 ) -> tuple[dict, dict]:
+    """Build schedule."""
     issues = validate_package_structure(documents)
     if issues:
         return (
@@ -214,6 +215,7 @@ def build_schedule(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Write a local JSON schedule containing only dates explicitly "
@@ -238,6 +240,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args()
     try:
         documents, _ = load_package(args.package)

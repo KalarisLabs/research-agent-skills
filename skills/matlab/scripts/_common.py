@@ -18,7 +18,7 @@ MAX_JSON_ITEMS = 20_000
 MAX_JSON_DEPTH = 24
 MAX_PATH_CHARS = 4096
 MATLAB_IDENTIFIER = re.compile(r"^[A-Za-z][A-Za-z0-9_]{0,62}$")
-MATLAB_RELEASE = re.compile(r"^R(20[0-9]{2})([ab])$")
+MATLAB_RELEASE = re.compile(r"^R(20\d{2})([ab])$")
 URL_LIKE = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*://")
 
 
@@ -45,6 +45,7 @@ def _reject_symlink_chain(path: Path) -> None:
 
 
 def checked_root(value: str | Path) -> Path:
+    """Handle checked root."""
     raw = _raw_path(str(value))
     _reject_symlink_chain(raw)
     try:
@@ -64,6 +65,7 @@ def checked_input(
     suffixes: Iterable[str] | None = None,
     max_bytes: int = MAX_INPUT_BYTES,
 ) -> Path:
+    """Handle checked input."""
     raw = _raw_path(str(value))
     candidate = raw if raw.is_absolute() else root / raw
     _reject_symlink_chain(candidate)
@@ -102,6 +104,7 @@ def checked_output(
     root: Path,
     suffixes: Iterable[str] | None = None,
 ) -> Path:
+    """Handle checked output."""
     raw = _raw_path(str(value))
     candidate = raw if raw.is_absolute() else root / raw
     _reject_symlink_chain(candidate)
@@ -136,6 +139,7 @@ def read_bytes(path: Path, *, max_bytes: int = MAX_INPUT_BYTES) -> bytes:
 
 
 def read_text(path: Path, *, max_bytes: int = MAX_TEXT_BYTES) -> str:
+    """Read text."""
     payload = read_bytes(path, max_bytes=max_bytes)
     try:
         return payload.decode("utf-8")
@@ -144,6 +148,7 @@ def read_text(path: Path, *, max_bytes: int = MAX_TEXT_BYTES) -> str:
 
 
 def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """Handle reject duplicate keys."""
     output: dict[str, Any] = {}
     for key, value in pairs:
         if key in output:
@@ -175,7 +180,7 @@ def parse_json_text(text: str) -> Any:
         value = json.loads(text, object_pairs_hook=_reject_duplicate_keys)
     except CliError:
         raise
-    except (json.JSONDecodeError, ValueError) as exc:
+    except ValueError as exc:
         raise CliError(f"invalid JSON: {exc}") from exc
     item_count = _validate_json_shape(value)
     if item_count > MAX_JSON_ITEMS:
@@ -184,6 +189,7 @@ def parse_json_text(text: str) -> Any:
 
 
 def load_json(path: Path) -> Any:
+    """Load json."""
     return parse_json_text(read_text(path, max_bytes=MAX_JSON_BYTES))
 
 
@@ -218,6 +224,7 @@ def validate_release(value: str) -> str:
 
 
 def sha256_file(path: Path, *, max_bytes: int = MAX_INPUT_BYTES) -> str:
+    """Handle sha256 file."""
     size = path.stat().st_size
     if size > max_bytes:
         raise CliError(f"input is {size} bytes; hash limit is {max_bytes}")
@@ -232,6 +239,7 @@ def sha256_file(path: Path, *, max_bytes: int = MAX_INPUT_BYTES) -> str:
 
 
 def relative_id(path: Path, root: Path) -> str:
+    """Handle relative id."""
     return path.relative_to(root).as_posix()
 
 
@@ -246,11 +254,13 @@ def write_new_text(path: Path, text: str) -> None:
 
 
 def emit_json(value: Any) -> None:
+    """Handle emit json."""
     json.dump(value, sys.stdout, indent=2, sort_keys=True, ensure_ascii=False)
     sys.stdout.write("\n")
 
 
 def fail_json(tool: str, exc: Exception) -> int:
+    """Handle fail json."""
     emit_json(
         {
             "error": str(exc),

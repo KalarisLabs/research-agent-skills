@@ -37,6 +37,7 @@ STANDARD_ROOT = "1.2.840.10008"
 
 
 def _load_key(path: Path) -> bytes:
+    """Load key."""
     info = path.stat()
     if os.name != "nt":
         if stat.S_IMODE(info.st_mode) & 0o077:
@@ -47,7 +48,7 @@ def _load_key(path: Path) -> bytes:
     if len(payload) == 64:
         try:
             payload = bytes.fromhex(payload.decode("ascii"))
-        except (UnicodeError, ValueError):
+        except ValueError:
             pass
     if len(payload) < 32:
         raise ToolError("UID key must contain at least 32 bytes")
@@ -144,6 +145,7 @@ def validate_mapping(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate UID syntax, one-to-one mapping, collisions, standard-UID "
@@ -183,6 +185,7 @@ Examples:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         max_entries = bounded_int(

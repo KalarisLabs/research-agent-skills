@@ -32,6 +32,7 @@ _CURSOR_RE = re.compile(r"^[A-Za-z0-9._~+/=-]{1,2048}$")
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect a saved pagination object. The helper validates but never "
@@ -141,6 +142,7 @@ def _validated_next_url(next_page: Any, current_url: str) -> str | None:
 
 
 def _opaque_cursor(pagination: Mapping[str, Any]) -> str | None:
+    """Handle opaque cursor."""
     value = pagination.get("next_cursor")
     if value is None:
         return None
@@ -228,6 +230,7 @@ def inspect_pagination(
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         report = inspect_pagination(

@@ -183,14 +183,14 @@ def compare_clustering_algorithms(X, n_clusters=3):
                 'davies_bouldin': davies
             }
 
-            print(f"\nDBSCAN:")
+            print("\nDBSCAN:")
             print(f"  Clusters found:         {n_clusters_dbscan}")
             print(f"  Noise points:           {n_noise}")
             print(f"  Silhouette Score:       {silhouette:.4f} (higher is better)")
             print(f"  Calinski-Harabasz:      {calinski:.4f} (higher is better)")
             print(f"  Davies-Bouldin:         {davies:.4f} (lower is better)")
     else:
-        print(f"\nDBSCAN:")
+        print("\nDBSCAN:")
         print(f"  Clusters found:         {n_clusters_dbscan}")
         print(f"  Noise points:           {n_noise}")
         print("  Note: Insufficient clusters for metric calculation")
@@ -348,7 +348,7 @@ if __name__ == "__main__":
     X_iris = iris.data
     y_iris = iris.target
 
-    results_iris = complete_clustering_analysis(
+    complete_clustering_analysis(
         X_iris,
         true_labels=y_iris,
         scale=True,
@@ -372,7 +372,7 @@ if __name__ == "__main__":
     X_synth = np.vstack([X_synth, noise])
     y_synth_with_noise = np.concatenate([y_synth, np.full(50, -1)])
 
-    results_synth = complete_clustering_analysis(
+    complete_clustering_analysis(
         X_synth,
         true_labels=y_synth_with_noise,
         scale=True,

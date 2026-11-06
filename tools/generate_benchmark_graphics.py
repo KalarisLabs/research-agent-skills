@@ -509,6 +509,7 @@ def get_verification_guardrails_data() -> list[dict]:
 # -----------------------------------------------------------------------------
 
 def build_dashboard_html(benchmarks: list[dict]) -> str:
+    """Build dashboard html."""
     tabs_nav = []
     tabs_content = []
     for idx, b in enumerate(benchmarks):
@@ -756,6 +757,7 @@ def build_dashboard_html(benchmarks: list[dict]) -> str:
 # -----------------------------------------------------------------------------
 
 def main():
+    """Run the command-line interface."""
     print("Generating Benchmark Graphics matching reference style...")
 
     benchmarks = [

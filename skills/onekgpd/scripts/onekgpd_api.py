@@ -234,6 +234,7 @@ def _chr_to_str(chrom) -> str:
 
 
 def _region_one_label(r: Region) -> str:
+    """Handle region one label."""
     return f"{_chr_to_str(r.chr)}:{r.start}-{r.end}"
 
 
@@ -326,6 +327,7 @@ def _request_echo(args, *, samples, region, regions, hom, het) -> dict:
 
 
 def _run_count_variants(args, samples: list[str] | None) -> None:
+    """Run count variants."""
     region, regions = _build_regions(args)
     hom, het = _zygosity(args)
     ann = _build_annotation_filter(args)
@@ -363,6 +365,7 @@ def _run_count_variants(args, samples: list[str] | None) -> None:
 
 
 def _run_select_variants(args, samples: list[str] | None) -> None:
+    """Run select variants."""
     region, regions = _build_regions(args)
     hom, het = _zygosity(args)
     ann = _build_annotation_filter(args)
@@ -441,22 +444,27 @@ def _run_select_variants(args, samples: list[str] | None) -> None:
 
 
 def cmd_count_variants(args) -> None:
+    """Run the count variants subcommand."""
     _run_count_variants(args, samples=None)
 
 
 def cmd_count_variants_in_samples(args) -> None:
+    """Run the count variants in samples subcommand."""
     _run_count_variants(args, samples=_split_csv(args.samples))
 
 
 def cmd_select_variants(args) -> None:
+    """Run the select variants subcommand."""
     _run_select_variants(args, samples=None)
 
 
 def cmd_select_variants_in_samples(args) -> None:
+    """Run the select variants in samples subcommand."""
     _run_select_variants(args, samples=_split_csv(args.samples))
 
 
 def cmd_count_samples(args) -> None:
+    """Run the count samples subcommand."""
     region, regions = _build_regions(args)
     hom, het = _zygosity(args)
     ann = _build_annotation_filter(args)
@@ -493,6 +501,7 @@ def cmd_count_samples(args) -> None:
 
 
 def cmd_select_samples(args) -> None:
+    """Run the select samples subcommand."""
     region, regions = _build_regions(args)
     hom, het = _zygosity(args)
     ann = _build_annotation_filter(args)
@@ -664,6 +673,7 @@ def cmd_dataset_info(args) -> None:
 
 
 def _add_annotation_flags(p: argparse.ArgumentParser) -> None:
+    """Add annotation flags."""
     g = p.add_argument_group("annotation filters (different fields AND; CSV within a field OR)")
     g.add_argument("--af-lt", type=float, help="Keep variants with 1000 Genomes AF < this value.")
     g.add_argument("--af-gt", type=float, help="Keep variants with 1000 Genomes AF > this value.")
@@ -695,6 +705,7 @@ def _add_annotation_flags(p: argparse.ArgumentParser) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     conn_parser = argparse.ArgumentParser(add_help=False)
     conn_parser.add_argument(
         "--output",
@@ -786,6 +797,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> None:
+    """Run the command-line interface."""
     # Incompleteness is surfaced via result metadata and the summary, not warnings.
     warnings.simplefilter("ignore", DnaerysIncompleteResultWarning)
     args = build_parser().parse_args(argv)

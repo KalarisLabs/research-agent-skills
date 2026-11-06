@@ -101,6 +101,7 @@ COMPILED = [(re.compile(p, re.I | re.M), w, c, h) for p, w, c, h in PATTERNS]
 
 @dataclass
 class Finding:
+    """Finding."""
     line: int
     category: str
     weight: float
@@ -156,12 +157,14 @@ def prose_lines(text: str) -> list[tuple[int, str]]:
 
 
 def split_sentences(text: str) -> list[str]:
+    """Split sentences."""
     text = re.sub(r"\b(e\.g|i\.e|et al|cf|vs|Fig|Figs|Eq|Eqs|Tab|approx|resp|ca|Dr|Mr|Ms|No)\.", r"\1<DOT>", text)
     parts = re.split(r"(?<=[.!?])\s+(?=[A-Z0-9\"'(])", text)
     return [p.replace("<DOT>", ".").strip() for p in parts if len(p.split()) >= 3]
 
 
 def analyse(text: str) -> dict:
+    """Handle analyse."""
     lines = prose_lines(text)
     prose = "\n".join(t for _, t in lines)
     words = re.findall(r"[A-Za-z][A-Za-z'-]*", prose)
@@ -239,6 +242,7 @@ def analyse(text: str) -> dict:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("path", help="file (.md .tex .txt .docx) or - for stdin")
     ap.add_argument("--json", action="store_true")

@@ -16,6 +16,7 @@ END_TAG = "<!-- research-agent-skills:end -->"
 
 @dataclass
 class ConfigureResult:
+    """Configure result."""
     file: str
     action: Literal["created", "updated", "unchanged"]
     harness: str
@@ -37,6 +38,7 @@ def update_tagged_section(
 
 
 def _write_or_update(file_path: Path, new_content: str) -> Literal["created", "updated", "unchanged"]:
+    """Write or update."""
     file_path.parent.mkdir(parents=True, exist_ok=True)
     if not file_path.exists():
         file_path.write_text(new_content, encoding="utf-8")
@@ -54,6 +56,7 @@ def _update_markdown_anchor(
     target_dir: str,
     skills: list[SkillEntry] | None = None,
 ) -> Literal["created", "updated", "unchanged"]:
+    """Update markdown anchor."""
     file_path.parent.mkdir(parents=True, exist_ok=True)
     existing = file_path.read_text(encoding="utf-8") if file_path.exists() else ""
     skill_list = ""
@@ -82,6 +85,7 @@ def configure_harness(
     cwd: Path | None = None,
     skills: list[SkillEntry] | None = None,
 ) -> list[ConfigureResult]:
+    """Configure harness."""
     root = cwd or Path.cwd()
     results: list[ConfigureResult] = []
 
@@ -195,6 +199,7 @@ def auto_configure_all(
     cwd: Path | None = None,
     skills: list[SkillEntry] | None = None,
 ) -> list[ConfigureResult]:
+    """Handle auto configure all."""
     results: list[ConfigureResult] = []
     handled_files: set[str] = set()
 

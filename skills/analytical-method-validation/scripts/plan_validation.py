@@ -51,6 +51,7 @@ STATUS_TEXT = {
 
 
 def plan_q2r2(attribute: str, technique: str | None, range_use: str | None) -> list[dict]:
+    """Handle plan q2r2."""
     tests = Q2R2_TESTS_BY_ATTRIBUTE[attribute]
     rows = []
     for characteristic, status in tests.items():
@@ -102,6 +103,7 @@ def plan_q2r2(attribute: str, technique: str | None, range_use: str | None) -> l
 
 
 def plan_m10(modality: str) -> list[dict]:
+    """Handle plan m10."""
     crit = M10_CRITERIA[modality]
     rows = [
         {
@@ -185,6 +187,7 @@ def plan_m10(modality: str) -> list[dict]:
 
 def render_protocol(framework: str, attribute: str | None, modality: str | None,
                     technique: str | None, range_use: str | None) -> str:
+    """Render protocol."""
     fw = FRAMEWORKS[framework]
     lines = [
         "# Analytical Procedure Validation Protocol",
@@ -277,6 +280,7 @@ def render_protocol(framework: str, attribute: str | None, modality: str | None,
 
 
 def main() -> int:
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         description="Plan an analytical procedure validation study.",
         formatter_class=argparse.RawDescriptionHelpFormatter,

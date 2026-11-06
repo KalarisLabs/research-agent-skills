@@ -37,6 +37,7 @@ _GUID_RE = re.compile(r"^[A-Fa-f0-9]{32}$")
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a bounded saved protocol JSON response and emit an offline "
@@ -114,6 +115,7 @@ def _bounded_list(
     name: str,
     maximum: int,
 ) -> list[Any]:
+    """Handle bounded list."""
     value = protocol.get(name, [])
     if value is None:
         return []
@@ -135,6 +137,7 @@ def _validate_public(value: Any) -> bool | None:
 
 
 def _validate_authors(authors: list[Any]) -> list[str]:
+    """Validate authors."""
     names: list[str] = []
     for index, author in enumerate(authors):
         if not isinstance(author, Mapping):
@@ -151,6 +154,7 @@ def _validate_authors(authors: list[Any]) -> list[str]:
 
 
 def _validate_steps(steps: list[Any]) -> dict[str, Any]:
+    """Validate steps."""
     guids: set[str] = set()
     previous_by_guid: dict[str, str | None] = {}
     steps_without_guid = 0
@@ -224,7 +228,7 @@ def _validate_steps(steps: list[Any]) -> dict[str, Any]:
 def _version_specific(protocol: Mapping[str, Any]) -> bool:
     for name in ("version_uri", "doi", "uri"):
         value = protocol.get(name)
-        if isinstance(value, str) and re.search(r"/v[1-9][0-9]*$", value):
+        if isinstance(value, str) and re.search(r"/v[1-9]\d*$", value):
             return True
     return False
 
@@ -341,6 +345,7 @@ def validate_and_summarize(
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         report = validate_and_summarize(

@@ -35,6 +35,7 @@ else:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate strict local HypoGeniC configuration without importing "
@@ -75,6 +76,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _run_policy(args: argparse.Namespace) -> int:
+    """Run policy."""
     document = load_structured_document(
         args.input,
         root=args.root,
@@ -131,6 +133,7 @@ def _run_policy(args: argparse.Namespace) -> int:
 
 
 def _task_config(args: argparse.Namespace) -> int:
+    """Handle task config."""
     config_path = checked_input_file(
         args.input,
         root=args.root,
@@ -179,6 +182,7 @@ def _task_config(args: argparse.Namespace) -> int:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         if args.command == "run":

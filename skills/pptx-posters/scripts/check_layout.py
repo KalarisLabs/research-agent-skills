@@ -24,6 +24,7 @@ def _positive_float(value: str) -> float:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect direct PPTX shape bounding boxes for overlap and out-of-bounds "
@@ -56,6 +57,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _manifest_settings(path: str) -> tuple[float, float, dict[str, Any]]:
+    """Handle manifest settings."""
     _, document, validation = load_and_validate_manifest(
         path,
         verify_assets=False,
@@ -122,6 +124,7 @@ def apply_manifest_checks(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     try:
         args = parser.parse_args(argv)

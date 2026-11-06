@@ -39,15 +39,18 @@ FLAGS = re.I | re.M
 
 
 def _lines(text: str) -> list[str]:
+    """Handle lines."""
     body = FENCE_RE.sub("", text)
     return [BULLET_RE.sub("", ln).strip() for ln in body.splitlines() if ln.strip()]
 
 
 def _list_items(text: str) -> int:
+    """List items."""
     return sum(1 for ln in text.splitlines() if re.match(r"^(?:[-*•]|\d+[.)])\s+", ln))
 
 
 def _sentences(text: str) -> int:
+    """Handle sentences."""
     return len([s for s in re.split(r"(?<=[.!?])\s+(?=[A-Z0-9\"'(])", text.strip()) if s])
 
 
@@ -67,6 +70,7 @@ def doi_registered(doi: str) -> bool:
 
 @functools.lru_cache(maxsize=1)
 def _slop():
+    """Handle slop."""
     sys.dont_write_bytecode = True  # never leave __pycache__ inside skills/
     path = ROOT / "skills" / "unslop-academic-writing" / "scripts" / "slop_check.py"
     spec = importlib.util.spec_from_file_location("slop_check", path)
@@ -77,6 +81,7 @@ def _slop():
 
 
 def extract_dois(text: str) -> list[str]:
+    """Extract dois."""
     return sorted({m.rstrip(".") for m in DOI_RE.findall(text)})
 
 

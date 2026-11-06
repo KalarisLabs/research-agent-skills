@@ -158,6 +158,7 @@ def _reference(
     reference: str,
     note: str,
 ) -> dict[str, str]:
+    """Handle reference."""
     return {
         "format": format_name,
         "tier": "reference_only",
@@ -496,12 +497,10 @@ def validate_magic(path: Path, suffix: str) -> None:
                     break
         if not found:
             raise CliError("the HDF5 signature does not match the declared suffix")
-    if suffix in {".fasta", ".fa", ".fna"}:
-        if _first_nonempty_text_byte(path) != b">":
-            raise CliError("the FASTA record marker does not match the declared suffix")
-    if suffix in {".fastq", ".fq"}:
-        if _first_nonempty_text_byte(path) != b"@":
-            raise CliError("the FASTQ record marker does not match the declared suffix")
+    if suffix in {".fasta", ".fa", ".fna"} and _first_nonempty_text_byte(path) != b">":
+        raise CliError("the FASTA record marker does not match the declared suffix")
+    if suffix in {".fastq", ".fq"} and _first_nonempty_text_byte(path) != b"@":
+        raise CliError("the FASTQ record marker does not match the declared suffix")
     if suffix == ".png" and not prefix.startswith(b"\x89PNG\r\n\x1a\n"):
         raise CliError("the PNG signature does not match the declared suffix")
     if suffix in {".jpg", ".jpeg"} and not prefix.startswith(b"\xff\xd8\xff"):

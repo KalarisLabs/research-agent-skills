@@ -33,7 +33,7 @@ _SCHEMES = (
     "hf:",
     "ssh:",
 )
-_INTEGER = re.compile(r"^(?:0|[1-9][0-9]*)$")
+_INTEGER = re.compile(r"^(?:0|[1-9]\d*)$")
 _VALID_STRANDS = {"+", "-", "."}
 
 
@@ -64,6 +64,7 @@ def int_type(*, minimum: int = 0, maximum: int, label: str):
     """Return an argparse-compatible bounded integer parser."""
 
     def parse(value: str) -> int:
+        """Parse."""
         return bounded_int(
             value,
             minimum=minimum,
@@ -87,6 +88,7 @@ def _reject_unsafe_text_path(raw: str) -> None:
 
 
 def _reject_symlink_components(path: Path) -> None:
+    """Handle reject symlink components."""
     current = Path(path.anchor)
     for part in path.parts[1:]:
         current = current / part
@@ -138,6 +140,7 @@ def local_path(
 
 
 def _open_binary_nofollow(path: Path):
+    """Open binary nofollow."""
     flags = os.O_RDONLY
     if hasattr(os, "O_NOFOLLOW"):
         flags |= os.O_NOFOLLOW
@@ -226,6 +229,7 @@ def load_json(path: Path, *, max_bytes: int) -> Any:
     )
 
     def object_pairs(pairs):
+        """Handle object pairs."""
         result = {}
         for key, value in pairs:
             if key in result:
@@ -234,6 +238,7 @@ def load_json(path: Path, *, max_bytes: int) -> Any:
         return result
 
     def invalid_constant(value: str):
+        """Handle invalid constant."""
         raise SafetyError(f"non-finite JSON number is not allowed: {value}")
 
     try:
@@ -318,6 +323,7 @@ def inspect_bed(
     )
 
     def issue(kind: str, code: str, line_number: int) -> None:
+        """Handle issue."""
         target = errors if kind == "error" else warnings
         target[code] += 1
         if len(examples) < max_examples:
@@ -423,6 +429,7 @@ def inspect_bed(
 
 
 def add_path_mode_argument(parser: argparse.ArgumentParser) -> None:
+    """Add path mode argument."""
     parser.add_argument(
         "--path-mode",
         choices=("redacted", "basename", "full"),

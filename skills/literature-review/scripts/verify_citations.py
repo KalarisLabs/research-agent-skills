@@ -13,6 +13,7 @@ import time
 
 class CitationVerifier:
     def __init__(self):
+        """Initialise the instance."""
         self.session = requests.Session()
         self.session.headers.update({
             'User-Agent': 'CitationVerifier/1.0 (Literature Review Tool)'

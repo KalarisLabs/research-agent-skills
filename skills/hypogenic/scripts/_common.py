@@ -73,10 +73,12 @@ class CliError(ValueError):
 
 
 def _reject_constant(value: str) -> None:
+    """Handle reject constant."""
     raise CliError(f"non-standard JSON constant is forbidden: {value}")
 
 
 def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """Handle unique object."""
     result: dict[str, Any] = {}
     for key, value in pairs:
         if key in result:
@@ -86,6 +88,7 @@ def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def _reject_url_or_secret_path(value: str) -> None:
+    """Handle reject url or secret path."""
     lowered = value.strip().lower()
     if "\x00" in value:
         raise CliError("paths must not contain a NUL byte")
@@ -98,10 +101,12 @@ def _reject_url_or_secret_path(value: str) -> None:
 
 
 def _absolute_lexical(path: Path) -> Path:
+    """Handle absolute lexical."""
     return Path(os.path.abspath(os.fspath(path)))
 
 
 def _reject_symlink_components(path: Path) -> None:
+    """Handle reject symlink components."""
     absolute = _absolute_lexical(path)
     current = Path(absolute.anchor)
     for part in absolute.parts[1:]:
@@ -225,6 +230,7 @@ def _validate_plain_document(value: Any) -> Any:
     nodes = 0
 
     def visit(item: Any, depth: int) -> Any:
+        """Handle visit."""
         nonlocal nodes
         nodes += 1
         if nodes > MAX_DOCUMENT_NODES:
@@ -285,9 +291,11 @@ def _load_yaml(text: str) -> Any:
         raise CliError(f"invalid YAML token stream: {exc}") from exc
 
     class UniqueSafeLoader(yaml.SafeLoader):
+        """Unique safe loader."""
         pass
 
     def construct_mapping(loader: Any, node: Any, deep: bool = False) -> dict[str, Any]:
+        """Handle construct mapping."""
         loader.flatten_mapping(node)
         mapping: dict[str, Any] = {}
         for key_node, value_node in node.value:
@@ -353,6 +361,7 @@ def load_json_document(
     root: str | os.PathLike[str] = ".",
     max_bytes: int = MAX_JSON_BYTES,
 ) -> Any:
+    """Load json document."""
     path = checked_input_file(
         value,
         root=root,
@@ -417,6 +426,7 @@ def finite_number(
 
 
 def nonempty_text(value: Any, *, name: str, maximum: int = 1024) -> str:
+    """Handle nonempty text."""
     if (
         not isinstance(value, str)
         or not value.strip()
@@ -867,6 +877,7 @@ def validate_task_config(document: Any) -> dict[str, Any]:
 
 
 def validate_dataset_manifest(document: Any) -> dict[str, Any]:
+    """Validate dataset manifest."""
     top = validate_keys(
         document,
         required=(
@@ -1079,6 +1090,7 @@ def validate_hypothesis_bank(document: Any) -> list[dict[str, Any]]:
 
 
 def validate_result_document(document: Any) -> dict[str, Any]:
+    """Validate result document."""
     top = validate_keys(
         document,
         required=(
@@ -1143,6 +1155,7 @@ def validate_result_document(document: Any) -> dict[str, Any]:
 
 
 def label_fingerprint(label: str) -> str:
+    """Handle label fingerprint."""
     return "label-" + hashlib.sha256(label.encode("utf-8")).hexdigest()[:12]
 
 
@@ -1298,6 +1311,7 @@ def emit_json(document: Any, *, stream: Any = None) -> None:
 
 
 def emit_error(error: Exception) -> int:
+    """Handle emit error."""
     emit_json(
         {
             "ok": False,

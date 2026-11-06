@@ -23,6 +23,7 @@ def require(condition, message):
 
 
 def fields(value, required, optional=()):
+    """Handle fields."""
     require(isinstance(value, dict), "Expected an object")
     require(set(required) <= value.keys(), f"Missing fields: {set(required) - value.keys()}")
     require(value.keys() <= set(required) | set(optional),
@@ -30,12 +31,14 @@ def fields(value, required, optional=()):
 
 
 def number(value, label):
+    """Handle number."""
     require(isinstance(value, (int, float)) and not isinstance(value, bool)
             and math.isfinite(value), f"{label} must be a finite number")
     return float(value)
 
 
 def identifier(value):
+    """Handle identifier."""
     # mfapy generates numerical code internally; only these identifiers reach it.
     require(isinstance(value, str) and re.fullmatch(r"[A-Za-z][A-Za-z0-9]{0,39}", value),
             f"Invalid identifier {value!r}; use ASCII letters/digits, starting with a letter")
@@ -43,11 +46,13 @@ def identifier(value):
 
 
 def unique(items, label):
+    """Handle unique."""
     require(len(set(items)) == len(items), f"Duplicate {label}")
 
 
 def read_json(path):
     def pairs(items):
+        """Handle pairs."""
         result = {}
         for key, value in items:
             require(key not in result, f"Duplicate JSON key: {key}")
@@ -55,6 +60,7 @@ def read_json(path):
         return result
 
     def invalid_constant(value):
+        """Handle invalid constant."""
         raise InputError(f"Non-finite JSON constant: {value}")
 
     return json.loads(Path(path).read_text(encoding="utf-8"), object_pairs_hook=pairs,
@@ -63,6 +69,7 @@ def read_json(path):
 
 class Network:
     def __init__(self, spec):
+        """Initialise the instance."""
         fields(spec, {"schema_version", "name", "flux_unit", "provenance", "metabolites",
                       "reactions", "fragments"})
         require(type(spec["schema_version"]) is int and spec["schema_version"] == 1,
@@ -133,6 +140,7 @@ class Network:
                 balance[name].append(right[name] - left[name])
 
             def stoichiometry(parts):
+                """Handle stoichiometry."""
                 return "+".join((f"{{{count}}}" if count > 1 else "") + name
                                 for name, count in Counter(parts).items())
 
@@ -184,12 +192,14 @@ class Network:
         self._engine = None
 
     def check_flux(self, flux):
+        """Check flux."""
         require(isinstance(flux, dict) and set(flux) == set(self.ids), "Supply exactly one flux for every reaction")
         vector = np.array([number(flux[rid], rid) for rid in self.ids])
         require(self.feasible(vector), "Fluxes violate mass balance, fixed constraints, or bounds")
         return vector
 
     def feasible(self, vector, tolerance=1e-8):
+        """Handle feasible."""
         tolerance *= max(float(np.max(np.abs(vector))), float(np.max(np.abs(self.rhs))), 1e-300)
         return bool(np.all(np.isfinite(vector)) and np.all(vector >= self.lower - tolerance)
                     and np.all(vector <= self.upper + tolerance)
@@ -216,6 +226,7 @@ class Network:
         return self._engine
 
     def predict(self, vector, experiment):
+        """Predict."""
         engine = self.engine()
         # mfapy's generated steady-state solver drops rows with absolute turnover
         # <= 0.001. MIDs are invariant to uniform flux scaling: keep every positive
@@ -250,6 +261,7 @@ class Network:
 
 class Observations:
     def __init__(self, spec, network):
+        """Initialise the instance."""
         fields(spec, {"schema_version", "steady_state", "shared_fluxes", "mdv_basis",
                       "correction_notes", "experiments"})
         require(type(spec["schema_version"]) is int and spec["schema_version"] == 1, "Unsupported schema")
@@ -337,6 +349,7 @@ class Observations:
         self.size = sum(len(block[3]) for block in self.blocks) + len(self.flux_blocks)
 
     def residuals(self, vector, details=False):
+        """Handle residuals."""
         predictions = {exp["id"]: self.network.predict(vector, exp) for exp in self.spec["experiments"]}
         residuals, records = [], []
         for exp, fid, observed, keep, chol in self.blocks:

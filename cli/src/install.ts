@@ -56,7 +56,7 @@ export function readLock(dir: string): LockFile | undefined {
 
 function writeLock(dir: string, lock: LockFile): void {
   lock.updatedAt = new Date().toISOString();
-  writeFileSync(join(dir, LOCK_NAME), JSON.stringify(lock, null, 2) + "\n");
+  writeFileSync(join(dir, LOCK_NAME), `${JSON.stringify(lock, null, 2)}\n`);
 }
 
 export function hashTree(dir: string): Record<string, string> {
@@ -97,7 +97,7 @@ export function installSkills(src: Source, skills: SkillEntry[], targetDir: stri
     (existsSync(to) ? res.updated : res.installed).push(s.name);
     if (opts.dryRun) continue;
     rmSync(to, { recursive: true, force: true });
-    let mode = opts.mode;
+    let { mode } = opts;
     if (mode === "symlink") {
       try {
         symlinkSync(from, to, process.platform === "win32" ? "junction" : "dir");

@@ -24,16 +24,19 @@ class InputError(ValueError):
 
 @dataclass(frozen=True)
 class Issue:
+    """Issue."""
     severity: str
     code: str
     location: str | None = None
     item_id: str | None = None
 
     def to_dict(self) -> dict[str, str]:
+        """Handle to dict."""
         return {key: value for key, value in asdict(self).items() if value is not None}
 
 
 def _checked_file(path_value: str | Path, suffixes: Iterable[str]) -> Path:
+    """Handle checked file."""
     path = Path(path_value)
     allowed = {suffix.lower() for suffix in suffixes}
     if path.is_symlink():
@@ -50,6 +53,7 @@ def _checked_file(path_value: str | Path, suffixes: Iterable[str]) -> Path:
 
 
 def read_text(path_value: str | Path, suffixes: Iterable[str]) -> str:
+    """Read text."""
     path = _checked_file(path_value, suffixes)
     try:
         return path.read_text(encoding="utf-8")
@@ -58,6 +62,7 @@ def read_text(path_value: str | Path, suffixes: Iterable[str]) -> str:
 
 
 def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """Handle reject duplicate keys."""
     result: dict[str, Any] = {}
     for key, value in pairs:
         if key in result:
@@ -67,6 +72,7 @@ def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def _reject_nonfinite_json(_value: str) -> None:
+    """Handle reject nonfinite json."""
     raise InputError("JSON non-finite numbers are not accepted")
 
 
@@ -88,6 +94,7 @@ def _check_json_bounds(value: Any, depth: int = 0) -> int:
 
 
 def read_json(path_value: str | Path) -> Any:
+    """Read json."""
     text = read_text(path_value, {".json"})
     try:
         value = json.loads(
@@ -102,6 +109,7 @@ def read_json(path_value: str | Path) -> Any:
 
 
 def read_csv(path_value: str | Path) -> tuple[list[str], list[dict[str, str]]]:
+    """Read csv."""
     text = read_text(path_value, {".csv"})
     csv.field_size_limit(MAX_CSV_FIELD_BYTES)
     try:
@@ -141,6 +149,7 @@ def emit_report(
     *,
     summary: dict[str, Any] | None = None,
 ) -> int:
+    """Handle emit report."""
     ordered = sorted(
         issues,
         key=lambda item: (
@@ -167,6 +176,7 @@ def emit_report(
 
 
 def emit_input_error(tool: str, exc: Exception) -> int:
+    """Handle emit input error."""
     return emit_report(
         tool,
         [issue("error", "INVALID_INPUT", location=type(exc).__name__)],
@@ -188,6 +198,7 @@ def require_list(value: Any, label: str) -> list[Any]:
 
 
 def is_nonempty_string(value: Any) -> bool:
+    """Return whether nonempty string."""
     return isinstance(value, str) and bool(value.strip())
 
 
@@ -205,6 +216,7 @@ def is_placeholder(value: Any) -> bool:
 def write_new_text(
     path_value: str | Path, content: str, suffixes: Iterable[str]
 ) -> Path:
+    """Write new text."""
     path = Path(path_value)
     allowed = {suffix.lower() for suffix in suffixes}
     if path.suffix.lower() not in allowed:
@@ -227,11 +239,12 @@ def write_new_text(
 def main_guard(tool: str, callback: Any) -> int:
     try:
         return int(callback())
-    except (InputError, OSError, ValueError) as exc:
+    except (OSError, ValueError) as exc:
         return emit_input_error(tool, exc)
 
 
 def run(tool: str, callback: Any) -> None:
+    """Run."""
     raise SystemExit(main_guard(tool, callback))
 
 

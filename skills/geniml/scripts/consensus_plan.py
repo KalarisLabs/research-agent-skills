@@ -31,6 +31,7 @@ _SAFE_PREFIX = re.compile(r"^[A-Za-z0-9_.-]{1,100}$")
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate local consensus inputs and emit argv arrays for Geniml "
@@ -96,6 +97,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _manifest_bed(raw: str, manifest: Path) -> Path:
+    """Handle manifest bed."""
     candidate = Path(raw)
     if not candidate.is_absolute():
         candidate = manifest.parent / candidate
@@ -403,6 +405,7 @@ def plan(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args()
     try:
         report, exit_code = plan(args)

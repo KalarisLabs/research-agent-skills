@@ -371,6 +371,7 @@ def build_matrix(args: argparse.Namespace, paths: list[Path]) -> pd.DataFrame:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = argparse.ArgumentParser(
         description="Convert profiler output into waypoint format.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,

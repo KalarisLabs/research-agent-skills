@@ -123,6 +123,7 @@ def element_text(element: ET.Element) -> str:
 
 
 def section_title(section: ET.Element) -> str:
+    """Handle section title."""
     title = section.find("title")
     return element_text(title) if title is not None else ""
 
@@ -156,6 +157,7 @@ ID_TYPES = {"pmid": "pmid", "pmcid": "pmcid", "pmc": "pmcid", "doi": "doi"}
 
 
 def extract_metadata(article: ET.Element) -> dict[str, Any]:
+    """Extract metadata."""
     front = article.find("front")
     metadata: dict[str, Any] = {
         "title": None,
@@ -207,6 +209,7 @@ def extract_metadata(article: ET.Element) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Convert PMC/Europe PMC JATS XML to sectioned text. Exits 2 when the document "
@@ -241,11 +244,13 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def matches(section: dict[str, Any], wanted: list[str]) -> bool:
+    """Handle matches."""
     haystack = f"{section['title']} {section['sec_type'] or ''}".lower()
     return any(want in haystack for want in wanted)
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
 
     try:

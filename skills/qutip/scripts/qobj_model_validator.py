@@ -304,6 +304,7 @@ def validate_model(document: Mapping[str, Any], qutip_module: Any | None = None)
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Validate a bounded strict-JSON QuTiP model containing one "
@@ -316,6 +317,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     document = load_json_object(args.model)
     report = validate_model(document)

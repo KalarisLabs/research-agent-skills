@@ -26,8 +26,8 @@ MAX_RATE_UL_S = 10_000.0
 MAX_CHANNELS = 96
 
 NAME_RE = re.compile(r"^[A-Za-z][A-Za-z0-9_-]{0,63}$")
-WELL_RE = re.compile(r"^([A-Z]{1,2})([1-9][0-9]{0,2})$")
-INT_TEXT_RE = re.compile(r"^(0|[1-9][0-9]*)$")
+WELL_RE = re.compile(r"^([A-Z]{1,2})([1-9]\d{0,2})$")
+INT_TEXT_RE = re.compile(r"^(0|[1-9]\d*)$")
 
 RESOURCE_KINDS = frozenset({"plate", "reservoir", "tube_rack", "tip_rack", "waste"})
 LIQUID_KINDS = frozenset({"plate", "reservoir", "tube_rack"})
@@ -52,10 +52,12 @@ class ValidationError(ValueError):
 
 
 def _reject_constant(value: str) -> None:
+  """Handle reject constant."""
   raise ValidationError(f"non-finite JSON number is forbidden: {value}")
 
 
 def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+  """Handle unique object."""
   result: dict[str, Any] = {}
   for key, value in pairs:
     if key in result:
@@ -100,6 +102,7 @@ def safe_input_path(raw_path: str, allowed_suffixes: Sequence[str]) -> Path:
 
 
 def load_json(raw_path: str) -> dict[str, Any]:
+  """Load json."""
   path = safe_input_path(raw_path, (".json",))
   try:
     text = path.read_text(encoding="utf-8")
@@ -119,6 +122,7 @@ def load_json(raw_path: str) -> dict[str, Any]:
 
 
 def load_csv(raw_path: str) -> list[dict[str, str]]:
+  """Load csv."""
   path = safe_input_path(raw_path, (".csv",))
   try:
     with path.open("r", encoding="utf-8", newline="") as handle:
@@ -209,6 +213,7 @@ def _string_list(value: Any, where: str, maximum_items: int = 256) -> list[str]:
 
 
 def _xyz(value: Any, where: str, *, positive: bool) -> dict[str, float]:
+  """Handle xyz."""
   obj = _exact_keys(value, ("x", "y", "z"), (), where)
   minimum_inclusive = not positive
   return {
@@ -224,6 +229,7 @@ def _xyz(value: Any, where: str, *, positive: bool) -> dict[str, float]:
 
 
 def row_index(row_letters: str) -> int:
+  """Handle row index."""
   index = 0
   for character in row_letters:
     index = index * 26 + ord(character) - ord("A") + 1
@@ -231,6 +237,7 @@ def row_index(row_letters: str) -> int:
 
 
 def validate_well(well: str, rows: int, columns: int, where: str) -> str:
+  """Validate well."""
   match = WELL_RE.fullmatch(well)
   if match is None:
     raise ValidationError(f"{where} must be an uppercase well such as A1")
@@ -482,6 +489,7 @@ def _endpoint(value: str, where: str) -> tuple[str, str]:
 
 
 def validate_transfers(rows: list[dict[str, str]]) -> list[dict[str, Any]]:
+  """Validate transfers."""
   normalized: list[dict[str, Any]] = []
   identifiers: set[str] = set()
   for index, row in enumerate(rows):
@@ -537,6 +545,7 @@ def validate_transfers(rows: list[dict[str, str]]) -> list[dict[str, Any]]:
 
 
 def geometry_report(manifest: dict[str, Any]) -> dict[str, Any]:
+  """Handle geometry report."""
   deck_size = manifest["deck"]["size_mm"]
   resources = manifest["resources"]
   out_of_bounds: list[dict[str, Any]] = []
@@ -580,6 +589,7 @@ def plan_transfers(
     manifest: dict[str, Any],
     transfers: list[dict[str, Any]],
 ) -> dict[str, Any]:
+  """Handle plan transfers."""
   resources = {resource["name"]: resource for resource in manifest["resources"]}
   constraints = manifest["constraints"]
   liquid_classes = set(constraints["allowed_liquid_classes"])
@@ -711,6 +721,7 @@ def emit_json(payload: Any, *, stream: Any = None) -> None:
 
 
 def emit_error(error: Exception) -> int:
+  """Handle emit error."""
   emit_json(
       {"ok": False, "error": type(error).__name__, "message": str(error)},
       stream=sys.stderr,

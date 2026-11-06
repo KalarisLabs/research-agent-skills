@@ -79,6 +79,7 @@ def run_poppler(command: str, pdf_path: Path) -> subprocess.CompletedProcess[str
 
 
 def pdf_info(pdf_path: Path) -> dict[str, str] | None:
+    """Handle pdf info."""
     result = run_poppler("pdfinfo", pdf_path)
     if result is None:
         return None
@@ -92,6 +93,7 @@ def pdf_info(pdf_path: Path) -> dict[str, str] | None:
 
 
 def embedded_fonts(pdf_path: Path) -> list[str] | None:
+    """Handle embedded fonts."""
     result = run_poppler("pdffonts", pdf_path)
     if result is None:
         return None
@@ -205,6 +207,7 @@ def write_report(
     checked: str | None,
     results: dict[str, dict[str, str]],
 ) -> None:
+    """Write report."""
     lines = [
         "Submission PDF Inspection",
         "=" * 60,
@@ -227,6 +230,7 @@ def write_report(
 
 
 def parse_args() -> argparse.Namespace:
+    """Parse args."""
     parser = argparse.ArgumentParser(
         description="Inspect page count, fonts, and metadata without claiming full compliance"
     )
@@ -249,6 +253,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     args = parse_args()
     pdf_path = Path(args.file)
     if not pdf_path.is_file():

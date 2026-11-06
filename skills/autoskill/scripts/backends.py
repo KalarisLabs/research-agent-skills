@@ -1,3 +1,5 @@
+"""Backends helpers."""
+
 import ipaddress
 import os
 import sys
@@ -52,6 +54,7 @@ class ClaudeBackend:
         self.client = client
 
     def __call__(self, prompt):
+        """Handle call."""
         response = self.client.post(
             "/v1/messages",
             headers={
@@ -80,6 +83,7 @@ class LocalBackend:
         self.client = client
 
     def __call__(self, prompt):
+        """Handle call."""
         response = self.client.post(
             "/chat/completions",
             json={
@@ -93,6 +97,7 @@ class LocalBackend:
 
 
 def make_backend(config):
+    """Make backend."""
     kind = config.get("backend")
     if kind == "claude":
         api_key = os.environ.get("ANTHROPIC_API_KEY")

@@ -51,6 +51,7 @@ _SIDECAR_FIELDS = {
 
 
 def _open_regular_no_follow(path: Path) -> tuple[BinaryIO, os.stat_result]:
+    """Open regular no follow."""
     flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
     try:
         descriptor = os.open(path, flags)
@@ -91,6 +92,7 @@ def _detect_format(prefix: bytes, suffix: str) -> dict[str, Any]:
 
 
 def _hash_and_prefix(handle: BinaryIO, *, chunk_bytes: int = 1_048_576) -> tuple[str, bytes]:
+    """Handle hash and prefix."""
     digest = hashlib.sha256()
     prefix = b""
     while True:
@@ -171,6 +173,7 @@ def inspect_checkpoint(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Hash and classify one local checkpoint without torch.load, pickle, "
@@ -192,6 +195,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

@@ -288,12 +288,12 @@ print("\n" + "=" * 80)
 print("ANALYSIS SUMMARY")
 print("=" * 80)
 
-print(f"\nFinal dataset:")
+print("\nFinal dataset:")
 print(f"  Cells: {adata.n_obs}")
 print(f"  Genes: {adata.n_vars}")
 print(f"  Clusters: {len(adata.obs['leiden'].unique())}")
 
-print(f"\nCell type distribution:")
+print("\nCell type distribution:")
 print(adata.obs['cell_type'].value_counts())
 
 print("\n" + "=" * 80)

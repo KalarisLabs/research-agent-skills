@@ -45,6 +45,7 @@ INVENTORY_TAGS = list(TECHNICAL_KEYWORDS) + [
 
 
 def _issue(code: str, message: str, severity: str = "error") -> dict[str, str]:
+    """Handle issue."""
     return {"code": code, "message": message, "severity": severity}
 
 
@@ -57,6 +58,7 @@ def inspect_dataset(
     max_decompressed_bytes: int,
     forced_read: bool,
 ) -> dict[str, Any]:
+    """Handle inspect dataset."""
     pydicom = require_pydicom()
     issues: list[dict[str, str]] = []
     file_meta = dataset.file_meta
@@ -208,6 +210,7 @@ def inspect_dataset(
 
 
 def inventory(args: argparse.Namespace) -> dict[str, Any]:
+    """Handle inventory."""
     max_input_bytes = parse_size(
         args.max_input_bytes,
         name="max_input_bytes",
@@ -310,6 +313,7 @@ def inventory(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Perform bounded metadata-only DICOM File Format and image-pixel "
@@ -366,6 +370,7 @@ Examples:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         report = inventory(args)

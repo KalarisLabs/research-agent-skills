@@ -45,6 +45,7 @@ def positive_argument(value: str) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Plan or execute a bounded read-only OMERO object inventory. "
@@ -105,10 +106,11 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def call_or_none(obj: Any, method: str) -> Any:
-    function = getattr(obj, method, None)
-    if not callable(function):
+    """Handle call or none."""
+    bound = getattr(obj, method, None)
+    if not callable(bound):
         return None
-    return function()
+    return bound()
 
 
 def object_record(
@@ -210,6 +212,7 @@ def dry_run_payload(
     args: argparse.Namespace,
     config: Any,
 ) -> dict[str, Any]:
+    """Handle dry run payload."""
     return {
         "mode": "dry-run",
         "server_contacted": False,
@@ -227,6 +230,7 @@ def dry_run_payload(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
@@ -284,9 +288,6 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 0
     except (
-        ConfigError,
-        DependencyError,
-        OutputPathError,
         FileExistsError,
         ValueError,
         RuntimeError,

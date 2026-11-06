@@ -38,10 +38,12 @@ BUILD_ARTIFACTS = {".aux", ".log", ".out", ".blg", ".toc", ".lof", ".lot", ".fls
 
 
 def strip_comments(tex: str) -> str:
+    """Handle strip comments."""
     return re.sub(r"(?<!\\)%.*", "", tex)
 
 
 def main() -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("folder", type=Path)
     ap.add_argument("--json", action="store_true")
@@ -54,6 +56,7 @@ def main() -> int:
     findings: list[dict] = []
 
     def add(sev: str, msg: str, path: str = "") -> None:
+        """Add."""
         findings.append({"severity": sev, "file": path, "message": msg})
 
     files = [p for p in root.rglob("*") if p.is_file()]

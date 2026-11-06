@@ -87,6 +87,7 @@ def _infer_format(path: str, explicit: str | None) -> str:
 
 
 def _normalize(array: Any, *, numpy: Any, bit_depth: int) -> tuple[Any, dict[str, Any]]:
+    """Normalize."""
     maximum = 255 if bit_depth == 8 else 65535
     dtype = numpy.uint8 if bit_depth == 8 else numpy.uint16
     work = numpy.asarray(array)
@@ -120,6 +121,7 @@ def _apply_grayscale_transforms(
     voi: str,
     voi_index: int,
 ) -> tuple[Any, list[str]]:
+    """Apply grayscale transforms."""
     from pydicom.pixels import (
         apply_modality_lut,
         apply_voi,
@@ -350,6 +352,7 @@ def render_frame(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Render one bounded DICOM frame to PNG, TIFF, or explicit lossy JPEG "
@@ -444,6 +447,7 @@ Examples:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         if args.frame < 0 or args.voi_index < 0:

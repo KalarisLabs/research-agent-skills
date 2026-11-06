@@ -141,6 +141,7 @@ STYLE_NOTICES = {
 
 
 def _load_palette_asset() -> ModuleType:
+    """Load palette asset."""
     asset = ASSET_ROOT / "color_palettes.py"
     spec = importlib.util.spec_from_file_location(
         "_scientific_visualization_color_palettes", asset
@@ -153,6 +154,7 @@ def _load_palette_asset() -> ModuleType:
 
 
 def available_palettes() -> dict[str, list[str]]:
+    """Handle available palettes."""
     palettes = getattr(_load_palette_asset(), "PALETTES", None)
     if not isinstance(palettes, dict):
         raise CliError("bundled palette asset does not define PALETTES")
@@ -311,6 +313,7 @@ def figure_size_for_profile(
 
 
 def math_is_finite_positive(value: float) -> bool:
+    """Handle math is finite positive."""
     return value > 0 and value < float("inf")
 
 
@@ -413,6 +416,7 @@ def reset_to_default() -> None:
 
 
 def _serializable_style(style_name: str, palette_name: str) -> dict[str, Any]:
+    """Handle serializable style."""
     style = get_style(style_name, palette_name=palette_name)
     colors = style.pop("_palette_colors")
     return {
@@ -429,6 +433,7 @@ def _serializable_style(style_name: str, palette_name: str) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Inspect or write deterministic Matplotlib style presets. "
@@ -454,6 +459,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     try:
         args = parser.parse_args(argv)

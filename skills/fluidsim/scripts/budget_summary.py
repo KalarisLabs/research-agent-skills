@@ -61,6 +61,7 @@ class OnlineStats:
     """Constant-memory finite scalar aggregation."""
 
     def __init__(self) -> None:
+        """Initialise the instance."""
         self.count = 0
         self.first: float | None = None
         self.last: float | None = None
@@ -84,6 +85,7 @@ class OnlineStats:
         self.mean = self.mean * ((self.count - 1) / self.count) + number / self.count
 
     def report(self) -> dict[str, Any]:
+        """Handle report."""
         return {
             "count": self.count,
             "first": self.first,
@@ -114,6 +116,7 @@ def _iter_text(path: Path, *, max_records: int):
 
 
 def summarize_scalar_file(path: Path, *, max_records: int) -> dict[str, Any]:
+    """Summarize scalar file."""
     metrics: dict[str, OnlineStats] = {}
     parsed_lines = 0
     json_lines = path.name.casefold().endswith(".json")
@@ -165,6 +168,7 @@ def _bounded_slice(shape: tuple[int, ...], maximum: int) -> tuple[Any, ...]:
 
 
 def _summarize_values(values: Any, *, complete_record: bool) -> dict[str, Any]:
+    """Summarize values."""
     flat = values.reshape(-1)
     if flat.dtype.kind == "c":
         flat = abs(flat)
@@ -291,6 +295,7 @@ def summarize(
     max_datasets: int,
     max_values: int,
 ) -> dict[str, Any]:
+    """Summarize."""
     files = iter_local_files(
         path, suffixes=None, max_files=max_files, recursive=True
     )
@@ -337,6 +342,7 @@ def summarize(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Summarize bounded local spatial means and latest spectral/budget "
@@ -353,6 +359,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     args = build_parser().parse_args(argv)
     try:
         max_files = bounded_int(

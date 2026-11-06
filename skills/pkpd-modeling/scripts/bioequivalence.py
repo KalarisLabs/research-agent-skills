@@ -54,10 +54,12 @@ CV_SCALING_THRESHOLD = 0.30
 
 
 def cv_from_s2(s2: float) -> float:
+    """Handle cv from s2."""
     return math.sqrt(math.exp(s2) - 1.0)
 
 
 def s2_from_cv(cv: float) -> float:
+    """Handle s2 from cv."""
     return math.log(1.0 + cv**2)
 
 
@@ -66,6 +68,7 @@ def s2_from_cv(cv: float) -> float:
 
 @dataclass
 class AverageBE:
+    """Average be."""
     gmr: float
     ci_low: float
     ci_high: float
@@ -148,6 +151,7 @@ def crossover_2x2(records: list[dict], design: str = "2x2") -> AverageBE:
 
 
 def parallel_design(records: list[dict]) -> AverageBE:
+    """Handle parallel design."""
     test = np.asarray([r["logvalue"] for r in records if r["treatment"] == "T"])
     ref = np.asarray([r["logvalue"] for r in records if r["treatment"] == "R"])
     if len(test) < 2 or len(ref) < 2:
@@ -175,16 +179,19 @@ def parallel_design(records: list[dict]) -> AverageBE:
 
 @dataclass
 class ReferenceVariability:
+    """Reference variability."""
     s2wr: float
     df: int
     n_subjects: int
 
     @property
     def swr(self) -> float:
+        """Handle swr."""
         return math.sqrt(self.s2wr)
 
     @property
     def cvwr(self) -> float:
+        """Handle cvwr."""
         return cv_from_s2(self.s2wr)
 
 
@@ -278,7 +285,8 @@ def tost_power(n_total: int, cv: float, gmr: float, design: str = "2x2", limits:
 
 
 def sample_size(cv: float, gmr: float, target: float, design: str = "2x2", limits: tuple[float, float] = (0.80, 1.25)) -> tuple[int, float]:
-    step = 2 if design != "parallel" else 2
+    """Handle sample size."""
+    step = 2
     for n in range(4, 5002, step):
         power = tost_power(n, cv, gmr, design, limits)
         if power >= target:
@@ -290,6 +298,7 @@ def sample_size(cv: float, gmr: float, target: float, design: str = "2x2", limit
 
 
 def load_records(args: argparse.Namespace) -> list[dict]:
+    """Load records."""
     rows = read_table(args.input)
     require_columns(rows, [args.subject_column, args.treatment_column, args.value_column], str(args.input))
     records = []
@@ -318,6 +327,7 @@ def load_records(args: argparse.Namespace) -> list[dict]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description="Average, reference-scaled, and prospective bioequivalence calculations.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -347,6 +357,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def run(argv: Sequence[str] | None = None) -> int:
+    """Run."""
     args = build_parser().parse_args(argv)
     report = Report()
 

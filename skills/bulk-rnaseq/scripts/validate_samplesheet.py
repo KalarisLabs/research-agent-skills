@@ -37,13 +37,16 @@ class Report:
     """Collects errors (fatal) and warnings (advisory)."""
 
     def __init__(self) -> None:
+        """Initialise the instance."""
         self.errors: list[str] = []
         self.warnings: list[str] = []
 
     def error(self, msg: str) -> None:
+        """Handle error."""
         self.errors.append(msg)
 
     def warn(self, msg: str) -> None:
+        """Handle warn."""
         self.warnings.append(msg)
 
     def summarize(self) -> int:
@@ -60,6 +63,7 @@ class Report:
 
 
 def _is_remote(path: str) -> bool:
+    """Return whether remote."""
     return str(path).startswith(REMOTE_PREFIXES)
 
 
@@ -180,6 +184,7 @@ def validate_metadata(meta_path: Path, sheet: pd.DataFrame | None,
 
 
 def main() -> None:
+    """Run the command-line interface."""
     p = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )

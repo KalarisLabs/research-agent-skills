@@ -117,6 +117,7 @@ def read_intervals(path: str, conv: Convention) -> list[tuple[str, int, int, str
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build parser."""
     parser = argparse.ArgumentParser(
         description="Convert intervals between genomic coordinate conventions.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -136,6 +137,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
 
