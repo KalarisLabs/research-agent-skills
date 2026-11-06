@@ -164,6 +164,8 @@ def request(base_url: str, path: str, params: dict[str, Any] | None = None) -> A
         query = _encode(params)
         if query:
             url = f"{url}?{query}"
+    if urllib.parse.urlsplit(url).scheme not in ("http", "https"):
+        raise LapisError(f"refusing non-HTTP(S) URL: {url}")
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
 
     last: str = ""
@@ -287,6 +289,8 @@ PANGO_BLOBS: dict[str, str] = {}
 
 
 def _fetch_text(url: str) -> str:
+    if urllib.parse.urlsplit(url).scheme not in ("http", "https"):
+        raise LapisError(f"refusing non-HTTP(S) URL: {url}")
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT) as response:
