@@ -1,0 +1,81 @@
+name: PostHog telemetry
+
+# Reports CI/CD and repository health to PostHog: workflow and job outcomes and durations, failures
+# (as error-tracking exceptions), catalog and quality statistics, releases and a daily repository
+# snapshot. It reports nothing about people who use the skills. Without the POSTHOG_PROJECT_KEY
+# secret (forks, local runs) every step is a no-op, and telemetry never fails a build.
+
+on:
+  workflow_run:
+    workflows:
+      - Benchmarks
+      - Code security
+      - Deploy Skills Catalog to skills.kalarislabs.com
+      - Mintlify docs checks
+      - Links
+      - Publish to PyPI
+      - Release
+      - OpenSSF Scorecard
+      - Skill Scorecard
+      - Skill security
+      - Supply chain
+      - Tests
+      - Validate skills
+      - Vendor security
+    types: [completed]
+  push:
+    branches: [main]
+    paths:
+      - "skills/**"
+      - "benchmarks/results/**"
+      - "catalog/skills.json"
+  release:
+    types: [published]
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: posthog-${{ github.event_name }}-${{ github.event.workflow_run.id || github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  report:
+    # workflow_run and schedule run from the default branch with access to secrets, so this job
+    # only ever checks out and runs code from main, never code from a pull request.
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    env:
+      POSTHOG_PROJECT_KEY: ${{ secrets.POSTHOG_PROJECT_KEY }}
+      POSTHOG_HOST: ${{ vars.POSTHOG_HOST || 'https://us.i.posthog.com' }}
+      GITHUB_TOKEN: ${{ github.token }}
+      PYPI_PACKAGE: research-agent-skills
+    steps:
+      - uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Workflow run outcome
+        if: github.event_name == 'workflow_run'
+        run: python3 tools/posthog_ci.py workflow-run
+
+      - name: Catalog and quality statistics
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: python3 tools/posthog_ci.py catalog-stats
+
+      - name: Release published
+        if: github.event_name == 'release'
+        run: python3 tools/posthog_ci.py release
+
+      - name: Daily repository snapshot
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: python3 tools/posthog_ci.py repo-snapshot
