@@ -77,6 +77,7 @@ def _reject_nonfinite_json(_value: str) -> None:
 
 
 def _check_json_bounds(value: Any, depth: int = 0) -> int:
+    """Check json bounds."""
     if depth > MAX_JSON_DEPTH:
         raise InputError(f"JSON nesting exceeds {MAX_JSON_DEPTH} levels")
     count = 1
@@ -138,6 +139,7 @@ def issue(
     location: str | None = None,
     item_id: str | None = None,
 ) -> Issue:
+    """Handle issue."""
     if severity not in {"error", "warning", "info"}:
         raise ValueError("unsupported issue severity")
     return Issue(severity=severity, code=code, location=location, item_id=item_id)
@@ -184,12 +186,14 @@ def emit_input_error(tool: str, exc: Exception) -> int:
 
 
 def require_object(value: Any, label: str = "root") -> dict[str, Any]:
+    """Handle require object."""
     if not isinstance(value, dict):
         raise InputError(f"{label} must be a JSON object")
     return value
 
 
 def require_list(value: Any, label: str) -> list[Any]:
+    """Handle require list."""
     if not isinstance(value, list):
         raise InputError(f"{label} must be a JSON array")
     if len(value) > MAX_RECORDS:
@@ -203,6 +207,7 @@ def is_nonempty_string(value: Any) -> bool:
 
 
 def is_placeholder(value: Any) -> bool:
+    """Return whether placeholder."""
     if not isinstance(value, str):
         return False
     lowered = value.strip().lower()
@@ -237,6 +242,7 @@ def write_new_text(
 
 
 def main_guard(tool: str, callback: Any) -> int:
+    """Handle main guard."""
     try:
         return int(callback())
     except (OSError, ValueError) as exc:

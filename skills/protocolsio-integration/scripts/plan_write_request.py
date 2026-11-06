@@ -148,6 +148,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _payload(path: str | None) -> dict[str, Any]:
+    """Handle payload."""
     if path is None:
         return {}
     value = load_local_json(path)
@@ -177,6 +178,7 @@ def _sensitive_paths(value: Any, prefix: str = "$") -> list[str]:
 
 
 def _drop_sensitive(value: Any) -> Any:
+    """Handle drop sensitive."""
     if isinstance(value, Mapping):
         result: dict[str, Any] = {}
         for key, item in value.items():
@@ -209,6 +211,7 @@ def _exact_fields(
 
 
 def _slug(value: str | None, *, name: str) -> str:
+    """Handle slug."""
     if value is None or _SLUG_RE.fullmatch(value) is None:
         raise SafetyError(f"{name} must be a bounded identifier")
     return value
@@ -229,6 +232,7 @@ def _protocol_uri(value: str | None) -> str:
 
 
 def _int_id(value: Any, *, name: str) -> int:
+    """Handle int id."""
     if isinstance(value, bool):
         raise SafetyError(f"{name} must be an integer")
     if isinstance(value, int):
@@ -412,6 +416,7 @@ def _upload_plan(
     local_max_bytes: int,
     origin: str,
 ) -> tuple[str, dict[str, Any], list[dict[str, Any]]]:
+    """Handle upload plan."""
     if raw_path is None:
         raise SafetyError("upload-file requires --upload-file")
     if not 1 <= local_max_bytes <= MAX_UPLOAD_INSPECTION_BYTES:

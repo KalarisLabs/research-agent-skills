@@ -109,6 +109,7 @@ def _attributes(
 
 
 def _object_address(h5py: Any, obj: Any) -> int:
+    """Handle object address."""
     try:
         return int(h5py.h5o.get_info(obj.id).addr)
     except (AttributeError, TypeError, ValueError):

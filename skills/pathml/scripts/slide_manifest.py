@@ -198,6 +198,7 @@ def validate_manifest(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def _inspect_openslide(path: Path) -> dict[str, Any]:
+    """Handle inspect openslide."""
     try:
         import openslide
     except ModuleNotFoundError as exc:
@@ -238,6 +239,7 @@ def _inspect_openslide(path: Path) -> dict[str, Any]:
 
 
 def _inspect_dicom(path: Path) -> dict[str, Any]:
+    """Handle inspect dicom."""
     try:
         import pydicom
     except ModuleNotFoundError as exc:
@@ -279,6 +281,7 @@ def _inspect_dicom(path: Path) -> dict[str, Any]:
 
 
 def _inspect_raster(path: Path, max_pixels: int) -> dict[str, Any]:
+    """Handle inspect raster."""
     try:
         from PIL import Image
     except ModuleNotFoundError as exc:

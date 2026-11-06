@@ -30,6 +30,7 @@ for _stream in (sys.stdout, sys.stderr):  # Windows consoles default to cp1252
 
 ROOT = Path(__file__).resolve().parents[2]
 CACHE = ROOT / ".cache" / "security"
+SCANNER_JSON = "skill-scanner.json"
 SKILLS = ROOT / "skills"
 HIGH = {"HIGH", "CRITICAL"}
 
@@ -41,7 +42,7 @@ def run_scanners() -> None:
         ["uv", "run", "tools/lint_injection.py", "--no-baseline", "--json", str(CACHE / "lint.json")],
         ["uvx", "bandit==1.9.4", "-r", "skills", "-f", "json", "-o", str(CACHE / "bandit.json"), "-q"],
         ["uvx", "--from", "cisco-ai-skill-scanner==2.1.0", "skill-scanner", "scan-all", "skills", "--recursive",
-         "--use-behavioral", "--format", "json", "--output", str(CACHE / "skill-scanner.json")],
+         "--use-behavioral", "--format", "json", "--output", str(CACHE / SCANNER_JSON)],
     ]
     for cmd in cmds:  # scanners exit non-zero when they find something; the JSON is what matters
         subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", timeout=3600, check=False)
@@ -61,7 +62,7 @@ def load_findings() -> dict[str, list[tuple[str, str, str]]]:
     bandit = json.loads((CACHE / "bandit.json").read_text(encoding="utf-8"))
     out["bandit"] = [(skill_of(r["filename"]), r["issue_severity"].upper(), r["test_id"]) for r in bandit["results"]
                      if skill_of(r["filename"])]
-    ss = json.loads((CACHE / "skill-scanner.json").read_text(encoding="utf-8"))
+    ss = json.loads((CACHE / SCANNER_JSON).read_text(encoding="utf-8"))
     rows = []
     for r in ss.get("results", []):
         skill = r.get("skill_name") or Path(str(r.get("skill_path", ""))).name
@@ -126,7 +127,7 @@ def main() -> int:
     # Reviewed false positives: HIGH skill-scanner findings whose key is in the reviewed baseline.
     accepted = set(json.loads((ROOT / "security" / "skill-scanner-baseline.json").read_text(encoding="utf-8"))
                    ["accepted"])
-    ss = json.loads((CACHE / "skill-scanner.json").read_text(encoding="utf-8"))
+    ss = json.loads((CACHE / SCANNER_JSON).read_text(encoding="utf-8"))
     sys.path.insert(0, str(ROOT / "tools"))
     from skill_scanner_gate import finding_key  # noqa: E402
     keys = set()

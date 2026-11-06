@@ -61,6 +61,7 @@ def _class_record(
 
 
 def inspect_installation(expected_version: str) -> dict[str, Any]:
+  """Handle inspect installation."""
   if VERSION_RE.fullmatch(expected_version) is None:
     raise ValidationError("--expected-version must use X.Y.Z numeric form")
   try:

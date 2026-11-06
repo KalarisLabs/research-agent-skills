@@ -8,6 +8,7 @@ from collections.abc import Sequence
 
 if __package__:
     from ._common import (
+        JSON_SUFFIX,
         MAX_CONFIG_BYTES,
         MAX_JSON_BYTES,
         SPLIT_NAMES,
@@ -25,6 +26,7 @@ if __package__:
     )
 else:
     from _common import (  # type: ignore
+        JSON_SUFFIX,
         MAX_CONFIG_BYTES,
         MAX_JSON_BYTES,
         SPLIT_NAMES,
@@ -181,13 +183,13 @@ def _plan(args: argparse.Namespace) -> int:
     config_path = checked_input_file(
         args.config,
         root=args.root,
-        suffixes={".json", ".yaml", ".yml"},
+        suffixes={JSON_SUFFIX, ".yaml", ".yml"},
         max_bytes=MAX_CONFIG_BYTES,
     )
     manifest_path = checked_input_file(
         args.manifest,
         root=args.root,
-        suffixes={".json"},
+        suffixes={JSON_SUFFIX},
         max_bytes=MAX_CONFIG_BYTES,
     )
     config = validate_run_config(
@@ -219,7 +221,7 @@ def _report(args: argparse.Namespace) -> int:
     result_path = checked_input_file(
         args.results,
         root=args.root,
-        suffixes={".json"},
+        suffixes={JSON_SUFFIX},
         max_bytes=MAX_JSON_BYTES,
     )
     result = validate_result_document(

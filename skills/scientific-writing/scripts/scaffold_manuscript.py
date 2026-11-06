@@ -70,6 +70,7 @@ def generate(
     study_design: str,
     guidelines: list[str],
 ) -> list[str]:
+    """Generate."""
     if output_dir.exists() or output_dir.is_symlink():
         raise InputError("output directory already exists; refusing to overwrite")
     parent = output_dir.parent

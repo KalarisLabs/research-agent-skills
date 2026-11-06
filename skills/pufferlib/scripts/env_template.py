@@ -51,6 +51,7 @@ class BoxSpace:
     dtype: str = "float32"
 
     def contains(self, value: Any) -> bool:
+        """Handle contains."""
         if len(self.shape) != 1 or not isinstance(value, (list, tuple)):
             return False
         if len(value) != self.shape[0]:
@@ -69,6 +70,7 @@ class SyntheticGymEnv:
     metadata = {"render_modes": []}
 
     def __init__(self, *, max_steps: int = 16) -> None:
+        """Initialise the instance."""
         if not 1 <= max_steps <= 10_000:
             raise UserInputError("max_steps must be between 1 and 10000")
         self.max_steps = max_steps

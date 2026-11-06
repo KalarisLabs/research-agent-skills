@@ -23,10 +23,11 @@ from _common import (
 
 
 # Docking is intentionally excluded: its evaluation can invoke specialized oracles.
+BENCHMARK_GROUP_MODULE = "tdc.benchmark_group"
 GROUPS: dict[str, tuple[str, str]] = {
-    "admet_group": ("tdc.benchmark_group", "admet_group"),
-    "drugcombo_group": ("tdc.benchmark_group", "drugcombo_group"),
-    "dti_dg_group": ("tdc.benchmark_group", "dti_dg_group"),
+    "admet_group": (BENCHMARK_GROUP_MODULE, "admet_group"),
+    "drugcombo_group": (BENCHMARK_GROUP_MODULE, "drugcombo_group"),
+    "dti_dg_group": (BENCHMARK_GROUP_MODULE, "dti_dg_group"),
 }
 
 MAX_PREDICTION_FILE_BYTES = 50 * 1024 * 1024
@@ -44,6 +45,7 @@ def benchmark_names(metadata: Any, group: str) -> list[str]:
 
 
 def validate_seeds(seeds: list[int]) -> list[int]:
+    """Validate seeds."""
     if not seeds:
         raise CliError("at least one seed is required")
     if len(seeds) > MAX_RUNS:
@@ -56,6 +58,7 @@ def validate_seeds(seeds: list[int]) -> list[int]:
 
 
 def _validate_values(values: Any, dataset: str) -> list[float]:
+    """Validate values."""
     if not isinstance(values, list) or not values:
         raise CliError(f"predictions for {dataset} must be a non-empty JSON array")
     checked: list[float] = []
@@ -75,6 +78,7 @@ def normalize_prediction_mapping(
     available: list[str],
     selected_dataset: str | None,
 ) -> tuple[dict[str, list[float]], int]:
+    """Normalize prediction mapping."""
     if not isinstance(value, dict) or not value:
         raise CliError("each prediction run must be a non-empty JSON object")
     normalized: dict[str, list[float]] = {}

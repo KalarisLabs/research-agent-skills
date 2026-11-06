@@ -86,6 +86,7 @@ class Skill:
 
 
 def iter_skill_dirs(root: Path = SKILLS_DIR) -> Iterator[Path]:
+    """Handle iter skill dirs."""
     for p in sorted(root.iterdir()) if root.exists() else []:
         if p.is_dir() and (p / "SKILL.md").is_file():
             yield p

@@ -17,6 +17,7 @@ MAX_IMAGE_PIXELS = 100_000_000
 
 
 def _pillow_version() -> str:
+    """Handle pillow version."""
     try:
         return version("Pillow")
     except PackageNotFoundError:
@@ -24,6 +25,7 @@ def _pillow_version() -> str:
 
 
 def _read_image(path: Path) -> dict[str, Any]:
+    """Read image."""
     try:
         from PIL import Image
     except ImportError as exc:

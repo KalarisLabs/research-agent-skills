@@ -40,6 +40,7 @@ def _local_name(tag: str) -> str:
 
 
 def _member_path_error(name: str) -> str | None:
+    """Handle member path error."""
     if not name or "\x00" in name:
         return "empty or NUL-containing member name"
     if "\\" in name:
@@ -59,6 +60,7 @@ def _is_symlink(info: zipfile.ZipInfo) -> bool:
 
 
 def _find_child(parent: ElementTree.Element, name: str) -> ElementTree.Element | None:
+    """Find child."""
     for child in parent:
         if _local_name(child.tag) == name:
             return child
@@ -353,6 +355,7 @@ def _write_json_safely(
 
 
 def _emit_json(payload: Mapping[str, Any], *, compact: bool) -> None:
+    """Handle emit json."""
     if compact:
         json.dump(payload, sys.stdout, sort_keys=True, separators=(",", ":"))
     else:

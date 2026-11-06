@@ -97,6 +97,7 @@ def checked_root(value: str | os.PathLike[str]) -> Path:
 
 
 def _within_root(candidate: Path, root: Path) -> None:
+    """Handle within root."""
     try:
         candidate.relative_to(root)
     except ValueError as exc:
@@ -322,6 +323,7 @@ def bounded_int(
     minimum: int,
     maximum: int,
 ) -> int:
+    """Handle bounded int."""
     if isinstance(value, bool) or not isinstance(value, int):
         raise CliError(f"{name} must be an integer")
     if not minimum <= value <= maximum:
@@ -336,6 +338,7 @@ def finite_float(
     minimum: float | None = None,
     maximum: float | None = None,
 ) -> float:
+    """Handle finite float."""
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise CliError(f"{name} must be numeric")
     number = float(value)
@@ -349,6 +352,7 @@ def finite_float(
 
 
 def parse_name_list(value: str | None, *, name: str) -> list[str]:
+    """Parse name list."""
     if value is None:
         return []
     names = [item.strip() for item in value.split(",")]
@@ -360,6 +364,7 @@ def parse_name_list(value: str | None, *, name: str) -> list[str]:
 
 
 def require_deidentified(confirmed: bool) -> None:
+    """Handle require deidentified."""
     if not confirmed:
         raise CliError(
             "local participant data require --deidentified; remove direct identifiers "
@@ -368,6 +373,7 @@ def require_deidentified(confirmed: bool) -> None:
 
 
 def _read_header(reader: Any) -> list[str]:
+    """Read header."""
     try:
         header = next(reader)
     except StopIteration as exc:
@@ -454,6 +460,7 @@ def read_numeric_columns(
 
 
 def _format_csv_value(value: Any) -> str:
+    """Format csv value."""
     if value is None:
         return ""
     if isinstance(value, bool):
@@ -549,6 +556,52 @@ def dataframe_rows(frame: Any) -> Iterable[Sequence[Any]]:
     """Yield rows without importing pandas at module import time."""
 
     return frame.itertuples(index=False, name=None)
+
+
+def add_pipeline_arguments(parser: Any) -> None:
+    """Add the seed, I/O boundary, privacy and output options shared by the pipeline CLIs."""
+
+    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--root", default=".")
+    parser.add_argument("--max-rows", type=int, default=MAX_ROWS)
+    parser.add_argument(
+        "--deidentified",
+        action="store_true",
+        help="required with --input",
+    )
+    parser.add_argument("--signals-output", help="optional processed local .csv")
+    parser.add_argument("--output", help="optional local .json report")
+    parser.add_argument("--force", action="store_true")
+
+
+def require_pinned_neurokit2(nk: Any) -> str:
+    """Return the installed NeuroKit2 version, requiring the pinned reproducible release."""
+
+    installed = str(nk.__version__)
+    if installed != NEUROKIT2_VERSION:
+        raise CliError(
+            f"this reproducible workflow requires NeuroKit2 {NEUROKIT2_VERSION}; "
+            f"found {installed}. Install with: {PINNED_INSTALL}"
+        )
+    return installed
+
+
+def emit_pipeline_report(report: dict[str, Any], signals: Any, args: Any) -> None:
+    """Write the optional processed-signals CSV, record its digest, and emit the JSON report."""
+
+    if args.signals_output:
+        payload = write_csv(
+            args.signals_output,
+            [str(column) for column in signals.columns],
+            dataframe_rows(signals),
+            root=args.root,
+            force=args.force,
+        )
+        report["signals_csv"] = {
+            "path_redacted": True,
+            "sha256": sha256_bytes(payload),
+        }
+    emit_json(report, output=args.output, root=args.root, force=args.force)
 
 
 def run_cli(function: Any) -> int:

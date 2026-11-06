@@ -55,6 +55,7 @@ WEIGHT_SCHEMES = {
 
 
 def build_weights(xs: list[float], scheme: str) -> list[float] | None:
+    """Build weights."""
     if scheme == "none":
         return None
     fn = WEIGHT_SCHEMES[scheme]

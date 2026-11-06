@@ -125,6 +125,7 @@ def _parse_bounded_score(
     label: str,
     criterion: Criterion,
 ) -> float:
+    """Parse bounded score."""
     if raw is None or not raw.strip():
         raise CliError(f"{label} must contain a score")
     score = finite_number(raw, label)

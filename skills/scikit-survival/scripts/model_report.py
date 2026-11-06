@@ -14,6 +14,7 @@ COMPETING_RISK_CHOICES = ("not-assessed", "absent", "present")
 
 
 def _mapping(value: Any, label: str) -> dict[str, Any]:
+    """Handle mapping."""
     if not isinstance(value, dict):
         raise CliError(f"{label} must be a JSON object")
     return value

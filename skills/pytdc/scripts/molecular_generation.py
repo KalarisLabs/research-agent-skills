@@ -131,6 +131,7 @@ def execute_scores(
     download_acknowledged: bool,
     package_version: str,
 ) -> dict[str, Any]:
+    """Handle execute scores."""
     if category == "checkpoint_download" and not download_acknowledged:
         raise CliError(
             f"{oracle_name} may download a model checkpoint; pass --download "

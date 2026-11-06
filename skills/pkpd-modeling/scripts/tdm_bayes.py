@@ -60,7 +60,9 @@ class PopulationModel:
 
 @dataclass
 class VancomycinAdult(PopulationModel):
+    """Vancomycin adult."""
     def individualise(self, weight: float | None, crcl: float | None) -> tuple[float, float]:
+        """Handle individualise."""
         if weight is None or crcl is None:
             raise InputError("the vancomycin model needs --weight and --crcl")
         # A conventional two-covariate adult parameterisation: clearance
@@ -169,6 +171,7 @@ def recommend_dose(cl: float, target_auc24: float) -> float:
 
 
 def _level(text: str) -> tuple[float, float]:
+    """Handle level."""
     if "@" not in text:
         raise argparse.ArgumentTypeError(f"--level must look like 18.2@11.5 (conc@time), got {text!r}")
     conc_text, time_text = text.split("@", 1)

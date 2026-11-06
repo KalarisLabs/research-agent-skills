@@ -236,6 +236,7 @@ class Reference:
             self._alias.setdefault(canonical_contig(name), name)
 
     def _load_fai(self, fai: Path) -> None:
+        """Load fai."""
         for line in fai.read_text().splitlines():
             if not line.strip():
                 continue
@@ -262,6 +263,7 @@ class Reference:
             self._cache[name] = "".join(chunks)
 
     def _resolve(self, contig: str) -> str:
+        """Resolve."""
         if contig in self._index or contig in self._cache:
             return contig
         alias = self._alias.get(canonical_contig(contig))
@@ -277,6 +279,7 @@ class Reference:
 
     @property
     def contigs(self) -> dict[str, int]:
+        """Handle contigs."""
         if self._index:
             return {name: meta[0] for name, meta in self._index.items()}
         return {name: len(seq) for name, seq in self._cache.items()}

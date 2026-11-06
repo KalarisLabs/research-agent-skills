@@ -38,6 +38,7 @@ MAX_ROWS = 1_000_000
 MAX_HYPOTHESES = 10_000
 MAX_STRING_CHARS = 100_000
 MAX_CORRECT_EXAMPLES = 1_000_000
+JSON_SUFFIX = ".json"
 
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 REVISION_RE = re.compile(r"^[0-9a-f]{40,64}$")
@@ -46,7 +47,7 @@ TASK_NAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_./-]{0,127}$")
 ENV_NAME_RE = re.compile(r"^[A-Z][A-Z0-9_]{1,127}$")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 SECRET_VALUE_RE = re.compile(
-    r"^(?:sk-(?:proj-)?|sk-ant-|sess-|api[_-]?key[:=])[A-Za-z0-9_-]{8,}$",
+    r"^(?:sk-(?:proj-)?|sk-ant-|sess-|api[_-]?key[:=])[a-z0-9_-]{8,}$",
     re.IGNORECASE,
 )
 
@@ -119,6 +120,7 @@ def _reject_symlink_components(path: Path) -> None:
 
 
 def _within_root(candidate: Path, root: Path) -> None:
+    """Handle within root."""
     try:
         candidate.relative_to(root)
     except ValueError as exc:
@@ -330,7 +332,7 @@ def load_structured_document(
     path = checked_input_file(
         value,
         root=root,
-        suffixes={".json", ".yaml", ".yml"},
+        suffixes={JSON_SUFFIX, ".yaml", ".yml"},
         max_bytes=max_bytes,
     )
     try:
@@ -338,7 +340,7 @@ def load_structured_document(
     except (OSError, UnicodeError) as exc:
         raise CliError(f"cannot read UTF-8 input {path.name!r}: {exc}") from exc
     try:
-        if path.suffix.lower() == ".json":
+        if path.suffix.lower() == JSON_SUFFIX:
             document = json.loads(
                 text,
                 object_pairs_hook=_unique_object,
@@ -365,7 +367,7 @@ def load_json_document(
     path = checked_input_file(
         value,
         root=root,
-        suffixes={".json"},
+        suffixes={JSON_SUFFIX},
         max_bytes=max_bytes,
     )
     try:
@@ -389,6 +391,7 @@ def validate_keys(
     optional: Iterable[str] = (),
     context: str,
 ) -> dict[str, Any]:
+    """Validate keys."""
     if not isinstance(value, dict):
         raise CliError(f"{context} must be an object")
     required_set = set(required)
@@ -403,6 +406,7 @@ def validate_keys(
 
 
 def bounded_int(value: Any, *, name: str, minimum: int, maximum: int) -> int:
+    """Handle bounded int."""
     if isinstance(value, bool) or not isinstance(value, int):
         raise CliError(f"{name} must be an integer")
     if value < minimum or value > maximum:
@@ -417,6 +421,7 @@ def finite_number(
     minimum: float = 0.0,
     maximum: float = 1_000_000_000.0,
 ) -> float:
+    """Handle finite number."""
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise CliError(f"{name} must be numeric")
     number = float(value)
@@ -440,6 +445,7 @@ def nonempty_text(value: Any, *, name: str, maximum: int = 1024) -> str:
 
 
 def strict_bool(value: Any, *, name: str, expected: bool | None = None) -> bool:
+    """Handle strict bool."""
     if not isinstance(value, bool):
         raise CliError(f"{name} must be true or false")
     if expected is not None and value is not expected:
@@ -448,12 +454,14 @@ def strict_bool(value: Any, *, name: str, expected: bool | None = None) -> bool:
 
 
 def normalized_sha256(value: Any, *, name: str) -> str:
+    """Handle normalized sha256."""
     if not isinstance(value, str) or SHA256_RE.fullmatch(value.lower()) is None:
         raise CliError(f"{name} must be a 64-character SHA-256 hex digest")
     return value.lower()
 
 
 def normalized_date(value: Any, *, name: str) -> str:
+    """Handle normalized date."""
     if not isinstance(value, str) or DATE_RE.fullmatch(value) is None:
         raise CliError(f"{name} must use YYYY-MM-DD")
     try:
@@ -464,6 +472,7 @@ def normalized_date(value: Any, *, name: str) -> str:
 
 
 def _validate_no_secret_fields(value: Any, *, context: str = "config") -> None:
+    """Validate no secret fields."""
     if isinstance(value, dict):
         for key, child in value.items():
             lowered = key.lower()
@@ -523,12 +532,12 @@ def validate_run_config(document: Any) -> dict[str, Any]:
         "task_config": safe_relative_path(
             raw_data["task_config"],
             name="data.task_config",
-            suffixes={".json", ".yaml", ".yml"},
+            suffixes={JSON_SUFFIX, ".yaml", ".yml"},
         ),
         "dataset_manifest": safe_relative_path(
             raw_data["dataset_manifest"],
             name="data.dataset_manifest",
-            suffixes={".json"},
+            suffixes={JSON_SUFFIX},
         ),
         "output_directory": safe_relative_path(
             raw_data["output_directory"],
@@ -792,6 +801,7 @@ def named_env_presence(config: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _validate_prompt_value(value: Any, *, context: str, depth: int = 0) -> None:
+    """Validate prompt value."""
     if depth > 16:
         raise CliError(f"{context} exceeds prompt-template depth 16")
     if isinstance(value, str):
@@ -839,7 +849,7 @@ def validate_task_config(document: Any) -> dict[str, Any]:
         key: safe_relative_path(
             top[key],
             name=key,
-            suffixes={".json"},
+            suffixes={JSON_SUFFIX},
         )
         for key in ("train_data_path", "val_data_path", "test_data_path")
     }
@@ -850,7 +860,7 @@ def validate_task_config(document: Any) -> dict[str, Any]:
         ood_path = safe_relative_path(
             top["ood_data_path"],
             name="ood_data_path",
-            suffixes={".json"},
+            suffixes={JSON_SUFFIX},
         )
         if ood_path in set(paths.values()):
             raise CliError("ood_data_path must be distinct from train/validation/test")
@@ -950,7 +960,7 @@ def validate_dataset_manifest(document: Any) -> dict[str, Any]:
         path = safe_relative_path(
             split["path"],
             name=f"splits[{index}].path",
-            suffixes={".json"},
+            suffixes={JSON_SUFFIX},
         )
         names.append(name)
         paths.append(path)
@@ -985,6 +995,7 @@ def validate_dataset_manifest(document: Any) -> dict[str, Any]:
 
 
 def validate_hypothesis_bank(document: Any) -> list[dict[str, Any]]:
+    """Validate hypothesis bank."""
     if not isinstance(document, dict) or not document:
         raise CliError("hypothesis bank root must be a nonempty object")
     if len(document) > MAX_HYPOTHESES:
@@ -1235,6 +1246,7 @@ def classification_metrics(records: Sequence[Mapping[str, str | None]]) -> dict[
 
 
 def canonical_json_bytes(value: Any) -> bytes:
+    """Handle canonical json bytes."""
     try:
         return json.dumps(
             value,
@@ -1248,6 +1260,7 @@ def canonical_json_bytes(value: Any) -> bytes:
 
 
 def sha256_file(path: Path, *, max_bytes: int = MAX_JSON_BYTES) -> str:
+    """Handle sha256 file."""
     try:
         size = path.stat().st_size
     except OSError as exc:
@@ -1265,6 +1278,7 @@ def sha256_file(path: Path, *, max_bytes: int = MAX_JSON_BYTES) -> str:
 
 
 def summarize_numbers(values: Sequence[float | int]) -> dict[str, float | int | None]:
+    """Summarize numbers."""
     if not values:
         return {"minimum": None, "maximum": None, "mean": None}
     return {
@@ -1286,6 +1300,7 @@ def count_values(values: Iterable[str]) -> list[dict[str, Any]]:
 
 
 def strict_json_bytes(document: Any) -> bytes:
+    """Handle strict json bytes."""
     try:
         payload = (
             json.dumps(
@@ -1305,6 +1320,7 @@ def strict_json_bytes(document: Any) -> bytes:
 
 
 def emit_json(document: Any, *, stream: Any = None) -> None:
+    """Handle emit json."""
     if stream is None:
         stream = sys.stdout
     print(strict_json_bytes(document).decode("utf-8"), end="", file=stream)

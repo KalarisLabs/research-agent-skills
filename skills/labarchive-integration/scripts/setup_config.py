@@ -98,6 +98,7 @@ def _present(env: Mapping[str, str], name: str) -> bool:
 
 
 def _dump(payload: Mapping[str, Any], *, compact: bool, stream: Any) -> None:
+    """Handle dump."""
     if compact:
         json.dump(payload, stream, sort_keys=True, separators=(",", ":"))
     else:
@@ -106,6 +107,7 @@ def _dump(payload: Mapping[str, Any], *, compact: bool, stream: Any) -> None:
 
 
 def _select_api_url(args: argparse.Namespace, env: Mapping[str, str]) -> str:
+    """Select api url."""
     if args.api_url and args.region:
         raise ConfigError("use either --api-url or --region, not both")
     if args.api_url:
@@ -237,9 +239,8 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv: Sequence[str] | None = None) -> int:
-    """Run the command-line interface."""
-    parser = build_parser()
+def run_cli(parser: argparse.ArgumentParser, argv: Sequence[str] | None = None) -> int:
+    """Parse ``argv``, run the chosen handler, and map config errors and Ctrl-C to exit codes."""
     args = parser.parse_args(argv)
     try:
         return int(args.handler(args))
@@ -257,6 +258,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     except KeyboardInterrupt:
         print('{"valid":false,"error":"cancelled"}', file=sys.stderr)
         return 130
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    """Run the command-line interface."""
+    return run_cli(build_parser(), argv)
 
 
 if __name__ == "__main__":

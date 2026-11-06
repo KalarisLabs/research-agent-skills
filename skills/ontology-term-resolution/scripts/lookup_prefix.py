@@ -29,6 +29,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+from _inputs import collect_inputs  # noqa: E402
 from id_client import (  # noqa: E402
     IdError,
     NotFoundError,
@@ -62,29 +63,7 @@ FAIL_STATUSES = {"unknown_prefix", "invalid_local", "malformed"}
 
 def read_inputs(args: argparse.Namespace) -> list[str]:
     """Collect prefix/CURIE strings from positional args, a file, or stdin."""
-    values: list[str] = list(args.value)
-    if args.input:
-        raw = (
-            sys.stdin.read()
-            if args.input == "-"
-            else Path(args.input).read_text(encoding="utf-8")
-        )
-        for line in raw.splitlines():
-            line = line.strip()
-            if line and not line.startswith("#"):
-                values.append(line)
-    if not values and not sys.stdin.isatty():
-        for line in sys.stdin.read().splitlines():
-            line = line.strip()
-            if line and not line.startswith("#"):
-                values.append(line)
-    seen: set[str] = set()
-    unique = []
-    for value in values:
-        if value not in seen:
-            seen.add(value)
-            unique.append(value)
-    return unique
+    return collect_inputs(list(args.value), args.input)
 
 
 def lookup_one(value: str) -> dict:

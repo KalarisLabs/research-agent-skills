@@ -8,6 +8,7 @@ from collections.abc import Sequence
 
 if __package__:
     from ._common import (
+        JSON_SUFFIX,
         MAX_CONFIG_BYTES,
         MAX_JSON_BYTES,
         CliError,
@@ -21,6 +22,7 @@ if __package__:
     )
 else:
     from _common import (  # type: ignore
+        JSON_SUFFIX,
         MAX_CONFIG_BYTES,
         MAX_JSON_BYTES,
         CliError,
@@ -87,13 +89,13 @@ def _run_policy(args: argparse.Namespace) -> int:
         checked_input_file(
             config["data"]["task_config"],
             root=args.root,
-            suffixes={".json", ".yaml", ".yml"},
+            suffixes={JSON_SUFFIX, ".yaml", ".yml"},
             max_bytes=MAX_CONFIG_BYTES,
         )
         checked_input_file(
             config["data"]["dataset_manifest"],
             root=args.root,
-            suffixes={".json"},
+            suffixes={JSON_SUFFIX},
             max_bytes=MAX_CONFIG_BYTES,
         )
     environment = (
@@ -137,7 +139,7 @@ def _task_config(args: argparse.Namespace) -> int:
     config_path = checked_input_file(
         args.input,
         root=args.root,
-        suffixes={".json", ".yaml", ".yml"},
+        suffixes={JSON_SUFFIX, ".yaml", ".yml"},
         max_bytes=MAX_CONFIG_BYTES,
     )
     document = load_structured_document(
@@ -159,7 +161,7 @@ def _task_config(args: argparse.Namespace) -> int:
             checked_input_file(
                 config[key],
                 root=config_path.parent,
-                suffixes={".json"},
+                suffixes={JSON_SUFFIX},
                 max_bytes=MAX_JSON_BYTES,
             )
             checked.append(key)

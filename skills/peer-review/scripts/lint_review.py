@@ -18,7 +18,7 @@ from _common import (
 AUTHOR_HEADING = "# Comments to authors"
 EDITOR_HEADING = "# Confidential comments to editor"
 COMMENT_HEADING_RE = re.compile(
-    r"^###\s+(?P<kind>Major|Minor)\s+comment(?:\s+(?P<id>[A-Za-z0-9._:-]+))?\s*$",
+    r"^###\s+(?P<kind>Major|Minor)\s+comment(?:\s+(?P<id>[A-Z0-9._:-]+))?\s*$",
     re.IGNORECASE,
 )
 FIELD_RE = re.compile(

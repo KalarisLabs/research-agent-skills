@@ -14,6 +14,8 @@ from lightning.pytorch.callbacks import (
 from lightning.pytorch import loggers as pl_loggers
 from lightning.pytorch.strategies import DDPStrategy, FSDPStrategy
 
+CHECKPOINT_FILENAME = "{epoch:02d}-{val_loss:.2f}"
+
 
 # =============================================================================
 # 1. BASIC TRAINING (Single GPU/CPU)
@@ -69,7 +71,7 @@ def production_single_gpu_trainer(
     # Callbacks
     checkpoint_callback = ModelCheckpoint(
         dirpath=checkpoint_dir,
-        filename="{epoch:02d}-{val_loss:.2f}",
+        filename=CHECKPOINT_FILENAME,
         monitor="val_loss",
         mode="min",
         save_top_k=3,
@@ -129,7 +131,7 @@ def multi_gpu_ddp_trainer(
     # Callbacks
     checkpoint_callback = ModelCheckpoint(
         dirpath=checkpoint_dir,
-        filename="{epoch:02d}-{val_loss:.2f}",
+        filename=CHECKPOINT_FILENAME,
         monitor="val_loss",
         mode="min",
         save_top_k=3,
@@ -193,7 +195,7 @@ def large_model_fsdp_trainer(
     # Callbacks
     checkpoint_callback = ModelCheckpoint(
         dirpath=checkpoint_dir,
-        filename="{epoch:02d}-{val_loss:.2f}",
+        filename=CHECKPOINT_FILENAME,
         monitor="val_loss",
         mode="min",
         save_top_k=3,
@@ -385,7 +387,7 @@ def reproducible_trainer(seed=42, max_epochs=100):
     # Callbacks
     checkpoint_callback = ModelCheckpoint(
         dirpath="checkpoints",
-        filename="{epoch:02d}-{val_loss:.2f}",
+        filename=CHECKPOINT_FILENAME,
         monitor="val_loss",
         mode="min",
         save_top_k=3,

@@ -18,6 +18,7 @@ class InputError(ValueError):
 
 
 def require(condition, message):
+    """Handle require."""
     if not condition:
         raise InputError(message)
 
@@ -51,6 +52,7 @@ def unique(items, label):
 
 
 def read_json(path):
+    """Read json."""
     def pairs(items):
         """Handle pairs."""
         result = {}
@@ -67,88 +69,39 @@ def read_json(path):
                       parse_constant=invalid_constant)
 
 
+def _check_network_header(spec):
+    """Validate the schema version, text fields and list sizes of a network spec."""
+    require(type(spec["schema_version"]) is int and spec["schema_version"] == 1,
+            "Only schema_version 1 is supported")
+    for key in ("name", "flux_unit", "provenance"):
+        require(isinstance(spec[key], str) and bool(spec[key].strip()), f"Missing {key}")
+    for key, maximum in (("metabolites", 100), ("reactions", 200), ("fragments", 100)):
+        require(isinstance(spec[key], list) and 0 < len(spec[key]) <= maximum,
+                f"{key} must be a nonempty list with at most {maximum} entries")
+
+
+def _stoichiometry(parts):
+    """Render the mfapy stoichiometry string for one side of a reaction."""
+    return "+".join((f"{{{count}}}" if count > 1 else "") + name
+                    for name, count in Counter(parts).items())
+
+
 class Network:
+    """Network."""
     def __init__(self, spec):
         """Initialise the instance."""
         fields(spec, {"schema_version", "name", "flux_unit", "provenance", "metabolites",
                       "reactions", "fragments"})
-        require(type(spec["schema_version"]) is int and spec["schema_version"] == 1,
-                "Only schema_version 1 is supported")
-        for key in ("name", "flux_unit", "provenance"):
-            require(isinstance(spec[key], str) and bool(spec[key].strip()), f"Missing {key}")
-        for key, maximum in (("metabolites", 100), ("reactions", 200), ("fragments", 100)):
-            require(isinstance(spec[key], list) and 0 < len(spec[key]) <= maximum,
-                    f"{key} must be a nonempty list with at most {maximum} entries")
+        _check_network_header(spec)
         self.spec = spec
-        self.metabolites = {}
-        for m in spec["metabolites"]:
-            fields(m, {"id", "carbons", "boundary"}, {"symmetric"})
-            name = identifier(m["id"])
-            require(name not in self.metabolites, f"Duplicate metabolite {name}")
-            require(type(m["carbons"]) is int and 1 <= m["carbons"] <= 12,
-                    f"{name}: carbon count must be 1..12")
-            require(m["boundary"] in ("source", "internal", "sink"), f"{name}: invalid boundary")
-            require(type(m.get("symmetric", False)) is bool, f"{name}: symmetric must be boolean")
-            require(not m.get("symmetric") or m["boundary"] == "internal",
-                    "Reversal symmetry is supported only for internal pools")
-            self.metabolites[name] = m
+        self.metabolites = self._load_metabolites(spec)
         self.ids = []
         self.lower, self.upper, self.fixed = [], [], {}
         balance = {name: [] for name, m in self.metabolites.items() if m["boundary"] == "internal"}
         self.reactions = {}
         used = set()
         for i, r in enumerate(spec["reactions"]):
-            fields(r, {"id", "substrates", "products", "lower", "upper"}, {"fixed"})
-            rid = identifier(r["id"])
-            require(rid not in self.ids, f"Duplicate reaction {rid}")
-            self.ids.append(rid)
-            lo, hi = number(r["lower"], rid), number(r["upper"], rid)
-            require(0 <= lo < hi, f"{rid}: require 0 <= lower < upper; use fixed for fixed fluxes")
-            self.lower.append(lo)
-            self.upper.append(hi)
-            if "fixed" in r:
-                fixed = number(r["fixed"], rid)
-                require(lo <= fixed <= hi, f"{rid}: fixed flux outside bounds")
-                self.fixed[rid] = fixed
-            names, labels = [], []
-            for side in ("substrates", "products"):
-                require(isinstance(r[side], list) and bool(r[side]), f"{rid}: empty {side}")
-                side_names, side_labels = [], []
-                for term in r[side]:
-                    require(isinstance(term, list) and len(term) == 2, f"{rid}: expected [metabolite, atoms]")
-                    metabolite, atoms = term
-                    require(isinstance(metabolite, str) and metabolite in self.metabolites,
-                            f"{rid}: unknown metabolite {metabolite!r}")
-                    m = self.metabolites[metabolite]
-                    require(isinstance(atoms, str) and re.fullmatch(r"[A-Za-z]+", atoms)
-                            and len(atoms) == m["carbons"], f"{rid}: atom count mismatch for {metabolite}")
-                    require(not (side == "substrates" and m["boundary"] == "sink"),
-                            f"{rid}: a sink cannot be consumed")
-                    require(not (side == "products" and m["boundary"] == "source"),
-                            f"{rid}: a source cannot be produced")
-                    side_names.append(metabolite)
-                    side_labels.append(atoms)
-                    used.add(metabolite)
-                all_atoms = "".join(side_labels)
-                unique(all_atoms, f"carbon atoms on {rid} {side}")
-                names.append(side_names)
-                labels.append(side_labels)
-            require(set("".join(labels[0])) == set("".join(labels[1])),
-                    f"{rid}: carbon atoms are lost or created; include CO2 and other carbon products")
-            left, right = Counter(names[0]), Counter(names[1])
-            for name in balance:
-                balance[name].append(right[name] - left[name])
-
-            def stoichiometry(parts):
-                """Handle stoichiometry."""
-                return "+".join((f"{{{count}}}" if count > 1 else "") + name
-                                for name, count in Counter(parts).items())
-
-            self.reactions[rid] = dict(
-                order=i, stoichiometry="-->".join(stoichiometry(side) for side in names),
-                reaction="-->".join("+".join(side) for side in names),
-                atommap="-->".join("+".join(side) for side in labels),
-                externalids="", lb=lo, ub=hi)
+            self._load_reaction(i, r, balance, used)
         require(used == self.metabolites.keys(), "Unused metabolites must be removed")
         require(bool(balance), "At least one internal metabolite is required")
         for name, row in balance.items():
@@ -156,6 +109,89 @@ class Network:
                     f"{name}: internal pool needs production and consumption")
         self.sources = {name for name, m in self.metabolites.items() if m["boundary"] == "source"}
         require(bool(self.sources), "At least one carbon source is required")
+        self._check_connected(spec)
+        self.balance = np.array(list(balance.values()), dtype=float)
+        rows, rhs = list(self.balance), [0.] * len(self.balance)
+        for rid, value in self.fixed.items():
+            rows.append(np.eye(len(self.ids))[self.ids.index(rid)])
+            rhs.append(value)
+        self.equalities = np.array(rows)
+        self.rhs = np.array(rhs)
+        self.lower, self.upper = np.array(self.lower), np.array(self.upper)
+        self.fragments = self._load_fragments(spec)
+        self._engine = None
+
+    @staticmethod
+    def _load_metabolites(spec):
+        """Validate every metabolite entry and return them keyed by identifier."""
+        metabolites = {}
+        for m in spec["metabolites"]:
+            fields(m, {"id", "carbons", "boundary"}, {"symmetric"})
+            name = identifier(m["id"])
+            require(name not in metabolites, f"Duplicate metabolite {name}")
+            require(type(m["carbons"]) is int and 1 <= m["carbons"] <= 12,
+                    f"{name}: carbon count must be 1..12")
+            require(m["boundary"] in ("source", "internal", "sink"), f"{name}: invalid boundary")
+            require(type(m.get("symmetric", False)) is bool, f"{name}: symmetric must be boolean")
+            require(not m.get("symmetric") or m["boundary"] == "internal",
+                    "Reversal symmetry is supported only for internal pools")
+            metabolites[name] = m
+        return metabolites
+
+    def _parse_side(self, rid, side, terms, used):
+        """Validate one side of a reaction and return its metabolite names and atom labels."""
+        require(isinstance(terms, list) and bool(terms), f"{rid}: empty {side}")
+        side_names, side_labels = [], []
+        for term in terms:
+            require(isinstance(term, list) and len(term) == 2, f"{rid}: expected [metabolite, atoms]")
+            metabolite, atoms = term
+            require(isinstance(metabolite, str) and metabolite in self.metabolites,
+                    f"{rid}: unknown metabolite {metabolite!r}")
+            m = self.metabolites[metabolite]
+            require(isinstance(atoms, str) and re.fullmatch(r"[A-Za-z]+", atoms)
+                    and len(atoms) == m["carbons"], f"{rid}: atom count mismatch for {metabolite}")
+            require(not (side == "substrates" and m["boundary"] == "sink"),
+                    f"{rid}: a sink cannot be consumed")
+            require(not (side == "products" and m["boundary"] == "source"),
+                    f"{rid}: a source cannot be produced")
+            side_names.append(metabolite)
+            side_labels.append(atoms)
+            used.add(metabolite)
+        unique("".join(side_labels), f"carbon atoms on {rid} {side}")
+        return side_names, side_labels
+
+    def _load_reaction(self, i, r, balance, used):
+        """Validate reaction ``r``, record its bounds and balance row, and register it."""
+        fields(r, {"id", "substrates", "products", "lower", "upper"}, {"fixed"})
+        rid = identifier(r["id"])
+        require(rid not in self.ids, f"Duplicate reaction {rid}")
+        self.ids.append(rid)
+        lo, hi = number(r["lower"], rid), number(r["upper"], rid)
+        require(0 <= lo < hi, f"{rid}: require 0 <= lower < upper; use fixed for fixed fluxes")
+        self.lower.append(lo)
+        self.upper.append(hi)
+        if "fixed" in r:
+            fixed = number(r["fixed"], rid)
+            require(lo <= fixed <= hi, f"{rid}: fixed flux outside bounds")
+            self.fixed[rid] = fixed
+        names, labels = [], []
+        for side in ("substrates", "products"):
+            side_names, side_labels = self._parse_side(rid, side, r[side], used)
+            names.append(side_names)
+            labels.append(side_labels)
+        require(set("".join(labels[0])) == set("".join(labels[1])),
+                f"{rid}: carbon atoms are lost or created; include CO2 and other carbon products")
+        left, right = Counter(names[0]), Counter(names[1])
+        for name in balance:
+            balance[name].append(right[name] - left[name])
+        self.reactions[rid] = dict(
+            order=i, stoichiometry="-->".join(_stoichiometry(side) for side in names),
+            reaction="-->".join("+".join(side) for side in names),
+            atommap="-->".join("+".join(side) for side in labels),
+            externalids="", lb=lo, ub=hi)
+
+    def _check_connected(self, spec):
+        """Require every metabolite pool to be connected to a carbon source."""
         # Catalytic cycles require an initial pool but can receive labeled carbon;
         # connectivity is checked on the undirected graph below, not reachability.
         connected = set(self.sources)
@@ -165,19 +201,14 @@ class Network:
                 if members & connected:
                     connected.update(members)
         require(connected == self.metabolites.keys(), "Network contains a pool disconnected from all sources")
-        self.balance = np.array(list(balance.values()), dtype=float)
-        rows, rhs = list(self.balance), [0.] * len(self.balance)
-        for rid, value in self.fixed.items():
-            rows.append(np.eye(len(self.ids))[self.ids.index(rid)])
-            rhs.append(value)
-        self.equalities = np.array(rows)
-        self.rhs = np.array(rhs)
-        self.lower, self.upper = np.array(self.lower), np.array(self.upper)
-        self.fragments = {}
+
+    def _load_fragments(self, spec):
+        """Validate every measured fragment definition and return them keyed by identifier."""
+        fragments = {}
         for f in spec["fragments"]:
             fields(f, {"id", "metabolite", "carbons", "provenance"})
             fid = identifier(f["id"])
-            require(fid not in self.fragments, f"Duplicate fragment {fid}")
+            require(fid not in fragments, f"Duplicate fragment {fid}")
             require(isinstance(f["metabolite"], str) and f["metabolite"] in self.metabolites,
                     f"{fid}: unknown metabolite")
             m = self.metabolites[f["metabolite"]]
@@ -188,8 +219,8 @@ class Network:
             unique(f["carbons"], f"positions in {fid}")
             require(isinstance(f["provenance"], str) and bool(f["provenance"].strip()),
                     f"{fid}: document the measured carbon assignment")
-            self.fragments[fid] = f
-        self._engine = None
+            fragments[fid] = f
+        return fragments
 
     def check_flux(self, flux):
         """Check flux."""
@@ -206,6 +237,7 @@ class Network:
                     and np.max(np.abs(self.equalities @ vector - self.rhs)) <= tolerance)
 
     def engine(self):
+        """Handle engine."""
         if self._engine is None:
             import mfapy
             metabolites = {
@@ -260,6 +292,7 @@ class Network:
 
 
 class Observations:
+    """Observations."""
     def __init__(self, spec, network):
         """Initialise the instance."""
         fields(spec, {"schema_version", "steady_state", "shared_fluxes", "mdv_basis",

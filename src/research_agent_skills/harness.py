@@ -10,6 +10,10 @@ from typing import Literal
 
 HarnessCategory = Literal["science", "control-plane", "coding-ide", "cli-agent", "generic"]
 
+_AGENTS_SKILLS_DIR = ".agents/skills"
+_DOT_CONFIG = ".config"
+_DOT_GEMINI = ".gemini"
+
 
 @dataclass
 class Harness:
@@ -23,6 +27,7 @@ class Harness:
     detect_bins: list[str] = field(default_factory=list)
 
     def is_present(self) -> bool:
+        """Return whether present."""
         if any(p.exists() for p in self.detect_paths):
             return True
         if any(shutil.which(b) is not None for b in self.detect_bins):
@@ -46,7 +51,7 @@ def get_harnesses(home: Path | None = None) -> list[Harness]:
             project_dir=".claude-science/skills",
             detect_paths=[
                 h / ".claude-science",
-                h / ".config" / "claude-science",
+                h / _DOT_CONFIG / "claude-science",
                 Path("/Applications/Claude Science.app"),
                 h / "Library" / "Application Support" / "Claude Science",
                 *( [local_app_data / "ClaudeScience"] if local_app_data else [] ),
@@ -72,7 +77,7 @@ def get_harnesses(home: Path | None = None) -> list[Harness]:
             project_dir=".t3/skills",
             detect_paths=[
                 h / ".t3",
-                h / ".config" / "t3",
+                h / _DOT_CONFIG / "t3",
                 *( [app_data / "T3Code"] if app_data else [] ),
             ],
             detect_bins=["t3", "t3code", "t3-code"],
@@ -81,9 +86,9 @@ def get_harnesses(home: Path | None = None) -> list[Harness]:
             id="antigravity",
             label="Google Antigravity",
             category="coding-ide",
-            global_dir=h / ".gemini" / "config" / "skills",
+            global_dir=h / _DOT_GEMINI / "config" / "skills",
             project_dir=".gemini/config/skills",
-            detect_paths=[h / ".gemini" / "antigravity", h / ".gemini" / "config", h / ".gemini"],
+            detect_paths=[h / _DOT_GEMINI / "antigravity", h / _DOT_GEMINI / "config", h / _DOT_GEMINI],
             detect_bins=["agy", "antigravity"],
         ),
         Harness(
@@ -92,7 +97,7 @@ def get_harnesses(home: Path | None = None) -> list[Harness]:
             category="cli-agent",
             global_dir=h / ".hermes" / "skills",
             project_dir=".hermes/skills",
-            detect_paths=[h / ".hermes", h / ".config" / "hermes"],
+            detect_paths=[h / ".hermes", h / _DOT_CONFIG / "hermes"],
             detect_bins=["hermes"],
         ),
 
@@ -111,7 +116,7 @@ def get_harnesses(home: Path | None = None) -> list[Harness]:
             label="OpenAI Codex",
             category="cli-agent",
             global_dir=h / ".codex" / "skills",
-            project_dir=".agents/skills",
+            project_dir=_AGENTS_SKILLS_DIR,
             detect_paths=[h / ".codex"],
             detect_bins=["codex"],
         ),
@@ -120,7 +125,7 @@ def get_harnesses(home: Path | None = None) -> list[Harness]:
             label="Cursor",
             category="coding-ide",
             global_dir=h / ".cursor" / "skills",
-            project_dir=".agents/skills",
+            project_dir=_AGENTS_SKILLS_DIR,
             detect_paths=[h / ".cursor"],
             detect_bins=["cursor", "cursor-agent"],
         ),
@@ -128,9 +133,9 @@ def get_harnesses(home: Path | None = None) -> list[Harness]:
             id="gemini-cli",
             label="Gemini CLI",
             category="cli-agent",
-            global_dir=h / ".gemini" / "skills",
-            project_dir=".agents/skills",
-            detect_paths=[h / ".gemini"],
+            global_dir=h / _DOT_GEMINI / "skills",
+            project_dir=_AGENTS_SKILLS_DIR,
+            detect_paths=[h / _DOT_GEMINI],
             detect_bins=["gemini"],
         ),
         Harness(
@@ -138,7 +143,7 @@ def get_harnesses(home: Path | None = None) -> list[Harness]:
             label="GitHub Copilot",
             category="coding-ide",
             global_dir=h / ".copilot" / "skills",
-            project_dir=".agents/skills",
+            project_dir=_AGENTS_SKILLS_DIR,
             detect_paths=[h / ".copilot"],
             detect_bins=["copilot"],
         ),
@@ -155,9 +160,9 @@ def get_harnesses(home: Path | None = None) -> list[Harness]:
             id="goose",
             label="Goose",
             category="cli-agent",
-            global_dir=h / ".config" / "goose" / "skills",
+            global_dir=h / _DOT_CONFIG / "goose" / "skills",
             project_dir=".goose/skills",
-            detect_paths=[h / ".config" / "goose", h / ".goose"],
+            detect_paths=[h / _DOT_CONFIG / "goose", h / ".goose"],
             detect_bins=["goose"],
         ),
         Harness(
@@ -173,9 +178,9 @@ def get_harnesses(home: Path | None = None) -> list[Harness]:
             id="opencode",
             label="OpenCode",
             category="cli-agent",
-            global_dir=h / ".config" / "opencode" / "skills",
-            project_dir=".agents/skills",
-            detect_paths=[h / ".config" / "opencode"],
+            global_dir=h / _DOT_CONFIG / "opencode" / "skills",
+            project_dir=_AGENTS_SKILLS_DIR,
+            detect_paths=[h / _DOT_CONFIG / "opencode"],
             detect_bins=["opencode"],
         ),
         Harness(
@@ -200,9 +205,9 @@ def get_harnesses(home: Path | None = None) -> list[Harness]:
             id="zed",
             label="Zed Assistant",
             category="coding-ide",
-            global_dir=h / ".config" / "zed" / "skills",
+            global_dir=h / _DOT_CONFIG / "zed" / "skills",
             project_dir=".zed/prompts",
-            detect_paths=[h / ".config" / "zed"],
+            detect_paths=[h / _DOT_CONFIG / "zed"],
             detect_bins=["zed"],
         ),
         Harness(
@@ -228,7 +233,7 @@ def get_harnesses(home: Path | None = None) -> list[Harness]:
             label="Generic (.agents/skills: Cline, Amp, Goose, Roo)",
             category="generic",
             global_dir=h / ".agents" / "skills",
-            project_dir=".agents/skills",
+            project_dir=_AGENTS_SKILLS_DIR,
             detect_paths=[h / ".agents"],
             detect_bins=[],
         ),

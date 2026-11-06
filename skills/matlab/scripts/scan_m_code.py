@@ -57,7 +57,7 @@ RULES: tuple[tuple[str, str, str, re.Pattern[str]], ...] = (
         "shell_execution",
         "critical",
         "Shell entry point can execute external commands.",
-        re.compile(r"(?:^\s*!|\b(?:system|unix|dos)\s*\()", re.IGNORECASE),
+        re.compile(r"(?:(?:^\s*!)|(?:\b(?:system|unix|dos)\s*\())", re.IGNORECASE),
     ),
     (
         "python_execution",
@@ -100,7 +100,7 @@ RULES: tuple[tuple[str, str, str, re.Pattern[str]], ...] = (
         "mat_load",
         "high",
         "Loading MAT/object data can invoke installed class deserialization code.",
-        re.compile(r"(?:^\s*load(?:\s|\()|\bload\s*\()", re.IGNORECASE),
+        re.compile(r"(?:(?:^\s*load[\s(])|(?:\bload\s*\())", re.IGNORECASE),
     ),
     (
         "deserialization_callback",
@@ -271,6 +271,7 @@ def collect(
     max_file_bytes: int,
     max_total_bytes: int,
 ) -> list[Path]:
+    """Collect."""
     if source.is_file():
         suffix = source.suffix.casefold()
         supported = (
@@ -426,6 +427,7 @@ def parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     try:
         report, status = scan(parser().parse_args())
         emit_json(report)

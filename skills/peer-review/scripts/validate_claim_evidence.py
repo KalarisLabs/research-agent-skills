@@ -168,16 +168,17 @@ def validate_matrix(rows: list[dict[str, Any]]) -> dict[str, Any]:
                 issue("CAUSAL_OR_MECHANISTIC_SUPPORT_REQUIRES_EXPERT_REVIEW", claim_id)
             )
 
+    if errors:
+        status = "INVALID_MATRIX"
+    elif gap_ids:
+        status = "VALID_WITH_ALIGNMENT_GAPS"
+    else:
+        status = "VALID_NO_RECORDED_GAPS"
+
     return {
         "schema_version": "2.0",
         "valid": not errors,
-        "status": (
-            "INVALID_MATRIX"
-            if errors
-            else "VALID_WITH_ALIGNMENT_GAPS"
-            if gap_ids
-            else "VALID_NO_RECORDED_GAPS"
-        ),
+        "status": status,
         "errors": errors,
         "warnings": warnings,
         "claim_count": len(rows),

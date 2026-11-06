@@ -88,6 +88,7 @@ def _request(url: str) -> dict:
 
 
 def _detail_from_body(body: str) -> str:
+    """Handle detail from body."""
     try:
         payload = json.loads(body)
     except json.JSONDecodeError:

@@ -353,6 +353,7 @@ def attach_metadata(frame: pd.DataFrame, metadata_path: Path) -> pd.DataFrame:
 
 
 def build_matrix(args: argparse.Namespace, paths: list[Path]) -> pd.DataFrame:
+    """Build matrix."""
     if args.format == "metaphlan":
         frames = [parse_metaphlan(p, args.rank) for p in paths]
         return pd.concat(frames) if len(frames) > 1 else frames[0]

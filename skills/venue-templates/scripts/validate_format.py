@@ -64,6 +64,7 @@ PRESETS = {
 
 
 def run_poppler(command: str, pdf_path: Path) -> subprocess.CompletedProcess[str] | None:
+    """Run poppler."""
     try:
         return subprocess.run(
             [command, str(pdf_path)],
@@ -112,6 +113,7 @@ def page_count_result(
     max_content_pages: int | None,
     excluded: str | None,
 ) -> dict[str, str]:
+    """Handle page count result."""
     if total_pages is None:
         return {
             "status": "skip",
@@ -160,6 +162,7 @@ def page_count_result(
 
 
 def font_result(fonts: list[str] | None) -> dict[str, str]:
+    """Handle font result."""
     if fonts is None:
         return {
             "status": "skip",
@@ -181,6 +184,7 @@ def font_result(fonts: list[str] | None) -> dict[str, str]:
 
 
 def metadata_result(info: dict[str, str] | None) -> dict[str, str]:
+    """Handle metadata result."""
     if info is None:
         return {
             "status": "skip",

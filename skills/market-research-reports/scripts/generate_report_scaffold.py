@@ -227,6 +227,7 @@ def _safe_new_directory(raw_path: str | Path) -> Path:
 
 
 def _write_csv_header(path: Path, fields: tuple[str, ...]) -> None:
+    """Write csv header."""
     with path.open("w", encoding="utf-8", newline="") as handle:
         csv.writer(handle, lineterminator="\n").writerow(fields)
 

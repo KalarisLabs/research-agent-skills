@@ -299,6 +299,7 @@ def sanitize_untrusted(
 
 
 def emit_json(payload: Any, *, stream: Any = None) -> None:
+    """Handle emit json."""
     if stream is None:
         import sys
 
@@ -339,6 +340,7 @@ def validate_timeout(value: float) -> float:
 
 
 def validate_retries(value: int) -> int:
+    """Validate retries."""
     if isinstance(value, bool) or not 0 <= value <= MAX_RETRIES:
         raise SafetyError(f"retries must be between 0 and {MAX_RETRIES}")
     return value
@@ -424,6 +426,7 @@ def build_url(
 
 
 def validate_protocol_identifier(value: str) -> str:
+    """Validate protocol identifier."""
     if _PROTOCOL_ID_RE.fullmatch(value) is None:
         raise SafetyError(
             "protocol identifier must be an integer, URI, or DOI with an optional "
@@ -441,12 +444,14 @@ def encode_protocol_identifier(value: str) -> str:
 
 
 def validate_guid(value: str) -> str:
+    """Validate guid."""
     if _GUID_RE.fullmatch(value) is None:
         raise SafetyError("GUID must contain exactly 32 hexadecimal characters")
     return value.upper()
 
 
 def validate_nonnegative_integer(value: str, *, name: str, maximum: int) -> int:
+    """Validate nonnegative integer."""
     if _INTEGER_RE.fullmatch(value) is None:
         raise SafetyError(f"{name} must be an unsigned base-10 integer")
     parsed = int(value)
@@ -619,6 +624,7 @@ def request_bytes(
 
 
 def require_api_success(payload: Any) -> Mapping[str, Any]:
+    """Handle require api success."""
     if not isinstance(payload, Mapping):
         raise ApiError("protocols.io returned a non-object JSON response")
     status = payload.get("status_code", 0)

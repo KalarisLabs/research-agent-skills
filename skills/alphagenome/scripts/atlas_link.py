@@ -61,6 +61,7 @@ DEFAULT_MODALITIES: tuple[str, ...] = ("RNA_SEQ", "DNASE", "CHIP_TF")
 
 
 def parse_modalities(text: str | Sequence[str] | None) -> list[str]:
+    """Parse modalities."""
     if not text:
         return []
     items = text.split(",") if isinstance(text, str) else list(text)

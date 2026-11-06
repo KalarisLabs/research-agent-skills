@@ -70,6 +70,7 @@ class OnlineStats:
         self.mean = 0.0
 
     def add(self, value: Any) -> None:
+        """Add."""
         if isinstance(value, bool) or not isinstance(value, (int, float)):
             return
         number = float(value)
@@ -97,6 +98,7 @@ class OnlineStats:
 
 
 def _iter_text(path: Path, *, max_records: int):
+    """Handle iter text."""
     if path.stat().st_size > MAX_TEXT_BYTES:
         raise ToolError("scalar diagnostic exceeds the text-size limit")
     consumed = 0
@@ -154,6 +156,7 @@ def summarize_scalar_file(path: Path, *, max_records: int) -> dict[str, Any]:
 
 
 def _bounded_slice(shape: tuple[int, ...], maximum: int) -> tuple[Any, ...]:
+    """Handle bounded slice."""
     if not shape:
         return ()
     if len(shape) == 1:
@@ -169,17 +172,20 @@ def _bounded_slice(shape: tuple[int, ...], maximum: int) -> tuple[Any, ...]:
 
 def _summarize_values(values: Any, *, complete_record: bool) -> dict[str, Any]:
     """Summarize values."""
+    import numpy  # Lazy: only available alongside the optional h5py dependency.
+
     flat = values.reshape(-1)
     if flat.dtype.kind == "c":
         flat = abs(flat)
         statistic = "magnitude"
     else:
         statistic = "value"
-    finite = flat[flat == flat]
+    finite = flat[~numpy.isnan(flat)]
     finite = finite[abs(finite) != math.inf]
     count = int(finite.size)
 
     def converted(operation: str) -> float | None:
+        """Handle converted."""
         if not count:
             return None
         value = float(getattr(finite, operation)())
@@ -200,6 +206,7 @@ def _summarize_values(values: Any, *, complete_record: bool) -> dict[str, Any]:
 def summarize_spectral_file(
     path: Path, *, max_datasets: int, max_values: int
 ) -> dict[str, Any]:
+    """Summarize spectral file."""
     try:
         import h5py  # Lazy optional dependency.
     except ImportError as exc:

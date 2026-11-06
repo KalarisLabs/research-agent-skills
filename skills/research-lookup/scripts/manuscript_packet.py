@@ -65,31 +65,37 @@ SCHOLARLY_DOMAINS = {
 
 PREPRINT_DOMAINS = {"arxiv.org", "biorxiv.org", "medrxiv.org"}
 
+_SYSTEMATIC_REVIEW = "systematic review"
+_RCT = "randomized controlled trial"
+_CLINICAL_TRIAL = "clinical trial"
+_COHORT_STUDY = "cohort study"
+_METHODS_PROTOCOL = "methods/protocol"
+
 PUBLICATION_TYPES: tuple[tuple[str, tuple[str, ...]], ...] = (
-    ("systematic review", ("systematic review",)),
+    (_SYSTEMATIC_REVIEW, (_SYSTEMATIC_REVIEW,)),
     ("meta-analysis", ("meta-analysis", "meta analysis")),
     (
-        "randomized controlled trial",
-        ("randomized controlled trial", "randomised controlled trial", " rct "),
+        _RCT,
+        (_RCT, "randomised controlled trial", " rct "),
     ),
-    ("clinical trial", ("clinical trial",)),
-    ("cohort study", ("cohort study", "prospective cohort", "retrospective cohort")),
+    (_CLINICAL_TRIAL, (_CLINICAL_TRIAL,)),
+    (_COHORT_STUDY, (_COHORT_STUDY, "prospective cohort", "retrospective cohort")),
     ("case-control study", ("case-control", "case control")),
     ("cross-sectional study", ("cross-sectional", "cross sectional")),
-    ("methods/protocol", ("protocol", "benchmark", "methodology", "methods paper")),
+    (_METHODS_PROTOCOL, ("protocol", "benchmark", "methodology", "methods paper")),
     ("case report/series", ("case report", "case series")),
     ("review", ("review",)),
 )
 
 EVIDENCE_WEIGHTS = {
-    "systematic review": 5,
+    _SYSTEMATIC_REVIEW: 5,
     "meta-analysis": 5,
-    "randomized controlled trial": 4,
-    "clinical trial": 4,
-    "cohort study": 3,
+    _RCT: 4,
+    _CLINICAL_TRIAL: 4,
+    _COHORT_STUDY: 3,
     "case-control study": 3,
     "cross-sectional study": 2,
-    "methods/protocol": 2,
+    _METHODS_PROTOCOL: 2,
     "review": 2,
     "case report/series": 1,
     "primary/other": 2,
@@ -345,13 +351,12 @@ def normalize_reference(source: dict[str, Any], index: int) -> dict[str, Any]:
     venue = extract_label(text, ("journal", "venue", "published in"))
     methods = extract_label(text, ("methods", "methodology", "design"))
     outcomes = extract_label(text, ("outcomes", "outcome", "endpoints", "endpoint"))
-    verification_status = (
-        "extracted"
-        if source.get("extracted")
-        else "identifier-verified"
-        if doi or pmid
-        else "search-only"
-    )
+    if source.get("extracted"):
+        verification_status = "extracted"
+    elif doi or pmid:
+        verification_status = "identifier-verified"
+    else:
+        verification_status = "search-only"
 
     return {
         "reference_id": f"ref-{index:03d}",

@@ -61,6 +61,7 @@ def build_parser():
 
 
 def apply_config(args):
+    """Apply config."""
     if args.config:
         with open(args.config) as fh:
             cfg = json.load(fh)

@@ -129,6 +129,7 @@ def _render_hypotheses(record: dict[str, Any]) -> str:
 
 
 def _render_estimands(record: dict[str, Any]) -> str:
+    """Render estimands."""
     if not record["causal_estimands"]:
         return "- Not applicable to the declared non-causal question."
     sections: list[str] = []

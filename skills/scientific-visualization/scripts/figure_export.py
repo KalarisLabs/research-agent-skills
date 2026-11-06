@@ -71,6 +71,7 @@ def _base_output_path(value: str | os.PathLike[str]) -> Path:
 
 
 def _font_rc(font_mode: str) -> dict[str, Any]:
+    """Handle font rc."""
     if font_mode == "current":
         return {}
     if font_mode == "truetype":
@@ -90,6 +91,7 @@ def _font_rc(font_mode: str) -> dict[str, Any]:
 
 
 def _package_version(distribution: str) -> str | None:
+    """Handle package version."""
     try:
         return importlib.metadata.version(distribution)
     except importlib.metadata.PackageNotFoundError:
@@ -136,6 +138,7 @@ def _atomic_savefig(
 
 
 def _validate_provenance(provenance: dict[str, Any] | None) -> dict[str, Any]:
+    """Validate provenance."""
     if provenance is None:
         return {}
     if not isinstance(provenance, dict):
@@ -537,6 +540,7 @@ def verify_font_embedding(pdf_path: str | os.PathLike[str]) -> dict[str, Any]:
 
 
 def _demo_figure() -> Any:
+    """Handle demo figure."""
     try:
         import matplotlib.pyplot as plt
     except ImportError as exc:

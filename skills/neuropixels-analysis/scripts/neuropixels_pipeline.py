@@ -23,8 +23,10 @@ import json
 import spikeinterface.full as si
 import numpy as np
 
+DEFAULT_STREAM = 'imec0.ap'
 
-def load_recording(data_path: str, stream_name: str = 'imec0.ap') -> si.BaseRecording:
+
+def load_recording(data_path: str, stream_name: str = DEFAULT_STREAM) -> si.BaseRecording:
     """Load a SpikeGLX or Open Ephys recording."""
 
     data_path = Path(data_path)
@@ -127,7 +129,7 @@ def check_drift(recording: si.BaseRecording, output_folder: str) -> dict:
 
     # Subsample for plotting
     n_plot = min(100000, len(peaks))
-    idx = np.random.choice(len(peaks), n_plot, replace=False)
+    idx = np.random.default_rng().choice(len(peaks), n_plot, replace=False)
 
     ax.scatter(
         peaks['sample_index'][idx] / recording.get_sampling_frequency(),
@@ -364,7 +366,7 @@ def run_pipeline(
     data_path: str,
     output_path: str,
     sorter: str = 'kilosort4',
-    stream_name: str = 'imec0.ap',
+    stream_name: str = DEFAULT_STREAM,
     apply_motion_correction: bool = True,
     curation_method: str = 'allen'
 ):
@@ -428,7 +430,7 @@ if __name__ == '__main__':
     parser.add_argument('--sorter', default='kilosort4',
                         choices=['kilosort4', 'kilosort3', 'spykingcircus2', 'mountainsort5'],
                         help='Spike sorter to use')
-    parser.add_argument('--stream', default='imec0.ap', help='Stream name')
+    parser.add_argument('--stream', default=DEFAULT_STREAM, help='Stream name')
     parser.add_argument('--no-motion-correction', action='store_true',
                         help='Skip motion correction')
     parser.add_argument('--curation', default='allen',

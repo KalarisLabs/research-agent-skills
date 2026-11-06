@@ -40,6 +40,10 @@ except ImportError:
     print("Error: requests library not found. Install with: uv pip install requests")
     sys.exit(1)
 
+_JSON_CONTENT_TYPE = "application/json"
+_HTTP_REFERER = "https://github.com/scientific-writer"
+_DATA_IMAGE_PREFIX = "data:image"
+
 
 class ReviewResult(NamedTuple):
     """The outcome of one quality review.
@@ -509,8 +513,8 @@ Include citation hints where possible."""
             
             headers = {
                 "Authorization": f"Bearer {self.api_key}",
-                "Content-Type": "application/json",
-                "HTTP-Referer": "https://github.com/scientific-writer",
+                "Content-Type": _JSON_CONTENT_TYPE,
+                "HTTP-Referer": _HTTP_REFERER,
                 "X-Title": "Infographic Research"
             }
             
@@ -593,8 +597,8 @@ Be concise and factual. Focus on information useful for an infographic."""
             
             headers = {
                 "Authorization": f"Bearer {self.api_key}",
-                "Content-Type": "application/json",
-                "HTTP-Referer": "https://github.com/scientific-writer",
+                "Content-Type": _JSON_CONTENT_TYPE,
+                "HTTP-Referer": _HTTP_REFERER,
                 "X-Title": "Infographic Web Search"
             }
             
@@ -662,8 +666,8 @@ Incorporate specific numbers, percentages, and dates from the research."""
         """Make a request to OpenRouter API."""
         headers = {
             "Authorization": f"Bearer {self.api_key}",
-            "Content-Type": "application/json",
-            "HTTP-Referer": "https://github.com/scientific-writer",
+            "Content-Type": _JSON_CONTENT_TYPE,
+            "HTTP-Referer": _HTTP_REFERER,
             "X-Title": "Infographic Generator"
         }
         
@@ -723,7 +727,7 @@ Incorporate specific numbers, percentages, and dates from the research."""
                         if isinstance(url, dict):
                             url = url.get("url", "")
                         
-                        if url and url.startswith("data:image"):
+                        if url and url.startswith(_DATA_IMAGE_PREFIX):
                             if "," in url:
                                 base64_str = url.split(",", 1)[1]
                                 base64_str = base64_str.replace('\n', '').replace('\r', '').replace(' ', '')
@@ -733,7 +737,7 @@ Incorporate specific numbers, percentages, and dates from the research."""
             # Fallback: check content field
             content = message.get("content", "")
             
-            if isinstance(content, str) and "data:image" in content:
+            if isinstance(content, str) and _DATA_IMAGE_PREFIX in content:
                 import re
                 match = re.search(r'data:image/[^;]+;base64,([A-Za-z0-9+/=\n\r]+)', content, re.DOTALL)
                 if match:
@@ -747,7 +751,7 @@ Incorporate specific numbers, percentages, and dates from the research."""
                         url = block.get("image_url", {})
                         if isinstance(url, dict):
                             url = url.get("url", "")
-                        if url and url.startswith("data:image") and "," in url:
+                        if url and url.startswith(_DATA_IMAGE_PREFIX) and "," in url:
                             base64_str = url.split(",", 1)[1].replace('\n', '').replace('\r', '').replace(' ', '')
                             self._log(f"Found image in content block {i}")
                             return base64.b64decode(base64_str)

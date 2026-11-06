@@ -63,6 +63,7 @@ if _SIMPY is not None:
             self.processed_events = 0
 
         def step(self) -> None:
+            """Handle step."""
             if self.processed_events >= self.max_events:
                 raise EventLimitExceeded(
                     f"simulation reached the max_events limit ({self.max_events})"

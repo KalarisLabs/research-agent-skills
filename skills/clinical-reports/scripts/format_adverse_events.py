@@ -182,6 +182,7 @@ def load_aggregate_metadata(
 
 
 def _label(value: str | None, field: str) -> str:
+    """Handle label."""
     if value is None:
         raise ValidationError(f"{field} is required")
     text = value.strip()
@@ -197,6 +198,7 @@ def _label(value: str | None, field: str) -> str:
 
 
 def _count(value: str | None, field: str) -> int:
+    """Handle count."""
     if value is None or not re.fullmatch(r"\d{1,9}", value.strip()):
         raise ValidationError(f"{field} must be a non-negative integer")
     return int(value)

@@ -65,6 +65,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _mapping(value, label: str) -> dict:
+    """Handle mapping."""
     if not isinstance(value, dict):
         raise SafetyError(f"{label} must be a JSON object")
     return value

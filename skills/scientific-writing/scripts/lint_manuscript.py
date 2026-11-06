@@ -63,6 +63,7 @@ OBSERVATIONAL_DESIGNS = {
 
 
 def load_manifest(path: str | None) -> tuple[dict[str, Any] | None, list[Issue]]:
+    """Load manifest."""
     if path is None:
         return None, [
             issue(

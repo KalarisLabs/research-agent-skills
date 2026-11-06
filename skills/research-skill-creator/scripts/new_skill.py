@@ -91,6 +91,7 @@ if __name__ == "__main__":
 
 
 def find_root(start: Path) -> Path:
+    """Find root."""
     for p in [start, *start.parents]:
         if (p / "skills").is_dir() and (p / "third_party" / "categories.yaml").is_file():
             return p

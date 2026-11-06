@@ -297,6 +297,7 @@ def markdown_report(report: dict[str, Any]) -> str:
 
 
 def _infer_output_format(requested: str | None, output: str | None) -> str:
+    """Handle infer output format."""
     if requested is not None:
         return requested
     if output is not None and output.casefold().endswith((".md", ".markdown")):

@@ -44,13 +44,14 @@ import _common as common
 
 DEFAULT_MAX_WINDOW_BP = 1_000
 DEFAULT_WORKERS = 8
+ASSAY_TITLE_COLUMN = "Assay title"
 TRACK_METADATA_COLUMNS = (
     "name",
     "strand",
     "ontology_curie",
     "biosample_name",
     "biosample_type",
-    "Assay title",
+    ASSAY_TITLE_COLUMN,
     "assay_title",
     "gtex_tissue",
     "transcription_factor",
@@ -65,18 +66,21 @@ TRACK_METADATA_COLUMNS = (
 
 
 def _obs_variant_strings(adata) -> list[str]:
+    """Handle obs variant strings."""
     if adata.obs is None or "variant" not in adata.obs.columns:
         return [str(index) for index in adata.obs_names]
     return [str(value) for value in adata.obs["variant"].tolist()]
 
 
 def _feature_names(adata) -> list[str]:
+    """Handle feature names."""
     if adata.var is not None and "name" in adata.var.columns:
         return [str(value) for value in adata.var["name"].tolist()]
     return [str(value) for value in adata.var_names]
 
 
 def _layer(adata, name: str):
+    """Handle layer."""
     try:
         return adata.layers[name] if name in adata.layers else None
     except (KeyError, TypeError):
@@ -178,7 +182,7 @@ def tidy_atlas_scores(scores: Mapping[str, Any]) -> list[dict[str, Any]]:
                 row = dict(base)
                 row["track_index"] = j
                 for column in var_columns:
-                    key = "assay_title" if column == "Assay title" else column
+                    key = "assay_title" if column == ASSAY_TITLE_COLUMN else column
                     row[f"track_{key}" if key in {"name", "strand"} else key] = var.iloc[j][column]
                 row["raw_score"] = float(matrix[i, j])
                 if quantiles is not None:
@@ -240,7 +244,7 @@ def track_rows(metadata: Mapping[str, Any], scorer: str | None, query: str | Non
             row: dict[str, Any] = {"scorer": name, "track_index": index}
             for column in TRACK_METADATA_COLUMNS:
                 if column in frame.columns:
-                    key = "assay_title" if column == "Assay title" else column
+                    key = "assay_title" if column == ASSAY_TITLE_COLUMN else column
                     row[key] = record[column]
             if needle and not any(needle in str(value).lower() for value in row.values()):
                 continue
@@ -306,6 +310,7 @@ def _query_each(
     """Query variants one by one, keeping per-variant failures as messages."""
 
     def one(spec: common.VariantSpec):
+        """Handle one."""
         try:
             result = client.query_variant(to_genome_variant(spec), requested_scorers=list(requested_scorers), **filters)
             return spec, result, ""
@@ -323,77 +328,108 @@ def _query_each(
 # --------------------------------------------------------------------------
 
 
+def _avi_rows_from_interval(client, args: argparse.Namespace) -> list[dict[str, Any]]:
+    """AVI summary rows for every SNV in the ``--interval`` window."""
+    interval = to_genome_interval(args.interval, args.max_window)
+    scores = client.query_interval(interval, requested_scorers=list(common.AVI_SCORERS), progress_bar=False)
+    rows = summarize_avi(scores.get(common.AVI_SCORER), scores.get(common.AVI_FEATURES_SCORER))
+    for row in rows:
+        row["error"] = ""
+    return rows
+
+
+def _avi_variant_row(spec: common.VariantSpec, scores: Mapping[str, Any] | None, error: str) -> dict[str, Any]:
+    """One AVI output row for a single queried variant (including failure rows)."""
+    row = spec.to_row()
+    if scores is None:
+        row.update({"avi_raw": float("nan"), "avi_phred": float("nan"), "error": error})
+        return row
+    summary = summarize_avi(scores.get(common.AVI_SCORER), scores.get(common.AVI_FEATURES_SCORER))
+    if not summary:
+        row.update({"avi_raw": float("nan"), "avi_phred": float("nan"), "error": "no AVI_SCORE returned"})
+        return row
+    row.update(summary[0])
+    row["variant"] = str(spec)
+    row["error"] = ""
+    return row
+
+
+def _avi_rows_from_variants(client, args: argparse.Namespace) -> list[dict[str, Any]]:
+    """AVI summary rows for the variants given via ``--variant`` / ``--input``."""
+    specs, warnings = common.collect_variants(args.variant, args.input)
+    for message in warnings:
+        common.warn(message)
+    if not specs:
+        raise SystemExit("no variants given; use --variant, --input, or --interval")
+    indels = [spec for spec in specs if not spec.is_snv]
+    if indels:
+        common.warn(
+            f"{len(indels)} indel(s) requested; the public Atlas API currently serves "
+            "genome-wide SNVs, so indels may come back as lookup misses"
+        )
+    return [
+        _avi_variant_row(spec, scores, error)
+        for spec, scores, error in _query_each(client, specs, common.AVI_SCORERS, args.workers)
+    ]
+
+
+def _best_track_hit(detail: Mapping[str, Any], scorers: Sequence[str]) -> tuple[str, dict[str, Any]] | None:
+    """The scorer/track pair with the largest |raw score| across ``scorers``."""
+    best = None
+    for scorer in scorers:
+        hit = max_abs_track(detail.get(scorer))
+        if hit and (best is None or abs(hit["raw_score"]) > abs(best[1]["raw_score"])):
+            best = (scorer, hit)
+    return best
+
+
+def _attach_top_track(client, row: dict[str, Any]) -> None:
+    """Add the strongest-track columns behind the row's top feature, in place."""
+    key = row.get("top_feature_key") or ""
+    scorers = common.AVI_FEATURES.get(key, ("", "", ()))[2]
+    if not scorers or row.get("error"):
+        return
+    try:
+        spec = common.parse_variant_string(row["variant"])
+        detail = client.query_variant(to_genome_variant(spec), requested_scorers=list(scorers))
+    except Exception as error:  # noqa: BLE001
+        row["top_track_error"] = f"{type(error).__name__}: {error}"
+        return
+    best = _best_track_hit(detail, scorers)
+    if not best:
+        return
+    scorer, hit = best
+    row["top_track_scorer"] = scorer
+    row["top_track_name"] = hit.get("name", "")
+    row["top_track_biosample"] = hit.get("biosample_name", "")
+    row["top_track_ontology"] = hit.get("ontology_curie", "")
+    row["top_track_gene"] = hit.get("gene_name", "")
+    row["top_track_raw_score"] = hit["raw_score"]
+
+
+def _phred_sort_key(row: dict[str, Any]) -> float:
+    """Descending-Phred sort key; rows without a finite Phred sort last."""
+    phred = row.get("avi_phred")
+    return -(phred if isinstance(phred, float) and math.isfinite(phred) else -1)
+
+
 def cmd_avi(args: argparse.Namespace) -> int:
     """Run the avi subcommand."""
     client = make_client(args)
-    rows: list[dict[str, Any]] = []
-
-    if args.interval:
-        interval = to_genome_interval(args.interval, args.max_window)
-        scores = client.query_interval(interval, requested_scorers=list(common.AVI_SCORERS), progress_bar=False)
-        rows = summarize_avi(scores.get(common.AVI_SCORER), scores.get(common.AVI_FEATURES_SCORER))
-        for row in rows:
-            row["error"] = ""
-    else:
-        specs, warnings = common.collect_variants(args.variant, args.input)
-        for message in warnings:
-            common.warn(message)
-        if not specs:
-            raise SystemExit("no variants given; use --variant, --input, or --interval")
-        indels = [spec for spec in specs if not spec.is_snv]
-        if indels:
-            common.warn(
-                f"{len(indels)} indel(s) requested; the public Atlas API currently serves "
-                "genome-wide SNVs, so indels may come back as lookup misses"
-            )
-        for spec, scores, error in _query_each(client, specs, common.AVI_SCORERS, args.workers):
-            if scores is None:
-                row = spec.to_row()
-                row.update({"avi_raw": float("nan"), "avi_phred": float("nan"), "error": error})
-                rows.append(row)
-                continue
-            summary = summarize_avi(scores.get(common.AVI_SCORER), scores.get(common.AVI_FEATURES_SCORER))
-            if not summary:
-                row = spec.to_row()
-                row.update({"avi_raw": float("nan"), "avi_phred": float("nan"), "error": "no AVI_SCORE returned"})
-                rows.append(row)
-                continue
-            row = spec.to_row()
-            row.update(summary[0])
-            row["variant"] = str(spec)
-            row["error"] = ""
-            rows.append(row)
+    rows = _avi_rows_from_interval(client, args) if args.interval else _avi_rows_from_variants(client, args)
 
     if args.with_tracks:
         for row in rows:
-            key = row.get("top_feature_key") or ""
-            scorers = common.AVI_FEATURES.get(key, ("", "", ()))[2]
-            if not scorers or row.get("error"):
-                continue
-            try:
-                spec = common.parse_variant_string(row["variant"])
-                detail = client.query_variant(to_genome_variant(spec), requested_scorers=list(scorers))
-            except Exception as error:  # noqa: BLE001
-                row["top_track_error"] = f"{type(error).__name__}: {error}"
-                continue
-            best = None
-            for scorer in scorers:
-                hit = max_abs_track(detail.get(scorer))
-                if hit and (best is None or abs(hit["raw_score"]) > abs(best[1]["raw_score"])):
-                    best = (scorer, hit)
-            if best:
-                scorer, hit = best
-                row["top_track_scorer"] = scorer
-                row["top_track_name"] = hit.get("name", "")
-                row["top_track_biosample"] = hit.get("biosample_name", "")
-                row["top_track_ontology"] = hit.get("ontology_curie", "")
-                row["top_track_gene"] = hit.get("gene_name", "")
-                row["top_track_raw_score"] = hit["raw_score"]
+            _attach_top_track(client, row)
 
     if args.min_phred is not None:
-        rows = [row for row in rows if row.get("error") or (isinstance(row.get("avi_phred"), float) and row["avi_phred"] >= args.min_phred)]
+        rows = [
+            row
+            for row in rows
+            if row.get("error") or (isinstance(row.get("avi_phred"), float) and row["avi_phred"] >= args.min_phred)
+        ]
 
-    rows.sort(key=lambda row: -(row.get("avi_phred") if isinstance(row.get("avi_phred"), float) and math.isfinite(row["avi_phred"]) else -1))
+    rows.sort(key=_phred_sort_key)
     if args.top_k:
         rows = rows[: args.top_k]
 

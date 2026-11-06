@@ -132,8 +132,8 @@ class SimulationConfig:
             raise CliError("atol must be no greater than rtol")
         if (
             config.solver == "mcsolve"
-            and config.decay_rate == 0.0
-            and config.dephasing_rate == 0.0
+            and math.isclose(config.decay_rate, 0.0, rel_tol=0.0, abs_tol=0.0)
+            and math.isclose(config.dephasing_rate, 0.0, rel_tol=0.0, abs_tol=0.0)
         ):
             raise CliError("mcsolve requires at least one nonzero collapse rate")
         return config
@@ -151,6 +151,7 @@ def _initial_state(qutip: Any, label: str) -> Any:
 
 
 def _state_audit(state: Any, tolerance: float) -> dict[str, Any]:
+    """Handle state audit."""
     if state is None:
         return {"available": False}
     if state.isket:
@@ -187,6 +188,7 @@ def _state_audit(state: Any, tolerance: float) -> dict[str, Any]:
 
 
 def _seed_manifest(seeds: Any) -> list[Any] | None:
+    """Handle seed manifest."""
     if seeds is None:
         return None
     manifest: list[Any] = []
@@ -273,7 +275,7 @@ def run_simulation(
         "ground": 0.0,
         "plus": 0.5,
     }[config.initial_state]
-    analytic_applicable = config.drive == 0.0
+    analytic_applicable = math.isclose(config.drive, 0.0, rel_tol=0.0, abs_tol=0.0)
     analytic_population = (
         initial_population * np.exp(-config.decay_rate * times)
         if analytic_applicable

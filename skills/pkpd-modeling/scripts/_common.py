@@ -102,6 +102,7 @@ def parse_positive(text: Any, field_name: str) -> float:
 
 
 def _sniff_delimiter(sample: str, path: Path) -> str:
+    """Handle sniff delimiter."""
     if path.suffix.lower() in {".tsv", ".tab"}:
         return "\t"
     if path.suffix.lower() == ".csv":
@@ -187,6 +188,7 @@ class Table:
     columns: list[str] | None = None
 
     def headers(self) -> list[str]:
+        """Handle headers."""
         if self.columns:
             return list(self.columns)
         seen: list[str] = []
@@ -286,6 +288,7 @@ class Report:
 
 
 def _json_default(obj: Any) -> Any:
+    """Handle json default."""
     if hasattr(obj, "item"):  # numpy scalar
         return obj.item()
     if hasattr(obj, "tolist"):  # numpy array

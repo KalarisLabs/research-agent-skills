@@ -94,6 +94,7 @@ def _read_prefix(path: Path, length: int = 16) -> bytes:
 
 
 def _native_format(prefix: bytes) -> str | None:
+    """Handle native format."""
     if prefix.startswith(b"\x7fELF"):
         return "elf"
     if prefix.startswith(b"MZ"):
@@ -156,6 +157,7 @@ def _read_checksums(
 
 
 def inspect(args: argparse.Namespace) -> tuple[dict, int]:
+    """Handle inspect."""
     if len(args.artifact) > args.max_files:
         raise SafetyError("artifact count exceeds max-files")
     paths = [local_path(raw, kind="file") for raw in args.artifact]

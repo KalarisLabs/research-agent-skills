@@ -138,6 +138,7 @@ def cmd_descriptions(args: argparse.Namespace) -> int:
     print(f"{len(todo)} descriptions to generate")
 
     def work(s):
+        """Handle work."""
         for _ in range(3):
             try:
                 prompt = DESC_PROMPT.format(name=s.name, desc=s.meta.get("description", ""), body=excerpt(s.body))

@@ -18,6 +18,7 @@ def _load_companion(
     evaluation_id: str | None = None,
     work_id: str | None = None,
 ) -> dict[str, Any] | None:
+    """Load companion."""
     if report is None:
         return None
     if not isinstance(report, dict) or report.get("schema_version") != _common.SCHEMA_VERSION:

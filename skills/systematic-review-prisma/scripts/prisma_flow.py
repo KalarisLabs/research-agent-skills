@@ -105,6 +105,7 @@ def mermaid(c: dict, n: dict) -> str:
 
 
 def dot(c: dict, n: dict) -> str:
+    """Handle dot."""
     def lab(s: str) -> str:
         """Handle lab."""
         return s.replace("<br/>", "\\n").replace('"', '\\"')

@@ -14,10 +14,10 @@ from typing import Any
 
 try:
     from ._common import LOGGER_CREDENTIAL_ENV, UserInputError, bounded_int, emit_json, validate_slug
-    from .validate_plan import PROFILES, default_plan, validate_plan
+    from .validate_plan import PROFILES, PYPI_PROFILE, default_plan, validate_plan
 except ImportError:  # Direct script execution.
     from _common import LOGGER_CREDENTIAL_ENV, UserInputError, bounded_int, emit_json, validate_slug
-    from validate_plan import PROFILES, default_plan, validate_plan
+    from validate_plan import PROFILES, PYPI_PROFILE, default_plan, validate_plan
 
 
 def _command_preview(plan: dict[str, Any]) -> list[str]:
@@ -37,7 +37,7 @@ def _command_preview(plan: dict[str, Any]) -> list[str]:
         "--train.seed",
         str(training["seed"]),
     ]
-    if plan["profile"] == "pypi-3.0.0":
+    if plan["profile"] == PYPI_PROFILE:
         backend_name = {
             "serial": "Serial",
             "multiprocessing": "Multiprocessing",
@@ -74,7 +74,7 @@ def _command_preview(plan: dict[str, Any]) -> list[str]:
     logger = plan["logging"]["backend"]
     if logger != "none":
         command.append(f"--{logger}")
-    if not plan["logging"]["upload_checkpoints"] and plan["profile"] == "pypi-3.0.0":
+    if not plan["logging"]["upload_checkpoints"] and plan["profile"] == PYPI_PROFILE:
         command.append("--no-model-upload")
     return command
 
@@ -135,7 +135,7 @@ def make_plan(args: argparse.Namespace) -> dict[str, Any]:
             "upload_checkpoints": args.upload_checkpoints,
         }
     )
-    if args.profile == "pypi-3.0.0":
+    if args.profile == PYPI_PROFILE:
         backend = args.backend or "serial"
         plan["vectorization"].update(
             {
@@ -193,7 +193,7 @@ def build_parser() -> argparse.ArgumentParser:
             "executes the generated argv."
         )
     )
-    parser.add_argument("--profile", choices=PROFILES, default="pypi-3.0.0")
+    parser.add_argument("--profile", choices=PROFILES, default=PYPI_PROFILE)
     parser.add_argument("--environment", default="synthetic")
     parser.add_argument(
         "--adapter",

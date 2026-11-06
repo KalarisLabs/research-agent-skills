@@ -75,6 +75,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _safe_child(directory: Path, name: str) -> Path:
+    """Handle safe child."""
     if not name or Path(name).name != name or name in {".", ".."}:
         raise SafetyError("artifact names must be plain filenames")
     return local_path(str(directory / name), kind="file")
@@ -147,6 +148,7 @@ def _parquet_magic(path: Path) -> bool:
 
 
 def inspect(args: argparse.Namespace) -> tuple[dict, int]:
+    """Handle inspect."""
     if not args.assembly.strip() or len(args.assembly) > 200:
         raise SafetyError("assembly must be a nonempty value of at most 200 characters")
     model_dir = local_path(args.model_dir, kind="dir")

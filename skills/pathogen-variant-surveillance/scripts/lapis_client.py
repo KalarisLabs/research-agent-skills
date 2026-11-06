@@ -289,6 +289,7 @@ PANGO_BLOBS: dict[str, str] = {}
 
 
 def _fetch_text(url: str) -> str:
+    """Fetch text."""
     if urllib.parse.urlsplit(url).scheme not in ("http", "https"):
         raise LapisError(f"refusing non-HTTP(S) URL: {url}")
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})

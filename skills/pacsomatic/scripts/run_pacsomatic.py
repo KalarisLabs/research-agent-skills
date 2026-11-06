@@ -64,6 +64,7 @@ def is_remote_path(path):
 
 
 def normalize_walltime_hhmmss(value, label):
+    """Normalize walltime hhmmss."""
     if re.fullmatch(r"\d{1,3}:\d{2}:\d{2}", value):
         return value
     if re.fullmatch(r"\d{1,3}:\d{2}", value):
@@ -77,6 +78,7 @@ def has_any_command(names):
 
 
 def detect_java_major_version():
+    """Detect java major version."""
     if shutil.which("java") is None:
         return None
     completed = subprocess.run(["java", "-version"], capture_output=True, text=True)
@@ -88,6 +90,7 @@ def detect_java_major_version():
 
 
 def ensure_no_spaces(label, value):
+    """Ensure no spaces."""
     if any(ch.isspace() for ch in value):
         fail(f"{label} must not contain whitespace")
 
@@ -104,6 +107,7 @@ def validate_repo(repo_path):
 
 
 def ensure_pipeline_repo(args):
+    """Ensure pipeline repo."""
     if not args.repo_path and not args.checkout_dir:
         return
 
@@ -132,6 +136,7 @@ def ensure_pipeline_repo(args):
 
 
 def parse_env_list_output(raw_output, env_name):
+    """Parse env list output."""
     for line in raw_output.splitlines():
         line = line.strip()
         if not line or line.startswith("Name") or line.startswith("#"):
@@ -191,6 +196,7 @@ def create_conda_env(env_name, env_file):
 
 
 def resolve_runtime(args):
+    """Resolve runtime."""
     if args.use_current_path:
         return None
 
@@ -273,6 +279,7 @@ def build_samplesheet(args, samplesheet_path):
 
 
 def resolve_reference_args(args):
+    """Resolve reference args."""
     if args.fasta:
         return ["--fasta", args.fasta]
     if args.genome:
@@ -432,6 +439,7 @@ def write_launch_script(args, script_path, nextflow_cmd):
 
 
 def verify_bam_and_index(label, bam_path, pbi_path):
+    """Verify bam and index."""
     if is_remote_path(bam_path):
         info(f"{label} BAM is remote; skipping local existence checks: {bam_path}")
         return

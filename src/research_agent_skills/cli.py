@@ -12,6 +12,13 @@ from .configure import auto_configure_all
 from .harness import get_harnesses, resolve_harnesses
 from .install import install_skills_to_dir, locate_local_skills_root, read_lock
 
+_ACTION_LABELS = {"created": "+ created", "updated": "~ updated"}
+
+
+def _status_label(action: str) -> str:
+    """Return the console marker for a configure action (created, updated or unchanged)."""
+    return _ACTION_LABELS.get(action, "= unchanged")
+
 
 def cmd_list(args: argparse.Namespace) -> int:
     """Run the list subcommand."""
@@ -107,8 +114,7 @@ def cmd_install(args: argparse.Namespace) -> int:
         print("\nAuto-configuring instruction anchors and manifests:")
         cfg_results = auto_configure_all(harness_list, cwd, selected)
         for r in cfg_results:
-            status = "+ created" if r.action == "created" else "~ updated" if r.action == "updated" else "= unchanged"
-            print(f"  {status} {r.file} ({r.harness})")
+            print(f"  {_status_label(r.action)} {r.file} ({r.harness})")
 
     print("\nInstallation complete!")
     return 0
@@ -120,8 +126,7 @@ def cmd_configure(args: argparse.Namespace) -> int:
     print(f"Auto-configuring instruction anchors for {len(harness_list)} harness(es):")
     results = auto_configure_all(harness_list, Path.cwd())
     for r in results:
-        status = "+ created" if r.action == "created" else "~ updated" if r.action == "updated" else "= unchanged"
-        print(f"  {status} {r.file} ({r.harness})")
+        print(f"  {_status_label(r.action)} {r.file} ({r.harness})")
     print("\nDone. Harnesses configured.")
     return 0
 

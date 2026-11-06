@@ -368,7 +368,8 @@ if __name__ == "__main__":
     )
 
     # Add noise points
-    noise = np.random.randn(50, 2) * 3
+    rng = np.random.default_rng(42)
+    noise = rng.standard_normal((50, 2)) * 3
     X_synth = np.vstack([X_synth, noise])
     y_synth_with_noise = np.concatenate([y_synth, np.full(50, -1)])
 

@@ -244,6 +244,7 @@ def require_string(
 
 
 def require_bool(value: Any, *, context: str) -> bool:
+    """Handle require bool."""
     if not isinstance(value, bool):
         raise CliError(f"{context} must be true or false")
     return value
@@ -270,6 +271,7 @@ def finite_number(
 
 
 def positive_int(value: Any, *, context: str, maximum: int) -> int:
+    """Handle positive int."""
     if isinstance(value, bool) or not isinstance(value, int):
         raise CliError(f"{context} must be an integer")
     if value < 1 or value > maximum:
@@ -334,6 +336,7 @@ def has_placeholder(value: Any) -> tuple[str, str] | None:
     """Return the first JSON path and placeholder string, if present."""
 
     def walk(item: Any, path: str) -> tuple[str, str] | None:
+        """Handle walk."""
         if isinstance(item, str):
             for pattern in _PLACEHOLDER_PATTERNS:
                 if pattern.search(item):

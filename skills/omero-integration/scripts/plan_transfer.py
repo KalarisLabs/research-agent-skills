@@ -24,6 +24,7 @@ IMAGE_PATTERN = re.compile(r"^Image:([1-9]\d*)$")
 
 
 def positive_argument(value: str) -> int:
+    """Handle positive argument."""
     try:
         parsed = int(value, 10)
     except ValueError as exc:
@@ -34,6 +35,7 @@ def positive_argument(value: str) -> int:
 
 
 def import_target(value: str) -> str:
+    """Import target."""
     if not TARGET_PATTERN.fullmatch(value):
         raise argparse.ArgumentTypeError(
             "target must be Dataset:id:<positive-id> or "
@@ -43,6 +45,7 @@ def import_target(value: str) -> str:
 
 
 def image_selector(value: str) -> str:
+    """Handle image selector."""
     if not IMAGE_PATTERN.fullmatch(value):
         raise argparse.ArgumentTypeError(
             "selector must be Image:<positive-id>"

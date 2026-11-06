@@ -178,6 +178,7 @@ def load_markdown(path_text: str) -> str:
 
 
 def require_root_object(value: Any) -> dict[str, Any]:
+    """Handle require root object."""
     if not isinstance(value, dict):
         raise InputError("JSON root must be an object")
     return value
@@ -193,6 +194,7 @@ def is_placeholder(value: Any) -> bool:
 
 
 def valid_iso_date(value: Any) -> bool:
+    """Handle valid iso date."""
     if not isinstance(value, str):
         return False
     try:
@@ -220,6 +222,7 @@ class Review:
         self.findings.append(Finding(code, path, message, severity))
 
     def object(self, value: Any, path: str) -> dict[str, Any] | None:
+        """Handle object."""
         if not isinstance(value, dict):
             self.add("TYPE_OBJECT", path, "must be an object")
             return None
@@ -233,6 +236,7 @@ class Review:
         min_items: int = 1,
         max_items: int = MAX_ITEMS,
     ) -> list[Any] | None:
+        """List."""
         if not isinstance(value, list):
             self.add("TYPE_LIST", path, "must be an array")
             return None
@@ -570,6 +574,7 @@ def finish(
 
 
 def guarded_main(main_function: Any) -> None:
+    """Handle guarded main."""
     try:
         code = int(main_function())
     except InputError as exc:

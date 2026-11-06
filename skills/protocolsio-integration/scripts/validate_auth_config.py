@@ -56,6 +56,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _validate_secret_value(name: str, value: str | None) -> None:
+    """Validate secret value."""
     if value is None:
         return
     if (

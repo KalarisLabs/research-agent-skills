@@ -1021,17 +1021,18 @@ def validate_record(record: dict[str, Any]) -> dict[str, Any]:
             issue("HUMAN_ACCOUNTABILITY_REQUIRED", "ai_use.human_accountable")
         )
 
+    if errors:
+        status = "INVALID_RECORD"
+    elif unresolved_gate_names:
+        status = "VALID_BLOCKED_BY_GATES"
+    else:
+        status = "VALID_FOR_HUMAN_REVIEW"
+
     return {
         "schema_version": "2.0",
         "project_id": record["project_id"],
         "valid": not errors,
-        "status": (
-            "INVALID_RECORD"
-            if errors
-            else "VALID_BLOCKED_BY_GATES"
-            if unresolved_gate_names
-            else "VALID_FOR_HUMAN_REVIEW"
-        ),
+        "status": status,
         "errors": errors,
         "warnings": warnings,
         "counts": {

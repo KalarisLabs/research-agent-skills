@@ -181,6 +181,14 @@ def build_reference(
             stacklevel=2,
         )
 
+    stored_baseline_time: float | list[float] | None
+    if baseline_time is None:
+        stored_baseline_time = None
+    elif np.isscalar(baseline_time):
+        stored_baseline_time = float(baseline_time)
+    else:
+        stored_baseline_time = [float(t) for t in baseline_time]  # type: ignore[arg-type]
+
     return ReferenceModel(
         variables=tuple(variables),
         turned=tuple(turned),
@@ -189,11 +197,7 @@ def build_reference(
         n_animals=int(frame[ID_COL].nunique()),
         n_rows=int(len(frame)),
         label=label,
-        baseline_time=(
-            None
-            if baseline_time is None
-            else (float(baseline_time) if np.isscalar(baseline_time) else [float(t) for t in baseline_time])  # type: ignore[arg-type]
-        ),
+        baseline_time=stored_baseline_time,
     )
 
 
@@ -334,6 +338,7 @@ def prepare(
 # CLI
 # --------------------------------------------------------------------------- #
 def _filter_group(frame: pd.DataFrame, pairs: Sequence[str]) -> pd.DataFrame:
+    """Filter group."""
     for pair in pairs:
         if "=" not in pair:
             raise SystemExit(f"--reference-group expects col=value, got {pair!r}")

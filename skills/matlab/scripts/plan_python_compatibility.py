@@ -168,6 +168,7 @@ def parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     try:
         report, status = plan(parser().parse_args())
         emit_json(report)

@@ -46,6 +46,8 @@ AVI_SCORER = "AVI_SCORE"
 AVI_FEATURES_SCORER = "AVI_SCORE_FEATURE_IMPORTANCE"
 AVI_SCORERS: tuple[str, str] = (AVI_SCORER, AVI_FEATURES_SCORER)
 
+_CODING_CONSEQUENCE = "Coding consequence"
+
 #: The 18 AVI input features, keyed by the ``var['name']`` values returned by
 #: the ``AVI_SCORE_FEATURE_IMPORTANCE`` scorer. Value: (display name, category,
 #: Atlas track scorers that feed the feature; empty for annotation features).
@@ -67,9 +69,9 @@ AVI_FEATURES: dict[str, tuple[str, str, tuple[str, ...]]] = {
     "ALPHAMISSENSE": ("AlphaMissense", "Protein impact", ()),
     "CACTUS_241_WAY": ("Zoonomia Cactus 241-way", "Evolutionary conservation", ()),
     "PHASTCONS_470_WAY": ("PhastCons 470-way", "Evolutionary conservation", ()),
-    "PROTEIN_TERMINATION": ("Protein termination", "Coding consequence", ()),
-    "START_LOST": ("Start lost", "Coding consequence", ()),
-    "STOP_LOST": ("Stop lost", "Coding consequence", ()),
+    "PROTEIN_TERMINATION": ("Protein termination", _CODING_CONSEQUENCE, ()),
+    "START_LOST": ("Start lost", _CODING_CONSEQUENCE, ()),
+    "STOP_LOST": ("Stop lost", _CODING_CONSEQUENCE, ()),
     "IS_INSERTION": ("Insertion", "Indel type", ()),
     "IS_DELETION": ("Deletion", "Indel type", ()),
 }
@@ -295,6 +297,7 @@ def read_variant_table(path: str | Path) -> tuple[list[VariantSpec], list[str]]:
     lookup = {name.lower(): index for index, name in enumerate(header)}
 
     def column(*names: str) -> int | None:
+        """Handle column."""
         for name in names:
             if name in lookup:
                 return lookup[name]
@@ -441,6 +444,7 @@ _FORMATS = ("tsv", "csv", "json", "parquet")
 
 
 def _stringify(value: object) -> object:
+    """Handle stringify."""
     if value is None:
         return ""
     if isinstance(value, float):
@@ -514,5 +518,6 @@ def format_from_output(output: str | None, explicit: str | None) -> str:
 
 
 def chunked(items: Sequence, size: int) -> Iterable[Sequence]:
+    """Handle chunked."""
     for start in range(0, len(items), size):
         yield items[start : start + size]

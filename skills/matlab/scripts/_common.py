@@ -17,7 +17,7 @@ MAX_FILES = 500
 MAX_JSON_ITEMS = 20_000
 MAX_JSON_DEPTH = 24
 MAX_PATH_CHARS = 4096
-MATLAB_IDENTIFIER = re.compile(r"^[A-Za-z][A-Za-z0-9_]{0,62}$")
+MATLAB_IDENTIFIER = re.compile(r"^[A-Za-z]\w{0,62}$", re.ASCII)
 MATLAB_RELEASE = re.compile(r"^R(20\d{2})([ab])$")
 URL_LIKE = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*://")
 
@@ -27,6 +27,7 @@ class CliError(ValueError):
 
 
 def _raw_path(value: str) -> Path:
+    """Handle raw path."""
     if not value or len(value) > MAX_PATH_CHARS:
         raise CliError("path is empty or exceeds the length limit")
     if "\x00" in value or URL_LIKE.match(value):
@@ -127,6 +128,7 @@ def checked_output(
 
 
 def read_bytes(path: Path, *, max_bytes: int = MAX_INPUT_BYTES) -> bytes:
+    """Read bytes."""
     try:
         size = path.stat().st_size
         if size > max_bytes:
@@ -158,6 +160,7 @@ def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def _validate_json_shape(value: Any, *, depth: int = 0) -> int:
+    """Validate json shape."""
     if depth > MAX_JSON_DEPTH:
         raise CliError(f"JSON nesting exceeds {MAX_JSON_DEPTH}")
     if value is None or isinstance(value, (bool, int, float, str)):
@@ -176,6 +179,7 @@ def _validate_json_shape(value: Any, *, depth: int = 0) -> int:
 
 
 def parse_json_text(text: str) -> Any:
+    """Parse json text."""
     try:
         value = json.loads(text, object_pairs_hook=_reject_duplicate_keys)
     except CliError:
@@ -200,6 +204,7 @@ def bounded_int(
     minimum: int,
     maximum: int,
 ) -> int:
+    """Handle bounded int."""
     try:
         number = int(value)
     except (TypeError, ValueError) as exc:
@@ -210,6 +215,7 @@ def bounded_int(
 
 
 def validate_identifier(value: str, *, name: str = "identifier") -> str:
+    """Validate identifier."""
     if not MATLAB_IDENTIFIER.fullmatch(value):
         raise CliError(
             f"{name} must be a MATLAB identifier of at most 63 characters"
@@ -218,6 +224,7 @@ def validate_identifier(value: str, *, name: str = "identifier") -> str:
 
 
 def validate_release(value: str) -> str:
+    """Validate release."""
     if not MATLAB_RELEASE.fullmatch(value):
         raise CliError("MATLAB release must look like R2026a")
     return value
@@ -244,6 +251,7 @@ def relative_id(path: Path, root: Path) -> str:
 
 
 def write_new_text(path: Path, text: str) -> None:
+    """Write new text."""
     try:
         with path.open("x", encoding="utf-8", newline="\n") as handle:
             handle.write(text)

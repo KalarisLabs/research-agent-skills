@@ -148,6 +148,7 @@ def read_csv_records(
 
 
 def require_object(value: Any, context: str) -> dict[str, Any]:
+    """Handle require object."""
     if not isinstance(value, dict):
         raise ValidationError(f"{context} must be a JSON object")
     return value
@@ -160,6 +161,7 @@ def require_list(
     minimum: int = 0,
     maximum: int = MAX_ROWS,
 ) -> list[Any]:
+    """Handle require list."""
     if not isinstance(value, list):
         raise ValidationError(f"{context} must be a JSON array")
     if not minimum <= len(value) <= maximum:
@@ -176,6 +178,7 @@ def require_text(
     allow_empty: bool = False,
     maximum: int = MAX_CELL_CHARS,
 ) -> str:
+    """Handle require text."""
     if not isinstance(value, str):
         raise ValidationError(f"{context} must be a string")
     text = value.strip()
@@ -225,6 +228,7 @@ def parse_iso_date(value: Any, context: str) -> str:
 
 
 def parse_year(value: Any, context: str) -> int:
+    """Parse year."""
     if isinstance(value, bool):
         raise ValidationError(f"{context} must be an integer year")
     try:
@@ -243,6 +247,7 @@ def parse_number(
     minimum: float,
     maximum: float,
 ) -> float:
+    """Parse number."""
     if isinstance(value, bool):
         raise ValidationError(f"{context} must be numeric")
     try:

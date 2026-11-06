@@ -62,6 +62,7 @@ def _parse_pipeline(value: str | None) -> list[str]:
 
 
 def make_plan(args: argparse.Namespace) -> dict[str, Any]:
+    """Make plan."""
     if not 1 <= args.width <= 1_000_000_000:
         raise CliError("--width must be between 1 and 1000000000")
     if not 1 <= args.height <= 1_000_000_000:

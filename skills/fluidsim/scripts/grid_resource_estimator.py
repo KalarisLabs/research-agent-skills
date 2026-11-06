@@ -45,6 +45,7 @@ TOOL = "fluidsim-grid-resource-estimator"
 
 
 def _records(t_end: float, period: float, maximum: int) -> int:
+    """Handle records."""
     if period <= 0:
         return 0
     return min(maximum, int(math.floor(t_end / period + 1e-12)) + 2)

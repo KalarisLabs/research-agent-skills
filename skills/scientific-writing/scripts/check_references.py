@@ -76,6 +76,7 @@ def _record_duplicate(
     code: str,
     issues: list[Issue],
 ) -> None:
+    """Handle record duplicate."""
     if not normalized:
         return
     prior = seen.get(normalized)

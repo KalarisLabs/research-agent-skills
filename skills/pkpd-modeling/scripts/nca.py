@@ -471,6 +471,7 @@ def summarise(rows: Sequence[dict], keys: Sequence[str]) -> list[dict]:
 
 
 def _partial_spec(text: str) -> tuple[float, float]:
+    """Handle partial spec."""
     try:
         start, end = text.split("-", 1)
         lo, hi = float(start), float(end)

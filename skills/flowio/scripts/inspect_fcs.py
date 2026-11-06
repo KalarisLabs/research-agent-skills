@@ -192,6 +192,7 @@ def iter_datasets(
 
 
 def channel_kind(flow: FlowData, array_index: int) -> str:
+    """Handle channel kind."""
     if flow.pnn_labels[array_index] in flow.null_channels:
         return "null"
     if array_index == flow.time_index:

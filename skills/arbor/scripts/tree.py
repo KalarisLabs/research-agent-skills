@@ -46,6 +46,7 @@ from pathlib import Path
 # ----------------------------------------------------------------------------
 
 VALID_STATUS = {"pending", "running", "executed", "merged", "pruned", "root"}
+_NONE_YET = "  (none yet)"
 
 
 def _dir(run_dir):
@@ -64,6 +65,7 @@ def _run_path(run_dir):
 
 
 def _load(path, what):
+    """Load."""
     if not path.exists():
         sys.exit(
             f"error: no {what} found at {path}. Run `tree.py init` first "
@@ -321,6 +323,7 @@ def cmd_merge(args):
     prev = run["best_test_score"]
 
     def better(new, old):
+        """Handle better."""
         if old is None:
             return True
         return new > old if direction == "max" else new < old
@@ -409,7 +412,7 @@ def cmd_observe(args):
     )
 
     print("\n-- Global insights (root) --")
-    print(root["insight"].strip() if root["insight"].strip() else "  (none yet)")
+    print(root["insight"].strip() if root["insight"].strip() else _NONE_YET)
 
     # Active frontier = pending/running leaves
     frontier = [
@@ -433,7 +436,7 @@ def cmd_observe(args):
     executed = [n for n in nodes.values() if n["status"] in ("executed", "merged")]
     print("\n-- Executed / merged nodes (evidence) --")
     if not executed:
-        print("  (none yet)")
+        print(_NONE_YET)
     for n in sorted(executed, key=lambda x: _id_order(x["id"])):
         print(f"  {n['id']} [{n['status']}]{_fmt_score(n, run)}: {n['hypothesis']}")
         if n["insight"].strip():
@@ -443,7 +446,7 @@ def cmd_observe(args):
     pruned = [n for n in nodes.values() if n["status"] == "pruned"]
     print("\n-- Pruned lessons (negative constraints — avoid these) --")
     if not pruned:
-        print("  (none yet)")
+        print(_NONE_YET)
     for n in sorted(pruned, key=lambda x: _id_order(x["id"])):
         reason = n["metadata"].get("prune_reason", "")
         print(f"  {n['id']}: {n['hypothesis']}" + (f" — {reason}" if reason else ""))

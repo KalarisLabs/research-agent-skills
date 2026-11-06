@@ -26,7 +26,7 @@ from _common import (
 )
 
 
-FIELD_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9_]{0,79}$")
+FIELD_PATTERN = re.compile(r"^[A-Za-z]\w{0,79}$", re.ASCII)
 MATERIAL_ID_PATTERN = re.compile(r"^(?:mp|mvc)-\d+$")
 TOKEN_PATTERN = re.compile(r"^[A-Za-z0-9.+\-()]+$")
 MAX_RESULTS = 100

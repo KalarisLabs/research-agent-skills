@@ -17,6 +17,7 @@ except ImportError:  # Direct script execution.
 
 
 def _require(condition: bool, message: str, errors: list[str]) -> None:
+    """Handle require."""
     if not condition:
         errors.append(message)
 

@@ -247,12 +247,14 @@ class ResearchLookup:
         raise ValueError("No backend available.")
 
     def _is_academic_query(self, query: str) -> bool:
+        """Return whether academic query."""
         if self.academic is not None:
             return self.academic
         lowered = query.lower()
         return any(keyword in lowered for keyword in ACADEMIC_KEYWORDS)
 
     def _query_with_context(self, query: str) -> str:
+        """Query with context."""
         if not self.manuscript_context:
             return query
         context_lines = [
@@ -383,6 +385,7 @@ class ResearchLookup:
     def _extract_sources(
         self, sources: list[dict[str, Any]], search_ledger: list[dict[str, Any]]
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        """Extract sources."""
         if self.extract_limit == 0:
             return sources, []
         candidates = [
@@ -605,6 +608,7 @@ class ResearchLookup:
 
     @staticmethod
     def _find_report_text(payload: Any) -> str:
+        """Find report text."""
         if isinstance(payload, str):
             return payload if len(payload) > 100 else ""
         if isinstance(payload, list):
@@ -631,6 +635,7 @@ class ResearchLookup:
         sources: list[dict[str, str]] = []
 
         def walk(value: Any) -> None:
+            """Handle walk."""
             if isinstance(value, dict):
                 url = value.get("url")
                 if isinstance(url, str) and url.startswith(("http://", "https://")):
@@ -986,6 +991,7 @@ class ResearchLookup:
 
 
 def _load_context(path: str | None) -> dict[str, Any]:
+    """Load context."""
     if not path:
         return {}
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
@@ -1008,6 +1014,7 @@ def _slug(text: str) -> str:
 
 
 def _render_human_result(result: dict[str, Any], index: int) -> str:
+    """Render human result."""
     if not result.get("success"):
         return f"\nError in query {index}: {result.get('error', 'Unknown error')}"
     lines = [

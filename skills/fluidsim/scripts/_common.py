@@ -106,6 +106,7 @@ def validate_keys(
 
 
 def require_mapping(value: Any, *, context: str) -> Mapping[str, Any]:
+    """Handle require mapping."""
     if not isinstance(value, Mapping):
         raise ToolError(f"{context} must be a JSON object")
     return value
@@ -114,6 +115,7 @@ def require_mapping(value: Any, *, context: str) -> Mapping[str, Any]:
 def require_text(
     value: Any, *, name: str, minimum: int = 1, maximum: int = 2_000
 ) -> str:
+    """Handle require text."""
     if not isinstance(value, str):
         raise ToolError(f"{name} must be a string")
     if not minimum <= len(value) <= maximum:
@@ -126,6 +128,7 @@ def require_text(
 def require_text_list(
     value: Any, *, name: str, minimum: int = 1, maximum: int = 100
 ) -> list[str]:
+    """Handle require text list."""
     if not isinstance(value, list) or not minimum <= len(value) <= maximum:
         raise ToolError(f"{name} must contain {minimum}..{maximum} strings")
     return [
@@ -231,6 +234,7 @@ def checked_root(value: str | os.PathLike[str]) -> Path:
 
 
 def _within_root(path: Path, root: Path) -> None:
+    """Handle within root."""
     try:
         path.relative_to(root)
     except ValueError as exc:
@@ -373,6 +377,7 @@ def load_json(path: Path, *, max_bytes: int = MAX_JSON_BYTES) -> Any:
 
 
 def strict_json_loads(text: str) -> Any:
+    """Handle strict json loads."""
     try:
         return json.loads(
             text,
@@ -386,6 +391,7 @@ def strict_json_loads(text: str) -> Any:
 
 
 def json_bytes(document: Any) -> bytes:
+    """Handle json bytes."""
     try:
         payload = (
             json.dumps(

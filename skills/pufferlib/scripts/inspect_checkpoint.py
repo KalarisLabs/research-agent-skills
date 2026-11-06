@@ -68,6 +68,7 @@ def _open_regular_no_follow(path: Path) -> tuple[BinaryIO, os.stat_result]:
 
 
 def _detect_format(prefix: bytes, suffix: str) -> dict[str, Any]:
+    """Detect format."""
     if prefix.startswith(b"PK\x03\x04"):
         return {
             "family": "zip-container",
@@ -108,6 +109,7 @@ def _hash_and_prefix(handle: BinaryIO, *, chunk_bytes: int = 1_048_576) -> tuple
 def _safe_sidecar(
     metadata_path: str | None, *, root: str | Path
 ) -> tuple[dict[str, Any] | None, list[str]]:
+    """Handle safe sidecar."""
     if metadata_path is None:
         return None, []
     raw = load_json_object(metadata_path, root=root, max_bytes=262_144)

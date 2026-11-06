@@ -49,8 +49,7 @@ print("=" * 80)
 
 # Load data (adjust based on your file format)
 adata = sc.read_h5ad(INPUT_FILE)
-# adata = sc.read_10x_mtx('data/filtered_gene_bc_matrices/')  # For 10X data
-# adata = sc.read_csv('data/counts.csv')  # For CSV data
+# For 10X data use sc.read_10x_mtx on the filtered matrix directory; for CSV counts use sc.read_csv.
 
 print(f"Loaded: {adata.n_obs} cells x {adata.n_vars} genes")
 

@@ -7,6 +7,7 @@ Subcommands:
 """
 
 import argparse
+import importlib
 import sys
 
 
@@ -21,7 +22,8 @@ def main(argv=None):
     args = parser.parse_args(argv)
 
     if args.command == "run":
-        import run as _run
+        # Imported by name from this directory; its main() accepts an argv list.
+        _run = importlib.import_module("run")
         return _run.main(args.rest)
     if args.command == "doctor":
         import doctor as _doctor

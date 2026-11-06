@@ -70,6 +70,7 @@ def _bounded_element_count(shape: Any) -> int:
 
 
 def _inspect_pillow(path: Path) -> dict[str, Any]:
+    """Handle inspect pillow."""
     try:
         from PIL import Image
     except ImportError as exc:
@@ -108,6 +109,7 @@ def _inspect_pillow(path: Path) -> dict[str, Any]:
 
 
 def _inspect_tiff(path: Path) -> dict[str, Any]:
+    """Handle inspect tiff."""
     try:
         import tifffile
     except ImportError as exc:

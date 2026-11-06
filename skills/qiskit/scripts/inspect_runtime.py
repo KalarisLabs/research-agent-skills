@@ -21,6 +21,7 @@ def positive_qubits(value: str) -> int:
 
 
 def distribution_version(distribution: str) -> str | None:
+    """Handle distribution version."""
     try:
         return version(distribution)
     except PackageNotFoundError:

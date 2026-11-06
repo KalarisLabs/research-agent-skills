@@ -34,6 +34,9 @@ for _stream in (sys.stdout, sys.stderr):  # Windows consoles default to cp1252
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = Path(__file__).with_name("data")
+HUMAN_FILE = "human.jsonl"
+AI_BASELINE_FILE = "ai_baseline.jsonl"
+AI_UNSLOP_FILE = "ai_unslop.jsonl"
 SKILL = ROOT / "skills" / "unslop-academic-writing"
 TOPICS = ["neuroscience", "ecology", "machine learning", "cardiology", "materials science", "epidemiology",
           "genomics", "climate", "psychology", "chemistry"]
@@ -82,7 +85,7 @@ def cmd_fetch(args: argparse.Namespace) -> int:
                              "doi": it.get("doi"), "year": it.get("pubYear"), "license": it.get("license")})
             if sum(r["topic"] == topic for r in rows) >= per_topic:
                 break
-    write_jsonl("human.jsonl", rows)
+    write_jsonl(HUMAN_FILE, rows)
     print(f"fetched {len(rows)} human abstracts (CC BY, 2012-2018) -> {DATA / 'human.jsonl'}")
     return 0
 
@@ -105,18 +108,18 @@ def generate(title: str, with_skill: bool, model: str | None) -> str:
 
 def cmd_generate(args: argparse.Namespace) -> int:
     """Run the generate subcommand."""
-    human = read_jsonl("human.jsonl")[: args.limit]
+    human = read_jsonl(HUMAN_FILE)[: args.limit]
     if not human:
         sys.exit("run `fetch` first")
-    base, skill = read_jsonl("ai_baseline.jsonl"), read_jsonl("ai_unslop.jsonl")
+    base, skill = read_jsonl(AI_BASELINE_FILE), read_jsonl(AI_UNSLOP_FILE)
     done = {r["title"] for r in base} & {r["title"] for r in skill}
     for h in human:
         if h["title"] in done:
             continue
         base.append({"title": h["title"], "text": generate(h["title"], False, args.model), "model": args.model})
         skill.append({"title": h["title"], "text": generate(h["title"], True, args.model), "model": args.model})
-        write_jsonl("ai_baseline.jsonl", base)
-        write_jsonl("ai_unslop.jsonl", skill)
+        write_jsonl(AI_BASELINE_FILE, base)
+        write_jsonl(AI_UNSLOP_FILE, skill)
         print(f"generated {len(base)}/{len(human)}: {h['title'][:60]}")
     return 0
 
@@ -132,8 +135,8 @@ def auroc(pos: list[float], neg: list[float]) -> float:
 def cmd_score(args: argparse.Namespace) -> int:
     """Run the score subcommand."""
     slop = load_slop()
-    sets = {"human": read_jsonl("human.jsonl"), "ai_baseline": read_jsonl("ai_baseline.jsonl"),
-            "ai_unslop": read_jsonl("ai_unslop.jsonl")}
+    sets = {"human": read_jsonl(HUMAN_FILE), "ai_baseline": read_jsonl(AI_BASELINE_FILE),
+            "ai_unslop": read_jsonl(AI_UNSLOP_FILE)}
     scores = {k: [slop.analyse(r["text"])["slop_index"] for r in v] for k, v in sets.items()}
     summary: dict = {}
     for k, v in scores.items():

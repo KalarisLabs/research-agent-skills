@@ -19,6 +19,7 @@ from pathlib import Path
 from common import THIRD_PARTY, Skill, dump_frontmatter, load_yaml, split_frontmatter, write_text
 
 MAX_LINES = 500
+SKILL_MD = "SKILL.md"
 PROCEDURE_HEADING = "## Agent operating procedure"
 RELATED_HEADING = "## Related skills"
 KEEP_SECTIONS = re.compile(r"(when to use|overview|quick ?start|getting started|workflow|core concept|rules|"
@@ -117,7 +118,7 @@ def _relink_moved(text: str) -> str:
 
 def split_oversized(skill_dir: Path, budget: int) -> list[str]:
     """Split oversized."""
-    path = skill_dir / "SKILL.md"
+    path = skill_dir / SKILL_MD
     text = path.read_text(encoding="utf-8")
     meta, body = split_frontmatter(text)
     head_lines = len(text.splitlines()) - len(body.splitlines())
@@ -177,7 +178,7 @@ def needs_procedure(body: str) -> bool:
 
 def add_procedure(skill: Skill) -> bool:
     """Add procedure."""
-    path = skill.path / "SKILL.md"
+    path = skill.path / SKILL_MD
     text = path.read_text(encoding="utf-8")
     meta, body = split_frontmatter(text)
     if PROCEDURE_HEADING in body or not needs_procedure(body):
@@ -188,7 +189,7 @@ def add_procedure(skill: Skill) -> bool:
 
 def add_related(skill: Skill, related: list[tuple[str, str]]) -> bool:
     """Add related."""
-    path = skill.path / "SKILL.md"
+    path = skill.path / SKILL_MD
     meta, body = split_frontmatter(path.read_text(encoding="utf-8"))
     if not related or re.search(r"^#+ .*(related|see also)", body, re.I | re.M):
         return False

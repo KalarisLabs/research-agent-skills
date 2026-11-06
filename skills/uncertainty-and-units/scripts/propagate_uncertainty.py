@@ -607,7 +607,7 @@ def run(arguments: argparse.Namespace) -> dict[str, Any]:
         key = (first, second) if first < second else (second, first)
         if key in correlations and correlations[key] != coefficient:
             raise CliError(f"conflicting correlations given for {key[0]} and {key[1]}")
-        if coefficient != 0.0:
+        if not math.isclose(coefficient, 0.0, rel_tol=0.0, abs_tol=0.0):
             correlations[key] = coefficient
 
     coverage = spec.get("coverage_probability", arguments.coverage)

@@ -25,6 +25,7 @@ SAFE_DIRECTORY = re.compile(r"^[A-Za-z][A-Za-z0-9_.-]{0,63}$")
 
 
 def _directory(root: Path, name: str, *, write: bool) -> Path:
+    """Handle directory."""
     if not SAFE_DIRECTORY.fullmatch(name):
         raise CliError("source/test directory must be one simple local directory name")
     path = root / name
@@ -159,6 +160,7 @@ def parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     try:
         emit_json(generate(parser().parse_args()))
         return 0

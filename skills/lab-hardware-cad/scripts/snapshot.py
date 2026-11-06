@@ -43,6 +43,7 @@ DEFAULT_VIEWS = ["iso", "front", "right", "top", "left", "bottom"]
 
 
 def _require_matplotlib():
+    """Handle require matplotlib."""
     try:
         import matplotlib  # noqa: PLC0415
     except ImportError as exc:  # pragma: no cover - environment dependent
@@ -193,7 +194,7 @@ def main() -> int:
     # Per-face normals, used to shade each view from its own camera direction.
     normals = np.cross(faces[:, 1] - faces[:, 0], faces[:, 2] - faces[:, 0])
     lengths = np.linalg.norm(normals, axis=1, keepdims=True)
-    normals = normals / np.where(lengths == 0.0, 1.0, lengths)
+    normals = normals / np.where(np.isclose(lengths, 0.0, rtol=0.0, atol=0.0), 1.0, lengths)
 
     base = _to_rgb(args.color)
 

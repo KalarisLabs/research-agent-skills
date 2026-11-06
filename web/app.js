@@ -81,8 +81,9 @@
   }
 
   // Clipboard Copy Helper
-  function copyToClipboard(text, btnElement) {
-    navigator.clipboard.writeText(text).then(() => {
+  async function copyToClipboard(text, btnElement) {
+    try {
+      await navigator.clipboard.writeText(text);
       showToast(`Copied: ${text}`);
       if (btnElement) {
         const originalText = btnElement.textContent;
@@ -93,9 +94,9 @@
           btnElement.classList.remove("copied");
         }, 1800);
       }
-    }).catch(() => {
+    } catch {
       showToast("Failed to copy to clipboard");
-    });
+    }
   }
 
   // Fetch Catalog

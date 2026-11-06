@@ -166,13 +166,12 @@ def check_process(record: dict[str, Any]) -> dict[str, Any]:
         for field in field_groups["references"]:
             if not record[section_name][field]:
                 missing_controls.append(f"{section_name}.{field}")
-    status = (
-        "blocked"
-        if blockers
-        else "incomplete"
-        if missing_controls
-        else "complete_for_low_stakes_process"
-    )
+    if blockers:
+        status = "blocked"
+    elif missing_controls:
+        status = "incomplete"
+    else:
+        status = "complete_for_low_stakes_process"
     confirmed_count = sum(
         record[section_name][field] is True
         for section_name, groups in SECTION_FIELDS.items()

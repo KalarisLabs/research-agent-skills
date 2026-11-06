@@ -19,6 +19,7 @@ from typing import Any, Iterable
 
 SCHEMA_VERSION = "2.0"
 STATUS = "DRAFT_NOT_FOR_CLINICAL_USE"
+_DOCUMENT_TYPE_PATH = "$.document_type"
 NOTICE = (
     "DRAFT — NOT MEDICAL ADVICE — DOCUMENTATION-ONLY — "
     "AUTHORIZED CLINICIAN SIGN-OFF REQUIRED"
@@ -724,6 +725,7 @@ def _reject_constant(_: str) -> None:
 
 
 def _check_bounds(value: Any, *, depth: int = 0, counter: list[int]) -> None:
+    """Check bounds."""
     if depth > MAX_DEPTH:
         raise ValidationError("JSON_MAX_DEPTH_EXCEEDED")
     counter[0] += 1
@@ -807,6 +809,7 @@ def load_target(
 
 
 def _valid_iso_date(value: str) -> bool:
+    """Handle valid iso date."""
     try:
         return date.fromisoformat(value).isoformat() == value
     except ValueError:
@@ -890,6 +893,7 @@ def _validate_schema(
 def _duplicate_field_issues(
     records: Any, field: str, path: str
 ) -> list[Issue]:
+    """Handle duplicate field issues."""
     if not isinstance(records, list):
         return []
     seen: set[str] = set()
@@ -914,12 +918,12 @@ def validate_document(
 
     document_type = document.get("document_type")
     if not isinstance(document_type, str):
-        return [Issue("DOCUMENT_TYPE_MISSING", "$.document_type")]
+        return [Issue("DOCUMENT_TYPE_MISSING", _DOCUMENT_TYPE_PATH)]
     if expected_type is not None and document_type != expected_type:
-        return [Issue("DOCUMENT_TYPE_FILENAME_MISMATCH", "$.document_type")]
+        return [Issue("DOCUMENT_TYPE_FILENAME_MISMATCH", _DOCUMENT_TYPE_PATH)]
     schema = DOCUMENT_SCHEMAS.get(document_type)
     if schema is None:
-        return [Issue("DOCUMENT_TYPE_UNKNOWN", "$.document_type")]
+        return [Issue("DOCUMENT_TYPE_UNKNOWN", _DOCUMENT_TYPE_PATH)]
     issues: list[Issue] = []
     _validate_schema(document, schema, "$", issues)
 
@@ -1144,6 +1148,7 @@ def all_fact_references(
     references: list[tuple[str, str]] = []
 
     def collect(value: Any, path: str) -> None:
+        """Collect."""
         if isinstance(value, dict):
             for key, nested in value.items():
                 nested_path = f"{path}.{key}"

@@ -60,6 +60,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _protocol_object(payload: Any) -> Mapping[str, Any]:
+    """Handle protocol object."""
     if not isinstance(payload, Mapping):
         raise SafetyError("JSON root must be an object")
     status = payload.get("status_code", 0)
@@ -84,6 +85,7 @@ def _bounded_string(
     maximum: int = 2_048,
     nullable: bool = True,
 ) -> str | None:
+    """Handle bounded string."""
     if value is None and nullable:
         return None
     if not isinstance(value, str):
@@ -101,6 +103,7 @@ def _bounded_int(
     maximum: int = 2_147_483_647,
     nullable: bool = True,
 ) -> int | None:
+    """Handle bounded int."""
     if value is None and nullable:
         return None
     if isinstance(value, bool) or not isinstance(value, int):
@@ -127,6 +130,7 @@ def _bounded_list(
 
 
 def _validate_public(value: Any) -> bool | None:
+    """Validate public."""
     if value is None:
         return None
     if isinstance(value, bool):
@@ -226,6 +230,7 @@ def _validate_steps(steps: list[Any]) -> dict[str, Any]:
 
 
 def _version_specific(protocol: Mapping[str, Any]) -> bool:
+    """Handle version specific."""
     for name in ("version_uri", "doi", "uri"):
         value = protocol.get(name)
         if isinstance(value, str) and re.search(r"/v[1-9]\d*$", value):
@@ -239,6 +244,7 @@ def validate_and_summarize(
     require_version: bool,
     max_steps: int,
 ) -> dict[str, Any]:
+    """Validate and summarize."""
     if not 1 <= max_steps <= MAX_STEPS:
         raise SafetyError(f"max_steps must be between 1 and {MAX_STEPS}")
     protocol = _protocol_object(payload)

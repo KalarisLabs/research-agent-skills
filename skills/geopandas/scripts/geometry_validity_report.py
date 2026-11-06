@@ -100,6 +100,7 @@ def _type_transition_count(before: Any, after: Any) -> int:
 
 
 def report(args: argparse.Namespace) -> dict[str, Any]:
+    """Handle report."""
     if args.drop_collapsed and args.method != "structure":
         raise CliError("--drop-collapsed is valid only with --method structure")
     path = checked_input_file(

@@ -182,6 +182,7 @@ def read_csv_records(
 
 
 def require_object(value: Any, context: str) -> dict[str, Any]:
+    """Handle require object."""
     if not isinstance(value, dict):
         raise ValidationError(f"{context} must be a JSON object")
     return value
@@ -212,6 +213,7 @@ def require_list(
     minimum: int = 0,
     maximum: int = MAX_LIST_ITEMS,
 ) -> list[Any]:
+    """Handle require list."""
     if not isinstance(value, list):
         raise ValidationError(f"{context} must be a JSON array")
     if not minimum <= len(value) <= maximum:
@@ -229,6 +231,7 @@ def require_text(
     minimum: int = 1,
     maximum: int = MAX_TEXT_CHARS,
 ) -> str:
+    """Handle require text."""
     if not isinstance(value, str):
         raise ValidationError(f"{context} must be a string")
     text = value.strip()
@@ -244,6 +247,7 @@ def require_text(
 
 
 def require_bool(value: Any, context: str) -> bool:
+    """Handle require bool."""
     if type(value) is not bool:
         raise ValidationError(f"{context} must be true or false")
     return value

@@ -6,6 +6,7 @@ import sys
 from urllib.parse import urlparse
 
 def _is_loopback(host):
+    """Return whether loopback."""
     if host in ("localhost", ""):
         return True
     try:
@@ -45,7 +46,9 @@ def check_remote_endpoint(endpoint, label):
 
 
 class ClaudeBackend:
+    """Claude backend."""
     def __init__(self, api_key, model, client=None):
+        """Initialise the instance."""
         if client is None:
             import httpx
             client = httpx.Client(base_url="https://api.anthropic.com", timeout=60.0)
@@ -74,7 +77,9 @@ class ClaudeBackend:
 
 
 class LocalBackend:
+    """Local backend."""
     def __init__(self, endpoint, model, client=None):
+        """Initialise the instance."""
         if client is None:
             import httpx
             client = httpx.Client(base_url=endpoint, timeout=120.0)

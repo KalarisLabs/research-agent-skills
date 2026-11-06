@@ -100,6 +100,7 @@ def bounded_int(minimum: int, maximum: int) -> Callable[[str], int]:
     """Return an argparse converter for a bounded integer."""
 
     def convert(value: str) -> int:
+        """Convert."""
         try:
             parsed = int(value)
         except ValueError as exc:
@@ -407,16 +408,16 @@ def parse_expression(text: str) -> ast.Expression:
                 raise CliError("function calls may not use keyword arguments")
             if not 1 <= len(node.args) <= 2:
                 raise CliError("functions accept one or two positional arguments")
-        if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Pow):
-            exponent = node.right
-            if (
-                isinstance(exponent, ast.Constant)
-                and isinstance(exponent.value, (int, float))
-                and abs(float(exponent.value)) > MAX_LITERAL_EXPONENT
-            ):
-                raise CliError(
-                    f"literal exponents are limited to +/-{MAX_LITERAL_EXPONENT}"
-                )
+        if (
+            isinstance(node, ast.BinOp)
+            and isinstance(node.op, ast.Pow)
+            and isinstance(node.right, ast.Constant)
+            and isinstance(node.right.value, (int, float))
+            and abs(float(node.right.value)) > MAX_LITERAL_EXPONENT
+        ):
+            raise CliError(
+                f"literal exponents are limited to +/-{MAX_LITERAL_EXPONENT}"
+            )
 
     _check_depth(tree.body, 1)
     return tree
@@ -459,6 +460,7 @@ def reduce_expression(
     """Reduce a validated expression tree against concrete values."""
 
     def walk(node: ast.AST) -> Any:
+        """Handle walk."""
         if isinstance(node, ast.Expression):
             return walk(node.body)
         if isinstance(node, ast.Constant):
@@ -558,6 +560,7 @@ def array_functions() -> dict[str, Callable[..., Any]]:
     }
 
     def erf(value: Any) -> Any:
+        """Handle erf."""
         try:
             from scipy.special import erf as scipy_erf
         except ImportError as exc:

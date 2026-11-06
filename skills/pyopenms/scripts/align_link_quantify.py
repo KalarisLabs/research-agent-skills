@@ -35,6 +35,7 @@ except Exception:
 
 
 def load_or_detect(path, ppm, noise):
+    """Load or detect."""
     if path.lower().endswith(".featurexml"):
         fm = ms.FeatureMap()
         ms.FeatureXMLFile().load(path, fm)

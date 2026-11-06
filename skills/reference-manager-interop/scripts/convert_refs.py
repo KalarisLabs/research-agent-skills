@@ -56,6 +56,7 @@ def parse_name(s: str) -> dict:
 
 
 def name_str(n: dict, bib: bool = True) -> str:
+    """Handle name str."""
     if "literal" in n:
         return "{" + n["literal"] + "}" if bib else n["literal"]
     return f"{n.get('family', '')}, {n.get('given', '')}".strip(", ")

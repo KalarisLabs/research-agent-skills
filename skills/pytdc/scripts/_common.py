@@ -21,6 +21,7 @@ def bounded_int(minimum: int, maximum: int):
     """Return an argparse converter for a bounded integer."""
 
     def convert(value: str) -> int:
+        """Convert."""
         try:
             parsed = int(value)
         except ValueError as exc:

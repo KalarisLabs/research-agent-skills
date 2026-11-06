@@ -9,29 +9,20 @@ omitted unless --include-sample-names is supplied.
 from __future__ import annotations
 
 import argparse
-import json
-import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any, Iterator, Optional
 
 import pysam
-
-
-def positive_int(value: str) -> int:
-    """Handle positive int."""
-    parsed = int(value)
-    if parsed <= 0:
-        raise argparse.ArgumentTypeError("must be greater than zero")
-    return parsed
-
-
-def nonnegative_int(value: str) -> int:
-    """Handle nonnegative int."""
-    parsed = int(value)
-    if parsed < 0:
-        raise argparse.ArgumentTypeError("must be zero or greater")
-    return parsed
+from _common import (
+    nonnegative_int,
+    optional_local_file,
+    positive_int,
+    region_coordinate_system,
+    reject_output_overwriting_input,
+    require_local_file,
+    run_report_cli,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -81,20 +72,11 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def require_local_file(path: Path, label: str) -> Path:
-    """Handle require local file."""
-    resolved = path.expanduser()
-    if not resolved.exists():
-        raise FileNotFoundError(f"{label} does not exist: {resolved}")
-    if not resolved.is_file():
-        raise ValueError(f"{label} is not a regular file: {resolved}")
-    return resolved
-
-
 def variant_records(
     variants: pysam.VariantFile,
     region: Optional[str],
 ) -> Iterator[pysam.VariantRecord]:
+    """Handle variant records."""
     if region is None:
         return iter(variants)
     return variants.fetch(region=region)
@@ -161,6 +143,7 @@ def update_genotype_counts(
     counts: Counter[str],
     ploidy_counts: Counter[int],
 ) -> None:
+    """Update genotype counts."""
     for call in record.samples.values():
         genotype = call.get("GT")
         counts["genotypes_seen"] += 1
@@ -197,11 +180,7 @@ def update_genotype_counts(
 def summarize_variants(args: argparse.Namespace) -> dict[str, Any]:
     """Summarize variants."""
     path = require_local_file(args.input, "input")
-    index = (
-        require_local_file(args.index, "index")
-        if args.index is not None
-        else None
-    )
+    index = optional_local_file(args.index, "index")
 
     kwargs: dict[str, Any] = {"threads": args.threads}
     if index is not None:
@@ -282,11 +261,7 @@ def summarize_variants(args: argparse.Namespace) -> dict[str, Any]:
             "has_index": has_index,
             "selection": {
                 "region": args.region,
-                "region_coordinate_system": (
-                    "1-based inclusive samtools string"
-                    if args.region is not None
-                    else None
-                ),
+                "region_coordinate_system": region_coordinate_system(args.region),
                 "max_records": args.max_records,
                 "record_limit_reached": record_limit_reached,
                 "available_sample_count": len(available_samples),
@@ -323,48 +298,12 @@ def summarize_variants(args: argparse.Namespace) -> dict[str, Any]:
         return report
 
 
-def write_report(report: dict[str, Any], output: Optional[Path]) -> None:
-    """Write report."""
-    text = json.dumps(
-        report,
-        indent=2,
-        ensure_ascii=False,
-        allow_nan=False,
-    )
-    if output is None:
-        sys.stdout.write(text + "\n")
-        return
-
-    destination = output.expanduser()
-    with destination.open("x", encoding="utf-8") as handle:
-        handle.write(text + "\n")
-
-
 def main(argv: Optional[list[str]] = None) -> int:
     """Run the command-line interface."""
     parser = build_parser()
     args = parser.parse_args(argv)
-
-    if args.output is not None:
-        try:
-            if args.output.expanduser().resolve() == args.input.expanduser().resolve():
-                parser.error("--output must not overwrite the input file")
-        except OSError:
-            pass
-
-    try:
-        report = summarize_variants(args)
-        write_report(report, args.output)
-    except (
-        IndexError,
-        KeyError,
-        OSError,
-        TypeError,
-        ValueError,
-    ) as error:
-        print(f"variant_summary: {error}", file=sys.stderr)
-        return 2
-    return 0
+    reject_output_overwriting_input(parser, args)
+    return run_report_cli("variant_summary", args, summarize_variants, args.output)
 
 
 if __name__ == "__main__":

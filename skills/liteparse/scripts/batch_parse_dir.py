@@ -100,6 +100,7 @@ def parse_one(
     output_dir: Path,
     fmt: str,
 ) -> tuple[bool, str, str]:
+    """Parse one."""
     try:
         result = parser.parse(file_path)
         out_name = f"{file_path.stem}.{'json' if fmt == 'json' else 'txt'}"

@@ -432,18 +432,14 @@ def train_and_report(
     transformed_features = int(
         estimator.named_steps["preprocess"].get_feature_names_out().shape[0]
     )
-    nested_harrell = (
-        None
-        if not nested_results
-        else {
-            "mean": float(np.mean([item["harrell_c"] for item in nested_results])),
-            "standard_deviation": float(
-                np.std([item["harrell_c"] for item in nested_results], ddof=1)
-            )
-            if len(nested_results) > 1
-            else 0.0,
+    nested_harrell = None
+    if nested_results:
+        nested_scores = [item["harrell_c"] for item in nested_results]
+        nested_sd = float(np.std(nested_scores, ddof=1)) if len(nested_scores) > 1 else 0.0
+        nested_harrell = {
+            "mean": float(np.mean(nested_scores)),
+            "standard_deviation": nested_sd,
         }
-    )
     report = {
         "data": {
             "censored_test": int((~y_test[event_column]).sum()),

@@ -12,6 +12,7 @@ if __package__:
         HYPOGENIC_COMMIT,
         HYPOGENIC_VERSION,
         HYPOGENIC_WHEEL_SHA256,
+        JSON_SUFFIX,
         MAX_CONFIG_BYTES,
         CliError,
         checked_input_file,
@@ -27,6 +28,7 @@ else:
         HYPOGENIC_COMMIT,
         HYPOGENIC_VERSION,
         HYPOGENIC_WHEEL_SHA256,
+        JSON_SUFFIX,
         MAX_CONFIG_BYTES,
         CliError,
         checked_input_file,
@@ -212,7 +214,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         config_path = checked_input_file(
             args.config,
             root=args.root,
-            suffixes={".json", ".yaml", ".yml"},
+            suffixes={JSON_SUFFIX, ".yaml", ".yml"},
             max_bytes=MAX_CONFIG_BYTES,
         )
         config = validate_run_config(
@@ -226,13 +228,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             checked_input_file(
                 config["data"]["task_config"],
                 root=args.root,
-                suffixes={".json", ".yaml", ".yml"},
+                suffixes={JSON_SUFFIX, ".yaml", ".yml"},
                 max_bytes=MAX_CONFIG_BYTES,
             )
             checked_input_file(
                 config["data"]["dataset_manifest"],
                 root=args.root,
-                suffixes={".json"},
+                suffixes={JSON_SUFFIX},
                 max_bytes=MAX_CONFIG_BYTES,
             )
         plan = make_plan(

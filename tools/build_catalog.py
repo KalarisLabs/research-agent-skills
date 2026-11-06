@@ -47,6 +47,8 @@ from common import (  # noqa: E402
 
 VERSION = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
 MARKETPLACE_NAME = "research-agent-skills"
+SKILLS_JSON = "skills.json"
+SCHEMA_KEY = "$schema"
 KEYWORDS = [
     "agent-skills", "claude-code", "codex", "cursor", "gemini-cli", "research", "scientific-writing",
     "research-paper", "literature-review", "citations", "latex", "academic-writing", "peer-review",
@@ -177,6 +179,11 @@ def build_index(skills: list[Skill], cats: dict, manifest: dict) -> dict:
     }
 
 
+def _preferred_spelling(counts: dict[str, int]) -> str:
+    """Pick the most common spelling of a tag, preferring non-title-case and then alphabetical order."""
+    return min(counts, key=lambda s: (-counts[s], s.istitle(), s))
+
+
 def _top_tags(names: list[str], index: dict, limit: int = 8) -> list[str]:
     """Most frequent skill tags across a plugin's skills (case-insensitive, most common spelling wins)."""
     wanted = set(names)
@@ -187,7 +194,7 @@ def _top_tags(names: list[str], index: dict, limit: int = 8) -> list[str]:
                 variants[tag.lower()][tag] += 1
     counts = {key: sum(v.values()) for key, v in variants.items()}
     ranked = sorted(counts, key=lambda t: (-counts[t], t))
-    return [min(variants[t], key=lambda s: (-variants[t][s], s.istitle(), s)) for t in ranked[:limit]]
+    return [_preferred_spelling(variants[t]) for t in ranked[:limit]]
 
 
 def _plugin_entry(name: str, description: str, skill_names: list[str], index: dict) -> dict:
@@ -222,7 +229,7 @@ def build_marketplace(index: dict) -> dict:
 def build_plugin_manifest(index: dict) -> dict:
     """Build plugin manifest."""
     return {
-        "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+        SCHEMA_KEY: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
         "name": MARKETPLACE_NAME,
         "version": VERSION,
         "description": (f"{len(index['skills'])} Agent Skills for researchers: scientific and research paper writing, "
@@ -238,7 +245,7 @@ def build_plugin_manifest(index: dict) -> dict:
 def build_codex_manifest(index: dict) -> dict:
     """Build codex manifest."""
     manifest = build_plugin_manifest(index)
-    manifest.pop("$schema")
+    manifest.pop(SCHEMA_KEY)
     manifest["skills"] = "./skills/"
     manifest["interface"] = {
         "displayName": "Research Agent Skills",
@@ -277,7 +284,7 @@ def build_skills_sh_config(index: dict) -> dict:
     missing = {entry["name"] for entry in index["skills"]} - seen
     if missing:
         raise ValueError(f"skills.sh grouping omits: {', '.join(sorted(missing))}")
-    return {"$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+    return {SCHEMA_KEY: "https://skills.sh/schemas/skills.sh.schema.json",
             "notGrouped": "bottom", "groupings": groups}
 
 
@@ -439,6 +446,7 @@ def build_llms_full_txt(index: dict) -> str:
 
 
 def update_readme(readme: str, index: dict) -> str:
+    """Update readme."""
     if CATALOG_START in readme and CATALOG_END in readme:
         pre, rest = readme.split(CATALOG_START, 1)
         _, post = rest.split(CATALOG_END, 1)
@@ -463,7 +471,7 @@ def _meta_description(text: str, limit: int = 160) -> str:
     """Whole sentences up to `limit` characters; otherwise cut at a word boundary."""
     text = " ".join(text.split())
     out = ""
-    for sentence in re.findall(r".+?[.!?](?:\s|$)|.+$", text):
+    for sentence in re.findall(r"(?:.+?[.!?](?:\s|$)|.+$)", text):
         if len(out) + len(sentence) > limit:
             break
         out += sentence
@@ -500,7 +508,12 @@ def _related(name: str, graph: dict, limit: int = 8) -> list[str]:
     for edge in graph["edges"]:
         if edge["type"] != "references":
             continue
-        other = edge["target"] if edge["source"] == me else edge["source"] if edge["target"] == me else None
+        if edge["source"] == me:
+            other = edge["target"]
+        elif edge["target"] == me:
+            other = edge["source"]
+        else:
+            other = None
         if other and other.removeprefix("skill:") not in out:
             out.append(other.removeprefix("skill:"))
     return out[:limit]
@@ -602,9 +615,9 @@ def main(argv: list[str] | None = None) -> int:
         ROOT / ".claude-plugin" / "marketplace.json": _json(build_marketplace(index)),
         ROOT / "plugin.json": _json(build_plugin_manifest(index)),
         ROOT / ".codex-plugin" / "plugin.json": _json(build_codex_manifest(index)),
-        ROOT / "catalog" / "skills.json": _json(index),
-        ROOT / "web" / "skills.json": _json(index),
-        ROOT / "src" / "research_agent_skills" / "data" / "skills.json": _json(index),
+        ROOT / "catalog" / SKILLS_JSON: _json(index),
+        ROOT / "web" / SKILLS_JSON: _json(index),
+        ROOT / "src" / "research_agent_skills" / "data" / SKILLS_JSON: _json(index),
         ROOT / "catalog" / "graph.json": _json(graph),
         ROOT / "catalog" / "graph.graphml": graph_to_graphml(graph),
         ROOT / "skills.sh.json": _json(build_skills_sh_config(index)),

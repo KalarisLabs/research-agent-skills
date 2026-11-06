@@ -30,7 +30,10 @@ from setup_config import (
     ENV_USER_ID,
     ConfigError,
     normalize_eln_api_url,
+    run_cli,
 )
+
+_ACCESS_KEY_ID_LABEL = "Access Key ID"
 
 
 _ELN_COMPONENT = re.compile(r"^[a-z][a-z0-9_]*$")
@@ -56,6 +59,7 @@ def _require_text(value: str, label: str) -> str:
 
 
 def _require_secret(value: str, label: str) -> str:
+    """Handle require secret."""
     if not value:
         raise ConfigError(f"{label} must not be empty")
     return value
@@ -80,7 +84,7 @@ def create_signature(
     No separators are inserted. The result is not URI-encoded.
     """
 
-    key_id = _require_text(access_key_id, "Access Key ID")
+    key_id = _require_text(access_key_id, _ACCESS_KEY_ID_LABEL)
     method_input = _require_text(api_method_input, "API method input")
     secret = _require_secret(access_password, "Access Password")
     expires = _expires_ms(expires_ms)
@@ -111,7 +115,7 @@ def build_eln_auth_params(
     expires = _expires_ms(expires_ms)
     signature = create_signature(access_key_id, method, expires, access_password)
     return {
-        "akid": _require_text(access_key_id, "Access Key ID"),
+        "akid": _require_text(access_key_id, _ACCESS_KEY_ID_LABEL),
         "expires": str(expires),
         "sig": signature,
     }
@@ -136,7 +140,7 @@ def build_inventory_headers(
     signature = create_signature(access_key_id, path, expires, access_password)
     return {
         "X-LabArchives-UId": _require_text(user_id, "Inventory user ID"),
-        "X-LabArchives-AKId": _require_text(access_key_id, "Access Key ID"),
+        "X-LabArchives-AKId": _require_text(access_key_id, _ACCESS_KEY_ID_LABEL),
         "X-LabArchives-LabId": _require_text(lab_id, "Inventory Lab ID"),
         "X-LabArchives-Signature": signature,
         "X-LabArchives-Expires": str(expires),
@@ -185,6 +189,7 @@ def _secret_fingerprint(value: str) -> str:
 
 
 def _dump(payload: Mapping[str, Any], *, compact: bool, stream: Any) -> None:
+    """Handle dump."""
     if compact:
         json.dump(payload, stream, sort_keys=True, separators=(",", ":"))
     else:
@@ -367,24 +372,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     """Run the command-line interface."""
-    parser = build_parser()
-    args = parser.parse_args(argv)
-    try:
-        return int(args.handler(args))
-    except ConfigError as exc:
-        _dump(
-            {
-                "valid": False,
-                "error": str(exc),
-                "remote_request_performed": False,
-            },
-            compact=getattr(args, "compact", False),
-            stream=sys.stderr,
-        )
-        return 2
-    except KeyboardInterrupt:
-        print('{"valid":false,"error":"cancelled"}', file=sys.stderr)
-        return 130
+    return run_cli(build_parser(), argv)
 
 
 if __name__ == "__main__":

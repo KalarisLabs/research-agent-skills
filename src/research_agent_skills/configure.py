@@ -12,6 +12,8 @@ from .harness import Harness
 
 START_TAG = "<!-- research-agent-skills:start -->"
 END_TAG = "<!-- research-agent-skills:end -->"
+CLAUDE_MD = "CLAUDE.md"
+ANCHOR_NAME = "Research Agent Skills"
 
 
 @dataclass
@@ -90,14 +92,14 @@ def configure_harness(
     results: list[ConfigureResult] = []
 
     if harness.id == "claude-code":
-        claude_md = root / "CLAUDE.md"
-        action = _update_markdown_anchor(claude_md, "Research Agent Skills", harness.project_dir, skills)
-        results.append(ConfigureResult(file="CLAUDE.md", action=action, harness=harness.id))
+        claude_md = root / CLAUDE_MD
+        action = _update_markdown_anchor(claude_md, ANCHOR_NAME, harness.project_dir, skills)
+        results.append(ConfigureResult(file=CLAUDE_MD, action=action, harness=harness.id))
 
     elif harness.id == "claude-science":
-        claude_md = root / "CLAUDE.md"
+        claude_md = root / CLAUDE_MD
         a1 = _update_markdown_anchor(claude_md, "Claude Science Research Skills", harness.project_dir, skills)
-        results.append(ConfigureResult(file="CLAUDE.md", action=a1, harness=harness.id))
+        results.append(ConfigureResult(file=CLAUDE_MD, action=a1, harness=harness.id))
 
         spec_file = root / ".claude-science" / "specialists.json"
         if not spec_file.exists():
@@ -146,12 +148,12 @@ def configure_harness(
 
     elif harness.id == "cursor":
         file = root / ".cursorrules"
-        action = _update_markdown_anchor(file, "Research Agent Skills", harness.project_dir, skills)
+        action = _update_markdown_anchor(file, ANCHOR_NAME, harness.project_dir, skills)
         results.append(ConfigureResult(file=".cursorrules", action=action, harness=harness.id))
 
     elif harness.id == "windsurf":
         file = root / ".windsurfrules"
-        action = _update_markdown_anchor(file, "Research Agent Skills", harness.project_dir, skills)
+        action = _update_markdown_anchor(file, ANCHOR_NAME, harness.project_dir, skills)
         results.append(ConfigureResult(file=".windsurfrules", action=action, harness=harness.id))
 
     elif harness.id == "openhands":
@@ -188,7 +190,7 @@ def configure_harness(
     else:
         # Default for codex, copilot, gemini-cli, antigravity, opencode, hermes, zed, trae, continue, agents
         file = root / "AGENTS.md"
-        action = _update_markdown_anchor(file, "Research Agent Skills", harness.project_dir, skills)
+        action = _update_markdown_anchor(file, ANCHOR_NAME, harness.project_dir, skills)
         results.append(ConfigureResult(file="AGENTS.md", action=action, harness=harness.id))
 
     return results

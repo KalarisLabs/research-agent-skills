@@ -33,6 +33,7 @@ from _common import (
 )
 
 TOOL = "dicom_to_image"
+_PALETTE_COLOR = "PALETTE COLOR"
 METADATA_TAGS = [
     "SOPClassUID",
     "Modality",
@@ -71,6 +72,7 @@ METADATA_TAGS = [
 
 
 def _infer_format(path: str, explicit: str | None) -> str:
+    """Handle infer format."""
     if explicit:
         return explicit
     suffix = Path(path).suffix.casefold()
@@ -160,6 +162,7 @@ def _apply_grayscale_transforms(
 
 
 def render_frame(args: argparse.Namespace) -> dict[str, Any]:
+    """Render frame."""
     if not args.acknowledge_pixel_phi:
         raise ToolError(
             "conversion requires --acknowledge-pixel-phi because pixels may identify a person"
@@ -210,7 +213,7 @@ def render_frame(args: argparse.Namespace) -> dict[str, Any]:
     )
     photometric = str(metadata.get("PhotometricInterpretation", ""))
     processing_samples = (
-        3 if photometric == "PALETTE COLOR" else plan["samples_per_pixel"]
+        3 if photometric == _PALETTE_COLOR else plan["samples_per_pixel"]
     )
     # Processing can require a float64 working copy in addition to the decoded
     # frame, masks, and output. Bound peak working memory conservatively.
@@ -244,8 +247,8 @@ def render_frame(args: argparse.Namespace) -> dict[str, Any]:
 
     samples = int(metadata.get("SamplesPerPixel", 1))
     transforms: list[str] = []
-    color_output = samples > 1 or photometric == "PALETTE COLOR"
-    if photometric == "PALETTE COLOR":
+    color_output = samples > 1 or photometric == _PALETTE_COLOR
+    if photometric == _PALETTE_COLOR:
         try:
             array = apply_color_lut(array, metadata)
         except Exception as exc:

@@ -36,6 +36,7 @@ TOOL = "extract_metadata"
 
 
 def _uid_description(value: Any) -> dict[str, str] | None:
+    """Handle uid description."""
     if not value:
         return None
     pydicom = require_pydicom()

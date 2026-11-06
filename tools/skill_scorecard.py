@@ -42,6 +42,7 @@ from common import ROOT, SKILLS_DIR, Skill, load_skill, load_skills  # noqa: E40
 SCORECARD_COMMENT_MARKER = "<!-- skill-scorecard-bot -->"
 DEFAULT_QUALITY_BAR = 80.0
 MAX_LINE_COUNT = 500
+DEFAULT_BASE_REF = "origin/main"
 
 
 def progress_bar(score: float, max_score: float = 100.0, width: int = 20) -> str:
@@ -227,6 +228,42 @@ def evaluate_spec_policy(skill_dir: Path) -> dict[str, Any]:
     }
 
 
+# (part name, threshold below which the tip applies, tip text) in report order.
+_DESCRIPTION_STRUCTURE_TIPS: tuple[tuple[str, float, str], ...] = (
+    ("desc_triggers", 8,
+     "🎯 **+8 pts**: Add explicit `Use when ...` trigger phrases in frontmatter `description`."),
+    ("desc_length", 10,
+     "📝 **+3-7 pts**: Expand description to 200–1024 characters with trigger contexts and targets."),
+    ("desc_specific", 6,
+     "🔧 **+1.5-6 pts**: Name specific tools, file formats (e.g. `.csv`, `.pdb`), APIs, or venues."),
+    ("desc_no_marketing", 6,
+     "✨ **+3-6 pts**: Remove marketing adjectives (*comprehensive*, *powerful*, *robust*, etc.)."),
+    ("workflow", 8,
+     "📋 **+4-8 pts**: Add a numbered step-by-step workflow (`1.`, `2.`, `3.`) with 3+ steps."),
+    ("tables_checklists", 6,
+     "📊 **+6 pts**: Include a markdown decision table (`| ... |`) or checklist (`- [ ]`)."),
+    ("verification", 6,
+     "🛡️ **+6 pts**: Include verification guidance (*verify against official source*, *never guess*)."),
+    ("handoffs", 4,
+     "🤝 **+4 pts**: Add a `## Related skills` or `## Next steps` section describing handoffs."),
+    ("headings", 6,
+     "📑 **+3-6 pts**: Organize instructions with at least 4 markdown headings (`##` or `###`)."),
+)
+_SCRIPT_FRESHNESS_TIPS: tuple[tuple[str, float, str], ...] = (
+    ("scripts", 15,
+     "💻 **+1-15 pts**: Ensure scripts in `scripts/` have docstrings, use `argparse`, and are tested."),
+    ("compatibility", 5,
+     "⚙️ **+3 pts**: Add a `compatibility:` field to YAML frontmatter stating supported platforms."),
+    ("freshness", 5,
+     "🔄 **+5 pts**: For time-sensitive content, add instructions to verify against official docs."),
+)
+
+
+def _part_tips(parts: dict[str, float], rules: tuple[tuple[str, float, str], ...]) -> list[str]:
+    """Return the tips whose rubric part scored below its threshold."""
+    return [tip for key, threshold, tip in rules if parts.get(key, 0) < threshold]
+
+
 def compute_levelup_tips(
     parts: dict[str, float],
     lines: int,
@@ -236,29 +273,7 @@ def compute_levelup_tips(
     notes: list[str],
 ) -> list[str]:
     """Generate gamified actionable tips to boost the skill score to 80+ / 95+."""
-    tips: list[str] = []
-
-    # Description (max 30)
-    if parts.get("desc_triggers", 0) < 8:
-        tips.append("🎯 **+8 pts**: Add explicit `Use when ...` trigger phrases in frontmatter `description`.")
-    if parts.get("desc_length", 0) < 10:
-        tips.append("📝 **+3-7 pts**: Expand description to 200–1024 characters with trigger contexts and targets.")
-    if parts.get("desc_specific", 0) < 6:
-        tips.append("🔧 **+1.5-6 pts**: Name specific tools, file formats (e.g. `.csv`, `.pdb`), APIs, or venues.")
-    if parts.get("desc_no_marketing", 0) < 6:
-        tips.append("✨ **+3-6 pts**: Remove marketing adjectives (*comprehensive*, *powerful*, *robust*, etc.).")
-
-    # Structure (max 30)
-    if parts.get("workflow", 0) < 8:
-        tips.append("📋 **+4-8 pts**: Add a numbered step-by-step workflow (`1.`, `2.`, `3.`) with 3+ steps.")
-    if parts.get("tables_checklists", 0) < 6:
-        tips.append("📊 **+6 pts**: Include a markdown decision table (`| ... |`) or checklist (`- [ ]`).")
-    if parts.get("verification", 0) < 6:
-        tips.append("🛡️ **+6 pts**: Include verification guidance (*verify against official source*, *never guess*).")
-    if parts.get("handoffs", 0) < 4:
-        tips.append("🤝 **+4 pts**: Add a `## Related skills` or `## Next steps` section describing handoffs.")
-    if parts.get("headings", 0) < 6:
-        tips.append("📑 **+3-6 pts**: Organize instructions with at least 4 markdown headings (`##` or `###`).")
+    tips: list[str] = _part_tips(parts, _DESCRIPTION_STRUCTURE_TIPS)
 
     # Progressive disclosure (max 15)
     if lines > MAX_LINE_COUNT:
@@ -269,15 +284,8 @@ def compute_levelup_tips(
     elif parts.get("references", 0) < 4:
         tips.append("📂 **+4 pts**: Keep `SKILL.md` concise (≤ 250 lines) or add a `references/` directory.")
 
-    # Scripts (max 15)
-    if parts.get("scripts", 0) < 15:
-        tips.append("💻 **+1-15 pts**: Ensure scripts in `scripts/` have docstrings, use `argparse`, and are tested.")
-
-    # Freshness & Compatibility (max 10)
-    if parts.get("compatibility", 0) < 5:
-        tips.append("⚙️ **+3 pts**: Add a `compatibility:` field to YAML frontmatter stating supported platforms.")
-    if parts.get("freshness", 0) < 5:
-        tips.append("🔄 **+5 pts**: For time-sensitive content, add instructions to verify against official docs.")
+    # Scripts (max 15) and Freshness & Compatibility (max 10)
+    tips.extend(_part_tips(parts, _SCRIPT_FRESHNESS_TIPS))
 
     # Trigger routing evals
     if not routing.get("has_evals"):
@@ -353,40 +361,28 @@ def evaluate_skill(
     )
 
 
-def format_markdown_scorecard(scorecards: list[SkillScorecard], min_score: float = DEFAULT_QUALITY_BAR) -> str:
-    """Render a clean, visual Markdown scorecard comment."""
-    target_msg = (
-        f"Repository Quality Target: **Score ≥ {min_score:.1f}** · "
-        f"**Line count ≤ {MAX_LINE_COUNT}** · **Clean Security**"
-    )
-    lines: list[str] = [
-        SCORECARD_COMMENT_MARKER,
-        "## 🏆 Skill Scorecard Report",
-        "",
-        "Automated quality scorecard for **Research Agent Skills** pull requests.",
-        target_msg,
-        "",
-    ]
-
-    if not scorecards:
-        lines.extend([
-            "> [!NOTE]",
-            "> No skills under `skills/` were modified in this pull request.",
-            "> Quality checks on skill definitions were skipped.",
-            "",
-            "---",
-            "*Generated by `tools/skill_scorecard.py` · [Research Agent Skills]"
-            "(https://github.com/KalarisLabs/research-agent-skills)*",
-        ])
-        return "\n".join(lines)
-
+def _empty_scorecard_lines(lines: list[str]) -> list[str]:
+    """Append the 'nothing changed' note to the report header lines."""
     lines.extend([
+        "> [!NOTE]",
+        "> No skills under `skills/` were modified in this pull request.",
+        "> Quality checks on skill definitions were skipped.",
+        "",
+        "---",
+        "*Generated by `tools/skill_scorecard.py` · [Research Agent Skills]"
+        "(https://github.com/KalarisLabs/research-agent-skills)*",
+    ])
+    return lines
+
+
+def _overview_lines(scorecards: list[SkillScorecard]) -> list[str]:
+    """Render the summary table with one row per skill."""
+    lines = [
         "### 📊 Scorecard Overview",
         "",
         "| Skill | Quality Score | Tier | Lines | Trigger Routing | Security | Policy | Status |",
         "| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |",
-    ])
-
+    ]
     for sc in scorecards:
         status_badge = "🟢 **PASS**" if sc.passed else "🔴 **NEEDS WORK**"
         line_badge = f"{sc.lines} / {MAX_LINE_COUNT} lines" + (" ✅" if sc.lines <= MAX_LINE_COUNT else " ❌")
@@ -404,137 +400,171 @@ def format_markdown_scorecard(scorecards: list[SkillScorecard], min_score: float
             f"{route_badge} | {sec_badge} | {spec_badge} | {status_badge} |"
         )
     lines.append("")
+    return lines
 
+
+def _rubric_lines(sc: SkillScorecard) -> list[str]:
+    """Render the rubric breakdown rows (earned, max, bar, feedback) for one skill."""
+    parts = sc.parts
+    desc_score = sum(parts.get(k, 0) for k in ("desc_length", "desc_triggers", "desc_specific", "desc_no_marketing"))
+    struct_keys = ("workflow", "tables_checklists", "handoffs", "verification", "headings")
+    struct_score = sum(parts.get(k, 0) for k in struct_keys)
+    disc_score = sum(parts.get(k, 0) for k in ("size", "references", "links"))
+    script_score = parts.get("scripts", 15.0)
+    fresh_score = sum(parts.get(k, 0) for k in ("freshness", "compatibility"))
+
+    # (label, earned, max, pass threshold, feedback when passing, feedback otherwise)
+    rows = [
+        ("Description", desc_score, 30.0, 24,
+         "✅ Triggers & entities present", "⚠️ Needs triggers or concrete entities"),
+        ("Structure & Flow", struct_score, 30.0, 24,
+         "✅ Numbered steps & verify rules", "⚠️ Add workflow steps or checklist"),
+        ("Progressive Disclosure", disc_score, 15.0, 12,
+         "✅ Clean size & references", "⚠️ Exceeds lines or broken links"),
+        ("Scripts & Tooling", script_score, 15.0, 12,
+         "✅ Exercised CLI scripts", "⚠️ Check argparse / docstrings"),
+        ("Freshness & Compat", fresh_score, 10.0, 8,
+         "✅ Compatibility declared", "⚠️ Add compatibility metadata"),
+    ]
+    lines = [
+        f"| **{label}** | {score:.1f} | {mx:.1f} | `{mini_bar(score, mx)}` | {good if score >= threshold else bad} |"
+        for label, score, mx, threshold, good, bad in rows
+    ]
+    if sc.penalty > 0:
+        lines.append(
+            f"| **Prose Slop Penalty** | -{sc.penalty:.1f} | -5.0 | `----------` | "
+            f"⚠️ High slop index ({sc.slop_index}); run slop_check.py |"
+        )
+    else:
+        lines.append("| **Prose Slop Penalty** | 0.0 | 0.0 | `[Clean]` | 🛡️ Clean prose (no AI fluff) |")
+    return lines
+
+
+def _routing_lines(sc: SkillScorecard) -> list[str]:
+    """Render the trigger-routing section, including the per-prompt case table."""
+    if not sc.routing.get("has_evals"):
+        return [
+            f"- ⚠️ **Missing eval suite**: `evals/{sc.name}/evals.json` was not found.",
+            "- *Requirement*: Every new skill needs `evals/<name>/evals.json` with realistic prompts.",
+            "",
+        ]
+    r = sc.routing
+    pos_hit1 = int(r["hit1"] * r["pos_count"])
+    pos_hit3 = int(r["hit3"] * r["pos_count"])
+    hit1_pct = int(r["hit1"] * 100)
+    hit3_pct = int(r["hit3"] * 100)
+    lines = [
+        f"- **Eval Suite**: `evals/{sc.name}/evals.json` ({r['total_prompts']} test prompts)",
+        f"- **Sensitivity (Positive Prompts)**: Hit@1 = **{hit1_pct}%** ({pos_hit1}/{r['pos_count']}) · "
+        f"Hit@3 = **{hit3_pct}%** ({pos_hit3}/{r['pos_count']}) "
+        + ("✅" if r["hit3"] >= 0.8 else "⚠️ Low routing recall"),
+        f"- **Specificity (Near Misses)**: False-trigger rate = **{int(r['false_trigger'] * 100)}%** "
+        + ("✅" if r["false_trigger"] <= 0.2 else "⚠️ Falsely triggers on negative cases"),
+        "",
+        "<details>",
+        f"<summary><b>View {len(r['cases'])} Routing Test Cases</b></summary>",
+        "",
+        "| Expected | Prompt | Rank | Top 3 Matches |",
+        "| :---: | :--- | :---: | :--- |",
+    ]
+    for c in r["cases"]:
+        exp = "✅ Trigger" if c["should_trigger"] else "🛑 Near Miss"
+        rank_str = f"#{c['rank']}" if c["rank"] is not None else "None"
+        top_str = ", ".join(f"`{m}`" for m in c["top"]) or "None"
+        lines.append(f"| {exp} | {c['prompt'][:80]} | {rank_str} | {top_str} |")
+    lines.extend(["</details>", ""])
+    return lines
+
+
+def _security_lines(sc: SkillScorecard) -> list[str]:
+    """Render the security and policy verification section with any blocking findings and spec errors."""
+    sec_findings_cnt = len(sc.security["blocking_findings"])
+    spec_errs_cnt = len(sc.spec["errors"])
+    lines = [
+        "##### 🛡️ Security & Policy Verification",
+        "- **Prompt Injection & Code Safety (`lint_injection.py`)**: "
+        + ("0 findings detected ✅" if sc.security["pass"] else f"**{sec_findings_cnt} security findings** ❌"),
+        "- **Spec & Integrity Checks (`validate.py`)**: "
+        + ("0 errors ✅" if sc.spec["pass"] else f"**{spec_errs_cnt} errors** ❌"),
+    ]
+    if sc.security["blocking_findings"]:
+        lines.extend(["", "**Security Findings:**"])
+        for bf in sc.security["blocking_findings"]:
+            lines.append(f"- 🔴 `[{bf['rule']}]` {bf['message']} (`{bf['path']}:{bf['line']}`)")
+    if sc.spec["errors"]:
+        lines.extend(["", "**Policy Validation Errors:**"])
+        for err in sc.spec["errors"]:
+            lines.append(f"- ❌ {err}")
+    return lines
+
+
+def _levelup_lines(sc: SkillScorecard) -> list[str]:
+    """Render the 'How to Level Up' section from the skill's tips."""
+    lines = [
+        "",
+        "##### 🚀 How to Level Up This Skill",
+    ]
+    if sc.levelup_tips:
+        lines.extend(f"- {tip}" for tip in sc.levelup_tips[:6])
+    else:
+        lines.append("- 🌟 **Flawless submission!** This skill meets all top-tier rubric criteria.")
+    lines.append("")
+    return lines
+
+
+def _skill_detail_lines(sc: SkillScorecard) -> list[str]:
+    """Render the full detail block for one skill."""
+    bar = progress_bar(sc.score)
+    lines = [
+        "---",
+        f"### 🔍 Skill Detail: `{sc.name}`",
+        "",
+        f"#### 🎯 Overall Score: **{sc.score:.1f} / 100** ({sc.tier_badge})",
+        f"> `{bar}` **{sc.score:.1f}%**",
+        f"> *Tier summary: {sc.tier_desc}*",
+        "",
+        "##### 📑 Rubric Breakdown",
+        "",
+        "| Rubric Category | Earned | Max | Progress | Status / Feedback |",
+        "| :--- | :---: | :---: | :---: | :--- |",
+    ]
+    lines.extend(_rubric_lines(sc))
+    lines.extend([
+        "",
+        "##### 📏 Line Count & Size",
+        f"- **`SKILL.md` length**: **{sc.lines} lines** (Repository limit: ≤ {MAX_LINE_COUNT} lines) "
+        + ("✅" if sc.lines <= MAX_LINE_COUNT else f"❌ **Exceeds limit by {sc.lines - MAX_LINE_COUNT} lines**"),
+        "- **Structure**: Keep `SKILL.md` focused as an index/workflow; place detail under `references/`.",
+        "",
+        "##### 🧭 Trigger Routing Benchmark",
+    ])
+    lines.extend(_routing_lines(sc))
+    lines.extend(_security_lines(sc))
+    lines.extend(_levelup_lines(sc))
+    return lines
+
+
+def format_markdown_scorecard(scorecards: list[SkillScorecard], min_score: float = DEFAULT_QUALITY_BAR) -> str:
+    """Render a clean, visual Markdown scorecard comment."""
+    target_msg = (
+        f"Repository Quality Target: **Score ≥ {min_score:.1f}** · "
+        f"**Line count ≤ {MAX_LINE_COUNT}** · **Clean Security**"
+    )
+    lines: list[str] = [
+        SCORECARD_COMMENT_MARKER,
+        "## 🏆 Skill Scorecard Report",
+        "",
+        "Automated quality scorecard for **Research Agent Skills** pull requests.",
+        target_msg,
+        "",
+    ]
+
+    if not scorecards:
+        return "\n".join(_empty_scorecard_lines(lines))
+
+    lines.extend(_overview_lines(scorecards))
     for sc in scorecards:
-        bar = progress_bar(sc.score)
-        lines.extend([
-            "---",
-            f"### 🔍 Skill Detail: `{sc.name}`",
-            "",
-            f"#### 🎯 Overall Score: **{sc.score:.1f} / 100** ({sc.tier_badge})",
-            f"> `{bar}` **{sc.score:.1f}%**",
-            f"> *Tier summary: {sc.tier_desc}*",
-            "",
-            "##### 📑 Rubric Breakdown",
-            "",
-            "| Rubric Category | Earned | Max | Progress | Status / Feedback |",
-            "| :--- | :---: | :---: | :---: | :--- |",
-        ])
-
-        desc_score = sum(
-            sc.parts.get(k, 0)
-            for k in ("desc_length", "desc_triggers", "desc_specific", "desc_no_marketing")
-        )
-        struct_score = sum(
-            sc.parts.get(k, 0)
-            for k in ("workflow", "tables_checklists", "handoffs", "verification", "headings")
-        )
-        disc_score = sum(sc.parts.get(k, 0) for k in ("size", "references", "links"))
-        script_score = sc.parts.get("scripts", 15.0)
-        fresh_score = sum(sc.parts.get(k, 0) for k in ("freshness", "compatibility"))
-
-        lines.append(
-            f"| **Description** | {desc_score:.1f} | 30.0 | `{mini_bar(desc_score, 30.0)}` | "
-            f"{'✅ Triggers & entities present' if desc_score >= 24 else '⚠️ Needs triggers or concrete entities'} |"
-        )
-        lines.append(
-            f"| **Structure & Flow** | {struct_score:.1f} | 30.0 | `{mini_bar(struct_score, 30.0)}` | "
-            f"{'✅ Numbered steps & verify rules' if struct_score >= 24 else '⚠️ Add workflow steps or checklist'} |"
-        )
-        lines.append(
-            f"| **Progressive Disclosure** | {disc_score:.1f} | 15.0 | `{mini_bar(disc_score, 15.0)}` | "
-            f"{'✅ Clean size & references' if disc_score >= 12 else '⚠️ Exceeds lines or broken links'} |"
-        )
-        lines.append(
-            f"| **Scripts & Tooling** | {script_score:.1f} | 15.0 | `{mini_bar(script_score, 15.0)}` | "
-            f"{'✅ Exercised CLI scripts' if script_score >= 12 else '⚠️ Check argparse / docstrings'} |"
-        )
-        lines.append(
-            f"| **Freshness & Compat** | {fresh_score:.1f} | 10.0 | `{mini_bar(fresh_score, 10.0)}` | "
-            f"{'✅ Compatibility declared' if fresh_score >= 8 else '⚠️ Add compatibility metadata'} |"
-        )
-
-        if sc.penalty > 0:
-            lines.append(
-                f"| **Prose Slop Penalty** | -{sc.penalty:.1f} | -5.0 | `----------` | "
-                f"⚠️ High slop index ({sc.slop_index}); run slop_check.py |"
-            )
-        else:
-            lines.append("| **Prose Slop Penalty** | 0.0 | 0.0 | `[Clean]` | 🛡️ Clean prose (no AI fluff) |")
-
-        lines.extend([
-            "",
-            "##### 📏 Line Count & Size",
-            f"- **`SKILL.md` length**: **{sc.lines} lines** (Repository limit: ≤ {MAX_LINE_COUNT} lines) "
-            + ("✅" if sc.lines <= MAX_LINE_COUNT else f"❌ **Exceeds limit by {sc.lines - MAX_LINE_COUNT} lines**"),
-            "- **Structure**: Keep `SKILL.md` focused as an index/workflow; place detail under `references/`.",
-            "",
-            "##### 🧭 Trigger Routing Benchmark",
-        ])
-
-        if sc.routing.get("has_evals"):
-            r = sc.routing
-            pos_hit1 = int(r["hit1"] * r["pos_count"])
-            pos_hit3 = int(r["hit3"] * r["pos_count"])
-            hit1_pct = int(r["hit1"] * 100)
-            hit3_pct = int(r["hit3"] * 100)
-            lines.extend([
-                f"- **Eval Suite**: `evals/{sc.name}/evals.json` ({r['total_prompts']} test prompts)",
-                f"- **Sensitivity (Positive Prompts)**: Hit@1 = **{hit1_pct}%** ({pos_hit1}/{r['pos_count']}) · "
-                f"Hit@3 = **{hit3_pct}%** ({pos_hit3}/{r['pos_count']}) "
-                + ("✅" if r["hit3"] >= 0.8 else "⚠️ Low routing recall"),
-                f"- **Specificity (Near Misses)**: False-trigger rate = **{int(r['false_trigger'] * 100)}%** "
-                + ("✅" if r["false_trigger"] <= 0.2 else "⚠️ Falsely triggers on negative cases"),
-                "",
-                "<details>",
-                f"<summary><b>View {len(r['cases'])} Routing Test Cases</b></summary>",
-                "",
-                "| Expected | Prompt | Rank | Top 3 Matches |",
-                "| :---: | :--- | :---: | :--- |",
-            ])
-            for c in r["cases"]:
-                exp = "✅ Trigger" if c["should_trigger"] else "🛑 Near Miss"
-                rank_str = f"#{c['rank']}" if c["rank"] is not None else "None"
-                top_str = ", ".join(f"`{m}`" for m in c["top"]) or "None"
-                lines.append(f"| {exp} | {c['prompt'][:80]} | {rank_str} | {top_str} |")
-            lines.extend(["</details>", ""])
-        else:
-            lines.extend([
-                f"- ⚠️ **Missing eval suite**: `evals/{sc.name}/evals.json` was not found.",
-                "- *Requirement*: Every new skill needs `evals/<name>/evals.json` with realistic prompts.",
-                "",
-            ])
-
-        sec_findings_cnt = len(sc.security["blocking_findings"])
-        spec_errs_cnt = len(sc.spec["errors"])
-        lines.extend([
-            "##### 🛡️ Security & Policy Verification",
-            "- **Prompt Injection & Code Safety (`lint_injection.py`)**: "
-            + ("0 findings detected ✅" if sc.security["pass"] else f"**{sec_findings_cnt} security findings** ❌"),
-            "- **Spec & Integrity Checks (`validate.py`)**: "
-            + ("0 errors ✅" if sc.spec["pass"] else f"**{spec_errs_cnt} errors** ❌"),
-        ])
-
-        if sc.security["blocking_findings"]:
-            lines.extend(["", "**Security Findings:**"])
-            for bf in sc.security["blocking_findings"]:
-                lines.append(f"- 🔴 `[{bf['rule']}]` {bf['message']} (`{bf['path']}:{bf['line']}`)")
-
-        if sc.spec["errors"]:
-            lines.extend(["", "**Policy Validation Errors:**"])
-            for err in sc.spec["errors"]:
-                lines.append(f"- ❌ {err}")
-
-        lines.extend([
-            "",
-            "##### 🚀 How to Level Up This Skill",
-        ])
-        if sc.levelup_tips:
-            for tip in sc.levelup_tips[:6]:
-                lines.append(f"- {tip}")
-        else:
-            lines.append("- 🌟 **Flawless submission!** This skill meets all top-tier rubric criteria.")
-        lines.append("")
+        lines.extend(_skill_detail_lines(sc))
 
     lines.extend([
         "---",
@@ -544,34 +574,49 @@ def format_markdown_scorecard(scorecards: list[SkillScorecard], min_score: float
     return "\n".join(lines)
 
 
-def find_changed_skills(base_ref: str = "origin/main") -> list[str]:
-    """Identify skills modified in git diff between base_ref and HEAD."""
+def _git_diff_files(ref: str) -> list[str] | None:
+    """Return files changed between `ref` and HEAD, or None when the git diff fails."""
+    try:
+        res = subprocess.run(
+            ["git", "diff", "--name-only", f"{ref}...HEAD"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+    except subprocess.SubprocessError:
+        return None
+    return res.stdout.splitlines()
+
+
+def _skills_in_paths(files: list[str]) -> set[str]:
+    """Extract skill names from changed paths under skills/ or evals/."""
     skills = set()
+    for f in files:
+        p = Path(f).as_posix()
+        if not p.startswith(("skills/", "evals/")):
+            continue
+        parts = p.split("/")
+        if len(parts) >= 2 and parts[1]:
+            skills.add(parts[1])
+    return skills
+
+
+def find_changed_skills(base_ref: str = DEFAULT_BASE_REF) -> list[str]:
+    """Identify skills modified in git diff between base_ref and HEAD."""
+    skills: set[str] = set()
     candidate_refs = [base_ref]
     if not base_ref.startswith("origin/") and "/" not in base_ref:
         candidate_refs.append(f"origin/{base_ref}")
-    candidate_refs.extend(["HEAD~1", "main", "origin/main"])
+    candidate_refs.extend(["HEAD~1", "main", DEFAULT_BASE_REF])
 
     for ref in candidate_refs:
-        try:
-            res = subprocess.run(
-                ["git", "diff", "--name-only", f"{ref}...HEAD"],
-                cwd=ROOT,
-                capture_output=True,
-                text=True,
-                check=True,
-            )
-            files = res.stdout.splitlines()
-            for f in files:
-                p = Path(f).as_posix()
-                if p.startswith(("skills/", "evals/")):
-                    parts = p.split("/")
-                    if len(parts) >= 2 and parts[1]:
-                        skills.add(parts[1])
-            if skills or files:
-                return sorted(skills)
-        except subprocess.SubprocessError:
+        files = _git_diff_files(ref)
+        if files is None:
             continue
+        skills |= _skills_in_paths(files)
+        if skills or files:
+            return sorted(skills)
 
     return sorted(skills)
 
@@ -595,6 +640,57 @@ def detect_pr_number() -> int | None:
         return int(m.group(1))
 
     return None
+
+
+def _find_existing_comment(api_url: str, headers: dict[str, str], repo: str, pr: int) -> tuple[bool, Any]:
+    """Look for a prior scorecard comment; return (ok, comment id or None), ok=False on request failure."""
+    req = urllib.request.Request(f"{api_url}?per_page=100", headers=headers, method="GET")  # noqa: S310
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:  # noqa: S310
+            comments = json.loads(resp.read().decode("utf-8"))
+            for c in comments:
+                if SCORECARD_COMMENT_MARKER in c.get("body", ""):
+                    return True, c.get("id")
+    except urllib.error.HTTPError as err:
+        if err.code == 403:
+            print(
+                f"Notice: GitHub token lacks write access to {repo} PR #{pr} (fork PR). "
+                "Scorecard comment will be handled by workflow_run.",
+                file=sys.stderr,
+            )
+            return False, None
+        print(f"Failed to fetch PR comments for {repo} PR #{pr}: {err}", file=sys.stderr)
+        return False, None
+    except OSError as err:
+        print(f"Network error querying PR comments: {err}", file=sys.stderr)
+        return False, None
+    return True, None
+
+
+def _update_comment(repo: str, pr: int, comment_id: Any, body: str, headers: dict[str, str]) -> bool:
+    """PATCH an existing scorecard comment; raises on HTTP/network errors for the caller to report."""
+    patch_url = f"https://api.github.com/repos/{repo}/issues/comments/{comment_id}"
+    payload = json.dumps({"body": body}).encode("utf-8")
+    patch_headers = {**headers, "Content-Type": "application/json"}
+    patch_req = urllib.request.Request(patch_url, data=payload, headers=patch_headers, method="PATCH")
+    with urllib.request.urlopen(patch_req, timeout=30) as resp:  # noqa: S310
+        if resp.status in (200, 201):
+            print(f"Successfully updated scorecard comment on {repo} PR #{pr} (comment ID {comment_id})")
+            return True
+    return False
+
+
+def _create_comment(api_url: str, repo: str, pr: int, body: str, headers: dict[str, str]) -> bool:
+    """POST a new scorecard comment; raises on HTTP/network errors for the caller to report."""
+    payload = json.dumps({"body": body}).encode("utf-8")
+    post_headers = {**headers, "Content-Type": "application/json"}
+    post_req = urllib.request.Request(api_url, data=payload, headers=post_headers, method="POST")
+    with urllib.request.urlopen(post_req, timeout=30) as resp:  # noqa: S310
+        if resp.status in (200, 201):
+            created = json.loads(resp.read().decode("utf-8"))
+            print(f"Successfully posted scorecard comment on {repo} PR #{pr} (comment ID {created.get('id')})")
+            return True
+    return False
 
 
 def post_or_update_comment(
@@ -623,49 +719,14 @@ def post_or_update_comment(
     }
 
     api_url = f"https://api.github.com/repos/{repo}/issues/{pr}/comments"
-    req = urllib.request.Request(f"{api_url}?per_page=100", headers=headers, method="GET")  # noqa: S310
-
-    existing_id = None
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:  # noqa: S310
-            comments = json.loads(resp.read().decode("utf-8"))
-            for c in comments:
-                if SCORECARD_COMMENT_MARKER in c.get("body", ""):
-                    existing_id = c.get("id")
-                    break
-    except urllib.error.HTTPError as err:
-        if err.code == 403:
-            print(
-                f"Notice: GitHub token lacks write access to {repo} PR #{pr} (fork PR). "
-                "Scorecard comment will be handled by workflow_run.",
-                file=sys.stderr,
-            )
-            return False
-        print(f"Failed to fetch PR comments for {repo} PR #{pr}: {err}", file=sys.stderr)
-        return False
-    except OSError as err:
-        print(f"Network error querying PR comments: {err}", file=sys.stderr)
+    ok, existing_id = _find_existing_comment(api_url, headers, repo, pr)
+    if not ok:
         return False
 
     try:
         if existing_id:
-            patch_url = f"https://api.github.com/repos/{repo}/issues/comments/{existing_id}"
-            payload = json.dumps({"body": body}).encode("utf-8")
-            patch_headers = {**headers, "Content-Type": "application/json"}
-            patch_req = urllib.request.Request(patch_url, data=payload, headers=patch_headers, method="PATCH")
-            with urllib.request.urlopen(patch_req, timeout=30) as resp:  # noqa: S310
-                if resp.status in (200, 201):
-                    print(f"Successfully updated scorecard comment on {repo} PR #{pr} (comment ID {existing_id})")
-                    return True
-        else:
-            payload = json.dumps({"body": body}).encode("utf-8")
-            post_headers = {**headers, "Content-Type": "application/json"}
-            post_req = urllib.request.Request(api_url, data=payload, headers=post_headers, method="POST")
-            with urllib.request.urlopen(post_req, timeout=30) as resp:  # noqa: S310
-                if resp.status in (200, 201):
-                    created = json.loads(resp.read().decode("utf-8"))
-                    print(f"Successfully posted scorecard comment on {repo} PR #{pr} (comment ID {created.get('id')})")
-                    return True
+            return _update_comment(repo, pr, existing_id, body, headers)
+        return _create_comment(api_url, repo, pr, body, headers)
     except urllib.error.HTTPError as err:
         if err.code == 403:
             print(f"Notice: GITHUB_TOKEN has read-only permission for {repo} PR #{pr}.", file=sys.stderr)
@@ -676,15 +737,13 @@ def post_or_update_comment(
         print(f"Error posting scorecard comment to PR #{pr}: {err}", file=sys.stderr)
         return False
 
-    return False
 
-
-def main(argv: list[str] | None = None) -> int:
-    """Run the command-line interface."""
+def _build_parser() -> argparse.ArgumentParser:
+    """Build the command-line parser for the scorecard tool."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("skills", nargs="*", help="skill names or paths to evaluate")
     ap.add_argument("--changed", action="store_true", help="evaluate skills modified relative to base branch")
-    ap.add_argument("--base", default="origin/main", help="base git ref for diff (default: origin/main)")
+    ap.add_argument("--base", default=DEFAULT_BASE_REF, help="base git ref for diff (default: origin/main)")
     ap.add_argument("--all", action="store_true", help="evaluate all skills in repository")
     ap.add_argument(
         "--min-score",
@@ -702,65 +761,62 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--pr-number", type=int, help="pull request number for comment posting")
     ap.add_argument("--post-comment", action="store_true", help="post or update scorecard comment to GitHub PR")
     ap.add_argument("--post-comment-file", type=Path, help="post an existing markdown report file to GitHub PR")
-    args = ap.parse_args(argv)
+    return ap
 
-    if args.post_comment_file:
-        if not args.post_comment_file.is_file():
-            print(f"Error: comment file not found: {args.post_comment_file}", file=sys.stderr)
-            return 2
-        body = args.post_comment_file.read_text(encoding="utf-8")
-        ok = post_or_update_comment(body, pr_number=args.pr_number)
-        return 0 if ok else 1
 
-    all_skills = load_skills()
-    skills_dict = {s.name: s for s in all_skills}
+def _post_comment_file(args: argparse.Namespace) -> int:
+    """Post an existing markdown report file as the PR comment and return the exit code."""
+    if not args.post_comment_file.is_file():
+        print(f"Error: comment file not found: {args.post_comment_file}", file=sys.stderr)
+        return 2
+    body = args.post_comment_file.read_text(encoding="utf-8")
+    ok = post_or_update_comment(body, pr_number=args.pr_number)
+    return 0 if ok else 1
 
+
+def _resolve_named_skills(names: list[str], skills_dict: dict[str, Skill]) -> list[str]:
+    """Resolve skill names or paths given on the command line, loading skills missing from the index."""
     target_names: list[str] = []
+    for s in names:
+        clean = s.replace("\\", "/").rstrip("/").split("/")[-1]
+        if clean in skills_dict:
+            target_names.append(clean)
+        elif (SKILLS_DIR / clean).is_dir():
+            try:
+                loaded = load_skill(SKILLS_DIR / clean)
+                skills_dict[loaded.name] = loaded
+                target_names.append(loaded.name)
+            except Exception as err:
+                print(f"Warning: could not load skill {clean}: {err}", file=sys.stderr)
+        else:
+            print(f"Warning: skill '{clean}' not found in skills directory", file=sys.stderr)
+    return target_names
+
+
+def _changed_target_names(base: str, skills_dict: dict[str, Skill]) -> list[str]:
+    """Return the changed skills (relative to `base`) that exist on disk or in the index."""
+    changed = find_changed_skills(base)
+    return [name for name in changed if name in skills_dict or (SKILLS_DIR / name).is_dir()]
+
+
+def _resolve_targets(args: argparse.Namespace, skills_dict: dict[str, Skill]) -> list[str]:
+    """Decide which skills to evaluate from the positional names, --changed, --all or the git diff."""
     if args.skills:
-        for s in args.skills:
-            clean = s.replace("\\", "/").rstrip("/").split("/")[-1]
-            if clean in skills_dict:
-                target_names.append(clean)
-            elif (SKILLS_DIR / clean).is_dir():
-                try:
-                    loaded = load_skill(SKILLS_DIR / clean)
-                    skills_dict[loaded.name] = loaded
-                    target_names.append(loaded.name)
-                except Exception as err:
-                    print(f"Warning: could not load skill {clean}: {err}", file=sys.stderr)
-            else:
-                print(f"Warning: skill '{clean}' not found in skills directory", file=sys.stderr)
-    elif args.changed:
-        changed = find_changed_skills(args.base)
-        target_names = [name for name in changed if name in skills_dict or (SKILLS_DIR / name).is_dir()]
-    elif args.all:
-        target_names = sorted(skills_dict.keys())
-    else:
-        changed = find_changed_skills(args.base)
-        if changed:
-            target_names = [name for name in changed if name in skills_dict or (SKILLS_DIR / name).is_dir()]
+        return _resolve_named_skills(args.skills, skills_dict)
+    if args.changed:
+        return _changed_target_names(args.base, skills_dict)
+    if args.all:
+        return sorted(skills_dict.keys())
+    return _changed_target_names(args.base, skills_dict)
 
-    bm25_index = trigger_bench.BM25({
-        n: trigger_bench.tokens(n.replace("-", " ")) * 2 + trigger_bench.tokens(str(s.meta.get("description", "")))
-        for n, s in skills_dict.items()
-    })
 
-    tests_blob = skill_quality.tests_text()
-    scorecards: list[SkillScorecard] = []
-
-    for name in target_names:
-        skill_obj = skills_dict.get(name) or load_skill(SKILLS_DIR / name)
-        sc = evaluate_skill(skill_obj, tests_blob, skills_dict, bm25_index, min_score=args.min_score)
-        scorecards.append(sc)
-
-    md_report = format_markdown_scorecard(scorecards, min_score=args.min_score)
-
-    if scorecards:
-        for sc in scorecards:
-            status_str = "PASS" if sc.passed else "NEEDS WORK"
-            print(f"{sc.score:5.1f}  {sc.name:<40} {sc.tier_badge} [{status_str}] ({sc.lines} lines)")
-    else:
+def _write_reports(args: argparse.Namespace, scorecards: list[SkillScorecard], md_report: str) -> None:
+    """Print the summary table and write the optional markdown and JSON reports."""
+    if not scorecards:
         print("No skills targeted for scorecard evaluation.")
+    for sc in scorecards:
+        status_str = "PASS" if sc.passed else "NEEDS WORK"
+        print(f"{sc.score:5.1f}  {sc.name:<40} {sc.tier_badge} [{status_str}] ({sc.lines} lines)")
 
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -777,28 +833,71 @@ def main(argv: list[str] | None = None) -> int:
         args.json.write_text(json.dumps(json_data, indent=2) + "\n", encoding="utf-8")
         print(f"Scorecard JSON written to: {args.json}")
 
+
+def _failure_reasons(sc: SkillScorecard, fail_threshold: float) -> list[str]:
+    """List why a scorecard fails the gate."""
+    reasons = []
+    if sc.score < fail_threshold:
+        reasons.append(f"score {sc.score:.1f} < {fail_threshold:.1f}")
+    if sc.lines > MAX_LINE_COUNT:
+        reasons.append(f"lines {sc.lines} > {MAX_LINE_COUNT}")
+    if not sc.security["pass"]:
+        reasons.append(f"{len(sc.security['blocking_findings'])} security findings")
+    if not sc.spec["pass"]:
+        reasons.append(f"{len(sc.spec['errors'])} spec errors")
+    return reasons
+
+
+def _gate_exit_code(args: argparse.Namespace, scorecards: list[SkillScorecard]) -> int:
+    """Apply the --fail-under / --changed quality gate and return the exit code."""
+    if args.fail_under is not None:
+        fail_threshold = args.fail_under
+    elif args.changed:
+        fail_threshold = args.min_score
+    else:
+        fail_threshold = None
+    if fail_threshold is None or not scorecards:
+        return 0
+    failing = [sc for sc in scorecards if sc.score < fail_threshold or not sc.passed]
+    if not failing:
+        return 0
+    print(f"\nScorecard gate FAILED: {len(failing)} skill(s) did not meet standards:")
+    for sc in failing:
+        print(f"  - {sc.name}: {', '.join(_failure_reasons(sc, fail_threshold))}")
+    return 1
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
+    args = _build_parser().parse_args(argv)
+
+    if args.post_comment_file:
+        return _post_comment_file(args)
+
+    all_skills = load_skills()
+    skills_dict = {s.name: s for s in all_skills}
+    target_names = _resolve_targets(args, skills_dict)
+
+    bm25_index = trigger_bench.BM25({
+        n: trigger_bench.tokens(n.replace("-", " ")) * 2 + trigger_bench.tokens(str(s.meta.get("description", "")))
+        for n, s in skills_dict.items()
+    })
+
+    tests_blob = skill_quality.tests_text()
+    scorecards: list[SkillScorecard] = []
+
+    for name in target_names:
+        skill_obj = skills_dict.get(name) or load_skill(SKILLS_DIR / name)
+        sc = evaluate_skill(skill_obj, tests_blob, skills_dict, bm25_index, min_score=args.min_score)
+        scorecards.append(sc)
+
+    md_report = format_markdown_scorecard(scorecards, min_score=args.min_score)
+    _write_reports(args, scorecards, md_report)
+
     if args.post_comment:
         post_or_update_comment(md_report, pr_number=args.pr_number)
 
-    fail_threshold = args.fail_under if args.fail_under is not None else (args.min_score if args.changed else None)
-    if fail_threshold is not None and scorecards:
-        failing = [sc for sc in scorecards if sc.score < fail_threshold or not sc.passed]
-        if failing:
-            print(f"\nScorecard gate FAILED: {len(failing)} skill(s) did not meet standards:")
-            for sc in failing:
-                reasons = []
-                if sc.score < fail_threshold:
-                    reasons.append(f"score {sc.score:.1f} < {fail_threshold:.1f}")
-                if sc.lines > MAX_LINE_COUNT:
-                    reasons.append(f"lines {sc.lines} > {MAX_LINE_COUNT}")
-                if not sc.security["pass"]:
-                    reasons.append(f"{len(sc.security['blocking_findings'])} security findings")
-                if not sc.spec["pass"]:
-                    reasons.append(f"{len(sc.spec['errors'])} spec errors")
-                print(f"  - {sc.name}: {', '.join(reasons)}")
-            return 1
-
-    return 0
+    return _gate_exit_code(args, scorecards)
 
 
 if __name__ == "__main__":

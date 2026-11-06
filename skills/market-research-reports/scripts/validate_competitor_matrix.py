@@ -38,6 +38,7 @@ STATUSES = {"yes", "no", "partial", "unknown", "not-applicable"}
 
 
 def _source_ids(path: str | Path) -> set[str]:
+    """Handle source ids."""
     if Path(path).suffix.lower() == ".csv":
         records: list[dict[str, Any]] = read_csv_records(
             path, required_fields=("source_id",)

@@ -55,6 +55,7 @@ def tokens(text: str) -> list[str]:
 
 
 class BM25:
+    """Bm 25."""
     def __init__(self, docs: dict[str, list[str]], k1: float = 1.4, b: float = 0.75):
         """Initialise the instance."""
         self.docs, self.k1, self.b = docs, k1, b

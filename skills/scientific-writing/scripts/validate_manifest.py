@@ -75,6 +75,7 @@ def _check_unknown_fields(
     location: str,
     issues: list[Issue],
 ) -> None:
+    """Check unknown fields."""
     for key in sorted(set(obj) - allowed):
         issues.append(
             issue("error", "UNKNOWN_SCHEMA_FIELD", location=location, item_id=key)
@@ -418,6 +419,7 @@ def validate_source_manifest(
 
 
 def detect_kind(data: dict[str, Any]) -> str:
+    """Detect kind."""
     if "sources" in data:
         return "source"
     if "document_id" in data:

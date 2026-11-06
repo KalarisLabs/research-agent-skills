@@ -26,6 +26,8 @@ from _common import (  # noqa: E402
     render_entry,
 )
 
+_AUTHOR_SEP = ' and '
+
 
 class BibTeXFormatter:
     """Format and clean BibTeX entries."""
@@ -91,9 +93,9 @@ class BibTeXFormatter:
         if 'author' in fields:
             author = fields['author']
             author = author.replace(';', ' and')
-            author = author.replace(' & ', ' and ')
+            author = author.replace(' & ', _AUTHOR_SEP)
             # Clean up multiple 'and's
-            author = re.sub(r'\s+and\s+and\s+', ' and ', author)
+            author = re.sub(r'\s+and\s+and\s+', _AUTHOR_SEP, author)
             author = re.sub(r'\s+', ' ', author).strip()
             fields['author'] = author
 
@@ -179,6 +181,7 @@ class BibTeXFormatter:
             Sorted list of entries
         """
         def get_sort_key(entry: Dict) -> str:
+            """Get sort key."""
             if sort_by == 'year':
                 # Zero-pad so string comparison orders numerically, and push
                 # undated entries to the end.
@@ -189,7 +192,7 @@ class BibTeXFormatter:
                 author = entry['fields'].get('author', '')
                 if not author:
                     return 'zzz'
-                first = author.split(' and ')[0]
+                first = author.split(_AUTHOR_SEP)[0]
                 if ',' in first:
                     return first.split(',')[0].strip().lower()
                 words = first.split()

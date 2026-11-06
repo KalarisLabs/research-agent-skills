@@ -17,6 +17,7 @@ from _common import (
 )
 
 
+NUMPY_REQUIRED = "NumPy is required"
 REQUIRED_ARRAYS = {
     "risk",
     "test_event",
@@ -33,7 +34,7 @@ def synthetic_metric_inputs(seed: int = DEFAULT_SEED) -> dict[str, Any]:
     try:
         import numpy as np
     except ImportError as exc:
-        raise CliError("NumPy is required") from exc
+        raise CliError(NUMPY_REQUIRED) from exc
     rng = np.random.default_rng(seed)
 
     def observed(rows: int) -> tuple[Any, Any, Any]:
@@ -71,7 +72,7 @@ def load_prediction_archive(value: str) -> tuple[dict[str, Any], str]:
     try:
         import numpy as np
     except ImportError as exc:
-        raise CliError("NumPy is required") from exc
+        raise CliError(NUMPY_REQUIRED) from exc
     path = checked_input_file(value, suffixes={".npz"})
     try:
         with np.load(path, allow_pickle=False) as archive:
@@ -149,7 +150,7 @@ def validate_predictions(
     try:
         import numpy as np
     except ImportError as exc:
-        raise CliError("NumPy is required") from exc
+        raise CliError(NUMPY_REQUIRED) from exc
     y_train = structured_survival(arrays["train_event"], arrays["train_time"])
     y_test = structured_survival(arrays["test_event"], arrays["test_time"])
     times = validate_time_grid(arrays["times"], y_train, y_test)

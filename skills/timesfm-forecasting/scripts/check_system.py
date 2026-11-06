@@ -135,6 +135,33 @@ class SystemReport:
 # ---------------------------------------------------------------------------
 
 
+def _windows_memory_status() -> Any:
+    """Return the MEMORYSTATUSEX structure filled in by GlobalMemoryStatusEx."""
+    import ctypes
+
+    kernel32 = ctypes.windll.kernel32  # type: ignore[attr-defined]
+
+    class MEMORYSTATUSEX(ctypes.Structure):
+        """Win32 MEMORYSTATUSEX layout used by GlobalMemoryStatusEx."""
+
+        _fields_ = [
+            ("dwLength", ctypes.c_ulong),
+            ("dwMemoryLoad", ctypes.c_ulong),
+            ("ullTotalPhys", ctypes.c_ulonglong),
+            ("ullAvailPhys", ctypes.c_ulonglong),
+            ("ullTotalPageFile", ctypes.c_ulonglong),
+            ("ullAvailPageFile", ctypes.c_ulonglong),
+            ("ullTotalVirtual", ctypes.c_ulonglong),
+            ("ullAvailVirtual", ctypes.c_ulonglong),
+            ("sullAvailExtendedVirtual", ctypes.c_ulonglong),
+        ]
+
+    stat = MEMORYSTATUSEX()
+    stat.dwLength = ctypes.sizeof(stat)
+    kernel32.GlobalMemoryStatusEx(ctypes.byref(stat))
+    return stat
+
+
 def _get_total_ram_gb() -> float:
     """Return total physical RAM in GB, cross-platform."""
     try:
@@ -154,28 +181,7 @@ def _get_total_ram_gb() -> float:
             )
             return int(result.stdout.strip()) / (1024**3)
         elif sys.platform == "win32":
-            import ctypes
-
-            kernel32 = ctypes.windll.kernel32  # type: ignore[attr-defined]
-
-            class MEMORYSTATUSEX(ctypes.Structure):
-                """Memorystatusex."""
-                _fields_ = [
-                    ("dwLength", ctypes.c_ulong),
-                    ("dwMemoryLoad", ctypes.c_ulong),
-                    ("ullTotalPhys", ctypes.c_ulonglong),
-                    ("ullAvailPhys", ctypes.c_ulonglong),
-                    ("ullTotalPageFile", ctypes.c_ulonglong),
-                    ("ullAvailPageFile", ctypes.c_ulonglong),
-                    ("ullTotalVirtual", ctypes.c_ulonglong),
-                    ("ullAvailVirtual", ctypes.c_ulonglong),
-                    ("sullAvailExtendedVirtual", ctypes.c_ulonglong),
-                ]
-
-            stat = MEMORYSTATUSEX()
-            stat.dwLength = ctypes.sizeof(stat)
-            kernel32.GlobalMemoryStatusEx(ctypes.byref(stat))
-            return stat.ullTotalPhys / (1024**3)
+            return _windows_memory_status().ullTotalPhys / (1024**3)
     except Exception:
         pass
 
@@ -206,28 +212,7 @@ def _get_available_ram_gb() -> float:
                     free += int(val) * page_size
             return free / (1024**3)
         elif sys.platform == "win32":
-            import ctypes
-
-            kernel32 = ctypes.windll.kernel32  # type: ignore[attr-defined]
-
-            class MEMORYSTATUSEX(ctypes.Structure):
-                """Memorystatusex."""
-                _fields_ = [
-                    ("dwLength", ctypes.c_ulong),
-                    ("dwMemoryLoad", ctypes.c_ulong),
-                    ("ullTotalPhys", ctypes.c_ulonglong),
-                    ("ullAvailPhys", ctypes.c_ulonglong),
-                    ("ullTotalPageFile", ctypes.c_ulonglong),
-                    ("ullAvailPageFile", ctypes.c_ulonglong),
-                    ("ullTotalVirtual", ctypes.c_ulonglong),
-                    ("ullAvailVirtual", ctypes.c_ulonglong),
-                    ("sullAvailExtendedVirtual", ctypes.c_ulonglong),
-                ]
-
-            stat = MEMORYSTATUSEX()
-            stat.dwLength = ctypes.sizeof(stat)
-            kernel32.GlobalMemoryStatusEx(ctypes.byref(stat))
-            return stat.ullAvailPhys / (1024**3)
+            return _windows_memory_status().ullAvailPhys / (1024**3)
     except Exception:
         pass
     return 0.0

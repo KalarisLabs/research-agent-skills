@@ -120,6 +120,7 @@ def iter_files(paths: list[Path]) -> list[Path]:
 
 
 def rel(path: Path) -> str:
+    """Handle rel."""
     try:
         return path.resolve().relative_to(ROOT).as_posix()
     except ValueError:
@@ -174,6 +175,7 @@ def host_allowed(host: str, allowed: set[str]) -> bool:
 
 
 def load_allowed() -> set[str]:
+    """Load allowed."""
     if not DOMAINS.exists():
         return set()
     return {ln.split("#")[0].strip().lower() for ln in DOMAINS.read_text(encoding="utf-8").splitlines()

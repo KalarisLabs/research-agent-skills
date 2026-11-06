@@ -184,18 +184,19 @@ def audit(checklist: dict[str, Any]) -> dict[str, Any]:
     if not (role_counts["intervention"] or role_counts["exposure"]):
         warnings.append(issue("NO_INTERVENTION_OR_EXPOSURE_DECLARED", "items"))
 
+    if errors:
+        status = "INVALID_CHECKLIST"
+    elif gaps_by_measurement:
+        status = "VALID_WITH_MEASUREMENT_GAPS"
+    else:
+        status = "VALID_HUMAN_REVIEW_COMPLETE"
+
     return {
         "schema_version": "2.0",
         "checklist_id": checklist["checklist_id"],
         "record_id": checklist["record_id"],
         "valid": not errors,
-        "status": (
-            "INVALID_CHECKLIST"
-            if errors
-            else "VALID_WITH_MEASUREMENT_GAPS"
-            if gaps_by_measurement
-            else "VALID_HUMAN_REVIEW_COMPLETE"
-        ),
+        "status": status,
         "errors": errors,
         "warnings": warnings,
         "measurement_count": len(checklist["items"]),

@@ -8,6 +8,7 @@ for _ras_stream in (_ras_sys.stdout, _ras_sys.stderr):
     if hasattr(_ras_stream, "reconfigure"):
         _ras_stream.reconfigure(encoding="utf-8", errors="replace")
 
+import argparse
 import hashlib
 import json
 import math
@@ -136,6 +137,7 @@ def checked_root(value: str | os.PathLike[str]) -> Path:
 
 
 def _within_root(candidate: Path, root: Path) -> None:
+    """Handle within root."""
     try:
         candidate.relative_to(root)
     except ValueError as exc:
@@ -230,6 +232,7 @@ def checked_output_file(
 
 
 def _strict_json_bytes(document: Any) -> bytes:
+    """Handle strict json bytes."""
     try:
         payload = (
             json.dumps(
@@ -331,6 +334,76 @@ def emit_markdown(
         root=root,
         suffixes={".md", ".markdown"},
         force=force,
+    )
+
+
+def add_table_input_arguments(parser: argparse.ArgumentParser) -> None:
+    """Add the input, root, byte-limit and row-limit arguments shared by the tabular CLIs."""
+
+    parser.add_argument("input", help="Local .csv or .tsv path inside --root")
+    parser.add_argument(
+        "--root",
+        default=".",
+        help="Existing local directory that bounds all input/output paths",
+    )
+    parser.add_argument(
+        "--max-bytes",
+        type=int,
+        default=DEFAULT_MAX_FILE_BYTES,
+        help=f"Maximum input bytes (hard ceiling: {512 * 1024 * 1024})",
+    )
+    parser.add_argument(
+        "--max-rows",
+        type=int,
+        default=DEFAULT_MAX_ROWS,
+        help="Maximum rows to scan (hard ceiling: 1000000)",
+    )
+
+
+def add_reveal_identifiers_argument(
+    parser: argparse.ArgumentParser,
+    help_text: str = "Emit sanitized column identifiers; values remain redacted",
+) -> None:
+    """Add the opt-in --reveal-identifiers flag shared by the tabular CLIs."""
+
+    parser.add_argument(
+        "--reveal-identifiers",
+        action="store_true",
+        help=help_text,
+    )
+
+
+def add_output_arguments(parser: argparse.ArgumentParser) -> None:
+    """Add the optional --output and --force arguments shared by the tabular CLIs."""
+
+    parser.add_argument("--output", help="Optional local .json output path")
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Allow replacement of an existing regular output file",
+    )
+
+
+def checked_table_input(args: argparse.Namespace) -> Path:
+    """Validate the parsed byte limit and return the checked .csv/.tsv input path."""
+
+    max_bytes = bounded_file_limit(args.max_bytes)
+    return checked_input_file(
+        args.input,
+        root=args.root,
+        suffixes={".csv", ".tsv"},
+        max_bytes=max_bytes,
+    )
+
+
+def emit_report(report: Any, args: argparse.Namespace) -> None:
+    """Emit a JSON report to stdout or to the --output path from parsed arguments."""
+
+    emit_json(
+        report,
+        output=args.output,
+        root=args.root,
+        force=args.force,
     )
 
 

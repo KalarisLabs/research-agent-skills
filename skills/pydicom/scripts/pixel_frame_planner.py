@@ -63,6 +63,7 @@ PIXEL_TAGS = [
 def parse_frame_selection(
     specification: str, *, total_frames: int, max_selected: int
 ) -> list[int]:
+    """Parse frame selection."""
     if specification.strip().casefold() == "all":
         if total_frames > max_selected:
             raise ToolError("'all' exceeds the selected-frame limit")

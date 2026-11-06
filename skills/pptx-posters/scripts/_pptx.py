@@ -35,15 +35,22 @@ R_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 PKG_REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
 CT_NS = "http://schemas.openxmlformats.org/package/2006/content-types"
 
+_CONTENT_TYPES_PART = "[Content_Types].xml"
+_PRESENTATION_PART = "ppt/presentation.xml"
+_PRESENTATION_RELS_PART = "ppt/_rels/presentation.xml.rels"
+_RELS_DIR = "/_rels/"
+_RELS_SUFFIX = ".rels"
+_SLIDE_PART_PREFIX = "ppt/slides/slide"
+
 STANDARD_PRESENTATION_CONTENT_TYPE = (
     "application/vnd.openxmlformats-officedocument.presentationml."
     "presentation.main+xml"
 )
 REQUIRED_PARTS = {
-    "[Content_Types].xml",
+    _CONTENT_TYPES_PART,
     "_rels/.rels",
-    "ppt/_rels/presentation.xml.rels",
-    "ppt/presentation.xml",
+    _PRESENTATION_RELS_PART,
+    _PRESENTATION_PART,
 }
 FORBIDDEN_PREFIXES = (
     "_xmlsignatures/",
@@ -271,6 +278,7 @@ def _unsafe_xml(text: str) -> bool:
 
 
 def _parse_xml(raw: bytes, *, location: str) -> ET.Element:
+    """Parse xml."""
     if len(raw) > MAX_XML_BYTES:
         raise CliError(
             f"XML part {location} is {len(raw)} bytes; limit is {MAX_XML_BYTES}"
@@ -292,17 +300,19 @@ def _parse_xml(raw: bytes, *, location: str) -> ET.Element:
 
 
 def _relationship_source_directory(rels_name: str) -> str:
+    """Handle relationship source directory."""
     if rels_name == "_rels/.rels":
         return ""
-    marker = "/_rels/"
-    if marker not in rels_name or not rels_name.endswith(".rels"):
+    marker = _RELS_DIR
+    if marker not in rels_name or not rels_name.endswith(_RELS_SUFFIX):
         raise CliError(f"invalid relationship part name: {rels_name}")
     prefix, leaf = rels_name.split(marker, 1)
-    source_leaf = leaf[: -len(".rels")]
+    source_leaf = leaf[: -len(_RELS_SUFFIX)]
     return posixpath.dirname(f"{prefix}/{source_leaf}")
 
 
 def _resolve_internal_target(rels_name: str, target: str) -> str:
+    """Resolve internal target."""
     if not target or "\x00" in target or "\\" in target:
         raise CliError(f"unsafe internal relationship target in {rels_name}: {target!r}")
     if target.startswith("/") or "%" in target or "?" in target or "#" in target:
@@ -484,19 +494,19 @@ def _inspect_content_types(
 ) -> list[dict[str, Any]]:
     """Handle inspect content types."""
     findings: list[dict[str, Any]] = []
-    if "[Content_Types].xml" not in names:
+    if _CONTENT_TYPES_PART not in names:
         return findings
     try:
         root = _parse_xml(
-            archive.read("[Content_Types].xml"),
-            location="[Content_Types].xml",
+            archive.read(_CONTENT_TYPES_PART),
+            location=_CONTENT_TYPES_PART,
         )
     except (KeyError, OSError, RuntimeError, zipfile.BadZipFile, CliError) as exc:
         return [
             _finding(
                 "CONTENT_TYPES_INVALID",
                 str(exc),
-                location="[Content_Types].xml",
+                location=_CONTENT_TYPES_PART,
             )
         ]
     if root.tag != f"{{{CT_NS}}}Types":
@@ -504,7 +514,7 @@ def _inspect_content_types(
             _finding(
                 "CONTENT_TYPES_INVALID",
                 "root element is not the OPC content-types element",
-                location="[Content_Types].xml",
+                location=_CONTENT_TYPES_PART,
             )
         )
         return findings
@@ -519,7 +529,7 @@ def _inspect_content_types(
                 _finding(
                     "CONTENT_TYPES_INVALID",
                     "unexpected element in content-types part",
-                    location="[Content_Types].xml",
+                    location=_CONTENT_TYPES_PART,
                 )
             )
             continue
@@ -528,7 +538,7 @@ def _inspect_content_types(
                 _finding(
                     "UNEXPECTED_CONTENT_TYPE",
                     f"content type is outside the strict profile: {content_type!r}",
-                    location="[Content_Types].xml",
+                    location=_CONTENT_TYPES_PART,
                 )
             )
         if any(marker in lowered for marker in FORBIDDEN_CONTENT_TYPE_MARKERS):
@@ -536,7 +546,7 @@ def _inspect_content_types(
                 _finding(
                     "FORBIDDEN_CONTENT_TYPE",
                     f"forbidden content type {content_type!r}",
-                    location="[Content_Types].xml",
+                    location=_CONTENT_TYPES_PART,
                 )
             )
         if node.tag == f"{{{CT_NS}}}Default":
@@ -552,7 +562,7 @@ def _inspect_content_types(
                     _finding(
                         "CONTENT_TYPES_INVALID",
                         f"invalid or duplicate default extension {extension!r}",
-                        location="[Content_Types].xml",
+                        location=_CONTENT_TYPES_PART,
                     )
                 )
             seen_defaults.add(extension)
@@ -568,7 +578,7 @@ def _inspect_content_types(
                 _finding(
                     "CONTENT_TYPES_INVALID",
                     f"invalid, duplicate, or missing override part {part_name!r}",
-                    location="[Content_Types].xml",
+                    location=_CONTENT_TYPES_PART,
                 )
             )
         seen_overrides.add(normalized_part)
@@ -582,7 +592,7 @@ def _inspect_content_types(
             _finding(
                 "PRESENTATION_CONTENT_TYPE",
                 "ppt/presentation.xml is not a standard macro-free PPTX main part",
-                location="[Content_Types].xml",
+                location=_CONTENT_TYPES_PART,
             )
         )
     return findings
@@ -595,7 +605,7 @@ def _inspect_relationships(
     """Handle inspect relationships."""
     findings: list[dict[str, Any]] = []
     relationship_count = 0
-    for rels_name in sorted(name for name in names if name.endswith(".rels")):
+    for rels_name in sorted(name for name in names if name.endswith(_RELS_SUFFIX)):
         try:
             root = _parse_xml(archive.read(rels_name), location=rels_name)
         except (KeyError, OSError, RuntimeError, zipfile.BadZipFile, CliError) as exc:
@@ -724,33 +734,33 @@ def _inspect_one_slide_profile(
     slide_names = sorted(
         name
         for name in names
-        if name.startswith("ppt/slides/slide")
+        if name.startswith(_SLIDE_PART_PREFIX)
         and name.endswith(".xml")
-        and "/_rels/" not in name
+        and _RELS_DIR not in name
     )
     if len(slide_names) != 1:
         return [
             _finding(
                 "SLIDE_COUNT",
                 f"strict poster profile requires exactly one slide; found {len(slide_names)}",
-                location="ppt/presentation.xml",
+                location=_PRESENTATION_PART,
             )
         ]
     try:
         presentation = _parse_xml(
-            archive.read("ppt/presentation.xml"),
-            location="ppt/presentation.xml",
+            archive.read(_PRESENTATION_PART),
+            location=_PRESENTATION_PART,
         )
         presentation_rels = _parse_xml(
-            archive.read("ppt/_rels/presentation.xml.rels"),
-            location="ppt/_rels/presentation.xml.rels",
+            archive.read(_PRESENTATION_RELS_PART),
+            location=_PRESENTATION_RELS_PART,
         )
     except (KeyError, OSError, RuntimeError, zipfile.BadZipFile, CliError) as exc:
         return [
             _finding(
                 "PRESENTATION_PROFILE_INVALID",
                 str(exc),
-                location="ppt/presentation.xml",
+                location=_PRESENTATION_PART,
             )
         ]
     slide_ids = presentation.findall(
@@ -761,7 +771,7 @@ def _inspect_one_slide_profile(
             _finding(
                 "SLIDE_ID_COUNT",
                 f"presentation must declare exactly one slide Id; found {len(slide_ids)}",
-                location="ppt/presentation.xml",
+                location=_PRESENTATION_PART,
             )
         )
         return findings
@@ -772,7 +782,7 @@ def _inspect_one_slide_profile(
             continue
         try:
             target = _resolve_internal_target(
-                "ppt/_rels/presentation.xml.rels",
+                _PRESENTATION_RELS_PART,
                 relationship.attrib.get("Target", ""),
             )
         except CliError:
@@ -783,7 +793,7 @@ def _inspect_one_slide_profile(
             _finding(
                 "SLIDE_RELATIONSHIP",
                 "the declared slide Id does not resolve to the sole slide part",
-                location="ppt/presentation.xml",
+                location=_PRESENTATION_PART,
             )
         )
     return findings
@@ -805,7 +815,7 @@ def _inspect_image_payloads(
             with archive.open(part_name, "r") as handle:
                 prefix = handle.read(16)
                 while handle.read(1024 * 1024):
-                    pass
+                    continue  # drain the stream so CRC and size checks run
         except (OSError, RuntimeError, zipfile.BadZipFile) as exc:
             findings.append(
                 _finding("IMAGE_PART_INVALID", str(exc), location=part_name)
@@ -843,9 +853,9 @@ def _inspect_slide_accessibility(
     slide_names = sorted(
         name
         for name in names
-        if name.startswith("ppt/slides/slide")
+        if name.startswith(_SLIDE_PART_PREFIX)
         and name.endswith(".xml")
-        and "/_rels/" not in name
+        and _RELS_DIR not in name
     )
     for slide_name in slide_names:
         try:
@@ -916,7 +926,7 @@ def _inspect_forbidden_markup(
         for name in names
         if name.startswith("ppt/")
         and name.endswith(".xml")
-        and "/_rels/" not in name
+        and _RELS_DIR not in name
     ):
         try:
             root = _parse_xml(archive.read(part_name), location=part_name)
@@ -1123,6 +1133,250 @@ def _intersection(
     return max(0, overlap_w), max(0, overlap_h)
 
 
+def _read_slide_size(archive: zipfile.ZipFile) -> tuple[int, int]:
+    """Read the slide width and height in EMU from the presentation part."""
+    presentation = _parse_xml(
+        archive.read(_PRESENTATION_PART),
+        location=_PRESENTATION_PART,
+    )
+    slide_size = presentation.find(f"./{{{P_NS}}}sldSz")
+    if slide_size is None:
+        raise CliError(f"{_PRESENTATION_PART} does not declare slide dimensions")
+    try:
+        return int(slide_size.attrib["cx"]), int(slide_size.attrib["cy"])
+    except (KeyError, ValueError) as exc:
+        raise CliError(f"invalid slide dimensions in {_PRESENTATION_PART}") from exc
+
+
+def _slide_part_names(archive: zipfile.ZipFile) -> list[str]:
+    """List slide XML part names in natural slide-number order."""
+    return sorted(
+        (
+            name
+            for name in archive.namelist()
+            if name.startswith(_SLIDE_PART_PREFIX)
+            and name.endswith(".xml")
+            and _RELS_DIR not in name
+        ),
+        key=lambda name: (
+            len(PurePosixPath(name).stem),
+            PurePosixPath(name).stem,
+        ),
+    )
+
+
+def _layout_issue(
+    code: str, slide: int, shape: str, message: str
+) -> dict[str, Any]:
+    """Build a per-shape layout issue record."""
+    return {"code": code, "slide": slide, "shape": shape, "message": message}
+
+
+def _font_layout_issues(
+    shape_record: dict[str, Any],
+    *,
+    slide_index: int,
+    text: str,
+    sizes: list[float],
+    print_scale: float,
+    minimum_font_pt_final: float,
+) -> list[dict[str, Any]]:
+    """Check a shape's explicit font sizes and record the minimum design/final sizes."""
+    if not text:
+        return []
+    name = shape_record["name"]
+    if not sizes:
+        return [
+            _layout_issue(
+                "FONT_SIZE_UNSPECIFIED",
+                slide_index,
+                name,
+                "text has no explicit run/default font size; "
+                "theme inheritance requires manual review",
+            )
+        ]
+    minimum_design = min(sizes)
+    minimum_final = minimum_design * print_scale
+    shape_record["minimum_font_pt_design"] = minimum_design
+    shape_record["minimum_font_pt_final"] = minimum_final
+    if minimum_final + 1e-6 < minimum_font_pt_final:
+        return [
+            _layout_issue(
+                "FONT_TOO_SMALL",
+                slide_index,
+                name,
+                f"minimum final font {minimum_final:.2f} pt "
+                f"is below {minimum_font_pt_final:.2f} pt",
+            )
+        ]
+    return []
+
+
+def _collect_slide_shapes(
+    tree: ET.Element,
+    *,
+    slide_index: int,
+    slide_width: int,
+    slide_height: int,
+    print_scale: float,
+    minimum_font_pt_final: float,
+    issues: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Describe the direct shapes of one slide, appending bounds and font issues."""
+    shapes: list[dict[str, Any]] = []
+    for child in list(tree):
+        kind = _local_name(child.tag)
+        if kind not in {"sp", "pic", "graphicFrame", "cxnSp", "grpSp"}:
+            continue
+        name = _shape_name(child)
+        if kind == "grpSp":
+            issues.append(
+                _layout_issue(
+                    "GROUP_REQUIRES_MANUAL_REVIEW",
+                    slide_index,
+                    name,
+                    "group transforms are not flattened by this checker",
+                )
+            )
+            continue
+        box = _shape_transform(child)
+        if box is None:
+            issues.append(
+                _layout_issue(
+                    "MISSING_TRANSFORM",
+                    slide_index,
+                    name,
+                    "shape position or size could not be read",
+                )
+            )
+            continue
+        x, y, width, height = box
+        text = _shape_text(child)
+        shape_record = {
+            "reading_order": len(shapes) + 1,
+            "name": name,
+            "kind": kind,
+            "x_in": x / EMU_PER_INCH,
+            "y_in": y / EMU_PER_INCH,
+            "width_in": width / EMU_PER_INCH,
+            "height_in": height / EMU_PER_INCH,
+            "has_text": bool(text),
+            "_box": box,
+        }
+        shapes.append(shape_record)
+        if x < 0 or y < 0 or x + width > slide_width or y + height > slide_height:
+            issues.append(
+                _layout_issue(
+                    "OUT_OF_BOUNDS",
+                    slide_index,
+                    name,
+                    "shape extends outside the slide canvas",
+                )
+            )
+        issues.extend(
+            _font_layout_issues(
+                shape_record,
+                slide_index=slide_index,
+                text=text,
+                sizes=_font_sizes_pt(child),
+                print_scale=print_scale,
+                minimum_font_pt_final=minimum_font_pt_final,
+            )
+        )
+    return shapes
+
+
+def _overlap_issue(
+    first: dict[str, Any], second: dict[str, Any], slide_index: int
+) -> dict[str, Any] | None:
+    """Return an overlap issue for two shapes whose boxes intersect, otherwise None."""
+    first_box = first["_box"]
+    second_box = second["_box"]
+    if second_box[2] <= 0 or second_box[3] <= 0:
+        return None
+    overlap_width, overlap_height = _intersection(first_box, second_box)
+    if overlap_width <= 0 or overlap_height <= 0:
+        return None
+    overlap_area = overlap_width * overlap_height
+    smaller_area = min(
+        first_box[2] * first_box[3],
+        second_box[2] * second_box[3],
+    )
+    return {
+        "code": "SHAPE_OVERLAP",
+        "slide": slide_index,
+        "shapes": [first["name"], second["name"]],
+        "overlap_fraction_of_smaller": overlap_area / smaller_area,
+        "message": (
+            "direct shape bounding boxes overlap; determine "
+            "whether this is intentional"
+        ),
+    }
+
+
+def _overlap_issues(
+    shapes: list[dict[str, Any]], slide_index: int
+) -> list[dict[str, Any]]:
+    """Find every pair of positive-area shapes on a slide whose boxes overlap."""
+    found: list[dict[str, Any]] = []
+    for first_index, first in enumerate(shapes):
+        first_box = first["_box"]
+        if first_box[2] <= 0 or first_box[3] <= 0:
+            continue
+        for second in shapes[first_index + 1 :]:
+            issue = _overlap_issue(first, second, slide_index)
+            if issue is not None:
+                found.append(issue)
+    return found
+
+
+def _analyze_slide(
+    archive: zipfile.ZipFile,
+    slide_name: str,
+    slide_index: int,
+    *,
+    slide_width: int,
+    slide_height: int,
+    print_scale: float,
+    minimum_font_pt_final: float,
+    issues: list[dict[str, Any]],
+) -> dict[str, Any] | None:
+    """Analyse one slide part and return its report entry, or None if it has no shape tree."""
+    root = _parse_xml(archive.read(slide_name), location=slide_name)
+    tree = root.find(f"./{{{P_NS}}}cSld/{{{P_NS}}}spTree")
+    if tree is None:
+        issues.append(
+            {
+                "code": "MISSING_SHAPE_TREE",
+                "slide": slide_index,
+                "message": "slide has no shape tree",
+            }
+        )
+        return None
+    shapes = _collect_slide_shapes(
+        tree,
+        slide_index=slide_index,
+        slide_width=slide_width,
+        slide_height=slide_height,
+        print_scale=print_scale,
+        minimum_font_pt_final=minimum_font_pt_final,
+        issues=issues,
+    )
+    issues.extend(_overlap_issues(shapes, slide_index))
+    for shape in shapes:
+        shape.pop("_box", None)
+    return {
+        "slide": slide_index,
+        "part": slide_name,
+        "shape_count": len(shapes),
+        "reading_order": [
+            {"order": shape["reading_order"], "name": shape["name"]}
+            for shape in shapes
+        ],
+        "shapes": shapes,
+    }
+
+
 def analyze_layout(
     value: str | Path,
     *,
@@ -1140,173 +1394,20 @@ def analyze_layout(
     slides: list[dict[str, Any]] = []
 
     with zipfile.ZipFile(path, "r") as archive:
-        presentation = _parse_xml(
-            archive.read("ppt/presentation.xml"),
-            location="ppt/presentation.xml",
-        )
-        slide_size = presentation.find(f"./{{{P_NS}}}sldSz")
-        if slide_size is None:
-            raise CliError("ppt/presentation.xml does not declare slide dimensions")
-        try:
-            slide_width = int(slide_size.attrib["cx"])
-            slide_height = int(slide_size.attrib["cy"])
-        except (KeyError, ValueError) as exc:
-            raise CliError("invalid slide dimensions in ppt/presentation.xml") from exc
-
-        slide_names = sorted(
-            (
-                name
-                for name in archive.namelist()
-                if name.startswith("ppt/slides/slide")
-                and name.endswith(".xml")
-                and "/_rels/" not in name
-            ),
-            key=lambda name: (
-                len(PurePosixPath(name).stem),
-                PurePosixPath(name).stem,
-            ),
-        )
-        for slide_index, slide_name in enumerate(slide_names, 1):
-            root = _parse_xml(archive.read(slide_name), location=slide_name)
-            tree = root.find(f"./{{{P_NS}}}cSld/{{{P_NS}}}spTree")
-            if tree is None:
-                issues.append(
-                    {
-                        "code": "MISSING_SHAPE_TREE",
-                        "slide": slide_index,
-                        "message": "slide has no shape tree",
-                    }
-                )
-                continue
-            shapes: list[dict[str, Any]] = []
-            for child in list(tree):
-                kind = _local_name(child.tag)
-                if kind not in {"sp", "pic", "graphicFrame", "cxnSp", "grpSp"}:
-                    continue
-                name = _shape_name(child)
-                if kind == "grpSp":
-                    issues.append(
-                        {
-                            "code": "GROUP_REQUIRES_MANUAL_REVIEW",
-                            "slide": slide_index,
-                            "shape": name,
-                            "message": (
-                                "group transforms are not flattened by this checker"
-                            ),
-                        }
-                    )
-                    continue
-                box = _shape_transform(child)
-                if box is None:
-                    issues.append(
-                        {
-                            "code": "MISSING_TRANSFORM",
-                            "slide": slide_index,
-                            "shape": name,
-                            "message": "shape position or size could not be read",
-                        }
-                    )
-                    continue
-                x, y, width, height = box
-                text = _shape_text(child)
-                sizes = _font_sizes_pt(child)
-                shape_record = {
-                    "reading_order": len(shapes) + 1,
-                    "name": name,
-                    "kind": kind,
-                    "x_in": x / EMU_PER_INCH,
-                    "y_in": y / EMU_PER_INCH,
-                    "width_in": width / EMU_PER_INCH,
-                    "height_in": height / EMU_PER_INCH,
-                    "has_text": bool(text),
-                    "_box": box,
-                }
-                shapes.append(shape_record)
-                if x < 0 or y < 0 or x + width > slide_width or y + height > slide_height:
-                    issues.append(
-                        {
-                            "code": "OUT_OF_BOUNDS",
-                            "slide": slide_index,
-                            "shape": name,
-                            "message": "shape extends outside the slide canvas",
-                        }
-                    )
-                if text:
-                    if not sizes:
-                        issues.append(
-                            {
-                                "code": "FONT_SIZE_UNSPECIFIED",
-                                "slide": slide_index,
-                                "shape": name,
-                                "message": (
-                                    "text has no explicit run/default font size; "
-                                    "theme inheritance requires manual review"
-                                ),
-                            }
-                        )
-                    else:
-                        minimum_design = min(sizes)
-                        minimum_final = minimum_design * print_scale
-                        shape_record["minimum_font_pt_design"] = minimum_design
-                        shape_record["minimum_font_pt_final"] = minimum_final
-                        if minimum_final + 1e-6 < minimum_font_pt_final:
-                            issues.append(
-                                {
-                                    "code": "FONT_TOO_SMALL",
-                                    "slide": slide_index,
-                                    "shape": name,
-                                    "message": (
-                                        f"minimum final font {minimum_final:.2f} pt "
-                                        f"is below {minimum_font_pt_final:.2f} pt"
-                                    ),
-                                }
-                            )
-
-            for first_index, first in enumerate(shapes):
-                first_box = first["_box"]
-                if first_box[2] <= 0 or first_box[3] <= 0:
-                    continue
-                for second in shapes[first_index + 1 :]:
-                    second_box = second["_box"]
-                    if second_box[2] <= 0 or second_box[3] <= 0:
-                        continue
-                    overlap_width, overlap_height = _intersection(
-                        first_box, second_box
-                    )
-                    if overlap_width > 0 and overlap_height > 0:
-                        overlap_area = overlap_width * overlap_height
-                        smaller_area = min(
-                            first_box[2] * first_box[3],
-                            second_box[2] * second_box[3],
-                        )
-                        issues.append(
-                            {
-                                "code": "SHAPE_OVERLAP",
-                                "slide": slide_index,
-                                "shapes": [first["name"], second["name"]],
-                                "overlap_fraction_of_smaller": (
-                                    overlap_area / smaller_area
-                                ),
-                                "message": (
-                                    "direct shape bounding boxes overlap; determine "
-                                    "whether this is intentional"
-                                ),
-                            }
-                        )
-            for shape in shapes:
-                shape.pop("_box", None)
-            slides.append(
-                {
-                    "slide": slide_index,
-                    "part": slide_name,
-                    "shape_count": len(shapes),
-                    "reading_order": [
-                        {"order": shape["reading_order"], "name": shape["name"]}
-                        for shape in shapes
-                    ],
-                    "shapes": shapes,
-                }
+        slide_width, slide_height = _read_slide_size(archive)
+        for slide_index, slide_name in enumerate(_slide_part_names(archive), 1):
+            entry = _analyze_slide(
+                archive,
+                slide_name,
+                slide_index,
+                slide_width=slide_width,
+                slide_height=slide_height,
+                print_scale=print_scale,
+                minimum_font_pt_final=minimum_font_pt_final,
+                issues=issues,
             )
+            if entry is not None:
+                slides.append(entry)
 
     return {
         "schema_version": REPORT_SCHEMA_VERSION,
@@ -1362,7 +1463,7 @@ def strip_generated_printer_settings(source: Path, destination: Path) -> None:
                 if info.filename.startswith("ppt/printerSettings/"):
                     continue
                 info.date_time = DETERMINISTIC_ZIP_DATETIME
-                if info.filename == "[Content_Types].xml":
+                if info.filename == _CONTENT_TYPES_PART:
                     root = _parse_xml(
                         input_archive.read(info.filename),
                         location=info.filename,
@@ -1385,7 +1486,7 @@ def strip_generated_printer_settings(source: Path, destination: Path) -> None:
                         ),
                     )
                     continue
-                if info.filename.endswith(".rels"):
+                if info.filename.endswith(_RELS_SUFFIX):
                     root = _parse_xml(
                         input_archive.read(info.filename),
                         location=info.filename,
@@ -1437,9 +1538,9 @@ def patch_accessibility_metadata(
             for info in input_archive.infolist():
                 info.date_time = DETERMINISTIC_ZIP_DATETIME
                 if (
-                    info.filename.startswith("ppt/slides/slide")
+                    info.filename.startswith(_SLIDE_PART_PREFIX)
                     and info.filename.endswith(".xml")
-                    and "/_rels/" not in info.filename
+                    and _RELS_DIR not in info.filename
                 ):
                     root = _parse_xml(
                         input_archive.read(info.filename),

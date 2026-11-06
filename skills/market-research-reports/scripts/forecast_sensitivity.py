@@ -39,6 +39,7 @@ def _identifiers(value: Any, context: str, *, minimum: int = 0) -> list[str]:
 
 
 def _integer(value: Any, context: str, minimum: int, maximum: int) -> int:
+    """Handle integer."""
     if type(value) is not int:
         raise ValidationError(f"{context} must be an integer")
     if not minimum <= value <= maximum:
@@ -138,6 +139,7 @@ def _project(
 
 
 def _cagr(start: float, end: float, periods: int) -> float | None:
+    """Handle cagr."""
     if periods <= 0 or start <= 0.0 or end < 0.0:
         return None
     return (end / start) ** (1.0 / periods) - 1.0

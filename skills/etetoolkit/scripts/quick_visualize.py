@@ -90,6 +90,15 @@ def support_color(node: Tree, args: argparse.Namespace) -> str:
     return args.low_support_color
 
 
+def node_color(node: Tree, args: argparse.Namespace) -> str:
+    """Pick a node fill color: support-based for internal nodes when requested, else by node kind."""
+    if args.color_by_support and not node.is_leaf:
+        return support_color(node, args)
+    if node.is_leaf:
+        return args.leaf_color
+    return args.internal_color
+
+
 def create_smartview_layout(args: argparse.Namespace):
     """Create a current SmartView layout."""
     try:
@@ -125,13 +134,7 @@ def create_smartview_layout(args: argparse.Namespace):
 
     def draw_node(node):
         """Handle draw node."""
-        fill = (
-            support_color(node, args)
-            if args.color_by_support and not node.is_leaf
-            else args.leaf_color
-            if node.is_leaf
-            else args.internal_color
-        )
+        fill = node_color(node, args)
         radius = args.leaf_size if node.is_leaf else args.internal_size
         yield {
             "dot": {
@@ -261,13 +264,7 @@ def create_treeview_style(tree: Tree, args: argparse.Namespace):
     for node in tree.traverse():
         style = NodeStyle()
         style["size"] = args.leaf_size if node.is_leaf else args.internal_size
-        style["fgcolor"] = (
-            support_color(node, args)
-            if args.color_by_support and not node.is_leaf
-            else args.leaf_color
-            if node.is_leaf
-            else args.internal_color
-        )
+        style["fgcolor"] = node_color(node, args)
         node.set_style(style)
 
     tree_style = TreeStyle()

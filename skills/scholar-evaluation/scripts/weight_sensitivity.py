@@ -38,6 +38,7 @@ def _scenarios(
 
 
 def _direction(first: float | None, second: float | None) -> int | None:
+    """Handle direction."""
     if first is None or second is None:
         return None
     difference = first - second

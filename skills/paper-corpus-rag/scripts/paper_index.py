@@ -30,6 +30,8 @@ for _stream in (sys.stdout, sys.stderr):
     if hasattr(_stream, "reconfigure"):
         _stream.reconfigure(encoding="utf-8", errors="replace")
 
+DEFAULT_DB = "corpus.sqlite"
+
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS docs (path TEXT PRIMARY KEY, sha256 TEXT, title TEXT, n_chunks INTEGER);
 CREATE VIRTUAL TABLE IF NOT EXISTS chunks USING fts5(
@@ -39,6 +41,7 @@ HEADING_RE = re.compile(r"^(#{1,6})\s+(.+)$|^(\d+(?:\.\d+)*)\s+([A-Z][^\n]{2,80}
 
 
 def read_doc(path: Path) -> str:
+    """Read doc."""
     if path.suffix.lower() == ".pdf":
         try:
             from pypdf import PdfReader  # optional
@@ -146,17 +149,17 @@ def main() -> int:
     sub = ap.add_subparsers(dest="cmd", required=True)
     i = sub.add_parser("index")
     i.add_argument("folder")
-    i.add_argument("--db", default="corpus.sqlite")
+    i.add_argument("--db", default=DEFAULT_DB)
     i.add_argument("--chunk-size", type=int, default=1200)
     i.add_argument("--overlap", type=int, default=200)
     q = sub.add_parser("query")
     q.add_argument("query")
-    q.add_argument("--db", default="corpus.sqlite")
+    q.add_argument("--db", default=DEFAULT_DB)
     q.add_argument("-k", type=int, default=8)
     q.add_argument("--json", action="store_true")
     q.add_argument("--full", action="store_true", help="include full chunk text")
     s = sub.add_parser("stats")
-    s.add_argument("--db", default="corpus.sqlite")
+    s.add_argument("--db", default=DEFAULT_DB)
     args = ap.parse_args()
     return {"index": cmd_index, "query": cmd_query, "stats": cmd_stats}[args.cmd](args)
 

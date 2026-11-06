@@ -51,6 +51,7 @@ _PHYSICS_KEYS = ("N", "beta", "c2", "f", "nu_2", "nu_4", "nu_8", "nu_m4")
 
 
 def _safe_scalar(value: Any) -> Any:
+    """Handle safe scalar."""
     if hasattr(value, "item"):
         try:
             value = value.item()
@@ -79,6 +80,7 @@ def _attrs(group: Any, names: tuple[str, ...]) -> dict[str, Any]:
 
 
 def _find_state_file(path: Path) -> Path:
+    """Find state file."""
     if path.is_file():
         return path
     candidates = [
@@ -221,6 +223,7 @@ def load_manifest(path: Path) -> dict[str, Any]:
 
 
 def _same(left: Any, right: Any) -> bool:
+    """Handle same."""
     if isinstance(left, (int, float)) and isinstance(right, (int, float)):
         scale = max(1.0, abs(float(left)), abs(float(right)))
         return abs(float(left) - float(right)) <= 1e-12 * scale

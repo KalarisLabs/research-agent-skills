@@ -82,6 +82,7 @@ def detect_format(path: Path) -> str:
 
 
 def load_genome(path: Path | None) -> dict[str, int]:
+    """Load genome."""
     if path is None:
         return {}
     sizes = {}
@@ -130,6 +131,7 @@ class SortState:
         self.position = -1
 
     def check(self, find: Findings, lineno: int, contig: str, pos: int, why: str) -> None:
+        """Check."""
         if contig != self.current:
             if contig in self.seen:
                 find.add(

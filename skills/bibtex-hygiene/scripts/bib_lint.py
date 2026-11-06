@@ -23,6 +23,8 @@ import sys
 import unicodedata
 from dataclasses import dataclass, field
 
+_AUTHOR_SEP = " and "
+
 for _stream in (sys.stdout, sys.stderr):
     if hasattr(_stream, "reconfigure"):
         _stream.reconfigure(encoding="utf-8", errors="replace")
@@ -188,9 +190,9 @@ def lint(entries: list[Entry]) -> list[dict]:
         journal = f.get("journal", "").lower()
         if ("arxiv" in journal or f.get("eprinttype", "").lower() == "arxiv" or f.get("archiveprefix", "").lower() == "arxiv"):
             add(e, "info", "preprint", "arXiv preprint: check whether a peer-reviewed version exists and cite it")
-        if f.get("author", "").count(" and ") >= 1 and re.search(r",\s*,", f.get("author", "")):
+        if f.get("author", "").count(_AUTHOR_SEP) >= 1 and re.search(r",\s*,", f.get("author", "")):
             add(e, "error", "author-format", "malformed author list (empty name between commas)")
-        if "others" in f.get("author", "").split(" and ")[-1:] and len(f.get("author", "").split(" and ")) < 3:
+        if "others" in f.get("author", "").split(_AUTHOR_SEP)[-1:] and len(f.get("author", "").split(_AUTHOR_SEP)) < 3:
             add(e, "warning", "author-others", "'and others' with fewer than 3 authors: list them all")
     return out
 

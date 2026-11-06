@@ -24,6 +24,7 @@ BINARY_EXT = {".png", ".jpg", ".jpeg", ".gif", ".pdf", ".webp", ".ico", ".woff",
 
 
 def candidate_files(paths: list[str]) -> list[Path]:
+    """Handle candidate files."""
     if paths:
         out: list[Path] = []
         for p in map(Path, paths):

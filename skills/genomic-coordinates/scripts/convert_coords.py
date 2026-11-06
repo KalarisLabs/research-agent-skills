@@ -71,6 +71,7 @@ def convert_one(
     out_start, out_end = from_canonical(dst, start0, end0)
 
     def render(conv: Convention, s: int, e: int) -> str:
+        """Render."""
         if conv.name in REGION_STRING_FORMATS:
             return format_region(contig, s, e, strand)
         return f"{s}-{e}"

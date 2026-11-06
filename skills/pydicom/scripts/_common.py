@@ -16,6 +16,7 @@ from pathlib import Path, PurePath
 from typing import Any
 
 SCHEMA_VERSION = "1.1"
+_OVERWRITE_REFUSED = "refusing to overwrite existing output"
 PYDICOM_VERSION = "3.0.2"
 NUMPY_VERSION = "2.5.1"
 PILLOW_VERSION = "12.3.0"
@@ -303,6 +304,7 @@ class ToolError(ValueError):
 
 
 def bounded_int(value: Any, *, name: str, minimum: int, maximum: int) -> int:
+    """Handle bounded int."""
     if isinstance(value, bool):
         raise ToolError(f"{name} must be an integer")
     try:
@@ -321,6 +323,7 @@ def parse_size(
     minimum: int = 1,
     maximum: int = HARD_MAX_INPUT_BYTES,
 ) -> int:
+    """Parse size."""
     if isinstance(value, int):
         result = value
     elif isinstance(value, str):
@@ -338,6 +341,7 @@ def parse_size(
 def require_text(
     value: Any, *, name: str, minimum: int = 1, maximum: int = 1_000
 ) -> str:
+    """Handle require text."""
     if not isinstance(value, str) or not minimum <= len(value) <= maximum:
         raise ToolError(f"{name} must be a string of length {minimum}..{maximum}")
     if any(ord(character) < 32 for character in value):
@@ -346,6 +350,7 @@ def require_text(
 
 
 def safe_plugin_name(value: str) -> str:
+    """Handle safe plugin name."""
     if not _SAFE_PLUGIN.fullmatch(value):
         raise ToolError("decoding plugin name is invalid")
     return value
@@ -401,6 +406,7 @@ def checked_root(value: str | os.PathLike[str]) -> Path:
 
 
 def _within_root(path: Path, root: Path) -> None:
+    """Handle within root."""
     try:
         path.relative_to(root)
     except ValueError as exc:
@@ -469,7 +475,7 @@ def checked_output(
         if destination.is_symlink() or not destination.is_file():
             raise ToolError("existing output is not a regular file")
         if not force:
-            raise ToolError("refusing to overwrite existing output")
+            raise ToolError(_OVERWRITE_REFUSED)
     return destination
 
 
@@ -575,6 +581,7 @@ def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def load_json(path: Path, *, max_bytes: int = MAX_JSON_BYTES) -> Any:
+    """Load json."""
     if path.stat().st_size > max_bytes:
         raise ToolError("JSON input exceeds the configured byte limit")
     try:
@@ -591,6 +598,7 @@ def load_json(path: Path, *, max_bytes: int = MAX_JSON_BYTES) -> Any:
 
 
 def json_bytes(document: Any) -> bytes:
+    """Handle json bytes."""
     try:
         payload = (
             json.dumps(
@@ -612,6 +620,28 @@ def json_bytes(document: Any) -> bytes:
 def emit_json(document: Any) -> None:
     """Handle emit json."""
     sys.stdout.buffer.write(json_bytes(document))
+
+
+def write_or_emit_report(report: dict[str, Any], args: Any, tool: str) -> None:
+    """Write the report to ``args.output`` (emitting a short ack) or emit it to stdout."""
+    if not args.output:
+        emit_json(report)
+        return
+    destination = checked_output(args.output, root=args.root, force=args.force)
+    source = checked_input(
+        args.input,
+        root=args.root,
+        kind="any",
+        max_bytes=parse_size(
+            args.max_input_bytes,
+            name="max_input_bytes",
+            maximum=HARD_MAX_INPUT_BYTES,
+        ),
+    )
+    if source.is_file() and paths_overlap(source, destination):
+        raise ToolError("report must not overwrite its input")
+    atomic_write(destination, json_bytes(report), force=args.force)
+    emit_json({"ok": report["ok"], "report_written": True, "tool": tool})
 
 
 def fail_json(tool: str, exc: Exception) -> int:
@@ -639,6 +669,7 @@ def atomic_write(
     force: bool = False,
     max_bytes: int = MAX_REPORT_BYTES,
 ) -> None:
+    """Handle atomic write."""
     if len(payload) > max_bytes:
         raise ToolError("generated output exceeds the configured byte limit")
     descriptor, temporary_name = tempfile.mkstemp(
@@ -652,7 +683,7 @@ def atomic_write(
             os.fsync(handle.fileno())
         os.chmod(temporary, 0o600)
         if destination.exists() and not force:
-            raise ToolError("refusing to overwrite existing output")
+            raise ToolError(_OVERWRITE_REFUSED)
         os.replace(temporary, destination)
     finally:
         temporary.unlink(missing_ok=True)
@@ -685,7 +716,7 @@ def atomic_generated_file(
         with temporary.open("rb") as handle:
             os.fsync(handle.fileno())
         if destination.exists() and not force:
-            raise ToolError("refusing to overwrite existing output")
+            raise ToolError(_OVERWRITE_REFUSED)
         os.replace(temporary, destination)
     except ToolError:
         raise
@@ -696,6 +727,7 @@ def atomic_generated_file(
 
 
 def require_pydicom() -> Any:
+    """Handle require pydicom."""
     try:
         import pydicom
     except ImportError as exc:
@@ -753,6 +785,7 @@ def element_tag(element: Any) -> str:
 
 
 def valid_uid(value: Any) -> bool:
+    """Handle valid uid."""
     if not isinstance(value, str) or not 1 <= len(value) <= 64:
         return False
     if not _UID_PATTERN.fullmatch(value):
@@ -764,6 +797,7 @@ def valid_uid(value: Any) -> bool:
 
 
 def derive_uid(original: str, *, key: bytes, scope: str) -> str:
+    """Handle derive uid."""
     if not valid_uid(original):
         raise ToolError("an instance UID selected for remapping is invalid")
     digest = hmac.new(
@@ -850,29 +884,23 @@ def pixel_plan(
         pixel_element = "PixelData"
     pixels_per_frame = rows * columns * samples
     packed_bytes_per_frame = (pixels_per_frame * bits_allocated + 7) // 8
-    decoded_item_bytes = (
-        1
-        if bits_allocated <= 8
-        else 2
-        if bits_allocated <= 16
-        else 4
-        if bits_allocated <= 32
-        else 8
-    )
+    if bits_allocated <= 8:
+        decoded_item_bytes = 1
+    elif bits_allocated <= 16:
+        decoded_item_bytes = 2
+    elif bits_allocated <= 32:
+        decoded_item_bytes = 4
+    else:
+        decoded_item_bytes = 8
     bytes_per_frame = pixels_per_frame * decoded_item_bytes
     total_bytes = bytes_per_frame * frames
     if total_bytes > max_decompressed_bytes:
         raise ToolError(
             "estimated decompressed pixel data exceeds the configured limit"
         )
+    shape = [rows, columns] if samples == 1 else [rows, columns, samples]
     if frames > 1:
-        shape = (
-            [frames, rows, columns]
-            if samples == 1
-            else [frames, rows, columns, samples]
-        )
-    else:
-        shape = [rows, columns] if samples == 1 else [rows, columns, samples]
+        shape = [frames, *shape]
     return {
         "bits_allocated": bits_allocated,
         "bytes_per_frame": bytes_per_frame,
@@ -894,6 +922,7 @@ def counter_dict(counter: Counter[str]) -> dict[str, int]:
 
 
 def validate_profile(document: Any) -> dict[str, Any]:
+    """Validate profile."""
     if not isinstance(document, Mapping):
         raise ToolError("action profile must be a JSON object")
     allowed = {"name", "version", "actions", "private_policy", "date_policy"}

@@ -15,6 +15,7 @@ def fixed_range(low, high):
 
 
 class FluxSpace:
+    """Flux space."""
     def __init__(self, network, fixed=None):
         """Initialise the instance."""
         self.network = network
@@ -74,6 +75,7 @@ class FluxSpace:
         return self.network.feasible(flux) and np.max(np.abs(self.a @ flux - self.b)) < 1e-8 * scale
 
     def starting_points(self, count, rng, warm=None):
+        """Handle starting points."""
         if not self.dimension:
             return [self.base]
         vertices = [self.base]
@@ -127,7 +129,8 @@ def fit(observations, starts=8, seed=2026, maxiter=1000, fixed=None, warm=None):
         try:
             scale = max(1., rss(initial))
 
-            def objective(z):
+            def objective(z, scale=scale):
+                """Handle objective."""
                 try:
                     return rss(space.flux(z)) / scale
                 except numerical_errors:

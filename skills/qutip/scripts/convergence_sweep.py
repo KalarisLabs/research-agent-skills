@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import math
 from typing import Any
 
 from _common import (
@@ -227,7 +228,9 @@ def run_sweep(
                 trajectories=count,
                 rtol=rtol,
             )
-            if config.decay_rate == 0.0 and config.dephasing_rate == 0.0:
+            if math.isclose(config.decay_rate, 0.0, rel_tol=0.0, abs_tol=0.0) and math.isclose(
+                config.dephasing_rate, 0.0, rel_tol=0.0, abs_tol=0.0
+            ):
                 raise CliError(
                     "monte-carlo mode requires a nonzero decay or dephasing rate"
                 )

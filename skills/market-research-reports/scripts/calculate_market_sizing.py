@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import math
 from pathlib import Path
 from typing import Any
 
@@ -308,7 +309,7 @@ def calculate(payload: dict[str, Any]) -> dict[str, Any]:
     midpoint = (top_down_tam + bottom_up_tam) / 2.0
     reconciliation_percent = (
         0.0
-        if midpoint == 0.0
+        if math.isclose(midpoint, 0.0, rel_tol=0.0, abs_tol=0.0)
         else abs(top_down_tam - bottom_up_tam) / midpoint * 100.0
     )
     warnings: list[str] = []

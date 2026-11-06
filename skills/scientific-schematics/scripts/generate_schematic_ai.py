@@ -40,6 +40,9 @@ except ImportError:
     sys.exit(1)
 
 
+DATA_IMAGE_PREFIX = "data:image"
+
+
 class ReviewResult(NamedTuple):
     """The outcome of one quality review.
 
@@ -347,7 +350,7 @@ IMPORTANT - NO FIGURE NUMBERS:
                         if isinstance(url, dict):
                             url = url.get("url", "")
                         
-                        if url and url.startswith("data:image"):
+                        if url and url.startswith(DATA_IMAGE_PREFIX):
                             # Extract base64 data after comma
                             if "," in url:
                                 base64_str = url.split(",", 1)[1]
@@ -363,7 +366,7 @@ IMPORTANT - NO FIGURE NUMBERS:
                 self._log(f"Content type: {type(content)}, length: {len(str(content))}")
             
             # Handle string content
-            if isinstance(content, str) and "data:image" in content:
+            if isinstance(content, str) and DATA_IMAGE_PREFIX in content:
                 match = re.search(r'data:image/[^;]+;base64,([A-Za-z0-9+/=\n\r]+)', content, re.DOTALL)
                 if match:
                     base64_str = match.group(1).replace('\n', '').replace('\r', '').replace(' ', '')
@@ -377,7 +380,7 @@ IMPORTANT - NO FIGURE NUMBERS:
                         url = block.get("image_url", {})
                         if isinstance(url, dict):
                             url = url.get("url", "")
-                        if url and url.startswith("data:image") and "," in url:
+                        if url and url.startswith(DATA_IMAGE_PREFIX) and "," in url:
                             base64_str = url.split(",", 1)[1].replace('\n', '').replace('\r', '').replace(' ', '')
                             self._log(f"Found image in content block {i}")
                             return base64.b64decode(base64_str)

@@ -12,7 +12,9 @@ from pathlib import Path
 from typing import Any, Iterable, Optional
 
 
-NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+NAME_RE = re.compile(r"^[A-Za-z_]\w*$", re.ASCII)
+VERSION_PATH = "$.version"
+RUNSPEC_PATH = "$.runSpec"
 APP_NAME_RE = re.compile(r"^[A-Za-z0-9._-]+$")
 VERSION_RE = re.compile(
     r"^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)"
@@ -75,6 +77,7 @@ class Issue:
 
 
 class Validator:
+    """Validator."""
     def __init__(self, manifest: Any, kind: str) -> None:
         """Initialise the instance."""
         self.manifest = manifest
@@ -100,6 +103,7 @@ class Validator:
         self.add("warning", code, path, message)
 
     def validate(self) -> tuple[str, list[Issue]]:
+        """Validate."""
         if not isinstance(self.manifest, dict):
             self.error(
                 "root-type",
@@ -119,6 +123,7 @@ class Validator:
         return kind, self.issues
 
     def determine_kind(self) -> str:
+        """Handle determine kind."""
         if self.requested_kind != "auto":
             return self.requested_kind
         if "version" in self.manifest:
@@ -142,19 +147,19 @@ class Validator:
             if not isinstance(version, str):
                 self.error(
                     "missing-version",
-                    "$.version",
+                    VERSION_PATH,
                     "a version string is required for apps",
                 )
             elif not VERSION_RE.fullmatch(version):
                 self.error(
                     "invalid-version",
-                    "$.version",
+                    VERSION_PATH,
                     "app version must follow semantic version syntax",
                 )
         elif version is not None and not isinstance(version, str):
             self.error(
                 "invalid-version",
-                "$.version",
+                VERSION_PATH,
                 "version must be a string when supplied",
             )
 
@@ -167,6 +172,7 @@ class Validator:
             )
 
     def validate_specs(self, kind: str) -> None:
+        """Validate specs."""
         for spec_name in ("inputSpec", "outputSpec"):
             value = self.manifest.get(spec_name)
             if value is None:
@@ -258,7 +264,7 @@ class Validator:
         if not isinstance(run_spec, dict):
             self.error(
                 "missing-runspec",
-                "$.runSpec",
+                RUNSPEC_PATH,
                 "runSpec is required and must be a JSON object",
             )
             return
@@ -268,13 +274,13 @@ class Validator:
         if not has_file and not has_code:
             self.error(
                 "missing-entry-source",
-                "$.runSpec",
+                RUNSPEC_PATH,
                 "runSpec requires a non-empty file or code field",
             )
         elif has_file and has_code:
             self.warning(
                 "multiple-entry-sources",
-                "$.runSpec",
+                RUNSPEC_PATH,
                 "both file and code are supplied; keep one authoritative entry source",
             )
 
@@ -342,6 +348,7 @@ class Validator:
         self.validate_timeout_policy(run_spec.get("timeoutPolicy"))
 
     def validate_exec_depends(self, dependencies: Any) -> None:
+        """Validate exec depends."""
         if dependencies is None:
             return
         if not isinstance(dependencies, list):
@@ -376,6 +383,7 @@ class Validator:
                 )
 
     def validate_execution_policy(self, policy: Any) -> None:
+        """Validate execution policy."""
         if policy is None:
             return
         if not isinstance(policy, dict):
@@ -425,6 +433,7 @@ class Validator:
                 )
 
     def validate_timeout_policy(self, policy: Any) -> None:
+        """Validate timeout policy."""
         if policy is None:
             return
         if not isinstance(policy, dict):
@@ -514,6 +523,7 @@ class Validator:
         requirements: Any,
         path: str,
     ) -> None:
+        """Validate system requirements."""
         if not isinstance(requirements, dict) or not requirements:
             self.error(
                 "system-requirements-type",
@@ -556,6 +566,7 @@ class Validator:
                 )
 
     def validate_instance_selector(self, selector: Any, path: str) -> None:
+        """Validate instance selector."""
         if not isinstance(selector, dict):
             self.error(
                 "instance-selector-type",
@@ -669,6 +680,7 @@ class Validator:
         value: Any,
         path: str = "$",
     ) -> None:
+        """Handle scan for embedded secrets."""
         if isinstance(value, dict):
             for key, child in value.items():
                 child_path = f"{path}.{key}"
@@ -686,6 +698,7 @@ class Validator:
 
     @staticmethod
     def looks_embedded(value: Any) -> bool:
+        """Handle looks embedded."""
         if value is None or isinstance(value, bool):
             return False
         if isinstance(value, str):
@@ -720,6 +733,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def load_manifest(path: Path) -> Any:
+    """Load manifest."""
     with path.open("r", encoding="utf-8") as handle:
         return json.load(handle)
 

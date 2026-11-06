@@ -253,6 +253,7 @@ class Dose:
     route: str = "iv"
 
     def __post_init__(self) -> None:
+        """Validate and normalise fields after initialisation."""
         if self.route not in {"iv", "oral"}:
             raise ValueError(f"route must be 'iv' or 'oral', got {self.route!r}")
         if self.amount < 0:
@@ -346,6 +347,7 @@ def steady_state_metrics(d: Disposition, dose: float, interval: float, f: float 
 
 
 def _require_scipy(what: str) -> None:
+    """Handle require scipy."""
     if solve_ivp is None:  # pragma: no cover
         raise RuntimeError(f"{what} needs scipy; install scipy to use this model")
 
@@ -385,7 +387,7 @@ def _integrate_with_doses(
     state = np.array(y0, dtype=float)
     for index, start in enumerate(breakpoints):
         for event in events:
-            if math.isclose(event.time, start, rel_tol=0, abs_tol=1e-12) and event.duration == 0:
+            if math.isclose(event.time, start, rel_tol=0, abs_tol=1e-12) and math.isclose(event.duration, 0.0, rel_tol=0.0, abs_tol=0.0):
                 state[dose_compartment] += event.amount
         stop = breakpoints[index + 1] if index + 1 < len(breakpoints) else float(np.max(times))
         window = (times >= start - 1e-12) & (times <= stop + 1e-12)
@@ -559,7 +561,7 @@ def simulate_tmdd(
 def emax(conc: np.ndarray, e0: float, emax_value: float, ec50: float, hill: float = 1.0) -> np.ndarray:
     """Sigmoid Emax. ``hill = 1`` is the ordinary Emax model."""
     conc = np.maximum(np.asarray(conc, dtype=float), 0.0)
-    if hill == 1.0:
+    if math.isclose(hill, 1.0, rel_tol=0.0, abs_tol=0.0):
         return e0 + emax_value * conc / (ec50 + conc)
     powered = np.power(conc, hill)
     return e0 + emax_value * powered / (np.power(ec50, hill) + powered)

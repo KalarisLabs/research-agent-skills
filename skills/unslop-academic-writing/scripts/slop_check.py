@@ -110,12 +110,13 @@ class Finding:
 
 
 def read_input(path: str) -> str:
+    """Read input."""
     if path == "-":
         return sys.stdin.read()
     if path.lower().endswith(".docx"):
         with zipfile.ZipFile(path) as z:
             xml = z.read("word/document.xml").decode("utf-8")
-        xml = re.sub(r"</w:p>", "\n", xml)
+        xml = xml.replace("</w:p>", "\n")
         return re.sub(r"<[^>]+>", "", xml)
     with open(path, encoding="utf-8") as fh:
         return fh.read()
@@ -142,7 +143,7 @@ def prose_lines(text: str) -> list[tuple[int, str]]:
             continue
         line = re.sub(r"(?<!\\)%.*", "", line)                              # LaTeX comments
         line = re.sub(r"\$\$.*?\$\$|\$[^$]*\$|\\\(.*?\\\)|\\\[.*?\\\]", " ", line)  # math
-        line = re.sub(r"\\(?:cite[tp]?|citep|citet|ref|eqref|label|autoref|cref|url|href)\*?(?:\[[^\]]*\])*\{[^}]*\}", " ", line)
+        line = re.sub(r"\\(?:cite[tp]?|ref|eqref|label|autoref|cref|url|href)\*?(?:\[[^\]]*\])*\{[^}]*\}", " ", line)
         line = re.sub(r"\\(?:textbf|textit|emph|underline|section|subsection|subsubsection|paragraph|caption)\*?\{([^}]*)\}",
                       r"\1", line)
         line = re.sub(r"\\[a-zA-Z]+\*?(?:\[[^\]]*\])?", " ", line)          # remaining commands
@@ -233,7 +234,14 @@ def analyse(text: str) -> dict:
                                 "Lists of three are overused. Keep only the items that matter."))
     weighted = sum(f.weight for f in findings)
     index = round(weighted / n_words * 1000 + penalty, 1)
-    band = "clean" if index < 5 else "some slop" if index < 15 else "heavy slop" if index < 30 else "severe slop"
+    if index < 5:
+        band = "clean"
+    elif index < 15:
+        band = "some slop"
+    elif index < 30:
+        band = "heavy slop"
+    else:
+        band = "severe slop"
     by_cat: dict[str, int] = {}
     for f in findings:
         by_cat[f.category] = by_cat.get(f.category, 0) + 1

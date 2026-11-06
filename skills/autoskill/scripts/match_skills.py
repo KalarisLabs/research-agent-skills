@@ -5,6 +5,7 @@ from pathlib import Path
 
 
 def _parse_frontmatter(content: str) -> dict:
+    """Parse frontmatter."""
     if not content.startswith("---"):
         return {}
     _, _, rest = content.partition("---\n")

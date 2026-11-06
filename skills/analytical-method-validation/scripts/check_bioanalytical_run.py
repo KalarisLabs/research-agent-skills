@@ -189,6 +189,7 @@ def check_isr(path: str, crit: dict) -> tuple[list[dict], list[str]]:
 
 
 def check_total_error(path: str, crit: dict) -> tuple[list[dict], list[str]]:
+    """Check total error."""
     if crit["total_error_pct"] is None:
         raise InputError(
             "ICH M10 states a total-error criterion for ligand binding assays only; "

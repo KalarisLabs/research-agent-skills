@@ -87,6 +87,7 @@ def _candidate_summary(transformer: Any) -> dict[str, Any]:
 
 
 def plan(args: argparse.Namespace) -> dict[str, Any]:
+    """Handle plan."""
     try:
         from pyproj import CRS
         from pyproj.aoi import AreaOfInterest

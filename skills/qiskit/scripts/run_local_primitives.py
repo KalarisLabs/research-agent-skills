@@ -32,6 +32,7 @@ def finite_float(value: str) -> float:
 
 
 def qiskit_version() -> str:
+    """Handle qiskit version."""
     try:
         return version("qiskit")
     except PackageNotFoundError:

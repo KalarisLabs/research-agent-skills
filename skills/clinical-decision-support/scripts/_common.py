@@ -158,6 +158,7 @@ def write_text(raw_path: str, text: str, suffixes: Iterable[str]) -> None:
 def require_nonempty_text(
     value: Any, field_name: str, *, max_length: int = MAX_TEXT_LENGTH
 ) -> str:
+    """Handle require nonempty text."""
     if not isinstance(value, str) or not value.strip():
         raise InputError(f"{field_name} must be non-empty text")
     text = value.strip()
@@ -167,6 +168,7 @@ def require_nonempty_text(
 
 
 def require_list(value: Any, field_name: str, *, maximum: int) -> list[Any]:
+    """Handle require list."""
     if not isinstance(value, list):
         raise InputError(f"{field_name} must be a list")
     if len(value) > maximum:
@@ -175,6 +177,7 @@ def require_list(value: Any, field_name: str, *, maximum: int) -> list[Any]:
 
 
 def finite_number(value: Any, field_name: str) -> float:
+    """Handle finite number."""
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise InputError(f"{field_name} must be numeric")
     result = float(value)
@@ -184,6 +187,7 @@ def finite_number(value: Any, field_name: str) -> float:
 
 
 def nonnegative_int(value: Any, field_name: str) -> int:
+    """Handle nonnegative int."""
     if isinstance(value, bool) or not isinstance(value, int) or value < 0:
         raise InputError(f"{field_name} must be a non-negative integer")
     return value

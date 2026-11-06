@@ -43,6 +43,7 @@ SHA256_PATTERN = re.compile(r"^[0-9a-fA-F]{64}$")
 
 
 def _load_card(path: str | None, root: str) -> dict[str, Any]:
+    """Load card."""
     if path is None:
         return {}
     if Path(path).suffix.lower() in MODEL_SUFFIXES:

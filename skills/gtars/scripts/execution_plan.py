@@ -114,6 +114,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _require(value: str | None, option: str) -> str:
+    """Handle require."""
     if value is None:
         raise SafetyError(f"{option} is required for this operation")
     return value

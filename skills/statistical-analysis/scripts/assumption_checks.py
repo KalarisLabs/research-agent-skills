@@ -20,6 +20,8 @@ from scipy import stats
 import matplotlib.pyplot as plt
 from typing import Dict, List, Tuple, Optional, Union
 
+FITTED_VALUES_LABEL = 'Fitted values'
+
 
 def check_normality(
     data: Union[np.ndarray, pd.Series, List],
@@ -287,7 +289,7 @@ def check_linearity(
     # Residuals vs fitted
     ax2.scatter(y_pred, residuals, alpha=0.6, s=50, edgecolors='black', linewidths=0.5)
     ax2.axhline(y=0, color='r', linestyle='--', linewidth=2)
-    ax2.set_xlabel('Fitted values')
+    ax2.set_xlabel(FITTED_VALUES_LABEL)
     ax2.set_ylabel('Residuals')
     ax2.set_title('Residuals vs Fitted Values')
     ax2.grid(alpha=0.3)
@@ -359,7 +361,7 @@ def detect_outliers(
     else:
         raise ValueError("method must be 'iqr' or 'zscore'")
 
-    outlier_indices = np.where(outlier_mask)[0]
+    outlier_indices = np.nonzero(outlier_mask)[0]
     outlier_values = data_clean[outlier_mask]
     n_outliers = len(outlier_indices)
     pct_outliers = (n_outliers / len(data_clean)) * 100
@@ -472,7 +474,7 @@ def check_regression_diagnostics(
 
         axes[0, 0].scatter(fitted, residuals, alpha=0.6, edgecolors='black', linewidths=0.5)
         axes[0, 0].axhline(y=0, color='r', linestyle='--')
-        axes[0, 0].set_xlabel('Fitted values')
+        axes[0, 0].set_xlabel(FITTED_VALUES_LABEL)
         axes[0, 0].set_ylabel('Residuals')
         axes[0, 0].set_title('Residuals vs Fitted')
         axes[0, 0].grid(alpha=0.3)
@@ -484,7 +486,7 @@ def check_regression_diagnostics(
         std_resid = residuals / residuals.std()
         axes[1, 0].scatter(fitted, np.sqrt(np.abs(std_resid)), alpha=0.6,
                            edgecolors='black', linewidths=0.5)
-        axes[1, 0].set_xlabel('Fitted values')
+        axes[1, 0].set_xlabel(FITTED_VALUES_LABEL)
         axes[1, 0].set_ylabel('√|Standardized residuals|')
         axes[1, 0].set_title('Scale-Location')
         axes[1, 0].grid(alpha=0.3)
@@ -636,11 +638,11 @@ def comprehensive_assumption_check(
 
 if __name__ == "__main__":
     # Example usage
-    np.random.seed(42)
+    rng = np.random.default_rng(42)
 
     # Simulate data
-    group_a = np.random.normal(75, 8, 50)
-    group_b = np.random.normal(68, 10, 50)
+    group_a = rng.normal(75, 8, 50)
+    group_b = rng.normal(68, 10, 50)
 
     df = pd.DataFrame({
         'score': np.concatenate([group_a, group_b]),

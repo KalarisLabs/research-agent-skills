@@ -15,6 +15,7 @@ from typing import Any, Optional
 
 
 DOCUMENTED_BASELINE = "0.410.0"
+EXCEPTIONS_MODULE = "dxpy.exceptions"
 
 SYMBOL_GROUPS: dict[str, list[tuple[str, str]]] = {
     "files": [
@@ -49,12 +50,12 @@ SYMBOL_GROUPS: dict[str, list[tuple[str, str]]] = {
         ("dxpy", "DXProject"),
     ],
     "exceptions": [
-        ("dxpy.exceptions", "DXError"),
-        ("dxpy.exceptions", "DXAPIError"),
-        ("dxpy.exceptions", "DXJobFailureError"),
-        ("dxpy.exceptions", "DXSearchError"),
-        ("dxpy.exceptions", "DXFileError"),
-        ("dxpy.exceptions", "DXChecksumMismatchError"),
+        (EXCEPTIONS_MODULE, "DXError"),
+        (EXCEPTIONS_MODULE, "DXAPIError"),
+        (EXCEPTIONS_MODULE, "DXJobFailureError"),
+        (EXCEPTIONS_MODULE, "DXSearchError"),
+        (EXCEPTIONS_MODULE, "DXFileError"),
+        (EXCEPTIONS_MODULE, "DXChecksumMismatchError"),
     ],
 }
 
@@ -136,6 +137,7 @@ REQUIRED_SYMBOLS = {
 
 
 def safe_signature(obj: Any) -> Optional[str]:
+    """Handle safe signature."""
     try:
         return str(inspect.signature(obj))
     except (TypeError, ValueError):
@@ -175,6 +177,7 @@ def inspect_methods(
     class_name: str,
     method_names: list[str],
 ) -> dict[str, Any]:
+    """Handle inspect methods."""
     try:
         cls = getattr(importlib.import_module(module_name), class_name)
     except Exception as error:
@@ -199,6 +202,7 @@ def numeric_version(value: str) -> tuple[int, ...]:
 
 
 def build_report() -> dict[str, Any]:
+    """Build report."""
     try:
         dxpy_version = version("dxpy")
     except PackageNotFoundError:

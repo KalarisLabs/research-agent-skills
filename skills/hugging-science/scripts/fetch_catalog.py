@@ -47,6 +47,8 @@ import urllib.request
 from dataclasses import dataclass, asdict, field
 from typing import Iterable
 
+FILTER_HELP = "restrict to one section"
+
 BASE = "https://huggingscience.co"
 
 KNOWN_TOPICS = [
@@ -83,6 +85,7 @@ class Entry:
     description: str = ""
 
     def matches_filter(self, kind: str | None, tag: str | None) -> bool:
+        """Handle matches filter."""
         if kind:
             section_aliases = {
                 "datasets": {"datasets", "dataset"},
@@ -123,6 +126,7 @@ def parse_markdown(md: str) -> list[Entry]:
     desc_lines: list[str] = []
 
     def finalize(e: Entry | None, desc: list[str]) -> None:
+        """Handle finalize."""
         if e is None:
             return
         e.description = " ".join(line.strip() for line in desc if line.strip()).strip()
@@ -343,21 +347,21 @@ def main() -> None:
 
     sp = sub.add_parser("topic", help="fetch a single topic file")
     sp.add_argument("slug", help="topic slug, e.g. biology, materials-science")
-    sp.add_argument("--filter", choices=["datasets", "models", "blogs"], help="restrict to one section")
+    sp.add_argument("--filter", choices=["datasets", "models", "blogs"], help=FILTER_HELP)
     sp.add_argument("--tag", help="restrict to entries with a tag substring (case-insensitive)")
     sp.add_argument("--format", choices=["markdown", "json"], default="markdown")
     sp.set_defaults(func=cmd_topic)
 
     sp = sub.add_parser("all", help="fetch the full llms-full.txt")
     sp.add_argument("--raw", action="store_true", help="print the raw file untouched")
-    sp.add_argument("--filter", choices=["datasets", "models", "blogs"], help="restrict to one section")
+    sp.add_argument("--filter", choices=["datasets", "models", "blogs"], help=FILTER_HELP)
     sp.add_argument("--tag", help="restrict to entries with a tag substring")
     sp.add_argument("--format", choices=["markdown", "json"], default="markdown")
     sp.set_defaults(func=cmd_all)
 
     sp = sub.add_parser("search", help="substring search across the full catalog")
     sp.add_argument("query")
-    sp.add_argument("--filter", choices=["datasets", "models", "blogs"], help="restrict to one section")
+    sp.add_argument("--filter", choices=["datasets", "models", "blogs"], help=FILTER_HELP)
     sp.add_argument("--tag", help="restrict to entries with a tag substring")
     sp.add_argument("--format", choices=["markdown", "json"], default="markdown")
     sp.set_defaults(func=cmd_search)

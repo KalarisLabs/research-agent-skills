@@ -220,6 +220,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def validate_args(args: argparse.Namespace) -> None:
+    """Validate args."""
     for path, label in ((args.queries, "query"), (args.references, "reference")):
         if not path.is_file():
             raise ValueError(f"{label} file does not exist: {path}")
@@ -266,6 +267,7 @@ def validate_args(args: argparse.Namespace) -> None:
 
 
 def installed_matchms_version() -> str:
+    """Handle installed matchms version."""
     try:
         return version("matchms")
     except PackageNotFoundError:
@@ -403,6 +405,7 @@ def numeric_field(value: Any, name: str) -> float:
 
 
 def matched_peaks(value: Any, name: str | None) -> int | None:
+    """Handle matched peaks."""
     if name is None:
         return None
     dtype = getattr(value, "dtype", None)

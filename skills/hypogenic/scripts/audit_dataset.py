@@ -112,6 +112,7 @@ def _data_root_from_manifest(
 
 
 def _field_names(row: Mapping[str, Any], *, context: str) -> tuple[str, ...]:
+    """Handle field names."""
     if not row or len(row) > 128:
         raise CliError(f"{context} must contain 1 to 128 fields")
     fields: list[str] = []

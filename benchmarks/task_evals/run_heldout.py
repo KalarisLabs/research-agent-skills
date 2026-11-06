@@ -125,6 +125,11 @@ def parse_verdict(text: str) -> dict | None:
     return v if isinstance(v, dict) and v.get("winner") in {"A", "B", "tie"} else None
 
 
+def _mean_or_none(xs: list) -> float | None:
+    """Mean of `xs` when every item is numeric, otherwise None."""
+    return sum(xs) / len(xs) if all(isinstance(x, (int, float)) for x in xs) else None
+
+
 def judge_pair(cache: Cache, judge: str, task: dict, skill_ans: str, base_ans: str, workdir: str) -> dict:
     """Judge in both orders. Returns winner (skill/baseline/tie/error) and mean scores."""
     orders = []
@@ -139,13 +144,13 @@ def judge_pair(cache: Cache, judge: str, task: dict, skill_ans: str, base_ans: s
         s, bsc = (v["score_A"], v["score_B"]) if skill_first else (v["score_B"], v["score_A"])
         orders.append((win, s, bsc, v.get("reason", "")))
     winner = orders[0][0] if orders[0][0] == orders[1][0] else "tie"
-    mean = lambda xs: sum(xs) / len(xs) if all(isinstance(x, (int, float)) for x in xs) else None  # noqa: E731
-    return {"winner": winner, "skill_score": mean([o[1] for o in orders]),
-            "baseline_score": mean([o[2] for o in orders]), "order_agree": orders[0][0] == orders[1][0],
+    return {"winner": winner, "skill_score": _mean_or_none([o[1] for o in orders]),
+            "baseline_score": _mean_or_none([o[2] for o in orders]), "order_agree": orders[0][0] == orders[1][0],
             "reason": orders[0][3]}
 
 
 def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float]:
+    """Handle wilson."""
     if not n:
         return (float("nan"), float("nan"))
     p = k / n
@@ -184,8 +189,8 @@ def summarize(rows: list[dict]) -> dict:
     }
 
 
-def main() -> int:
-    """Run the held-out suite for each answer model and write per-model, per-skill and per-task results."""
+def _parse_args() -> argparse.Namespace:
+    """Parse the command line for the held-out suite."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--answer-models", nargs="+", required=True)
     ap.add_argument("--judge", required=True, help="primary judge model")
@@ -197,64 +202,73 @@ def main() -> int:
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--cache", type=Path, default=ROOT / ".cache" / "task-evals-heldout.jsonl")
     ap.add_argument("--json", type=Path)
-    args = ap.parse_args()
+    return ap.parse_args()
 
-    data = json.loads(TASKS.read_text(encoding="utf-8"))
-    tasks = [t for t in data["tasks"] if not args.skills or t["skill"] in args.skills][: args.limit]
-    random.Random(args.seed).shuffle(tasks)  # spread skills across workers  # noqa: S311
-    cache = Cache(args.cache)
-    workdir = tempfile.mkdtemp(prefix="heldout-")
 
-    def judges_for(model: str) -> list[tuple[str, str]]:
-        """Handle judges for."""
-        primary = args.alt_judge if model == args.judge else args.judge
-        if not primary or primary == model:
-            sys.exit(f"no judge distinct from answer model {model}; pass --alt-judge")
-        js = [("primary", primary)]
-        if args.alt_judge and model == args.answer_models[0] and args.alt_judge not in (primary, model):
-            js.append(("agreement", args.alt_judge))
-        return js
+def _judges_for(args: argparse.Namespace, model: str) -> list[tuple[str, str]]:
+    """Return the (role, judge model) pairs used to grade answers from `model`."""
+    primary = args.alt_judge if model == args.judge else args.judge
+    if not primary or primary == model:
+        sys.exit(f"no judge distinct from answer model {model}; pass --alt-judge")
+    js = [("primary", primary)]
+    if args.alt_judge and model == args.answer_models[0] and args.alt_judge not in (primary, model):
+        js.append(("agreement", args.alt_judge))
+    return js
 
-    def one(model: str, t: dict) -> dict:
-        """Handle one."""
-        skill_md = ROOT / "skills" / t["skill"] / "SKILL.md"
-        base = call(cache, model, t["prompt"], None, workdir)
-        with_skill = call(cache, model, t["prompt"], skill_md, workdir)
-        if base["error"] or with_skill["error"]:
-            return {"model": model, "skill": t["skill"], "id": t["id"], "winner": "error", "skill_score": None,
-                    "baseline_score": None, "checks_total": 0, "checks_pass_skill": 0, "checks_pass_baseline": 0}
-        cs, cb = run_checks(with_skill["text"], t["checks"]), run_checks(base["text"], t["checks"])
-        row = {"model": model, "skill": t["skill"], "id": t["id"],
-               "checks_total": int(bool(t["checks"])), "checks_skill": cs, "checks_baseline": cb,
-               "checks_pass_skill": int(bool(cs) and all(cs.values())),
-               "checks_pass_baseline": int(bool(cb) and all(cb.values())),
-               "answer_cost_usd": base["cost"] + with_skill["cost"]}
-        for role, jm in judges_for(model):
-            v = judge_pair(cache, jm, t, with_skill["text"], base["text"], workdir)
-            if role == "primary":
-                row.update(v, judge=jm)
-            else:
-                row["agreement_judge"], row["agreement_winner"] = jm, v["winner"]
-        return row
 
+def _run_one(args: argparse.Namespace, cache: Cache, workdir: str, model: str, t: dict) -> dict:
+    """Generate baseline and skill answers for one task, run checks and judge them."""
+    skill_md = ROOT / "skills" / t["skill"] / "SKILL.md"
+    base = call(cache, model, t["prompt"], None, workdir)
+    with_skill = call(cache, model, t["prompt"], skill_md, workdir)
+    if base["error"] or with_skill["error"]:
+        return {"model": model, "skill": t["skill"], "id": t["id"], "winner": "error", "skill_score": None,
+                "baseline_score": None, "checks_total": 0, "checks_pass_skill": 0, "checks_pass_baseline": 0}
+    cs, cb = run_checks(with_skill["text"], t["checks"]), run_checks(base["text"], t["checks"])
+    row = {"model": model, "skill": t["skill"], "id": t["id"],
+           "checks_total": int(bool(t["checks"])), "checks_skill": cs, "checks_baseline": cb,
+           "checks_pass_skill": int(bool(cs) and all(cs.values())),
+           "checks_pass_baseline": int(bool(cb) and all(cb.values())),
+           "answer_cost_usd": base["cost"] + with_skill["cost"]}
+    for role, jm in _judges_for(args, model):
+        v = judge_pair(cache, jm, t, with_skill["text"], base["text"], workdir)
+        if role == "primary":
+            row.update(v, judge=jm)
+        else:
+            row["agreement_judge"], row["agreement_winner"] = jm, v["winner"]
+    return row
+
+
+def _run_jobs(args: argparse.Namespace, cache: Cache, workdir: str, tasks: list[dict]) -> list[dict]:
+    """Run every (model, task) job on a thread pool, printing progress, and return the result rows."""
     rows: list[dict] = []
     jobs = [(m, t) for m in args.answer_models for t in tasks]
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
-        futs = {pool.submit(one, m, t): (m, t["id"]) for m, t in jobs}
+        futs = {pool.submit(_run_one, args, cache, workdir, m, t): (m, t["id"]) for m, t in jobs}
         for i, fut in enumerate(as_completed(futs), 1):
             r = fut.result()
             rows.append(r)
             print(f"[{i}/{len(jobs)}] {r['winner']:<8} {r['model']:<28} {r['id']:<8} "
                   f"checks skill={r['checks_pass_skill']} base={r['checks_pass_baseline']}", flush=True)
+    return rows
 
-    by_model = {m: summarize([r for r in rows if r["model"] == m]) for m in args.answer_models}
+
+def _summarize_by_skill(rows: list[dict], tasks: list[dict], models: list[str]) -> dict[str, dict]:
+    """Summarize results per skill and answer model."""
     by_skill_model: dict[str, dict] = defaultdict(dict)
-    for m in args.answer_models:
+    for m in models:
         for s in sorted({t["skill"] for t in tasks}):
             sub = [r for r in rows if r["model"] == m and r["skill"] == s]
             by_skill_model[s][m] = {k: summarize(sub)[k] for k in ("skill_wins", "baseline_wins", "ties",
                                                                    "mean_score_delta", "checks_pass_skill",
                                                                    "checks_pass_baseline")}
+    return by_skill_model
+
+
+def _build_report(args: argparse.Namespace, data: dict, tasks: list[dict], rows: list[dict],
+                  by_model: dict[str, dict]) -> tuple[dict, dict]:
+    """Assemble the JSON report and the judge-agreement summary."""
+    by_skill_model = _summarize_by_skill(rows, tasks, args.answer_models)
     agree = [r for r in rows if r.get("agreement_winner") not in (None, "error") and r["winner"] != "error"]
     agreement = {"pairs": len(agree), "same_winner": sum(r["winner"] == r["agreement_winner"] for r in agree)}
     order_agree = [r for r in rows if "order_agree" in r]
@@ -267,6 +281,11 @@ def main() -> int:
         "answer_cost_usd": round(sum(r.get("answer_cost_usd", 0) for r in rows), 2),
         "results": sorted(rows, key=lambda r: (r["model"], r["id"])),
     }
+    return report, agreement
+
+
+def _print_summary(by_model: dict[str, dict], agreement: dict) -> None:
+    """Print the per-model summary lines and the judge agreement."""
     for m, s in by_model.items():
         lo, hi = s["win_rate_ci95"]
         print(f"\n{m}: skill {s['skill_wins']} / baseline {s['baseline_wins']} / tie {s['ties']} "
@@ -275,6 +294,20 @@ def main() -> int:
               f"{s['checks_pass_baseline']:.2f}; errors {s['errors']}")
     if agreement["pairs"]:
         print(f"judge agreement: {agreement['same_winner']}/{agreement['pairs']}")
+
+
+def main() -> int:
+    """Run the held-out suite for each answer model and write per-model, per-skill and per-task results."""
+    args = _parse_args()
+    data = json.loads(TASKS.read_text(encoding="utf-8"))
+    tasks = [t for t in data["tasks"] if not args.skills or t["skill"] in args.skills][: args.limit]
+    random.Random(args.seed).shuffle(tasks)  # spread skills across workers  # noqa: S311
+    cache = Cache(args.cache)
+    workdir = tempfile.mkdtemp(prefix="heldout-")
+    rows = _run_jobs(args, cache, workdir, tasks)
+    by_model = {m: summarize([r for r in rows if r["model"] == m]) for m in args.answer_models}
+    report, agreement = _build_report(args, data, tasks, rows, by_model)
+    _print_summary(by_model, agreement)
     if args.json:
         args.json.parent.mkdir(parents=True, exist_ok=True)
         args.json.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

@@ -63,6 +63,7 @@ def validate_mapping(
     key: bytes | None = None,
     scope: str | None = None,
 ) -> dict[str, Any]:
+    """Validate mapping."""
     if not isinstance(document, Mapping):
         raise ToolError("mapping document must be a JSON object")
     allowed = {"entries", "schema_version", "scope_sha256", "sensitive", "tool"}

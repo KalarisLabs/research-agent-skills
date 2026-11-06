@@ -36,7 +36,7 @@ EVIDENCE_ID_RE = re.compile(r"^E\d{3,8}$")
 SHA256_RE = re.compile(r"^[a-f0-9]{64}$")
 CLAIM_MARKER_RE = re.compile(r"\[claim:(C\d{3,8})\]")
 EVIDENCE_MARKER_RE = re.compile(
-    r"\[evidence:((?:E\d{3,8})(?:\s*,\s*E\d{3,8})*)\]"
+    r"\[evidence:(E\d{3,8}(?:\s*,\s*E\d{3,8})*)\]"
 )
 CITATION_MARKER_RE = re.compile(r"\[@(E\d{3,8})\]")
 NUMERIC_RE = re.compile(r"(?<![A-Za-z])(?:[<>]=?\s*)?\d+(?:\.\d+)?%?")

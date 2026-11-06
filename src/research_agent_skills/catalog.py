@@ -7,6 +7,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+_SKILLS_JSON = "skills.json"
+
 
 @dataclass
 class SkillEntry:
@@ -40,6 +42,7 @@ class Bundle:
 
 
 class Catalog:
+    """Catalog."""
     def __init__(self, data: dict[str, Any]):
         """Initialise the instance."""
         self.name: str = data.get("name", "research-agent-skills")
@@ -108,6 +111,7 @@ class Catalog:
         bundles: list[str] | None = None,
         all_skills: bool = False,
     ) -> list[SkillEntry]:
+        """Select."""
         if all_skills:
             return list(self.skills)
 
@@ -150,12 +154,12 @@ def load_catalog(custom_path: Path | None = None) -> Catalog:
 
     # 1. Look inside package data directory
     pkg_dir = Path(__file__).resolve().parent
-    paths_to_try.append(pkg_dir / "data" / "skills.json")
-    paths_to_try.append(pkg_dir / "skills.json")
+    paths_to_try.append(pkg_dir / "data" / _SKILLS_JSON)
+    paths_to_try.append(pkg_dir / _SKILLS_JSON)
 
     # 2. Look in repository root if working inside checkout
     root = pkg_dir.parents[1]
-    paths_to_try.append(root / "catalog" / "skills.json")
+    paths_to_try.append(root / "catalog" / _SKILLS_JSON)
 
     for p in paths_to_try:
         if p.is_file():

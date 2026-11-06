@@ -89,6 +89,7 @@ def read_rows(path: Path, rubric: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _summary(differences: list[float], step: float) -> dict[str, Any]:
+    """Handle summary."""
     if not differences:
         return {
             "pair_observations": 0,

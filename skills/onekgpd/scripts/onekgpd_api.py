@@ -33,13 +33,11 @@ for _ras_stream in (_ras_sys.stdout, _ras_sys.stderr):
         _ras_stream.reconfigure(encoding="utf-8", errors="replace")
 
 import argparse
-import json
-import os
-import sys
-import tempfile
 import time
 import warnings
-from typing import Any, NoReturn
+from typing import Any
+
+from _onekgpd_common import _emit, _fail, _split_csv
 
 from dnaerys import (
     AnnotationFilter,
@@ -63,40 +61,8 @@ INCOMPLETE_NOTE = "[!] Result may be incomplete: some data was unreachable."
 
 
 # ---------------------------------------------------------------------------
-# Small generic helpers
+# Retry helper
 # ---------------------------------------------------------------------------
-
-
-def _fail(msg: str) -> NoReturn:
-    """Print a clean one-line message to stderr and exit non-zero."""
-    print(msg, file=sys.stderr)
-    sys.exit(1)
-
-
-def _split_csv(s: str) -> list[str]:
-    """Split a comma-separated value into a list of non-empty trimmed tokens."""
-    return [part.strip() for part in s.split(",") if part.strip()]
-
-
-def _save_json(data: Any, prefix: str, output_path: str | None = None) -> str:
-    """Write *data* as indented JSON to *output_path* or a temp file; return path."""
-    if output_path:
-        path = output_path
-        with open(path, "w") as fh:
-            json.dump(data, fh, indent=2)
-    else:
-        fd, path = tempfile.mkstemp(prefix=f"onekgpd_{prefix}_", suffix=".json", text=True)
-        with os.fdopen(fd, "w") as fh:
-            json.dump(data, fh, indent=2)
-    return path
-
-
-def _emit(data: Any, prefix: str, summary_lines: list[str], output: str | None) -> None:
-    """Save full JSON to a file and print the summary + saved-path line to stdout."""
-    path = _save_json(data, prefix, output)
-    for line in summary_lines:
-        print(line)
-    print(f"[*] Full JSON saved to {path}")
 
 
 def _call_with_retry(fn):
@@ -239,12 +205,14 @@ def _region_one_label(r: Region) -> str:
 
 
 def _region_label(region: Region | None, regions: list[Region] | None) -> str:
+    """Handle region label."""
     if region is not None:
         return _region_one_label(region)
     return ", ".join(_region_one_label(r) for r in regions or [])
 
 
 def _zyg_label(hom: bool, het: bool) -> str:
+    """Handle zyg label."""
     if hom and het:
         return "hom+het"
     if het:
@@ -333,6 +301,7 @@ def _run_count_variants(args, samples: list[str] | None) -> None:
     ann = _build_annotation_filter(args)
 
     def fetch():
+        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             return client.count_variants(
                 region=region,
@@ -373,6 +342,7 @@ def _run_select_variants(args, samples: list[str] | None) -> None:
     limit = args.limit
 
     def fetch():
+        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             if page_size is not None:
                 pq = client.paginate_variants(
@@ -470,6 +440,7 @@ def cmd_count_samples(args) -> None:
     ann = _build_annotation_filter(args)
 
     def fetch():
+        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             return client.count_samples(
                 region=region,
@@ -507,6 +478,7 @@ def cmd_select_samples(args) -> None:
     ann = _build_annotation_filter(args)
 
     def fetch():
+        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             return client.select_samples(
                 region=region,
@@ -551,7 +523,9 @@ def cmd_select_samples(args) -> None:
 
 
 def cmd_count_samples_hom_ref(args) -> None:
+    """Run the count samples hom ref subcommand."""
     def fetch():
+        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             return client.count_samples_hom_ref(chr=args.chrom, position=args.position)
 
@@ -580,7 +554,9 @@ def cmd_count_samples_hom_ref(args) -> None:
 
 
 def cmd_select_samples_hom_ref(args) -> None:
+    """Run the select samples hom ref subcommand."""
     def fetch():
+        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             return client.select_samples_hom_ref(chr=args.chrom, position=args.position)
 
@@ -602,7 +578,9 @@ def cmd_select_samples_hom_ref(args) -> None:
 
 
 def cmd_kinship(args) -> None:
+    """Run the kinship subcommand."""
     def fetch():
+        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             return client.kinship_duo(sample1=args.sample1, sample2=args.sample2)
 
@@ -631,7 +609,9 @@ def cmd_kinship(args) -> None:
 
 
 def cmd_dataset_info(args) -> None:
+    """Run the dataset info subcommand."""
     def fetch():
+        """Fetch."""
         with DnaerysClient(DEFAULT_ENDPOINT) as client:
             return client.dataset_info()
 

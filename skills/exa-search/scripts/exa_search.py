@@ -51,6 +51,7 @@ class SearchResult:
 
 
 def _split_csv(value: str | None) -> list[str] | None:
+    """Split csv."""
     if not value:
         return None
     items = [item.strip() for item in value.split(",") if item.strip()]

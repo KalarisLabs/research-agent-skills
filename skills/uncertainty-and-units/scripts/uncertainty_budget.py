@@ -217,7 +217,7 @@ def collect_warnings(budget: dict[str, Any]) -> list[str]:
         if (
             item["type"] == "B"
             and item["distribution"] == "normal"
-            and item["divisor"] == 1.0
+            and math.isclose(item["divisor"], 1.0, rel_tol=0.0, abs_tol=0.0)
         ):
             warnings.append(
                 f"{item['label']}: a Type B component declared normal is divided by "

@@ -146,6 +146,7 @@ def build(papers: list[dict], enrich: bool, mailto: str | None, max_topics: int)
     refs: dict[str, list[str]] = {}
 
     def node(nid: str, ntype: str, label: str, **attrs) -> str:
+        """Handle node."""
         if nid not in nodes:
             nodes[nid] = {"id": nid, "type": ntype, "label": label, **{k: v for k, v in attrs.items() if v not in (None, "")}}
         return nid
@@ -211,6 +212,7 @@ def write_graphml(graph: dict, path: Path) -> None:
 
 
 def write_csv(graph: dict, out: Path) -> None:
+    """Write csv."""
     with (out / "nodes.csv").open("w", encoding="utf-8", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(["id:ID", "label", ":LABEL", "year", "doi"])

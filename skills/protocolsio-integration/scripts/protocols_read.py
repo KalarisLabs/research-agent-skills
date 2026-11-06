@@ -222,6 +222,7 @@ def _get_items(payload: Mapping[str, Any]) -> list[Any]:
 
 
 def _has_pagination(payload: Mapping[str, Any]) -> bool:
+    """Return whether pagination."""
     if isinstance(payload.get("pagination"), Mapping):
         return True
     nested = payload.get("payload")
@@ -438,6 +439,7 @@ def execute(
     opener: Any | None = None,
     sleep: Any = None,
 ) -> dict[str, Any]:
+    """Handle execute."""
     if sleep is None:
         import time
 

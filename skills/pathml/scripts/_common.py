@@ -95,6 +95,7 @@ def checked_root(value: str | os.PathLike[str]) -> Path:
 
 
 def _within_root(candidate: Path, root: Path) -> None:
+    """Handle within root."""
     try:
         candidate.relative_to(root)
     except ValueError as exc:

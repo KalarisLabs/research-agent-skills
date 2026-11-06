@@ -14,6 +14,7 @@ from _pptx import analyze_layout
 
 
 def _positive_float(value: str) -> float:
+    """Handle positive float."""
     try:
         number = float(value)
     except ValueError as exc:

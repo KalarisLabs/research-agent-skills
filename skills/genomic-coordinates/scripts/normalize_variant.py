@@ -44,6 +44,7 @@ class VariantError(ValueError):
 
 
 def classify(ref: str, alt: str) -> str:
+    """Handle classify."""
     if len(ref) == len(alt) == 1:
         return "snv"
     if len(ref) == len(alt):

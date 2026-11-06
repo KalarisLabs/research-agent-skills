@@ -39,6 +39,8 @@ from _common import (  # noqa: E402
     run_cli,
 )
 
+_MD_TABLE_RULE = "| --- | --- | --- | --- |"
+
 STATUS_TEXT = {
     "required": "conduct",
     "required-QL": "conduct (QL; DL too in some complex cases)",
@@ -219,7 +221,7 @@ def render_protocol(framework: str, attribute: str | None, modality: str | None,
         "## 3. Pre-stated acceptance criteria",
         "",
         "| Characteristic | Criterion | Justification | Source |",
-        "| --- | --- | --- | --- |",
+        _MD_TABLE_RULE,
     ]
     if framework == "ich-m10" and modality:
         for row in plan_m10(modality):
@@ -241,7 +243,7 @@ def render_protocol(framework: str, attribute: str | None, modality: str | None,
         "## 4. Study design",
         "",
         "| Characteristic | Levels | Replicates | Runs / days / analysts / instruments |",
-        "| --- | --- | --- | --- |",
+        _MD_TABLE_RULE,
         "| [ ] | [ ] | [ ] | [ ] |",
         "",
         "- Reference materials and their documented identity/purity: [ ]",
@@ -268,7 +270,7 @@ def render_protocol(framework: str, attribute: str | None, modality: str | None,
         "## 8. Approvals",
         "",
         "| Role | Name | Signature | Date |",
-        "| --- | --- | --- | --- |",
+        _MD_TABLE_RULE,
         "| Author | | | |",
         "| Technical reviewer | | | |",
         "| Quality unit | | | |",

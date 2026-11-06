@@ -67,6 +67,13 @@ def human(n: float) -> str:
 
 
 # ---------------------------------------------------------------- STEP ----
+_COORD = r"[-\d.E+]+"
+_CARTESIAN_POINT_RE = re.compile(
+    r"#(\d+)\s*=\s*CARTESIAN_POINT\s*\(\s*'[^']*'\s*,\s*\(\s*("
+    + _COORD + r"\s*,\s*" + _COORD + r"\s*,\s*" + _COORD + r")\s*\)"
+)
+
+
 def inspect_step(path: str) -> dict:
     """Handle inspect step."""
     info: dict = {}
@@ -98,7 +105,7 @@ def inspect_step(path: str) -> dict:
     # and surface origins are also CARTESIAN_POINTs and can sit outside the
     # solid, so only fall back to "all points" when there are no vertices.
     # Parts bounded purely by curved faces (e.g. a sphere) can read small.
-    allpts = dict(re.findall(r"#(\d+)\s*=\s*CARTESIAN_POINT\s*\(\s*'[^']*'\s*,\s*\(\s*([-\d.E+]+\s*,\s*[-\d.E+]+\s*,\s*[-\d.E+]+)\s*\)", data))
+    allpts = dict(_CARTESIAN_POINT_RE.findall(data))
     vids = re.findall(r"VERTEX_POINT\s*\(\s*'[^']*'\s*,\s*#(\d+)\s*\)", data)
     chosen = [allpts[i] for i in vids if i in allpts] or list(allpts.values())
     pts = [tuple(s.strip() for s in p.split(",")) for p in chosen]
@@ -249,7 +256,12 @@ def main() -> int:
         print(json.dumps(results, indent=2))
     else:
         for r in results:
-            status = "BLOCKED" if r["blocking"] else ("WARN" if r["warnings"] else "OK")
+            if r["blocking"]:
+                status = "BLOCKED"
+            elif r["warnings"]:
+                status = "WARN"
+            else:
+                status = "OK"
             print(f"[{status}] {r['file']}  ({a.process})")
             for k, v in r["info"].items():
                 print(f"    {k}: {v}")

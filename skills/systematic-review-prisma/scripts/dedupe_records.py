@@ -44,7 +44,13 @@ def norm_title(t: str) -> str:
 def surname(authors: str) -> str:
     """Handle surname."""
     first = re.split(r";| and |\|", authors or "")[0].strip()
-    s = first.split(",")[0] if "," in first else (first.split()[-1] if first.split() else "")
+    words = first.split()
+    if "," in first:
+        s = first.split(",")[0]
+    elif words:
+        s = words[-1]
+    else:
+        s = ""
     return norm_title(s)
 
 
@@ -73,6 +79,7 @@ def read_ris(path: Path) -> list[dict]:
 
 
 def read_csv(path: Path) -> list[dict]:
+    """Read csv."""
     with path.open(encoding="utf-8-sig", errors="replace", newline="") as fh:
         rows = list(csv.DictReader(fh))
     out = []

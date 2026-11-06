@@ -46,6 +46,7 @@ def _finite_sequence(
     name: str,
     maximum: int,
 ) -> list[float]:
+    """Handle finite sequence."""
     if not isinstance(value, list) or not 2 <= len(value) <= maximum:
         raise CliError(f"{name} must contain from 2 through {maximum} values")
     result: list[float] = []
@@ -346,7 +347,12 @@ def audit_document(
         for check in checks
         if not check["passed"] and check["severity"] == "warning"
     ]
-    status = "fail" if failed else ("pass_with_warnings" if warnings else "pass")
+    if failed:
+        status = "fail"
+    elif warnings:
+        status = "pass_with_warnings"
+    else:
+        status = "pass"
     return {
         "report_type": "qutip.result_audit",
         "schema_version": 1,

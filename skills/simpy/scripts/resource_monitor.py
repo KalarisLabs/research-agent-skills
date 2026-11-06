@@ -83,6 +83,7 @@ class ResourceMonitor:
         )
 
     def _patch(self) -> None:
+        """Handle patch."""
         @wraps(self._original_request)
         def monitored_request(*args: Any, **kwargs: Any) -> Any:
             """Handle monitored request."""
@@ -151,6 +152,7 @@ class ResourceMonitor:
         start: float,
         end: float,
     ) -> float:
+        """Handle time weighted."""
         if start < self.samples[0].time:
             raise CliError("monitor window starts before monitoring began")
         if end <= start:
@@ -259,6 +261,7 @@ class MultiResourceMonitor:
     def add_resource(
         self, resource: simpy.Resource, name: str
     ) -> ResourceMonitor:
+        """Add resource."""
         if not name or name in self.monitors:
             raise CliError("resource monitor names must be non-empty and unique")
         monitor = ResourceMonitor(self.env, resource, name)
@@ -266,6 +269,7 @@ class MultiResourceMonitor:
         return monitor
 
     def finalize(self, *, at: float | None = None) -> None:
+        """Handle finalize."""
         for monitor in self.monitors.values():
             monitor.finalize(at=at)
 
@@ -316,6 +320,7 @@ class ContainerMonitor:
     def _patch_operation(
         self, operation: Callable[..., Any], event_name: str
     ) -> Callable[..., Any]:
+        """Handle patch operation."""
         @wraps(operation)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             """Handle wrapper."""
@@ -391,6 +396,7 @@ class EventTraceRecorder:
         self._patch()
 
     def _patch(self) -> None:
+        """Handle patch."""
         @wraps(self._original_step)
         def tracing_step() -> None:
             """Handle tracing step."""

@@ -92,6 +92,7 @@ def _read_pnm(path: Path, max_pixels: int) -> tuple[int, int, bytes]:
 
 
 def _read_with_pillow(path: Path, max_pixels: int) -> tuple[int, int, bytes]:
+    """Read with pillow."""
     try:
         from PIL import Image
     except ModuleNotFoundError as exc:

@@ -35,6 +35,7 @@ OBJECT_TYPES = (
 
 
 def positive_argument(value: str) -> int:
+    """Handle positive argument."""
     try:
         parsed = int(value, 10)
     except ValueError as exc:
