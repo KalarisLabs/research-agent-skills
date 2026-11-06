@@ -51,10 +51,12 @@ FONT = ["DejaVu Sans"]
 
 
 def load(name: str) -> dict:
+    """Load."""
     return json.loads((RESULTS / name).read_text(encoding="utf-8"))
 
 
 def figure(t: dict, w: float, h: float, title: str, subtitle: str):
+    """Handle figure."""
     fig, ax = plt.subplots(figsize=(w, h))
     fig.patch.set_facecolor(t["surface"])
     ax.set_facecolor(t["surface"])
@@ -70,16 +72,19 @@ def figure(t: dict, w: float, h: float, title: str, subtitle: str):
 
 
 def footnote(fig, t: dict, text: str) -> None:
+    """Handle footnote."""
     fig.text(0.02, 0.015, text, ha="left", va="bottom", fontsize=8, color=t["muted"])
 
 
 def bar(ax, y, value, color, t, label, height=0.62, fmt="{:.2f}"):
+    """Handle bar."""
     ax.barh(y, value, height=height, color=color, edgecolor=t["surface"], linewidth=2)
     ax.text(value, y, "  " + (label if label is not None else fmt.format(value)), va="center", ha="left",
             fontsize=9, color=t["text"])
 
 
 def task_outcomes(t: dict):
+    """Handle task outcomes."""
     d = load("task-evals-pilot-haiku.json")
     rows = sorted(d["results"], key=lambda r: (r["skill_score"] - r["baseline_score"], r["skill_score"]))
     wins = sum(r["winner"] == "skill" for r in rows)
@@ -107,6 +112,7 @@ def task_outcomes(t: dict):
 
 
 def slop(t: dict):
+    """Handle slop."""
     d = load("slop.json")
     conds = [("Model, with unslop skill", d["ai_unslop"], t["skill"]),
              ("Model, no skill", d["ai_baseline"], t["base"]),
@@ -124,6 +130,7 @@ def slop(t: dict):
 
 
 def routing_metrics(cases: list[dict]) -> dict[str, float]:
+    """Handle routing metrics."""
     pos = [c for c in cases if c["should_trigger"]]
     neg = [c for c in cases if not c["should_trigger"]]
     n_pos, n_neg = max(len(pos), 1), max(len(neg), 1)  # a suite with only positives or negatives must not divide by 0
@@ -133,6 +140,7 @@ def routing_metrics(cases: list[dict]) -> dict[str, float]:
 
 
 def routing(t: dict):
+    """Handle routing."""
     claude = load("trigger-claude-sample100.json")
     bm25_all = {c["prompt"]: c for c in load("trigger-bm25-all-evals.json")["cases"]}
     sample = [bm25_all[c["prompt"]] for c in claude["cases"]]  # same 100 prompts, keyword router
@@ -158,6 +166,7 @@ def routing(t: dict):
 
 
 def citations(t: dict):
+    """Handle citations."""
     d = load("citation-verification.json")
     groups: dict[str, list[dict]] = {}
     for r in d["rows"]:
@@ -183,6 +192,7 @@ def citations(t: dict):
 
 
 def quality(t: dict):
+    """Handle quality."""
     d = load("skill-quality.json")
     scores = [s["score"] for s in d["skills"]]
     counts = Counter(min(int(s // 2) * 2, 98) for s in scores)
@@ -217,6 +227,7 @@ def normalize(svg: bytes) -> str:
 
 
 def render(fn, theme: str) -> bytes:
+    """Render."""
     plt.rcParams.update({"font.family": "sans-serif", "font.sans-serif": FONT, "svg.fonttype": "path",
                          "svg.hashsalt": "research-agent-skills", "axes.unicode_minus": False})
     fig = fn(THEMES[theme])
@@ -227,6 +238,7 @@ def render(fn, theme: str) -> bytes:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--check", action="store_true", help="exit 1 if a committed chart differs from the results")
     args = ap.parse_args()

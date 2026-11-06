@@ -97,7 +97,7 @@ export function installSkills(src: Source, skills: SkillEntry[], targetDir: stri
     (existsSync(to) ? res.updated : res.installed).push(s.name);
     if (opts.dryRun) continue;
     rmSync(to, { recursive: true, force: true });
-    let mode = opts.mode;
+    let { mode } = opts;
     if (mode === "symlink") {
       try {
         symlinkSync(from, to, process.platform === "win32" ? "junction" : "dir");

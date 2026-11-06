@@ -1,0 +1,90 @@
+name: Skill Scorecard
+
+# Evaluates incoming PRs on static rubric score (>= 80), line counts (<= 500),
+# trigger routing tests, and security/policy checks. Generates and posts a
+# visual, gamified scorecard comment on the PR.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+    paths:
+      - "skills/**"
+      - "evals/**"
+      - "tools/**"
+      - ".github/workflows/skill-scorecard*"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scorecard:
+    name: Skill quality scorecard
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          enable-cache: true
+      - name: Install dependencies
+        run: uv sync --locked
+      - name: Evaluate skills and generate scorecard
+        id: eval
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BASE_REF: ${{ github.base_ref }}
+          IS_PR: ${{ github.event_name == 'pull_request' }}
+          IS_FORK: ${{ github.event.pull_request.head.repo.fork == true }}
+        run: |
+          mkdir -p reports
+          BASE="origin/${BASE_REF:-main}"
+          args=(--changed --base "$BASE" --min-score 80.0 --fail-under 80.0
+                --output reports/scorecard.md --json reports/scorecard.json)
+          # Comment on the PR only when the token can write: manual runs have no
+          # PR, and pull requests from forks get a read-only token.
+          if [ "$IS_PR" = "true" ] && [ "$IS_FORK" != "true" ]; then
+            echo "${PR_NUMBER}" > reports/pr_number.txt
+            args+=(--pr-number "$PR_NUMBER" --post-comment)
+          fi
+
+          # Gate at min-score 80.0 as required by repository standards. Record the
+          # result so the artifacts and summary below still run, then enforce it.
+          if uv run tools/skill_scorecard.py "${args[@]}"; then
+            echo "failed=0" >> "$GITHUB_OUTPUT"
+          else
+            echo "failed=1" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Add to Job Summary
+        if: always()
+        run: |
+          if [ -f reports/scorecard.md ]; then
+            cat reports/scorecard.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload scorecard artifacts
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: skill-scorecard-report
+          path: reports/
+          retention-days: 7
+      - name: Enforce quality bar
+        if: steps.eval.outputs.failed == '1'
+        run: |
+          echo "::error::One or more skills in this pull request failed to meet repository quality standards (Score >= 80, Lines <= 500, Clean Security)."
+          exit 1

@@ -34,6 +34,7 @@ _FM_RE = re.compile(r"\A---\r?\n(.*?)\r?\n---[ \t]*\r?\n?", re.S)
 
 
 class FrontmatterError(ValueError):
+    """Raised when frontmatter fails."""
     pass
 
 
@@ -53,6 +54,7 @@ def split_frontmatter(text: str) -> tuple[dict[str, Any], str]:
 
 
 def dump_frontmatter(data: dict[str, Any], body: str) -> str:
+    """Handle dump frontmatter."""
     ordered = {k: data[k] for k in SPEC_FIELDS if k in data}
     ordered.update({k: v for k, v in data.items() if k not in ordered})
     fm = yaml.safe_dump(ordered, sort_keys=False, allow_unicode=True, width=10_000).strip()
@@ -61,40 +63,48 @@ def dump_frontmatter(data: dict[str, Any], body: str) -> str:
 
 @dataclass
 class Skill:
+    """Skill."""
     path: Path          # skill directory
     meta: dict[str, Any]
     body: str
 
     @property
     def name(self) -> str:
+        """Handle name."""
         return str(self.meta.get("name", ""))
 
     @property
     def metadata(self) -> dict[str, Any]:
+        """Handle metadata."""
         md = self.meta.get("metadata")
         return md if isinstance(md, dict) else {}
 
     @property
     def category(self) -> str:
+        """Handle category."""
         return str(self.metadata.get("category", "uncategorized"))
 
 
 def iter_skill_dirs(root: Path = SKILLS_DIR) -> Iterator[Path]:
+    """Handle iter skill dirs."""
     for p in sorted(root.iterdir()) if root.exists() else []:
         if p.is_dir() and (p / "SKILL.md").is_file():
             yield p
 
 
 def load_skill(skill_dir: Path) -> Skill:
+    """Load skill."""
     meta, body = split_frontmatter((skill_dir / "SKILL.md").read_text(encoding="utf-8"))
     return Skill(skill_dir, meta, body)
 
 
 def load_skills(root: Path = SKILLS_DIR) -> list[Skill]:
+    """Load skills."""
     return [load_skill(d) for d in iter_skill_dirs(root)]
 
 
 def load_yaml(path: Path) -> Any:
+    """Load yaml."""
     return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 

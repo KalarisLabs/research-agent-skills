@@ -6,8 +6,10 @@ import { test } from "node:test";
 import { gzipSync } from "node:zlib";
 
 import { parseArgs } from "../dist/cli.js";
+import { updateTaggedSection, configureHarness, autoConfigureAll } from "../dist/configure.js";
 import { harnesses, resolveHarnesses, targetDirs } from "../dist/harness.js";
 import { installSkills, readLock, selectSkills, uninstallSkills, verifyInstall } from "../dist/install.js";
+import { TOOLS } from "../dist/mcp.js";
 import { parseSums, sha256 } from "../dist/source.js";
 import { extractEntries, readTar, safeJoin } from "../dist/tar.js";
 
@@ -130,3 +132,66 @@ test("install/verify/uninstall roundtrip never touches unmanaged skills", () => 
   assert.ok(existsSync(join(target, "user-own-skill")) && existsSync(join(target, "b-skill")));
   assert.equal(readLock(target), undefined);
 });
+
+test("harness: scientific, control plane, and expanded catalog", () => {
+  const all = harnesses("/home/u");
+  assert.equal(all.length, 20);
+  const ids = all.map((h) => h.id);
+  assert.ok(ids.includes("claude-science"));
+  assert.ok(ids.includes("openscience"));
+  assert.ok(ids.includes("t3-code"));
+  assert.ok(ids.includes("antigravity"));
+  assert.ok(ids.includes("hermes"));
+  assert.ok(ids.includes("openhands"));
+  assert.ok(ids.includes("goose"));
+  assert.ok(ids.includes("aider"));
+  assert.ok(ids.includes("roo-code"));
+
+  const sci = all.filter((h) => h.category === "science");
+  assert.equal(sci.length, 2);
+  const cp = all.filter((h) => h.category === "control-plane");
+  assert.equal(cp.length, 1);
+});
+
+test("configure: updates tagged sections non-destructively", () => {
+  const initial = "# My Project\n\nCustom instructions.\n";
+  const updated = updateTaggedSection(initial, "Injected research block");
+  assert.ok(updated.includes("# My Project"));
+  assert.ok(updated.includes("Injected research block"));
+  assert.ok(updated.includes("<!-- research-agent-skills:start -->"));
+
+  const replaced = updateTaggedSection(updated, "New replacement block");
+  assert.ok(replaced.includes("New replacement block"));
+  assert.ok(!replaced.includes("Injected research block"));
+  assert.ok(replaced.includes("Custom instructions."));
+});
+
+test("configure: auto-configures project anchors for multiple harnesses", () => {
+  const target = mkdtempSync(join(tmpdir(), "ras-cfg-"));
+  const all = harnesses(target);
+  const chosen = resolveHarnesses("claude-science,t3-code,aider,antigravity", all);
+  const res = autoConfigureAll(chosen, target);
+  assert.ok(res.length >= 4);
+  assert.ok(existsSync(join(target, "CLAUDE.md")));
+  assert.ok(existsSync(join(target, ".claude-science", "specialists.json")));
+  assert.ok(existsSync(join(target, ".t3", "config.json")));
+  assert.ok(existsSync(join(target, "CONVENTIONS.md")));
+  assert.ok(existsSync(join(target, "AGENTS.md")));
+});
+
+test("mcp: defines expected tools with valid json schemas", () => {
+  assert.ok(Array.isArray(TOOLS));
+  const toolNames = TOOLS.map((t) => t.name);
+  assert.ok(toolNames.includes("search_skills"));
+  assert.ok(toolNames.includes("get_skill"));
+  assert.ok(toolNames.includes("list_bundles"));
+  assert.ok(toolNames.includes("list_skills"));
+  assert.ok(toolNames.includes("install_skills"));
+  assert.ok(toolNames.includes("run_skill_script"));
+  for (const t of TOOLS) {
+    assert.equal(t.inputSchema.type, "object");
+    assert.ok(t.description.length > 0);
+  }
+});
+
+

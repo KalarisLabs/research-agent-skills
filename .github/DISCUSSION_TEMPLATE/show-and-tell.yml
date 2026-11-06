@@ -1,0 +1,19 @@
+title: "[Show and tell] "
+body:
+  - type: markdown
+    attributes:
+      value: Share a paper, thesis, review or pipeline these skills helped with. Do not post unpublished data or anything you cannot share publicly.
+  - type: input
+    id: skills
+    attributes:
+      label: Skills used
+      placeholder: systematic-review-prisma, citation-verification
+    validations:
+      required: true
+  - type: textarea
+    id: story
+    attributes:
+      label: What you did
+      description: The task, how the skills helped, and what you would improve. Links and screenshots are welcome.
+    validations:
+      required: true

@@ -52,6 +52,7 @@ STOP = set("the and for with use when this that from into your are can will not 
 
 
 def _load_slop():
+    """Load slop."""
     path = SKILLS_DIR / "unslop-academic-writing" / "scripts" / "slop_check.py"
     if not path.exists():
         return None
@@ -67,19 +68,21 @@ SLOP = _load_slop()
 
 
 def tests_text() -> str:
+    """Handle tests text."""
     return "\n".join(p.read_text(encoding="utf-8") for p in (ROOT / "tests").glob("*.py"))
 
 
-def score_skill(s: Skill, tests_blob: str) -> dict:
-    desc = " ".join(str(s.meta.get("description", "")).split())
-    body = s.body
-    lines = (s.path / "SKILL.md").read_text(encoding="utf-8").count("\n") + 1
-    parts: dict[str, float] = {}
-    notes: list[str] = []
-
-    # Description (30)
+def _score_description(desc: str, parts: dict[str, float], notes: list[str]) -> None:
+    """Score the description (30 points): length, triggers, named entities and marketing words."""
     n = len(desc)
-    parts["desc_length"] = 10 if 200 <= n <= 1024 else 7 if 120 <= n < 200 else 3 if n >= 60 else 0
+    if 200 <= n <= 1024:
+        parts["desc_length"] = 10
+    elif 120 <= n < 200:
+        parts["desc_length"] = 7
+    elif n >= 60:
+        parts["desc_length"] = 3
+    else:
+        parts["desc_length"] = 0
     if n < 200:
         notes.append(f"description is short ({n} chars): add triggers and named tools/artifacts")
     parts["desc_triggers"] = 8 if TRIGGER.search(desc) else 0
@@ -96,9 +99,16 @@ def score_skill(s: Skill, tests_blob: str) -> dict:
         words = sorted({m[0] if isinstance(m, tuple) else m for m in marketing})
         notes.append(f"marketing words in description: {', '.join(words)}")
 
-    # Structure (30)
+
+def _score_structure(body: str, parts: dict[str, float], notes: list[str]) -> None:
+    """Score the body structure (30 points): workflow, tables, handoffs, verification and headings."""
     numbered = len(re.findall(r"^\s*\d+[.)] ", body, re.M))
-    parts["workflow"] = 8 if numbered >= 3 else 4 if numbered else 0
+    if numbered >= 3:
+        parts["workflow"] = 8
+    elif numbered:
+        parts["workflow"] = 4
+    else:
+        parts["workflow"] = 0
     if numbered < 3:
         notes.append("no numbered workflow (3+ steps)")
     tables = len(re.findall(r"^\|.*\|\s*$", body, re.M)) >= 3
@@ -109,10 +119,22 @@ def score_skill(s: Skill, tests_blob: str) -> dict:
     if not parts["verification"]:
         notes.append("no verification/honesty guidance (verify, never fabricate, official source)")
     headings = len(re.findall(r"^#{2,3} ", body, re.M))
-    parts["headings"] = 6 if headings >= 4 else 3 if headings >= 2 else 0
+    if headings >= 4:
+        parts["headings"] = 6
+    elif headings >= 2:
+        parts["headings"] = 3
+    else:
+        parts["headings"] = 0
 
-    # Progressive disclosure (15)
-    parts["size"] = 8 if lines <= 500 else 3 if lines <= 700 else 0
+
+def _score_disclosure(s: Skill, body: str, lines: int, parts: dict[str, float], notes: list[str]) -> None:
+    """Score progressive disclosure (15 points): size, references directory and resolvable links."""
+    if lines <= 500:
+        parts["size"] = 8
+    elif lines <= 700:
+        parts["size"] = 3
+    else:
+        parts["size"] = 0
     has_refs = (s.path / "references").is_dir()
     parts["references"] = 4 if lines <= 250 or has_refs else 0
     broken = [t for t in re.findall(r"\]\(((?:references|scripts|assets|templates)/[^)#\s]+)", body)
@@ -121,39 +143,61 @@ def score_skill(s: Skill, tests_blob: str) -> dict:
     if broken:
         notes.append(f"broken links: {', '.join(broken[:3])}")
 
-    # Scripts (15)
+
+def _score_scripts(s: Skill, body: str, tests_blob: str, parts: dict[str, float], notes: list[str]) -> None:
+    """Score the skill's scripts (15 points): usage docstrings, argparse CLIs and test or doc coverage."""
     scripts = sorted((s.path / "scripts").glob("*.py")) if (s.path / "scripts").is_dir() else []
     scripts = [p for p in scripts if not p.name.startswith("_")]
     if not scripts:
         parts["scripts"] = 15
-    else:
-        doc = sum(bool(re.search(r'"""[\s\S]*?(usage|example)', p.read_text(encoding="utf-8", errors="replace")[:3000],
-                                 re.I)) for p in scripts) / len(scripts)
-        cli = sum("argparse" in p.read_text(encoding="utf-8", errors="replace") for p in scripts) / len(scripts)
-        # Exercised = named in a test, documented in SKILL.md, or run by the offline --help smoke test.
-        exercised = sum((p.name in tests_blob) or (p.name in body) or help_testable(p) for p in scripts) / len(scripts)
-        parts["scripts"] = round(5 * doc + 4 * cli + 6 * exercised, 1)
-        if exercised < 1:
-            notes.append("some scripts are neither tested nor shown in SKILL.md")
+        return
+    doc = sum(bool(re.search(r'"""[\s\S]*?(usage|example)', p.read_text(encoding="utf-8", errors="replace")[:3000],
+                             re.I)) for p in scripts) / len(scripts)
+    cli = sum("argparse" in p.read_text(encoding="utf-8", errors="replace") for p in scripts) / len(scripts)
+    # Exercised = named in a test, documented in SKILL.md, or run by the offline --help smoke test.
+    exercised = sum((p.name in tests_blob) or (p.name in body) or help_testable(p) for p in scripts) / len(scripts)
+    parts["scripts"] = round(5 * doc + 4 * cli + 6 * exercised, 1)
+    if exercised < 1:
+        notes.append("some scripts are neither tested nor shown in SKILL.md")
+
+
+def _slop_penalty(s: Skill, body: str, notes: list[str]) -> tuple[float, float | None]:
+    """Return (penalty, slop index) for the prose slop check, which skills quoting slop are exempt from."""
+    if SLOP is None or s.name in SLOP_EXEMPT:
+        return 0.0, None
+    slop_index = SLOP.analyse(re.sub(r"```.*?```", "", body, flags=re.S))["slop_index"]
+    if slop_index > 30:
+        notes.append(f"prose slop index {slop_index} (run unslop-academic-writing/scripts/slop_check.py)")
+        return 5, slop_index
+    return 0.0, slop_index
+
+
+def score_skill(s: Skill, tests_blob: str) -> dict:
+    """Score one skill against the static rubric and return its parts, notes and total."""
+    desc = " ".join(str(s.meta.get("description", "")).split())
+    body = s.body
+    lines = (s.path / "SKILL.md").read_text(encoding="utf-8").count("\n") + 1
+    parts: dict[str, float] = {}
+    notes: list[str] = []
+
+    _score_description(desc, parts, notes)
+    _score_structure(body, parts, notes)
+    _score_disclosure(s, body, lines, parts, notes)
+    _score_scripts(s, body, tests_blob, parts, notes)
 
     # Freshness (10)
     needs_verify = bool(TIME_SENSITIVE.search(body))
     parts["freshness"] = 5 if (not needs_verify or VERIFY.search(body)) else 0
     parts["compatibility"] = 5 if s.meta.get("compatibility") else 2
 
-    penalty = 0.0
-    slop_index = None
-    if SLOP is not None and s.name not in SLOP_EXEMPT:
-        slop_index = SLOP.analyse(re.sub(r"```.*?```", "", body, flags=re.S))["slop_index"]
-        if slop_index > 30:
-            penalty = 5
-            notes.append(f"prose slop index {slop_index} (run unslop-academic-writing/scripts/slop_check.py)")
+    penalty, slop_index = _slop_penalty(s, body, notes)
     total = round(sum(parts.values()) - penalty, 1)
     return {"name": s.name, "category": s.category, "score": total, "parts": parts, "penalty": penalty,
             "slop_index": slop_index, "lines": lines, "notes": notes}
 
 
-def tfidf_overlap(skills: list[Skill], threshold: float) -> list[tuple[str, str, float]]:
+def _tfidf_vectors(skills: list[Skill]) -> dict[str, dict[str, float]]:
+    """Build L2-normalised tf-idf vectors from each skill's description."""
     docs = {s.name: [t for t in TOKEN.findall(str(s.meta.get("description", "")).lower()) if t not in STOP]
             for s in skills}
     df = Counter(t for toks in docs.values() for t in set(toks))
@@ -164,6 +208,12 @@ def tfidf_overlap(skills: list[Skill], threshold: float) -> list[tuple[str, str,
         v = {t: (1 + math.log(c)) * math.log(n / df[t]) for t, c in tf.items()}
         norm = math.sqrt(sum(x * x for x in v.values())) or 1.0
         vecs[name] = {t: x / norm for t, x in v.items()}
+    return vecs
+
+
+def tfidf_overlap(skills: list[Skill], threshold: float) -> list[tuple[str, str, float]]:
+    """Return skill pairs whose description cosine similarity is at least `threshold`, highest first."""
+    vecs = _tfidf_vectors(skills)
     names = sorted(vecs)
     pairs = []
     for i, a in enumerate(names):
@@ -175,26 +225,17 @@ def tfidf_overlap(skills: list[Skill], threshold: float) -> list[tuple[str, str,
     return sorted(pairs, key=lambda p: -p[2])
 
 
-def main(argv: list[str] | None = None) -> int:
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("skills", nargs="*", help="skill names (default: all)")
-    ap.add_argument("--origin", choices=["all", "original", "adapted"], default="all")
-    ap.add_argument("--min-score", type=float, help="exit 1 if any selected skill scores below this")
-    ap.add_argument("--overlap", type=float, default=0.55, help="description-similarity threshold to report")
-    ap.add_argument("--json", type=Path)
-    ap.add_argument("--markdown", type=Path)
-    args = ap.parse_args(argv)
-
+def _select_skills(args: argparse.Namespace, skills: list[Skill]) -> list[Skill]:
+    """Filter skills by name and by origin (original vs adapted from upstream)."""
     manifest = json.loads((THIRD_PARTY / "upstream-manifest.json").read_text(encoding="utf-8"))
     adapted = {s["name"] for s in manifest["skills"] if s["rewrite_status"] == "imported"}
-    skills = load_skills()
-    selected = [s for s in skills if (not args.skills or s.name in args.skills)
-                and (args.origin == "all" or (s.name in adapted) == (args.origin == "adapted"))]
-    blob = tests_text()
-    results = sorted((score_skill(s, blob) for s in selected), key=lambda r: r["score"])
-    overlaps = tfidf_overlap(skills, args.overlap)
+    return [s for s in skills if (not args.skills or s.name in args.skills)
+            and (args.origin == "all" or (s.name in adapted) == (args.origin == "adapted"))]
 
-    for r in results[:25] if not args.skills else results:
+
+def _print_report(args: argparse.Namespace, results: list[dict], overlaps: list[tuple[str, str, float]]) -> None:
+    """Print the score table, summary line and overlapping description pairs."""
+    for r in results if args.skills else results[:25]:
         print(f"{r['score']:5.1f}  {r['name']:<42} {'; '.join(r['notes'][:2])}")
     scores = [r["score"] for r in results]
     if scores:
@@ -205,6 +246,9 @@ def main(argv: list[str] | None = None) -> int:
         for a, b, sim in overlaps[:15]:
             print(f"  {sim:.2f}  {a} <-> {b}")
 
+
+def _write_outputs(args: argparse.Namespace, results: list[dict], overlaps: list[tuple[str, str, float]]) -> None:
+    """Write the optional JSON and Markdown reports."""
     report = {"skills": results, "overlaps": [{"a": a, "b": b, "similarity": s} for a, b, s in overlaps]}
     if args.json:
         args.json.parent.mkdir(parents=True, exist_ok=True)
@@ -216,6 +260,27 @@ def main(argv: list[str] | None = None) -> int:
         md += [f"| {r['score']} | `{r['name']}` | {r['category']} | {'; '.join(r['notes'][:2]) or '-'} |"
                for r in sorted(results, key=lambda r: -r["score"])]
         args.markdown.write_text("\n".join(md) + "\n", encoding="utf-8")
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("skills", nargs="*", help="skill names (default: all)")
+    ap.add_argument("--origin", choices=["all", "original", "adapted"], default="all")
+    ap.add_argument("--min-score", type=float, help="exit 1 if any selected skill scores below this")
+    ap.add_argument("--overlap", type=float, default=0.55, help="description-similarity threshold to report")
+    ap.add_argument("--json", type=Path)
+    ap.add_argument("--markdown", type=Path)
+    args = ap.parse_args(argv)
+
+    skills = load_skills()
+    selected = _select_skills(args, skills)
+    blob = tests_text()
+    results = sorted((score_skill(s, blob) for s in selected), key=lambda r: r["score"])
+    overlaps = tfidf_overlap(skills, args.overlap)
+
+    _print_report(args, results, overlaps)
+    _write_outputs(args, results, overlaps)
     if args.min_score is not None:
         failing = [r for r in results if r["score"] < args.min_score]
         for r in failing:

@@ -34,6 +34,9 @@ for _stream in (sys.stdout, sys.stderr):  # Windows consoles default to cp1252
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = Path(__file__).with_name("data")
+HUMAN_FILE = "human.jsonl"
+AI_BASELINE_FILE = "ai_baseline.jsonl"
+AI_UNSLOP_FILE = "ai_unslop.jsonl"
 SKILL = ROOT / "skills" / "unslop-academic-writing"
 TOPICS = ["neuroscience", "ecology", "machine learning", "cardiology", "materials science", "epidemiology",
           "genomics", "climate", "psychology", "chemistry"]
@@ -41,6 +44,7 @@ UA = "research-agent-skills-benchmark/1.0 (https://github.com/KalarisLabs/resear
 
 
 def load_slop():
+    """Load slop."""
     sys.dont_write_bytecode = True  # never leave __pycache__ inside skills/
     spec = importlib.util.spec_from_file_location("slop_check", SKILL / "scripts" / "slop_check.py")
     mod = importlib.util.module_from_spec(spec)
@@ -50,6 +54,7 @@ def load_slop():
 
 
 def read_jsonl(name: str) -> list[dict]:
+    """Read jsonl."""
     p = DATA / name
     if not p.exists():
         return []
@@ -57,11 +62,13 @@ def read_jsonl(name: str) -> list[dict]:
 
 
 def write_jsonl(name: str, rows: list[dict]) -> None:
+    """Write jsonl."""
     DATA.mkdir(parents=True, exist_ok=True)
     (DATA / name).write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows), encoding="utf-8")
 
 
 def cmd_fetch(args: argparse.Namespace) -> int:
+    """Run the fetch subcommand."""
     rows, per_topic = [], max(1, args.n // len(TOPICS))
     for topic in TOPICS:
         q = (f'"{topic}" AND OPEN_ACCESS:y AND LICENSE:"cc by" AND PUB_YEAR:[2012 TO 2018] AND HAS_ABSTRACT:y '
@@ -78,12 +85,13 @@ def cmd_fetch(args: argparse.Namespace) -> int:
                              "doi": it.get("doi"), "year": it.get("pubYear"), "license": it.get("license")})
             if sum(r["topic"] == topic for r in rows) >= per_topic:
                 break
-    write_jsonl("human.jsonl", rows)
+    write_jsonl(HUMAN_FILE, rows)
     print(f"fetched {len(rows)} human abstracts (CC BY, 2012-2018) -> {DATA / 'human.jsonl'}")
     return 0
 
 
 def generate(title: str, with_skill: bool, model: str | None) -> str:
+    """Generate."""
     exe = shutil.which("claude")
     if not exe:
         sys.exit("claude CLI not found on PATH")
@@ -99,18 +107,19 @@ def generate(title: str, with_skill: bool, model: str | None) -> str:
 
 
 def cmd_generate(args: argparse.Namespace) -> int:
-    human = read_jsonl("human.jsonl")[: args.limit]
+    """Run the generate subcommand."""
+    human = read_jsonl(HUMAN_FILE)[: args.limit]
     if not human:
         sys.exit("run `fetch` first")
-    base, skill = read_jsonl("ai_baseline.jsonl"), read_jsonl("ai_unslop.jsonl")
+    base, skill = read_jsonl(AI_BASELINE_FILE), read_jsonl(AI_UNSLOP_FILE)
     done = {r["title"] for r in base} & {r["title"] for r in skill}
     for h in human:
         if h["title"] in done:
             continue
         base.append({"title": h["title"], "text": generate(h["title"], False, args.model), "model": args.model})
         skill.append({"title": h["title"], "text": generate(h["title"], True, args.model), "model": args.model})
-        write_jsonl("ai_baseline.jsonl", base)
-        write_jsonl("ai_unslop.jsonl", skill)
+        write_jsonl(AI_BASELINE_FILE, base)
+        write_jsonl(AI_UNSLOP_FILE, skill)
         print(f"generated {len(base)}/{len(human)}: {h['title'][:60]}")
     return 0
 
@@ -124,9 +133,10 @@ def auroc(pos: list[float], neg: list[float]) -> float:
 
 
 def cmd_score(args: argparse.Namespace) -> int:
+    """Run the score subcommand."""
     slop = load_slop()
-    sets = {"human": read_jsonl("human.jsonl"), "ai_baseline": read_jsonl("ai_baseline.jsonl"),
-            "ai_unslop": read_jsonl("ai_unslop.jsonl")}
+    sets = {"human": read_jsonl(HUMAN_FILE), "ai_baseline": read_jsonl(AI_BASELINE_FILE),
+            "ai_unslop": read_jsonl(AI_UNSLOP_FILE)}
     scores = {k: [slop.analyse(r["text"])["slop_index"] for r in v] for k, v in sets.items()}
     summary: dict = {}
     for k, v in scores.items():
@@ -149,6 +159,7 @@ def cmd_score(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     f = sub.add_parser("fetch")

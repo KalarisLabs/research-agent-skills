@@ -45,6 +45,7 @@ _SUBST = {"{BRAND}": BRAND, "{REPO_SLUG}": REPO_SLUG, "{REPO_URL}": REPO_URL}
 
 
 def _expand(value: str) -> str:
+    """Handle expand."""
     for key, sub in _SUBST.items():
         value = value.replace(key, sub)
     return value
@@ -104,6 +105,7 @@ def strip_marketing(text: str) -> str:
 
 
 def rewrite_text(text: str) -> str:
+    """Handle rewrite text."""
     for old, new in REPLACEMENTS:
         text = text.replace(old, new)
     text = INVISIBLE_RE.sub("", text)
@@ -111,6 +113,7 @@ def rewrite_text(text: str) -> str:
 
 
 def _stringify(value: Any) -> Any:
+    """Handle stringify."""
     if isinstance(value, dict):
         return value  # structured harness metadata (e.g. `openclaw`) is kept as-is
     if isinstance(value, (list, tuple)):
@@ -121,6 +124,7 @@ def _stringify(value: Any) -> Any:
 
 
 def normalize_frontmatter(meta: dict[str, Any], name: str, category: str) -> dict[str, Any]:
+    """Normalize frontmatter."""
     meta = dict(meta)
     md: dict[str, Any] = dict(meta.get("metadata") or {})
 
@@ -202,6 +206,7 @@ def ensure_utf8_console(source: str) -> str:
 
 
 def rebrand_skill(skill_dir: Path, name: str, category: str) -> None:
+    """Handle rebrand skill."""
     for path in sorted(skill_dir.rglob("*")):
         if not path.is_file() or (path.suffix not in TEXT_SUFFIXES and path.name not in TEXT_NAMES):
             continue

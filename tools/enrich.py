@@ -19,6 +19,7 @@ from pathlib import Path
 from common import THIRD_PARTY, Skill, dump_frontmatter, load_yaml, split_frontmatter, write_text
 
 MAX_LINES = 500
+SKILL_MD = "SKILL.md"
 PROCEDURE_HEADING = "## Agent operating procedure"
 RELATED_HEADING = "## Related skills"
 KEEP_SECTIONS = re.compile(r"(when to use|overview|quick ?start|getting started|workflow|core concept|rules|"
@@ -50,10 +51,12 @@ def _split_fenced(text: str) -> list[tuple[bool, str]]:
 
 
 def _is_local(target: str) -> bool:
+    """Return whether local."""
     return not re.match(r"^(?:[a-z][a-z0-9+.-]*:|#|/|\{|<)", target, re.I)
 
 
 def unlink_dead_links(skill_dir: Path) -> int:
+    """Handle unlink dead links."""
     fixed = 0
     for md in sorted(skill_dir.rglob("*.md")):
         text = md.read_text(encoding="utf-8")
@@ -64,6 +67,7 @@ def unlink_dead_links(skill_dir: Path) -> int:
                 continue
 
             def repl(m: re.Match, base: Path = md.parent) -> str:
+                """Handle repl."""
                 nonlocal fixed
                 bang, label, target = m.groups()
                 path = target.split("#", 1)[0]
@@ -91,6 +95,7 @@ def _sections(body: str) -> list[tuple[str, int, int]]:
 
 
 def _slug(title: str) -> str:
+    """Handle slug."""
     return re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")[:60] or "section"
 
 
@@ -100,6 +105,7 @@ def _relink_moved(text: str) -> str:
     for in_code, chunk in _split_fenced(text):
         if not in_code:
             def fix(m: re.Match) -> str:
+                """Handle fix."""
                 bang, label, target = m.groups()
                 if not _is_local(target):
                     return m.group(0)
@@ -111,7 +117,8 @@ def _relink_moved(text: str) -> str:
 
 
 def split_oversized(skill_dir: Path, budget: int) -> list[str]:
-    path = skill_dir / "SKILL.md"
+    """Split oversized."""
+    path = skill_dir / SKILL_MD
     text = path.read_text(encoding="utf-8")
     meta, body = split_frontmatter(text)
     head_lines = len(text.splitlines()) - len(body.splitlines())
@@ -143,6 +150,7 @@ def split_oversized(skill_dir: Path, budget: int) -> list[str]:
 
 
 def procedure_block(category: str) -> str:
+    """Handle procedure block."""
     c = _PROC["categories"].get(category, {})
     common = _PROC["common"]
     steps = [
@@ -162,13 +170,15 @@ def procedure_block(category: str) -> str:
 
 
 def needs_procedure(body: str) -> bool:
+    """Handle needs procedure."""
     numbered = len(re.findall(r"^\s*\d+[.)] ", body, re.M)) >= 3
     tables = len(re.findall(r"^\|.*\|\s*$", body, re.M)) >= 3 or bool(re.search(r"^\s*[-*] \[[ x]\]", body, re.M))
     return not (numbered and tables and VERIFY.search(body))
 
 
 def add_procedure(skill: Skill) -> bool:
-    path = skill.path / "SKILL.md"
+    """Add procedure."""
+    path = skill.path / SKILL_MD
     text = path.read_text(encoding="utf-8")
     meta, body = split_frontmatter(text)
     if PROCEDURE_HEADING in body or not needs_procedure(body):
@@ -178,7 +188,8 @@ def add_procedure(skill: Skill) -> bool:
 
 
 def add_related(skill: Skill, related: list[tuple[str, str]]) -> bool:
-    path = skill.path / "SKILL.md"
+    """Add related."""
+    path = skill.path / SKILL_MD
     meta, body = split_frontmatter(path.read_text(encoding="utf-8"))
     if not related or re.search(r"^#+ .*(related|see also)", body, re.I | re.M):
         return False
@@ -188,4 +199,5 @@ def add_related(skill: Skill, related: list[tuple[str, str]]) -> bool:
 
 
 def procedure_lines(category: str) -> int:
+    """Handle procedure lines."""
     return len(procedure_block(category).splitlines()) + 8  # + related skills block

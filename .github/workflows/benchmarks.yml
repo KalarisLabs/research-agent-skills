@@ -10,16 +10,6 @@ on:
   schedule:
     - cron: "5 6 * * 1"
   workflow_dispatch:
-    inputs:
-      model:
-        description: "Model for answers/routing (e.g. claude-sonnet-5-5)"
-        default: "claude-sonnet-5-5"
-      judge_model:
-        description: "Judge model for task evals"
-        default: "claude-opus-5-5"
-      max_budget_usd:
-        description: "Per-call budget cap"
-        default: "2"
 
 permissions: {}
 
@@ -99,9 +89,9 @@ jobs:
       contents: read
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-      MODEL: ${{ inputs.model }}
-      JUDGE_MODEL: ${{ inputs.judge_model }}
-      BUDGET: ${{ inputs.max_budget_usd }}
+      MODEL: claude-sonnet-5-5
+      JUDGE_MODEL: claude-opus-5-5
+      BUDGET: "2"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

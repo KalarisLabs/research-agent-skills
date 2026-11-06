@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research Agent Skills · Interactive Catalog</title>
+  <meta name="description" content="Search and discover 280+ open-source AI agent skills for academia across AI, biology, chemistry, medicine, and physics.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔬</text></svg>">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="#" class="logo-group">
+        <div class="logo-badge">RAS</div>
+        <div class="logo-text">
+          <h1>Research Agent Skills</h1>
+          <p>by Kalaris Labs</p>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="https://docs.kalarislabs.com" target="_blank" rel="noopener" class="nav-link">Documentation</a>
+        <a href="https://skills.sh/kalarislabs/research-agent-skills" target="_blank" rel="noopener" class="nav-link">skills.sh</a>
+        <a href="https://github.com/KalarisLabs/research-agent-skills" target="_blank" rel="noopener" class="nav-link">GitHub ⭐</a>
+        <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle dark/light mode">
+          <svg id="moonIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg id="sunIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <h2 class="hero-title">Academic Skills for AI Assistants</h2>
+    <p class="hero-subtitle">
+      Explore 280+ verified playbooks and tools that turn Claude Code, Codex, Cursor, Gemini CLI, Antigravity, and Copilot into rigorous research assistants.
+    </p>
+
+    <div class="metrics-strip">
+      <div class="metric-pill"><span>⚡</span> <span id="metricCount">281</span> Open-Source Skills</div>
+      <div class="metric-pill"><span>📚</span> 19 Academic Disciplines</div>
+      <div class="metric-pill"><span>🎯</span> 100% Citation Precision/Recall</div>
+      <div class="metric-pill"><span>🛡️</span> Zero AI Slop Playbook</div>
+    </div>
+
+    <!-- Search Area -->
+    <div class="search-container">
+      <div class="search-input-wrapper">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by paper topic, database, method, or tool (e.g. PRISMA, scRNA-seq, Nature)..." autocomplete="off" spellcheck="false">
+        <span class="search-shortcut">/</span>
+      </div>
+    </div>
+
+    <!-- Curated Bundles -->
+    <div class="bundle-selector" id="bundleSelector">
+      <button class="bundle-tab active" data-bundle="all">All Skills</button>
+      <button class="bundle-tab" data-bundle="research-essentials">⭐ Research Essentials</button>
+      <button class="bundle-tab" data-bundle="ml-research">🤖 ML Research</button>
+      <button class="bundle-tab" data-bundle="ai-research">🧠 AI Research</button>
+      <button class="bundle-tab" data-bundle="biology-research">🧬 Biology</button>
+      <button class="bundle-tab" data-bundle="chemistry-research">⚗️ Chemistry</button>
+      <button class="bundle-tab" data-bundle="physics-research">🔭 Physics</button>
+    </div>
+  </section>
+
+  <!-- Category Scroll Bar -->
+  <nav class="category-filter-bar" aria-label="Category Filters">
+    <div class="category-scroll-list" id="categoryList">
+      <!-- Injected via JavaScript -->
+    </div>
+  </nav>
+
+  <!-- Main Catalog Grid -->
+  <main class="catalog-main">
+    <div class="results-status">
+      <span id="resultsCount">Showing 281 skills</span>
+      <span id="activeFilterLabel">All Categories</span>
+    </div>
+
+    <div class="skills-grid" id="skillsGrid">
+      <!-- Injected via JavaScript -->
+    </div>
+  </main>
+
+  <!-- Detail Modal -->
+  <div class="modal-overlay" id="detailModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 id="modalSkillName">Skill Details</h2>
+        <button class="close-btn" id="modalCloseBtn" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h3>Description</h3>
+          <p id="modalSkillDesc" style="color: var(--text-main); font-size: 0.95rem;"></p>
+        </div>
+
+        <div class="modal-section">
+          <h3>Install Commands</h3>
+          <div class="install-command-grid">
+            <div class="command-row">
+              <span>skills.sh</span>
+              <code id="cmdSkillsSh"></code>
+              <button class="copy-btn" id="btnCopySkillsSh">Copy</button>
+            </div>
+            <div class="command-row">
+              <span>Python / uv</span>
+              <code id="cmdUvx"></code>
+              <button class="copy-btn" id="btnCopyUvx">Copy</button>
+            </div>
+            <div class="command-row">
+              <span>Claude Code</span>
+              <code id="cmdClaude"></code>
+              <button class="copy-btn" id="btnCopyClaude">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3>Metadata</h3>
+          <p><strong>Category:</strong> <span id="modalSkillCategory"></span></p>
+          <p><strong>Version:</strong> <span id="modalSkillVersion"></span></p>
+          <p><strong>Compatibility:</strong> <span id="modalSkillCompat"></span></p>
+          <p><strong>Tags:</strong> <span id="modalSkillTags"></span></p>
+        </div>
+
+        <div class="modal-section" style="display: flex; justify-content: flex-end; gap: 1rem;">
+          <a id="modalGitHubLink" href="#" target="_blank" rel="noopener" class="copy-btn" style="text-decoration: none; padding: 0.5rem 1rem;">
+            View Full SKILL.md on GitHub &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="3">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span id="toastMessage">Command copied to clipboard!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div>
+        <strong>Research Agent Skills</strong> · Maintained by <a href="https://github.com/KalarisLabs" target="_blank" rel="noopener" style="color: inherit;">Kalaris Labs</a> · MIT License
+      </div>
+      <div>
+        Install via <a href="https://skills.sh/kalarislabs/research-agent-skills" target="_blank" rel="noopener" style="color: var(--brand-primary); font-weight: 600;">skills.sh</a> or <code style="font-family: var(--font-mono); background: var(--bg-subtle); padding: 0.2rem 0.4rem; border-radius: 4px;">uvx research-agent-skills</code>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
+

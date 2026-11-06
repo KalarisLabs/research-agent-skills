@@ -47,6 +47,8 @@ from common import (  # noqa: E402
 
 VERSION = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
 MARKETPLACE_NAME = "research-agent-skills"
+SKILLS_JSON = "skills.json"
+SCHEMA_KEY = "$schema"
 KEYWORDS = [
     "agent-skills", "claude-code", "codex", "cursor", "gemini-cli", "research", "scientific-writing",
     "research-paper", "literature-review", "citations", "latex", "academic-writing", "peer-review",
@@ -114,6 +116,7 @@ DIRECTORY_GROUPS = [
 
 
 def bundle_definitions(skills: list[Skill]) -> dict[str, dict]:
+    """Handle bundle definitions."""
     known = {s.name for s in skills}
     out = {name: {"description": description, "categories": categories, "skills": []}
            for name, (description, categories) in BUNDLES.items()}
@@ -126,6 +129,7 @@ def bundle_definitions(skills: list[Skill]) -> dict[str, dict]:
 
 
 def bundle_skill_names(bundle: dict, index: dict) -> list[str]:
+    """Handle bundle skill names."""
     cats = set(bundle["categories"])
     return sorted(set(bundle["skills"]) | {e["name"] for e in index["skills"] if e["category"] in cats})
 CATALOG_START, CATALOG_END = "<!-- catalog:start -->", "<!-- catalog:end -->"
@@ -134,10 +138,12 @@ SKILLS_BADGE_RE = re.compile(r"(img\.shields\.io/badge/skills-)\d+(-)")
 
 
 def _json(data: object) -> str:
+    """Handle json."""
     return json.dumps(data, indent=2, ensure_ascii=False) + "\n"
 
 
 def _first_sentence(text: str, limit: int = 160) -> str:
+    """Handle first sentence."""
     text = " ".join(text.split())
     m = re.match(r"(.+?[.!?])(\s|$)", text)
     s = m.group(1) if m else text
@@ -145,6 +151,7 @@ def _first_sentence(text: str, limit: int = 160) -> str:
 
 
 def build_index(skills: list[Skill], cats: dict, manifest: dict) -> dict:
+    """Build index."""
     origin = {s["name"]: s["rewrite_status"] for s in manifest.get("skills", [])}
     entries = []
     for s in skills:
@@ -172,6 +179,11 @@ def build_index(skills: list[Skill], cats: dict, manifest: dict) -> dict:
     }
 
 
+def _preferred_spelling(counts: dict[str, int]) -> str:
+    """Pick the most common spelling of a tag, preferring non-title-case and then alphabetical order."""
+    return min(counts, key=lambda s: (-counts[s], s.istitle(), s))
+
+
 def _top_tags(names: list[str], index: dict, limit: int = 8) -> list[str]:
     """Most frequent skill tags across a plugin's skills (case-insensitive, most common spelling wins)."""
     wanted = set(names)
@@ -182,10 +194,11 @@ def _top_tags(names: list[str], index: dict, limit: int = 8) -> list[str]:
                 variants[tag.lower()][tag] += 1
     counts = {key: sum(v.values()) for key, v in variants.items()}
     ranked = sorted(counts, key=lambda t: (-counts[t], t))
-    return [min(variants[t], key=lambda s: (-variants[t][s], s.istitle(), s)) for t in ranked[:limit]]
+    return [_preferred_spelling(variants[t]) for t in ranked[:limit]]
 
 
 def _plugin_entry(name: str, description: str, skill_names: list[str], index: dict) -> dict:
+    """Handle plugin entry."""
     return {"name": name, "description": description, "version": VERSION,
             "author": {"name": BRAND, "url": REPO_URL}, "homepage": DOCS_URL, "repository": REPO_URL,
             "license": "MIT", "category": "research", "keywords": _top_tags(skill_names, index),
@@ -193,6 +206,7 @@ def _plugin_entry(name: str, description: str, skill_names: list[str], index: di
 
 
 def build_marketplace(index: dict) -> dict:
+    """Build marketplace."""
     by_cat: dict[str, list[str]] = defaultdict(list)
     for e in index["skills"]:
         by_cat[e["category"]].append(e["path"].removeprefix("skills/"))
@@ -213,8 +227,9 @@ def build_marketplace(index: dict) -> dict:
 
 
 def build_plugin_manifest(index: dict) -> dict:
+    """Build plugin manifest."""
     return {
-        "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+        SCHEMA_KEY: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
         "name": MARKETPLACE_NAME,
         "version": VERSION,
         "description": (f"{len(index['skills'])} Agent Skills for researchers: scientific and research paper writing, "
@@ -228,8 +243,9 @@ def build_plugin_manifest(index: dict) -> dict:
 
 
 def build_codex_manifest(index: dict) -> dict:
+    """Build codex manifest."""
     manifest = build_plugin_manifest(index)
-    manifest.pop("$schema")
+    manifest.pop(SCHEMA_KEY)
     manifest["skills"] = "./skills/"
     manifest["interface"] = {
         "displayName": "Research Agent Skills",
@@ -249,6 +265,7 @@ def build_codex_manifest(index: dict) -> dict:
 
 
 def build_skills_sh_config(index: dict) -> dict:
+    """Build skills sh config."""
     category_ids = {c["id"] for c in index["categories"]}
     grouped_ids = {category for _, _, categories in DIRECTORY_GROUPS for category in categories}
     if category_ids != grouped_ids:
@@ -267,11 +284,12 @@ def build_skills_sh_config(index: dict) -> dict:
     missing = {entry["name"] for entry in index["skills"]} - seen
     if missing:
         raise ValueError(f"skills.sh grouping omits: {', '.join(sorted(missing))}")
-    return {"$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+    return {SCHEMA_KEY: "https://skills.sh/schemas/skills.sh.schema.json",
             "notGrouped": "bottom", "groupings": groups}
 
 
 def build_collection_reference(index: dict) -> str:
+    """Build collection reference."""
     lines = ["# Research Agent Skills index", "",
              f"{len(index['skills']) - 1} specialist skills in this Kalaris Labs collection.",
              "Select a specialist by the research task; install the full collection only when requested.", ""]
@@ -288,6 +306,7 @@ SKILL_REF_RE = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)+)`")
 
 
 def build_graph(skills: list[Skill], index: dict) -> dict:
+    """Build graph."""
     names = {s.name for s in skills}
     nodes = [{"id": f"category:{c['id']}", "type": "category", "label": c["id"], "description": c["description"]}
              for c in index["categories"]]
@@ -302,6 +321,7 @@ def build_graph(skills: list[Skill], index: dict) -> dict:
 
 
 def graph_to_graphml(graph: dict) -> str:
+    """Handle graph to graphml."""
     keys = [("type", "node"), ("label", "node"), ("description", "node"), ("category", "node"), ("path", "node"),
             ("type", "edge")]
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
@@ -323,6 +343,7 @@ def graph_to_graphml(graph: dict) -> str:
 
 
 def build_notices(manifest: dict) -> str:
+    """Build notices."""
     by_source: dict[str, list[str]] = defaultdict(list)
     for s in manifest.get("skills", []):
         if s["rewrite_status"] == "imported":
@@ -355,6 +376,7 @@ def build_notices(manifest: dict) -> str:
 
 
 def build_readme_catalog(index: dict) -> str:
+    """Build readme catalog."""
     by_cat: dict[str, list[dict]] = defaultdict(list)
     for e in index["skills"]:
         by_cat[e["category"]].append(e)
@@ -424,6 +446,7 @@ def build_llms_full_txt(index: dict) -> str:
 
 
 def update_readme(readme: str, index: dict) -> str:
+    """Update readme."""
     if CATALOG_START in readme and CATALOG_END in readme:
         pre, rest = readme.split(CATALOG_START, 1)
         _, post = rest.split(CATALOG_END, 1)
@@ -448,7 +471,7 @@ def _meta_description(text: str, limit: int = 160) -> str:
     """Whole sentences up to `limit` characters; otherwise cut at a word boundary."""
     text = " ".join(text.split())
     out = ""
-    for sentence in re.findall(r".+?[.!?](?:\s|$)|.+$", text):
+    for sentence in re.findall(r"(?:.+?[.!?](?:\s|$)|.+$)", text):
         if len(out) + len(sentence) > limit:
             break
         out += sentence
@@ -470,6 +493,7 @@ def _mdx_safe(text: str) -> str:
 
 
 def _example_prompts(name: str, limit: int = 3) -> list[str]:
+    """Handle example prompts."""
     path = ROOT / "evals" / name / "evals.json"
     if not path.exists():
         return []
@@ -478,18 +502,25 @@ def _example_prompts(name: str, limit: int = 3) -> list[str]:
 
 
 def _related(name: str, graph: dict, limit: int = 8) -> list[str]:
+    """Handle related."""
     me = f"skill:{name}"
     out: list[str] = []
     for edge in graph["edges"]:
         if edge["type"] != "references":
             continue
-        other = edge["target"] if edge["source"] == me else edge["source"] if edge["target"] == me else None
+        if edge["source"] == me:
+            other = edge["target"]
+        elif edge["target"] == me:
+            other = edge["source"]
+        else:
+            other = None
         if other and other.removeprefix("skill:") not in out:
             out.append(other.removeprefix("skill:"))
     return out[:limit]
 
 
 def build_skill_page(e: dict, graph: dict) -> str:
+    """Build skill page."""
     name, category = e["name"], e["category"]
     group = next((title for title, _, cats in DIRECTORY_GROUPS if category in cats), None)
     lines = [
@@ -543,6 +574,7 @@ def build_skill_page(e: dict, graph: dict) -> str:
 
 
 def build_docs(skills: list[Skill], index: dict, graph: dict) -> dict[Path, str]:
+    """Build docs."""
     pages: dict[Path, str] = {}
     by_cat: dict[str, list[dict]] = defaultdict(list)
     for s, e in zip(skills, index["skills"], strict=True):
@@ -565,6 +597,7 @@ def build_docs(skills: list[Skill], index: dict, graph: dict) -> dict[Path, str]
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the command-line interface."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--check", action="store_true", help="fail if committed outputs are out of date")
     ap.add_argument("--docs", action="store_true", help="also generate docs/skills pages")
@@ -582,7 +615,9 @@ def main(argv: list[str] | None = None) -> int:
         ROOT / ".claude-plugin" / "marketplace.json": _json(build_marketplace(index)),
         ROOT / "plugin.json": _json(build_plugin_manifest(index)),
         ROOT / ".codex-plugin" / "plugin.json": _json(build_codex_manifest(index)),
-        ROOT / "catalog" / "skills.json": _json(index),
+        ROOT / "catalog" / SKILLS_JSON: _json(index),
+        ROOT / "web" / SKILLS_JSON: _json(index),
+        ROOT / "src" / "research_agent_skills" / "data" / SKILLS_JSON: _json(index),
         ROOT / "catalog" / "graph.json": _json(graph),
         ROOT / "catalog" / "graph.graphml": graph_to_graphml(graph),
         ROOT / "skills.sh.json": _json(build_skills_sh_config(index)),

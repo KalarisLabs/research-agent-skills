@@ -1,0 +1,274 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 370" width="100%" height="auto" style="background: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<defs>
+  <!-- Checkered green pattern for #1 top rank -->
+  <pattern id="checkered-green" width="6" height="6" patternUnits="userSpaceOnUse">
+    <rect width="6" height="6" fill="#22C55E"/>
+    <rect width="3" height="3" fill="#15803D"/>
+    <rect x="3" y="3" width="3" height="3" fill="#15803D"/>
+  </pattern>
+  <!-- Checkered blue pattern for Meta special variant -->
+  <pattern id="checkered-blue" width="6" height="6" patternUnits="userSpaceOnUse">
+    <rect width="6" height="6" fill="#0081FB"/>
+    <rect width="3" height="3" fill="#0058B6"/>
+    <rect x="3" y="3" width="3" height="3" fill="#0058B6"/>
+  </pattern>
+</defs>
+<!-- Background -->
+<rect width="1140" height="370" fill="#FFFFFF"/>
+<line x1="55.0" y1="159.1" x2="1100.0" y2="159.1" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<line x1="55.0" y1="138.2" x2="1100.0" y2="138.2" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<line x1="55.0" y1="117.2" x2="1100.0" y2="117.2" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<line x1="55.0" y1="96.3" x2="1100.0" y2="96.3" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<line x1="55.0" y1="75.4" x2="1100.0" y2="75.4" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<line x1="55.0" y1="54.5" x2="1100.0" y2="54.5" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<path d="M 70.00 180.00 V 59.46 Q 70.00 54.46 75.00 54.46 H 91.00 Q 96.00 54.46 96.00 59.46 V 180.00 Z" fill="url(#checkered-green)"/>
+<text x="83.00" y="127.27" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">60</text>
+<g transform="translate(73.00, 188.00) scale(0.83)">
+    <g transform="scale(0.8) translate(3, 3)">
+      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+    </g>
+    </g>
+<text transform="translate(83.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Gemini 4 Carbon (high)</text>
+<path d="M 106.50 180.00 V 61.55 Q 106.50 56.55 111.50 56.55 H 127.50 Q 132.50 56.55 132.50 61.55 V 180.00 Z" fill="#CC785C"/>
+<text x="119.50" y="128.15" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">59</text>
+<g transform="translate(109.50, 188.00) scale(0.83)">
+    <g fill="#CC785C">
+      <path d="M13.827 3.518h3.918L24 20.482h-3.918l-6.255-16.964zm-7.654 0h3.918L16.346 20.482h-3.918L10.59 15.5H5.41l-1.838 4.982H0L6.173 3.518zm1.838 8.964h2.576l-1.288-3.489-1.288 3.489z"/>
+    </g>
+    </g>
+<text transform="translate(119.50, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Claude Opus 5.5 (max)</text>
+<path d="M 143.00 180.00 V 65.74 Q 143.00 60.74 148.00 60.74 H 164.00 Q 169.00 60.74 169.00 65.74 V 180.00 Z" fill="#1F1F1F"/>
+<text x="156.00" y="129.91" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">57</text>
+<g transform="translate(146.00, 188.00) scale(0.83)">
+    <g fill="#1F1F1F">
+      <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zm-9.33-4.52a4.467 4.467 0 0 1-.535-3.003l.142.085 4.783 2.755a.793.793 0 0 0 .78 0l5.836-3.367v2.332a.08.08 0 0 1-.033.064l-4.835 2.793a4.505 4.505 0 0 1-6.138-1.659zm-1.802-8.318a4.484 4.484 0 0 1 2.34-1.961v5.673a.79.79 0 0 0 .388.682l5.836 3.368-2.02 1.166a.08.08 0 0 1-.073.004l-4.84-2.793a4.505 4.505 0 0 1-1.631-6.139zm15.717 1.942l-5.836-3.368 2.02-1.166a.08.08 0 0 1 .073-.004l4.84 2.793a4.505 4.505 0 0 1 1.631 6.139 4.484 4.484 0 0 1-2.34 1.961v-5.673a.79.79 0 0 0-.388-.682zm2.02-3.136l-.142-.085-4.783-2.755a.793.793 0 0 0-.78 0l-5.836 3.367v-2.332a.08.08 0 0 1 .033-.064l4.835-2.793a4.505 4.505 0 0 1 6.673 4.662zm-9.141 4.52a1.593 1.593 0 1 0-1.593-1.593 1.593 1.593 0 0 0 1.593 1.593z"/>
+    </g>
+    </g>
+<text transform="translate(156.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">GPT-6 Astra (max)</text>
+<path d="M 179.50 180.00 V 69.92 Q 179.50 64.92 184.50 64.92 H 200.50 Q 205.50 64.92 205.50 69.92 V 180.00 Z" fill="#1F1F1F"/>
+<text x="192.50" y="131.67" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">55</text>
+<g transform="translate(182.50, 188.00) scale(0.83)">
+    <g fill="#1F1F1F">
+      <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zm-9.33-4.52a4.467 4.467 0 0 1-.535-3.003l.142.085 4.783 2.755a.793.793 0 0 0 .78 0l5.836-3.367v2.332a.08.08 0 0 1-.033.064l-4.835 2.793a4.505 4.505 0 0 1-6.138-1.659zm-1.802-8.318a4.484 4.484 0 0 1 2.34-1.961v5.673a.79.79 0 0 0 .388.682l5.836 3.368-2.02 1.166a.08.08 0 0 1-.073.004l-4.84-2.793a4.505 4.505 0 0 1-1.631-6.139zm15.717 1.942l-5.836-3.368 2.02-1.166a.08.08 0 0 1 .073-.004l4.84 2.793a4.505 4.505 0 0 1 1.631 6.139 4.484 4.484 0 0 1-2.34 1.961v-5.673a.79.79 0 0 0-.388-.682zm2.02-3.136l-.142-.085-4.783-2.755a.793.793 0 0 0-.78 0l-5.836 3.367v-2.332a.08.08 0 0 1 .033-.064l4.835-2.793a4.505 4.505 0 0 1 6.673 4.662zm-9.141 4.52a1.593 1.593 0 1 0-1.593-1.593 1.593 1.593 0 0 0 1.593 1.593z"/>
+    </g>
+    </g>
+<text transform="translate(192.50, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">GPT-6.1 Sol (max)</text>
+<path d="M 216.00 180.00 V 69.92 Q 216.00 64.92 221.00 64.92 H 237.00 Q 242.00 64.92 242.00 69.92 V 180.00 Z" fill="#CC785C"/>
+<text x="229.00" y="131.67" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">55</text>
+<g transform="translate(219.00, 188.00) scale(0.83)">
+    <g fill="#CC785C">
+      <path d="M13.827 3.518h3.918L24 20.482h-3.918l-6.255-16.964zm-7.654 0h3.918L16.346 20.482h-3.918L10.59 15.5H5.41l-1.838 4.982H0L6.173 3.518zm1.838 8.964h2.576l-1.288-3.489-1.288 3.489z"/>
+    </g>
+    </g>
+<text transform="translate(229.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Claude Sonnet 5.5 (max)</text>
+<path d="M 252.50 180.00 V 78.29 Q 252.50 73.29 257.50 73.29 H 273.50 Q 278.50 73.29 278.50 78.29 V 180.00 Z" fill="#1F1F1F"/>
+<text x="265.50" y="135.18" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">51</text>
+<g transform="translate(255.50, 188.00) scale(0.83)">
+    <g fill="#1F1F1F">
+      <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zm-9.33-4.52a4.467 4.467 0 0 1-.535-3.003l.142.085 4.783 2.755a.793.793 0 0 0 .78 0l5.836-3.367v2.332a.08.08 0 0 1-.033.064l-4.835 2.793a4.505 4.505 0 0 1-6.138-1.659zm-1.802-8.318a4.484 4.484 0 0 1 2.34-1.961v5.673a.79.79 0 0 0 .388.682l5.836 3.368-2.02 1.166a.08.08 0 0 1-.073.004l-4.84-2.793a4.505 4.505 0 0 1-1.631-6.139zm15.717 1.942l-5.836-3.368 2.02-1.166a.08.08 0 0 1 .073-.004l4.84 2.793a4.505 4.505 0 0 1 1.631 6.139 4.484 4.484 0 0 1-2.34 1.961v-5.673a.79.79 0 0 0-.388-.682zm2.02-3.136l-.142-.085-4.783-2.755a.793.793 0 0 0-.78 0l-5.836 3.367v-2.332a.08.08 0 0 1 .033-.064l4.835-2.793a4.505 4.505 0 0 1 6.673 4.662zm-9.141 4.52a1.593 1.593 0 1 0-1.593-1.593 1.593 1.593 0 0 0 1.593 1.593z"/>
+    </g>
+    </g>
+<text transform="translate(265.50, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">GPT-6.1 Terra (max)</text>
+<path d="M 289.00 180.00 V 80.38 Q 289.00 75.38 294.00 75.38 H 310.00 Q 315.00 75.38 315.00 80.38 V 180.00 Z" fill="url(#checkered-blue)"/>
+<text x="302.00" y="136.06" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">50</text>
+<g transform="translate(292.00, 188.00) scale(0.83)">
+    <g fill="#0081FB">
+      <path d="M12 6.5C7.5 6.5 4 10 4 13.5c0 3.2 2.5 5.5 5 5.5 2.5 0 4-2.2 4-4.5 0-2.3 1.5-4.5 4-4.5 2.5 0 5 2.3 5 5.5 0 3.5-3.5 7-8 7-4.5 0-9-3.5-9-9S7.5 4.5 12 4.5c4.5 0 9 3.5 9 9s-4.5 9-9 9c-2.8 0-5.2-1.4-6.8-3.6 1.4-1.2 2.8-2.9 3.8-4.9C10.2 12.5 11 11 12 11c1 0 1.8 1.5 2.8 3 1 2 2.4 3.7 3.8 4.9-1.6 2.2-4 3.6-6.6 3.6-3.8 0-6.5-2.8-6.5-6.5 0-3.7 2.7-6.5 6.5-6.5z"/>
+    </g>
+    </g>
+<text transform="translate(302.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Muse Wonder Full (max)</text>
+<path d="M 325.50 180.00 V 82.48 Q 325.50 77.48 330.50 77.48 H 346.50 Q 351.50 77.48 351.50 82.48 V 180.00 Z" fill="#CC785C"/>
+<text x="338.50" y="136.94" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">49</text>
+<g transform="translate(328.50, 188.00) scale(0.83)">
+    <g fill="#CC785C">
+      <path d="M13.827 3.518h3.918L24 20.482h-3.918l-6.255-16.964zm-7.654 0h3.918L16.346 20.482h-3.918L10.59 15.5H5.41l-1.838 4.982H0L6.173 3.518zm1.838 8.964h2.576l-1.288-3.489-1.288 3.489z"/>
+    </g>
+    </g>
+<text transform="translate(338.50, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Claude Fable 5.1 (max)</text>
+<path d="M 362.00 180.00 V 88.75 Q 362.00 83.75 367.00 83.75 H 383.00 Q 388.00 83.75 388.00 88.75 V 180.00 Z" fill="#0066FF"/>
+<text x="375.00" y="139.58" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">46</text>
+<g transform="translate(365.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="5" fill="#0066FF"/>
+      <path d="M7 6h3v5.2l4.8-5.2h3.8L12.7 12l6.1 6H15l-5-5.2V18H7V6z" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(375.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Kimi K3.1 Pro</text>
+<path d="M 398.50 180.00 V 92.94 Q 398.50 87.94 403.50 87.94 H 419.50 Q 424.50 87.94 424.50 92.94 V 180.00 Z" fill="#0088F4"/>
+<text x="411.50" y="141.33" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">44</text>
+<g transform="translate(401.50, 188.00) scale(0.83)">
+    <g fill="#0081FB">
+      <path d="M12 6.5C7.5 6.5 4 10 4 13.5c0 3.2 2.5 5.5 5 5.5 2.5 0 4-2.2 4-4.5 0-2.3 1.5-4.5 4-4.5 2.5 0 5 2.3 5 5.5 0 3.5-3.5 7-8 7-4.5 0-9-3.5-9-9S7.5 4.5 12 4.5c4.5 0 9 3.5 9 9s-4.5 9-9 9c-2.8 0-5.2-1.4-6.8-3.6 1.4-1.2 2.8-2.9 3.8-4.9C10.2 12.5 11 11 12 11c1 0 1.8 1.5 2.8 3 1 2 2.4 3.7 3.8 4.9-1.6 2.2-4 3.6-6.6 3.6-3.8 0-6.5-2.8-6.5-6.5 0-3.7 2.7-6.5 6.5-6.5z"/>
+    </g>
+    </g>
+<text transform="translate(411.50, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Muse Wonder (max)</text>
+<path d="M 435.00 180.00 V 109.68 Q 435.00 104.68 440.00 104.68 H 456.00 Q 461.00 104.68 461.00 109.68 V 180.00 Z" fill="#C57B5E"/>
+<text x="448.00" y="148.36" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">36</text>
+<g transform="translate(438.00, 188.00) scale(0.83)">
+    <g fill="#CC785C">
+      <path d="M13.827 3.518h3.918L24 20.482h-3.918l-6.255-16.964zm-7.654 0h3.918L16.346 20.482h-3.918L10.59 15.5H5.41l-1.838 4.982H0L6.173 3.518zm1.838 8.964h2.576l-1.288-3.489-1.288 3.489z"/>
+    </g>
+    </g>
+<text transform="translate(448.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Claude Haiku 5.5 (max)</text>
+<path d="M 471.50 180.00 V 111.77 Q 471.50 106.77 476.50 106.77 H 492.50 Q 497.50 106.77 497.50 111.77 V 180.00 Z" fill="#726DD1"/>
+<text x="484.50" y="149.24" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">35</text>
+<g transform="translate(474.50, 188.00) scale(0.83)">
+    <g fill="#1F1F1F">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </g>
+    </g>
+<text transform="translate(484.50, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Grok 4.7 (xhigh)</text>
+<path d="M 508.00 180.00 V 111.77 Q 508.00 106.77 513.00 106.77 H 529.00 Q 534.00 106.77 534.00 111.77 V 180.00 Z" fill="#59B5FE"/>
+<text x="521.00" y="149.24" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">35</text>
+<g transform="translate(511.00, 188.00) scale(0.83)">
+    <g>
+      <circle cx="12" cy="12" r="10" fill="#00A4FF"/>
+      <path d="M7 12a5 5 0 0 1 10 0v2a3 3 0 0 1-6 0v-2a1 1 0 0 0-2 0v1a1 1 0 0 1-2 0v-1z" fill="#FFFFFF"/>
+      <circle cx="9.5" cy="10" r="1.2" fill="#1E293B"/>
+      <circle cx="14.5" cy="10" r="1.2" fill="#1E293B"/>
+    </g>
+    </g>
+<text transform="translate(521.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Tencent Hy4</text>
+<path d="M 544.50 180.00 V 113.86 Q 544.50 108.86 549.50 108.86 H 565.50 Q 570.50 108.86 570.50 113.86 V 180.00 Z" fill="#FF6D10"/>
+<text x="557.50" y="150.12" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">34</text>
+<g transform="translate(547.50, 188.00) scale(0.83)">
+    <g>
+      <circle cx="12" cy="12" r="10" fill="#FF6A00"/>
+      <path d="M12 6a6 6 0 1 0 4.2 10.2L18 18l-1.8-1.8A5.96 5.96 0 0 0 12 6zm0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7z" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(557.50, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Qwen 3.8 Max (0902)</text>
+<path d="M 581.00 180.00 V 115.95 Q 581.00 110.95 586.00 110.95 H 602.00 Q 607.00 110.95 607.00 115.95 V 180.00 Z" fill="#2444E5"/>
+<text x="594.00" y="151.00" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">33</text>
+<g transform="translate(584.00, 188.00) scale(0.83)">
+    <g>
+      <circle cx="12" cy="12" r="10" fill="#2444E5"/>
+      <path d="M7 15c2-4 6-5 9-4 2 .7 3 2 3 2s-1.5-1-4-1c-3 0-5.5 1.5-7 3.5l-1-.5zm1-5c1.5-2 4-3 6.5-2.5 1.5.3 2.5 1 2.5 1s-1-.8-3-.8c-2.5 0-4.5 1-6 2.3z" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(594.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">DeepSeek V4.1 Flash 1017 (max)</text>
+<path d="M 617.50 180.00 V 118.05 Q 617.50 113.05 622.50 113.05 H 638.50 Q 643.50 113.05 643.50 118.05 V 180.00 Z" fill="#2681FF"/>
+<text x="630.50" y="151.88" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">32</text>
+<g transform="translate(620.50, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="5" fill="#1E40AF"/>
+      <path d="M7 7h10l-6.5 7H17v3H7l6.5-7H7V7z" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(630.50, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">GLM-5.3 (max)</text>
+<path d="M 654.00 180.00 V 120.14 Q 654.00 115.14 659.00 115.14 H 675.00 Q 680.00 115.14 680.00 120.14 V 180.00 Z" fill="#45A75A"/>
+<text x="667.00" y="152.76" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">31</text>
+<g transform="translate(657.00, 188.00) scale(0.83)">
+    <g transform="scale(0.8) translate(3, 3)">
+      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+    </g>
+    </g>
+<text transform="translate(667.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Gemini 3.8 Flash (high)</text>
+<path d="M 690.50 180.00 V 122.23 Q 690.50 117.23 695.50 117.23 H 711.50 Q 716.50 117.23 716.50 122.23 V 180.00 Z" fill="#F46E19"/>
+<text x="703.50" y="153.64" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">30</text>
+<g transform="translate(693.50, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="6" fill="#FF6700"/>
+      <path d="M6.5 8h2v8h-2V8zm4 0h3.5c1.4 0 2.5 1.1 2.5 2.5V16h-2v-5c0-.3-.2-.5-.5-.5H12.5V16h-2V8zm8 0h2v8h-2V8z" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(703.50, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">MiMo-V2.6-Pro</text>
+<path d="M 727.00 180.00 V 122.23 Q 727.00 117.23 732.00 117.23 H 748.00 Q 753.00 117.23 753.00 122.23 V 180.00 Z" fill="#5CA8DC"/>
+<text x="740.00" y="153.64" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">30</text>
+<g transform="translate(730.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="5" fill="#0EA5E9"/>
+      <circle cx="12" cy="12" r="6" fill="none" stroke="#FFFFFF" stroke-width="2.5"/>
+      <circle cx="12" cy="12" r="2" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(740.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Ling 3.1 Flash 1019</text>
+<path d="M 763.50 180.00 V 124.32 Q 763.50 119.32 768.50 119.32 H 784.50 Q 789.50 119.32 789.50 124.32 V 180.00 Z" fill="#DB3968"/>
+<text x="776.50" y="154.52" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">29</text>
+<g transform="translate(766.50, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="5" fill="#EC4899"/>
+      <path d="M6 12v3m3-6v9m3-12v15m3-12v9m3-6v3" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    </g>
+<text transform="translate(776.50, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">MiniMax-M3.1-Flash</text>
+<path d="M 800.00 180.00 V 126.42 Q 800.00 121.42 805.00 121.42 H 821.00 Q 826.00 121.42 826.00 126.42 V 180.00 Z" fill="#1F1F1F"/>
+<text x="813.00" y="155.39" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">28</text>
+<g transform="translate(803.00, 188.00) scale(0.83)">
+    <g fill="#1F1F1F">
+      <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zm-9.33-4.52a4.467 4.467 0 0 1-.535-3.003l.142.085 4.783 2.755a.793.793 0 0 0 .78 0l5.836-3.367v2.332a.08.08 0 0 1-.033.064l-4.835 2.793a4.505 4.505 0 0 1-6.138-1.659zm-1.802-8.318a4.484 4.484 0 0 1 2.34-1.961v5.673a.79.79 0 0 0 .388.682l5.836 3.368-2.02 1.166a.08.08 0 0 1-.073.004l-4.84-2.793a4.505 4.505 0 0 1-1.631-6.139zm15.717 1.942l-5.836-3.368 2.02-1.166a.08.08 0 0 1 .073-.004l4.84 2.793a4.505 4.505 0 0 1 1.631 6.139 4.484 4.484 0 0 1-2.34 1.961v-5.673a.79.79 0 0 0-.388-.682zm2.02-3.136l-.142-.085-4.783-2.755a.793.793 0 0 0-.78 0l-5.836 3.367v-2.332a.08.08 0 0 1 .033-.064l4.835-2.793a4.505 4.505 0 0 1 6.673 4.662zm-9.141 4.52a1.593 1.593 0 1 0-1.593-1.593 1.593 1.593 0 0 0 1.593 1.593z"/>
+    </g>
+    </g>
+<text transform="translate(813.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">GPT-6 Luna (max)</text>
+<path d="M 836.50 180.00 V 130.60 Q 836.50 125.60 841.50 125.60 H 857.50 Q 862.50 125.60 862.50 130.60 V 180.00 Z" fill="#D46240"/>
+<text x="849.50" y="157.15" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">26</text>
+<g transform="translate(839.50, 188.00) scale(0.83)">
+    <g fill="#EA580C">
+      <rect x="3" y="4" width="3.6" height="16" rx="0.5"/>
+      <rect x="17.4" y="4" width="3.6" height="16" rx="0.5"/>
+      <rect x="6.6" y="8" width="3.6" height="8" rx="0.5"/>
+      <rect x="13.8" y="8" width="3.6" height="8" rx="0.5"/>
+      <rect x="10.2" y="11" width="3.6" height="5" rx="0.5"/>
+    </g>
+    </g>
+<text transform="translate(849.50, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Mistral Large 4 (high)</text>
+<path d="M 873.00 180.00 V 132.69 Q 873.00 127.69 878.00 127.69 H 894.00 Q 899.00 127.69 899.00 132.69 V 180.00 Z" fill="#499DDB"/>
+<text x="886.00" y="158.03" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">25</text>
+<g transform="translate(876.00, 188.00) scale(0.83)">
+    <g fill="#0081FB">
+      <path d="M12 6.5C7.5 6.5 4 10 4 13.5c0 3.2 2.5 5.5 5 5.5 2.5 0 4-2.2 4-4.5 0-2.3 1.5-4.5 4-4.5 2.5 0 5 2.3 5 5.5 0 3.5-3.5 7-8 7-4.5 0-9-3.5-9-9S7.5 4.5 12 4.5c4.5 0 9 3.5 9 9s-4.5 9-9 9c-2.8 0-5.2-1.4-6.8-3.6 1.4-1.2 2.8-2.9 3.8-4.9C10.2 12.5 11 11 12 11c1 0 1.8 1.5 2.8 3 1 2 2.4 3.7 3.8 4.9-1.6 2.2-4 3.6-6.6 3.6-3.8 0-6.5-2.8-6.5-6.5 0-3.7 2.7-6.5 6.5-6.5z"/>
+    </g>
+    </g>
+<text transform="translate(886.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Muse Spark Open (xhigh)</text>
+<path d="M 909.50 180.00 V 143.15 Q 909.50 138.15 914.50 138.15 H 930.50 Q 935.50 138.15 935.50 143.15 V 180.00 Z" fill="#FF6C1A"/>
+<text x="922.50" y="159.91" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">20</text>
+<g transform="translate(912.50, 188.00) scale(0.83)">
+    <g>
+      <circle cx="12" cy="12" r="10" fill="#FF6A00"/>
+      <path d="M12 6a6 6 0 1 0 4.2 10.2L18 18l-1.8-1.8A5.96 5.96 0 0 0 12 6zm0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7z" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(922.50, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Qwen 3.8 27B (xhigh)</text>
+<path d="M 946.00 180.00 V 147.34 Q 946.00 142.34 951.00 142.34 H 967.00 Q 972.00 142.34 972.00 147.34 V 180.00 Z" fill="#1520AE"/>
+<text x="959.00" y="161.92" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">18</text>
+<g transform="translate(949.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="5" fill="#1E3A8A"/>
+      <path d="M7 6h3v4.5l4-4.5h3.5L12.5 11l5.5 7H14.5l-4.5-5.5V18H7V6z" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(959.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">K2 Horizon 375B A23B</text>
+<path d="M 982.50 180.00 V 147.34 Q 982.50 142.34 987.50 142.34 H 1003.50 Q 1008.50 142.34 1008.50 147.34 V 180.00 Z" fill="#175524"/>
+<text x="995.50" y="161.92" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">18</text>
+<g transform="translate(985.50, 188.00) scale(0.83)">
+    <g fill="#166534">
+      <circle cx="8" cy="12" r="4"/>
+      <circle cx="16" cy="12" r="4"/>
+      <path d="M8 10h8v4H8z"/>
+    </g>
+    </g>
+<text transform="translate(995.50, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Beam 1.0</text>
+<path d="M 1019.00 180.00 V 155.71 Q 1019.00 150.71 1024.00 150.71 H 1040.00 Q 1045.00 150.71 1045.00 155.71 V 180.00 Z" fill="#7CB409"/>
+<text x="1032.00" y="165.94" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">14</text>
+<g transform="translate(1022.00, 188.00) scale(0.83)">
+    <g fill="#76B900">
+      <path d="M12 4c-4.4 0-8 3.6-8 8 0 3.5 2.3 6.5 5.5 7.6V17c-2-.9-3.5-3-3.5-5 0-3.3 2.7-6 6-6s6 2.7 6 6c0 2-1.5 4.1-3.5 5v2.6c3.2-1.1 5.5-4.1 5.5-7.6 0-4.4-3.6-8-8-8zm0 4c-2.2 0-4 1.8-4 4 0 1.8 1.2 3.3 2.8 3.8V13.5c-.5-.4-.8-1-.8-1.5 0-1.1.9-2 2-2s2 .9 2 2c0 .5-.3 1.1-.8 1.5v2.3c1.6-.5 2.8-2 2.8-3.8 0-2.2-1.8-4-4-4z"/>
+    </g>
+    </g>
+<text transform="translate(1032.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Nemotron 3.5 Super VL</text>
+<path d="M 1055.50 180.00 V 159.89 Q 1055.50 154.89 1060.50 154.89 H 1076.50 Q 1081.50 154.89 1081.50 159.89 V 180.00 Z" fill="#6C7175"/>
+<text x="1068.50" y="167.95" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">12</text>
+<g transform="translate(1058.50, 188.00) scale(0.83)">
+    <g fill="#334155">
+      <rect width="24" height="24" rx="5"/>
+      <path d="M7 8h10v2.5H7V8zm0 5h10v2.5H7V13z" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(1068.50, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">Inkling (xhigh)</text>
+</svg>

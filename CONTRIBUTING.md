@@ -70,6 +70,7 @@ checkbox for this.
 | Generated files up to date | `tools/build_catalog.py --check` |
 | Quality rubric ≥ 80 for new skills (structure, triggers, verification rules, tested scripts) | `tools/skill_quality.py` |
 | Evals in `evals/<name>/evals.json`; the skill is picked for its prompts and not for near misses | `tools/trigger_bench.py` |
+| Full Skill Scorecard (score ≥ 80, lines ≤ 500, routing benchmark, security lint) | `tools/skill_scorecard.py` (PR bot comment) |
 
 Run everything locally before pushing (`make check` does all of this):
 
@@ -77,11 +78,19 @@ Run everything locally before pushing (`make check` does all of this):
 uv sync
 uv run tools/validate.py skills/my-skill
 uv run tools/lint_injection.py skills/my-skill
-uv run tools/skill_quality.py my-skill
-uv run tools/trigger_bench.py
+uv run tools/skill_scorecard.py skills/my-skill  # previews your PR scorecard locally
 uv run tools/build_catalog.py          # regenerates marketplace, catalog, README tables, llms.txt
 uv run python -m pytest -q
 ```
+
+### Automated Skill Scorecard PR Bot
+
+When you submit a pull request, the automated **Skill Scorecard Bot** runs `tools/skill_scorecard.py` on your changed skills and posts a clean, visual Markdown scorecard comment on your PR:
+- **Rubric Score**: Assesses description quality, structure, disclosure, scripts, freshness, and absence of slop (target: ≥ 80.0).
+- **Line Count**: Verifies `SKILL.md` stays within the 500-line budget (detailed reference material lives in `references/`).
+- **Trigger Routing**: Replays your test prompts in `evals/<name>/evals.json` through the BM25 catalog router to ensure high retrieval sensitivity (Hit@3 ≥ 80%) and specificity against near misses.
+- **Security Check**: Verifies clean prompt-injection linting (`tools/lint_injection.py`) and allowlisted external domains.
+- **Level-Up Tips**: Provides concrete, actionable point recommendations to help your skill achieve S-Tier (≥ 95.0)!
 
 Optional but encouraged: `pre-commit install` to run these checks on every commit, and
 `benchmarks/task_evals/run.py --skills my-skill` to show the skill improves answers (see `benchmarks/README.md`).

@@ -8,7 +8,7 @@ help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "} {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
 
 setup: ## Install Python tooling and CLI dependencies
-	uv sync --group docs
+	uv sync
 	cd cli && npm ci
 
 check: validate security catalog quality charts-check test ## Everything CI runs on a pull request (fast, offline)
@@ -35,6 +35,9 @@ catalog: ## Regenerate marketplace, plugin manifest, catalog, notices and README
 quality: ## Static quality rubric for all skills (report) and original skills (gate)
 	uv run tools/skill_quality.py --json benchmarks/results/skill-quality.json --markdown benchmarks/results/skill-quality.md
 	uv run tools/skill_quality.py --origin original --min-score 80
+
+scorecard: ## Automated PR scorecard (runs on changed skills or SKILL=name)
+	uv run tools/skill_scorecard.py $$(if [ -n "$$SKILL" ]; then echo "$$SKILL"; else echo "--changed"; fi)
 
 bench-triggers: ## Trigger-routing benchmark (BM25, free)
 	uv run tools/trigger_bench.py --json benchmarks/results/trigger-bm25.json

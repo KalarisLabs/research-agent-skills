@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 370" width="100%" height="auto" style="background: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<defs>
+  <!-- Checkered green pattern for #1 top rank -->
+  <pattern id="checkered-green" width="6" height="6" patternUnits="userSpaceOnUse">
+    <rect width="6" height="6" fill="#22C55E"/>
+    <rect width="3" height="3" fill="#15803D"/>
+    <rect x="3" y="3" width="3" height="3" fill="#15803D"/>
+  </pattern>
+  <!-- Checkered blue pattern for Meta special variant -->
+  <pattern id="checkered-blue" width="6" height="6" patternUnits="userSpaceOnUse">
+    <rect width="6" height="6" fill="#0081FB"/>
+    <rect width="3" height="3" fill="#0058B6"/>
+    <rect x="3" y="3" width="3" height="3" fill="#0058B6"/>
+  </pattern>
+</defs>
+<!-- Background -->
+<rect width="1120" height="370" fill="#FFFFFF"/>
+<line x1="57.0" y1="154.1" x2="1070.0" y2="154.1" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<line x1="57.0" y1="128.2" x2="1070.0" y2="128.2" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<line x1="57.0" y1="102.3" x2="1070.0" y2="102.3" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<line x1="57.0" y1="76.4" x2="1070.0" y2="76.4" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<line x1="57.0" y1="50.5" x2="1070.0" y2="50.5" stroke="#E2E8F0" stroke-width="1.2" stroke-dasharray="2,3"/>
+<path d="M 72.00 180.00 V 55.48 Q 72.00 50.48 77.00 50.48 H 95.00 Q 100.00 50.48 100.00 55.48 V 180.00 Z" fill="url(#checkered-green)"/>
+<text x="86.00" y="125.60" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">100</text>
+<g transform="translate(76.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#0077C8"/>
+      <text x="12" y="16.5" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="10.5" fill="#FFFFFF" text-anchor="middle">ACM</text>
+    </g>
+    </g>
+<text transform="translate(86.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">acm-sigconf (ACM)</text>
+<path d="M 117.00 180.00 V 60.66 Q 117.00 55.66 122.00 55.66 H 140.00 Q 145.00 55.66 145.00 60.66 V 180.00 Z" fill="#D32F2F"/>
+<text x="131.00" y="127.78" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">96</text>
+<g transform="translate(121.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#D32F2F"/>
+      <text x="12" y="17.5" font-family="Georgia, serif" font-weight="900" font-size="16" fill="#FFFFFF" text-anchor="middle">N</text>
+    </g>
+    </g>
+<text transform="translate(131.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">nature-portfolio (Nature)</text>
+<path d="M 162.00 180.00 V 61.95 Q 162.00 56.95 167.00 56.95 H 185.00 Q 190.00 56.95 190.00 61.95 V 180.00 Z" fill="#0288D1"/>
+<text x="176.00" y="128.32" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">95</text>
+<g transform="translate(166.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#0288D1"/>
+      <text x="12" y="17" font-family="'Arial Black', sans-serif" font-weight="900" font-size="15" fill="#FFFFFF" text-anchor="middle">C</text>
+    </g>
+    </g>
+<text transform="translate(176.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">cell-press (Cell)</text>
+<path d="M 207.00 180.00 V 63.25 Q 207.00 58.25 212.00 58.25 H 230.00 Q 235.00 58.25 235.00 63.25 V 180.00 Z" fill="#10B981"/>
+<text x="221.00" y="128.86" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">94</text>
+<g transform="translate(211.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#10B981"/>
+      <path d="M7 6h3v4l4-4h4l-5 5 5.5 7H14.5l-4-5.2V18H7V6z" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(221.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">research-skill-creator</text>
+<path d="M 252.00 180.00 V 65.84 Q 252.00 60.84 257.00 60.84 H 275.00 Q 280.00 60.84 280.00 65.84 V 180.00 Z" fill="#10B981"/>
+<text x="266.00" y="129.95" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">92</text>
+<g transform="translate(256.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#10B981"/>
+      <path d="M7 6h3v4l4-4h4l-5 5 5.5 7H14.5l-4-5.2V18H7V6z" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(266.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">unslop-academic-writing</text>
+<path d="M 297.00 180.00 V 67.13 Q 297.00 62.13 302.00 62.13 H 320.00 Q 325.00 62.13 325.00 67.13 V 180.00 Z" fill="#3F51B5"/>
+<text x="311.00" y="130.50" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">91</text>
+<g transform="translate(301.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#3F51B5"/>
+      <path d="M6 12l5-5m-5 5l5 5M18 12l-5-5m5 5l-5 5" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+    </g>
+<text transform="translate(311.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">citation-verification</text>
+<path d="M 342.00 180.00 V 69.72 Q 342.00 64.72 347.00 64.72 H 365.00 Q 370.00 64.72 370.00 69.72 V 180.00 Z" fill="#003366"/>
+<text x="356.00" y="131.58" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">89</text>
+<g transform="translate(346.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#003366"/>
+      <circle cx="12" cy="12" r="7" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+      <path d="M12 7v10M7 12h10" stroke="#FFFFFF" stroke-width="1.8"/>
+    </g>
+    </g>
+<text transform="translate(356.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">springer-lncs (Springer)</text>
+<path d="M 387.00 180.00 V 71.02 Q 387.00 66.02 392.00 66.02 H 410.00 Q 415.00 66.02 415.00 71.02 V 180.00 Z" fill="#00629B"/>
+<text x="401.00" y="132.13" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">88</text>
+<g transform="translate(391.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#00629B"/>
+      <path d="M12 4l6 8-6 8-6-8z" fill="#FFFFFF"/>
+      <path d="M12 7l3.5 5-3.5 5-3.5-5z" fill="#00629B"/>
+    </g>
+    </g>
+<text transform="translate(401.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">ieee-transactions (IEEE)</text>
+<path d="M 432.00 180.00 V 73.61 Q 432.00 68.61 437.00 68.61 H 455.00 Q 460.00 68.61 460.00 73.61 V 180.00 Z" fill="#CC785C"/>
+<text x="446.00" y="133.22" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">86</text>
+<g transform="translate(436.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#D32F2F"/>
+      <text x="12" y="17" font-family="Georgia, serif" font-style="italic" font-weight="900" font-size="15" fill="#FFFFFF" text-anchor="middle">S</text>
+    </g>
+    </g>
+<text transform="translate(446.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">science-aaas (Science)</text>
+<path d="M 477.00 180.00 V 74.90 Q 477.00 69.90 482.00 69.90 H 500.00 Q 505.00 69.90 505.00 74.90 V 180.00 Z" fill="#FF6D10"/>
+<text x="491.00" y="133.76" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">85</text>
+<g transform="translate(481.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#2563EB"/>
+      <path d="M6 7a2 2 0 0 1 2-2h4v13H8a2 2 0 0 0-2 2V7zm12 0a2 2 0 0 0-2-2h-4v13h4a2 2 0 0 1 2 2V7z" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+    </g>
+    </g>
+<text transform="translate(491.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">bibtex-hygiene</text>
+<path d="M 522.00 180.00 V 76.20 Q 522.00 71.20 527.00 71.20 H 545.00 Q 550.00 71.20 550.00 76.20 V 180.00 Z" fill="#2444E5"/>
+<text x="536.00" y="134.30" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">84</text>
+<g transform="translate(526.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#0EA5E9"/>
+      <path d="M12 5l6 2.5v5c0 4-2.8 7-6 8-3.2-1-6-4-6-8v-5L12 5z" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+      <path d="M9.5 12.5l2 2 4-4" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+    </g>
+<text transform="translate(536.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">reproducibility-statement</text>
+<path d="M 567.00 180.00 V 78.79 Q 567.00 73.79 572.00 73.79 H 590.00 Q 595.00 73.79 595.00 78.79 V 180.00 Z" fill="#B31B1B"/>
+<text x="581.00" y="135.39" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">82</text>
+<g transform="translate(571.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#B31B1B"/>
+      <text x="12" y="16.5" font-family="sans-serif" font-weight="800" font-size="8.5" fill="#FFFFFF" text-anchor="middle">arXiv</text>
+    </g>
+    </g>
+<text transform="translate(581.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">arxiv-submission (arXiv)</text>
+<path d="M 612.00 180.00 V 82.68 Q 612.00 77.68 617.00 77.68 H 635.00 Q 640.00 77.68 640.00 82.68 V 180.00 Z" fill="#2E7D32"/>
+<text x="626.00" y="137.02" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">79</text>
+<g transform="translate(616.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#2E7D32"/>
+      <text x="12" y="16" font-family="sans-serif" font-weight="800" font-size="9" fill="#FFFFFF" text-anchor="middle">APA</text>
+    </g>
+    </g>
+<text transform="translate(626.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">apa7 (APA)</text>
+<path d="M 657.00 180.00 V 85.27 Q 657.00 80.27 662.00 80.27 H 680.00 Q 685.00 80.27 685.00 85.27 V 180.00 Z" fill="#C57B5E"/>
+<text x="671.00" y="138.11" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">77</text>
+<g transform="translate(661.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#2563EB"/>
+      <path d="M6 7a2 2 0 0 1 2-2h4v13H8a2 2 0 0 0-2 2V7zm12 0a2 2 0 0 0-2-2h-4v13h4a2 2 0 0 1 2 2V7z" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+    </g>
+    </g>
+<text transform="translate(671.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">cover-letter-to-editor</text>
+<path d="M 702.00 180.00 V 86.56 Q 702.00 81.56 707.00 81.56 H 725.00 Q 730.00 81.56 730.00 86.56 V 180.00 Z" fill="#5C2D91"/>
+<text x="716.00" y="138.66" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">76</text>
+<g transform="translate(706.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#0EA5E9"/>
+      <path d="M12 5l6 2.5v5c0 4-2.8 7-6 8-3.2-1-6-4-6-8v-5L12 5z" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+      <path d="M9.5 12.5l2 2 4-4" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+    </g>
+<text transform="translate(716.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">systematic-review-prisma</text>
+<path d="M 747.00 180.00 V 89.15 Q 747.00 84.15 752.00 84.15 H 770.00 Q 775.00 84.15 775.00 89.15 V 180.00 Z" fill="#4F46E5"/>
+<text x="761.00" y="139.74" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">74</text>
+<g transform="translate(751.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#8B5CF6"/>
+      <circle cx="9" cy="10" r="3.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+      <circle cx="15" cy="10" r="3.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+      <path d="M8 13.5c1 2 2 3.5 4 3.5s3-1.5 4-3.5" stroke="#FFFFFF" stroke-width="1.6" fill="none"/>
+    </g>
+    </g>
+<text transform="translate(761.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">research-knowledge-graph</text>
+<path d="M 792.00 180.00 V 91.74 Q 792.00 86.74 797.00 86.74 H 815.00 Q 820.00 86.74 820.00 91.74 V 180.00 Z" fill="#FF6D00"/>
+<text x="806.00" y="140.83" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">72</text>
+<g transform="translate(796.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#FF6D00"/>
+      <circle cx="12" cy="10" r="5" fill="#FFFFFF"/>
+      <path d="M12 11v6m-3 0h6" stroke="#FFFFFF" stroke-width="2"/>
+    </g>
+    </g>
+<text transform="translate(806.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">elsevier-cas (Elsevier)</text>
+<path d="M 837.00 180.00 V 96.92 Q 837.00 91.92 842.00 91.92 H 860.00 Q 865.00 91.92 865.00 96.92 V 180.00 Z" fill="#0EA5E9"/>
+<text x="851.00" y="143.01" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">68</text>
+<g transform="translate(841.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#2563EB"/>
+      <path d="M6 7a2 2 0 0 1 2-2h4v13H8a2 2 0 0 0-2 2V7zm12 0a2 2 0 0 0-2-2h-4v13h4a2 2 0 0 1 2 2V7z" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+    </g>
+    </g>
+<text transform="translate(851.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">paper-corpus-rag</text>
+<path d="M 882.00 180.00 V 100.81 Q 882.00 95.81 887.00 95.81 H 905.00 Q 910.00 95.81 910.00 100.81 V 180.00 Z" fill="#DB3968"/>
+<text x="896.00" y="144.64" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">65</text>
+<g transform="translate(886.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#3F51B5"/>
+      <path d="M6 12l5-5m-5 5l5 5M18 12l-5-5m5 5l-5 5" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+    </g>
+<text transform="translate(896.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">reference-manager-interop</text>
+<path d="M 927.00 180.00 V 104.70 Q 927.00 99.70 932.00 99.70 H 950.00 Q 955.00 99.70 955.00 104.70 V 180.00 Z" fill="#5C2D91"/>
+<text x="941.00" y="146.27" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">62</text>
+<g transform="translate(931.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#5C2D91"/>
+      <circle cx="8" cy="12" r="2.5" fill="#FFFFFF"/>
+      <circle cx="16" cy="12" r="2.5" fill="#FFFFFF"/>
+    </g>
+    </g>
+<text transform="translate(941.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">plos (PLOS ONE)</text>
+<path d="M 972.00 180.00 V 109.88 Q 972.00 104.88 977.00 104.88 H 995.00 Q 1000.00 104.88 1000.00 109.88 V 180.00 Z" fill="#6C7175"/>
+<text x="986.00" y="148.45" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">58</text>
+<g transform="translate(976.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#2563EB"/>
+      <path d="M6 7a2 2 0 0 1 2-2h4v13H8a2 2 0 0 0-2 2V7zm12 0a2 2 0 0 0-2-2h-4v13h4a2 2 0 0 1 2 2V7z" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+    </g>
+    </g>
+<text transform="translate(986.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">abstract-and-title</text>
+<path d="M 1017.00 180.00 V 115.06 Q 1017.00 110.06 1022.00 110.06 H 1040.00 Q 1045.00 110.06 1045.00 115.06 V 180.00 Z" fill="#D46240"/>
+<text x="1031.00" y="150.62" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">54</text>
+<g transform="translate(1021.00, 188.00) scale(0.83)">
+    <g>
+      <rect width="24" height="24" rx="4" fill="#0EA5E9"/>
+      <path d="M12 5l6 2.5v5c0 4-2.8 7-6 8-3.2-1-6-4-6-8v-5L12 5z" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+      <path d="M9.5 12.5l2 2 4-4" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+    </g>
+<text transform="translate(1031.00, 216.00) rotate(-58)" text-anchor="end" font-size="10.5" font-weight="500" fill="#1E293B">rebuttal-and-response</text>
+</svg>

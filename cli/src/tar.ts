@@ -118,7 +118,7 @@ export function extractEntries(entries: TarEntry[], dest: string, strip = 1, fil
     if (e.type === "dir") { mkdirSync(target, { recursive: true }); continue; }
     mkdirSync(dirname(target), { recursive: true });
     writeFileSync(target, e.data);
-    count++;
+    count += 1;
   }
   return count;
 }

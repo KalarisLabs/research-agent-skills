@@ -2,9 +2,12 @@ import { existsSync } from "node:fs";
 import { homedir } from "node:os";
 import { delimiter, join } from "node:path";
 
+export type HarnessCategory = "science" | "control-plane" | "coding-ide" | "cli-agent" | "generic";
+
 export interface Harness {
   id: string;
   label: string;
+  category?: HarnessCategory;
   /** Global skills directory (absolute). */
   global: string;
   /** Project-relative skills directory. */
@@ -15,23 +18,200 @@ export interface Harness {
 
 export function harnesses(home: string = homedir()): Harness[] {
   const h = (p: string) => join(home, p);
+  const localAppData = process.env.LOCALAPPDATA;
+  const appData = process.env.APPDATA;
+
   return [
-    { id: "claude-code", label: "Claude Code", global: h(".claude/skills"), project: ".claude/skills",
-      detect: { paths: [h(".claude")], bins: ["claude"] } },
-    { id: "codex", label: "OpenAI Codex", global: h(".codex/skills"), project: ".agents/skills",
-      detect: { paths: [h(".codex")], bins: ["codex"] } },
-    { id: "cursor", label: "Cursor", global: h(".cursor/skills"), project: ".agents/skills",
-      detect: { paths: [h(".cursor")], bins: ["cursor", "cursor-agent"] } },
-    { id: "gemini-cli", label: "Gemini CLI", global: h(".gemini/skills"), project: ".agents/skills",
-      detect: { paths: [h(".gemini")], bins: ["gemini"] } },
-    { id: "copilot", label: "GitHub Copilot", global: h(".copilot/skills"), project: ".agents/skills",
-      detect: { paths: [h(".copilot")], bins: ["copilot"] } },
-    { id: "opencode", label: "OpenCode", global: h(".config/opencode/skills"), project: ".agents/skills",
-      detect: { paths: [h(".config/opencode")], bins: ["opencode"] } },
-    { id: "windsurf", label: "Windsurf", global: h(".codeium/windsurf/skills"), project: ".windsurf/skills",
-      detect: { paths: [h(".codeium/windsurf")], bins: ["windsurf"] } },
-    { id: "agents", label: "Generic (.agents/skills: Cline, Amp, Goose, ...)", global: h(".agents/skills"),
-      project: ".agents/skills", detect: { paths: [h(".agents")], bins: [] } },
+    // --- Scientific Research Workbenches ---
+    {
+      id: "claude-science",
+      label: "Claude Science",
+      category: "science",
+      global: h(".claude-science/skills"),
+      project: ".claude-science/skills",
+      detect: {
+        paths: [
+          h(".claude-science"),
+          h(".config/claude-science"),
+          "/Applications/Claude Science.app",
+          h("Library/Application Support/Claude Science"),
+          ...(localAppData ? [join(localAppData, "ClaudeScience")] : []),
+        ],
+        bins: ["claude-science"],
+      },
+    },
+    {
+      id: "openscience",
+      label: "Open Science (openscience.sh)",
+      category: "science",
+      global: h(".openscience/skills"),
+      project: ".openscience/skills",
+      detect: {
+        paths: [h(".openscience"), h(".synsci")],
+        bins: ["openscience", "synsci"],
+      },
+    },
+
+    // --- Control Planes & Multi-Agent Surfaces ---
+    {
+      id: "t3-code",
+      label: "T3 Code",
+      category: "control-plane",
+      global: h(".t3/skills"),
+      project: ".t3/skills",
+      detect: {
+        paths: [
+          h(".t3"),
+          h(".config/t3"),
+          ...(appData ? [join(appData, "T3Code")] : []),
+        ],
+        bins: ["t3", "t3code", "t3-code"],
+      },
+    },
+    {
+      id: "antigravity",
+      label: "Google Antigravity",
+      category: "coding-ide",
+      global: h(".gemini/config/skills"),
+      project: ".gemini/config/skills",
+      detect: {
+        paths: [h(".gemini/antigravity"), h(".gemini/config"), h(".gemini")],
+        bins: ["agy", "antigravity"],
+      },
+    },
+    {
+      id: "hermes",
+      label: "Nous Hermes Agent",
+      category: "cli-agent",
+      global: h(".hermes/skills"),
+      project: ".hermes/skills",
+      detect: {
+        paths: [h(".hermes"), h(".config/hermes")],
+        bins: ["hermes"],
+      },
+    },
+
+    // --- Developer & CLI Agent Harnesses ---
+    {
+      id: "claude-code",
+      label: "Claude Code",
+      category: "cli-agent",
+      global: h(".claude/skills"),
+      project: ".claude/skills",
+      detect: { paths: [h(".claude")], bins: ["claude"] },
+    },
+    {
+      id: "codex",
+      label: "OpenAI Codex",
+      category: "cli-agent",
+      global: h(".codex/skills"),
+      project: ".agents/skills",
+      detect: { paths: [h(".codex")], bins: ["codex"] },
+    },
+    {
+      id: "cursor",
+      label: "Cursor",
+      category: "coding-ide",
+      global: h(".cursor/skills"),
+      project: ".agents/skills",
+      detect: { paths: [h(".cursor")], bins: ["cursor", "cursor-agent"] },
+    },
+    {
+      id: "gemini-cli",
+      label: "Gemini CLI",
+      category: "cli-agent",
+      global: h(".gemini/skills"),
+      project: ".agents/skills",
+      detect: { paths: [h(".gemini")], bins: ["gemini"] },
+    },
+    {
+      id: "copilot",
+      label: "GitHub Copilot",
+      category: "coding-ide",
+      global: h(".copilot/skills"),
+      project: ".agents/skills",
+      detect: { paths: [h(".copilot")], bins: ["copilot"] },
+    },
+    {
+      id: "openhands",
+      label: "OpenHands (OpenDevin)",
+      category: "cli-agent",
+      global: h(".openhands/skills"),
+      project: ".openhands/microagents",
+      detect: { paths: [h(".openhands")], bins: ["openhands"] },
+    },
+    {
+      id: "goose",
+      label: "Goose",
+      category: "cli-agent",
+      global: h(".config/goose/skills"),
+      project: ".goose/skills",
+      detect: { paths: [h(".config/goose"), h(".goose")], bins: ["goose"] },
+    },
+    {
+      id: "aider",
+      label: "Aider",
+      category: "cli-agent",
+      global: h(".aider/skills"),
+      project: ".aider/skills",
+      detect: { paths: [h(".aider")], bins: ["aider"] },
+    },
+    {
+      id: "opencode",
+      label: "OpenCode",
+      category: "cli-agent",
+      global: h(".config/opencode/skills"),
+      project: ".agents/skills",
+      detect: { paths: [h(".config/opencode")], bins: ["opencode"] },
+    },
+    {
+      id: "windsurf",
+      label: "Windsurf",
+      category: "coding-ide",
+      global: h(".codeium/windsurf/skills"),
+      project: ".windsurf/skills",
+      detect: { paths: [h(".codeium/windsurf")], bins: ["windsurf"] },
+    },
+    {
+      id: "roo-code",
+      label: "Roo Code / Cline",
+      category: "coding-ide",
+      global: h(".roo/skills"),
+      project: ".roo/skills",
+      detect: { paths: [h(".roo"), h(".cline")], bins: ["roo", "cline"] },
+    },
+    {
+      id: "zed",
+      label: "Zed Assistant",
+      category: "coding-ide",
+      global: h(".config/zed/skills"),
+      project: ".zed/prompts",
+      detect: { paths: [h(".config/zed")], bins: ["zed"] },
+    },
+    {
+      id: "trae",
+      label: "Trae",
+      category: "coding-ide",
+      global: h(".trae/skills"),
+      project: ".trae/rules",
+      detect: { paths: [h(".trae")], bins: ["trae"] },
+    },
+    {
+      id: "continue",
+      label: "Continue.dev",
+      category: "coding-ide",
+      global: h(".continue/skills"),
+      project: ".continue/prompts",
+      detect: { paths: [h(".continue")], bins: ["continue"] },
+    },
+    {
+      id: "agents",
+      label: "Generic (.agents/skills: Cline, Amp, Goose, ...)",
+      category: "generic",
+      global: h(".agents/skills"),
+      project: ".agents/skills",
+      detect: { paths: [h(".agents")], bins: [] },
+    },
   ];
 }
 

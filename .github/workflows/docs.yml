@@ -33,4 +33,4 @@ jobs:
           git diff --exit-code -- docs/skills
       - name: Mintlify links
         working-directory: docs
-        run: npx -y mint@4.2.963 broken-links
+        run: npx -y mintlify broken-links
