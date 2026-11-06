@@ -223,7 +223,6 @@ def _protocol_uri(value: str | None) -> str:
         value is None
         or _PROTOCOL_URI_RE.fullmatch(value) is None
         or value.isdigit()
-        or value.startswith("protocols.io")
     ):
         raise SafetyError(
             "operation requires an unversioned protocol URI, not an ID or DOI"

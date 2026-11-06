@@ -36914,7 +36914,7 @@ index 1e33eb3..0be69c7 100644
      try:
          report = inspect_pagination(
 diff --git a/skills/protocolsio-integration/scripts/plan_write_request.py b/skills/protocolsio-integration/scripts/plan_write_request.py
-index c487532..b26e39f 100644
+index c487532..7c77fc5 100644
 --- a/skills/protocolsio-integration/scripts/plan_write_request.py
 +++ b/skills/protocolsio-integration/scripts/plan_write_request.py
 @@ -81,6 +81,7 @@ _UPDATE_FIELDS = frozenset(
@@ -36957,7 +36957,7 @@ index c487532..b26e39f 100644
      missing = sorted(required - set(payload))
      unknown = sorted(set(payload) - required - optional)
      if missing:
-@@ -206,12 +211,14 @@ def _exact_fields(
+@@ -206,17 +211,18 @@ def _exact_fields(
  
  
  def _slug(value: str | None, *, name: str) -> str:
@@ -36972,7 +36972,12 @@ index c487532..b26e39f 100644
      if (
          value is None
          or _PROTOCOL_URI_RE.fullmatch(value) is None
-@@ -225,6 +232,7 @@ def _protocol_uri(value: str | None) -> str:
+         or value.isdigit()
+-        or value.startswith("protocols.io")
+     ):
+         raise SafetyError(
+             "operation requires an unversioned protocol URI, not an ID or DOI"
+@@ -225,6 +231,7 @@ def _protocol_uri(value: str | None) -> str:
  
  
  def _int_id(value: Any, *, name: str) -> int:
@@ -36980,7 +36985,7 @@ index c487532..b26e39f 100644
      if isinstance(value, bool):
          raise SafetyError(f"{name} must be an integer")
      if isinstance(value, int):
-@@ -241,6 +249,7 @@ def _int_id(value: Any, *, name: str) -> int:
+@@ -241,6 +248,7 @@ def _int_id(value: Any, *, name: str) -> int:
  
  
  def _validate_update(payload: Mapping[str, Any]) -> None:
@@ -36988,7 +36993,7 @@ index c487532..b26e39f 100644
      _exact_fields(
          payload,
          required=set(),
-@@ -297,6 +306,7 @@ def _validate_update(payload: Mapping[str, Any]) -> None:
+@@ -297,6 +305,7 @@ def _validate_update(payload: Mapping[str, Any]) -> None:
  
  
  def _validate_steps(payload: Mapping[str, Any], *, deleting: bool) -> None:
@@ -36996,7 +37001,7 @@ index c487532..b26e39f 100644
      _exact_fields(
          payload,
          required={"steps"},
-@@ -339,6 +349,7 @@ def _validate_steps(payload: Mapping[str, Any], *, deleting: bool) -> None:
+@@ -339,6 +348,7 @@ def _validate_steps(payload: Mapping[str, Any], *, deleting: bool) -> None:
  
  
  def _validate_publish(payload: Mapping[str, Any]) -> None:
@@ -37004,7 +37009,7 @@ index c487532..b26e39f 100644
      _exact_fields(
          payload,
          required=set(),
-@@ -352,6 +363,7 @@ def _validate_publish(payload: Mapping[str, Any]) -> None:
+@@ -352,6 +362,7 @@ def _validate_publish(payload: Mapping[str, Any]) -> None:
  
  
  def _validate_comment(payload: Mapping[str, Any]) -> None:
@@ -37012,7 +37017,7 @@ index c487532..b26e39f 100644
      _exact_fields(
          payload,
          required={"body"},
-@@ -366,6 +378,7 @@ def _validate_comment(payload: Mapping[str, Any]) -> None:
+@@ -366,6 +377,7 @@ def _validate_comment(payload: Mapping[str, Any]) -> None:
  
  
  def _validate_ids(payload: Mapping[str, Any], *, operation: str) -> None:
@@ -37020,7 +37025,7 @@ index c487532..b26e39f 100644
      _exact_fields(
          payload,
          required={"ids"},
-@@ -380,6 +393,7 @@ def _validate_ids(payload: Mapping[str, Any], *, operation: str) -> None:
+@@ -380,6 +392,7 @@ def _validate_ids(payload: Mapping[str, Any], *, operation: str) -> None:
  
  
  def _hash_file(path: Path, maximum: int) -> str:
@@ -37028,7 +37033,7 @@ index c487532..b26e39f 100644
      digest = hashlib.sha256()
      total = 0
      with path.open("rb") as handle:
-@@ -402,6 +416,7 @@ def _upload_plan(
+@@ -402,6 +415,7 @@ def _upload_plan(
      local_max_bytes: int,
      origin: str,
  ) -> tuple[str, dict[str, Any], list[dict[str, Any]]]:
@@ -37036,7 +37041,7 @@ index c487532..b26e39f 100644
      if raw_path is None:
          raise SafetyError("upload-file requires --upload-file")
      if not 1 <= local_max_bytes <= MAX_UPLOAD_INSPECTION_BYTES:
-@@ -458,6 +473,7 @@ def build_plan(
+@@ -458,6 +472,7 @@ def build_plan(
      local_max_upload_bytes: int,
      confirmation: str | None,
  ) -> dict[str, Any]:
@@ -37044,7 +37049,7 @@ index c487532..b26e39f 100644
      core_origin = validate_origin(origin)
      sensitive = _sensitive_paths(payload)
      clean_payload = _drop_sensitive(payload)
-@@ -627,14 +643,17 @@ def build_plan(
+@@ -627,14 +642,17 @@ def build_plan(
  
  
  def credential_env_name() -> str:
