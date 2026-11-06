@@ -10,7 +10,6 @@ on:  # zizmor: ignore[dangerous-triggers] read-only token, checks out main only,
     workflows:
       - Benchmarks
       - Code security
-      - Deploy Skills Catalog to skills.kalarislabs.com
       - Mintlify docs checks
       - Links
       - Publish to PyPI
