@@ -44,3 +44,6 @@ htmlcov/
 .claude/skills/graphify/
 .claude/CLAUDE.md
 .cursor/rules/graphify.mdc
+
+# Local project skills (installed per clone, like graphify); the Vercel skills CLI would count them as repo skills
+.claude/skills/

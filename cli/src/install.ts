@@ -56,7 +56,7 @@ export function readLock(dir: string): LockFile | undefined {
 
 function writeLock(dir: string, lock: LockFile): void {
   lock.updatedAt = new Date().toISOString();
-  writeFileSync(join(dir, LOCK_NAME), `${JSON.stringify(lock, null, 2)}\n`);
+  writeFileSync(join(dir, LOCK_NAME), JSON.stringify(lock, null, 2) + "\n");
 }
 
 export function hashTree(dir: string): Record<string, string> {

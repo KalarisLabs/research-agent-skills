@@ -70,6 +70,7 @@
     "scientific-slides|BEHAVIOR_CROSSFILE_ENV_VAR_EXFILTRATION|",
     "scientific-slides|BEHAVIOR_CROSSFILE_EXFILTRATION_CHAIN|",
     "scientific-slides|BEHAVIOR_ENV_VAR_EXFILTRATION|scripts/generate_schematic_ai.py",
+    "scientific-slides|BEHAVIOR_ENV_VAR_EXFILTRATION|scripts/_nano_banana_common.py",
     "scientific-slides|BEHAVIOR_ENV_VAR_EXFILTRATION|scripts/generate_slide_image_ai.py",
     "segment-anything-model|MDBLOCK_PYTHON_EVAL_EXEC|references/advanced-usage.md",
     "statistical-power|RESOURCE_ABUSE_INFINITE_LOOP|scripts/simulate_power.py",

@@ -45,6 +45,7 @@ The 53 new HIGH findings in the 281-skill scan map to 50 unique skill, rule, and
 | `scientific-slides|BEHAVIOR_CROSSFILE_ENV_VAR_EXFILTRATION|` | OPENROUTER_API_KEY goes to fixed HTTPS OpenRouter image API. Cross-file alert has an invalid bundled rule contract and shows no unauthorized destination. |
 | `scientific-slides|BEHAVIOR_CROSSFILE_EXFILTRATION_CHAIN|` | OPENROUTER_API_KEY goes to fixed HTTPS OpenRouter image API. Cross-file alert has an invalid bundled rule contract and shows no unauthorized destination. |
 | `scientific-slides|BEHAVIOR_ENV_VAR_EXFILTRATION|scripts/generate_schematic_ai.py` | OPENROUTER_API_KEY goes to fixed HTTPS OpenRouter image API. |
+| `scientific-slides|BEHAVIOR_ENV_VAR_EXFILTRATION|scripts/_nano_banana_common.py` | Shared helper extracted from the two generators above; OPENROUTER_API_KEY goes to fixed HTTPS OpenRouter image API. |
 | `scientific-slides|BEHAVIOR_ENV_VAR_EXFILTRATION|scripts/generate_slide_image_ai.py` | OPENROUTER_API_KEY goes to fixed HTTPS OpenRouter image API. |
 | `segment-anything-model|MDBLOCK_PYTHON_EVAL_EXEC|references/advanced-usage.md` | Model.eval() switches a model to inference mode; it is not Python dynamic execution. |
 | `tensorboard|MDBLOCK_PYTHON_EVAL_EXEC|references/integration-examples.md` | Model.eval() switches a model to inference mode; it is not Python dynamic execution. |
