@@ -28804,7 +28804,7 @@ index 4759de7..338f8f3 100644
          description="OpenPIV - Particle Image Velocimetry processing"
      )
 diff --git a/skills/pacsomatic/scripts/run_pacsomatic.py b/skills/pacsomatic/scripts/run_pacsomatic.py
-index c3b6528..57255e7 100644
+index c3b6528..877e001 100644
 --- a/skills/pacsomatic/scripts/run_pacsomatic.py
 +++ b/skills/pacsomatic/scripts/run_pacsomatic.py
 @@ -37,28 +37,34 @@ MIN_JAVA_MAJOR = 17
@@ -28981,7 +28981,12 @@ index c3b6528..57255e7 100644
      quoted_cmd = " ".join(shlex.quote(token) for token in nextflow_cmd)
      mkdir_targets = [args.outdir, args.workdir]
      if args.logdir:
-@@ -415,6 +439,7 @@ def write_launch_script(args, script_path, nextflow_cmd):
+@@ -411,10 +435,11 @@ def write_launch_script(args, script_path, nextflow_cmd):
+     with open(script_path, "w", encoding="utf-8") as handle:
+         handle.write("\n".join(lines) + "\n")
+ 
+-    os.chmod(script_path, 0o755)
++    os.chmod(script_path, 0o700)
  
  
  def verify_bam_and_index(label, bam_path, pbi_path):

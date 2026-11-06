@@ -435,7 +435,7 @@ def write_launch_script(args, script_path, nextflow_cmd):
     with open(script_path, "w", encoding="utf-8") as handle:
         handle.write("\n".join(lines) + "\n")
 
-    os.chmod(script_path, 0o755)
+    os.chmod(script_path, 0o700)
 
 
 def verify_bam_and_index(label, bam_path, pbi_path):
