@@ -5,7 +5,7 @@ name: PostHog telemetry
 # snapshot. It reports nothing about people who use the skills. Without the POSTHOG_PROJECT_KEY
 # secret (forks, local runs) every step is a no-op, and telemetry never fails a build.
 
-on:
+on:  # zizmor: ignore[dangerous-triggers] read-only token, checks out main only, never runs PR code
   workflow_run:
     workflows:
       - Benchmarks

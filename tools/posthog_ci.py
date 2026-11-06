@@ -122,7 +122,9 @@ def workflow_run_events() -> list[dict]:
         events.append({"event": "ci_job_completed", "timestamp": job.get("completed_at"), "properties": job_props})
         if job.get("conclusion") == "failure":
             failed_steps = [s["name"] for s in job.get("steps", []) if s.get("conclusion") == "failure"]
-            message = f"{base['workflow']} / {job.get('name')} failed" + (f" at step: {failed_steps[0]}" if failed_steps else "")
+            message = f"{base['workflow']} / {job.get('name')} failed" + (
+                f" at step: {failed_steps[0]}" if failed_steps else ""
+            )
             events.append(
                 {
                     "event": "$exception",
@@ -194,7 +196,9 @@ def repo_snapshot_events() -> list[dict]:
     releases = _github(f"/repos/{REPO}/releases?per_page=100")
     if isinstance(releases, list):
         props["release_count"] = len(releases)
-        props["release_asset_downloads"] = sum(a.get("download_count", 0) for r in releases for a in r.get("assets", []))
+        props["release_asset_downloads"] = sum(
+            a.get("download_count", 0) for r in releases for a in r.get("assets", [])
+        )
     package = os.environ.get("PYPI_PACKAGE", "").strip()
     if package:
         recent = _request(f"https://pypistats.org/api/packages/{package}/recent") or {}
