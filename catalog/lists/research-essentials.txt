@@ -18,6 +18,7 @@ elsevier-cas
 exa-search
 experimental-design
 firecrawl-research-index
+fulltext-acquisition
 generate-image
 hypogenic
 hypothesis-generation
@@ -34,6 +35,7 @@ matplotlib
 ml-paper-writing
 nature-portfolio
 open-notebook
+paper-card
 paper-lookup
 paperclip
 paperzilla

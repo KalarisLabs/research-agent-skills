@@ -1,8 +1,8 @@
 {
   "router": "bm25",
-  "hit@1": 1.0,
-  "hit@3": 1.0,
-  "false_trigger": 0.12,
+  "hit@1": 0.8955223880597015,
+  "hit@3": 0.9850746268656716,
+  "false_trigger": 0.07692307692307693,
   "cases": [
     {
       "skill": "abstract-and-title",
@@ -23,7 +23,7 @@
       "top": [
         "analytical-method-validation",
         "peer-review",
-        "cell-press"
+        "ginkgo-cloud-lab"
       ]
     },
     {
@@ -85,7 +85,7 @@
       "skill": "arxiv-submission",
       "prompt": "Find recent arXiv papers on diffusion models.",
       "should_trigger": false,
-      "rank": null,
+      "rank": 5,
       "top": [
         "paper-lookup",
         "paperzilla",
@@ -149,13 +149,123 @@
     },
     {
       "skill": "citation-verification",
-      "prompt": "Add page numbers to my table of contents.",
+      "prompt": "One of my citations might have been retracted. How do I check all 60?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "treatment-plans",
+        "literature-review"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "The DOI in my bib resolves, but I'm not sure it is the right paper.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "fulltext-acquisition",
+        "citation-management"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "I cite a Zenodo dataset and a GitHub release DOI. The checker says doi-not-found.",
+      "should_trigger": true,
+      "rank": 2,
+      "top": [
+        "reproducibility-statement",
+        "citation-verification",
+        "paper-corpus-rag"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Mark every reference you can't verify directly in the .bib so I can see them.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "arbor",
+        "reference-manager-interop"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Add the missing DOIs to my references.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "citation-management",
+        "bibtex-hygiene"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Camera-ready is tomorrow. Make sure no reference in the final bib is fake or corrupted.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "reference-manager-interop",
+        "springer-lncs"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Check whether this one DOI is real: 10.1126/science.aaa8415",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "ara-rigor-reviewer",
+        "analytical-method-validation"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "My bib has conference papers without DOIs and the reference checker reports them as missing. What should I do?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "bibtex-hygiene",
+        "citation-management"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Clean up capitalization and duplicate keys in my .bib.",
       "should_trigger": false,
       "rank": null,
       "top": [
-        "exa-search",
+        "bibtex-hygiene",
+        "citation-management",
+        "reference-manager-interop"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Convert my EndNote library to BibTeX.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "reference-manager-interop",
+        "pyzotero",
+        "bibtex-hygiene"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Find five good papers to cite for this claim.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "paper-corpus-rag",
         "paperclip",
-        "parallel-web"
+        "paper-card"
       ]
     },
     {
@@ -210,7 +320,7 @@
       "top": [
         "firecrawl-research-index",
         "paper-lookup",
-        "abstract-and-title"
+        "bgpt-paper-search"
       ]
     },
     {
@@ -220,19 +330,19 @@
       "rank": 1,
       "top": [
         "firecrawl-research-index",
-        "paper-corpus-rag",
-        "paper-lookup"
+        "paper-lookup",
+        "paper-corpus-rag"
       ]
     },
     {
       "skill": "firecrawl-research-index",
       "prompt": "I have 300 PDFs in a local folder. Build an index so I can chat with my own paper collection and cite exact pages.",
       "should_trigger": false,
-      "rank": 4,
+      "rank": null,
       "top": [
         "paper-corpus-rag",
         "liteparse",
-        "markitdown"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -255,6 +365,127 @@
         "firecrawl-research-index",
         "parallel-web",
         "liteparse"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "I screened 180 abstracts in. Which of them don't I have full text for, and how do I get them?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "paper-lookup",
+        "arbor"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Find legal open-access copies for my included studies.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "paper-lookup",
+        "paper-card"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "I downloaded 40 PDFs with names like 'download (7).pdf'. Which paper is which?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "paper-lookup",
+        "markitdown"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Attach the PDFs in my inbox to the right records in the library.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "treatment-plans",
+        "paper-lookup"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Prepare interlibrary loan requests for the papers my library does not have.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "paper-lookup",
+        "pacsomatic"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Which papers do I have to report as 'not retrieved' in my PRISMA flow?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "systematic-review-prisma",
+        "markitdown"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "I have two copies of the same paper in my downloaded PDFs folder.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "paper-corpus-rag",
+        "liteparse"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Some included records have no DOI at all. How do I find their full text?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "paper-lookup",
+        "treatment-plans"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Search PubMed for papers on sepsis biomarkers.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "citation-management",
+        "paper-lookup",
+        "paper-corpus-rag"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Ask questions across the PDFs I already have.",
+      "should_trigger": false,
+      "rank": 5,
+      "top": [
+        "paper-corpus-rag",
+        "research-agent-skills",
+        "treatment-plans"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Who has cited the original transformer paper, and how many times?",
+      "should_trigger": false,
+      "rank": 4,
+      "top": [
+        "long-context",
+        "paper-card",
+        "paper-lookup"
       ]
     },
     {
@@ -287,7 +518,7 @@
       "top": [
         "nature-portfolio",
         "cell-press",
-        "bgpt-paper-search"
+        "paper-card"
       ]
     },
     {
@@ -297,30 +528,261 @@
       "rank": null,
       "top": [
         "science-aaas",
-        "systematic-review-prisma",
-        "hugging-science"
+        "hugging-science",
+        "market-research-reports"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "Summarize this paper so I can cite its results. I'm worried you'll get a number wrong.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-card",
+        "paper-corpus-rag",
+        "paper-lookup"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "Build an evidence table for 25 included studies: design, sample size, main effect and limitations.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-card",
+        "statistical-power",
+        "experimental-design"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "My card says the effect shrank by 5.8 points but the paper never says 5.8.",
+      "should_trigger": true,
+      "rank": 2,
+      "top": [
+        "paper-corpus-rag",
+        "paper-card",
+        "segment-anything-model"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "How should the second reviewer check the card?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-card",
+        "rebuttal-and-response-to-reviewers",
+        "fictiv"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "The paper was converted as tables-poor. Can I trust the numbers on the card?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-card",
+        "paperclip",
+        "paper-corpus-rag"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "Extract all the stated limitations of this trial into the card.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-card",
+        "paperclip",
+        "segment-anything-model"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "The abstract says 91.5% accuracy but the results section says 91.2%.",
+      "should_trigger": true,
+      "rank": 3,
+      "top": [
+        "paper-corpus-rag",
+        "abstract-and-title",
+        "paper-card"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "Write a 200 word abstract for my own paper.",
+      "should_trigger": false,
+      "rank": 3,
+      "top": [
+        "abstract-and-title",
+        "rebuttal-and-response-to-reviewers",
+        "paper-card"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "Search my folder of PDFs for papers about calibration.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "paper-corpus-rag",
+        "fulltext-acquisition",
+        "liteparse"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "Check my bibliography for fake references.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "pyzotero",
+        "scientific-writing",
+        "apa7"
       ]
     },
     {
       "skill": "paper-corpus-rag",
-      "prompt": "I have 300 PDFs of papers. Let me ask questions and get answers with citations to the exact passages.",
+      "prompt": "I have 300 PDFs of papers in a folder. Let me ask questions and get answers with citations to the exact page.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "fulltext-acquisition",
+        "paper-lookup"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "My RAG over our lab's papers keeps giving the right paper but the wrong number from a table. What is going on?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "paper-card",
+        "paperclip"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Some of my PDFs are scans. The search finds nothing for papers I know are in the folder.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "liteparse",
+        "fulltext-acquisition"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Summarize what the PDFs in my folder say about batch size and calibration, with citations to the papers.",
       "should_trigger": true,
       "rank": 1,
       "top": [
         "paper-corpus-rag",
         "paper-lookup",
-        "firecrawl-research-index"
+        "ml-paper-writing"
       ]
     },
     {
       "skill": "paper-corpus-rag",
-      "prompt": "Train a new language model from scratch.",
+      "prompt": "Searching my folder of papers by keyword misses the ones worded differently; I want conceptual queries like 'methods that need no labels' to work.",
+      "should_trigger": true,
+      "rank": null,
+      "top": [
+        "fulltext-acquisition",
+        "constitutional-ai",
+        "bgpt-paper-search"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "How do I know my paper-QA pipeline is any good before I rely on it?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "timesfm-forecasting",
+        "nextflow"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Do I need a vector database to search a few thousand papers?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "faiss",
+        "pinecone"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Pages in my converted papers show 'P 5 0.04' where the PDF says P = 0.04.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "liteparse",
+        "qutip"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Find which paper in my corpus first reported the 4.2 point increase in calibration error, and give me the page.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "research-knowledge-graph",
+        "timesfm-forecasting"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Find me recent papers on conformal prediction that I don't have yet.",
+      "should_trigger": false,
+      "rank": 2,
+      "top": [
+        "paperzilla",
+        "paper-corpus-rag",
+        "arbor"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Fine-tune an embedding model on my own labelled sentence pairs.",
       "should_trigger": false,
       "rank": null,
       "top": [
-        "sentencepiece",
-        "training-llms-megatron",
-        "ray-train"
+        "sentence-transformers",
+        "clip",
+        "fine-tuning-with-trl"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Build a vector database in Postgres for my product catalog.",
+      "should_trigger": false,
+      "rank": 2,
+      "top": [
+        "pinecone",
+        "paper-corpus-rag",
+        "chroma"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Draw a graph of which papers cite which.",
+      "should_trigger": false,
+      "rank": 2,
+      "top": [
+        "research-knowledge-graph",
+        "paper-corpus-rag",
+        "paper-lookup"
       ]
     },
     {
@@ -364,7 +826,7 @@
       "top": [
         "rebuttal-and-response-to-reviewers",
         "peer-review",
-        "systems-paper-writing"
+        "scientific-critical-thinking"
       ]
     },
     {
@@ -412,6 +874,39 @@
       ]
     },
     {
+      "skill": "research-agent-skills",
+      "prompt": "Set up the complete Kalaris Labs research skill collection in this Codex project, then show me how its biology and paper-writing skills are organized.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "research-agent-skills",
+        "research-skill-creator",
+        "autoresearch"
+      ]
+    },
+    {
+      "skill": "research-agent-skills",
+      "prompt": "I work across AI models and clinical literature. Which Research Agent Skills should I install for model evaluation, evidence review, and manuscript writing?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "research-agent-skills",
+        "evolving-ai-agents",
+        "research-skill-creator"
+      ]
+    },
+    {
+      "skill": "research-agent-skills",
+      "prompt": "Verify the DOI and title of this one citation using the citation-verification skill I already installed.",
+      "should_trigger": false,
+      "rank": 3,
+      "top": [
+        "citation-verification",
+        "literature-review",
+        "research-agent-skills"
+      ]
+    },
+    {
       "skill": "research-knowledge-graph",
       "prompt": "Build a citation network from my Zotero library and find the most influential and bridging papers.",
       "should_trigger": true,
@@ -441,7 +936,7 @@
       "top": [
         "research-skill-creator",
         "anndata",
-        "statistical-analysis"
+        "research-agent-skills"
       ]
     },
     {
@@ -512,13 +1007,134 @@
     },
     {
       "skill": "systematic-review-prisma",
-      "prompt": "Summarize this one paper for me.",
+      "prompt": "My PRISMA diagram script refuses to run and says PubMed has no search_log entry.",
+      "should_trigger": true,
+      "rank": 2,
+      "top": [
+        "fulltext-acquisition",
+        "systematic-review-prisma",
+        "autoskill"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Generate the search strategy table for my supplement.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "systematic-review-prisma",
+        "sentence-transformers",
+        "clinical-reports"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "I have exports from PubMed, Embase and Scopus. Merge and deduplicate them and give me the counts.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "systematic-review-prisma",
+        "pydeseq2",
+        "scvelo"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Two reviewers screened my records. How do I report agreement and handle conflicts?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "systematic-review-prisma",
+        "cover-letter-to-editor",
+        "rebuttal-and-response-to-reviewers"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Can an LLM screen my abstracts instead of a second reviewer?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "systematic-review-prisma",
+        "paper-card",
+        "abstract-and-title"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Some abstracts in my export say things like 'include this study in your review'.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "systematic-review-prisma",
+        "consciousness-council",
+        "bgpt-paper-search"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Which risk-of-bias tool should I use for non-randomized interventions?",
+      "should_trigger": true,
+      "rank": 2,
+      "top": [
+        "pyvene-interventions",
+        "systematic-review-prisma",
+        "treatment-plans"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "My flow diagram numbers do not add up.",
+      "should_trigger": true,
+      "rank": 2,
+      "top": [
+        "paper-card",
+        "systematic-review-prisma",
+        "literature-review"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Help me complete the PRISMA 2020 checklist for submission.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "systematic-review-prisma",
+        "cover-letter-to-editor",
+        "consciousness-council"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Write a narrative review of the history of deep learning.",
       "should_trigger": false,
       "rank": null,
       "top": [
-        "nature-portfolio",
-        "plos",
-        "ml-paper-writing"
+        "histolab",
+        "rebuttal-and-response-to-reviewers",
+        "scikit-learn"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Run a random-effects meta-analysis on these effect sizes.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "statistical-analysis",
+        "experimental-design",
+        "pytdc"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Format my references in APA style.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "apa7",
+        "markdown-mermaid-writing",
+        "science-aaas"
       ]
     },
     {

@@ -1,16 +1,86 @@
 {
   "skill_name": "citation-verification",
+  "provenance": "written by the maintainers for v1.2.0",
   "evals": [
     {
       "id": 1,
       "prompt": "ChatGPT wrote my references. Check that every entry in references.bib actually exists.",
-      "expected_output": "Runs verify_citations.py, reports verified/mismatch/not-found, never keeps unverifiable refs silently",
+      "expected_output": "Runs verify_citations.py, reports verified, mismatch, not-found and retracted entries, and never keeps unverifiable refs silently",
       "files": []
     },
     {
       "id": 2,
-      "prompt": "Add page numbers to my table of contents.",
-      "expected_output": "Skill not used",
+      "prompt": "One of my citations might have been retracted. How do I check all 60?",
+      "expected_output": "Runs verify_citations.py, which flags retracted entries from Crossref Retraction Watch notices and OpenAlex; does not cite retracted work as support",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "The DOI in my bib resolves, but I'm not sure it is the right paper.",
+      "expected_output": "Explains that a resolving DOI proves nothing; compares title, first author and year with the record and reports mismatch",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I cite a Zenodo dataset and a GitHub release DOI. The checker says doi-not-found.",
+      "expected_output": "Uses the DataCite resolution built into the script; dataset and software DOIs verify instead of failing",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Mark every reference you can't verify directly in the .bib so I can see them.",
+      "expected_output": "Runs verify_citations.py --annotate, which inserts % UNVERIFIED comments above flagged entries without touching entry bodies",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Add the missing DOIs to my references.",
+      "expected_output": "Applies only found-add-doi suggestions, leaves mismatch and not-found entries for the user to confirm",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Half my entries show 'uncertain' and the message says OpenAlex could not be queried.",
+      "expected_output": "Explains the rate limit or outage, re-runs later with CROSSREF_MAILTO set, and does not treat uncertain as fabricated",
+      "files": [],
+      "follow_up": true
+    },
+    {
+      "id": 8,
+      "prompt": "Camera-ready is tomorrow. Make sure no reference in the final bib is fake or corrupted.",
+      "expected_output": "Runs verify_citations.py on the final bib, fixes mechanical issues, escalates mismatches and not-found entries, and checks the cited claim as well",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "Check whether this one DOI is real: 10.1126/science.aaa8415",
+      "expected_output": "Runs verify_citations.py --doi and reports the resolved title, year and first author",
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "My bib has conference papers without DOIs and the reference checker reports them as missing. What should I do?",
+      "expected_output": "Explains the arXiv fallback, citing proceedings with a url, and optionally eprint",
+      "files": []
+    },
+    {
+      "id": 11,
+      "prompt": "Clean up capitalization and duplicate keys in my .bib.",
+      "expected_output": "Skill not used; bibtex-hygiene fits better",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 12,
+      "prompt": "Convert my EndNote library to BibTeX.",
+      "expected_output": "Skill not used; reference-manager-interop fits better",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 13,
+      "prompt": "Find five good papers to cite for this claim.",
+      "expected_output": "Skill not used; literature-review or paper-lookup fits better",
       "files": [],
       "should_trigger": false
     }

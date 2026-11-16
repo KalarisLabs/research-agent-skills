@@ -1,0 +1,89 @@
+{
+  "skill_name": "fulltext-acquisition",
+  "provenance": "written by the maintainers for v1.2.0",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I screened 180 abstracts in. Which of them don't I have full text for, and how do I get them?",
+      "expected_output": "Runs fulltext_status.py, writes missing.csv and retrieval.md, reports totals and papers with no DOI",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Find legal open-access copies for my included studies.",
+      "expected_output": "Runs fulltext_status.py --resolve-oa with the user's email so Unpaywall supplies OA URLs, and does not use shadow libraries",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I downloaded 40 PDFs with names like 'download (7).pdf'. Which paper is which?",
+      "expected_output": "Runs match_pdf.py, which identifies each by DOI, PMID or title in its own text and reports matched, conflict or unmatched",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Attach the PDFs in my inbox to the right records in the library.",
+      "expected_output": "Runs match_pdf.py --attach, which copies only text-verified matches, refuses to overwrite, and logs a manifest",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "match_pdf.py says 'conflict' for a file.",
+      "expected_output": "Explains the filename disagrees with the text, so the file is misnamed; renames or discards and never attaches it",
+      "files": [],
+      "follow_up": true
+    },
+    {
+      "id": 6,
+      "prompt": "Prepare interlibrary loan requests for the papers my library does not have.",
+      "expected_output": "Uses retrieval.md ILL fields and the institution resolver link; reports unobtainable papers as not retrieved",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "A few of my files are scans, and match_pdf.py reports filename-only.",
+      "expected_output": "Explains no text layer to verify; checks by eye, then reruns with --allow-filename-only, or OCRs first",
+      "files": [],
+      "follow_up": true
+    },
+    {
+      "id": 8,
+      "prompt": "Which papers do I have to report as 'not retrieved' in my PRISMA flow?",
+      "expected_output": "Lists papers still missing after the routes, with reasons, for reports_not_retrieved; never summarizes them from abstracts as if read",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "I have two copies of the same paper in my downloaded PDFs folder.",
+      "expected_output": "match_pdf.py reports duplicate and never overwrites; the user keeps the better copy",
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "Some included records have no DOI at all. How do I find their full text?",
+      "expected_output": "Reports the no-DOI count, searches by title and PMID in the worklist links, and matches downloads by title",
+      "files": []
+    },
+    {
+      "id": 11,
+      "prompt": "Search PubMed for papers on sepsis biomarkers.",
+      "expected_output": "Skill not used; paper-lookup or literature-review fits better",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 12,
+      "prompt": "Ask questions across the PDFs I already have.",
+      "expected_output": "Skill not used; paper-corpus-rag fits better",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 13,
+      "prompt": "Who has cited the original transformer paper, and how many times?",
+      "expected_output": "Skill not used; paper-lookup fits better",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

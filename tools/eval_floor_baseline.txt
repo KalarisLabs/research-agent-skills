@@ -1,0 +1,8 @@
+# Original script-backed skills that predate the eval floor (>= 10 prompts, >= 3 near-misses).
+# They only warn. Do not add new skills here: grow their evals and delete the line.
+arxiv-submission
+bibtex-hygiene
+reference-manager-interop
+research-knowledge-graph
+research-skill-creator
+unslop-academic-writing

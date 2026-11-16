@@ -5,7 +5,8 @@ correct entries (the tool should pass them, possibly suggesting a DOI).
 
 Usage:
     uv run benchmarks/citation_verification/run.py [--json benchmarks/results/citation-verification.json]
-Exit 1 if recall < 0.9 or precision < 0.9.
+Entries labeled `retracted` are real papers that were later retracted; they are reported separately
+as retraction recall. Exit 1 if recall < 0.9, precision < 0.9 or retraction recall < 1.0.
 """
 
 from __future__ import annotations
@@ -53,15 +54,17 @@ def main() -> int:
         mark = "ok " if flagged == bad else "ERR"
         rows.append({"key": key, "label": label, "status": status, "correct": flagged == bad})
         print(f"{mark} {label:<10} {status:<14} {key}")
+    retracted = [r for r in rows if r["label"] == "retracted"]
+    retraction_recall = sum(r["status"] == "retracted" for r in retracted) / len(retracted) if retracted else 1.0
     precision = tp / (tp + fp) if tp + fp else 1.0
     recall = tp / (tp + fn) if tp + fn else 1.0
     print(f"\n{len(labels)} entries  precision={precision:.2f}  recall={recall:.2f}  "
-          f"(tp={tp} fp={fp} fn={fn} tn={tn})")
+          f"(tp={tp} fp={fp} fn={fn} tn={tn})  retraction_recall={retraction_recall:.2f} ({len(retracted)} retracted)")
     if args.json:
         args.json.parent.mkdir(parents=True, exist_ok=True)
-        args.json.write_text(json.dumps({"precision": precision, "recall": recall, "rows": rows}, indent=2) + "\n",
-                             encoding="utf-8")
-    return 0 if precision >= 0.9 and recall >= 0.9 else 1
+        report = {"precision": precision, "recall": recall, "retraction_recall": retraction_recall, "rows": rows}
+        args.json.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    return 0 if precision >= 0.9 and recall >= 0.9 and retraction_recall >= 1.0 else 1
 
 
 if __name__ == "__main__":

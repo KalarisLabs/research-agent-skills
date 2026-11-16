@@ -37,7 +37,7 @@ Start with one task and one skill. You can add more after you see how your agent
     ```
 
     See [skills by discipline](/guides/by-field) for starting points in ML, AI, biology, chemistry,
-    medicine and physics, or [browse all 281 skills](/skills).
+    medicine and physics, or [browse all 283 skills](/skills).
   </Step>
 </Steps>
 

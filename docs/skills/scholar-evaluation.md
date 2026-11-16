@@ -36,6 +36,7 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 
 ## Related
 
+- [`paper-card`](/skills/paper-card)
 - [`citation-verification`](/skills/citation-verification)
 - [Write a research paper with AI](/guides/write-a-research-paper)
 

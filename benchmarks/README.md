@@ -20,9 +20,9 @@ small model, so treat them as indicative. Rerun with larger models and samples b
 
 | Scope | Skills | Mean | Min | ≥ 85 |
 |---|---:|---:|---:|---:|
-| Original skills | 24 | 95.5 | 82 | 23 |
+| Original skills | 26 | 95.8 | 82 | 25 |
 | Adapted skills | 257 | 95.2 | 80 | 256 |
-| All skills | 281 | 95.2 | 80 | 279 |
+| All skills | 283 | 95.2 | 80 | 281 |
 
 Full table: [`results/skill-quality.md`](https://github.com/KalarisLabs/research-agent-skills/blob/main/benchmarks/results/skill-quality.md). The report lists concrete fixes per skill
 (e.g. missing "Use when" triggers, no numbered workflow, broken reference links).
@@ -42,12 +42,17 @@ rather than new domain content, and per-skill rewrites remain the path to deeper
 
 ### 2. Trigger routing
 
+The reviewed suite grew from 53 to 106 prompts in 1.2.0 (new near-misses for the script-backed skills), so the
+PR-gate row is harder than before and its hit@1 fell from 1.00 to 0.90. Prompts that quote a skill's own script
+names or error messages are flagged `follow_up: true` and skipped, because a fresh session never phrases them that
+way. The two model-router rows below were measured on the earlier 283-skill library and have not been rerun.
+
 | Router | Prompts | hit@1 | hit@3 | False-trigger |
 |---|---:|---:|---:|---:|
-| BM25, reviewed evals (PR gate) | 53 | 1.00 | 1.00 | 0.12 |
-| BM25, all evals incl. generated (281 skills) | 1,335 | 0.50 | 0.65 | 0.07 |
-| BM25, random sample of all evals (seed 7) | 100 | 0.65 | 0.77 | 0.04 |
-| Claude Haiku 4.5 router, same sample | 100 | 0.92 | 0.96 | 0.00 |
+| BM25, reviewed evals (PR gate) | 106 | 0.90 | 0.99 | 0.08 |
+| BM25, all evals incl. generated (283 skills) | 1,388 | 0.51 | 0.66 | 0.06 |
+| BM25, random sample of all evals (seed 7) | 99 | 0.62 | 0.77 | 0.04 |
+| Claude Haiku 4.5 router, same sample | 99 | 0.92 | 0.96 | 0.00 |
 
 Every skill now has an eval suite in `evals/<skill>/evals.json`: 3 realistic prompts plus 1-2 near misses that name
 the better skill. Suites for adapted skills were generated from each skill's `SKILL.md` and are marked
@@ -86,12 +91,16 @@ Rerun with a stronger answer model, a different judge model and more prompts bef
 
 ### Citation verification (`citation-verification`)
 
-18 labeled references: 10 correct (8 with DOI, 2 DOI-less arXiv/NeurIPS), 4 corrupted (wrong DOI, wrong year,
-wrong first author, DOI typo) and 4 fabricated.
+21 labeled references: 11 correct (8 with DOI, 2 DOI-less arXiv/NeurIPS, 1 Zenodo dataset DOI via DataCite),
+4 corrupted (wrong DOI, wrong year, wrong first author, DOI typo), 4 fabricated and 2 retracted papers
+(Wakefield 1998, Séralini 2012).
 
-| Precision | Recall | Correct entries passed | Bad entries flagged |
-|---:|---:|---:|---:|
-| 1.00 | 1.00 | 10 / 10 | 8 / 8 |
+| Precision | Recall | Retraction recall | Correct entries passed | Bad entries flagged |
+|---:|---:|---:|---:|---:|
+| 1.00 | 1.00 | 1.00 | 11 / 11 | 10 / 10 |
+
+The run needs live Crossref, DataCite and OpenAlex. Under an unauthenticated OpenAlex rate limit an earlier run
+scored precision 0.91 because entries came back `uncertain`; rerun with `CROSSREF_MAILTO` set if that happens.
 
 ### No-slop writing (`unslop-academic-writing`)
 

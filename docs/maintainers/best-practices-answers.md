@@ -43,7 +43,7 @@ contributor, a bus factor of 2, two-person review on every change, enforced 2FA 
 | `repo_track` | MUST | Met | Already answered Met on the project page. |  |
 | `repo_interim` | MUST | Met | Development happens in the public git repo on GitHub, including interim commits and pull requests, not only releases. | [CONTRIBUTING.md](https://github.com/KalarisLabs/research-agent-skills/blob/main/CONTRIBUTING.md) |
 | `repo_distributed` | SUGGESTED | Met | Already answered Met on the project page. |  |
-| `version_unique` | MUST | Met | Each release has a unique version in VERSION and a git tag (v1.1.0, v1.1.1). | [VERSION](https://github.com/KalarisLabs/research-agent-skills/blob/main/VERSION) |
+| `version_unique` | MUST | Met | Each release has a unique version in VERSION and a git tag (v1.1.0, v1.1.1, v1.2.0). | [VERSION](https://github.com/KalarisLabs/research-agent-skills/blob/main/VERSION) |
 | `version_semver` | SUGGESTED | Met | Semantic Versioning, stated in CHANGELOG.md and GOVERNANCE.md. | [CHANGELOG.md](https://github.com/KalarisLabs/research-agent-skills/blob/main/CHANGELOG.md)<br />[GOVERNANCE.md](https://github.com/KalarisLabs/research-agent-skills/blob/main/GOVERNANCE.md) |
 | `version_tags` | SUGGESTED | Met | Every release is a git tag vX.Y.Z; release workflow builds from the tag. | [.github/workflows/release.yml](https://github.com/KalarisLabs/research-agent-skills/blob/main/.github/workflows/release.yml) |
 | `release_notes` | MUST | Met | Already answered Met on the project page. |  |

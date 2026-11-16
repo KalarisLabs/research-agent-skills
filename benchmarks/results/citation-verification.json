@@ -1,6 +1,7 @@
 {
   "precision": 1.0,
   "recall": 1.0,
+  "retraction_recall": 1.0,
   "rows": [
     {
       "key": "lecun2015deep",
@@ -108,6 +109,24 @@
       "key": "fab4",
       "label": "fabricated",
       "status": "doi-not-found",
+      "correct": true
+    },
+    {
+      "key": "wakefield1998ileal",
+      "label": "retracted",
+      "status": "retracted",
+      "correct": true
+    },
+    {
+      "key": "seralini2012long",
+      "label": "retracted",
+      "status": "retracted",
+      "correct": true
+    },
+    {
+      "key": "brett2019nibabel",
+      "label": "real",
+      "status": "verified",
       "correct": true
     }
   ]

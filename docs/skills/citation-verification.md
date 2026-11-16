@@ -1,24 +1,26 @@
 ---
 title: "citation-verification — AI agent skill for literature review"
-description: "Verify that every reference in a manuscript really exists and matches its metadata, catching hallucinated, corrupted or mismatched citations before submission."
-keywords: ["citations", "hallucination", "DOI", "Crossref", "OpenAlex", "arXiv", "references", "research integrity"]
+description: "Verify that every reference in a manuscript really exists and matches its metadata, catching hallucinated, corrupted, mismatched or retracted citations before…"
+keywords: ["citations", "hallucination", "DOI", "Crossref", "DataCite", "OpenAlex", "arXiv", "retraction", "references", "research integrity"]
 ---
 
 # `citation-verification`
 
 **Category:** [literature-review](/skills#literature-review) · **License:** MIT · **Version:** 1.0 · **Includes scripts**
 
-**Tags:** citations, hallucination, DOI, Crossref, OpenAlex, arXiv, references, research integrity
+**Tags:** citations, hallucination, DOI, Crossref, DataCite, OpenAlex, arXiv, retraction, references, research integrity
 
 ## When to use it
 
-Verify that every reference in a manuscript really exists and matches its metadata, catching hallucinated, corrupted or mismatched citations before submission. Use when checking a .bib file or reference list, after an AI assistant drafted citations, when a DOI may point to the wrong paper, when adding missing DOIs, or before camera-ready. Queries Crossref, OpenAlex and arXiv; zero dependencies.
+Verify that every reference in a manuscript really exists and matches its metadata, catching hallucinated, corrupted, mismatched or retracted citations before submission. Use when checking a .bib file or reference list, after an AI assistant drafted citations, when a DOI may point to the wrong paper, when a paper may have been retracted, when a dataset or software DOI (Zenodo, DataCite) will not resolve, when adding missing DOIs, marking unverifiable references, checking whether one DOI is real, or before camera-ready. Queries Crossref, DataCite, OpenAlex and arXiv and flags Retraction Watch notices; zero dependencies.
 
 ## Example requests
 
 Ask your agent in plain language, for example:
 
 - *"ChatGPT wrote my references. Check that every entry in references.bib actually exists."*
+- *"One of my citations might have been retracted. How do I check all 60?"*
+- *"The DOI in my bib resolves, but I'm not sure it is the right paper."*
 
 ## Install
 
@@ -41,7 +43,7 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 - [`literature-review`](/skills/literature-review)
 - [`dhdna-profiler`](/skills/dhdna-profiler)
 - [`firecrawl-research-index`](/skills/firecrawl-research-index)
-- [`ieee-transactions`](/skills/ieee-transactions)
+- [`fulltext-acquisition`](/skills/fulltext-acquisition)
 - [Write a research paper with AI](/guides/write-a-research-paper)
 
 ## Full playbook

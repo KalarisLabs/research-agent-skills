@@ -11,6 +11,7 @@ Exit code 1 if any error (or any warning with --strict).
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from dataclasses import dataclass, field
@@ -74,6 +75,43 @@ def load_size_baseline() -> set[str]:
     if not path.exists():
         return set()
     return {ln.strip() for ln in path.read_text(encoding="utf-8").splitlines() if ln.strip() and not ln.startswith("#")}
+
+
+MIN_EVALS, MIN_NEAR_MISSES = 10, 3
+
+
+def load_eval_floor_baseline() -> set[str]:
+    """Skills grandfathered below the eval floor."""
+    path = ROOT / "tools" / "eval_floor_baseline.txt"
+    if not path.exists():
+        return set()
+    return {ln.strip() for ln in path.read_text(encoding="utf-8").splitlines() if ln.strip() and not ln.startswith("#")}
+
+
+def original_skill_names() -> set[str]:
+    """Skill names not imported from upstream."""
+    manifest = json.loads((ROOT / "third_party" / "upstream-manifest.json").read_text(encoding="utf-8"))
+    imported = {e["name"] for e in manifest.get("skills", []) if isinstance(e, dict) and "name" in e}
+    return {p.name for p in SKILLS_DIR.iterdir() if (p / "SKILL.md").exists()} - imported
+
+
+def check_eval_floor(skill_dir: Path, rep: Report, originals: set[str], baseline: set[str]) -> None:
+    """A skill that ships scripts must ship enough evals, including near-misses that should not trigger it."""
+    sid = skill_dir.name
+    if sid not in originals or not (skill_dir / "scripts").is_dir():
+        return
+    path = ROOT / "evals" / sid / "evals.json"
+    try:
+        evals = json.loads(path.read_text(encoding="utf-8")).get("evals", []) if path.exists() else []
+    except (ValueError, OSError):
+        rep.err(sid, f"{path.relative_to(ROOT)} is not valid JSON")
+        return
+    near = sum(1 for e in evals if isinstance(e, dict) and e.get("should_trigger") is False)
+    if len(evals) >= MIN_EVALS and near >= MIN_NEAR_MISSES:
+        return
+    msg = (f"has {len(evals)} evals / {near} near-misses; "
+           f"script-backed skills need >= {MIN_EVALS} / >= {MIN_NEAR_MISSES}")
+    (rep.warn if sid in baseline else rep.err)(sid, msg)
 
 
 def check_frontmatter(skill_dir: Path, meta: dict, rep: Report, categories: set[str]) -> None:
@@ -179,7 +217,8 @@ def check_files(skill_dir: Path, rep: Report) -> None:
         rep.err(sid, f"skill folder is {total // 1024 // 1024} MiB (max {MAX_SKILL_BYTES // 1024 // 1024} MiB)")
 
 
-def validate_skill(skill_dir: Path, rep: Report, categories: set[str], baseline: set[str]) -> None:
+def validate_skill(skill_dir: Path, rep: Report, categories: set[str], baseline: set[str],
+                   originals: set[str] | None = None, eval_baseline: set[str] | None = None) -> None:
     """Validate skill."""
     sid = skill_dir.name
     skill_md = skill_dir / "SKILL.md"
@@ -200,6 +239,8 @@ def validate_skill(skill_dir: Path, rep: Report, categories: set[str], baseline:
     if not body.strip():
         rep.err(sid, "SKILL.md body is empty")
     check_files(skill_dir, rep)
+    if originals is not None:
+        check_eval_floor(skill_dir, rep, originals, eval_baseline or set())
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -212,8 +253,9 @@ def main(argv: list[str] | None = None) -> int:
 
     dirs = [p.resolve() for p in args.paths] or sorted(p for p in SKILLS_DIR.iterdir() if p.is_dir())
     rep, categories, baseline = Report(), load_categories(), load_size_baseline()
+    originals, eval_baseline = original_skill_names(), load_eval_floor_baseline()
     for d in dirs:
-        validate_skill(d, rep, categories, baseline)
+        validate_skill(d, rep, categories, baseline, originals, eval_baseline)
 
     for e in rep.errors:
         print(f"ERROR   {e}")

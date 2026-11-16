@@ -4,10 +4,12 @@ citation-management
 citation-verification
 exa-search
 firecrawl-research-index
+fulltext-acquisition
 liteparse
 literature-review
 markitdown
 open-notebook
+paper-card
 paper-lookup
 paperclip
 paperzilla

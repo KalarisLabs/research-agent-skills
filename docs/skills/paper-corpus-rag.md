@@ -1,24 +1,26 @@
 ---
 title: "paper-corpus-rag — AI agent skill for knowledge and rag"
-description: "Build grounded question answering and retrieval-augmented generation (RAG) over your own collection of research papers, with answers that cite the exact paper…"
-keywords: ["RAG", "retrieval", "vector database", "pgvector", "Chroma", "Qdrant", "FAISS", "SQLite", "full-text search", "literature synthesis"]
+description: "Build grounded question answering over your own collection of research papers, with answers that cite the exact paper, page and passage."
+keywords: ["RAG", "retrieval", "hybrid search", "SQLite FTS5", "BM25", "PDF conversion", "literature synthesis", "citations", "evaluation"]
 ---
 
 # `paper-corpus-rag`
 
-**Category:** [knowledge-and-rag](/skills#knowledge-and-rag) · **License:** MIT · **Version:** 1.0 · **Includes scripts**
+**Category:** [knowledge-and-rag](/skills#knowledge-and-rag) · **License:** MIT · **Version:** 1.1 · **Includes scripts**
 
-**Tags:** RAG, retrieval, vector database, pgvector, Chroma, Qdrant, FAISS, SQLite, full-text search, literature synthesis
+**Tags:** RAG, retrieval, hybrid search, SQLite FTS5, BM25, PDF conversion, literature synthesis, citations, evaluation
 
 ## When to use it
 
-Build grounded question answering and retrieval-augmented generation (RAG) over your own collection of research papers, with answers that cite the exact paper and passage. Use when a user wants to "chat with" or search a folder of PDFs, synthesize evidence across a literature corpus, find which paper says X, or build a vector/hybrid index with SQLite FTS5, pgvector (Postgres), Chroma, Qdrant or FAISS. Includes a zero-dependency local full-text index with citable hits.
+Build grounded question answering over your own collection of research papers, with answers that cite the exact paper, page and passage. Use when a user wants to chat with or search a folder of PDFs, summarize what a set of papers says, synthesize evidence across a literature corpus, find which paper says X, convert PDFs to citable Markdown with a quality grade, handle scanned PDFs or damaged tables, decide whether a vector database is needed, evaluate whether a paper-QA pipeline is any good, or build a hybrid index (SQLite FTS5 BM25 plus embeddings fused by reciprocal rank). Search locates papers; the agent then reads the full converted file before synthesizing.
 
 ## Example requests
 
 Ask your agent in plain language, for example:
 
-- *"I have 300 PDFs of papers. Let me ask questions and get answers with citations to the exact passages."*
+- *"I have 300 PDFs of papers in a folder. Let me ask questions and get answers with citations to the exact page."*
+- *"My RAG over our lab's papers keeps giving the right paper but the wrong number from a table. What is going on?"*
+- *"Some of my PDFs are scans. The search finds nothing for papers I know are in the folder."*
 
 ## Install
 
@@ -35,11 +37,13 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 ## Related
 
 - [`firecrawl-research-index`](/skills/firecrawl-research-index)
+- [`fulltext-acquisition`](/skills/fulltext-acquisition)
+- [`paper-card`](/skills/paper-card)
+- [`citation-verification`](/skills/citation-verification)
 - [`literature-review`](/skills/literature-review)
-- [`open-notebook`](/skills/open-notebook)
+- [`paper-lookup`](/skills/paper-lookup)
 - [`qdrant-vector-search`](/skills/qdrant-vector-search)
 - [`research-knowledge-graph`](/skills/research-knowledge-graph)
-- [`sentence-transformers`](/skills/sentence-transformers)
 
 ## Full playbook
 
