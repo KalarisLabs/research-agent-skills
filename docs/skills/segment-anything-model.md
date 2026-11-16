@@ -38,6 +38,7 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 
 - [`clip`](/skills/clip)
 - [`histolab`](/skills/histolab)
+- [`liteparse`](/skills/liteparse)
 - [`blip-2-vision-language`](/skills/blip-2-vision-language)
 - [`generate-image`](/skills/generate-image)
 - [`timesfm-forecasting`](/skills/timesfm-forecasting)

@@ -289,6 +289,6 @@ Conduct thorough, rigorous literature reviews that meet academic standards and p
 
 ## Related skills
 
-- `systematic-review-prisma`: Plan, run and report systematic reviews and meta-analyses to PRISMA 2020 standards.
 - `citation-management`: Searches OpenAlex, PubMed, and Google Scholar, extracts metadata from DOIs, PMIDs, PMCIDs, arXiv IDs, and URLs via CrossRef, PubMed, and ar…
+- `systematic-review-prisma`: Plan, run and report systematic reviews and meta-analyses to PRISMA 2020 standards.
 - `paper-lookup`: Search 18 scholarly APIs for papers, preprints, citations, open-access full text, repository records, and journal OA status, and return res…

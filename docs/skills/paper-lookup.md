@@ -41,7 +41,6 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 - [`literature-review`](/skills/literature-review)
 - [`paper-corpus-rag`](/skills/paper-corpus-rag)
 - [`citation-management`](/skills/citation-management)
-- [`citation-verification`](/skills/citation-verification)
 - [Write a research paper with AI](/guides/write-a-research-paper)
 
 ## Full playbook

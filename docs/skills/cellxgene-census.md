@@ -39,6 +39,7 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 - [`anndata`](/skills/anndata)
 - [`arboreto`](/skills/arboreto)
 - [`scvi-tools`](/skills/scvi-tools)
+- [`scanpy`](/skills/scanpy)
 
 ## Full playbook
 

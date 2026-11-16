@@ -42,6 +42,7 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 - [`paper-lookup`](/skills/paper-lookup)
 - [`reference-manager-interop`](/skills/reference-manager-interop)
 - [`systematic-review-prisma`](/skills/systematic-review-prisma)
+- [`markitdown`](/skills/markitdown)
 - [Write a research paper with AI](/guides/write-a-research-paper)
 
 ## Full playbook

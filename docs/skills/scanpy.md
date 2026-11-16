@@ -36,6 +36,7 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 
 ## Related
 
+- [`cellxgene-census`](/skills/cellxgene-census)
 - [`scvi-tools`](/skills/scvi-tools)
 - [Skills for biology and bioinformatics](/fields/biology)
 

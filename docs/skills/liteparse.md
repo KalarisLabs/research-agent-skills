@@ -36,7 +36,7 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 
 ## Related
 
-- [`open-notebook`](/skills/open-notebook)
+- [`segment-anything-model`](/skills/segment-anything-model)
 - [Write a research paper with AI](/guides/write-a-research-paper)
 
 ## Full playbook

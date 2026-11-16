@@ -38,12 +38,12 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 
 - [`firecrawl-research-index`](/skills/firecrawl-research-index)
 - [`fulltext-acquisition`](/skills/fulltext-acquisition)
+- [`markitdown`](/skills/markitdown)
 - [`paper-card`](/skills/paper-card)
 - [`citation-verification`](/skills/citation-verification)
 - [`literature-review`](/skills/literature-review)
 - [`paper-lookup`](/skills/paper-lookup)
 - [`qdrant-vector-search`](/skills/qdrant-vector-search)
-- [`research-knowledge-graph`](/skills/research-knowledge-graph)
 
 ## Full playbook
 

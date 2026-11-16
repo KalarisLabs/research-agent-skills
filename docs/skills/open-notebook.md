@@ -37,7 +37,6 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 ## Related
 
 - [`exa-search`](/skills/exa-search)
-- [`liteparse`](/skills/liteparse)
 - [Write a research paper with AI](/guides/write-a-research-paper)
 
 ## Full playbook

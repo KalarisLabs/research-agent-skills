@@ -323,4 +323,4 @@ Files are converted to PDF internally, then parsed. If conversion tools are miss
 
 - `markitdown`: Converts documents to Markdown with Microsoft MarkItDown (Python API, markitdown CLI, markitdown-ocr plugin, markitdown-mcp server), coveri…
 - `llamaindex`: Data framework for building LLM applications with RAG.
-- `open-notebook`: Self-hosted, open-source alternative to Google NotebookLM for AI-powered research and document analysis.
+- `segment-anything-model`: Foundation model for image segmentation with zero-shot transfer.

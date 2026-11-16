@@ -36,6 +36,8 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 
 ## Related
 
+- [`fulltext-acquisition`](/skills/fulltext-acquisition)
+- [`paper-corpus-rag`](/skills/paper-corpus-rag)
 - [Write a research paper with AI](/guides/write-a-research-paper)
 
 ## Full playbook
