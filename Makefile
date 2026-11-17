@@ -1,7 +1,7 @@
 # Developer entry points. Every target is a thin wrapper around `uv run` / `npm`,
 # so the same commands work without make (see CONTRIBUTING.md).
 .DEFAULT_GOAL := help
-.PHONY: help setup check validate lint security test cli catalog quality bench-triggers bench-citations \
+.PHONY: help setup check validate claims lint security test cli catalog quality bench-triggers bench-citations \
         bench-slop bench-tasks charts charts-check docs docs-serve import clean
 
 help: ## Show available targets
@@ -11,13 +11,17 @@ setup: ## Install Python tooling and CLI dependencies
 	uv sync
 	cd cli && npm ci
 
-check: validate security catalog quality charts-check test ## Everything CI runs on a pull request (fast, offline)
+check: validate claims security catalog quality charts-check test ## Everything CI runs on a pull request (fast, offline)
 
 validate: ## Agent Skills spec + repository policy
 	uv run tools/validate.py --quiet
 
 lint: ## Ruff for tooling, tests and benchmarks
 	uv run ruff check tools tests benchmarks
+
+claims: ## Skills may only promise what their scripts do; docs may only quote the real skill count
+	uv run tools/claim_audit.py
+	uv run tools/check_skill_count.py
 
 security: ## Prompt-injection lint and provenance guard
 	uv run tools/lint_injection.py

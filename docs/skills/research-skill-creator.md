@@ -35,7 +35,6 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 ## Related
 
 - [`arbor`](/skills/arbor)
-- [`autoresearch`](/skills/autoresearch)
 - [`autoskill`](/skills/autoskill)
 - [`evolving-ai-agents`](/skills/evolving-ai-agents)
 - [`research-agent-skills`](/skills/research-agent-skills)

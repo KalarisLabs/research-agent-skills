@@ -10,7 +10,53 @@ https://github.com/KalarisLabs/research-agent-skills/security/advisories.
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-11-16
+
+This release makes the skills do what their descriptions say. Every claim a `SKILL.md` makes about a script is
+now either true in the code or caught by CI, and the library grows to 283 skills.
+
+### Fixed
+- `citation-verification` now detects retracted papers: Crossref update notices (retraction, withdrawal, removal,
+  expression of concern, with Retraction Watch as source) and OpenAlex `is_retracted`. New status `retracted`;
+  an expression of concern reports `uncertain`. Dataset and software DOIs resolve through DataCite instead of
+  failing as `doi-not-found`.
+- `verify_citations.py` degrades per source: an unreachable Crossref, DataCite or OpenAlex gives `uncertain`,
+  never a false `not-found`. HTTP 429 honours `Retry-After`. `--help` no longer crashes on the `--annotate` text.
+- `verify_citations.py --annotate` writes `% UNVERIFIED` comments above flagged entries, as the skill promised.
+- `systematic-review-prisma` refuses counts that have no logged search (`search_log`: source, platform, exact
+  query, date, hits, limits; PRISMA 2020 item 7 and PRISMA-S). `--allow-unlogged` is for legacy counts only.
+  `--search-table` writes the supplement table.
+- Retrieved abstracts and paper text are treated as untrusted data in ten search and review skills, so an
+  instruction embedded in a paper is quoted, not followed.
+
+### Added
+- New skill `paper-card`: one verified card per paper. `check_card.py` confirms every claim's page, verbatim
+  quote and numbers against the converted text, evaluates derived numbers safely, and builds an independent
+  second-reviewer packet. A claim is accepted only when both checks pass.
+- New skill `fulltext-acquisition`: `fulltext_status.py` finds which included records lack full text and writes
+  `missing.csv` and `retrieval.md` (offline by default; `--resolve-oa` uses Unpaywall); `match_pdf.py` identifies
+  downloaded PDFs by the DOI, PMID or title inside them and attaches only text-verified matches.
+- `paper-corpus-rag` rebuilt around locate-then-read: `paper_convert.py` (page markers, quality grade per page,
+  symbol-font repairs logged in a sidecar), heading-bound page-aware chunks, hybrid retrieval (FTS5 BM25 plus
+  optional embeddings fused by reciprocal rank), `read` and `eval` (recall@k, MRR) subcommands. Existing indexes
+  need `index --rebuild`.
+- `unslop-academic-writing`: `slop_check.py --claims` lists what each paragraph claims and whether it carries
+  evidence, and the skill asks for that before any rewriting.
+- `tools/claim_audit.py` (CI and `make claims`): fails when a `SKILL.md` names a script, flag, host, service or
+  status its scripts do not have. `tools/check_skill_count.py` fails when prose quotes a stale skill count.
+- `tools/validate.py` enforces an eval floor for script-backed original skills (10 prompts, 3 near-misses);
+  six older skills are grandfathered as warnings in `tools/eval_floor_baseline.txt`.
+- Citation benchmark: retracted entries (Wakefield 1998, Séralini 2012) and a Zenodo dataset; the run gates on
+  `retraction_recall`.
+- `unpaywall.org` and `europepmc.org` in `security/allowed-domains.txt`.
+
 ### Changed
+- Trigger-routing evals: prompts that quote a skill's own scripts or errors are marked `follow_up: true` and
+  skipped by the BM25 router. The reviewed suite doubled to 106 prompts, so the PR-gate numbers are harder
+  (hit@1 0.90, hit@3 0.99, false-trigger 0.08, was 1.00/1.00/0.12 on 53 prompts).
+- Benchmark README tables, charts and skill-count claims regenerated for 283 skills.
+
+### Changed (earlier in this cycle)
 - README repositioned around turning any agent into a research co-scientist: a research-stage map of skills
   and a "Works in any harness" section covering skills.sh, the plugin marketplace and manual installs.
 - Distribution is skills.sh, the Claude Code plugin marketplace, GitHub CLI and the checksum-verified
@@ -18,7 +64,7 @@ https://github.com/KalarisLabs/research-agent-skills/security/advisories.
   docs, generated skill pages and metadata no longer point to npm.
 
 ### Added
-- Eval suites for all 281 skills (`evals/<skill>/evals.json`): realistic prompts plus near misses naming the
+- Eval suites for all 283 skills (`evals/<skill>/evals.json`): realistic prompts plus near misses naming the
   better skill. Suites for adapted skills were generated from each `SKILL.md` and are marked `pending review`.
 - Import-time enrichment of adapted skills (`tools/enrich.py`): oversized skills split into `references/`,
   dead links repaired, category-specific agent operating procedures (environment check, small first run,
@@ -28,7 +74,7 @@ https://github.com/KalarisLabs/research-agent-skills/security/advisories.
 - Offline smoke tests for every skill script: all 497 compile; 327 standard-library CLIs run `--help` on
   every CI OS (`tests/test_skill_scripts_smoke.py`).
 - `tools/trigger_bench.py --sample N --seed S` for reproducible subsamples with the paid Claude router.
-- Search tags for all 281 skills. Tags for adapted skills live in `third_party/tag-overrides.yaml` and are
+- Search tags for all 283 skills. Tags for adapted skills live in `third_party/tag-overrides.yaml` and are
   applied at import; `tools/validate.py` warns when a skill has none.
 - `llms-full.txt`: every skill with its full description, tags and install command.
 - Generated skill pages now carry tags, example requests from the eval suites, related skills, field-guide

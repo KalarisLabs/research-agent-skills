@@ -39,8 +39,8 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 - [`bgpt-paper-search`](/skills/bgpt-paper-search)
 - [`rebuttal-and-response-to-reviewers`](/skills/rebuttal-and-response-to-reviewers)
 - [`citation-verification`](/skills/citation-verification)
+- [`paper-corpus-rag`](/skills/paper-corpus-rag)
 - [`peer-review`](/skills/peer-review)
-- [`systematic-review-prisma`](/skills/systematic-review-prisma)
 - [`unslop-academic-writing`](/skills/unslop-academic-writing)
 - [Write a research paper with AI](/guides/write-a-research-paper)
 

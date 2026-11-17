@@ -143,8 +143,10 @@ def routing(t: dict):
     """Handle routing."""
     claude = load("trigger-claude-sample100.json")
     bm25_all = {c["prompt"]: c for c in load("trigger-bm25-all-evals.json")["cases"]}
-    sample = [bm25_all[c["prompt"]] for c in claude["cases"]]  # same 100 prompts, keyword router
-    m_claude, m_bm25 = routing_metrics(claude["cases"]), routing_metrics(sample)
+    # Same prompts for both routers. Prompts whose eval suite was later rewritten are dropped from both sides.
+    kept = [c for c in claude["cases"] if c["prompt"] in bm25_all]
+    sample = [bm25_all[c["prompt"]] for c in kept]
+    m_claude, m_bm25 = routing_metrics(kept), routing_metrics(sample)
     fig, ax = figure(t, 9, 4.2, f"Agents pick the right skill {m_claude['hit@3']:.0%} of the time",
                      f"Skill routing on the same {len(sample)} held-out prompts, including near misses "
                      "(false trigger: lower is better)")

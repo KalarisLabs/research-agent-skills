@@ -6,7 +6,7 @@ Runs three scanners over skills/ and compares them per skill:
   - bandit    Bandit on Python files
 
 Reports, per scanner, how many skills it flags (HIGH+ severity and any severity), pairwise agreement
-(Cohen's kappa and Jaccard over the 281 skills), the share of HIGH findings that a human review
+(Cohen's kappa and Jaccard over the 283 skills), the share of HIGH findings that a human review
 accepted as not exploitable (security/*baseline*.json), and how many adapted skills needed patches.
 
 Usage (network for uvx on first run):

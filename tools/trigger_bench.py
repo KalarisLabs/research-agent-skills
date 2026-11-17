@@ -12,6 +12,8 @@ Routers:
 
 Metrics: hit@1 and hit@3 for prompts that should trigger their skill; false-trigger
 rate for near-miss prompts (should_trigger: false) where the skill still ranks first.
+Prompts marked `"follow_up": true` (they name the skill's own scripts or error messages, so a fresh
+session would never phrase them that way) are skipped here; they still belong to the task evals.
 
 Usage:
     uv run tools/trigger_bench.py                          # bm25, reviewed evals
@@ -120,6 +122,8 @@ def main(argv: list[str] | None = None) -> int:
         if not args.include_pending and "pending review" in str(data.get("provenance", "")).lower():
             continue
         for ev in data["evals"]:
+            if ev.get("follow_up"):  # assumes the skill is already running; not a routing test
+                continue
             cases.append((data["skill_name"], ev["prompt"], ev.get("should_trigger", True)))
     if args.sample and args.sample < len(cases):
         cases = random.Random(args.seed).sample(cases, args.sample)  # noqa: S311 - reproducible subsample

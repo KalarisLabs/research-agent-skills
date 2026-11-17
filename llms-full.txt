@@ -1,6 +1,6 @@
 # Research Agent Skills: full skill index
 
-> 281 open-source Agent Skills for academic and scientific research by Kalaris Labs. Repository: https://github.com/KalarisLabs/research-agent-skills. Documentation: https://docs.kalarislabs.com/research-agent-skills. Install all: `npx skills add KalarisLabs/research-agent-skills`.
+> 283 open-source Agent Skills for academic and scientific research by Kalaris Labs. Repository: https://github.com/KalarisLabs/research-agent-skills. Documentation: https://docs.kalarislabs.com/research-agent-skills. Install all: `npx skills add KalarisLabs/research-agent-skills`.
 
 ## research-writing
 
@@ -248,9 +248,9 @@ Install: `npx skills add KalarisLabs/research-agent-skills --skill citation-mana
 
 ### citation-verification
 
-Verify that every reference in a manuscript really exists and matches its metadata, catching hallucinated, corrupted or mismatched citations before submission. Use when checking a .bib file or reference list, after an AI assistant drafted citations, when a DOI may point to the wrong paper, when adding missing DOIs, or before camera-ready. Queries Crossref, OpenAlex and arXiv; zero dependencies.
+Verify that every reference in a manuscript really exists and matches its metadata, catching hallucinated, corrupted, mismatched or retracted citations before submission. Use when checking a .bib file or reference list, after an AI assistant drafted citations, when a DOI may point to the wrong paper, when a paper may have been retracted, when a dataset or software DOI (Zenodo, DataCite) will not resolve, when adding missing DOIs, marking unverifiable references, checking whether one DOI is real, or before camera-ready. Queries Crossref, DataCite, OpenAlex and arXiv and flags Retraction Watch notices; zero dependencies.
 
-Tags: citations, hallucination, DOI, Crossref, OpenAlex, arXiv, references, research integrity
+Tags: citations, hallucination, DOI, Crossref, DataCite, OpenAlex, arXiv, retraction, references, research integrity
 
 Install: `npx skills add KalarisLabs/research-agent-skills --skill citation-verification` · Docs: https://docs.kalarislabs.com/research-agent-skills/skills/citation-verification · Source: https://github.com/KalarisLabs/research-agent-skills/tree/main/skills/citation-verification
 
@@ -269,6 +269,14 @@ Query Firecrawl Research Index paper endpoints for topic discovery, source metad
 Tags: Firecrawl, Research Index, academic search, paper discovery, arXiv, PubMed, life sciences, citation discovery
 
 Install: `npx skills add KalarisLabs/research-agent-skills --skill firecrawl-research-index` · Docs: https://docs.kalarislabs.com/research-agent-skills/skills/firecrawl-research-index · Source: https://github.com/KalarisLabs/research-agent-skills/tree/main/skills/firecrawl-research-index
+
+### fulltext-acquisition
+
+Get the full text of the papers you screened in and attach each file to the right record. Use after abstract screening or a PRISMA full-text stage, when a reading list has missing PDFs, when you need legal open-access copies, institutional link-resolver links or interlibrary-loan requests, when a folder of downloaded PDFs has useless names like download (7).pdf and must be identified by DOI, PMID or title, when files are misnamed, scanned or duplicated, when records have no DOI, or when papers must be reported as not retrieved. Builds the missing-paper worklist and refuses files its text does not support.
+
+Tags: full text, open access, Unpaywall, interlibrary loan, PDF matching, systematic review, reference library
+
+Install: `npx skills add KalarisLabs/research-agent-skills --skill fulltext-acquisition` · Docs: https://docs.kalarislabs.com/research-agent-skills/skills/fulltext-acquisition · Source: https://github.com/KalarisLabs/research-agent-skills/tree/main/skills/fulltext-acquisition
 
 ### liteparse
 
@@ -301,6 +309,14 @@ Self-hosted, open-source alternative to Google NotebookLM for AI-powered researc
 Tags: research notebooks, document analysis, NotebookLM alternative, knowledge management
 
 Install: `npx skills add KalarisLabs/research-agent-skills --skill open-notebook` · Docs: https://docs.kalarislabs.com/research-agent-skills/skills/open-notebook · Source: https://github.com/KalarisLabs/research-agent-skills/tree/main/skills/open-notebook
+
+### paper-card
+
+Write a structured, verified summary (card) of one research paper where every claim carries a page, a verbatim quote and the numbers it rests on, checked by script against the source text and then by a second independent reviewer. Use when summarizing a paper so its results can be cited, building an evidence table (study design, sample size, main effect, stated limitations) across included studies, extracting results from full text, or when an AI summary must be trustworthy enough to cite, including when the abstract and results disagree. Catches invented numbers, misquotes and correct numbers attached to the wrong claim.
+
+Tags: paper summary, evidence extraction, verification, quotes, numbers, literature review, research integrity
+
+Install: `npx skills add KalarisLabs/research-agent-skills --skill paper-card` · Docs: https://docs.kalarislabs.com/research-agent-skills/skills/paper-card · Source: https://github.com/KalarisLabs/research-agent-skills/tree/main/skills/paper-card
 
 ### paper-lookup
 
@@ -360,7 +376,7 @@ Install: `npx skills add KalarisLabs/research-agent-skills --skill research-look
 
 ### systematic-review-prisma
 
-Plan, run and report systematic reviews and meta-analyses to PRISMA 2020 standards. Use when writing a review protocol (PROSPERO/OSF), building reproducible database search strings (PubMed, Embase, Scopus, Web of Science), deduplicating exports, organizing title/abstract and full-text screening, assessing risk of bias, drawing the PRISMA flow diagram, or completing the PRISMA 2020 checklist. Includes a dedup tool and a checked PRISMA diagram generator.
+Plan, run and report systematic reviews and meta-analyses to PRISMA 2020 standards. Use when writing a review protocol (PROSPERO/OSF), building reproducible database search strings (PubMed, Embase, Scopus, Web of Science), writing the search strategy table for the supplement, deduplicating exports, organizing title/abstract and full-text screening with two reviewers (Cohen's kappa, conflicts), using an LLM or AI to screen abstracts, choosing a risk-of-bias tool (RoB 2, ROBINS-I), drawing the PRISMA flow diagram when counts do not add up, or completing the PRISMA 2020 checklist. Includes a dedup tool and a checked flow-diagram generator that requires a logged query for every database count.
 
 Tags: systematic review, PRISMA 2020, meta-analysis, PROSPERO, screening, risk of bias, evidence synthesis
 
@@ -824,9 +840,9 @@ Install: `npx skills add KalarisLabs/research-agent-skills --skill faiss` · Doc
 
 ### paper-corpus-rag
 
-Build grounded question answering and retrieval-augmented generation (RAG) over your own collection of research papers, with answers that cite the exact paper and passage. Use when a user wants to "chat with" or search a folder of PDFs, synthesize evidence across a literature corpus, find which paper says X, or build a vector/hybrid index with SQLite FTS5, pgvector (Postgres), Chroma, Qdrant or FAISS. Includes a zero-dependency local full-text index with citable hits.
+Build grounded question answering over your own collection of research papers, with answers that cite the exact paper, page and passage. Use when a user wants to chat with or search a folder of PDFs, summarize what a set of papers says, synthesize evidence across a literature corpus, find which paper says X, convert PDFs to citable Markdown with a quality grade, handle scanned PDFs or damaged tables, decide whether a vector database is needed, evaluate whether a paper-QA pipeline is any good, or build a hybrid index (SQLite FTS5 BM25 plus embeddings fused by reciprocal rank). Search locates papers; the agent then reads the full converted file before synthesizing.
 
-Tags: RAG, retrieval, vector database, pgvector, Chroma, Qdrant, FAISS, SQLite, full-text search, literature synthesis
+Tags: RAG, retrieval, hybrid search, SQLite FTS5, BM25, PDF conversion, literature synthesis, citations, evaluation
 
 Install: `npx skills add KalarisLabs/research-agent-skills --skill paper-corpus-rag` · Docs: https://docs.kalarislabs.com/research-agent-skills/skills/paper-corpus-rag · Source: https://github.com/KalarisLabs/research-agent-skills/tree/main/skills/paper-corpus-rag
 

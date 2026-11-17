@@ -41,6 +41,7 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 - [`scientific-visualization`](/skills/scientific-visualization)
 - [`statistical-analysis`](/skills/statistical-analysis)
 - [`venue-templates`](/skills/venue-templates)
+- [`scientific-writing`](/skills/scientific-writing)
 - [Write a research paper with AI](/guides/write-a-research-paper)
 
 ## Full playbook

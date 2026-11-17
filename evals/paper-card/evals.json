@@ -1,0 +1,90 @@
+{
+  "skill_name": "paper-card",
+  "provenance": "written by the maintainers for v1.2.0",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Summarize this paper so I can cite its results. I'm worried you'll get a number wrong.",
+      "expected_output": "Reads the whole page-marked paper, drafts a card with page, verbatim quote and numbers per claim, runs check_card.py, and sends the review packet to an independent reviewer",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Build an evidence table for 25 included studies: design, sample size, main effect and limitations.",
+      "expected_output": "One card per paper covering design, sample size, results and stated limitations, each claim verified by check_card.py",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "check_card.py says quote-not-found for one of my claims.",
+      "expected_output": "Re-reads the cited page, copies the quote verbatim or corrects the page, and does not weaken the checker",
+      "files": [],
+      "follow_up": true
+    },
+    {
+      "id": 4,
+      "prompt": "My card says the effect shrank by 5.8 points but the paper never says 5.8.",
+      "expected_output": "Moves 5.8 to derived_numbers with from '8.1 - 2.3', and keeps the claim consistent with cited numbers",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "The script passed everything. Is the card now correct?",
+      "expected_output": "No: passing deterministic checks does not catch a correct number attached to the wrong claim; the independent review is still required",
+      "files": [],
+      "follow_up": true
+    },
+    {
+      "id": 6,
+      "prompt": "How should the second reviewer check the card?",
+      "expected_output": "Gives the review packet to a different model or session or a human, to return supported, misattributed, overstated or unclear per claim, then merges with --review",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "The paper was converted as tables-poor. Can I trust the numbers on the card?",
+      "expected_output": "Treat every number as unverified until compared with the PDF page; check_card.py notes the PDF check",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "Extract all the stated limitations of this trial into the card.",
+      "expected_output": "Adds limitation claims, each with a verbatim quote and page",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "Merge the reviewer's verdicts into my card and tell me what to fix.",
+      "expected_output": "Runs check_card.py --review verdicts.json, lists rejected and missing claims, and fixes them without editing claims merely to match a verdict",
+      "files": [],
+      "follow_up": true
+    },
+    {
+      "id": 10,
+      "prompt": "The abstract says 91.5% accuracy but the results section says 91.2%.",
+      "expected_output": "Cites each with its page, flags the discrepancy on the card rather than picking one silently",
+      "files": []
+    },
+    {
+      "id": 11,
+      "prompt": "Write a 200 word abstract for my own paper.",
+      "expected_output": "Skill not used; scientific-writing fits better",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 12,
+      "prompt": "Search my folder of PDFs for papers about calibration.",
+      "expected_output": "Skill not used; paper-corpus-rag fits better",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 13,
+      "prompt": "Check my bibliography for fake references.",
+      "expected_output": "Skill not used; citation-verification fits better",
+      "files": [],
+      "should_trigger": false
+    }
+  ]
+}

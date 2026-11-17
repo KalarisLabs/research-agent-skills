@@ -10,6 +10,8 @@ datacite.org
 doi.org
 doi.usp.org
 openalex.org
+unpaywall.org
+europepmc.org
 ncbi.nlm.nih.gov
 ebi.ac.uk
 identifiers.org

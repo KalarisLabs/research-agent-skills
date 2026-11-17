@@ -1,16 +1,93 @@
 {
   "skill_name": "paper-corpus-rag",
+  "provenance": "written by the maintainers for v1.2.0",
   "evals": [
     {
       "id": 1,
-      "prompt": "I have 300 PDFs of papers. Let me ask questions and get answers with citations to the exact passages.",
-      "expected_output": "Converts PDFs, indexes with paper_index.py, answers only from retrieved chunks with file#chunk citations",
+      "prompt": "I have 300 PDFs of papers in a folder. Let me ask questions and get answers with citations to the exact page.",
+      "expected_output": "Converts with paper_convert.py (page markers, quality grade), indexes with paper_index.py, locates papers, then reads the full files before answering; cites file and page",
       "files": []
     },
     {
       "id": 2,
-      "prompt": "Train a new language model from scratch.",
-      "expected_output": "Skill not used",
+      "prompt": "My RAG over our lab's papers keeps giving the right paper but the wrong number from a table. What is going on?",
+      "expected_output": "Checks the conversion grade (tables-poor), reads the PDF page for table values instead of trusting the text layer, and does not blame retrieval first",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Some of my PDFs are scans. The search finds nothing for papers I know are in the folder.",
+      "expected_output": "Explains scan-poor (no text layer), runs OCR or a vision parser, reconverts, and re-indexes with --rebuild if needed",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Summarize what the PDFs in my folder say about batch size and calibration, with citations to the papers.",
+      "expected_output": "Uses --by-paper to locate the relevant papers, reads each full converted file, cites pages, quotes numbers verbatim, and presents disagreements between papers",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Searching my folder of papers by keyword misses the ones worded differently; I want conceptual queries like 'methods that need no labels' to work.",
+      "expected_output": "Adds embeddings (embed) and queries with --mode hybrid, fusing BM25 and vectors by reciprocal rank; measures with eval",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "How do I know my paper-QA pipeline is any good before I rely on it?",
+      "expected_output": "Builds 20-50 question to paper pairs in JSONL and runs paper_index.py eval for recall@k and MRR in bm25 and hybrid modes, rechecking after any change",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Do I need a vector database to search a few thousand papers?",
+      "expected_output": "No: one SQLite file with FTS5 plus brute-force embeddings is enough at that scale; mentions pgvector, Qdrant or FAISS only past roughly 100k chunks",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "Pages in my converted papers show 'P 5 0.04' where the PDF says P = 0.04.",
+      "expected_output": "Explains symbol-font damage, uses paper_convert.py repairs logged in the sidecar, and verifies statistics against the PDF",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "Find which paper in my corpus first reported the 4.2 point increase in calibration error, and give me the page.",
+      "expected_output": "Searches with a quoted phrase, reads the located paper, quotes the sentence verbatim with its page, and says so if the corpus has no such passage",
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "I got 'built by an older version; re-run index --rebuild' from paper_index.py.",
+      "expected_output": "Runs index --rebuild; explains the schema change and that reference lists and pages are now handled differently",
+      "files": [],
+      "follow_up": true
+    },
+    {
+      "id": 11,
+      "prompt": "Find me recent papers on conformal prediction that I don't have yet.",
+      "expected_output": "Skill not used; paper-lookup or firecrawl-research-index fits better",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 12,
+      "prompt": "Fine-tune an embedding model on my own labelled sentence pairs.",
+      "expected_output": "Skill not used; sentence-transformers fits better",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 13,
+      "prompt": "Build a vector database in Postgres for my product catalog.",
+      "expected_output": "Skill not used; pgvector or qdrant-vector-search fits better",
+      "files": [],
+      "should_trigger": false
+    },
+    {
+      "id": 14,
+      "prompt": "Draw a graph of which papers cite which.",
+      "expected_output": "Skill not used; research-knowledge-graph fits better",
       "files": [],
       "should_trigger": false
     }

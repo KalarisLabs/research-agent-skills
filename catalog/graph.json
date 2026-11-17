@@ -1,6 +1,6 @@
 {
   "directed": true,
-  "generator": "research-agent-skills 1.1.1",
+  "generator": "research-agent-skills 1.2.0",
   "nodes": [
     {
       "id": "category:research-writing",
@@ -416,7 +416,7 @@
       "id": "skill:citation-verification",
       "type": "skill",
       "label": "citation-verification",
-      "description": "Verify that every reference in a manuscript really exists and matches its metadata, catching hallucinated, corrupted or mismatched citations before submission. Use when checking a .bib file or reference list, after an AI assistant drafted citations, when a DOI may point to the wrong paper, when adding missing DOIs, or before camera-ready. Queries Crossref, OpenAlex and arXiv; zero dependencies.",
+      "description": "Verify that every reference in a manuscript really exists and matches its metadata, catching hallucinated, corrupted, mismatched or retracted citations before submission. Use when checking a .bib file or reference list, after an AI assistant drafted citations, when a DOI may point to the wrong paper, when a paper may have been retracted, when a dataset or software DOI (Zenodo, DataCite) will not resolve, when adding missing DOIs, marking unverifiable references, checking whether one DOI is real, or before camera-ready. Queries Crossref, DataCite, OpenAlex and arXiv and flags Retraction Watch notices; zero dependencies.",
       "category": "literature-review",
       "path": "skills/citation-verification"
     },
@@ -755,6 +755,14 @@
       "description": "Retrieve ClinGen gene-disease validity assertions for a public gene or disease, and review source-linked public evidence and literature for one supported GRCh38 germline nuclear SNV or simple indel through Folklore Clinical Variant Interpretation MCP. Use when a scientific agent must branch deterministically on resolved, ambiguous, not-found, invalid, unsupported, or unavailable variant outcomes; chain a resolved public variant into related literature or publication details; or preserve evidence provenance without accepting patient, phenotype, family, segregation, or private case data.",
       "category": "life-sciences",
       "path": "skills/folklore-variant-evidence"
+    },
+    {
+      "id": "skill:fulltext-acquisition",
+      "type": "skill",
+      "label": "fulltext-acquisition",
+      "description": "Get the full text of the papers you screened in and attach each file to the right record. Use after abstract screening or a PRISMA full-text stage, when a reading list has missing PDFs, when you need legal open-access copies, institutional link-resolver links or interlibrary-loan requests, when a folder of downloaded PDFs has useless names like download (7).pdf and must be identified by DOI, PMID or title, when files are misnamed, scanned or duplicated, when records have no DOI, or when papers must be reported as not retrieved. Builds the missing-paper worklist and refuses files its text does not support.",
+      "category": "literature-review",
+      "path": "skills/fulltext-acquisition"
     },
     {
       "id": "skill:generate-image",
@@ -1437,10 +1445,18 @@
       "path": "skills/pacsomatic"
     },
     {
+      "id": "skill:paper-card",
+      "type": "skill",
+      "label": "paper-card",
+      "description": "Write a structured, verified summary (card) of one research paper where every claim carries a page, a verbatim quote and the numbers it rests on, checked by script against the source text and then by a second independent reviewer. Use when summarizing a paper so its results can be cited, building an evidence table (study design, sample size, main effect, stated limitations) across included studies, extracting results from full text, or when an AI summary must be trustworthy enough to cite, including when the abstract and results disagree. Catches invented numbers, misquotes and correct numbers attached to the wrong claim.",
+      "category": "literature-review",
+      "path": "skills/paper-card"
+    },
+    {
       "id": "skill:paper-corpus-rag",
       "type": "skill",
       "label": "paper-corpus-rag",
-      "description": "Build grounded question answering and retrieval-augmented generation (RAG) over your own collection of research papers, with answers that cite the exact paper and passage. Use when a user wants to \"chat with\" or search a folder of PDFs, synthesize evidence across a literature corpus, find which paper says X, or build a vector/hybrid index with SQLite FTS5, pgvector (Postgres), Chroma, Qdrant or FAISS. Includes a zero-dependency local full-text index with citable hits.",
+      "description": "Build grounded question answering over your own collection of research papers, with answers that cite the exact paper, page and passage. Use when a user wants to chat with or search a folder of PDFs, summarize what a set of papers says, synthesize evidence across a literature corpus, find which paper says X, convert PDFs to citable Markdown with a quality grade, handle scanned PDFs or damaged tables, decide whether a vector database is needed, evaluate whether a paper-QA pipeline is any good, or build a hybrid index (SQLite FTS5 BM25 plus embeddings fused by reciprocal rank). Search locates papers; the agent then reads the full converted file before synthesizing.",
       "category": "knowledge-and-rag",
       "path": "skills/paper-corpus-rag"
     },
@@ -2160,7 +2176,7 @@
       "id": "skill:systematic-review-prisma",
       "type": "skill",
       "label": "systematic-review-prisma",
-      "description": "Plan, run and report systematic reviews and meta-analyses to PRISMA 2020 standards. Use when writing a review protocol (PROSPERO/OSF), building reproducible database search strings (PubMed, Embase, Scopus, Web of Science), deduplicating exports, organizing title/abstract and full-text screening, assessing risk of bias, drawing the PRISMA flow diagram, or completing the PRISMA 2020 checklist. Includes a dedup tool and a checked PRISMA diagram generator.",
+      "description": "Plan, run and report systematic reviews and meta-analyses to PRISMA 2020 standards. Use when writing a review protocol (PROSPERO/OSF), building reproducible database search strings (PubMed, Embase, Scopus, Web of Science), writing the search strategy table for the supplement, deduplicating exports, organizing title/abstract and full-text screening with two reviewers (Cohen's kappa, conflicts), using an LLM or AI to screen abstracts, choosing a risk-of-bias tool (RoB 2, ROBINS-I), drawing the PRISMA flow diagram when counts do not add up, or completing the PRISMA 2020 checklist. Includes a dedup tool and a checked flow-diagram generator that requires a logged query for every database count.",
       "category": "literature-review",
       "path": "skills/systematic-review-prisma"
     },
@@ -2754,11 +2770,6 @@
     {
       "source": "skill:autoresearch",
       "target": "skill:creative-thinking-for-research",
-      "type": "references"
-    },
-    {
-      "source": "skill:autoresearch",
-      "target": "skill:research-skill-creator",
       "type": "references"
     },
     {
@@ -3657,6 +3668,41 @@
       "type": "references"
     },
     {
+      "source": "skill:fulltext-acquisition",
+      "target": "category:literature-review",
+      "type": "in_category"
+    },
+    {
+      "source": "skill:fulltext-acquisition",
+      "target": "skill:citation-verification",
+      "type": "references"
+    },
+    {
+      "source": "skill:fulltext-acquisition",
+      "target": "skill:paper-card",
+      "type": "references"
+    },
+    {
+      "source": "skill:fulltext-acquisition",
+      "target": "skill:paper-corpus-rag",
+      "type": "references"
+    },
+    {
+      "source": "skill:fulltext-acquisition",
+      "target": "skill:paper-lookup",
+      "type": "references"
+    },
+    {
+      "source": "skill:fulltext-acquisition",
+      "target": "skill:reference-manager-interop",
+      "type": "references"
+    },
+    {
+      "source": "skill:fulltext-acquisition",
+      "target": "skill:systematic-review-prisma",
+      "type": "references"
+    },
+    {
       "source": "skill:generate-image",
       "target": "category:visualization-and-presentation",
       "type": "in_category"
@@ -4093,7 +4139,7 @@
     },
     {
       "source": "skill:liteparse",
-      "target": "skill:open-notebook",
+      "target": "skill:segment-anything-model",
       "type": "references"
     },
     {
@@ -4245,6 +4291,16 @@
       "source": "skill:markitdown",
       "target": "category:literature-review",
       "type": "in_category"
+    },
+    {
+      "source": "skill:markitdown",
+      "target": "skill:fulltext-acquisition",
+      "type": "references"
+    },
+    {
+      "source": "skill:markitdown",
+      "target": "skill:paper-corpus-rag",
+      "type": "references"
     },
     {
       "source": "skill:matchms",
@@ -4692,13 +4748,58 @@
       "type": "in_category"
     },
     {
+      "source": "skill:paper-card",
+      "target": "category:literature-review",
+      "type": "in_category"
+    },
+    {
+      "source": "skill:paper-card",
+      "target": "skill:citation-verification",
+      "type": "references"
+    },
+    {
+      "source": "skill:paper-card",
+      "target": "skill:fulltext-acquisition",
+      "type": "references"
+    },
+    {
+      "source": "skill:paper-card",
+      "target": "skill:literature-review",
+      "type": "references"
+    },
+    {
+      "source": "skill:paper-card",
+      "target": "skill:paper-corpus-rag",
+      "type": "references"
+    },
+    {
+      "source": "skill:paper-card",
+      "target": "skill:scholar-evaluation",
+      "type": "references"
+    },
+    {
+      "source": "skill:paper-card",
+      "target": "skill:systematic-review-prisma",
+      "type": "references"
+    },
+    {
       "source": "skill:paper-corpus-rag",
       "target": "category:knowledge-and-rag",
       "type": "in_category"
     },
     {
       "source": "skill:paper-corpus-rag",
+      "target": "skill:citation-verification",
+      "type": "references"
+    },
+    {
+      "source": "skill:paper-corpus-rag",
       "target": "skill:firecrawl-research-index",
+      "type": "references"
+    },
+    {
+      "source": "skill:paper-corpus-rag",
+      "target": "skill:fulltext-acquisition",
       "type": "references"
     },
     {
@@ -4708,7 +4809,12 @@
     },
     {
       "source": "skill:paper-corpus-rag",
-      "target": "skill:open-notebook",
+      "target": "skill:paper-card",
+      "type": "references"
+    },
+    {
+      "source": "skill:paper-corpus-rag",
+      "target": "skill:paper-lookup",
       "type": "references"
     },
     {
@@ -4727,6 +4833,11 @@
       "type": "references"
     },
     {
+      "source": "skill:paper-corpus-rag",
+      "target": "skill:systematic-review-prisma",
+      "type": "references"
+    },
+    {
       "source": "skill:paper-lookup",
       "target": "category:literature-review",
       "type": "in_category"
@@ -4738,7 +4849,7 @@
     },
     {
       "source": "skill:paper-lookup",
-      "target": "skill:citation-verification",
+      "target": "skill:fulltext-acquisition",
       "type": "references"
     },
     {
@@ -5498,6 +5609,11 @@
     },
     {
       "source": "skill:scanpy",
+      "target": "skill:cellxgene-census",
+      "type": "references"
+    },
+    {
+      "source": "skill:scanpy",
       "target": "skill:scvi-tools",
       "type": "references"
     },
@@ -5603,12 +5719,12 @@
     },
     {
       "source": "skill:scientific-critical-thinking",
-      "target": "skill:peer-review",
+      "target": "skill:paper-corpus-rag",
       "type": "references"
     },
     {
       "source": "skill:scientific-critical-thinking",
-      "target": "skill:systematic-review-prisma",
+      "target": "skill:peer-review",
       "type": "references"
     },
     {
@@ -5673,12 +5789,12 @@
     },
     {
       "source": "skill:scientific-writing",
-      "target": "skill:peer-review",
+      "target": "skill:nature-portfolio",
       "type": "references"
     },
     {
       "source": "skill:scientific-writing",
-      "target": "skill:research-lookup",
+      "target": "skill:peer-review",
       "type": "references"
     },
     {

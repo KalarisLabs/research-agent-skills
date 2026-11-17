@@ -1,9 +1,9 @@
 ---
 title: Research Agent Skills for Academia | Kalaris Labs
-description: Browse 281 AI agent skills for academic writing and scientific research across AI, machine learning, biology, chemistry, medicine and physics.
+description: Browse 283 AI agent skills for academic writing and scientific research across AI, machine learning, biology, chemistry, medicine and physics.
 ---
 
-# 281 research agent skills for academia
+# 283 research agent skills for academia
 
 Install one skill with `npx skills add KalarisLabs/research-agent-skills --skill <name>`, or [choose from the full collection](/getting-started/installation).
 
@@ -50,13 +50,15 @@ Literature search, systematic reviews, citation management and reference manager
 - [`bgpt-paper-search`](/skills/bgpt-paper-search) — Search scientific papers and retrieve structured experimental data extracted from full-text studies via the BGPT MCP server.
 - [`bibtex-hygiene`](/skills/bibtex-hygiene) — Clean, deduplicate and validate BibTeX/BibLaTeX bibliographies before submission.
 - [`citation-management`](/skills/citation-management) — Searches OpenAlex, PubMed, and Google Scholar, extracts metadata from DOIs, PMIDs, PMCIDs, arXiv IDs, and URLs via CrossRef, PubMed, and arXiv, then formats, d…
-- [`citation-verification`](/skills/citation-verification) — Verify that every reference in a manuscript really exists and matches its metadata, catching hallucinated, corrupted or mismatched citations before submission.
+- [`citation-verification`](/skills/citation-verification) — Verify that every reference in a manuscript really exists and matches its metadata, catching hallucinated, corrupted, mismatched or retracted citations before…
 - [`exa-search`](/skills/exa-search) — Web toolkit powered by Exa, tuned for scientific and technical content.
 - [`firecrawl-research-index`](/skills/firecrawl-research-index) — Query Firecrawl Research Index paper endpoints for topic discovery, source metadata, question-matched passages, and citation-neighbor expansion.
+- [`fulltext-acquisition`](/skills/fulltext-acquisition) — Get the full text of the papers you screened in and attach each file to the right record.
 - [`liteparse`](/skills/liteparse) — Local document and PDF parsing that returns spatial text with bounding boxes.
 - [`literature-review`](/skills/literature-review) — Runs systematic literature reviews by searching PubMed, arXiv, bioRxiv, and Semantic Scholar (plus web search via parallel-cli), screening studies, extracting…
 - [`markitdown`](/skills/markitdown) — Converts documents to Markdown with Microsoft MarkItDown (Python API, markitdown CLI, markitdown-ocr plugin, markitdown-mcp server), covering PDF, Word, PowerP…
 - [`open-notebook`](/skills/open-notebook) — Self-hosted, open-source alternative to Google NotebookLM for AI-powered research and document analysis.
+- [`paper-card`](/skills/paper-card) — Write a structured, verified summary (card) of one research paper where every claim carries a page, a verbatim quote and the numbers it rests on, checked by sc…
 - [`paper-lookup`](/skills/paper-lookup) — Search 18 scholarly APIs for papers, preprints, citations, open-access full text, repository records, and journal OA status, and return results with reproducib…
 - [`paperclip`](/skills/paperclip) — Search and read full-text biomedical papers, FDA/PMDA/EMA regulatory documents, clinical trial registries, and UniProt/PDB/ChEMBL entries with the Paperclip CL…
 - [`paperzilla`](/skills/paperzilla) — Chat with your agent about projects, recommendations, and canonical papers in Paperzilla.
@@ -140,7 +142,7 @@ Vector databases, embeddings, RAG and knowledge graphs over research corpora.
 
 - [`chroma`](/skills/chroma) — Open-source embedding database for AI applications.
 - [`faiss`](/skills/faiss) — Facebook's library for efficient similarity search and clustering of dense vectors.
-- [`paper-corpus-rag`](/skills/paper-corpus-rag) — Build grounded question answering and retrieval-augmented generation (RAG) over your own collection of research papers, with answers that cite the exact paper…
+- [`paper-corpus-rag`](/skills/paper-corpus-rag) — Build grounded question answering over your own collection of research papers, with answers that cite the exact paper, page and passage.
 - [`pinecone`](/skills/pinecone) — Guides use of Pinecone, a managed serverless vector database, through its Python client and the LangChain and LlamaIndex integrations.
 - [`qdrant-vector-search`](/skills/qdrant-vector-search) — High-performance vector similarity search engine for RAG and semantic search.
 - [`research-knowledge-graph`](/skills/research-knowledge-graph) — Turn a bibliography or literature corpus into a knowledge graph of papers, authors, venues, topics and citation links, then analyze it (citation clusters, key…

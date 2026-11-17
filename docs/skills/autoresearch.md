@@ -39,7 +39,6 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 - [`autogpt-agents`](/skills/autogpt-agents)
 - [`brainstorming-research-ideas`](/skills/brainstorming-research-ideas)
 - [`creative-thinking-for-research`](/skills/creative-thinking-for-research)
-- [`research-skill-creator`](/skills/research-skill-creator)
 
 ## Full playbook
 

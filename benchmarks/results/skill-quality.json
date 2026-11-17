@@ -23,7 +23,7 @@
       },
       "penalty": 0.0,
       "slop_index": 6.9,
-      "lines": 340,
+      "lines": 341,
       "notes": [
         "description names few concrete tools, formats or venues",
         "some scripts are neither tested nor shown in SKILL.md"
@@ -109,7 +109,7 @@
       },
       "penalty": 0.0,
       "slop_index": 5.1,
-      "lines": 320,
+      "lines": 321,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -137,7 +137,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.0,
-      "lines": 319,
+      "lines": 320,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -165,37 +165,8 @@
       },
       "penalty": 0.0,
       "slop_index": 4.2,
-      "lines": 454,
+      "lines": 455,
       "notes": []
-    },
-    {
-      "name": "autoskill",
-      "category": "research-automation",
-      "score": 87.0,
-      "parts": {
-        "desc_length": 10,
-        "desc_triggers": 8,
-        "desc_specific": 3.0,
-        "desc_no_marketing": 6,
-        "workflow": 8,
-        "tables_checklists": 6,
-        "handoffs": 4,
-        "verification": 6,
-        "headings": 6,
-        "size": 8,
-        "references": 4,
-        "links": 3,
-        "scripts": 8.0,
-        "freshness": 5,
-        "compatibility": 2
-      },
-      "penalty": 0.0,
-      "slop_index": 8.0,
-      "lines": 261,
-      "notes": [
-        "description names few concrete tools, formats or venues",
-        "some scripts are neither tested nor shown in SKILL.md"
-      ]
     },
     {
       "name": "brainstorming-research-ideas",
@@ -248,8 +219,37 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 327,
+      "lines": 329,
       "notes": [
+        "some scripts are neither tested nor shown in SKILL.md"
+      ]
+    },
+    {
+      "name": "autoskill",
+      "category": "research-automation",
+      "score": 87.5,
+      "parts": {
+        "desc_length": 10,
+        "desc_triggers": 8,
+        "desc_specific": 3.0,
+        "desc_no_marketing": 6,
+        "workflow": 8,
+        "tables_checklists": 6,
+        "handoffs": 4,
+        "verification": 6,
+        "headings": 6,
+        "size": 8,
+        "references": 4,
+        "links": 3,
+        "scripts": 8.5,
+        "freshness": 5,
+        "compatibility": 2
+      },
+      "penalty": 0.0,
+      "slop_index": 8.0,
+      "lines": 262,
+      "notes": [
+        "description names few concrete tools, formats or venues",
         "some scripts are neither tested nor shown in SKILL.md"
       ]
     },
@@ -302,7 +302,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 258,
+      "lines": 259,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -330,7 +330,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.7,
-      "lines": 284,
+      "lines": 285,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -384,7 +384,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 346,
+      "lines": 347,
       "notes": []
     },
     {
@@ -436,7 +436,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 184,
+      "lines": 186,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -464,7 +464,7 @@
       },
       "penalty": 0.0,
       "slop_index": 7.3,
-      "lines": 246,
+      "lines": 247,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -492,7 +492,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 183,
+      "lines": 184,
       "notes": [
         "some scripts are neither tested nor shown in SKILL.md"
       ]
@@ -520,7 +520,7 @@
       },
       "penalty": 0.0,
       "slop_index": 4.9,
-      "lines": 271,
+      "lines": 272,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -548,7 +548,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.3,
-      "lines": 232,
+      "lines": 233,
       "notes": [
         "some scripts are neither tested nor shown in SKILL.md"
       ]
@@ -576,7 +576,7 @@
       },
       "penalty": 0.0,
       "slop_index": 7.3,
-      "lines": 318,
+      "lines": 319,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -604,7 +604,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.0,
-      "lines": 312,
+      "lines": 313,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -632,7 +632,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 293,
+      "lines": 294,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -660,7 +660,7 @@
       },
       "penalty": 0.0,
       "slop_index": 4.0,
-      "lines": 386,
+      "lines": 387,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -688,7 +688,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.0,
-      "lines": 361,
+      "lines": 362,
       "notes": []
     },
     {
@@ -714,7 +714,7 @@
       },
       "penalty": 0.0,
       "slop_index": 4.6,
-      "lines": 215,
+      "lines": 216,
       "notes": [
         "some scripts are neither tested nor shown in SKILL.md"
       ]
@@ -742,7 +742,7 @@
       },
       "penalty": 0.0,
       "slop_index": 5.9,
-      "lines": 203,
+      "lines": 204,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -826,7 +826,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.8,
-      "lines": 336,
+      "lines": 337,
       "notes": [
         "some scripts are neither tested nor shown in SKILL.md"
       ]
@@ -854,7 +854,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 195,
+      "lines": 196,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -882,7 +882,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 288,
+      "lines": 289,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -910,7 +910,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.8,
-      "lines": 180,
+      "lines": 181,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -938,7 +938,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 334,
+      "lines": 335,
       "notes": []
     },
     {
@@ -964,7 +964,7 @@
       },
       "penalty": 0.0,
       "slop_index": 2.2,
-      "lines": 314,
+      "lines": 315,
       "notes": []
     },
     {
@@ -990,7 +990,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 273,
+      "lines": 274,
       "notes": []
     },
     {
@@ -1016,7 +1016,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 203,
+      "lines": 204,
       "notes": []
     },
     {
@@ -1042,7 +1042,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 405,
+      "lines": 406,
       "notes": []
     },
     {
@@ -1096,7 +1096,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.2,
-      "lines": 285,
+      "lines": 286,
       "notes": []
     },
     {
@@ -1122,7 +1122,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 288,
+      "lines": 289,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -1175,8 +1175,8 @@
         "compatibility": 2
       },
       "penalty": 0.0,
-      "slop_index": 2.9,
-      "lines": 293,
+      "slop_index": 2.7,
+      "lines": 295,
       "notes": []
     },
     {
@@ -1202,7 +1202,7 @@
       },
       "penalty": 0.0,
       "slop_index": 6.6,
-      "lines": 405,
+      "lines": 406,
       "notes": []
     },
     {
@@ -1228,7 +1228,7 @@
       },
       "penalty": 0.0,
       "slop_index": 10.4,
-      "lines": 182,
+      "lines": 183,
       "notes": []
     },
     {
@@ -1254,7 +1254,7 @@
       },
       "penalty": 0.0,
       "slop_index": 6.7,
-      "lines": 380,
+      "lines": 381,
       "notes": []
     },
     {
@@ -1280,7 +1280,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 179,
+      "lines": 180,
       "notes": []
     },
     {
@@ -1306,7 +1306,7 @@
       },
       "penalty": 0.0,
       "slop_index": 7.1,
-      "lines": 245,
+      "lines": 246,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -1334,7 +1334,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.8,
-      "lines": 278,
+      "lines": 279,
       "notes": []
     },
     {
@@ -1360,7 +1360,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 476,
+      "lines": 477,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -1472,7 +1472,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.5,
-      "lines": 395,
+      "lines": 396,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -1500,7 +1500,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.8,
-      "lines": 435,
+      "lines": 436,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -1528,7 +1528,7 @@
       },
       "penalty": 0.0,
       "slop_index": 4.4,
-      "lines": 468,
+      "lines": 469,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -1640,7 +1640,7 @@
       },
       "penalty": 0.0,
       "slop_index": null,
-      "lines": 99,
+      "lines": 117,
       "notes": []
     },
     {
@@ -1666,7 +1666,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.8,
-      "lines": 409,
+      "lines": 410,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -1694,7 +1694,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 348,
+      "lines": 349,
       "notes": []
     },
     {
@@ -1720,7 +1720,7 @@
       },
       "penalty": 0.0,
       "slop_index": 7.8,
-      "lines": 390,
+      "lines": 391,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -1826,7 +1826,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 354,
+      "lines": 355,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -1854,7 +1854,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.9,
-      "lines": 337,
+      "lines": 338,
       "notes": []
     },
     {
@@ -1880,7 +1880,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.4,
-      "lines": 465,
+      "lines": 466,
       "notes": []
     },
     {
@@ -1906,7 +1906,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 235,
+      "lines": 236,
       "notes": []
     },
     {
@@ -1932,7 +1932,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 329,
+      "lines": 330,
       "notes": []
     },
     {
@@ -1958,7 +1958,7 @@
       },
       "penalty": 0.0,
       "slop_index": 9.5,
-      "lines": 336,
+      "lines": 337,
       "notes": []
     },
     {
@@ -1984,7 +1984,7 @@
       },
       "penalty": 0.0,
       "slop_index": 5.7,
-      "lines": 267,
+      "lines": 268,
       "notes": []
     },
     {
@@ -2010,7 +2010,7 @@
       },
       "penalty": 0.0,
       "slop_index": 10.5,
-      "lines": 224,
+      "lines": 225,
       "notes": []
     },
     {
@@ -2036,7 +2036,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 329,
+      "lines": 330,
       "notes": []
     },
     {
@@ -2144,7 +2144,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.8,
-      "lines": 331,
+      "lines": 332,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -2172,7 +2172,7 @@
       },
       "penalty": 0.0,
       "slop_index": 10.3,
-      "lines": 214,
+      "lines": 215,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -2308,7 +2308,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 347,
+      "lines": 348,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -2454,32 +2454,6 @@
       ]
     },
     {
-      "name": "paper-corpus-rag",
-      "category": "knowledge-and-rag",
-      "score": 94.0,
-      "parts": {
-        "desc_length": 10,
-        "desc_triggers": 8,
-        "desc_specific": 6,
-        "desc_no_marketing": 6,
-        "workflow": 8,
-        "tables_checklists": 0,
-        "handoffs": 4,
-        "verification": 6,
-        "headings": 6,
-        "size": 8,
-        "references": 4,
-        "links": 3,
-        "scripts": 15.0,
-        "freshness": 5,
-        "compatibility": 5
-      },
-      "penalty": 0.0,
-      "slop_index": 0.0,
-      "lines": 103,
-      "notes": []
-    },
-    {
       "name": "phoenix-observability",
       "category": "ml-inference-and-ops",
       "score": 94.0,
@@ -2586,7 +2560,7 @@
       },
       "penalty": 0.0,
       "slop_index": 6.2,
-      "lines": 284,
+      "lines": 285,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -2696,7 +2670,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 118,
+      "lines": 130,
       "notes": []
     },
     {
@@ -2750,7 +2724,7 @@
       },
       "penalty": 0.0,
       "slop_index": 6.6,
-      "lines": 220,
+      "lines": 221,
       "notes": []
     },
     {
@@ -2776,7 +2750,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.3,
-      "lines": 378,
+      "lines": 379,
       "notes": []
     },
     {
@@ -2802,7 +2776,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 236,
+      "lines": 237,
       "notes": []
     },
     {
@@ -2828,7 +2802,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 305,
+      "lines": 306,
       "notes": []
     },
     {
@@ -2854,7 +2828,7 @@
       },
       "penalty": 0.0,
       "slop_index": 5.8,
-      "lines": 255,
+      "lines": 256,
       "notes": []
     },
     {
@@ -2880,7 +2854,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.0,
-      "lines": 420,
+      "lines": 421,
       "notes": []
     },
     {
@@ -2906,7 +2880,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 356,
+      "lines": 357,
       "notes": []
     },
     {
@@ -2932,7 +2906,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 328,
+      "lines": 329,
       "notes": []
     },
     {
@@ -2958,7 +2932,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.8,
-      "lines": 256,
+      "lines": 257,
       "notes": []
     },
     {
@@ -2984,7 +2958,7 @@
       },
       "penalty": 0.0,
       "slop_index": 2.8,
-      "lines": 400,
+      "lines": 401,
       "notes": []
     },
     {
@@ -3010,7 +2984,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.8,
-      "lines": 240,
+      "lines": 241,
       "notes": []
     },
     {
@@ -3036,7 +3010,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.0,
-      "lines": 270,
+      "lines": 271,
       "notes": []
     },
     {
@@ -3062,7 +3036,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 245,
+      "lines": 246,
       "notes": []
     },
     {
@@ -3088,7 +3062,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.6,
-      "lines": 294,
+      "lines": 295,
       "notes": []
     },
     {
@@ -3114,7 +3088,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 252,
+      "lines": 253,
       "notes": []
     },
     {
@@ -3140,7 +3114,7 @@
       },
       "penalty": 0.0,
       "slop_index": 2.7,
-      "lines": 239,
+      "lines": 240,
       "notes": []
     },
     {
@@ -3166,7 +3140,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.4,
-      "lines": 433,
+      "lines": 434,
       "notes": []
     },
     {
@@ -3192,7 +3166,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.9,
-      "lines": 325,
+      "lines": 326,
       "notes": []
     },
     {
@@ -3246,7 +3220,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 460,
+      "lines": 461,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -3380,7 +3354,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.4,
-      "lines": 398,
+      "lines": 399,
       "notes": []
     },
     {
@@ -3484,7 +3458,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 352,
+      "lines": 353,
       "notes": []
     },
     {
@@ -3566,6 +3540,34 @@
       "notes": []
     },
     {
+      "name": "paper-card",
+      "category": "literature-review",
+      "score": 95.5,
+      "parts": {
+        "desc_length": 10,
+        "desc_triggers": 8,
+        "desc_specific": 1.5,
+        "desc_no_marketing": 6,
+        "workflow": 8,
+        "tables_checklists": 6,
+        "handoffs": 4,
+        "verification": 6,
+        "headings": 6,
+        "size": 8,
+        "references": 4,
+        "links": 3,
+        "scripts": 15.0,
+        "freshness": 5,
+        "compatibility": 5
+      },
+      "penalty": 0.0,
+      "slop_index": 0.0,
+      "lines": 89,
+      "notes": [
+        "description names few concrete tools, formats or venues"
+      ]
+    },
+    {
       "name": "ray-train",
       "category": "ml-training",
       "score": 95.5,
@@ -3640,7 +3642,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.0,
-      "lines": 210,
+      "lines": 211,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -3668,7 +3670,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 271,
+      "lines": 272,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -3722,7 +3724,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 286,
+      "lines": 287,
       "notes": []
     },
     {
@@ -3748,7 +3750,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.1,
-      "lines": 337,
+      "lines": 338,
       "notes": []
     },
     {
@@ -3774,7 +3776,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 307,
+      "lines": 308,
       "notes": []
     },
     {
@@ -3800,7 +3802,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.0,
-      "lines": 339,
+      "lines": 340,
       "notes": []
     },
     {
@@ -3826,7 +3828,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.0,
-      "lines": 312,
+      "lines": 313,
       "notes": []
     },
     {
@@ -3852,7 +3854,7 @@
       },
       "penalty": 0.0,
       "slop_index": 6.5,
-      "lines": 332,
+      "lines": 333,
       "notes": []
     },
     {
@@ -3878,7 +3880,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 437,
+      "lines": 439,
       "notes": []
     },
     {
@@ -3904,7 +3906,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.0,
-      "lines": 338,
+      "lines": 339,
       "notes": []
     },
     {
@@ -3930,7 +3932,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 378,
+      "lines": 379,
       "notes": []
     },
     {
@@ -3956,7 +3958,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 431,
+      "lines": 432,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -4010,7 +4012,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 296,
+      "lines": 297,
       "notes": []
     },
     {
@@ -4116,7 +4118,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 105,
+      "lines": 107,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -4144,7 +4146,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.8,
-      "lines": 235,
+      "lines": 236,
       "notes": []
     },
     {
@@ -4196,7 +4198,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 206,
+      "lines": 207,
       "notes": []
     },
     {
@@ -4274,7 +4276,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 363,
+      "lines": 364,
       "notes": []
     },
     {
@@ -4377,8 +4379,8 @@
         "compatibility": 5
       },
       "penalty": 0.0,
-      "slop_index": 3.1,
-      "lines": 133,
+      "slop_index": 2.8,
+      "lines": 135,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -4514,6 +4516,32 @@
       "notes": []
     },
     {
+      "name": "fulltext-acquisition",
+      "category": "literature-review",
+      "score": 97.0,
+      "parts": {
+        "desc_length": 10,
+        "desc_triggers": 8,
+        "desc_specific": 6,
+        "desc_no_marketing": 6,
+        "workflow": 8,
+        "tables_checklists": 6,
+        "handoffs": 4,
+        "verification": 6,
+        "headings": 3,
+        "size": 8,
+        "references": 4,
+        "links": 3,
+        "scripts": 15.0,
+        "freshness": 5,
+        "compatibility": 5
+      },
+      "penalty": 0.0,
+      "slop_index": 0.0,
+      "lines": 82,
+      "notes": []
+    },
+    {
       "name": "geomaster",
       "category": "physical-sciences",
       "score": 97.0,
@@ -4536,7 +4564,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 395,
+      "lines": 396,
       "notes": []
     },
     {
@@ -4588,7 +4616,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 135,
+      "lines": 136,
       "notes": []
     },
     {
@@ -4666,7 +4694,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 162,
+      "lines": 163,
       "notes": []
     },
     {
@@ -4796,7 +4824,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 379,
+      "lines": 380,
       "notes": []
     },
     {
@@ -4900,7 +4928,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 305,
+      "lines": 306,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -5032,7 +5060,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 498,
+      "lines": 499,
       "notes": []
     },
     {
@@ -5084,7 +5112,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 487,
+      "lines": 488,
       "notes": []
     },
     {
@@ -5188,7 +5216,7 @@
       },
       "penalty": 0.0,
       "slop_index": 2.4,
-      "lines": 440,
+      "lines": 441,
       "notes": []
     },
     {
@@ -5214,7 +5242,7 @@
       },
       "penalty": 0.0,
       "slop_index": 6.3,
-      "lines": 225,
+      "lines": 226,
       "notes": []
     },
     {
@@ -5318,7 +5346,7 @@
       },
       "penalty": 0.0,
       "slop_index": 9.4,
-      "lines": 202,
+      "lines": 203,
       "notes": []
     },
     {
@@ -5370,7 +5398,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.2,
-      "lines": 268,
+      "lines": 269,
       "notes": []
     },
     {
@@ -5448,7 +5476,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.3,
-      "lines": 153,
+      "lines": 154,
       "notes": []
     },
     {
@@ -5474,7 +5502,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 207,
+      "lines": 208,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -5632,7 +5660,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 311,
+      "lines": 312,
       "notes": []
     },
     {
@@ -5658,7 +5686,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 378,
+      "lines": 379,
       "notes": []
     },
     {
@@ -5684,7 +5712,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.7,
-      "lines": 230,
+      "lines": 231,
       "notes": []
     },
     {
@@ -5970,7 +5998,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.0,
-      "lines": 417,
+      "lines": 418,
       "notes": []
     },
     {
@@ -6022,7 +6050,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.2,
-      "lines": 402,
+      "lines": 403,
       "notes": []
     },
     {
@@ -6074,7 +6102,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.0,
-      "lines": 277,
+      "lines": 278,
       "notes": [
         "description names few concrete tools, formats or venues"
       ]
@@ -6180,7 +6208,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.0,
-      "lines": 380,
+      "lines": 381,
       "notes": []
     },
     {
@@ -6206,7 +6234,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 310,
+      "lines": 311,
       "notes": []
     },
     {
@@ -6232,7 +6260,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 407,
+      "lines": 408,
       "notes": []
     },
     {
@@ -6258,7 +6286,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.8,
-      "lines": 422,
+      "lines": 423,
       "notes": []
     },
     {
@@ -6310,7 +6338,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 338,
+      "lines": 339,
       "notes": []
     },
     {
@@ -6336,7 +6364,7 @@
       },
       "penalty": 0.0,
       "slop_index": 6.9,
-      "lines": 270,
+      "lines": 271,
       "notes": []
     },
     {
@@ -6362,7 +6390,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 286,
+      "lines": 287,
       "notes": []
     },
     {
@@ -6414,7 +6442,7 @@
       },
       "penalty": 0.0,
       "slop_index": 7.0,
-      "lines": 258,
+      "lines": 259,
       "notes": []
     },
     {
@@ -6466,7 +6494,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 335,
+      "lines": 336,
       "notes": []
     },
     {
@@ -6492,7 +6520,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.2,
-      "lines": 406,
+      "lines": 407,
       "notes": []
     },
     {
@@ -6518,7 +6546,7 @@
       },
       "penalty": 0.0,
       "slop_index": 2.2,
-      "lines": 313,
+      "lines": 314,
       "notes": []
     },
     {
@@ -6544,7 +6572,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 82,
+      "lines": 94,
       "notes": []
     },
     {
@@ -6570,7 +6598,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 489,
+      "lines": 490,
       "notes": []
     },
     {
@@ -6596,7 +6624,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.9,
-      "lines": 324,
+      "lines": 325,
       "notes": []
     },
     {
@@ -6622,7 +6650,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.1,
-      "lines": 208,
+      "lines": 209,
       "notes": []
     },
     {
@@ -6648,7 +6676,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.9,
-      "lines": 274,
+      "lines": 275,
       "notes": []
     },
     {
@@ -6674,7 +6702,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 486,
+      "lines": 487,
       "notes": []
     },
     {
@@ -6700,7 +6728,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 156,
+      "lines": 157,
       "notes": []
     },
     {
@@ -6726,7 +6754,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 229,
+      "lines": 230,
       "notes": []
     },
     {
@@ -6752,7 +6780,7 @@
       },
       "penalty": 0.0,
       "slop_index": 5.7,
-      "lines": 219,
+      "lines": 220,
       "notes": []
     },
     {
@@ -6778,7 +6806,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 371,
+      "lines": 372,
       "notes": []
     },
     {
@@ -6804,7 +6832,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 273,
+      "lines": 274,
       "notes": []
     },
     {
@@ -6829,8 +6857,8 @@
         "compatibility": 5
       },
       "penalty": 0.0,
-      "slop_index": 5.5,
-      "lines": 325,
+      "slop_index": 5.1,
+      "lines": 327,
       "notes": []
     },
     {
@@ -6856,7 +6884,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 351,
+      "lines": 352,
       "notes": []
     },
     {
@@ -6882,7 +6910,7 @@
       },
       "penalty": 0.0,
       "slop_index": 6.3,
-      "lines": 356,
+      "lines": 357,
       "notes": []
     },
     {
@@ -6908,7 +6936,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 389,
+      "lines": 390,
       "notes": []
     },
     {
@@ -6934,7 +6962,33 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 182,
+      "lines": 183,
+      "notes": []
+    },
+    {
+      "name": "paper-corpus-rag",
+      "category": "knowledge-and-rag",
+      "score": 100.0,
+      "parts": {
+        "desc_length": 10,
+        "desc_triggers": 8,
+        "desc_specific": 6,
+        "desc_no_marketing": 6,
+        "workflow": 8,
+        "tables_checklists": 6,
+        "handoffs": 4,
+        "verification": 6,
+        "headings": 6,
+        "size": 8,
+        "references": 4,
+        "links": 3,
+        "scripts": 15.0,
+        "freshness": 5,
+        "compatibility": 5
+      },
+      "penalty": 0.0,
+      "slop_index": 0.0,
+      "lines": 153,
       "notes": []
     },
     {
@@ -6960,7 +7014,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 158,
+      "lines": 160,
       "notes": []
     },
     {
@@ -6986,7 +7040,7 @@
       },
       "penalty": 0.0,
       "slop_index": 2.0,
-      "lines": 111,
+      "lines": 112,
       "notes": []
     },
     {
@@ -7038,7 +7092,7 @@
       },
       "penalty": 0.0,
       "slop_index": 1.1,
-      "lines": 409,
+      "lines": 410,
       "notes": []
     },
     {
@@ -7064,7 +7118,7 @@
       },
       "penalty": 0.0,
       "slop_index": 4.6,
-      "lines": 399,
+      "lines": 400,
       "notes": []
     },
     {
@@ -7090,7 +7144,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.0,
-      "lines": 167,
+      "lines": 169,
       "notes": []
     },
     {
@@ -7116,7 +7170,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.0,
-      "lines": 102,
+      "lines": 103,
       "notes": []
     },
     {
@@ -7220,7 +7274,7 @@
       },
       "penalty": 0.0,
       "slop_index": 2.6,
-      "lines": 326,
+      "lines": 327,
       "notes": []
     },
     {
@@ -7246,7 +7300,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.3,
-      "lines": 407,
+      "lines": 408,
       "notes": []
     },
     {
@@ -7272,7 +7326,7 @@
       },
       "penalty": 0.0,
       "slop_index": 0.9,
-      "lines": 499,
+      "lines": 500,
       "notes": []
     },
     {
@@ -7298,7 +7352,7 @@
       },
       "penalty": 0.0,
       "slop_index": 2.3,
-      "lines": 268,
+      "lines": 269,
       "notes": []
     },
     {
@@ -7324,7 +7378,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.0,
-      "lines": 294,
+      "lines": 295,
       "notes": []
     },
     {
@@ -7350,7 +7404,7 @@
       },
       "penalty": 0.0,
       "slop_index": 4.2,
-      "lines": 487,
+      "lines": 488,
       "notes": []
     },
     {
@@ -7376,7 +7430,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.0,
-      "lines": 225,
+      "lines": 226,
       "notes": []
     },
     {
@@ -7402,7 +7456,7 @@
       },
       "penalty": 0.0,
       "slop_index": 8.3,
-      "lines": 233,
+      "lines": 234,
       "notes": []
     },
     {
@@ -7428,7 +7482,7 @@
       },
       "penalty": 0.0,
       "slop_index": 3.5,
-      "lines": 302,
+      "lines": 303,
       "notes": []
     },
     {
@@ -7454,7 +7508,7 @@
       },
       "penalty": 0.0,
       "slop_index": 2.4,
-      "lines": 269,
+      "lines": 270,
       "notes": []
     }
   ],

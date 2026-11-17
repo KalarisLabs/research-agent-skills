@@ -801,7 +801,7 @@ def main():
             "max_score": 105,
             "y_ticks": [20, 40, 60, 80, 100],
             "title": "Research Agent Skills - Scientific Disciplines Quality Score",
-            "subtitle": "Static quality & strict policy compliance across all 19 research fields (281 skills)",
+            "subtitle": "Static quality & strict policy compliance across all 19 research fields (283 skills)",
             "svg_filename": "benchmark_leaderboard_disciplines.svg",
             "png_filename": "benchmark_leaderboard_disciplines.png",
             "width": 1100,

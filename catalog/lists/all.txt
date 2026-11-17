@@ -78,6 +78,7 @@ firecrawl-research-index
 flowio
 fluidsim
 folklore-variant-evidence
+fulltext-acquisition
 generate-image
 geniml
 genomic-coordinates
@@ -163,6 +164,7 @@ optimize-for-gpu
 optimizing-attention-flash
 outlines
 pacsomatic
+paper-card
 paper-corpus-rag
 paper-lookup
 paperclip

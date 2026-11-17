@@ -36,6 +36,7 @@ In Claude Code you can also add the marketplace with `/plugin marketplace add Ka
 
 - [`apa7`](/skills/apa7)
 - [`bibtex-hygiene`](/skills/bibtex-hygiene)
+- [`fulltext-acquisition`](/skills/fulltext-acquisition)
 - [`pyzotero`](/skills/pyzotero)
 - [`citation-management`](/skills/citation-management)
 - [`citation-verification`](/skills/citation-verification)

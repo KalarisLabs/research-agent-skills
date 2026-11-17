@@ -49,18 +49,53 @@ def test_convert_refs_roundtrip(bib: Path, tmp_path: Path):
     assert "@article{" in (tmp_path / "b.bib").read_text(encoding="utf-8")
 
 
-def test_prisma_flow_consistency(tmp_path: Path):
-    counts = {"identification": {"databases": {"A": 100}, "registers": {}, "other_sources": {}},
-              "removed_before_screening": {"duplicates": 20}, "records_excluded_screening": 50,
-              "reports_not_retrieved": 5, "reports_excluded": {"reason": 10}, "studies_included": 15,
-              "reports_included": 15}
+def _prisma_counts() -> dict:
+    return {"identification": {"databases": {"A": 100}, "registers": {}, "other_sources": {}},
+            "removed_before_screening": {"duplicates": 20}, "records_excluded_screening": 50,
+            "reports_not_retrieved": 5, "reports_excluded": {"reason": 10}, "studies_included": 15,
+            "reports_included": 15,
+            "search_log": [{"source": "A", "platform": "P", "query": '"x"[tiab] AND y', "date_run": "2026-01-02",
+                            "hits": 100}]}
+
+
+def _prisma(tmp_path: Path, counts: dict, *args: str) -> subprocess.CompletedProcess:
     p = tmp_path / "c.json"
     p.write_text(json.dumps(counts), encoding="utf-8")
-    r = run("systematic-review-prisma/scripts/prisma_flow.py", str(p))
+    return run("systematic-review-prisma/scripts/prisma_flow.py", str(p), *args)
+
+
+def test_prisma_flow_consistency(tmp_path: Path):
+    counts = _prisma_counts()
+    r = _prisma(tmp_path, counts)
     assert r.returncode == 0 and "Records screened<br/>(n = 80)" in r.stdout
     counts["reports_included"] = 99
-    p.write_text(json.dumps(counts), encoding="utf-8")
-    assert run("systematic-review-prisma/scripts/prisma_flow.py", str(p), "--format", "dot").returncode == 1
+    assert _prisma(tmp_path, counts, "--format", "dot").returncode == 1
+
+
+def test_prisma_flow_refuses_counts_without_logged_query(tmp_path: Path):
+    counts = _prisma_counts()
+    del counts["search_log"]
+    r = _prisma(tmp_path, counts)
+    assert r.returncode == 1 and "no search_log entry" in r.stderr
+    assert _prisma(tmp_path, counts, "--allow-unlogged").returncode == 0
+
+
+def test_prisma_flow_search_log_must_match_counts_and_be_complete(tmp_path: Path):
+    counts = _prisma_counts()
+    counts["search_log"][0]["hits"] = 90
+    assert "sum to 90" in _prisma(tmp_path, counts).stderr
+    counts = _prisma_counts()
+    counts["search_log"][0]["query"] = ""
+    counts["search_log"][0]["date_run"] = "yesterday"
+    err = _prisma(tmp_path, counts).stderr
+    assert "missing exact query" in err and "date_run" in err
+
+
+def test_prisma_flow_writes_search_table(tmp_path: Path):
+    out = tmp_path / "t.md"
+    r = _prisma(tmp_path, _prisma_counts(), "--search-table", str(out))
+    assert r.returncode == 0
+    assert '`"x"[tiab] AND y`' in out.read_text(encoding="utf-8")
 
 
 def test_dedupe_records(bib: Path, tmp_path: Path):

@@ -1,8 +1,8 @@
 {
   "router": "bm25",
-  "hit@1": 0.4981226533166458,
-  "hit@3": 0.6533166458072591,
-  "false_trigger": 0.06529850746268656,
+  "hit@1": 0.5053635280095352,
+  "hit@3": 0.6626936829558999,
+  "false_trigger": 0.060109289617486336,
   "cases": [
     {
       "skill": "13c-metabolic-flux",
@@ -11,8 +11,8 @@
       "rank": 1,
       "top": [
         "13c-metabolic-flux",
-        "get-available-resources",
-        "treatment-plans"
+        "fulltext-acquisition",
+        "get-available-resources"
       ]
     },
     {
@@ -56,7 +56,7 @@
       "top": [
         "waypoint-bio",
         "tiledbvcf",
-        "statistical-power"
+        "paper-card"
       ]
     },
     {
@@ -78,7 +78,7 @@
       "top": [
         "analytical-method-validation",
         "peer-review",
-        "cell-press"
+        "ginkgo-cloud-lab"
       ]
     },
     {
@@ -109,9 +109,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "paper-card",
         "nemo-evaluator-sdk",
-        "evaluating-llms-harness",
-        "paperclip"
+        "evaluating-llms-harness"
       ]
     },
     {
@@ -122,7 +122,7 @@
       "top": [
         "scientific-visualization",
         "nature-portfolio",
-        "matplotlib"
+        "citation-verification"
       ]
     },
     {
@@ -166,7 +166,7 @@
       "top": [
         "adaptyv",
         "fictiv",
-        "huggingface-accelerate"
+        "paper-card"
       ]
     },
     {
@@ -177,7 +177,7 @@
       "top": [
         "fictiv",
         "adaptyv",
-        "scikit-bio"
+        "paper-card"
       ]
     },
     {
@@ -232,7 +232,7 @@
       "top": [
         "constitutional-ai",
         "fictiv",
-        "consciousness-council"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -243,7 +243,7 @@
       "top": [
         "timesfm-forecasting",
         "hqq-quantization",
-        "clip"
+        "pytorch-lightning"
       ]
     },
     {
@@ -254,7 +254,7 @@
       "top": [
         "scikit-learn",
         "sparse-autoencoder-training",
-        "nemo-curator"
+        "umap-learn"
       ]
     },
     {
@@ -265,7 +265,7 @@
       "top": [
         "alphagenome",
         "relsa-severity-assessment",
-        "arbor"
+        "depmap"
       ]
     },
     {
@@ -276,7 +276,7 @@
       "top": [
         "alphagenome",
         "esm",
-        "peft-fine-tuning"
+        "usfiscaldata"
       ]
     },
     {
@@ -352,8 +352,8 @@
       "rank": 1,
       "top": [
         "analytical-method-validation",
-        "fictiv",
-        "latex-posters"
+        "latex-posters",
+        "paper-card"
       ]
     },
     {
@@ -473,8 +473,8 @@
       "rank": 1,
       "top": [
         "ara-compiler",
-        "alphagenome",
-        "unslop-academic-writing"
+        "paper-card",
+        "alphagenome"
       ]
     },
     {
@@ -525,11 +525,11 @@
       "skill": "ara-research-manager",
       "prompt": "My project just wrapped up its first phase and I need a durable, auditable trail of how our direction changed over the past few weeks of chats, including which ideas were mine and which came from the assistant. There's no folder for this yet. Can you set that up and fill it in?",
       "should_trigger": true,
-      "rank": 4,
+      "rank": 5,
       "top": [
         "arbor",
         "brainstorming-research-ideas",
-        "fictiv"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -551,7 +551,7 @@
       "top": [
         "ara-compiler",
         "research-skill-creator",
-        "research-knowledge-graph"
+        "paper-card"
       ]
     },
     {
@@ -573,7 +573,7 @@
       "top": [
         "ara-rigor-reviewer",
         "ara-research-manager",
-        "hypothesis-generation"
+        "arbor"
       ]
     },
     {
@@ -682,8 +682,8 @@
       "rank": null,
       "top": [
         "infographics",
-        "matchms",
-        "lab-hardware-cad"
+        "citation-verification",
+        "fulltext-acquisition"
       ]
     },
     {
@@ -734,7 +734,7 @@
       "skill": "arxiv-submission",
       "prompt": "Find recent arXiv papers on diffusion models.",
       "should_trigger": false,
-      "rank": null,
+      "rank": 5,
       "top": [
         "paper-lookup",
         "paperzilla",
@@ -749,7 +749,7 @@
       "top": [
         "genomic-coordinates",
         "pytorch-lightning",
-        "citation-verification"
+        "weights-and-biases"
       ]
     },
     {
@@ -879,9 +879,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "paper-corpus-rag",
         "research-knowledge-graph",
-        "paperzilla",
-        "deepchem"
+        "paperzilla"
       ]
     },
     {
@@ -891,8 +891,8 @@
       "rank": null,
       "top": [
         "langchain",
-        "paper-corpus-rag",
-        "pinecone"
+        "pinecone",
+        "paper-corpus-rag"
       ]
     },
     {
@@ -1002,7 +1002,7 @@
       "top": [
         "bulk-rnaseq",
         "research-skill-creator",
-        "scanpy"
+        "paper-card"
       ]
     },
     {
@@ -1011,19 +1011,19 @@
       "should_trigger": false,
       "rank": null,
       "top": [
+        "fulltext-acquisition",
         "paperclip",
-        "paper-corpus-rag",
-        "paper-lookup"
+        "paper-corpus-rag"
       ]
     },
     {
       "skill": "awq-quantization",
       "prompt": "How do I load a 4-bit AWQ Llama 3 8B in transformers?",
       "should_trigger": true,
-      "rank": 1,
+      "rank": 2,
       "top": [
-        "awq-quantization",
         "gptq",
+        "awq-quantization",
         "hqq-quantization"
       ]
     },
@@ -1152,11 +1152,11 @@
       "skill": "benchling-integration",
       "prompt": "Our lab keeps freezer sample locations and plate contents in Benchling. I want a nightly script that pulls every container in a given freezer box, checks for ones that are empty or expired, and writes a CSV audit report for my PI. Where do I start?",
       "should_trigger": true,
-      "rank": 3,
+      "rank": 4,
       "top": [
         "pptx-posters",
-        "histolab",
-        "benchling-integration"
+        "paper-card",
+        "histolab"
       ]
     },
     {
@@ -1167,7 +1167,7 @@
       "top": [
         "labarchive-integration",
         "fictiv",
-        "protocolsio-integration"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -1199,8 +1199,8 @@
       "rank": 1,
       "top": [
         "bgpt-paper-search",
-        "cell-press",
-        "model-pruning"
+        "paper-card",
+        "cell-press"
       ]
     },
     {
@@ -1232,8 +1232,8 @@
       "rank": 1,
       "top": [
         "bgpt-paper-search",
-        "systems-paper-writing",
-        "scientific-critical-thinking"
+        "scientific-critical-thinking",
+        "systems-paper-writing"
       ]
     },
     {
@@ -1265,8 +1265,8 @@
       "rank": 1,
       "top": [
         "bids",
-        "liteparse",
-        "get-available-resources"
+        "fulltext-acquisition",
+        "liteparse"
       ]
     },
     {
@@ -1284,11 +1284,11 @@
       "skill": "bids",
       "prompt": "I'm about to put my EEG study with 40 participants on OpenNeuro. Its folders and files are named in my own lab convention and I have no idea what metadata I need. What do I need to do first so it's accepted?",
       "should_trigger": true,
-      "rank": 2,
+      "rank": 3,
       "top": [
+        "fulltext-acquisition",
         "liteparse",
-        "bids",
-        "implementing-llms-litgpt"
+        "bids"
       ]
     },
     {
@@ -1309,8 +1309,8 @@
       "rank": null,
       "top": [
         "pydeseq2",
-        "scientific-schematics",
-        "matlab"
+        "paper-card",
+        "scientific-schematics"
       ]
     },
     {
@@ -1341,9 +1341,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "paper-card",
         "etetoolkit",
-        "autoskill",
-        "huggingface-accelerate"
+        "autoskill"
       ]
     },
     {
@@ -1387,7 +1387,7 @@
       "top": [
         "bioservices",
         "pathway-enrichment",
-        "scientific-schematics"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -1420,7 +1420,7 @@
       "top": [
         "biopython",
         "citation-verification",
-        "bibtex-hygiene"
+        "scikit-bio"
       ]
     },
     {
@@ -1431,7 +1431,7 @@
       "top": [
         "blip-2-vision-language",
         "generate-image",
-        "scientific-schematics"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -1453,7 +1453,7 @@
       "top": [
         "paper-corpus-rag",
         "parallel-web",
-        "qutip"
+        "moe-training"
       ]
     },
     {
@@ -1485,8 +1485,8 @@
       "rank": 1,
       "top": [
         "brainstorming-research-ideas",
-        "consciousness-council",
-        "creative-thinking-for-research"
+        "paper-corpus-rag",
+        "consciousness-council"
       ]
     },
     {
@@ -1496,8 +1496,8 @@
       "rank": null,
       "top": [
         "matlab",
-        "ara-rigor-reviewer",
-        "experimental-design"
+        "experimental-design",
+        "ara-rigor-reviewer"
       ]
     },
     {
@@ -1506,9 +1506,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "paper-corpus-rag",
         "consciousness-council",
-        "ara-research-manager",
-        "genomic-coordinates"
+        "ara-research-manager"
       ]
     },
     {
@@ -1574,7 +1574,7 @@
       "top": [
         "pydeseq2",
         "experimental-design",
-        "treatment-plans"
+        "nextflow"
       ]
     },
     {
@@ -1672,8 +1672,8 @@
       "rank": 1,
       "top": [
         "chroma",
-        "sentence-transformers",
-        "paper-corpus-rag"
+        "paper-corpus-rag",
+        "sentence-transformers"
       ]
     },
     {
@@ -1727,8 +1727,8 @@
       "rank": 1,
       "top": [
         "cirq",
-        "pennylane",
-        "pylabrobot"
+        "paper-card",
+        "pennylane"
       ]
     },
     {
@@ -1843,13 +1843,123 @@
     },
     {
       "skill": "citation-verification",
-      "prompt": "Add page numbers to my table of contents.",
+      "prompt": "One of my citations might have been retracted. How do I check all 60?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "treatment-plans",
+        "literature-review"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "The DOI in my bib resolves, but I'm not sure it is the right paper.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "fulltext-acquisition",
+        "citation-management"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "I cite a Zenodo dataset and a GitHub release DOI. The checker says doi-not-found.",
+      "should_trigger": true,
+      "rank": 2,
+      "top": [
+        "reproducibility-statement",
+        "citation-verification",
+        "paper-corpus-rag"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Mark every reference you can't verify directly in the .bib so I can see them.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "arbor",
+        "reference-manager-interop"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Add the missing DOIs to my references.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "citation-management",
+        "bibtex-hygiene"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Camera-ready is tomorrow. Make sure no reference in the final bib is fake or corrupted.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "reference-manager-interop",
+        "springer-lncs"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Check whether this one DOI is real: 10.1126/science.aaa8415",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "ara-rigor-reviewer",
+        "analytical-method-validation"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "My bib has conference papers without DOIs and the reference checker reports them as missing. What should I do?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "citation-verification",
+        "bibtex-hygiene",
+        "citation-management"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Clean up capitalization and duplicate keys in my .bib.",
       "should_trigger": false,
       "rank": null,
       "top": [
-        "exa-search",
+        "bibtex-hygiene",
+        "citation-management",
+        "reference-manager-interop"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Convert my EndNote library to BibTeX.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "reference-manager-interop",
+        "pyzotero",
+        "bibtex-hygiene"
+      ]
+    },
+    {
+      "skill": "citation-verification",
+      "prompt": "Find five good papers to cite for this claim.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "paper-corpus-rag",
         "paperclip",
-        "parallel-web"
+        "paper-card"
       ]
     },
     {
@@ -1880,9 +1990,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "paper-card",
         "folklore-variant-evidence",
-        "peer-review",
-        "literature-review"
+        "peer-review"
       ]
     },
     {
@@ -1914,8 +2024,8 @@
       "rank": 1,
       "top": [
         "clinical-reports",
-        "statistical-analysis",
-        "scientific-writing"
+        "paper-card",
+        "statistical-analysis"
       ]
     },
     {
@@ -1936,19 +2046,19 @@
       "rank": 1,
       "top": [
         "clinical-reports",
-        "cellxgene-census",
-        "scvelo"
+        "paper-card",
+        "cellxgene-census"
       ]
     },
     {
       "skill": "clinical-reports",
       "prompt": "A patient in my trial had a rash and fever two days after the second dose. Write up the ICSR for this case, decide whether it's a SUSAR, and tell me whether to stop the drug.",
       "should_trigger": false,
-      "rank": 2,
+      "rank": 3,
       "top": [
+        "paper-corpus-rag",
         "ara-rigor-reviewer",
-        "clinical-reports",
-        "pathogen-variant-surveillance"
+        "clinical-reports"
       ]
     },
     {
@@ -1979,8 +2089,8 @@
       "should_trigger": true,
       "rank": null,
       "top": [
-        "sentence-transformers",
         "generate-image",
+        "sentence-transformers",
         "umap-learn"
       ]
     },
@@ -2002,7 +2112,7 @@
       "rank": null,
       "top": [
         "paper-corpus-rag",
-        "scvelo",
+        "llava",
         "consciousness-council"
       ]
     },
@@ -2221,9 +2331,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
-        "consciousness-council",
+        "paper-corpus-rag",
         "rwkv-architecture",
-        "transformers"
+        "consciousness-council"
       ]
     },
     {
@@ -2255,8 +2365,8 @@
       "rank": null,
       "top": [
         "mamba-architecture",
-        "bgpt-paper-search",
-        "optimizing-attention-flash"
+        "paper-card",
+        "bgpt-paper-search"
       ]
     },
     {
@@ -2278,7 +2388,7 @@
       "top": [
         "crewai-multi-agent",
         "abstract-and-title",
-        "ieee-transactions"
+        "systematic-review-prisma"
       ]
     },
     {
@@ -2287,9 +2397,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "paper-card",
         "bgpt-paper-search",
-        "citation-management",
-        "research-lookup"
+        "citation-management"
       ]
     },
     {
@@ -2299,8 +2409,8 @@
       "rank": null,
       "top": [
         "langchain",
-        "paper-corpus-rag",
-        "pinecone"
+        "pinecone",
+        "chroma"
       ]
     },
     {
@@ -2344,7 +2454,7 @@
       "top": [
         "experimental-design",
         "autoskill",
-        "pathway-enrichment"
+        "paper-card"
       ]
     },
     {
@@ -2397,9 +2507,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "paper-card",
         "datalad",
-        "paperclip",
-        "ara-research-manager"
+        "paperclip"
       ]
     },
     {
@@ -2476,7 +2586,7 @@
       "top": [
         "pydeseq2",
         "dask",
-        "bulk-rnaseq"
+        "polars"
       ]
     },
     {
@@ -2531,7 +2641,7 @@
       "top": [
         "medchem",
         "citation-verification",
-        "segment-anything-model"
+        "rdkit"
       ]
     },
     {
@@ -2608,7 +2718,7 @@
       "top": [
         "deepspeed",
         "ml-training-recipes",
-        "mlflow"
+        "fictiv"
       ]
     },
     {
@@ -2681,11 +2791,11 @@
       "skill": "deeptools",
       "prompt": "I have ChIP-seq BAMs and need to call peaks against the input control and get a list of significant binding sites with q-values. What should I run?",
       "should_trigger": false,
-      "rank": 1,
+      "rank": 2,
       "top": [
+        "fulltext-acquisition",
         "deeptools",
-        "pacsomatic",
-        "nemo-guardrails"
+        "pacsomatic"
       ]
     },
     {
@@ -2729,7 +2839,7 @@
       "top": [
         "depmap",
         "genomic-intelligence",
-        "pathogen-variant-surveillance"
+        "cell-press"
       ]
     },
     {
@@ -2784,7 +2894,7 @@
       "top": [
         "dhdna-profiler",
         "ara-research-manager",
-        "ara-rigor-reviewer"
+        "paper-corpus-rag"
       ]
     },
     {
@@ -2905,7 +3015,7 @@
       "top": [
         "pytorch-fsdp2",
         "huggingface-accelerate",
-        "scvelo"
+        "pytorch-lightning-distributed"
       ]
     },
     {
@@ -2926,8 +3036,8 @@
       "rank": 1,
       "top": [
         "dnanexus-integration",
-        "pytorch-lightning-distributed",
-        "ray-train"
+        "fulltext-acquisition",
+        "pytorch-lightning-distributed"
       ]
     },
     {
@@ -2945,11 +3055,11 @@
       "skill": "dnanexus-integration",
       "prompt": "I have a WGS pipeline written in WDL for 40 samples and I want it to run on our cloud genomics platform where my data already lives under a project called cohort-2026. I need it to be launched in bulk, with the cost capped and a way to see which runs failed. Where do I start?",
       "should_trigger": true,
-      "rank": 4,
+      "rank": 3,
       "top": [
         "tiledbvcf",
         "skypilot-multi-cloud-orchestration",
-        "experimental-design"
+        "dnanexus-integration"
       ]
     },
     {
@@ -3002,8 +3112,8 @@
       "should_trigger": true,
       "rank": null,
       "top": [
-        "arbor",
         "paper-corpus-rag",
+        "arbor",
         "constitutional-ai"
       ]
     },
@@ -3069,8 +3179,8 @@
       "rank": null,
       "top": [
         "training-llms-megatron",
-        "treatment-plans",
-        "matlab"
+        "fulltext-acquisition",
+        "citation-verification"
       ]
     },
     {
@@ -3124,8 +3234,8 @@
       "rank": null,
       "top": [
         "ara-rigor-reviewer",
-        "pathway-enrichment",
-        "constitutional-ai"
+        "fulltext-acquisition",
+        "pathway-enrichment"
       ]
     },
     {
@@ -3136,7 +3246,7 @@
       "top": [
         "onekgpd",
         "genomic-coordinates",
-        "dhdna-profiler"
+        "paper-card"
       ]
     },
     {
@@ -3176,11 +3286,11 @@
       "skill": "evaluating-code-models",
       "prompt": "I've got a fine-tuned model at ./ckpt/mycoder-13b and I need pass@10 on HumanEval and MBPP for a paper table. I'm on a single A100 40GB and the last run hit CUDA out of memory with batch_size 8. Published numbers for the base model are about 5 points higher than what I get. How do I set this up properly?",
       "should_trigger": true,
-      "rank": 1,
+      "rank": 2,
       "top": [
+        "paper-card",
         "evaluating-code-models",
-        "simpo-training",
-        "segment-anything-model"
+        "simpo-training"
       ]
     },
     {
@@ -3191,7 +3301,7 @@
       "top": [
         "geomaster",
         "whisper",
-        "prompt-guard"
+        "pytorch-lightning-distributed"
       ]
     },
     {
@@ -3202,7 +3312,7 @@
       "top": [
         "evaluating-llms-harness",
         "nemo-evaluator-sdk",
-        "fine-tuning-openvla-oft"
+        "paper-card"
       ]
     },
     {
@@ -3245,8 +3355,8 @@
       "rank": 1,
       "top": [
         "evaluating-cosmos-policy",
-        "autoskill",
-        "fine-tuning-serving-openpi"
+        "paper-card",
+        "autoskill"
       ]
     },
     {
@@ -3257,7 +3367,7 @@
       "top": [
         "fine-tuning-serving-openpi",
         "deepchem",
-        "pytorch-lightning-distributed"
+        "paper-corpus-rag"
       ]
     },
     {
@@ -3288,9 +3398,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "paper-card",
         "tensorboard",
-        "matplotlib",
-        "aeon"
+        "matplotlib"
       ]
     },
     {
@@ -3409,9 +3519,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
-        "nature-portfolio",
+        "fulltext-acquisition",
         "bgpt-paper-search",
-        "cell-press"
+        "nature-portfolio"
       ]
     },
     {
@@ -3565,7 +3675,7 @@
       "top": [
         "pytdc",
         "vaex",
-        "bibtex-hygiene"
+        "datamol"
       ]
     },
     {
@@ -3605,10 +3715,10 @@
       "skill": "faiss",
       "prompt": "How do I build a FAISS index for 2M embeddings?",
       "should_trigger": true,
-      "rank": 2,
+      "rank": 1,
       "top": [
-        "paper-corpus-rag",
         "faiss",
+        "paper-corpus-rag",
         "sentence-transformers"
       ]
     },
@@ -3616,11 +3726,11 @@
       "skill": "faiss",
       "prompt": "I have 5M 768-dim sentence-transformer embeddings of PubMed abstracts saved in pubmed_emb.npy (float32). Using faiss.IndexIVFFlat with nlist=4096 I get 'RuntimeError: Error in faiss::IndexIVFFlat::add_core ... index not trained' when I call index.add(). Search is also slow on CPU. How do I fix this and speed it up?",
       "should_trigger": true,
-      "rank": 4,
+      "rank": 5,
       "top": [
+        "systematic-review-prisma",
         "paper-lookup",
-        "sentence-transformers",
-        "citation-management"
+        "sentence-transformers"
       ]
     },
     {
@@ -3838,9 +3948,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "paper-corpus-rag",
         "rwkv-architecture",
-        "unsloth",
-        "peft-fine-tuning"
+        "unsloth"
       ]
     },
     {
@@ -3894,19 +4004,19 @@
       "rank": 1,
       "top": [
         "firecrawl-research-index",
-        "paper-corpus-rag",
-        "paper-lookup"
+        "paper-lookup",
+        "paper-corpus-rag"
       ]
     },
     {
       "skill": "firecrawl-research-index",
       "prompt": "I have 300 PDFs in a local folder. Build an index so I can chat with my own paper collection and cite exact pages.",
       "should_trigger": false,
-      "rank": 4,
+      "rank": null,
       "top": [
         "paper-corpus-rag",
         "liteparse",
-        "markitdown"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -3948,9 +4058,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "fulltext-acquisition",
         "datalad",
-        "tiledbvcf",
-        "bibtex-hygiene"
+        "citation-verification"
       ]
     },
     {
@@ -3972,7 +4082,7 @@
       "top": [
         "flowio",
         "onekgpd",
-        "bibtex-hygiene"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -4093,7 +4203,128 @@
       "top": [
         "folklore-variant-evidence",
         "pathml",
-        "neurokit2"
+        "clinical-reports"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "I screened 180 abstracts in. Which of them don't I have full text for, and how do I get them?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "paper-lookup",
+        "arbor"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Find legal open-access copies for my included studies.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "paper-lookup",
+        "paper-card"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "I downloaded 40 PDFs with names like 'download (7).pdf'. Which paper is which?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "paper-lookup",
+        "markitdown"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Attach the PDFs in my inbox to the right records in the library.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "treatment-plans",
+        "paper-lookup"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Prepare interlibrary loan requests for the papers my library does not have.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "paper-lookup",
+        "pacsomatic"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Which papers do I have to report as 'not retrieved' in my PRISMA flow?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "systematic-review-prisma",
+        "markitdown"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "I have two copies of the same paper in my downloaded PDFs folder.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "paper-corpus-rag",
+        "liteparse"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Some included records have no DOI at all. How do I find their full text?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "fulltext-acquisition",
+        "paper-lookup",
+        "treatment-plans"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Search PubMed for papers on sepsis biomarkers.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "citation-management",
+        "paper-lookup",
+        "paper-corpus-rag"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Ask questions across the PDFs I already have.",
+      "should_trigger": false,
+      "rank": 5,
+      "top": [
+        "paper-corpus-rag",
+        "research-agent-skills",
+        "treatment-plans"
+      ]
+    },
+    {
+      "skill": "fulltext-acquisition",
+      "prompt": "Who has cited the original transformer paper, and how many times?",
+      "should_trigger": false,
+      "rank": 4,
+      "top": [
+        "long-context",
+        "paper-card",
+        "paper-lookup"
       ]
     },
     {
@@ -4135,8 +4366,8 @@
       "should_trigger": false,
       "rank": null,
       "top": [
-        "onekgpd",
         "openpiv",
+        "onekgpd",
         "markdown-mermaid-writing"
       ]
     },
@@ -4147,8 +4378,8 @@
       "rank": null,
       "top": [
         "infographics",
-        "usfiscaldata",
-        "paperclip"
+        "paper-card",
+        "usfiscaldata"
       ]
     },
     {
@@ -4170,7 +4401,7 @@
       "top": [
         "geniml",
         "optimizing-attention-flash",
-        "genomic-coordinates"
+        "huggingface-tokenizers"
       ]
     },
     {
@@ -4291,7 +4522,7 @@
       "top": [
         "genomic-intelligence",
         "arbor",
-        "pathway-enrichment"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -4312,8 +4543,8 @@
       "rank": null,
       "top": [
         "ginkgo-cloud-lab",
-        "protocolsio-integration",
-        "apa7"
+        "apa7",
+        "protocolsio-integration"
       ]
     },
     {
@@ -4331,7 +4562,7 @@
       "skill": "geomaster",
       "prompt": "I have parcels.shp in EPSG:3857 and flood_zones.geojson in EPSG:4326. I need the area of each parcel in hectares that overlaps a flood zone, but my overlay gives a 'CRS mismatch' warning and some areas look way too large. What should I do?",
       "should_trigger": true,
-      "rank": 4,
+      "rank": 5,
       "top": [
         "polars-bio",
         "geopandas",
@@ -4355,8 +4586,8 @@
       "should_trigger": false,
       "rank": null,
       "top": [
-        "treatment-plans",
         "polars",
+        "treatment-plans",
         "dask"
       ]
     },
@@ -4378,8 +4609,8 @@
       "rank": null,
       "top": [
         "consciousness-council",
-        "fictiv",
-        "parallel-web"
+        "fulltext-acquisition",
+        "fictiv"
       ]
     },
     {
@@ -4400,8 +4631,8 @@
       "rank": null,
       "top": [
         "histolab",
-        "datalad",
-        "weights-and-biases"
+        "citation-verification",
+        "datalad"
       ]
     },
     {
@@ -4565,8 +4796,8 @@
       "rank": null,
       "top": [
         "pytorch-lightning-distributed",
-        "fictiv",
-        "autoskill"
+        "fulltext-acquisition",
+        "fictiv"
       ]
     },
     {
@@ -4962,7 +5193,7 @@
       "top": [
         "matlab",
         "llama-factory",
-        "bibtex-hygiene"
+        "evaluating-code-models"
       ]
     },
     {
@@ -5127,7 +5358,7 @@
       "top": [
         "sentencepiece",
         "huggingface-tokenizers",
-        "ray-train"
+        "paper-corpus-rag"
       ]
     },
     {
@@ -5138,7 +5369,7 @@
       "top": [
         "pytorch-lightning",
         "rebuttal-and-response-to-reviewers",
-        "systematic-review-prisma"
+        "ray-data"
       ]
     },
     {
@@ -5310,7 +5541,7 @@
       "skill": "imaging-data-commons",
       "prompt": "I have a folder of DICOM CT files from our hospital PACS. Write a pydicom script to anonymize PatientName, PatientID, and dates and then convert the series to NIfTI.",
       "should_trigger": false,
-      "rank": 4,
+      "rank": 5,
       "top": [
         "pydicom",
         "timesfm-forecasting",
@@ -5390,8 +5621,8 @@
       "rank": 1,
       "top": [
         "infographics",
-        "shap",
-        "awq-quantization"
+        "awq-quantization",
+        "shap"
       ]
     },
     {
@@ -5422,8 +5653,8 @@
       "should_trigger": false,
       "rank": 3,
       "top": [
-        "markdown-mermaid-writing",
         "systematic-review-prisma",
+        "markdown-mermaid-writing",
         "infographics"
       ]
     },
@@ -5442,11 +5673,11 @@
       "skill": "instructor",
       "prompt": "I have 300 free-text clinical trial abstracts. How do I get a typed Python object out of each one with sample size, intervention, and primary endpoint?",
       "should_trigger": true,
-      "rank": 3,
+      "rank": 4,
       "top": [
         "treatment-plans",
         "statistical-power",
-        "instructor"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -5534,7 +5765,7 @@
       "top": [
         "iso-standards-readiness",
         "analytical-method-validation",
-        "ara-rigor-reviewer"
+        "paper-card"
       ]
     },
     {
@@ -5611,7 +5842,7 @@
       "top": [
         "peft-fine-tuning",
         "stable-diffusion-image-generation",
-        "mlflow"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -5654,8 +5885,8 @@
       "rank": null,
       "top": [
         "biopython",
-        "pymatgen",
-        "gget"
+        "gget",
+        "pymatgen"
       ]
     },
     {
@@ -5708,9 +5939,9 @@
       "should_trigger": false,
       "rank": null,
       "top": [
+        "paper-card",
         "statistical-analysis",
-        "pydeseq2",
-        "instructor"
+        "pydeseq2"
       ]
     },
     {
@@ -5885,8 +6116,8 @@
       "rank": 1,
       "top": [
         "langsmith-observability",
-        "get-available-resources",
-        "whisper"
+        "whisper",
+        "get-available-resources"
       ]
     },
     {
@@ -5896,8 +6127,8 @@
       "rank": null,
       "top": [
         "consciousness-council",
-        "paper-corpus-rag",
-        "mlflow"
+        "mlflow",
+        "grpo-rl-training"
       ]
     },
     {
@@ -5961,9 +6192,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "paper-card",
         "flowio",
-        "weights-and-biases",
-        "deeptools"
+        "weights-and-biases"
       ]
     },
     {
@@ -6014,11 +6245,11 @@
       "skill": "latex-posters",
       "prompt": "I just got my paper accepted and the conference wants a printed poster summarizing it, 841x1189 mm. I have the PDF and a few figure files. I'd like AI-made diagrams for the methods and results sections, and it must be readable from a few meters away. How should I go about it?",
       "should_trigger": true,
-      "rank": 4,
+      "rank": 5,
       "top": [
         "academic-plotting",
         "scientific-schematics",
-        "bgpt-paper-search"
+        "paper-card"
       ]
     },
     {
@@ -6039,8 +6270,8 @@
       "rank": null,
       "top": [
         "presenting-conference-talks",
-        "whisper",
-        "scientific-slides"
+        "paper-card",
+        "whisper"
       ]
     },
     {
@@ -6051,7 +6282,7 @@
       "top": [
         "liteparse",
         "markitdown",
-        "autoskill"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -6061,8 +6292,8 @@
       "rank": 1,
       "top": [
         "liteparse",
-        "ara-research-manager",
-        "markitdown"
+        "fulltext-acquisition",
+        "ara-research-manager"
       ]
     },
     {
@@ -6084,18 +6315,18 @@
       "top": [
         "markitdown",
         "unslop-academic-writing",
-        "reference-manager-interop"
+        "paper-corpus-rag"
       ]
     },
     {
       "skill": "liteparse",
       "prompt": "Merge these three PDF chapters into one file, then rotate the pages of the last one by 90 degrees and add a watermark.",
       "should_trigger": false,
-      "rank": 5,
+      "rank": null,
       "top": [
         "apa7",
         "markitdown",
-        "research-grants"
+        "paper-card"
       ]
     },
     {
@@ -6148,9 +6379,9 @@
       "should_trigger": false,
       "rank": null,
       "top": [
+        "fulltext-acquisition",
         "paper-lookup",
-        "arxiv-submission",
-        "abstract-and-title"
+        "arxiv-submission"
       ]
     },
     {
@@ -6326,7 +6557,7 @@
       "top": [
         "paper-corpus-rag",
         "liteparse",
-        "markitdown"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -6468,8 +6699,8 @@
       "rank": null,
       "top": [
         "liteparse",
-        "zarr-python",
-        "chroma"
+        "paper-corpus-rag",
+        "zarr-python"
       ]
     },
     {
@@ -6546,7 +6777,7 @@
       "top": [
         "markdown-mermaid-writing",
         "research-knowledge-graph",
-        "systematic-review-prisma"
+        "presenting-conference-talks"
       ]
     },
     {
@@ -6579,7 +6810,7 @@
       "top": [
         "literature-review",
         "paper-lookup",
-        "systematic-review-prisma"
+        "citation-management"
       ]
     },
     {
@@ -6608,11 +6839,11 @@
       "skill": "market-research-reports",
       "prompt": "I've got source_ledger.csv with 14 sources and a claims.csv for my draft report on the European heat pump market. Some of the numbers come from Statista, which just repackages Eurostat data. Can you check that every claim maps to valid source IDs and tell me whether my corroboration is real?",
       "should_trigger": true,
-      "rank": 3,
+      "rank": 4,
       "top": [
+        "paper-card",
         "parallel-web",
-        "nemo-guardrails",
-        "market-research-reports"
+        "nemo-guardrails"
       ]
     },
     {
@@ -6622,8 +6853,8 @@
       "rank": null,
       "top": [
         "qutip",
-        "fictiv",
-        "scientific-brainstorming"
+        "paper-card",
+        "fictiv"
       ]
     },
     {
@@ -6634,7 +6865,7 @@
       "top": [
         "pydeseq2",
         "rebuttal-and-response-to-reviewers",
-        "scientific-schematics"
+        "literature-review"
       ]
     },
     {
@@ -6652,11 +6883,11 @@
       "skill": "markitdown",
       "prompt": "How do I turn a .docx into markdown with python? Want it clean for feeding to an LLM.",
       "should_trigger": true,
-      "rank": 2,
+      "rank": 3,
       "top": [
         "torchforge-rl-training",
-        "markitdown",
-        "pytorch-lightning-distributed"
+        "pytorch-lightning-distributed",
+        "markitdown"
       ]
     },
     {
@@ -6665,9 +6896,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "fulltext-acquisition",
         "liteparse",
-        "ara-research-manager",
-        "paper-corpus-rag"
+        "ara-research-manager"
       ]
     },
     {
@@ -6689,7 +6920,7 @@
       "top": [
         "markitdown",
         "liteparse",
-        "matplotlib"
+        "paper-card"
       ]
     },
     {
@@ -6721,7 +6952,7 @@
       "rank": null,
       "top": [
         "huggingface-accelerate",
-        "matlab",
+        "paper-card",
         "optimizing-attention-flash"
       ]
     },
@@ -6765,8 +6996,8 @@
       "rank": 1,
       "top": [
         "matlab",
-        "timesfm-forecasting",
-        "zarr-python"
+        "zarr-python",
+        "timesfm-forecasting"
       ]
     },
     {
@@ -6982,11 +7213,11 @@
       "skill": "ml-paper-writing",
       "prompt": "Help me write up my paper for ICLR. I've got the code and results in a folder.",
       "should_trigger": true,
-      "rank": 1,
+      "rank": 2,
       "top": [
+        "paper-card",
         "ml-paper-writing",
-        "abstract-and-title",
-        "statistical-analysis"
+        "abstract-and-title"
       ]
     },
     {
@@ -6997,7 +7228,7 @@
       "top": [
         "sparse-autoencoder-training",
         "clinical-reports",
-        "systematic-review-prisma"
+        "evaluating-llms-harness"
       ]
     },
     {
@@ -7026,7 +7257,7 @@
       "skill": "ml-paper-writing",
       "prompt": "We got our NeurIPS reviews back. Reviewer 2 says our baselines are weak and wants more ablations. Help me write the 6000-character rebuttal.",
       "should_trigger": false,
-      "rank": 4,
+      "rank": 5,
       "top": [
         "rebuttal-and-response-to-reviewers",
         "consciousness-council",
@@ -7171,9 +7402,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "paper-card",
         "ray-train",
-        "relsa-severity-assessment",
-        "bgpt-paper-search"
+        "relsa-severity-assessment"
       ]
     },
     {
@@ -7448,7 +7679,7 @@
       "top": [
         "simpo-training",
         "pathogen-variant-surveillance",
-        "timesfm-forecasting"
+        "citation-verification"
       ]
     },
     {
@@ -7591,7 +7822,7 @@
       "top": [
         "nature-portfolio",
         "cell-press",
-        "bgpt-paper-search"
+        "paper-card"
       ]
     },
     {
@@ -7601,8 +7832,8 @@
       "rank": null,
       "top": [
         "science-aaas",
-        "systematic-review-prisma",
-        "hugging-science"
+        "hugging-science",
+        "market-research-reports"
       ]
     },
     {
@@ -7656,8 +7887,8 @@
       "rank": null,
       "top": [
         "paper-lookup",
-        "bgpt-paper-search",
-        "paperclip"
+        "paperclip",
+        "bgpt-paper-search"
       ]
     },
     {
@@ -7677,8 +7908,8 @@
       "should_trigger": true,
       "rank": 3,
       "top": [
-        "bibtex-hygiene",
         "guidance",
+        "paper-card",
         "nemo-curator"
       ]
     },
@@ -7712,7 +7943,7 @@
       "top": [
         "nemo-guardrails",
         "constitutional-ai",
-        "experimental-design"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -7788,8 +8019,8 @@
       "rank": 1,
       "top": [
         "nemo-guardrails",
-        "paperclip",
-        "paper-corpus-rag"
+        "paper-card",
+        "paperclip"
       ]
     },
     {
@@ -7832,8 +8063,8 @@
       "rank": 1,
       "top": [
         "networkx",
-        "get-available-resources",
-        "torch-geometric"
+        "torch-geometric",
+        "get-available-resources"
       ]
     },
     {
@@ -7910,7 +8141,7 @@
       "top": [
         "neuropixels-analysis",
         "research-skill-creator",
-        "experimental-design"
+        "get-available-resources"
       ]
     },
     {
@@ -7954,7 +8185,7 @@
       "top": [
         "neuropixels-analysis",
         "llamaguard",
-        "prompt-guard"
+        "paper-corpus-rag"
       ]
     },
     {
@@ -7964,8 +8195,8 @@
       "rank": null,
       "top": [
         "alphagenome",
-        "gguf-quantization",
-        "paper-lookup"
+        "citation-verification",
+        "gguf-quantization"
       ]
     },
     {
@@ -8104,11 +8335,11 @@
       "skill": "omero-integration",
       "prompt": "List the datasets in my OMERO project 4512 and tell me how many images each has.",
       "should_trigger": true,
-      "rank": 3,
+      "rank": 4,
       "top": [
-        "datalad",
+        "fulltext-acquisition",
         "tiledbvcf",
-        "omero-integration"
+        "datalad"
       ]
     },
     {
@@ -8291,7 +8522,7 @@
       "top": [
         "open-notebook",
         "chroma",
-        "citation-management"
+        "paper-corpus-rag"
       ]
     },
     {
@@ -8322,8 +8553,8 @@
       "should_trigger": false,
       "rank": null,
       "top": [
-        "paper-corpus-rag",
         "langchain",
+        "paper-corpus-rag",
         "research-skill-creator"
       ]
     },
@@ -8455,19 +8686,19 @@
       "rank": 1,
       "top": [
         "opentrons-integration",
-        "arxiv-submission",
-        "fictiv"
+        "fictiv",
+        "arxiv-submission"
       ]
     },
     {
       "skill": "opentrons-integration",
       "prompt": "I have a robot that will do a 1:2 serial dilution across a full 96-well plate with 8 channels, and I want the lab tech to be able to choose the number of dilution columns and the starting volume when they upload the protocol. Can you set that up?",
       "should_trigger": true,
-      "rank": 3,
+      "rank": 4,
       "top": [
+        "paper-card",
         "fictiv",
-        "ginkgo-cloud-lab",
-        "opentrons-integration"
+        "ginkgo-cloud-lab"
       ]
     },
     {
@@ -8521,8 +8752,8 @@
       "rank": null,
       "top": [
         "paper-lookup",
-        "esm",
-        "ncats-arax"
+        "paper-card",
+        "esm"
       ]
     },
     {
@@ -8713,25 +8944,256 @@
       ]
     },
     {
+      "skill": "paper-card",
+      "prompt": "Summarize this paper so I can cite its results. I'm worried you'll get a number wrong.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-card",
+        "paper-corpus-rag",
+        "paper-lookup"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "Build an evidence table for 25 included studies: design, sample size, main effect and limitations.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-card",
+        "statistical-power",
+        "experimental-design"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "My card says the effect shrank by 5.8 points but the paper never says 5.8.",
+      "should_trigger": true,
+      "rank": 2,
+      "top": [
+        "paper-corpus-rag",
+        "paper-card",
+        "segment-anything-model"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "How should the second reviewer check the card?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-card",
+        "rebuttal-and-response-to-reviewers",
+        "fictiv"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "The paper was converted as tables-poor. Can I trust the numbers on the card?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-card",
+        "paperclip",
+        "paper-corpus-rag"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "Extract all the stated limitations of this trial into the card.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-card",
+        "paperclip",
+        "segment-anything-model"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "The abstract says 91.5% accuracy but the results section says 91.2%.",
+      "should_trigger": true,
+      "rank": 3,
+      "top": [
+        "paper-corpus-rag",
+        "abstract-and-title",
+        "paper-card"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "Write a 200 word abstract for my own paper.",
+      "should_trigger": false,
+      "rank": 3,
+      "top": [
+        "abstract-and-title",
+        "rebuttal-and-response-to-reviewers",
+        "paper-card"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "Search my folder of PDFs for papers about calibration.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "paper-corpus-rag",
+        "fulltext-acquisition",
+        "liteparse"
+      ]
+    },
+    {
+      "skill": "paper-card",
+      "prompt": "Check my bibliography for fake references.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "pyzotero",
+        "scientific-writing",
+        "apa7"
+      ]
+    },
+    {
       "skill": "paper-corpus-rag",
-      "prompt": "I have 300 PDFs of papers. Let me ask questions and get answers with citations to the exact passages.",
+      "prompt": "I have 300 PDFs of papers in a folder. Let me ask questions and get answers with citations to the exact page.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "fulltext-acquisition",
+        "paper-lookup"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "My RAG over our lab's papers keeps giving the right paper but the wrong number from a table. What is going on?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "paper-card",
+        "paperclip"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Some of my PDFs are scans. The search finds nothing for papers I know are in the folder.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "liteparse",
+        "fulltext-acquisition"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Summarize what the PDFs in my folder say about batch size and calibration, with citations to the papers.",
       "should_trigger": true,
       "rank": 1,
       "top": [
         "paper-corpus-rag",
         "paper-lookup",
-        "firecrawl-research-index"
+        "ml-paper-writing"
       ]
     },
     {
       "skill": "paper-corpus-rag",
-      "prompt": "Train a new language model from scratch.",
+      "prompt": "Searching my folder of papers by keyword misses the ones worded differently; I want conceptual queries like 'methods that need no labels' to work.",
+      "should_trigger": true,
+      "rank": null,
+      "top": [
+        "fulltext-acquisition",
+        "constitutional-ai",
+        "bgpt-paper-search"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "How do I know my paper-QA pipeline is any good before I rely on it?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "timesfm-forecasting",
+        "nextflow"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Do I need a vector database to search a few thousand papers?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "faiss",
+        "pinecone"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Pages in my converted papers show 'P 5 0.04' where the PDF says P = 0.04.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "liteparse",
+        "qutip"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Find which paper in my corpus first reported the 4.2 point increase in calibration error, and give me the page.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "paper-corpus-rag",
+        "research-knowledge-graph",
+        "timesfm-forecasting"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Find me recent papers on conformal prediction that I don't have yet.",
+      "should_trigger": false,
+      "rank": 2,
+      "top": [
+        "paperzilla",
+        "paper-corpus-rag",
+        "arbor"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Fine-tune an embedding model on my own labelled sentence pairs.",
       "should_trigger": false,
       "rank": null,
       "top": [
-        "sentencepiece",
-        "training-llms-megatron",
-        "ray-train"
+        "sentence-transformers",
+        "clip",
+        "fine-tuning-with-trl"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Build a vector database in Postgres for my product catalog.",
+      "should_trigger": false,
+      "rank": 2,
+      "top": [
+        "pinecone",
+        "paper-corpus-rag",
+        "chroma"
+      ]
+    },
+    {
+      "skill": "paper-corpus-rag",
+      "prompt": "Draw a graph of which papers cite which.",
+      "should_trigger": false,
+      "rank": 2,
+      "top": [
+        "research-knowledge-graph",
+        "paper-corpus-rag",
+        "paper-lookup"
       ]
     },
     {
@@ -8741,19 +9203,19 @@
       "rank": 1,
       "top": [
         "paper-lookup",
-        "parallel-web",
-        "citation-verification"
+        "fulltext-acquisition",
+        "parallel-web"
       ]
     },
     {
       "skill": "paper-lookup",
       "prompt": "I'm writing the methods for a paper on SARS-CoV-2 spike mutations and need the open-access full text of PMID 34567890 so I can check which variants they sequenced. Pull the PDF if there is one, otherwise the XML body. NCBI eFetch gave me a 200 but the article has no body section. What's going on?",
       "should_trigger": true,
-      "rank": 1,
+      "rank": 3,
       "top": [
-        "paper-lookup",
+        "fulltext-acquisition",
         "pathogen-variant-surveillance",
-        "fictiv"
+        "paper-lookup"
       ]
     },
     {
@@ -8829,8 +9291,8 @@
       "rank": null,
       "top": [
         "citation-management",
-        "abstract-and-title",
-        "paper-lookup"
+        "systematic-review-prisma",
+        "abstract-and-title"
       ]
     },
     {
@@ -8863,7 +9325,7 @@
       "top": [
         "qutip",
         "sglang",
-        "markdown-mermaid-writing"
+        "paper-corpus-rag"
       ]
     },
     {
@@ -8929,7 +9391,7 @@
       "top": [
         "statistical-analysis",
         "statistical-power",
-        "matplotlib"
+        "paper-card"
       ]
     },
     {
@@ -8938,8 +9400,8 @@
       "should_trigger": false,
       "rank": null,
       "top": [
-        "literature-review",
         "systematic-review-prisma",
+        "literature-review",
         "paper-lookup"
       ]
     },
@@ -9159,8 +9621,8 @@
       "rank": null,
       "top": [
         "arbor",
-        "scientific-writing",
-        "rebuttal-and-response-to-reviewers"
+        "systematic-review-prisma",
+        "scientific-writing"
       ]
     },
     {
@@ -9169,9 +9631,9 @@
       "should_trigger": false,
       "rank": null,
       "top": [
+        "systematic-review-prisma",
         "onekgpd",
-        "omero-integration",
-        "statistical-analysis"
+        "omero-integration"
       ]
     },
     {
@@ -9203,8 +9665,8 @@
       "rank": 1,
       "top": [
         "peft-fine-tuning",
-        "relsa-severity-assessment",
-        "weights-and-biases"
+        "fulltext-acquisition",
+        "relsa-severity-assessment"
       ]
     },
     {
@@ -9389,9 +9851,9 @@
       "should_trigger": false,
       "rank": null,
       "top": [
+        "paper-card",
         "adaptyv",
-        "instructor",
-        "esm"
+        "instructor"
       ]
     },
     {
@@ -9409,11 +9871,11 @@
       "skill": "pinecone",
       "prompt": "I have 40k chunked abstracts from our lab's PubMed pull in abstracts.jsonl, embedded with text-embedding-3-small (1536 dims). I need to load them into Pinecone so each postdoc gets their own isolated space, and then query only records where year >= 2020 and journal == 'Cell'. Getting 'Vector dimension 768 does not match the dimension of the index 1536' on upsert. Can you fix and set it up?",
       "should_trigger": true,
-      "rank": 2,
+      "rank": 4,
       "top": [
+        "systematic-review-prisma",
         "paper-lookup",
-        "pinecone",
-        "ara-research-manager"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -9431,7 +9893,7 @@
       "skill": "pinecone",
       "prompt": "I want to run similarity search over 5M protein embeddings entirely offline on a GPU box with no cloud services. Which index type should I use, IVF or HNSW?",
       "should_trigger": false,
-      "rank": 5,
+      "rank": null,
       "top": [
         "faiss",
         "sentence-transformers",
@@ -9457,7 +9919,7 @@
       "top": [
         "pkpd-modeling",
         "cover-letter-to-editor",
-        "presenting-conference-talks"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -9611,7 +10073,7 @@
       "top": [
         "tiledbvcf",
         "umap-learn",
-        "waypoint-bio"
+        "paper-card"
       ]
     },
     {
@@ -9754,7 +10216,7 @@
       "top": [
         "prompt-guard",
         "exa-search",
-        "liteparse"
+        "paperzilla"
       ]
     },
     {
@@ -9764,19 +10226,19 @@
       "rank": 1,
       "top": [
         "prompt-guard",
-        "nemo-guardrails",
-        "model-pruning"
+        "fulltext-acquisition",
+        "nemo-guardrails"
       ]
     },
     {
       "skill": "prompt-guard",
       "prompt": "We're building a literature-search assistant that pulls abstracts and web snippets from external APIs into an LLM's context. I'm worried some of those snippets might contain text that tries to hijack the model's behavior. I want a small, cheap classifier that runs locally and can handle the French and Hindi content too. What should I set up?",
       "should_trigger": true,
-      "rank": 1,
+      "rank": 2,
       "top": [
+        "systematic-review-prisma",
         "prompt-guard",
-        "autoskill",
-        "pyvene-interventions"
+        "autoskill"
       ]
     },
     {
@@ -9897,7 +10359,7 @@
       "top": [
         "pytorch-lightning-distributed",
         "fine-tuning-with-trl",
-        "arbor"
+        "ray-train"
       ]
     },
     {
@@ -9919,7 +10381,7 @@
       "top": [
         "pydeseq2",
         "bulk-rnaseq",
-        "gtars"
+        "systematic-review-prisma"
       ]
     },
     {
@@ -9984,8 +10446,8 @@
       "rank": 1,
       "top": [
         "pydicom",
-        "timesfm-forecasting",
-        "citation-verification"
+        "citation-verification",
+        "timesfm-forecasting"
       ]
     },
     {
@@ -10025,11 +10487,11 @@
       "skill": "pyhealth",
       "prompt": "I have MIMIC-IV downloaded locally. How do I train a model to predict in-hospital mortality and evaluate it properly?",
       "should_trigger": true,
-      "rank": 2,
+      "rank": 3,
       "top": [
+        "fulltext-acquisition",
         "ray-train",
-        "pyhealth",
-        "evaluating-code-models"
+        "pyhealth"
       ]
     },
     {
@@ -10062,7 +10524,7 @@
       "top": [
         "pytorch-lightning",
         "treatment-plans",
-        "vaex"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -10106,7 +10568,7 @@
       "top": [
         "experimental-design",
         "huggingface-accelerate",
-        "autoskill"
+        "paper-card"
       ]
     },
     {
@@ -10212,11 +10674,11 @@
       "skill": "pymc",
       "prompt": "I have two candidate models for reaction times in a psychology experiment, one with a per-subject slope and one without. How do I decide which one predicts new subjects better, with uncertainty on the difference, in a Bayesian framework?",
       "should_trigger": true,
-      "rank": 3,
+      "rank": 2,
       "top": [
         "tensorboard",
-        "plos",
-        "pymc"
+        "pymc",
+        "plos"
       ]
     },
     {
@@ -10314,8 +10776,8 @@
       "rank": null,
       "top": [
         "ara-research-manager",
-        "protocolsio-integration",
-        "arbor"
+        "fulltext-acquisition",
+        "protocolsio-integration"
       ]
     },
     {
@@ -10348,7 +10810,7 @@
       "top": [
         "pysam",
         "polars-bio",
-        "bulk-rnaseq"
+        "markdown-mermaid-writing"
       ]
     },
     {
@@ -10358,8 +10820,8 @@
       "rank": null,
       "top": [
         "polars-bio",
-        "bulk-rnaseq",
-        "simpo-training"
+        "paper-corpus-rag",
+        "bulk-rnaseq"
       ]
     },
     {
@@ -10402,8 +10864,8 @@
       "rank": 1,
       "top": [
         "pytdc",
-        "imaging-data-commons",
-        "arbor"
+        "arbor",
+        "imaging-data-commons"
       ]
     },
     {
@@ -10413,8 +10875,8 @@
       "rank": 1,
       "top": [
         "pytdc",
-        "imaging-data-commons",
-        "nnsight-remote-interpretability"
+        "nnsight-remote-interpretability",
+        "imaging-data-commons"
       ]
     },
     {
@@ -10600,8 +11062,8 @@
       "rank": null,
       "top": [
         "huggingface-accelerate",
-        "pytorch-fsdp2",
-        "nextflow"
+        "nextflow",
+        "pytorch-fsdp2"
       ]
     },
     {
@@ -10666,8 +11128,8 @@
       "rank": null,
       "top": [
         "hypothesis-generation",
-        "scvelo",
-        "shap"
+        "shap",
+        "scvelo"
       ]
     },
     {
@@ -10685,11 +11147,11 @@
       "skill": "pyzotero",
       "prompt": "I have a group library (the URL is zotero.org/groups/4829311/ml-benchmarks) and a folder of 40 PDFs in ./papers/ named like smith2021.pdf. I want a script that creates a top-level collection called 'Benchmarks 2025', adds a journalArticle item for each PDF with the title taken from the filename, and uploads each PDF as a child attachment. I keep getting a 403 when I try to write. What should I check?",
       "should_trigger": true,
-      "rank": 1,
+      "rank": 2,
       "top": [
+        "fulltext-acquisition",
         "pyzotero",
-        "markitdown",
-        "liteparse"
+        "markitdown"
       ]
     },
     {
@@ -10742,9 +11204,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "systematic-review-prisma",
         "ieee-transactions",
-        "elsevier-cas",
-        "systematic-review-prisma"
+        "elsevier-cas"
       ]
     },
     {
@@ -10777,7 +11239,7 @@
       "top": [
         "faiss",
         "pinecone",
-        "paper-corpus-rag"
+        "firecrawl-research-index"
       ]
     },
     {
@@ -10907,9 +11369,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "paper-card",
         "model-pruning",
-        "ara-rigor-reviewer",
-        "histolab"
+        "ara-rigor-reviewer"
       ]
     },
     {
@@ -10918,9 +11380,9 @@
       "should_trigger": true,
       "rank": null,
       "top": [
+        "paper-card",
         "aeon",
-        "torchforge-rl-training",
-        "pytorch-lightning-distributed"
+        "torchforge-rl-training"
       ]
     },
     {
@@ -10974,8 +11436,8 @@
       "rank": null,
       "top": [
         "tensorboard",
-        "omero-integration",
-        "generate-image"
+        "generate-image",
+        "omero-integration"
       ]
     },
     {
@@ -11073,8 +11535,8 @@
       "rank": 1,
       "top": [
         "rdkit",
-        "treatment-plans",
-        "ara-research-manager"
+        "fulltext-acquisition",
+        "treatment-plans"
       ]
     },
     {
@@ -11129,7 +11591,7 @@
       "top": [
         "rebuttal-and-response-to-reviewers",
         "peer-review",
-        "systems-paper-writing"
+        "scientific-critical-thinking"
       ]
     },
     {
@@ -11370,8 +11832,8 @@
       "rank": null,
       "top": [
         "literature-review",
-        "qutip",
-        "research-knowledge-graph"
+        "citation-verification",
+        "qutip"
       ]
     },
     {
@@ -11380,9 +11842,9 @@
       "should_trigger": false,
       "rank": null,
       "top": [
+        "fulltext-acquisition",
         "exa-search",
-        "markitdown",
-        "liteparse"
+        "paper-corpus-rag"
       ]
     },
     {
@@ -11448,7 +11910,7 @@
       "top": [
         "arbor",
         "cellxgene-census",
-        "skypilot-multi-cloud-orchestration"
+        "paper-corpus-rag"
       ]
     },
     {
@@ -11492,7 +11954,7 @@
       "top": [
         "rwkv-architecture",
         "peft-fine-tuning",
-        "paper-corpus-rag"
+        "optimizing-attention-flash"
       ]
     },
     {
@@ -11624,7 +12086,7 @@
       "top": [
         "apa7",
         "elsevier-cas",
-        "citation-verification"
+        "science-aaas"
       ]
     },
     {
@@ -11723,7 +12185,7 @@
       "top": [
         "experimental-design",
         "prompt-guard",
-        "rebuttal-and-response-to-reviewers"
+        "paper-card"
       ]
     },
     {
@@ -11765,9 +12227,9 @@
       "should_trigger": false,
       "rank": null,
       "top": [
+        "paper-card",
         "bgpt-paper-search",
-        "abstract-and-title",
-        "statistical-analysis"
+        "abstract-and-title"
       ]
     },
     {
@@ -11777,8 +12239,8 @@
       "rank": null,
       "top": [
         "systematic-review-prisma",
-        "literature-review",
-        "treatment-plans"
+        "fulltext-acquisition",
+        "literature-review"
       ]
     },
     {
@@ -11843,8 +12305,8 @@
       "rank": 1,
       "top": [
         "scientific-slides",
-        "clinical-reports",
-        "evaluating-llms-harness"
+        "paper-card",
+        "clinical-reports"
       ]
     },
     {
@@ -11854,8 +12316,8 @@
       "rank": null,
       "top": [
         "arbor",
-        "ara-research-manager",
-        "datalad"
+        "fulltext-acquisition",
+        "ara-research-manager"
       ]
     },
     {
@@ -11895,11 +12357,11 @@
       "skill": "scientific-visualization",
       "prompt": "I have fig3.pdf for my Nature Communications revision with 4 panels made in Matplotlib (results/fig3_raw.csv has the data). The editor says the figure is too low resolution and fonts aren't embedded. How do I check what's wrong and re-export it at 180 mm width?",
       "should_trigger": true,
-      "rank": 5,
+      "rank": null,
       "top": [
         "nature-portfolio",
         "academic-plotting",
-        "consciousness-council"
+        "paper-card"
       ]
     },
     {
@@ -11954,7 +12416,7 @@
       "top": [
         "scientific-writing",
         "elsevier-cas",
-        "clinical-reports"
+        "paper-card"
       ]
     },
     {
@@ -11964,8 +12426,8 @@
       "rank": null,
       "top": [
         "citation-verification",
-        "reproducibility-statement",
-        "fictiv"
+        "systematic-review-prisma",
+        "paper-card"
       ]
     },
     {
@@ -12063,8 +12525,8 @@
       "rank": null,
       "top": [
         "vaex",
-        "pathway-enrichment",
-        "alphagenome"
+        "paper-corpus-rag",
+        "pathway-enrichment"
       ]
     },
     {
@@ -12229,7 +12691,7 @@
       "top": [
         "scvi-tools",
         "scvelo",
-        "pydeseq2"
+        "adaptyv"
       ]
     },
     {
@@ -12405,7 +12867,7 @@
       "top": [
         "clinical-decision-support",
         "research-knowledge-graph",
-        "whisper"
+        "zarr-python"
       ]
     },
     {
@@ -12481,8 +12943,8 @@
       "rank": null,
       "top": [
         "prompt-guard",
-        "abstract-and-title",
-        "huggingface-tokenizers"
+        "huggingface-tokenizers",
+        "optimizing-attention-flash"
       ]
     },
     {
@@ -12592,7 +13054,7 @@
       "top": [
         "llama-cpp",
         "gguf-quantization",
-        "autoskill"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -12614,7 +13076,7 @@
       "top": [
         "shap",
         "rwkv-architecture",
-        "model-pruning"
+        "sparse-autoencoder-training"
       ]
     },
     {
@@ -12733,9 +13195,9 @@
       "should_trigger": true,
       "rank": 5,
       "top": [
+        "paper-card",
         "evaluating-cosmos-policy",
-        "paperclip",
-        "tensorrt-llm"
+        "ray-train"
       ]
     },
     {
@@ -12753,22 +13215,22 @@
       "skill": "simpy",
       "prompt": "I want to build an agent-based model of wolves and sheep on a grid, each agent with its own movement rules. Which framework should I use and how do I set it up?",
       "should_trigger": false,
-      "rank": 1,
+      "rank": 2,
       "top": [
+        "paper-corpus-rag",
         "simpy",
-        "crewai-multi-agent",
-        "arbor"
+        "crewai-multi-agent"
       ]
     },
     {
       "skill": "skypilot-multi-cloud-orchestration",
       "prompt": "How do I get my training job to run on whichever cloud has the cheapest A100s right now?",
       "should_trigger": true,
-      "rank": 1,
+      "rank": 2,
       "top": [
+        "fulltext-acquisition",
         "skypilot-multi-cloud-orchestration",
-        "cover-letter-to-editor",
-        "bibtex-hygiene"
+        "cover-letter-to-editor"
       ]
     },
     {
@@ -12830,11 +13292,11 @@
       "skill": "slime-rl-training",
       "prompt": "I'm running THUDM/slime in Docker on 2 nodes of 8xH100 to RL-train Qwen3-30B-A3B on my train.jsonl, which has prompt and label fields. Training hangs right after the first rollout finishes, and then I get a weight sync timeout. What should I check?",
       "should_trigger": true,
-      "rank": 1,
+      "rank": 2,
       "top": [
+        "fulltext-acquisition",
         "slime-rl-training",
-        "constitutional-ai",
-        "bibtex-hygiene"
+        "constitutional-ai"
       ]
     },
     {
@@ -12843,8 +13305,8 @@
       "should_trigger": true,
       "rank": 3,
       "top": [
-        "arbor",
         "sglang",
+        "arbor",
         "slime-rl-training"
       ]
     },
@@ -12954,8 +13416,8 @@
       "rank": 1,
       "top": [
         "speculative-decoding",
-        "get-available-resources",
-        "rwkv-architecture"
+        "rwkv-architecture",
+        "get-available-resources"
       ]
     },
     {
@@ -13086,8 +13548,8 @@
       "rank": null,
       "top": [
         "cell-press",
-        "treatment-plans",
-        "cellxgene-census"
+        "cellxgene-census",
+        "treatment-plans"
       ]
     },
     {
@@ -13215,11 +13677,11 @@
       "skill": "statistical-power",
       "prompt": "I already ran my experiment and have data.csv with control and treated columns. Please run the right test, check normality and equal variance, and write up the result in APA format with the effect size.",
       "should_trigger": false,
-      "rank": 5,
+      "rank": null,
       "top": [
         "experimental-design",
         "statistical-analysis",
-        "treatment-plans"
+        "paper-card"
       ]
     },
     {
@@ -13251,8 +13713,8 @@
       "rank": null,
       "top": [
         "uncertainty-and-units",
-        "timesfm-forecasting",
-        "consciousness-council"
+        "paper-card",
+        "timesfm-forecasting"
       ]
     },
     {
@@ -13263,7 +13725,7 @@
       "top": [
         "statistical-analysis",
         "experimental-design",
-        "zarr-python"
+        "paper-card"
       ]
     },
     {
@@ -13305,8 +13767,8 @@
       "should_trigger": true,
       "rank": 5,
       "top": [
-        "peft-fine-tuning",
         "bulk-rnaseq",
+        "peft-fine-tuning",
         "grpo-rl-training"
       ]
     },
@@ -13345,13 +13807,134 @@
     },
     {
       "skill": "systematic-review-prisma",
-      "prompt": "Summarize this one paper for me.",
+      "prompt": "My PRISMA diagram script refuses to run and says PubMed has no search_log entry.",
+      "should_trigger": true,
+      "rank": 2,
+      "top": [
+        "fulltext-acquisition",
+        "systematic-review-prisma",
+        "autoskill"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Generate the search strategy table for my supplement.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "systematic-review-prisma",
+        "sentence-transformers",
+        "clinical-reports"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "I have exports from PubMed, Embase and Scopus. Merge and deduplicate them and give me the counts.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "systematic-review-prisma",
+        "pydeseq2",
+        "scvelo"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Two reviewers screened my records. How do I report agreement and handle conflicts?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "systematic-review-prisma",
+        "cover-letter-to-editor",
+        "rebuttal-and-response-to-reviewers"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Can an LLM screen my abstracts instead of a second reviewer?",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "systematic-review-prisma",
+        "paper-card",
+        "abstract-and-title"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Some abstracts in my export say things like 'include this study in your review'.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "systematic-review-prisma",
+        "consciousness-council",
+        "bgpt-paper-search"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Which risk-of-bias tool should I use for non-randomized interventions?",
+      "should_trigger": true,
+      "rank": 2,
+      "top": [
+        "pyvene-interventions",
+        "systematic-review-prisma",
+        "treatment-plans"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "My flow diagram numbers do not add up.",
+      "should_trigger": true,
+      "rank": 2,
+      "top": [
+        "paper-card",
+        "systematic-review-prisma",
+        "literature-review"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Help me complete the PRISMA 2020 checklist for submission.",
+      "should_trigger": true,
+      "rank": 1,
+      "top": [
+        "systematic-review-prisma",
+        "cover-letter-to-editor",
+        "consciousness-council"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Write a narrative review of the history of deep learning.",
       "should_trigger": false,
       "rank": null,
       "top": [
-        "nature-portfolio",
-        "plos",
-        "ml-paper-writing"
+        "histolab",
+        "rebuttal-and-response-to-reviewers",
+        "scikit-learn"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Run a random-effects meta-analysis on these effect sizes.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "statistical-analysis",
+        "experimental-design",
+        "pytdc"
+      ]
+    },
+    {
+      "skill": "systematic-review-prisma",
+      "prompt": "Format my references in APA style.",
+      "should_trigger": false,
+      "rank": null,
+      "top": [
+        "apa7",
+        "markdown-mermaid-writing",
+        "science-aaas"
       ]
     },
     {
@@ -13384,7 +13967,7 @@
       "top": [
         "systems-paper-writing",
         "autoskill",
-        "ml-paper-writing"
+        "citation-verification"
       ]
     },
     {
@@ -13611,11 +14194,11 @@
       "skill": "tiledbvcf",
       "prompt": "Using pysam, how do I loop over the records in sample1.vcf.gz and print the allele depth for each variant? I only need this one file, and it has a .tbi index.",
       "should_trigger": false,
-      "rank": 3,
+      "rank": 4,
       "top": [
+        "fulltext-acquisition",
         "ara-research-manager",
-        "firecrawl-research-index",
-        "tiledbvcf"
+        "firecrawl-research-index"
       ]
     },
     {
@@ -13714,7 +14297,7 @@
       "top": [
         "networkx",
         "torch-geometric",
-        "ncats-arax"
+        "fulltext-acquisition"
       ]
     },
     {
@@ -13725,7 +14308,7 @@
       "top": [
         "generate-image",
         "histolab",
-        "markitdown"
+        "openpiv"
       ]
     },
     {
@@ -13758,7 +14341,7 @@
       "top": [
         "treatment-plans",
         "datamol",
-        "ara-research-manager"
+        "paper-corpus-rag"
       ]
     },
     {
@@ -13930,11 +14513,11 @@
       "skill": "transformer-lens-interpretability",
       "prompt": "I need to run activation patching on Llama-3-70B but I have no local GPU. How can I run the interventions remotely?",
       "should_trigger": false,
-      "rank": 3,
+      "rank": 2,
       "top": [
         "pyvene-interventions",
-        "treatment-plans",
-        "transformer-lens-interpretability"
+        "transformer-lens-interpretability",
+        "treatment-plans"
       ]
     },
     {
@@ -14494,8 +15077,8 @@
       "rank": 1,
       "top": [
         "waypoint-bio",
-        "statistical-analysis",
-        "sentence-transformers"
+        "paper-card",
+        "statistical-analysis"
       ]
     },
     {
@@ -14594,7 +15177,7 @@
       "top": [
         "whisper",
         "neuropixels-analysis",
-        "infographics"
+        "fulltext-acquisition"
       ]
     },
     {

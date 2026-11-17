@@ -1,6 +1,6 @@
 {
   "name": "research-agent-skills",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "repository": "https://github.com/KalarisLabs/research-agent-skills",
   "categories": [
     {
@@ -16,7 +16,7 @@
     {
       "id": "literature-review",
       "description": "Literature search, systematic reviews, citation management and reference managers",
-      "count": 18
+      "count": 20
     },
     {
       "id": "ideation-and-design",
@@ -929,18 +929,20 @@
     },
     {
       "name": "citation-verification",
-      "description": "Verify that every reference in a manuscript really exists and matches its metadata, catching hallucinated, corrupted or mismatched citations before submission. Use when checking a .bib file or reference list, after an AI assistant drafted citations, when a DOI may point to the wrong paper, when adding missing DOIs, or before camera-ready. Queries Crossref, OpenAlex and arXiv; zero dependencies.",
+      "description": "Verify that every reference in a manuscript really exists and matches its metadata, catching hallucinated, corrupted, mismatched or retracted citations before submission. Use when checking a .bib file or reference list, after an AI assistant drafted citations, when a DOI may point to the wrong paper, when a paper may have been retracted, when a dataset or software DOI (Zenodo, DataCite) will not resolve, when adding missing DOIs, marking unverifiable references, checking whether one DOI is real, or before camera-ready. Queries Crossref, DataCite, OpenAlex and arXiv and flags Retraction Watch notices; zero dependencies.",
       "category": "literature-review",
       "version": "1.0",
       "license": "MIT",
-      "compatibility": "Python 3.9+ standard library; needs network access to api.crossref.org, api.openalex.org and export.arxiv.org.",
+      "compatibility": "Python 3.9+ standard library; needs network access to api.crossref.org, api.datacite.org, api.openalex.org and export.arxiv.org.",
       "tags": [
         "citations",
         "hallucination",
         "DOI",
         "Crossref",
+        "DataCite",
         "OpenAlex",
         "arXiv",
+        "retraction",
         "references",
         "research integrity"
       ],
@@ -1776,6 +1778,26 @@
       "path": "skills/folklore-variant-evidence",
       "has_scripts": false,
       "origin": "adapted"
+    },
+    {
+      "name": "fulltext-acquisition",
+      "description": "Get the full text of the papers you screened in and attach each file to the right record. Use after abstract screening or a PRISMA full-text stage, when a reading list has missing PDFs, when you need legal open-access copies, institutional link-resolver links or interlibrary-loan requests, when a folder of downloaded PDFs has useless names like download (7).pdf and must be identified by DOI, PMID or title, when files are misnamed, scanned or duplicated, when records have no DOI, or when papers must be reported as not retrieved. Builds the missing-paper worklist and refuses files its text does not support.",
+      "category": "literature-review",
+      "version": "1.0",
+      "license": "MIT",
+      "compatibility": "Python 3.9+ standard library. Optional pypdf to read PDF text; network access to api.unpaywall.org only with --resolve-oa.",
+      "tags": [
+        "full text",
+        "open access",
+        "Unpaywall",
+        "interlibrary loan",
+        "PDF matching",
+        "systematic review",
+        "reference library"
+      ],
+      "path": "skills/fulltext-acquisition",
+      "has_scripts": true,
+      "origin": "original"
     },
     {
       "name": "generate-image",
@@ -3469,23 +3491,42 @@
       "origin": "adapted"
     },
     {
-      "name": "paper-corpus-rag",
-      "description": "Build grounded question answering and retrieval-augmented generation (RAG) over your own collection of research papers, with answers that cite the exact paper and passage. Use when a user wants to \"chat with\" or search a folder of PDFs, synthesize evidence across a literature corpus, find which paper says X, or build a vector/hybrid index with SQLite FTS5, pgvector (Postgres), Chroma, Qdrant or FAISS. Includes a zero-dependency local full-text index with citable hits.",
-      "category": "knowledge-and-rag",
+      "name": "paper-card",
+      "description": "Write a structured, verified summary (card) of one research paper where every claim carries a page, a verbatim quote and the numbers it rests on, checked by script against the source text and then by a second independent reviewer. Use when summarizing a paper so its results can be cited, building an evidence table (study design, sample size, main effect, stated limitations) across included studies, extracting results from full text, or when an AI summary must be trustworthy enough to cite, including when the abstract and results disagree. Catches invented numbers, misquotes and correct numbers attached to the wrong claim.",
+      "category": "literature-review",
       "version": "1.0",
       "license": "MIT",
-      "compatibility": "Python 3.9+ with SQLite FTS5 (standard in CPython builds). Optional pypdf, sentence-transformers, psycopg/pgvector, chromadb or qdrant-client for the vector tiers.",
+      "compatibility": "Python 3.9+ standard library. Needs the paper as page-marked Markdown (paper-corpus-rag/scripts/paper_convert.py, or any converter that writes page markers).",
+      "tags": [
+        "paper summary",
+        "evidence extraction",
+        "verification",
+        "quotes",
+        "numbers",
+        "literature review",
+        "research integrity"
+      ],
+      "path": "skills/paper-card",
+      "has_scripts": true,
+      "origin": "original"
+    },
+    {
+      "name": "paper-corpus-rag",
+      "description": "Build grounded question answering over your own collection of research papers, with answers that cite the exact paper, page and passage. Use when a user wants to chat with or search a folder of PDFs, summarize what a set of papers says, synthesize evidence across a literature corpus, find which paper says X, convert PDFs to citable Markdown with a quality grade, handle scanned PDFs or damaged tables, decide whether a vector database is needed, evaluate whether a paper-QA pipeline is any good, or build a hybrid index (SQLite FTS5 BM25 plus embeddings fused by reciprocal rank). Search locates papers; the agent then reads the full converted file before synthesizing.",
+      "category": "knowledge-and-rag",
+      "version": "1.1",
+      "license": "MIT",
+      "compatibility": "Python 3.9+ with SQLite FTS5 (standard in CPython builds). Optional pymupdf4llm or pypdf for PDF conversion; optional numpy and sentence-transformers for hybrid search.",
       "tags": [
         "RAG",
         "retrieval",
-        "vector database",
-        "pgvector",
-        "Chroma",
-        "Qdrant",
-        "FAISS",
-        "SQLite",
-        "full-text search",
-        "literature synthesis"
+        "hybrid search",
+        "SQLite FTS5",
+        "BM25",
+        "PDF conversion",
+        "literature synthesis",
+        "citations",
+        "evaluation"
       ],
       "path": "skills/paper-corpus-rag",
       "has_scripts": true,
@@ -5180,7 +5221,7 @@
     },
     {
       "name": "systematic-review-prisma",
-      "description": "Plan, run and report systematic reviews and meta-analyses to PRISMA 2020 standards. Use when writing a review protocol (PROSPERO/OSF), building reproducible database search strings (PubMed, Embase, Scopus, Web of Science), deduplicating exports, organizing title/abstract and full-text screening, assessing risk of bias, drawing the PRISMA flow diagram, or completing the PRISMA 2020 checklist. Includes a dedup tool and a checked PRISMA diagram generator.",
+      "description": "Plan, run and report systematic reviews and meta-analyses to PRISMA 2020 standards. Use when writing a review protocol (PROSPERO/OSF), building reproducible database search strings (PubMed, Embase, Scopus, Web of Science), writing the search strategy table for the supplement, deduplicating exports, organizing title/abstract and full-text screening with two reviewers (Cohen's kappa, conflicts), using an LLM or AI to screen abstracts, choosing a risk-of-bias tool (RoB 2, ROBINS-I), drawing the PRISMA flow diagram when counts do not add up, or completing the PRISMA 2020 checklist. Includes a dedup tool and a checked flow-diagram generator that requires a logged query for every database count.",
       "category": "literature-review",
       "version": "1.0",
       "license": "MIT",

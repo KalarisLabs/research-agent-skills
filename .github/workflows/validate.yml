@@ -33,6 +33,10 @@ jobs:
         run: uv sync --locked
       - name: Repository skill policy (tools/validate.py)
         run: uv run tools/validate.py --quiet
+      - name: Claim audit (SKILL.md promises match script code)
+        run: |
+          uv run tools/claim_audit.py
+          uv run tools/check_skill_count.py
       - name: Agent Skills reference validator (skills-ref)
         run: |
           uv tool install skills-ref==0.1.1

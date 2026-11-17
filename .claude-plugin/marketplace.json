@@ -5,14 +5,14 @@
     "url": "https://github.com/KalarisLabs/research-agent-skills"
   },
   "metadata": {
-    "description": "Research Agent Skills: 281 agent skills for scientific research, paper writing, literature review and domain science.",
-    "version": "1.1.1"
+    "description": "Research Agent Skills: 283 agent skills for scientific research, paper writing, literature review and domain science.",
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "research-essentials",
       "description": "Everything for writing and publishing research: paper writing, journal formats, literature review, citations, ideation and figures.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -54,6 +54,7 @@
         "./skills/exa-search",
         "./skills/experimental-design",
         "./skills/firecrawl-research-index",
+        "./skills/fulltext-acquisition",
         "./skills/generate-image",
         "./skills/hypogenic",
         "./skills/hypothesis-generation",
@@ -70,6 +71,7 @@
         "./skills/ml-paper-writing",
         "./skills/nature-portfolio",
         "./skills/open-notebook",
+        "./skills/paper-card",
         "./skills/paper-lookup",
         "./skills/paperclip",
         "./skills/paperzilla",
@@ -106,7 +108,7 @@
     {
       "name": "ml-research",
       "description": "Machine learning experiments, training, evaluation and reproducible papers.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -145,7 +147,7 @@
     {
       "name": "ai-research",
       "description": "AI agents, language models, retrieval, evaluation and research papers.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -155,14 +157,14 @@
       "license": "MIT",
       "category": "research",
       "keywords": [
+        "citations",
         "RAG",
         "Agents",
-        "citations",
+        "evaluation",
         "OpenAlex",
         "Prompt Engineering",
         "AAAI",
-        "Academic Benchmarks",
-        "Academic Writing"
+        "Academic Benchmarks"
       ],
       "source": "./",
       "strict": false,
@@ -184,7 +186,7 @@
     {
       "name": "biology-research",
       "description": "Genomics and bioinformatics, from data analysis to publication.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -223,7 +225,7 @@
     {
       "name": "chemistry-research",
       "description": "Cheminformatics, molecular modelling and research reporting.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -260,7 +262,7 @@
     {
       "name": "medicine-research",
       "description": "Clinical and biomedical evidence, imaging, systematic reviews and writing.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -297,7 +299,7 @@
     {
       "name": "physics-research",
       "description": "Physics, astronomy, quantum computing, materials and reproducible figures.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -335,7 +337,7 @@
     {
       "name": "research-writing",
       "description": "Scientific and research paper writing, grants, peer review, critical appraisal.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -377,7 +379,7 @@
     {
       "name": "journal-formats",
       "description": "Journal, conference and venue formatting: LaTeX templates, submission checklists.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -415,7 +417,7 @@
     {
       "name": "literature-review",
       "description": "Literature search, systematic reviews, citation management and reference managers.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -431,8 +433,8 @@
         "PubMed",
         "references",
         "evidence synthesis",
-        "Crossref",
-        "DOI"
+        "literature review",
+        "systematic review"
       ],
       "source": "./",
       "strict": false,
@@ -443,10 +445,12 @@
         "./skills/citation-verification",
         "./skills/exa-search",
         "./skills/firecrawl-research-index",
+        "./skills/fulltext-acquisition",
         "./skills/liteparse",
         "./skills/literature-review",
         "./skills/markitdown",
         "./skills/open-notebook",
+        "./skills/paper-card",
         "./skills/paper-lookup",
         "./skills/paperclip",
         "./skills/paperzilla",
@@ -460,7 +464,7 @@
     {
       "name": "ideation-and-design",
       "description": "Hypothesis generation, experimental design, statistics planning, validation.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -499,7 +503,7 @@
     {
       "name": "data-science-and-ml",
       "description": "Data analysis, statistics and machine learning libraries.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -556,7 +560,7 @@
     {
       "name": "visualization-and-presentation",
       "description": "Figures, schematics, posters, slides and talks.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -594,7 +598,7 @@
     {
       "name": "knowledge-and-rag",
       "description": "Vector databases, embeddings, RAG and knowledge graphs over research corpora.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -608,10 +612,10 @@
         "Embeddings",
         "Production",
         "Semantic Search",
-        "Vector Database",
-        "Chroma",
-        "FAISS",
-        "HNSW"
+        "HNSW",
+        "hybrid search",
+        "Similarity Search",
+        "Vector Database"
       ],
       "source": "./",
       "strict": false,
@@ -628,7 +632,7 @@
     {
       "name": "scientific-databases",
       "description": "Programmatic access to public scientific databases and APIs.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -667,7 +671,7 @@
     {
       "name": "life-sciences",
       "description": "Genomics, single-cell, proteomics, neuroscience and systems biology.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -727,7 +731,7 @@
     {
       "name": "chemistry-and-drug-discovery",
       "description": "Cheminformatics, molecular modelling, protein design and pharmacology.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -766,7 +770,7 @@
     {
       "name": "clinical-and-health",
       "description": "Clinical research, medical imaging, pathology and health data.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -800,7 +804,7 @@
     {
       "name": "physical-sciences",
       "description": "Physics, astronomy, quantum computing, materials and earth science.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -837,7 +841,7 @@
     {
       "name": "lab-automation",
       "description": "Lab platforms, ELNs, liquid handlers and manufacturing integrations.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -875,7 +879,7 @@
     {
       "name": "research-automation",
       "description": "Autonomous research loops, agent harnesses and research artifacts.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -911,7 +915,7 @@
     {
       "name": "ml-training",
       "description": "Model architectures, tokenization, fine-tuning, post-training, distributed training, optimization.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -970,7 +974,7 @@
     {
       "name": "ml-evaluation-and-safety",
       "description": "Evaluation harnesses, interpretability and safety/alignment.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -1008,7 +1012,7 @@
     {
       "name": "ml-inference-and-ops",
       "description": "Inference serving, GPU infrastructure, MLOps and observability.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -1048,7 +1052,7 @@
     {
       "name": "llm-applications",
       "description": "Agent frameworks, prompt engineering and structured generation.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
@@ -1084,7 +1088,7 @@
     {
       "name": "multimodal-and-emerging",
       "description": "Vision, audio, robotics, data processing and emerging techniques.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kalaris Labs",
         "url": "https://github.com/KalarisLabs/research-agent-skills"
